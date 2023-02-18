@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AsyncDisplayKit
+import VATextureKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,7 +18,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow()
         window?.rootViewController = MainViewController(node: MainControllerNode())
         window?.makeKeyAndVisible()
+        configure()
         
         return true
+    }
+    
+    private func configure() {
+        ASDisplayNode.shouldDebugLabelBeHidden = false
     }
 }

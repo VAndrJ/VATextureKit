@@ -8,10 +8,18 @@
 import AsyncDisplayKit
 
 open class VADisplayNode: ASDisplayNode {
-
+    
     public override init() {
         super.init()
-
+        
         automaticallyManagesSubnodes = true
     }
+    
+#if DEBUG || targetEnvironment(simulator)
+    open override func didLoad() {
+        super.didLoad()
+        
+        addDebugLabel()
+    }
+#endif
 }
