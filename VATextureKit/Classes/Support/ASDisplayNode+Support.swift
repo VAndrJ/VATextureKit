@@ -2,7 +2,7 @@
 //  ASDisplayNode+Support.swift
 //  VATextureKit
 //
-//  Created by VAndrJ on 18.02.2023.
+//  Created by Volodymyr Andriienko on 18.02.2023.
 //
 
 #if DEBUG || targetEnvironment(simulator)
