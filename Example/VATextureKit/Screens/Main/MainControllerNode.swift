@@ -7,6 +7,7 @@
 //
 
 import AsyncDisplayKit
+import VATextureKit
 
-class MainControllerNode: ASDisplayNode {
+class MainControllerNode: VASafeAreaDisplayNode {
 }
