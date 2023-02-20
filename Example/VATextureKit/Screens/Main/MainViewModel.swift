@@ -11,7 +11,9 @@ import Foundation
 class MainViewModel {
     let listData: [(title: String, description: String, route: NavigationRoute)] = [
         ("Appearance", "Select theme", .apearance),
-        ("Content size", "Change content size category", .contentSize),
+        ("Content size", "Content size category name", .contentSize),
+        ("Linear Gradient", "Gradient node examples", .linearGradient),
+        ("Radial Gradient", "Gradient node examples", .radialGradient),
     ]
     
     private let navigator: Navigator

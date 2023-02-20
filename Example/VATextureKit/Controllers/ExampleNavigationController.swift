@@ -15,17 +15,17 @@ class ExampleNavigationController: VANavigationController {
         
         if #available(iOS 15.0, *) {
             let appearance = UINavigationBarAppearance()
-            appearance.backgroundColor = theme.navigationBarBackgroundColor
+            appearance.backgroundColor = theme.secondarySystemBackground
             appearance.backgroundEffect = nil
-            appearance.titleTextAttributes = [.foregroundColor: theme.navigationBarForegroundColor]
+            appearance.titleTextAttributes = [.foregroundColor: theme.label]
             appearance.shadowColor = nil
             navigationBar.compactAppearance = appearance
             navigationBar.standardAppearance = appearance
             navigationBar.scrollEdgeAppearance = nil
             navigationBar.compactScrollEdgeAppearance = nil
         } else {
-            navigationBar.barTintColor = theme.navigationBarBackgroundColor
-            navigationBar.tintColor = theme.navigationBarForegroundColor
+            navigationBar.barTintColor = theme.secondarySystemBackground
+            navigationBar.titleTextAttributes = [.foregroundColor: theme.label]
         }
     }
 }

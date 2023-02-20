@@ -2,8 +2,8 @@
 //  ContentSizeControllerNode.swift
 //  VATextureKit_Example
 //
-//  Created by VAndrJ on 20.02.2023.
-//  Copyright © 2023 CocoaPods. All rights reserved.
+//  Created by Volodymyr Andriienko on 18.02.2023.
+//  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
 //
 
 import AsyncDisplayKit

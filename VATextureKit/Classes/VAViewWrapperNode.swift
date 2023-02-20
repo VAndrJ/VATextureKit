@@ -56,7 +56,7 @@ open class VAViewWrapperNode<T: UIView>: VADisplayNode {
         view.addSubview(child)
     }
     
-    public override func layout() {
+    open override func layout() {
         super.layout()
 
         child.frame = bounds

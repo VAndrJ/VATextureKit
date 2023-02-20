@@ -60,9 +60,13 @@ class ScreenFactory {
         case .main:
             return MainViewController(viewModel: MainViewModel(navigator: navigator))
         case .apearance:
-            return AppearanceController(viewModel: AppearanceViewModel(themeManager: themeManager))
+            return AppearanceViewController(viewModel: AppearanceViewModel(themeManager: themeManager))
         case .contentSize:
             return ContentSizeViewController(node: ContentSizeControllerNode())
+        case .linearGradient:
+            return GradientViewController(node: GradientControllerNode())
+        case .radialGradient:
+            return RadialGradientViewController(node: RadialGradientControllerNode())
         }
     }
 }

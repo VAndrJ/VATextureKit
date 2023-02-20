@@ -27,14 +27,6 @@ extension VATheme {
 }
 
 extension VATheme {
-    var navigationBarBackgroundColor: UIColor {
-        switch tag {
-        case _ as VADarkThemeTag:
-            return .black
-        default:
-            return .white
-        }
-    }
     var navigationBarForegroundColor: UIColor {
         switch tag {
         case _ as VADarkThemeTag:

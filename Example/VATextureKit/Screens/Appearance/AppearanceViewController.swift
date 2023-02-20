@@ -1,5 +1,5 @@
 //
-//  AppearanceController.swift
+//  AppearanceViewController.swift
 //  VATextureKit_Example
 //
 //  Created by Volodymyr Andriienko on 18.02.2023.
@@ -9,7 +9,7 @@
 import AsyncDisplayKit
 import VATextureKit
 
-class AppearanceController: VAViewController<AppearanceContollerNode> {
+class AppearanceViewController: VAViewController<AppearanceContollerNode> {
     let viewModel: AppearanceViewModel
     
     init(viewModel: AppearanceViewModel) {
@@ -40,7 +40,7 @@ class AppearanceController: VAViewController<AppearanceContollerNode> {
     }
 }
 
-extension AppearanceController: UIPickerViewDataSource {
+extension AppearanceViewController: UIPickerViewDataSource {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         1
@@ -51,7 +51,7 @@ extension AppearanceController: UIPickerViewDataSource {
     }
 }
 
-extension AppearanceController: UIPickerViewDelegate {
+extension AppearanceViewController: UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         "\(viewModel.themes[row])".capitalized

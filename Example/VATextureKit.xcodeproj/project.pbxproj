@@ -22,11 +22,15 @@
 		A3B3F3D129A2C1190090E6E2 /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3D029A2C1190090E6E2 /* Navigator.swift */; };
 		A3B3F3D329A2C8280090E6E2 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3D229A2C8280090E6E2 /* MainViewModel.swift */; };
 		A3B3F3D629A2C91A0090E6E2 /* AppearanceContollerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3D529A2C91A0090E6E2 /* AppearanceContollerNode.swift */; };
-		A3B3F3D829A2C9340090E6E2 /* AppearanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3D729A2C9340090E6E2 /* AppearanceController.swift */; };
+		A3B3F3D829A2C9340090E6E2 /* AppearanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3D729A2C9340090E6E2 /* AppearanceViewController.swift */; };
 		A3B3F3DC29A358120090E6E2 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3DB29A358120090E6E2 /* ThemeManager.swift */; };
 		A3B3F3DE29A37C9C0090E6E2 /* AppearanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3DD29A37C9C0090E6E2 /* AppearanceViewModel.swift */; };
 		A3B3F3E529A3868F0090E6E2 /* ContentSizeControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3E429A3868F0090E6E2 /* ContentSizeControllerNode.swift */; };
 		A3B3F3E729A3869B0090E6E2 /* ContentSizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3E629A3869B0090E6E2 /* ContentSizeViewController.swift */; };
+		A3B3F3F229A3B8C40090E6E2 /* GradientControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3F129A3B8C40090E6E2 /* GradientControllerNode.swift */; };
+		A3B3F3F429A3B8CD0090E6E2 /* GradientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3F329A3B8CD0090E6E2 /* GradientViewController.swift */; };
+		A3B3F3FB29A3CDA10090E6E2 /* RadialGradientControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3FA29A3CDA10090E6E2 /* RadialGradientControllerNode.swift */; };
+		A3B3F3FD29A3CEAB0090E6E2 /* RadialGradientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3FC29A3CEAB0090E6E2 /* RadialGradientViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,11 +69,15 @@
 		A3B3F3D029A2C1190090E6E2 /* Navigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
 		A3B3F3D229A2C8280090E6E2 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		A3B3F3D529A2C91A0090E6E2 /* AppearanceContollerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceContollerNode.swift; sourceTree = "<group>"; };
-		A3B3F3D729A2C9340090E6E2 /* AppearanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceController.swift; sourceTree = "<group>"; };
+		A3B3F3D729A2C9340090E6E2 /* AppearanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceViewController.swift; sourceTree = "<group>"; };
 		A3B3F3DB29A358120090E6E2 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		A3B3F3DD29A37C9C0090E6E2 /* AppearanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceViewModel.swift; sourceTree = "<group>"; };
 		A3B3F3E429A3868F0090E6E2 /* ContentSizeControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizeControllerNode.swift; sourceTree = "<group>"; };
 		A3B3F3E629A3869B0090E6E2 /* ContentSizeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizeViewController.swift; sourceTree = "<group>"; };
+		A3B3F3F129A3B8C40090E6E2 /* GradientControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientControllerNode.swift; sourceTree = "<group>"; };
+		A3B3F3F329A3B8CD0090E6E2 /* GradientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientViewController.swift; sourceTree = "<group>"; };
+		A3B3F3FA29A3CDA10090E6E2 /* RadialGradientControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialGradientControllerNode.swift; sourceTree = "<group>"; };
+		A3B3F3FC29A3CEAB0090E6E2 /* RadialGradientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialGradientViewController.swift; sourceTree = "<group>"; };
 		C09CD1909CE6DD4E1F0B3BCA /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -189,6 +197,8 @@
 		A3B3F37429A0CD830090E6E2 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				A3B3F3F929A3CD010090E6E2 /* RadialGradient */,
+				A3B3F3F029A3B8890090E6E2 /* LinearGradient */,
 				A3B3F3E329A3867F0090E6E2 /* ContentSize */,
 				A3B3F3D429A2C8F40090E6E2 /* Appearance */,
 				A3B3F37529A0CD970090E6E2 /* Main */,
@@ -235,7 +245,7 @@
 			isa = PBXGroup;
 			children = (
 				A3B3F3D529A2C91A0090E6E2 /* AppearanceContollerNode.swift */,
-				A3B3F3D729A2C9340090E6E2 /* AppearanceController.swift */,
+				A3B3F3D729A2C9340090E6E2 /* AppearanceViewController.swift */,
 				A3B3F3DD29A37C9C0090E6E2 /* AppearanceViewModel.swift */,
 			);
 			path = Appearance;
@@ -257,6 +267,24 @@
 				A3B3F3D029A2C1190090E6E2 /* Navigator.swift */,
 			);
 			path = Navigator;
+			sourceTree = "<group>";
+		};
+		A3B3F3F029A3B8890090E6E2 /* LinearGradient */ = {
+			isa = PBXGroup;
+			children = (
+				A3B3F3F129A3B8C40090E6E2 /* GradientControllerNode.swift */,
+				A3B3F3F329A3B8CD0090E6E2 /* GradientViewController.swift */,
+			);
+			path = LinearGradient;
+			sourceTree = "<group>";
+		};
+		A3B3F3F929A3CD010090E6E2 /* RadialGradient */ = {
+			isa = PBXGroup;
+			children = (
+				A3B3F3FA29A3CDA10090E6E2 /* RadialGradientControllerNode.swift */,
+				A3B3F3FC29A3CEAB0090E6E2 /* RadialGradientViewController.swift */,
+			);
+			path = RadialGradient;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -431,6 +459,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3B3F3E529A3868F0090E6E2 /* ContentSizeControllerNode.swift in Sources */,
+				A3B3F3FD29A3CEAB0090E6E2 /* RadialGradientViewController.swift in Sources */,
 				A3B3F3CD29A2B4FC0090E6E2 /* MainListCellNode.swift in Sources */,
 				A3B3F3E729A3869B0090E6E2 /* ContentSizeViewController.swift in Sources */,
 				A3B3F3CF29A2C0590090E6E2 /* NavigationRoute.swift in Sources */,
@@ -441,10 +470,13 @@
 				A3B3F3C529A22F860090E6E2 /* Theme.swift in Sources */,
 				A3B3F3D129A2C1190090E6E2 /* Navigator.swift in Sources */,
 				A3B3F3AF29A17A5B0090E6E2 /* ExampleNavigationController.swift in Sources */,
-				A3B3F3D829A2C9340090E6E2 /* AppearanceController.swift in Sources */,
+				A3B3F3D829A2C9340090E6E2 /* AppearanceViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				A3B3F3D329A2C8280090E6E2 /* MainViewModel.swift in Sources */,
+				A3B3F3FB29A3CDA10090E6E2 /* RadialGradientControllerNode.swift in Sources */,
 				A3B3F3DC29A358120090E6E2 /* ThemeManager.swift in Sources */,
+				A3B3F3F229A3B8C40090E6E2 /* GradientControllerNode.swift in Sources */,
+				A3B3F3F429A3B8CD0090E6E2 /* GradientViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

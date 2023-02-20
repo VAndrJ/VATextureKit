@@ -2,7 +2,7 @@
 //  VAContentSizeManager.swift
 //  VATextureKit
 //
-//  Created by VAndrJ on 20.02.2023.
+//  Created by Volodymyr Andriienko on 18.02.2023.
 //
 
 import UIKit
