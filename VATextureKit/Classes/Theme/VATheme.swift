@@ -16,8 +16,8 @@ public class VALightThemeTag: VAThemeTag {}
 public class VADarkThemeTag: VAThemeTag {}
 
 open class VATheme {
-    public let tag: VAThemeTag
-    public let userInterfaceStyle: UIUserInterfaceStyle
+    public var tag: VAThemeTag
+    public var userInterfaceStyle: UIUserInterfaceStyle
     public var statusBarStyle: UIStatusBarStyle
     public var barStyle: UIBarStyle
     public var label: UIColor
@@ -141,10 +141,16 @@ open class VATheme {
 
 public extension VATheme {
     static var vaLight: VATheme {
-        VATheme(
+        let statusBarStyle: UIStatusBarStyle
+        if #available(iOS 13.0, *) {
+            statusBarStyle = .darkContent
+        } else {
+            statusBarStyle = .default
+        }
+        return VATheme(
             tag: VALightThemeTag(),
             userInterfaceStyle: .light,
-            statusBarStyle: .default,
+            statusBarStyle: statusBarStyle,
             barStyle: .default,
             label: UIColor.rgba(0, 0, 0, 1),
             secondaryLabel: UIColor.rgba(60, 60, 67, 0.6),

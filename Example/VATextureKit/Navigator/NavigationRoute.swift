@@ -11,4 +11,5 @@ import Foundation
 enum NavigationRoute {
     case main
     case apearance
+    case contentSize
 }

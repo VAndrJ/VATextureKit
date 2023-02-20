@@ -63,16 +63,25 @@ open class VATextNode: ASTextNode {
     public convenience init(
         text: String? = nil,
         textStyle: TextStyle = .body,
+        alignment: NSTextAlignment = .natural,
         themeColor: @escaping (VATheme) -> UIColor
     ) {
-        self.init(text: text, textStyle: textStyle, colorGetter: { themeColor(theme) })
+        self.init(
+            text: text,
+            textStyle: textStyle,
+            alignment: alignment,
+            colorGetter: { themeColor(appContext.themeManager.theme) }
+        )
     }
     
     public convenience init(
         text: String? = nil,
         textStyle: TextStyle = .body,
-        colorGetter: @escaping () -> UIColor = { theme.label }
+        alignment: NSTextAlignment = .natural,
+        colorGetter: @escaping () -> UIColor = { appContext.themeManager.theme.label }
     ) {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = alignment
         self.init(
             text: text,
             stringGetter: {
@@ -81,10 +90,11 @@ open class VATextNode: ASTextNode {
                         string: $0,
                         attributes: [
                             .font: UIFont.systemFont(
-                                ofSize: textStyle.getFontSize(contentSize: appContext.contentSize),
+                                ofSize: textStyle.getFontSize(contentSize: appContext.contentSizeManager.contentSize),
                                 weight: textStyle.weight
                             ),
                             .foregroundColor: colorGetter(),
+                            .paragraphStyle: paragraphStyle,
                         ]
                     )
                 }
@@ -94,9 +104,12 @@ open class VATextNode: ASTextNode {
     
     public convenience init(
         text: String? = nil,
-        fontGetter: @escaping (_ contentSize: UIContentSizeCategory) -> UIFont,
-        colorGetter: @escaping () -> UIColor = { theme.label }
+        fontGetter: @escaping (_ contentSize: () -> UIContentSizeCategory) -> UIFont,
+        alignment: NSTextAlignment = .natural,
+        colorGetter: @escaping () -> UIColor = { appContext.themeManager.theme.label }
     ) {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = alignment
         self.init(
             text: text,
             stringGetter: {
@@ -104,8 +117,9 @@ open class VATextNode: ASTextNode {
                     NSAttributedString(
                         string: $0,
                         attributes: [
-                            .font: fontGetter(appContext.contentSize),
+                            .font: fontGetter { appContext.contentSizeManager.contentSize },
                             .foregroundColor: colorGetter(),
+                            .paragraphStyle: paragraphStyle,
                         ]
                     )
                 }
@@ -139,8 +153,8 @@ open class VATextNode: ASTextNode {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(themeDidChanged(_:)),
-            name: VAAppContext.contentSizeDidChangedNotification,
-            object: appContext
+            name: VAContentSizeManager.contentSizeDidChangedNotification,
+            object: appContext.contentSizeManager
         )
     }
     

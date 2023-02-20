@@ -25,6 +25,8 @@
 		A3B3F3D829A2C9340090E6E2 /* AppearanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3D729A2C9340090E6E2 /* AppearanceController.swift */; };
 		A3B3F3DC29A358120090E6E2 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3DB29A358120090E6E2 /* ThemeManager.swift */; };
 		A3B3F3DE29A37C9C0090E6E2 /* AppearanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3DD29A37C9C0090E6E2 /* AppearanceViewModel.swift */; };
+		A3B3F3E529A3868F0090E6E2 /* ContentSizeControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3E429A3868F0090E6E2 /* ContentSizeControllerNode.swift */; };
+		A3B3F3E729A3869B0090E6E2 /* ContentSizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3E629A3869B0090E6E2 /* ContentSizeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +68,8 @@
 		A3B3F3D729A2C9340090E6E2 /* AppearanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceController.swift; sourceTree = "<group>"; };
 		A3B3F3DB29A358120090E6E2 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		A3B3F3DD29A37C9C0090E6E2 /* AppearanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceViewModel.swift; sourceTree = "<group>"; };
+		A3B3F3E429A3868F0090E6E2 /* ContentSizeControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizeControllerNode.swift; sourceTree = "<group>"; };
+		A3B3F3E629A3869B0090E6E2 /* ContentSizeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizeViewController.swift; sourceTree = "<group>"; };
 		C09CD1909CE6DD4E1F0B3BCA /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -135,12 +139,11 @@
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				A3B3F3BC29A20C340090E6E2 /* Controllers */,
+				A3B3F3EA29A399440090E6E2 /* Navigator */,
 				A3B3F3BD29A20C430090E6E2 /* Nodes */,
 				A3B3F37429A0CD830090E6E2 /* Screens */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 				A3B3F38729A11D570090E6E2 /* Theme */,
-				A3B3F3CE29A2C0590090E6E2 /* NavigationRoute.swift */,
-				A3B3F3D029A2C1190090E6E2 /* Navigator.swift */,
 			);
 			name = "Example for VATextureKit";
 			path = VATextureKit;
@@ -186,6 +189,7 @@
 		A3B3F37429A0CD830090E6E2 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				A3B3F3E329A3867F0090E6E2 /* ContentSize */,
 				A3B3F3D429A2C8F40090E6E2 /* Appearance */,
 				A3B3F37529A0CD970090E6E2 /* Main */,
 			);
@@ -235,6 +239,24 @@
 				A3B3F3DD29A37C9C0090E6E2 /* AppearanceViewModel.swift */,
 			);
 			path = Appearance;
+			sourceTree = "<group>";
+		};
+		A3B3F3E329A3867F0090E6E2 /* ContentSize */ = {
+			isa = PBXGroup;
+			children = (
+				A3B3F3E429A3868F0090E6E2 /* ContentSizeControllerNode.swift */,
+				A3B3F3E629A3869B0090E6E2 /* ContentSizeViewController.swift */,
+			);
+			path = ContentSize;
+			sourceTree = "<group>";
+		};
+		A3B3F3EA29A399440090E6E2 /* Navigator */ = {
+			isa = PBXGroup;
+			children = (
+				A3B3F3CE29A2C0590090E6E2 /* NavigationRoute.swift */,
+				A3B3F3D029A2C1190090E6E2 /* Navigator.swift */,
+			);
+			path = Navigator;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -408,7 +430,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3B3F3E529A3868F0090E6E2 /* ContentSizeControllerNode.swift in Sources */,
 				A3B3F3CD29A2B4FC0090E6E2 /* MainListCellNode.swift in Sources */,
+				A3B3F3E729A3869B0090E6E2 /* ContentSizeViewController.swift in Sources */,
 				A3B3F3CF29A2C0590090E6E2 /* NavigationRoute.swift in Sources */,
 				A3B3F37929A0CDAD0090E6E2 /* MainViewController.swift in Sources */,
 				A3B3F3DE29A37C9C0090E6E2 /* AppearanceViewModel.swift in Sources */,

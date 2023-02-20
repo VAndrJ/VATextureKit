@@ -8,12 +8,8 @@
 import AsyncDisplayKit
 
 open class VAViewController<Node: ASDisplayNode>: ASDKViewController<ASDisplayNode> {
-    open override var preferredStatusBarStyle: UIStatusBarStyle { theme.statusBarStyle }
+    open override var preferredStatusBarStyle: UIStatusBarStyle { appContext.themeManager.theme.statusBarStyle }
     public var contentNode: Node { node as! Node }
-    
-    public override convenience init() {
-        self.init(node: Node())
-    }
     
     public init(node: Node) {
         super.init(node: node)
@@ -26,7 +22,7 @@ open class VAViewController<Node: ASDisplayNode>: ASDKViewController<ASDisplayNo
     open override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureTheme()
+        configureTheme(appContext.themeManager.theme)
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(themeDidChanged(_:)),
@@ -35,14 +31,14 @@ open class VAViewController<Node: ASDisplayNode>: ASDKViewController<ASDisplayNo
         )
     }
     
-    open func configureTheme() {
+    open func configureTheme(_ theme: VATheme) {
         if #available(iOS 13.0, *) {
             overrideUserInterfaceStyle = theme.userInterfaceStyle
         }
     }
     
     @objc private func themeDidChanged(_ notification: Notification) {
-        configureTheme()
+        configureTheme(appContext.themeManager.theme)
         setNeedsStatusBarAppearanceUpdate()
     }
 }

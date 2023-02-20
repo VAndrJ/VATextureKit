@@ -10,7 +10,8 @@ import Foundation
 
 class MainViewModel {
     let listData: [(title: String, description: String, route: NavigationRoute)] = [
-        ("Appearance", "Select theme", .apearance)
+        ("Appearance", "Select theme", .apearance),
+        ("Content size", "Change content size category", .contentSize),
     ]
     
     private let navigator: Navigator

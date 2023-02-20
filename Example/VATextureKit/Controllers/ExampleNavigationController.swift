@@ -10,14 +10,19 @@ import VATextureKit
 
 class ExampleNavigationController: VANavigationController {
     
-    override func configureTheme() {
-        super.configureTheme()
+    override func configureTheme(_ theme: VATheme) {
+        super.configureTheme(theme)
         
         if #available(iOS 15.0, *) {
             let appearance = UINavigationBarAppearance()
             appearance.backgroundColor = theme.navigationBarBackgroundColor
+            appearance.backgroundEffect = nil
             appearance.titleTextAttributes = [.foregroundColor: theme.navigationBarForegroundColor]
-            navigationBar.scrollEdgeAppearance = appearance
+            appearance.shadowColor = nil
+            navigationBar.compactAppearance = appearance
+            navigationBar.standardAppearance = appearance
+            navigationBar.scrollEdgeAppearance = nil
+            navigationBar.compactScrollEdgeAppearance = nil
         } else {
             navigationBar.barTintColor = theme.navigationBarBackgroundColor
             navigationBar.tintColor = theme.navigationBarForegroundColor

@@ -13,7 +13,7 @@ open class VATabBarController: ASTabBarController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureTheme()
+        configureTheme(appContext.themeManager.theme)
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(themeDidChanged(_:)),
@@ -22,11 +22,11 @@ open class VATabBarController: ASTabBarController {
         )
     }
     
-    open func configureTheme() {
+    open func configureTheme(_ theme: VATheme) {
         tabBar.barStyle = theme.barStyle
     }
     
     @objc private func themeDidChanged(_ notification: Notification) {
-        configureTheme()
+        configureTheme(appContext.themeManager.theme)
     }
 }

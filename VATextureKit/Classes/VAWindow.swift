@@ -58,7 +58,7 @@ open class VAWindow: UIWindow {
             appContext.themeManager.updateStandardThemeIfNeeded(userInterfaceStyle: traitCollection.userInterfaceStyle)
         }
         if traitCollection.preferredContentSizeCategory != previousTraitCollection?.preferredContentSizeCategory {
-            appContext.update(contentSize: traitCollection.preferredContentSizeCategory)
+            appContext.contentSizeManager.updateIfNeeded(contentSize: traitCollection.preferredContentSizeCategory)
         }
     }
     

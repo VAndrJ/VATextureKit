@@ -16,8 +16,8 @@ class ThemeManager {
             return .light
         case _ as VADarkThemeTag where appContext.themeManager.themeType == .custom:
             return .dark
-        case _ as VioletThemeTag:
-            return .violet
+        case _ as PurpleThemeTag:
+            return .purple
         default:
             return .system
         }
@@ -51,9 +51,9 @@ class ThemeManager {
             if appContext.themeManager.themeType != .standard {
                 appContext.themeManager.setStandardTheme()
             }
-        case .violet:
-            if !(appContext.themeManager.theme.tag is VioletThemeTag) {
-                appContext.themeManager.setCustomTheme(.violet)
+        case .purple:
+            if !(appContext.themeManager.theme.tag is PurpleThemeTag) {
+                appContext.themeManager.setCustomTheme(.purple)
             }
         }
     }

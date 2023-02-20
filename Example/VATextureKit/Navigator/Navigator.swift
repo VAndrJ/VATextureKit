@@ -61,6 +61,8 @@ class ScreenFactory {
             return MainViewController(viewModel: MainViewModel(navigator: navigator))
         case .apearance:
             return AppearanceController(viewModel: AppearanceViewModel(themeManager: themeManager))
+        case .contentSize:
+            return ContentSizeViewController(node: ContentSizeControllerNode())
         }
     }
 }
