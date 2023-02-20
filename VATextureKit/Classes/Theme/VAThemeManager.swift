@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class VAThemeManager<Theme> {
+open class VAThemeManager {
     public enum ThemeType {
         case standard
         case custom
@@ -15,14 +15,19 @@ open class VAThemeManager<Theme> {
     
     public static var themeDidChangedNotification: Notification.Name { .init("VAThemeManager.themeDidChangedNotification") }
     
-    public private(set) var theme: Theme
+    public private(set) var theme: VATheme
     public private(set) var themeType: ThemeType
     
-    private let standardLightTheme: Theme
-    private let standardDarkTheme: Theme
+    private let standardLightTheme: VATheme
+    private let standardDarkTheme: VATheme
     private var userInterfaceStyle: UIUserInterfaceStyle
     
-    public init(customTheme: Theme, standardLightTheme: Theme, standardDarkTheme: Theme, userInterfaceStyle: UIUserInterfaceStyle = .light) {
+    public init(
+        customTheme: VATheme,
+        standardLightTheme: VATheme,
+        standardDarkTheme: VATheme,
+        userInterfaceStyle: UIUserInterfaceStyle = .light
+    ) {
         self.theme = customTheme
         self.themeType = .custom
         self.standardLightTheme = standardLightTheme
@@ -30,7 +35,7 @@ open class VAThemeManager<Theme> {
         self.userInterfaceStyle = userInterfaceStyle
     }
     
-    public init(standardLightTheme: Theme, standardDarkTheme: Theme, userInterfaceStyle: UIUserInterfaceStyle = .light) {
+    public init(standardLightTheme: VATheme, standardDarkTheme: VATheme, userInterfaceStyle: UIUserInterfaceStyle = .light) {
         self.theme = standardLightTheme
         self.themeType = .standard
         self.standardLightTheme = standardLightTheme
@@ -51,25 +56,25 @@ open class VAThemeManager<Theme> {
             } else {
                 theme = standardLightTheme
             }
-            NotificationCenter.default.post(name: Self.themeDidChangedNotification, object: nil)
+            NotificationCenter.default.post(name: Self.themeDidChangedNotification, object: self)
         }
     }
     
-    public func setCustomTheme(_ customTheme: Theme) {
+    public func setCustomTheme(_ customTheme: VATheme) {
         themeType = .custom
         theme = customTheme
-        NotificationCenter.default.post(name: Self.themeDidChangedNotification, object: nil)
+        NotificationCenter.default.post(name: Self.themeDidChangedNotification, object: self)
     }
     
     public func setLightAsCustomTheme() {
         themeType = .custom
         theme = standardLightTheme
-        NotificationCenter.default.post(name: Self.themeDidChangedNotification, object: nil)
+        NotificationCenter.default.post(name: Self.themeDidChangedNotification, object: self)
     }
     
     public func setDarkAsCustomTheme() {
         themeType = .custom
         theme = standardDarkTheme
-        NotificationCenter.default.post(name: Self.themeDidChangedNotification, object: nil)
+        NotificationCenter.default.post(name: Self.themeDidChangedNotification, object: self)
     }
 }

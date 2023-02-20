@@ -7,6 +7,56 @@
 //
 
 import AsyncDisplayKit
+import VATextureKit
 
-class MainViewController: ASDKViewController<MainControllerNode> {
+class MainViewController: VAViewController<MainControllerNode> {
+    let viewModel: MainViewModel
+    
+    init(viewModel: MainViewModel) {
+        self.viewModel = viewModel
+        
+        super.init(node: MainControllerNode())
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        configure()
+        bind()
+    }
+    
+    private func configure() {
+        title = "Examples"
+    }
+    
+    private func bind() {
+        contentNode.listNode.dataSource = self
+        contentNode.listNode.delegate = self
+    }
+}
+
+extension MainViewController: ASTableDataSource {
+    
+    func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
+        viewModel.listData.count
+    }
+    
+    func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
+        let data = viewModel.listData[indexPath.row]
+        return {
+            MainListCellNode(title: data.title, description: data.description)
+        }
+    }
+}
+
+extension MainViewController: ASTableDelegate {
+    
+    func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
+        viewModel.didSelect(at: indexPath)
+        tableNode.deselectRow(at: indexPath, animated: true)
+    }
 }

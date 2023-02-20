@@ -10,4 +10,17 @@ import AsyncDisplayKit
 import VATextureKit
 
 class MainControllerNode: VASafeAreaDisplayNode {
+    let listNode = ASTableNode()
+    
+    override func configureTheme() {
+        backgroundColor = theme.background
+    }
+    
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        Column(cross: .stretch) {
+            listNode
+                .flex(shrink: 0.1, grow: 1)
+        }
+        .padding(.insets(safeAreaInsets))
+    }
 }

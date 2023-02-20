@@ -7,20 +7,34 @@
 
 import AsyncDisplayKit
 
-open class VADisplayNode: VABaseDisplayNode {
+open class VADisplayNode: ASDisplayNode {
+    
+    public override init() {
+        super.init()
+        
+        automaticallyManagesSubnodes = true
+    }
     
     open override func didLoad() {
         super.didLoad()
         
+        configureTheme()
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(themeDidChanged(_:)),
-            name: VAThemeManager<Any>.themeDidChangedNotification,
-            object: nil
+            name: VAThemeManager.themeDidChangedNotification,
+            object: appContext.themeManager
         )
+#if DEBUG || targetEnvironment(simulator)
+        addDebugLabel()
+#endif
     }
     
-    open func themeDidChanged() {}
+    open func configureTheme() {}
+    
+    open func themeDidChanged() {
+        configureTheme()
+    }
     
     @objc private func themeDidChanged(_ notification: Notification) {
         themeDidChanged()

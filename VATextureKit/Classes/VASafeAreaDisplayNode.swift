@@ -14,4 +14,10 @@ open class VASafeAreaDisplayNode: VADisplayNode {
         
         automaticallyRelayoutOnSafeAreaChanges = true
     }
+    
+    // Capitalized for beauty when used
+    public func SafeArea(_ layoutSpec: () -> ASLayoutSpec) -> ASLayoutSpec {
+        layoutSpec()
+            .padding(.insets(safeAreaInsets))
+    }
 }

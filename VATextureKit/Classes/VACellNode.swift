@@ -1,5 +1,5 @@
 //
-//  VANavigationController.swift
+//  VACellNode.swift
 //  VATextureKit
 //
 //  Created by Volodymyr Andriienko on 18.02.2023.
@@ -7,11 +7,16 @@
 
 import AsyncDisplayKit
 
-open class VANavigationController: ASDKNavigationController {
-    open override var childForStatusBarStyle: UIViewController? { topViewController }
+open class VACellNode: ASCellNode {
     
-    open override func viewDidLoad() {
-        super.viewDidLoad()
+    public override init() {
+        super.init()
+        
+        automaticallyManagesSubnodes = true
+    }
+    
+    open override func didLoad() {
+        super.didLoad()
         
         configureTheme()
         NotificationCenter.default.addObserver(
@@ -20,13 +25,18 @@ open class VANavigationController: ASDKNavigationController {
             name: VAThemeManager.themeDidChangedNotification,
             object: appContext.themeManager
         )
+#if DEBUG || targetEnvironment(simulator)
+        addDebugLabel()
+#endif
     }
     
-    open func configureTheme() {
-        navigationBar.barStyle = theme.barStyle
+    open func configureTheme() {}
+    
+    open func themeDidChanged() {
+        configureTheme()
     }
     
     @objc private func themeDidChanged(_ notification: Notification) {
-        configureTheme()
+        themeDidChanged()
     }
 }

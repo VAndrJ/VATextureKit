@@ -7,28 +7,15 @@
 
 import AsyncDisplayKit
 
-public extension VAViewController where Node: VASafeAreaThemeDisplayNode<Theme> {
-    
-    convenience init(themeManager: VAThemeManager<Theme>) {
-        self.init(node: Node(themeManager: themeManager), themeManager: themeManager)
-    }
-}
-
-public extension VAViewController where Node: VAThemeDisplayNode<Theme> {
-    
-    convenience init(themeManager: VAThemeManager<Theme>) {
-        self.init(node: Node(themeManager: themeManager), themeManager: themeManager)
-    }
-}
-
-open class VAViewController<Node: ASDisplayNode, Theme>: ASDKViewController<ASDisplayNode> {
-    open override var preferredStatusBarStyle: UIStatusBarStyle { (themeManager.theme as! VATheme).statusBarStyle }
+open class VAViewController<Node: ASDisplayNode>: ASDKViewController<ASDisplayNode> {
+    open override var preferredStatusBarStyle: UIStatusBarStyle { theme.statusBarStyle }
     public var contentNode: Node { node as! Node }
-    public let themeManager: VAThemeManager<Theme>
     
-    public init(node: Node, themeManager: VAThemeManager<Theme>) {
-        self.themeManager = themeManager
-        
+    public override convenience init() {
+        self.init(node: Node())
+    }
+    
+    public init(node: Node) {
         super.init(node: node)
     }
     
@@ -43,15 +30,19 @@ open class VAViewController<Node: ASDisplayNode, Theme>: ASDKViewController<ASDi
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(themeDidChanged(_:)),
-            name: VAThemeManager<Any>.themeDidChangedNotification,
-            object: nil
+            name: VAThemeManager.themeDidChangedNotification,
+            object: appContext.themeManager
         )
     }
     
-    open func configureTheme() {}
+    open func configureTheme() {
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = theme.userInterfaceStyle
+        }
+    }
     
     @objc private func themeDidChanged(_ notification: Notification) {
-        setNeedsStatusBarAppearanceUpdate()
         configureTheme()
+        setNeedsStatusBarAppearanceUpdate()
     }
 }
