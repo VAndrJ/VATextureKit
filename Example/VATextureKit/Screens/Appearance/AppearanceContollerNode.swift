@@ -3,7 +3,7 @@
 //  VATextureKit_Example
 //
 //  Created by Volodymyr Andriienko on 18.02.2023.
-//  Copyright © 2023 CocoaPods. All rights reserved.
+//  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
 //
 
 import AsyncDisplayKit
@@ -13,7 +13,7 @@ class AppearanceContollerNode: VASafeAreaDisplayNode {
     let pickerNode = VAViewWrapperNode(childGetter: { UIPickerView() }, sizing: .inheritedHeight)
     
     override func configureTheme() {
-        backgroundColor = theme.background
+        backgroundColor = theme.systemBackground
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {

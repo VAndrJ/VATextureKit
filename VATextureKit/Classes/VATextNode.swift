@@ -8,27 +8,48 @@
 import AsyncDisplayKit
 
 open class VATextNode: ASTextNode {
-    // TODO: - All https://developer.apple.com/design/human-interface-guidelines/foundations/typography/
     public enum TextStyle {
+        case largeTitle
+        case title1
+        case title2
+        case title3
         case headline
         case body
+        case callout
+        case subhead
         case footnote
-        case custom(fontSize: CGFloat, weight: UIFont.Weight)
+        case caption1
+        case caption2
         
-        var fontSize: CGFloat {
+        func getFontSize(contentSize: UIContentSizeCategory) -> CGFloat {
+            let traitCollection = UITraitCollection(preferredContentSizeCategory: contentSize)
             switch self {
-            case .headline: return 17
-            case .body: return 17
-            case .footnote: return 13
-            case .custom(let fontSize, _): return fontSize
+            case .largeTitle: return UIFontMetrics(forTextStyle: .largeTitle).scaledValue(for: 34, compatibleWith: traitCollection)
+            case .title1: return UIFontMetrics(forTextStyle: .title1).scaledValue(for: 28, compatibleWith: traitCollection)
+            case .title2: return UIFontMetrics(forTextStyle: .title2).scaledValue(for: 22, compatibleWith: traitCollection)
+            case .title3: return UIFontMetrics(forTextStyle: .title3).scaledValue(for: 20, compatibleWith: traitCollection)
+            case .headline: return UIFontMetrics(forTextStyle: .headline).scaledValue(for: 17, compatibleWith: traitCollection)
+            case .body: return UIFontMetrics(forTextStyle: .body).scaledValue(for: 17, compatibleWith: traitCollection)
+            case .callout: return UIFontMetrics(forTextStyle: .callout).scaledValue(for: 16, compatibleWith: traitCollection)
+            case .subhead: return UIFontMetrics(forTextStyle: .subheadline).scaledValue(for: 15, compatibleWith: traitCollection)
+            case .footnote: return UIFontMetrics(forTextStyle: .footnote).scaledValue(for: 13, compatibleWith: traitCollection)
+            case .caption1: return UIFontMetrics(forTextStyle: .caption1).scaledValue(for: 12, compatibleWith: traitCollection)
+            case .caption2: return UIFontMetrics(forTextStyle: .caption2).scaledValue(for: 11, compatibleWith: traitCollection)
             }
         }
         var weight: UIFont.Weight {
             switch self {
+            case .largeTitle: return .regular
+            case .title1: return .regular
+            case .title2: return .regular
+            case .title3: return .regular
             case .headline: return .semibold
             case .body: return .regular
+            case .callout: return .regular
+            case .subhead: return .regular
             case .footnote: return .regular
-            case .custom(_, let weight): return weight
+            case .caption1: return .regular
+            case .caption2: return .regular
             }
         }
     }
@@ -37,8 +58,7 @@ open class VATextNode: ASTextNode {
         didSet { configureTheme() }
     }
     
-    public let textStyle: TextStyle
-    public let colorGetter: () -> UIColor
+    public let stringGetter: (String?) -> NSAttributedString?
     
     public convenience init(
         text: String? = nil,
@@ -48,13 +68,56 @@ open class VATextNode: ASTextNode {
         self.init(text: text, textStyle: textStyle, colorGetter: { themeColor(theme) })
     }
     
-    public init(
+    public convenience init(
         text: String? = nil,
         textStyle: TextStyle = .body,
         colorGetter: @escaping () -> UIColor = { theme.label }
     ) {
-        self.textStyle = textStyle
-        self.colorGetter = colorGetter
+        self.init(
+            text: text,
+            stringGetter: {
+                $0.flatMap {
+                    NSAttributedString(
+                        string: $0,
+                        attributes: [
+                            .font: UIFont.systemFont(
+                                ofSize: textStyle.getFontSize(contentSize: appContext.contentSize),
+                                weight: textStyle.weight
+                            ),
+                            .foregroundColor: colorGetter(),
+                        ]
+                    )
+                }
+            }
+        )
+    }
+    
+    public convenience init(
+        text: String? = nil,
+        fontGetter: @escaping (_ contentSize: UIContentSizeCategory) -> UIFont,
+        colorGetter: @escaping () -> UIColor = { theme.label }
+    ) {
+        self.init(
+            text: text,
+            stringGetter: {
+                $0.flatMap {
+                    NSAttributedString(
+                        string: $0,
+                        attributes: [
+                            .font: fontGetter(appContext.contentSize),
+                            .foregroundColor: colorGetter(),
+                        ]
+                    )
+                }
+            }
+        )
+    }
+    
+    public init(
+        text: String?,
+        stringGetter: @escaping (String?) -> NSAttributedString?
+    ) {
+        self.stringGetter = stringGetter
         
         super.init()
         
@@ -73,21 +136,16 @@ open class VATextNode: ASTextNode {
             name: VAThemeManager.themeDidChangedNotification,
             object: appContext.themeManager
         )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(themeDidChanged(_:)),
+            name: VAAppContext.contentSizeDidChangedNotification,
+            object: appContext
+        )
     }
     
     open func configureTheme() {
-        attributedText = text.flatMap {
-            NSAttributedString(
-                string: $0,
-                attributes: [
-                    .font: UIFont.systemFont(
-                        ofSize: textStyle.fontSize,
-                        weight: textStyle.weight
-                    ),
-                    .foregroundColor: colorGetter(),
-                ]
-            )
-        }
+        attributedText = stringGetter(text)
     }
     
     open func themeDidChanged() {

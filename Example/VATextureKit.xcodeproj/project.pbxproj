@@ -24,6 +24,7 @@
 		A3B3F3D629A2C91A0090E6E2 /* AppearanceContollerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3D529A2C91A0090E6E2 /* AppearanceContollerNode.swift */; };
 		A3B3F3D829A2C9340090E6E2 /* AppearanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3D729A2C9340090E6E2 /* AppearanceController.swift */; };
 		A3B3F3DC29A358120090E6E2 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3DB29A358120090E6E2 /* ThemeManager.swift */; };
+		A3B3F3DE29A37C9C0090E6E2 /* AppearanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3DD29A37C9C0090E6E2 /* AppearanceViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		A3B3F3D529A2C91A0090E6E2 /* AppearanceContollerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceContollerNode.swift; sourceTree = "<group>"; };
 		A3B3F3D729A2C9340090E6E2 /* AppearanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceController.swift; sourceTree = "<group>"; };
 		A3B3F3DB29A358120090E6E2 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		A3B3F3DD29A37C9C0090E6E2 /* AppearanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceViewModel.swift; sourceTree = "<group>"; };
 		C09CD1909CE6DD4E1F0B3BCA /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -230,6 +232,7 @@
 			children = (
 				A3B3F3D529A2C91A0090E6E2 /* AppearanceContollerNode.swift */,
 				A3B3F3D729A2C9340090E6E2 /* AppearanceController.swift */,
+				A3B3F3DD29A37C9C0090E6E2 /* AppearanceViewModel.swift */,
 			);
 			path = Appearance;
 			sourceTree = "<group>";
@@ -408,6 +411,7 @@
 				A3B3F3CD29A2B4FC0090E6E2 /* MainListCellNode.swift in Sources */,
 				A3B3F3CF29A2C0590090E6E2 /* NavigationRoute.swift in Sources */,
 				A3B3F37929A0CDAD0090E6E2 /* MainViewController.swift in Sources */,
+				A3B3F3DE29A37C9C0090E6E2 /* AppearanceViewModel.swift in Sources */,
 				A3B3F3D629A2C91A0090E6E2 /* AppearanceContollerNode.swift in Sources */,
 				A3B3F37729A0CDA40090E6E2 /* MainControllerNode.swift in Sources */,
 				A3B3F3C529A22F860090E6E2 /* Theme.swift in Sources */,

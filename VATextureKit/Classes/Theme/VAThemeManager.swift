@@ -13,7 +13,7 @@ open class VAThemeManager {
         case custom
     }
     
-    public static var themeDidChangedNotification: Notification.Name { .init("VAThemeManager.themeDidChangedNotification") }
+    public static let themeDidChangedNotification = Notification.Name("VAThemeManager.themeDidChangedNotification")
     
     public private(set) var theme: VATheme
     public private(set) var themeType: ThemeType
@@ -35,7 +35,11 @@ open class VAThemeManager {
         self.userInterfaceStyle = userInterfaceStyle
     }
     
-    public init(standardLightTheme: VATheme, standardDarkTheme: VATheme, userInterfaceStyle: UIUserInterfaceStyle = .light) {
+    public init(
+        standardLightTheme: VATheme,
+        standardDarkTheme: VATheme,
+        userInterfaceStyle: UIUserInterfaceStyle = .light
+    ) {
         self.theme = standardLightTheme
         self.themeType = .standard
         self.standardLightTheme = standardLightTheme

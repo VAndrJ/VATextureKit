@@ -13,8 +13,10 @@ import VATextureKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-    let appNavigator = Navigator(
-        screenFactory: ScreenFactory(),
+    
+    private let themeManager = ThemeManager()
+    private lazy var appNavigator = Navigator(
+        screenFactory: ScreenFactory(themeManager: themeManager),
         navigationController: ExampleNavigationController(),
         initialRoute: .main
     )
@@ -23,10 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        window = VAWindow(themeManager: VAThemeManager(
-            standardLightTheme: .vaLight,
-            standardDarkTheme: .vaDark
-        ))
+        window = VAWindow(standardLightTheme: .vaLight, standardDarkTheme: .vaDark)
         configure()
         window?.rootViewController = appNavigator.navigationController
         window?.makeKeyAndVisible()
@@ -36,6 +35,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func configure() {
         ASDisplayNode.shouldDebugLabelBeHidden = false
-        ThemeManager.shared.checkInitialTheme()
+        themeManager.checkInitialTheme()
     }
 }

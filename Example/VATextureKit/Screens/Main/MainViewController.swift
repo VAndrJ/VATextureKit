@@ -56,7 +56,7 @@ extension MainViewController: ASTableDataSource {
 extension MainViewController: ASTableDelegate {
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
-        viewModel.didSelect(at: indexPath)
+        viewModel.didSelect(at: indexPath.row)
         tableNode.deselectRow(at: indexPath, animated: true)
     }
 }

@@ -3,7 +3,7 @@
 //  VATextureKit_Example
 //
 //  Created by Volodymyr Andriienko on 18.02.2023.
-//  Copyright © 2023 CocoaPods. All rights reserved.
+//  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
 //
 
 import UIKit
@@ -49,12 +49,18 @@ class Navigator {
 }
 
 class ScreenFactory {
+    private let themeManager: ThemeManager
+    
+    init(themeManager: ThemeManager) {
+        self.themeManager = themeManager
+    }
+    
     func create(route: NavigationRoute, navigator: Navigator) -> UIViewController {
         switch route {
         case .main:
             return MainViewController(viewModel: MainViewModel(navigator: navigator))
         case .apearance:
-            return AppearanceController()
+            return AppearanceController(viewModel: AppearanceViewModel(themeManager: themeManager))
         }
     }
 }

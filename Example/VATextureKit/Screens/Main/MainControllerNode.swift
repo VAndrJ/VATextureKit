@@ -13,7 +13,7 @@ class MainControllerNode: VASafeAreaDisplayNode {
     let listNode = ASTableNode()
     
     override func configureTheme() {
-        backgroundColor = theme.background
+        backgroundColor = theme.systemBackground
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
