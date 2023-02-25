@@ -14,4 +14,5 @@ enum NavigationRoute {
     case contentSize
     case linearGradient
     case radialGradient
+    case alert
 }

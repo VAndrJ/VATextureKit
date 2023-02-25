@@ -14,6 +14,7 @@ class MainViewModel {
         ("Content size", "Content size category name", .contentSize),
         ("Linear Gradient", "Gradient node examples", .linearGradient),
         ("Radial Gradient", "Gradient node examples", .radialGradient),
+        ("Alert", "Alert controller", .alert),
     ]
     
     private let navigator: Navigator
