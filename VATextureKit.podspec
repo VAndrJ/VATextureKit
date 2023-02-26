@@ -18,4 +18,6 @@ It provides an easier syntax and includes modern features to make developing fas
   s.source_files = 'VATextureKit/Classes/**/*'
   
   s.dependency 'Texture', '~> 3.1.0'
+  
+  s.swift_versions = '5.7'
 end
