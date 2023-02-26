@@ -21,6 +21,7 @@ PODS:
     - PINCache (~> 3.0.3)
     - PINRemoteImage/Core
   - Quick (2.2.1)
+  - Swiftional (0.2.5)
   - Texture (3.1.0):
     - Texture/AssetsLibrary (= 3.1.0)
     - Texture/Core (= 3.1.0)
@@ -48,6 +49,7 @@ DEPENDENCIES:
   - FBSnapshotTestCase (~> 2.1.4)
   - Nimble (~> 10.0.0)
   - Quick (~> 2.2.0)
+  - Swiftional (= 0.2.5)
   - VATextureKit (from `../`)
 
 SPEC REPOS:
@@ -58,6 +60,7 @@ SPEC REPOS:
     - PINOperation
     - PINRemoteImage
     - Quick
+    - Swiftional
     - Texture
 
 EXTERNAL SOURCES:
@@ -71,9 +74,10 @@ SPEC CHECKSUMS:
   PINOperation: daa34d4aa1d8449089be7d405b9d974abc4724c6
   PINRemoteImage: f1295b29f8c5e640e25335a1b2bd9d805171bd01
   Quick: f5754d69b7013f5864c29aab9ae6f0c79c5bc200
+  Swiftional: b0542dc5b8bfe5ec9316ab67327ca1443882eff5
   Texture: 2e8ab2519452515f7f5a520f5a8f7e0a413abfa3
-  VATextureKit: a4920a5b1173f9cdeb97024d7f2d69a26e3c089e
+  VATextureKit: d59a3814740a02ff36a57c4772a47e26f2a626e5
 
-PODFILE CHECKSUM: 8e926c306d895ba6960ad9695b8ea9d420f7ea92
+PODFILE CHECKSUM: 59fdc43229c3db77d503b1885fce63046b457f4b
 
 COCOAPODS: 1.11.3

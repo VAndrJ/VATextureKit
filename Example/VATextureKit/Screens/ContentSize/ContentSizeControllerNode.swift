@@ -1,5 +1,5 @@
 //
-//  MainControllerNode.swift
+//  ContentSizeControllerNode.swift
 //  VATextureKit_Example
 //
 //  Created by Volodymyr Andriienko on 18.02.2023.
@@ -9,21 +9,19 @@
 import AsyncDisplayKit
 import VATextureKit
 
-class MainControllerNode: VASafeAreaDisplayNode {
-    let listNode = ASTableNode()
-    let descriptionNode = VATextNode(text: "Examples", textStyle: .headline)
+class ContentSizeControllerNode: VASafeAreaDisplayNode {
+    let contentSizeTextNode = VATextNode(textStyle: .title3, alignment: .center)
     
     override func configureTheme(_ theme: VATheme) {
         backgroundColor = theme.systemBackground
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        Column(cross: .stretch) {
-            listNode
-                .flex(shrink: 0.1, grow: 1)
-            descriptionNode
-                .centered(centering: .X)
+        SafeArea {
+            Column(cross: .stretch) {
+                contentSizeTextNode
+                    .padding(.all(16))
+            }
         }
-        .padding(.insets(safeAreaInsets))
     }
 }

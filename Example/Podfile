@@ -5,6 +5,7 @@ platform :ios, '12.0'
 target 'VATextureKit_Example' do
   inhibit_all_warnings!
   pod 'VATextureKit', :path => '../'
+  pod 'Swiftional', '0.2.5'
 
   target 'VATextureKit_Tests' do
     inhibit_all_warnings!
