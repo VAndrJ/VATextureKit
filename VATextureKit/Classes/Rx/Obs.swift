@@ -102,12 +102,20 @@ public struct Obs {
             super.init(value: value, map: map)
         }
         
+        public init(value: Input, map: @escaping (Input) -> Output) where InputSequence == BehaviorRelay<Input>, OutputSequence == Observable<Output> {
+            super.init(value: value, map: { $0.map(map) })
+        }
+        
         public init() where InputSequence == PublishRelay<Input>, OutputSequence == Observable<InputSequence.Element>, Input == Output {
             super.init()
         }
         
         public init(map: (InputSequence) -> OutputSequence) where InputSequence == PublishRelay<Input>, OutputSequence == Observable<Output> {
             super.init(map: map)
+        }
+        
+        public init(map: @escaping (Input) -> Output) where InputSequence == PublishRelay<Input>, OutputSequence == Observable<Output> {
+            super.init(map: { $0.map(map) })
         }
     }
     
