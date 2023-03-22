@@ -58,7 +58,7 @@ class ScreenFactory {
     func create(route: NavigationRoute, navigator: Navigator) -> UIViewController {
         switch route {
         case .main:
-            return MainViewController(viewModel: MainViewModel(navigator: navigator))
+            return MainNodeController(viewModel: MainViewModel(navigator: navigator))
         case .apearance:
             return AppearanceViewController(viewModel: AppearanceViewModel(themeManager: themeManager))
         case .contentSize:
@@ -68,7 +68,7 @@ class ScreenFactory {
         case .radialGradient:
             return RadialGradientViewController(node: RadialGradientControllerNode())
         case .alert:
-            return AlertViewController(node: AlertControllerNode())
+            return AlertNodeController()
         }
     }
 }

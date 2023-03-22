@@ -15,8 +15,7 @@
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		A397A2C229AAA68800A05B8F /* AlertNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A397A2C129AAA68800A05B8F /* AlertNodeController.swift */; };
 		A397A2C529AAAF6800A05B8F /* NSObject+Applyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A397A2C429AAAF6800A05B8F /* NSObject+Applyable.swift */; };
-		A3B3F37729A0CDA40090E6E2 /* MainControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F37629A0CDA40090E6E2 /* MainControllerNode.swift */; };
-		A3B3F37929A0CDAD0090E6E2 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F37829A0CDAD0090E6E2 /* MainViewController.swift */; };
+		A3B3F37929A0CDAD0090E6E2 /* MainNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F37829A0CDAD0090E6E2 /* MainNodeController.swift */; };
 		A3B3F3AF29A17A5B0090E6E2 /* ExampleNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3AE29A17A5B0090E6E2 /* ExampleNavigationController.swift */; };
 		A3B3F3C529A22F860090E6E2 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3C429A22F860090E6E2 /* Theme.swift */; };
 		A3B3F3CD29A2B4FC0090E6E2 /* MainListCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3CC29A2B4FC0090E6E2 /* MainListCellNode.swift */; };
@@ -66,8 +65,7 @@
 		7E7793BF92D39325720321EF /* Pods-VATextureKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VATextureKit_Example.release.xcconfig"; path = "Target Support Files/Pods-VATextureKit_Example/Pods-VATextureKit_Example.release.xcconfig"; sourceTree = "<group>"; };
 		A397A2C129AAA68800A05B8F /* AlertNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertNodeController.swift; sourceTree = "<group>"; };
 		A397A2C429AAAF6800A05B8F /* NSObject+Applyable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Applyable.swift"; sourceTree = "<group>"; };
-		A3B3F37629A0CDA40090E6E2 /* MainControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainControllerNode.swift; sourceTree = "<group>"; };
-		A3B3F37829A0CDAD0090E6E2 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		A3B3F37829A0CDAD0090E6E2 /* MainNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNodeController.swift; sourceTree = "<group>"; };
 		A3B3F3AE29A17A5B0090E6E2 /* ExampleNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleNavigationController.swift; sourceTree = "<group>"; };
 		A3B3F3C429A22F860090E6E2 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		A3B3F3CC29A2B4FC0090E6E2 /* MainListCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListCellNode.swift; sourceTree = "<group>"; };
@@ -237,8 +235,7 @@
 		A3B3F37529A0CD970090E6E2 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				A3B3F37629A0CDA40090E6E2 /* MainControllerNode.swift */,
-				A3B3F37829A0CDAD0090E6E2 /* MainViewController.swift */,
+				A3B3F37829A0CDAD0090E6E2 /* MainNodeController.swift */,
 				A3B3F3D229A2C8280090E6E2 /* MainViewModel.swift */,
 			);
 			path = Main;
@@ -502,16 +499,14 @@
 				A3F888CC29CB710B00C67187 /* VATableListNode.swift in Sources */,
 				A3B3F3E729A3869B0090E6E2 /* ContentSizeViewController.swift in Sources */,
 				A3B3F3CF29A2C0590090E6E2 /* NavigationRoute.swift in Sources */,
-				A3B3F37929A0CDAD0090E6E2 /* MainViewController.swift in Sources */,
+				A3B3F37929A0CDAD0090E6E2 /* MainNodeController.swift in Sources */,
 				A3B3F3DE29A37C9C0090E6E2 /* AppearanceViewModel.swift in Sources */,
 				A3B3F3D629A2C91A0090E6E2 /* AppearanceContollerNode.swift in Sources */,
-				A3B3F37729A0CDA40090E6E2 /* MainControllerNode.swift in Sources */,
 				A3B3F3C529A22F860090E6E2 /* Theme.swift in Sources */,
 				A3B3F3D129A2C1190090E6E2 /* Navigator.swift in Sources */,
 				A3B3F3AF29A17A5B0090E6E2 /* ExampleNavigationController.swift in Sources */,
 				A3B3F3D829A2C9340090E6E2 /* AppearanceViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
-				A397A2C029AAA67600A05B8F /* AlertControllerNode.swift in Sources */,
 				A3B3F3D329A2C8280090E6E2 /* MainViewModel.swift in Sources */,
 				A3F888C729CB67F100C67187 /* Umbrella.swift in Sources */,
 				A3B3F3FB29A3CDA10090E6E2 /* RadialGradientControllerNode.swift in Sources */,

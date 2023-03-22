@@ -7,15 +7,17 @@
 //
 
 import Foundation
+import RxSwift
 
 class MainViewModel {
-    let listData: [(title: String, description: String, route: NavigationRoute)] = [
-        ("Appearance", "Select theme", .apearance),
+    @Obs.Relay(value: [
+        (title: "Appearance", description: "Select theme", route: NavigationRoute.apearance),
         ("Content size", "Content size category name", .contentSize),
         ("Linear Gradient", "Gradient node examples", .linearGradient),
         ("Radial Gradient", "Gradient node examples", .radialGradient),
         ("Alert", "Alert controller", .alert),
-    ]
+    ], map: { $0.map { MainListCellNodeViewModel(title: $0.title, description: $0.description) } })
+    var listData: Observable<[MainListCellNodeViewModel]>
     
     private let navigator: Navigator
     
@@ -24,7 +26,7 @@ class MainViewModel {
     }
     
     func didSelect(at index: Int) {
-        let route = listData[index].route
+        let route = _listData.rx.value[index].route
         navigator.navigate(to: route)
     }
 }
