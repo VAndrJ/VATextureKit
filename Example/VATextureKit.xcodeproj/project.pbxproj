@@ -13,8 +13,7 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
-		A397A2C029AAA67600A05B8F /* AlertControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A397A2BF29AAA67600A05B8F /* AlertControllerNode.swift */; };
-		A397A2C229AAA68800A05B8F /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A397A2C129AAA68800A05B8F /* AlertViewController.swift */; };
+		A397A2C229AAA68800A05B8F /* AlertNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A397A2C129AAA68800A05B8F /* AlertNodeController.swift */; };
 		A397A2C529AAAF6800A05B8F /* NSObject+Applyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A397A2C429AAAF6800A05B8F /* NSObject+Applyable.swift */; };
 		A3B3F37729A0CDA40090E6E2 /* MainControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F37629A0CDA40090E6E2 /* MainControllerNode.swift */; };
 		A3B3F37929A0CDAD0090E6E2 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F37829A0CDAD0090E6E2 /* MainViewController.swift */; };
@@ -65,8 +64,7 @@
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		6D876C31217CA656A4FE2F15 /* Pods-VATextureKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VATextureKit_Example.debug.xcconfig"; path = "Target Support Files/Pods-VATextureKit_Example/Pods-VATextureKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		7E7793BF92D39325720321EF /* Pods-VATextureKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VATextureKit_Example.release.xcconfig"; path = "Target Support Files/Pods-VATextureKit_Example/Pods-VATextureKit_Example.release.xcconfig"; sourceTree = "<group>"; };
-		A397A2BF29AAA67600A05B8F /* AlertControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertControllerNode.swift; sourceTree = "<group>"; };
-		A397A2C129AAA68800A05B8F /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
+		A397A2C129AAA68800A05B8F /* AlertNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertNodeController.swift; sourceTree = "<group>"; };
 		A397A2C429AAAF6800A05B8F /* NSObject+Applyable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Applyable.swift"; sourceTree = "<group>"; };
 		A3B3F37629A0CDA40090E6E2 /* MainControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainControllerNode.swift; sourceTree = "<group>"; };
 		A3B3F37829A0CDAD0090E6E2 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -210,8 +208,7 @@
 		A397A2BE29AAA65F00A05B8F /* Alert */ = {
 			isa = PBXGroup;
 			children = (
-				A397A2BF29AAA67600A05B8F /* AlertControllerNode.swift */,
-				A397A2C129AAA68800A05B8F /* AlertViewController.swift */,
+				A397A2C129AAA68800A05B8F /* AlertNodeController.swift */,
 			);
 			path = Alert;
 			sourceTree = "<group>";
@@ -499,7 +496,7 @@
 			files = (
 				A397A2C529AAAF6800A05B8F /* NSObject+Applyable.swift in Sources */,
 				A3B3F3E529A3868F0090E6E2 /* ContentSizeControllerNode.swift in Sources */,
-				A397A2C229AAA68800A05B8F /* AlertViewController.swift in Sources */,
+				A397A2C229AAA68800A05B8F /* AlertNodeController.swift in Sources */,
 				A3B3F3FD29A3CEAB0090E6E2 /* RadialGradientViewController.swift in Sources */,
 				A3B3F3CD29A2B4FC0090E6E2 /* MainListCellNode.swift in Sources */,
 				A3F888CC29CB710B00C67187 /* VATableListNode.swift in Sources */,

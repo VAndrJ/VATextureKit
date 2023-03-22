@@ -1,5 +1,5 @@
 //
-//  AlertViewController.swift
+//  AlertNodeController.swift
 //  VATextureKit_Example
 //
 //  Created by Volodymyr Andriienko on 25.02.2023.
@@ -9,12 +9,32 @@
 import AsyncDisplayKit
 import VATextureKit
 
-class AlertViewController: VAViewController<AlertControllerNode> {
+/// ViewController as a View axample
+class AlertNodeController: VANodeController {
+    let buttonNode = VAButtonNode()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         bind()
+    }
+    
+    override func configureTheme(_ theme: VATheme) {
+        contentNode.backgroundColor = theme.systemBackground
+        buttonNode.setTitle(
+            "Show alert",
+            with: nil,
+            with: theme.systemBlue,
+            for: .normal
+        )
+    }
+    
+    override func layoutSpec(_ node: ASDisplayNode, _ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        SafeArea {
+            Column(cross: .stretch) {
+                buttonNode
+            }
+        }
     }
     
     private func showAlert() {
@@ -28,7 +48,7 @@ class AlertViewController: VAViewController<AlertControllerNode> {
     }
     
     private func bind() {
-        contentNode.buttonNode.onTap = { [weak self] in
+        buttonNode.onTap = { [weak self] in
             self?.showAlert()
         }
     }
