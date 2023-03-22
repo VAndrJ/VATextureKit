@@ -35,6 +35,7 @@
 		A3B3F3FB29A3CDA10090E6E2 /* RadialGradientControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3FA29A3CDA10090E6E2 /* RadialGradientControllerNode.swift */; };
 		A3B3F3FD29A3CEAB0090E6E2 /* RadialGradientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3FC29A3CEAB0090E6E2 /* RadialGradientViewController.swift */; };
 		A3F888C729CB67F100C67187 /* Umbrella.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F888C629CB67F100C67187 /* Umbrella.swift */; };
+		A3F888CC29CB710B00C67187 /* VATableListNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F888CB29CB710B00C67187 /* VATableListNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,7 @@
 		A3B3F3FA29A3CDA10090E6E2 /* RadialGradientControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialGradientControllerNode.swift; sourceTree = "<group>"; };
 		A3B3F3FC29A3CEAB0090E6E2 /* RadialGradientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialGradientViewController.swift; sourceTree = "<group>"; };
 		A3F888C629CB67F100C67187 /* Umbrella.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Umbrella.swift; sourceTree = "<group>"; };
+		A3F888CB29CB710B00C67187 /* VATableListNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VATableListNode.swift; sourceTree = "<group>"; };
 		C09CD1909CE6DD4E1F0B3BCA /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -500,6 +502,7 @@
 				A397A2C229AAA68800A05B8F /* AlertViewController.swift in Sources */,
 				A3B3F3FD29A3CEAB0090E6E2 /* RadialGradientViewController.swift in Sources */,
 				A3B3F3CD29A2B4FC0090E6E2 /* MainListCellNode.swift in Sources */,
+				A3F888CC29CB710B00C67187 /* VATableListNode.swift in Sources */,
 				A3B3F3E729A3869B0090E6E2 /* ContentSizeViewController.swift in Sources */,
 				A3B3F3CF29A2C0590090E6E2 /* NavigationRoute.swift in Sources */,
 				A3B3F37929A0CDAD0090E6E2 /* MainViewController.swift in Sources */,
