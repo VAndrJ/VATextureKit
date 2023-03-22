@@ -34,6 +34,7 @@
 		A3B3F3F429A3B8CD0090E6E2 /* GradientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3F329A3B8CD0090E6E2 /* GradientViewController.swift */; };
 		A3B3F3FB29A3CDA10090E6E2 /* RadialGradientControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3FA29A3CDA10090E6E2 /* RadialGradientControllerNode.swift */; };
 		A3B3F3FD29A3CEAB0090E6E2 /* RadialGradientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3FC29A3CEAB0090E6E2 /* RadialGradientViewController.swift */; };
+		A3F888C729CB67F100C67187 /* Umbrella.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F888C629CB67F100C67187 /* Umbrella.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +85,7 @@
 		A3B3F3F329A3B8CD0090E6E2 /* GradientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientViewController.swift; sourceTree = "<group>"; };
 		A3B3F3FA29A3CDA10090E6E2 /* RadialGradientControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialGradientControllerNode.swift; sourceTree = "<group>"; };
 		A3B3F3FC29A3CEAB0090E6E2 /* RadialGradientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialGradientViewController.swift; sourceTree = "<group>"; };
+		A3F888C629CB67F100C67187 /* Umbrella.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Umbrella.swift; sourceTree = "<group>"; };
 		C09CD1909CE6DD4E1F0B3BCA /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -151,6 +153,7 @@
 		607FACD21AFB9204008FA782 /* Example for VATextureKit */ = {
 			isa = PBXGroup;
 			children = (
+				A3F888CA29CB70F800C67187 /* Experiments */,
 				A397A2C329AAAF5700A05B8F /* Extensions */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				A3B3F3BC29A20C340090E6E2 /* Controllers */,
@@ -170,6 +173,7 @@
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD41AFB9204008FA782 /* Info.plist */,
+				A3F888C629CB67F100C67187 /* Umbrella.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -310,6 +314,14 @@
 				A3B3F3FC29A3CEAB0090E6E2 /* RadialGradientViewController.swift */,
 			);
 			path = RadialGradient;
+			sourceTree = "<group>";
+		};
+		A3F888CA29CB70F800C67187 /* Experiments */ = {
+			isa = PBXGroup;
+			children = (
+				A3F888CB29CB710B00C67187 /* VATableListNode.swift */,
+			);
+			path = Experiments;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -501,6 +513,7 @@
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				A397A2C029AAA67600A05B8F /* AlertControllerNode.swift in Sources */,
 				A3B3F3D329A2C8280090E6E2 /* MainViewModel.swift in Sources */,
+				A3F888C729CB67F100C67187 /* Umbrella.swift in Sources */,
 				A3B3F3FB29A3CDA10090E6E2 /* RadialGradientControllerNode.swift in Sources */,
 				A3B3F3DC29A358120090E6E2 /* ThemeManager.swift in Sources */,
 				A3B3F3F229A3B8C40090E6E2 /* GradientControllerNode.swift in Sources */,
