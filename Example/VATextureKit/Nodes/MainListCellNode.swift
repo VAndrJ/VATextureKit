@@ -13,10 +13,10 @@ class MainListCellNode: VACellNode {
     private let titleNode: VATextNode
     private let descriptionNode: VATextNode
     
-    init(title: String, description: String) {
-        self.titleNode = VATextNode(text: title)
+    init(viewModel: MainListCellNodeViewModel) {
+        self.titleNode = VATextNode(text: viewModel.title)
         self.descriptionNode = VATextNode(
-            text: description,
+            text: viewModel.description,
             textStyle: .footnote,
             themeColor: { $0.secondaryLabel }
         )
@@ -33,4 +33,9 @@ class MainListCellNode: VACellNode {
         }
         .padding(.all(16))
     }
+}
+
+struct MainListCellNodeViewModel: Equatable {
+    let title: String
+    let description: String
 }
