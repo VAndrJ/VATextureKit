@@ -9,12 +9,15 @@ import AsyncDisplayKit
 
 open class VAViewController<Node: ASDisplayNode>: ASDKViewController<ASDisplayNode> {
     open override var preferredStatusBarStyle: UIStatusBarStyle { appContext.themeManager.theme.statusBarStyle }
+    
     public var contentNode: Node { node as! Node }
+    public var theme: VATheme { appContext.themeManager.theme }
     
     public init(node: Node) {
         super.init(node: node)
     }
     
+    @available(*, unavailable)
     public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
