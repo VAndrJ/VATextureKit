@@ -17,7 +17,7 @@ class MainViewModel {
         ("Radial Gradient", "Gradient node examples", .radialGradient),
         ("Alert", "Alert controller", .alert),
     ], map: { $0.map { MainListCellNodeViewModel(title: $0.title, description: $0.description) } })
-    var listData: Observable<[MainListCellNodeViewModel]>
+    var listDataObs: Observable<[MainListCellNodeViewModel]>
     
     private let navigator: Navigator
     
@@ -26,7 +26,7 @@ class MainViewModel {
     }
     
     func didSelect(at index: Int) {
-        let route = _listData.rx.value[index].route
+        let route = _listDataObs.rx.value[index].route
         navigator.navigate(to: route)
     }
 }
