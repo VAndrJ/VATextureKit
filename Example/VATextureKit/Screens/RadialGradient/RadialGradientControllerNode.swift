@@ -21,30 +21,8 @@ class RadialGradientControllerNode: VASafeAreaDisplayNode {
     override init() {
         super.init()
         
-        scrollNode.layoutSpecBlock = { [centeredGradientNode, topLeftGradientNode, topRightGradientNode, bottomLeftGradientNode, bottomRightGradientNode, customGradientNode] _, size in
-            let content = [
-                centeredGradientNode
-                    .ratio(1),
-                topLeftGradientNode
-                    .ratio(1),
-                topRightGradientNode
-                    .ratio(1),
-                bottomLeftGradientNode
-                    .ratio(1),
-                bottomRightGradientNode
-                    .ratio(1),
-                customGradientNode
-                    .ratio(1),
-            ]
-            if size.min.width > size.min.height {
-                return Row {
-                    content
-                }
-            } else {
-                return Column {
-                    content
-                }
-            }
+        scrollNode.layoutSpecBlock = { [weak self] _, constrainedSize in
+            self?.layoutSpecScroll(constrainedSize) ?? ASLayoutSpec()
         }
     }
     
@@ -59,6 +37,8 @@ class RadialGradientControllerNode: VASafeAreaDisplayNode {
     }
     
     override func configureTheme(_ theme: VATheme) {
+        super.configureTheme(theme)
+        
         backgroundColor = theme.systemBackground
         centeredGradientNode.update(colors: (theme.label, 0), (theme.systemBackground, 1))
         topLeftGradientNode.update(colors: (theme.label, 0), (theme.systemBackground, 1))
@@ -66,6 +46,32 @@ class RadialGradientControllerNode: VASafeAreaDisplayNode {
         bottomLeftGradientNode.update(colors: (theme.label, 0), (theme.systemBackground, 1))
         bottomRightGradientNode.update(colors: (theme.label, 0), (theme.systemBackground, 1))
         customGradientNode.update(colors: (theme.label, 0), (theme.systemBackground, 1))
+    }
+    
+    func layoutSpecScroll(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        let content = [
+            centeredGradientNode
+                .ratio(1),
+            topLeftGradientNode
+                .ratio(1),
+            topRightGradientNode
+                .ratio(1),
+            bottomLeftGradientNode
+                .ratio(1),
+            bottomRightGradientNode
+                .ratio(1),
+            customGradientNode
+                .ratio(1),
+        ]
+        if constrainedSize.min.width > constrainedSize.min.height {
+            return Row {
+                content
+            }
+        } else {
+            return Column {
+                content
+            }
+        }
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
