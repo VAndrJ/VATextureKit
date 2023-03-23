@@ -13,6 +13,8 @@ class ContentSizeControllerNode: VASafeAreaDisplayNode {
     let contentSizeTextNode = VATextNode(textStyle: .title3, alignment: .center)
     
     override func configureTheme(_ theme: VATheme) {
+        super.configureTheme(theme)
+        
         backgroundColor = theme.systemBackground
     }
     

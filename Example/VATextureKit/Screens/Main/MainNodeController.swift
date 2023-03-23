@@ -45,6 +45,8 @@ class MainNodeController: VANodeController {
     }
     
     override func configureTheme(_ theme: VATheme) {
+        super.configureTheme(theme)
+        
         contentNode.backgroundColor = theme.systemBackground
     }
     
