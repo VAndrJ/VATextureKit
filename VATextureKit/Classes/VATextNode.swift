@@ -64,12 +64,16 @@ open class VATextNode: ASTextNode {
         text: String? = nil,
         textStyle: TextStyle = .body,
         alignment: NSTextAlignment = .natural,
+        lineBreakMode: NSLineBreakMode = .byTruncatingTail,
+        maximumNumberOfLines: UInt? = nil,
         themeColor: @escaping (VATheme) -> UIColor
     ) {
         self.init(
             text: text,
             textStyle: textStyle,
             alignment: alignment,
+            lineBreakMode: lineBreakMode,
+            maximumNumberOfLines: maximumNumberOfLines,
             colorGetter: { themeColor(appContext.themeManager.theme) }
         )
     }
@@ -78,10 +82,13 @@ open class VATextNode: ASTextNode {
         text: String? = nil,
         textStyle: TextStyle = .body,
         alignment: NSTextAlignment = .natural,
+        lineBreakMode: NSLineBreakMode = .byTruncatingTail,
+        maximumNumberOfLines: UInt? = nil,
         colorGetter: @escaping () -> UIColor = { appContext.themeManager.theme.label }
     ) {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = alignment
+        paragraphStyle.lineBreakMode = lineBreakMode
         self.init(
             text: text,
             stringGetter: {
@@ -100,16 +107,23 @@ open class VATextNode: ASTextNode {
                 }
             }
         )
+        
+        if let maximumNumberOfLines {
+            self.maximumNumberOfLines = maximumNumberOfLines
+        }
     }
     
     public convenience init(
         text: String? = nil,
         fontGetter: @escaping (_ contentSize: () -> UIContentSizeCategory) -> UIFont,
         alignment: NSTextAlignment = .natural,
+        lineBreakMode: NSLineBreakMode = .byTruncatingTail,
+        maximumNumberOfLines: UInt? = nil,
         colorGetter: @escaping () -> UIColor = { appContext.themeManager.theme.label }
     ) {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = alignment
+        paragraphStyle.lineBreakMode = lineBreakMode
         self.init(
             text: text,
             stringGetter: {
@@ -125,6 +139,10 @@ open class VATextNode: ASTextNode {
                 }
             }
         )
+        
+        if let maximumNumberOfLines {
+            self.maximumNumberOfLines = maximumNumberOfLines
+        }
     }
     
     public init(
