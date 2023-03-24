@@ -10,18 +10,22 @@ import AsyncDisplayKit
 public extension ASLayoutElement {
 
     func sized(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
-        if let width = width {
+        assert(width != nil || height != nil)
+        if let width {
             style.width = ASDimension(unit: .points, value: width)
         }
-        if let height = height {
+        if let height {
             style.height = ASDimension(unit: .points, value: height)
         }
         return self
     }
 
-    func flex(shrink: CGFloat, grow: CGFloat? = nil) -> Self {
-        style.flexShrink = shrink
-        if let grow = grow {
+    func flex(shrink: CGFloat? = nil, grow: CGFloat? = nil) -> Self {
+        assert(shrink != nil || grow != nil)
+        if let shrink {
+            style.flexShrink = shrink
+        }
+        if let grow {
             style.flexGrow = grow
         }
         return self
@@ -33,10 +37,11 @@ public extension ASLayoutElement {
     }
 
     func maxConstrained(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
-        if let width = width {
+        assert(width != nil || height != nil)
+        if let width {
             style.maxWidth = ASDimension(unit: .points, value: width)
         }
-        if let height = height {
+        if let height {
             style.maxHeight = ASDimension(unit: .points, value: height)
         }
         return self
@@ -48,10 +53,11 @@ public extension ASLayoutElement {
     }
 
     func minConstrained(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
-        if let width = width {
+        assert(width != nil || height != nil)
+        if let width {
             style.minWidth = ASDimension(unit: .points, value: width)
         }
-        if let height = height {
+        if let height {
             style.minHeight = ASDimension(unit: .points, value: height)
         }
         return self
