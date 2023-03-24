@@ -30,6 +30,10 @@ class VATableListNode<T: Equatable>: ASTableNode, ASTableDelegate, ASTableDataSo
         self.data = data
         
         super.init(style: data.style)
+    }
+    
+    override func didLoad() {
+        super.didLoad()
         
         bind()
     }

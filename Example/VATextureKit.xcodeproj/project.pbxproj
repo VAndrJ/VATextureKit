@@ -34,6 +34,12 @@
 		A3B3F3FD29A3CEAB0090E6E2 /* RadialGradientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3FC29A3CEAB0090E6E2 /* RadialGradientViewController.swift */; };
 		A3F888C729CB67F100C67187 /* Umbrella.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F888C629CB67F100C67187 /* Umbrella.swift */; };
 		A3F888CC29CB710B00C67187 /* VATableListNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F888CB29CB710B00C67187 /* VATableListNode.swift */; };
+		A3F888D729CC427000C67187 /* CollectionListNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F888D629CC427000C67187 /* CollectionListNodeController.swift */; };
+		A3F888D929CC427D00C67187 /* CollectionListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F888D829CC427D00C67187 /* CollectionListViewModel.swift */; };
+		A3F888DB29CC431E00C67187 /* VACollectionListNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F888DA29CC431E00C67187 /* VACollectionListNode.swift */; };
+		A3F888DD29CC602900C67187 /* CollectionExampleCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F888DC29CC602900C67187 /* CollectionExampleCellNode.swift */; };
+		A3F888EB29CD951400C67187 /* VABaseScrollNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F888EA29CD951400C67187 /* VABaseScrollNode.swift */; };
+		A3F8890029CE2D0000C67187 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F888FF29CE2D0000C67187 /* Support.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +90,12 @@
 		A3B3F3FC29A3CEAB0090E6E2 /* RadialGradientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialGradientViewController.swift; sourceTree = "<group>"; };
 		A3F888C629CB67F100C67187 /* Umbrella.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Umbrella.swift; sourceTree = "<group>"; };
 		A3F888CB29CB710B00C67187 /* VATableListNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VATableListNode.swift; sourceTree = "<group>"; };
+		A3F888D629CC427000C67187 /* CollectionListNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionListNodeController.swift; sourceTree = "<group>"; };
+		A3F888D829CC427D00C67187 /* CollectionListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionListViewModel.swift; sourceTree = "<group>"; };
+		A3F888DA29CC431E00C67187 /* VACollectionListNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VACollectionListNode.swift; sourceTree = "<group>"; };
+		A3F888DC29CC602900C67187 /* CollectionExampleCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExampleCellNode.swift; sourceTree = "<group>"; };
+		A3F888EA29CD951400C67187 /* VABaseScrollNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VABaseScrollNode.swift; sourceTree = "<group>"; };
+		A3F888FF29CE2D0000C67187 /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
 		C09CD1909CE6DD4E1F0B3BCA /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -151,10 +163,10 @@
 		607FACD21AFB9204008FA782 /* Example for VATextureKit */ = {
 			isa = PBXGroup;
 			children = (
-				A3F888CA29CB70F800C67187 /* Experiments */,
-				A397A2C329AAAF5700A05B8F /* Extensions */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				A3B3F3BC29A20C340090E6E2 /* Controllers */,
+				A3F888CA29CB70F800C67187 /* Experiments */,
+				A397A2C329AAAF5700A05B8F /* Extensions */,
 				A3B3F3EA29A399440090E6E2 /* Navigator */,
 				A3B3F3BD29A20C430090E6E2 /* Nodes */,
 				A3B3F37429A0CD830090E6E2 /* Screens */,
@@ -168,10 +180,11 @@
 		607FACD31AFB9204008FA782 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				607FACD41AFB9204008FA782 /* Info.plist */,
+				A3F888FF29CE2D0000C67187 /* Support.swift */,
+				A3F888C629CB67F100C67187 /* Umbrella.swift */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
-				607FACD41AFB9204008FA782 /* Info.plist */,
-				A3F888C629CB67F100C67187 /* Umbrella.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -222,6 +235,7 @@
 		A3B3F37429A0CD830090E6E2 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				A3F888D529CC424000C67187 /* CollectionList */,
 				A397A2BE29AAA65F00A05B8F /* Alert */,
 				A3B3F3F929A3CD010090E6E2 /* RadialGradient */,
 				A3B3F3F029A3B8890090E6E2 /* LinearGradient */,
@@ -261,6 +275,7 @@
 		A3B3F3BD29A20C430090E6E2 /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
+				A3F888DC29CC602900C67187 /* CollectionExampleCellNode.swift */,
 				A3B3F3CC29A2B4FC0090E6E2 /* MainListCellNode.swift */,
 			);
 			path = Nodes;
@@ -316,8 +331,19 @@
 			isa = PBXGroup;
 			children = (
 				A3F888CB29CB710B00C67187 /* VATableListNode.swift */,
+				A3F888DA29CC431E00C67187 /* VACollectionListNode.swift */,
+				A3F888EA29CD951400C67187 /* VABaseScrollNode.swift */,
 			);
 			path = Experiments;
+			sourceTree = "<group>";
+		};
+		A3F888D529CC424000C67187 /* CollectionList */ = {
+			isa = PBXGroup;
+			children = (
+				A3F888D629CC427000C67187 /* CollectionListNodeController.swift */,
+				A3F888D829CC427D00C67187 /* CollectionListViewModel.swift */,
+			);
+			path = CollectionList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -495,23 +521,29 @@
 				A3B3F3E529A3868F0090E6E2 /* ContentSizeControllerNode.swift in Sources */,
 				A397A2C229AAA68800A05B8F /* AlertNodeController.swift in Sources */,
 				A3B3F3FD29A3CEAB0090E6E2 /* RadialGradientViewController.swift in Sources */,
+				A3F888D929CC427D00C67187 /* CollectionListViewModel.swift in Sources */,
 				A3B3F3CD29A2B4FC0090E6E2 /* MainListCellNode.swift in Sources */,
+				A3F888DD29CC602900C67187 /* CollectionExampleCellNode.swift in Sources */,
 				A3F888CC29CB710B00C67187 /* VATableListNode.swift in Sources */,
 				A3B3F3E729A3869B0090E6E2 /* ContentSizeViewController.swift in Sources */,
 				A3B3F3CF29A2C0590090E6E2 /* NavigationRoute.swift in Sources */,
 				A3B3F37929A0CDAD0090E6E2 /* MainNodeController.swift in Sources */,
 				A3B3F3DE29A37C9C0090E6E2 /* AppearanceViewModel.swift in Sources */,
 				A3B3F3D629A2C91A0090E6E2 /* AppearanceContollerNode.swift in Sources */,
+				A3F888D729CC427000C67187 /* CollectionListNodeController.swift in Sources */,
 				A3B3F3C529A22F860090E6E2 /* Theme.swift in Sources */,
 				A3B3F3D129A2C1190090E6E2 /* Navigator.swift in Sources */,
 				A3B3F3AF29A17A5B0090E6E2 /* ExampleNavigationController.swift in Sources */,
 				A3B3F3D829A2C9340090E6E2 /* AppearanceViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				A3B3F3D329A2C8280090E6E2 /* MainViewModel.swift in Sources */,
+				A3F888EB29CD951400C67187 /* VABaseScrollNode.swift in Sources */,
+				A3F8890029CE2D0000C67187 /* Support.swift in Sources */,
 				A3F888C729CB67F100C67187 /* Umbrella.swift in Sources */,
 				A3B3F3FB29A3CDA10090E6E2 /* RadialGradientControllerNode.swift in Sources */,
 				A3B3F3DC29A358120090E6E2 /* ThemeManager.swift in Sources */,
 				A3B3F3F229A3B8C40090E6E2 /* GradientControllerNode.swift in Sources */,
+				A3F888DB29CC431E00C67187 /* VACollectionListNode.swift in Sources */,
 				A3B3F3F429A3B8CD0090E6E2 /* GradientViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

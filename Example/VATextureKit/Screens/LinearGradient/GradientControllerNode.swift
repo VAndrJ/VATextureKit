@@ -84,21 +84,3 @@ class GradientControllerNode: VASafeAreaDisplayNode {
         }
     }
 }
-
-open class VABaseScrollNode: ASScrollNode {
-    
-    public override init() {
-        super.init()
-        
-        automaticallyManagesSubnodes = true
-        automaticallyManagesContentSize = true
-        view.contentInsetAdjustmentBehavior = .never
-    }
-}
-
-public extension CGSize {
-    
-    init(same: CGFloat) {
-        self.init(width: same, height: same)
-    }
-}

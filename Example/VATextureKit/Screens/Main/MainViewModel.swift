@@ -16,6 +16,7 @@ class MainViewModel {
         ("Linear Gradient", "Gradient node examples", .linearGradient),
         ("Radial Gradient", "Gradient node examples", .radialGradient),
         ("Alert", "Alert controller", .alert),
+        ("List", "ASCollectionNode based", .collectionList),
     ], map: { $0.map { MainListCellNodeViewModel(title: $0.title, description: $0.description) } })
     var listDataObs: Observable<[MainListCellNodeViewModel]>
     

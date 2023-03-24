@@ -69,6 +69,8 @@ class ScreenFactory {
             return RadialGradientViewController(node: RadialGradientControllerNode())
         case .alert:
             return AlertNodeController()
+        case .collectionList:
+            return CollectionListNodeController(viewModel: CollectionListViewModel())
         }
     }
 }
