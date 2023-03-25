@@ -2,8 +2,8 @@
 //  Support.swift
 //  VATextureKit_Example
 //
-//  Created by VAndrJ on 24.03.2023.
-//  Copyright © 2023 CocoaPods. All rights reserved.
+//  Created by Volodymyr Andriienko on 24.03.2023.
+//  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
 //
 
 import Foundation
