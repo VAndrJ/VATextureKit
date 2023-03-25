@@ -1,5 +1,5 @@
 PODS:
-  - Differ (1.4.5)
+  - Differentiator (5.0.0)
   - FBSnapshotTestCase (2.1.4):
     - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
   - FBSnapshotTestCase/Core (2.1.4)
@@ -50,12 +50,12 @@ PODS:
   - Texture/Video (3.1.0):
     - Texture/Core
   - VATextureKit (0.1.2):
+    - Differentiator (~> 5.0.0)
     - RxCocoa (~> 6.5.0)
     - RxSwift (~> 6.5.0)
     - Texture (~> 3.1.0)
 
 DEPENDENCIES:
-  - Differ (= 1.4.5)
   - FBSnapshotTestCase (~> 2.1.4)
   - Nimble (~> 10.0.0)
   - Quick (~> 2.2.0)
@@ -64,7 +64,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - Differ
+    - Differentiator
     - FBSnapshotTestCase
     - Nimble
     - PINCache
@@ -82,7 +82,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Differ: 3b6bd78e2b20cc795d9a86f7641d087524e4273e
+  Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
   Nimble: 5316ef81a170ce87baf72dd961f22f89a602ff84
   PINCache: 7a8fc1a691173d21dbddbf86cd515de6efa55086
@@ -94,8 +94,8 @@ SPEC CHECKSUMS:
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   Swiftional: b0542dc5b8bfe5ec9316ab67327ca1443882eff5
   Texture: 2e8ab2519452515f7f5a520f5a8f7e0a413abfa3
-  VATextureKit: c94fa8ec42c892ad6d98c2265ade26880cb63fac
+  VATextureKit: 7e69fe9c867207eb7baabbbf87ab85a1f38663c9
 
-PODFILE CHECKSUM: 4f3672dd34bab96961fa7fc2f34277723a06f98f
+PODFILE CHECKSUM: 59fdc43229c3db77d503b1885fce63046b457f4b
 
 COCOAPODS: 1.12.0
