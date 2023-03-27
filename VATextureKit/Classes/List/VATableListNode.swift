@@ -14,6 +14,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         let style: UITableView.Style
         let listDataObs: Observable<[S.Item]>
         let onSelect: ((IndexPath) -> Void)?
+        let shouldDeselect: (deselectOnSelect: Bool, animated: Bool)
         let cellGetter: (S.Item) -> ASCellNode
         let shouldBatchFetch: (() -> Bool)?
         let loadMore: () -> Void
@@ -22,6 +23,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
             style: UITableView.Style = .plain,
             listDataObs: Observable<[S.Item]>,
             onSelect: ((IndexPath) -> Void)? = nil,
+            shouldDeselect: (deselectOnSelect: Bool, animated: Bool) = (true, true),
             cellGetter: @escaping (S.Item) -> ASCellNode,
             shouldBatchFetch: (() -> Bool)? = nil,
             loadMore: @escaping () -> Void = {}
@@ -29,6 +31,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
             self.style = style
             self.listDataObs = listDataObs
             self.onSelect = onSelect
+            self.shouldDeselect = shouldDeselect
             self.cellGetter = cellGetter
             self.shouldBatchFetch = shouldBatchFetch
             self.loadMore = loadMore
@@ -39,6 +42,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         let style: UITableView.Style
         let listDataObs: Observable<[S]>
         let onSelect: ((IndexPath) -> Void)?
+        let shouldDeselect: (deselectOnSelect: Bool, animated: Bool)
         let cellGetter: (S.Item) -> ASCellNode
         let shouldBatchFetch: (() -> Bool)?
         let loadMore: () -> Void
@@ -47,6 +51,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
             style: UITableView.Style = .plain,
             listDataObs: Observable<[S]>,
             onSelect: ((IndexPath) -> Void)? = nil,
+            shouldDeselect: (deselectOnSelect: Bool, animated: Bool) = (true, true),
             cellGetter: @escaping (S.Item) -> ASCellNode,
             shouldBatchFetch: (() -> Bool)? = nil,
             loadMore: @escaping () -> Void = {}
@@ -54,6 +59,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
             self.style = style
             self.listDataObs = listDataObs
             self.onSelect = onSelect
+            self.shouldDeselect = shouldDeselect
             self.cellGetter = cellGetter
             self.shouldBatchFetch = shouldBatchFetch
             self.loadMore = loadMore
@@ -70,6 +76,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
             style: data.style,
             listDataObs: data.listDataObs.map { [AnimatableSectionModel(model: "", items: $0)] },
             onSelect: data.onSelect,
+            shouldDeselect: data.shouldDeselect,
             cellGetter: data.cellGetter,
             shouldBatchFetch: data.shouldBatchFetch,
             loadMore: data.loadMore
@@ -97,6 +104,13 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
                 .do(onNext: { [weak self] in self?.batchContext = $0 })
                 .map { _ in }
                 .subscribe(onNext: data.loadMore)
+                .disposed(by: bag)
+        }
+        if data.shouldDeselect.deselectOnSelect {
+            rx.itemSelected
+                .subscribe(onNext: { [weak self, data] in
+                    self?.deselectRow(at: $0, animated: data.shouldDeselect.animated)
+                })
                 .disposed(by: bag)
         }
         if let onSelect = data.onSelect {
