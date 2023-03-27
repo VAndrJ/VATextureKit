@@ -35,7 +35,12 @@ class MainListCellNode: VACellNode {
     }
 }
 
-struct MainListCellNodeViewModel: Equatable {
+class MainListCellNodeViewModel: CellViewModel {
     let title: String
     let description: String
+
+    init(title: String, description: String) {
+        self.title = title
+        self.description = description
+    }
 }

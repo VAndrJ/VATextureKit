@@ -8,6 +8,7 @@
 import AsyncDisplayKit
 
 open class VACellNode: ASCellNode {
+    public var theme: VATheme { appContext.themeManager.theme }
     
     public override init() {
         super.init()
@@ -18,7 +19,7 @@ open class VACellNode: ASCellNode {
     open override func didLoad() {
         super.didLoad()
         
-        configureTheme()
+        configureTheme(appContext.themeManager.theme)
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(themeDidChanged(_:)),
@@ -30,10 +31,10 @@ open class VACellNode: ASCellNode {
 #endif
     }
     
-    open func configureTheme() {}
+    open func configureTheme(_ theme: VATheme) {}
     
     open func themeDidChanged() {
-        configureTheme()
+        configureTheme(appContext.themeManager.theme)
     }
     
     @objc private func themeDidChanged(_ notification: Notification) {

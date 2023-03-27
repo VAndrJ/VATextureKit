@@ -22,32 +22,8 @@ class GradientControllerNode: VASafeAreaDisplayNode {
     override init() {
         super.init()
         
-        scrollNode.layoutSpecBlock = { [verticalGradientNode, horizontalGradientNode, topLeftToBottomRightGradientNode, topRightToBottomLeftGradientNode, bottomLeftToTopRightGradientNode, bottomRightToTopLeftGradientNode, customGradientNode] _, size in // swiftlint:disable:this line_length
-            let content = [
-                verticalGradientNode
-                    .ratio(1),
-                horizontalGradientNode
-                    .ratio(1),
-                topLeftToBottomRightGradientNode
-                    .ratio(1),
-                topRightToBottomLeftGradientNode
-                    .ratio(1),
-                bottomLeftToTopRightGradientNode
-                    .ratio(1),
-                bottomRightToTopLeftGradientNode
-                    .ratio(1),
-                customGradientNode
-                    .ratio(1),
-            ]
-            if size.min.width > size.min.height {
-                return Row {
-                    content
-                }
-            } else {
-                return Column {
-                    content
-                }
-            }
+        scrollNode.layoutSpecBlock = { [weak self] _, constrainedSize in
+            self?.layoutSpecScroll(constrainedSize) ?? ASLayoutSpec()
         }
     }
     
@@ -62,6 +38,8 @@ class GradientControllerNode: VASafeAreaDisplayNode {
     }
     
     override func configureTheme(_ theme: VATheme) {
+        super.configureTheme(theme)
+        
         backgroundColor = theme.systemBackground
         verticalGradientNode.update(colors: (theme.label, 0), (theme.systemBackground, 1))
         horizontalGradientNode.update(colors: (theme.label, 0), (theme.systemBackground, 1))
@@ -72,27 +50,37 @@ class GradientControllerNode: VASafeAreaDisplayNode {
         customGradientNode.update(colors: (theme.label, 0), (theme.systemBackground, 1))
     }
     
+    func layoutSpecScroll(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        let content = [
+            verticalGradientNode
+                .ratio(1),
+            horizontalGradientNode
+                .ratio(1),
+            topLeftToBottomRightGradientNode
+                .ratio(1),
+            topRightToBottomLeftGradientNode
+                .ratio(1),
+            bottomLeftToTopRightGradientNode
+                .ratio(1),
+            bottomRightToTopLeftGradientNode
+                .ratio(1),
+            customGradientNode
+                .ratio(1),
+        ]
+        if constrainedSize.min.width > constrainedSize.min.height {
+            return Row {
+                content
+            }
+        } else {
+            return Column {
+                content
+            }
+        }
+    }
+    
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
             scrollNode
         }
-    }
-}
-
-open class VABaseScrollNode: ASScrollNode {
-    
-    public override init() {
-        super.init()
-        
-        automaticallyManagesSubnodes = true
-        automaticallyManagesContentSize = true
-        view.contentInsetAdjustmentBehavior = .never
-    }
-}
-
-public extension CGSize {
-    
-    init(same: CGFloat) {
-        self.init(width: same, height: same)
     }
 }

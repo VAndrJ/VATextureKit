@@ -8,6 +8,7 @@
 import AsyncDisplayKit
 
 open class VADisplayNode: ASDisplayNode {
+    public var theme: VATheme { appContext.themeManager.theme }
     
     public override init() {
         super.init()

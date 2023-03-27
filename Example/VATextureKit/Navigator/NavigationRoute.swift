@@ -15,4 +15,6 @@ enum NavigationRoute {
     case linearGradient
     case radialGradient
     case alert
+    case collectionList
+    case collectionListDifferentCells
 }
