@@ -33,6 +33,7 @@
 		A3B3F3F429A3B8CD0090E6E2 /* GradientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3F329A3B8CD0090E6E2 /* GradientViewController.swift */; };
 		A3B3F3FB29A3CDA10090E6E2 /* RadialGradientControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3FA29A3CDA10090E6E2 /* RadialGradientControllerNode.swift */; };
 		A3B3F3FD29A3CEAB0090E6E2 /* RadialGradientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3FC29A3CEAB0090E6E2 /* RadialGradientViewController.swift */; };
+		A3BCEC5729CFA6770077217F /* LoadingCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BCEC5629CFA6770077217F /* LoadingCellNode.swift */; };
 		A3D2488529CF860300EE1907 /* VAStateModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D2488429CF860300EE1907 /* VAStateModelTests.swift */; };
 		A3D2488A29CF869900EE1907 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D2488929CF869900EE1907 /* Support.swift */; };
 		A3F888C729CB67F100C67187 /* Umbrella.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F888C629CB67F100C67187 /* Umbrella.swift */; };
@@ -96,6 +97,7 @@
 		A3B3F3F329A3B8CD0090E6E2 /* GradientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientViewController.swift; sourceTree = "<group>"; };
 		A3B3F3FA29A3CDA10090E6E2 /* RadialGradientControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialGradientControllerNode.swift; sourceTree = "<group>"; };
 		A3B3F3FC29A3CEAB0090E6E2 /* RadialGradientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialGradientViewController.swift; sourceTree = "<group>"; };
+		A3BCEC5629CFA6770077217F /* LoadingCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCellNode.swift; sourceTree = "<group>"; };
 		A3D2488429CF860300EE1907 /* VAStateModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAStateModelTests.swift; sourceTree = "<group>"; };
 		A3D2488929CF869900EE1907 /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
 		A3F888C629CB67F100C67187 /* Umbrella.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Umbrella.swift; sourceTree = "<group>"; };
@@ -292,11 +294,12 @@
 		A3B3F3BD29A20C430090E6E2 /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
+				A310A43129CF471400632416 /* CellViewModel.swift */,
 				A3F888DC29CC602900C67187 /* CollectionExampleCellNode.swift */,
-				A3B3F3CC29A2B4FC0090E6E2 /* MainListCellNode.swift */,
 				A3F8890829CE37BD00C67187 /* ImageCellNode.swift */,
 				A3F8890A29CE385B00C67187 /* ImageNumberCellNode.swift */,
-				A310A43129CF471400632416 /* CellViewModel.swift */,
+				A3BCEC5629CFA6770077217F /* LoadingCellNode.swift */,
+				A3B3F3CC29A2B4FC0090E6E2 /* MainListCellNode.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -548,6 +551,7 @@
 			files = (
 				A397A2C529AAAF6800A05B8F /* NSObject+Applyable.swift in Sources */,
 				A3F8890B29CE385B00C67187 /* ImageNumberCellNode.swift in Sources */,
+				A3BCEC5729CFA6770077217F /* LoadingCellNode.swift in Sources */,
 				A3B3F3E529A3868F0090E6E2 /* ContentSizeControllerNode.swift in Sources */,
 				A397A2C229AAA68800A05B8F /* AlertNodeController.swift in Sources */,
 				A3B3F3FD29A3CEAB0090E6E2 /* RadialGradientViewController.swift in Sources */,

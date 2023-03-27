@@ -13,7 +13,7 @@ import SwiftUI
 /// ViewController as a View axample
 class MainNodeController: VANodeController {
     private(set) lazy var listNode = VATableListNode(data: .init(
-        listData: viewModel.listDataObs,
+        listDataObs: viewModel.listDataObs,
         onSelect: { [viewModel] in viewModel.didSelect(at: $0.row) },
         cellGetter: MainListCellNode.init(viewModel:)
     ))

@@ -10,9 +10,9 @@ import AsyncDisplayKit
 import VATextureKit
 
 class CollectionListNodeController: VANodeController {
-    private(set) lazy var horizontalListNode = VACollectionListNode(
+    private(set) lazy var horizontalListNode = VAListNode(
         data: .init(
-            listData: viewModel.listDataObs,
+            listDataObs: viewModel.listDataObs,
             onSelect: { _ in },
             cellGetter: CollectionExampleCellNode.init(viewModel:)
         ),
@@ -25,9 +25,9 @@ class CollectionListNodeController: VANodeController {
             albumSizing: .horizontal(columns: 1, ratio: 1)
         )
     )
-    private(set) lazy var verticalListNode = VACollectionListNode(
+    private(set) lazy var verticalListNode = VAListNode(
         data: .init(
-            listData: viewModel.listDataObs,
+            listDataObs: viewModel.listDataObs,
             onSelect: { _ in },
             cellGetter: CollectionExampleCellNode.init(viewModel:)
         ),

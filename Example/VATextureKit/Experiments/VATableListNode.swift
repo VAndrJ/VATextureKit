@@ -7,56 +7,67 @@
 //
 
 import AsyncDisplayKit
+import VATextureKit
 import RxSwift
 import RxCocoa
 
-class VATableListNode<T: Equatable>: ASTableNode, ASTableDelegate, ASTableDataSource {
-    // TODO: - settings
+class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableDelegate {
+    public struct ElementDTO {
+        var style: UITableView.Style = .plain
+        let listDataObs: Observable<[S.Item]>
+        let onSelect: (IndexPath) -> Void
+        let cellGetter: (S.Item) -> ASCellNode
+        var shouldBatchFetch: (() -> Bool)?
+        var loadMore: () -> Void = {}
+    }
+    
     struct DTO {
         var style: UITableView.Style = .plain
-        let listData: Observable<[T]>
+        let listDataObs: Observable<[S]>
         let onSelect: (IndexPath) -> Void
-        let cellGetter: (T) -> ASCellNode
+        let cellGetter: (S.Item) -> ASCellNode
+        var shouldBatchFetch: (() -> Bool)?
+        var loadMore: () -> Void = {}
     }
     
     let data: DTO
+    public private(set) var batchContext: ASBatchContext?
     
-    private var listDataDisposable: Disposable?
-    private var listData: [T] = [] {
-        didSet { batchUpdate(from: oldValue, to: listData) }
+    private let bag = DisposeBag()
+    
+    convenience init<T>(data: ElementDTO) where S == AnimatableSectionModel<String, T> {
+        self.init(data: DTO(
+            style: data.style,
+            listDataObs: data.listDataObs.map { [AnimatableSectionModel(model: "", items: $0)] },
+            onSelect: data.onSelect,
+            cellGetter: data.cellGetter,
+            shouldBatchFetch: data.shouldBatchFetch,
+            loadMore: data.loadMore
+        ))
     }
     
     init(data: DTO) {
         self.data = data
         
         super.init(style: data.style)
-    }
-    
-    override func didLoad() {
-        super.didLoad()
         
         bind()
     }
     
     private func bind() {
-        delegate = self
-        dataSource = self
-        listDataDisposable = data.listData
-            .bind(to: rx.listData)
-    }
-    
-    deinit {
-        listDataDisposable?.dispose()
-    }
-    
-    func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        listData.count
-    }
-    
-    func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
-        let cellData = listData[indexPath.row]
-        return { [data] in
-            data.cellGetter(cellData)
+        let dataSource = RxASTableSectionedAnimatedDataSource<S> { [data] _, _, _, item in { data.cellGetter(item) } }
+        data.listDataObs
+            .do(onNext: { [weak self] _ in self?.batchContext?.completeBatchFetching(true) })
+            .bind(to: rx.items(dataSource: dataSource))
+            .disposed(by: bag)
+        rx.setDelegate(self)
+            .disposed(by: bag)
+        if data.shouldBatchFetch != nil {
+            rx.willBeginBatchFetch
+                .do(onNext: { [weak self] in self?.batchContext = $0 })
+                .map { _ in }
+                .subscribe(onNext: data.loadMore)
+                .disposed(by: bag)
         }
     }
     
@@ -64,22 +75,8 @@ class VATableListNode<T: Equatable>: ASTableNode, ASTableDelegate, ASTableDataSo
         data.onSelect(indexPath)
         tableNode.deselectRow(at: indexPath, animated: true)
     }
-}
-
-import Differ
-
-public extension ASTableNode {
     
-    func batchUpdate<T: Collection>(from old: T, to new: T, completion: ((Bool) -> Void)? = nil) where T.Element: Equatable {
-        performBatch(
-            animated: true,
-            updates: {
-                let update = BatchUpdate(diff: old.extendedDiff(new))
-                deleteRows(at: update.deletions, with: .none)
-                insertRows(at: update.insertions, with: .none)
-                update.moves.forEach { moveRow(at: $0.from, to: $0.to) }
-            },
-            completion: completion
-        )
+    func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
+        data.shouldBatchFetch?() ?? false
     }
 }

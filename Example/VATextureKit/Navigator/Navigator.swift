@@ -71,6 +71,8 @@ class ScreenFactory {
             return AlertNodeController()
         case .collectionList:
             return CollectionListNodeController(viewModel: CollectionListViewModel())
+        case .collectionListDifferentCells:
+            return CollectionListDifferentCellsNodeController(viewModel: CollectionListDifferentCellsViewModel())
         }
     }
 }

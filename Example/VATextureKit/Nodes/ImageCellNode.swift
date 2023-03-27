@@ -1,28 +1,22 @@
 //
-//  CollectionExampleCellNode.swift
+//  ImageCellNode.swift
 //  VATextureKit_Example
 //
-//  Created by Volodymyr Andriienko on 23.03.2023.
+//  Created by Volodymyr Andriienko on 24.03.2023.
 //  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
 //
 
 import AsyncDisplayKit
 import VATextureKit
 
-class CollectionExampleCellNode: VACellNode {
+class ImageCellNode: VACellNode {
     let imageNode = ASNetworkImageNode().apply {
         $0.contentMode = .scaleAspectFill
     }
-    let titleNode: VATextNode
     
-    let viewModel: CollectionExampleCellNodeViewModel
+    let viewModel: ImageCellNodeViewModel
     
-    init(viewModel: CollectionExampleCellNodeViewModel) {
-        self.titleNode = VATextNode(
-            text: viewModel.title,
-            textStyle: .body,
-            maximumNumberOfLines: 1
-        )
+    init(viewModel: ImageCellNodeViewModel) {
         self.viewModel = viewModel
         
         super.init()
@@ -34,12 +28,8 @@ class CollectionExampleCellNode: VACellNode {
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        Column {
-            imageNode
-                .flex(shrink: 0.1, grow: 1)
-            titleNode
-                .padding(.all(4))
-        }
+        imageNode
+            .ratio(viewModel.ratio)
     }
     
     override func configureTheme(_ theme: VATheme) {
@@ -47,12 +37,12 @@ class CollectionExampleCellNode: VACellNode {
     }
 }
 
-class CollectionExampleCellNodeViewModel: CellViewModel {
+class ImageCellNodeViewModel: CellViewModel {
     let image: String?
-    let title: String
+    let ratio: CGFloat
 
-    init(image: String? = nil, title: String) {
+    init(image: String? = nil, ratio: CGFloat = 1) {
         self.image = image
-        self.title = title
+        self.ratio = ratio
     }
 }

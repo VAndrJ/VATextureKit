@@ -109,7 +109,6 @@ open class VAStateModel<Action, Event, State>: NSObject {
 #if DEBUG
             .do(onError: { assertionFailure("Errors are not allowed \($0.localizedDescription)") })
 #endif
-            .retry()
             .observe(on: actionScheduler)
             .bind(to: eventRelay)
             .disposed(by: bag)
@@ -123,7 +122,6 @@ open class VAStateModel<Action, Event, State>: NSObject {
 #if DEBUG
             .do(onError: { assertionFailure("Errors are not allowed \($0.localizedDescription)") })
 #endif
-            .retry()
             .observe(on: actionScheduler)
             .bind(to: eventRelay)
             .disposed(by: bag)
@@ -137,7 +135,6 @@ open class VAStateModel<Action, Event, State>: NSObject {
 #if DEBUG
             .do(onError: { assertionFailure("Errors are not allowed \($0.localizedDescription)") })
 #endif
-            .retry()
             .observe(on: actionScheduler)
             .bind(to: eventRelay)
             .disposed(by: bag)
@@ -151,7 +148,6 @@ open class VAStateModel<Action, Event, State>: NSObject {
 #if DEBUG
             .do(onError: { assertionFailure("Errors are not allowed \($0.localizedDescription)") })
 #endif
-            .retry()
             .observe(on: actionScheduler)
             .bind(to: eventRelay)
             .disposed(by: bag)
@@ -187,7 +183,6 @@ open class VAStateModel<Action, Event, State>: NSObject {
 #if DEBUG
             .do(onError: { assertionFailure("Errors are not allowed \($0.localizedDescription)") })
 #endif
-            .retry()
             .observe(on: actionScheduler)
             .bind(to: eventRelay)
             .disposed(by: bag)
@@ -202,7 +197,6 @@ open class VAStateModel<Action, Event, State>: NSObject {
 #if DEBUG
             .do(onError: { assertionFailure("Errors are not allowed \($0.localizedDescription)") })
 #endif
-            .retry()
             .observe(on: actionScheduler)
             .bind(to: eventRelay)
             .disposed(by: bag)
@@ -217,7 +211,6 @@ open class VAStateModel<Action, Event, State>: NSObject {
 #if DEBUG
             .do(onError: { assertionFailure("Errors are not allowed \($0.localizedDescription)") })
 #endif
-            .retry()
             .observe(on: actionScheduler)
             .bind(to: eventRelay)
             .disposed(by: bag)
@@ -232,7 +225,6 @@ open class VAStateModel<Action, Event, State>: NSObject {
 #if DEBUG
             .do(onError: { assertionFailure("Errors are not allowed \($0.localizedDescription)") })
 #endif
-            .retry()
             .observe(on: actionScheduler)
             .bind(to: eventRelay)
             .disposed(by: bag)

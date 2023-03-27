@@ -1,5 +1,5 @@
 //
-//  VACollectionListNode.swift
+//  VAListNode.swift
 //  VATextureKit_Example
 //
 //  Created by Volodymyr Andriienko on 23.03.2023.
@@ -65,15 +65,25 @@ public extension ASCollectionNode {
     }
 }
 
-class VACollectionListNode<T: Equatable>: ASCollectionNode, ASCollectionDelegate, ASCollectionDataSource {
-    // TODO: - Extend settings
-    struct DTO {
-        let listData: Observable<[T]>
+public class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollectionDelegate {
+    public struct ElementDTO {
+        let listDataObs: Observable<[S.Item]>
         let onSelect: (IndexPath) -> Void
-        let cellGetter: (T) -> ASCellNode
+        let cellGetter: (S.Item) -> ASCellNode
+        var shouldBatchFetch: (() -> Bool)?
+        var loadMore: () -> Void = {}
     }
     
-    struct LayoutDTO {
+    public struct DTO {
+        let listDataObs: Observable<[S]>
+        let onSelect: (IndexPath) -> Void
+        let cellGetter: (S.Item) -> ASCellNode
+        var shouldBatchFetch: (() -> Bool)?
+        var loadMore: () -> Void = {}
+    }
+    
+    public struct LayoutDTO {
+        var animated = true
         var scrollDirection: UICollectionView.ScrollDirection = .vertical
         var minimumLineSpacing: CGFloat = .leastNormalMagnitude
         var minimumInteritemSpacing: CGFloat = .leastNormalMagnitude
@@ -82,105 +92,85 @@ class VACollectionListNode<T: Equatable>: ASCollectionNode, ASCollectionDelegate
         var albumSizing: CollectionNodeSizing?
     }
     
-    let data: DTO
+    public let data: DTO
+    public let layoutData: LayoutDTO
+    public private(set) var batchContext: ASBatchContext?
     
-    private var layoutData: LayoutDTO?
-    private var listDataDisposable: Disposable?
-    private var listData: [T] = [] {
-        didSet { batchUpdate(from: oldValue, to: listData) }
+    private let bag = DisposeBag()
+    private let isLoadingRelay = BehaviorRelay(value: false)
+    
+    public convenience init<T>(data: ElementDTO, layout: LayoutDTO) where S == AnimatableSectionModel<String, T> {
+        self.init(
+            data: .init(
+                listDataObs: data.listDataObs.map { [AnimatableSectionModel(model: "", items: $0)] },
+                onSelect: data.onSelect,
+                cellGetter: data.cellGetter,
+                shouldBatchFetch: data.shouldBatchFetch,
+                loadMore: data.loadMore
+            ),
+            layout: layout
+        )
     }
     
-    convenience init(data: DTO, layout: LayoutDTO) {
+    public init(data: DTO, layout: LayoutDTO) {
+        self.layoutData = layout
+        self.data = data
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = layout.scrollDirection
         flowLayout.minimumLineSpacing = layout.minimumLineSpacing
         flowLayout.minimumInteritemSpacing = layout.minimumInteritemSpacing
         
-        self.init(data: data, collectionViewLayout: flowLayout)
-        
-        self.layoutData = layout
-        self.contentInset = layout.contentInset
-    }
-    
-    init(data: DTO, collectionViewLayout: UICollectionViewLayout) {
-        self.data = data
-        
         super.init(
             frame: CGRect(origin: .zero, size: CGSize(same: 320)),
-            collectionViewLayout: collectionViewLayout,
+            collectionViewLayout: flowLayout,
             layoutFacilitator: nil
         )
-    }
-    
-    override func didLoad() {
-        super.didLoad()
         
+        contentInset = layout.contentInset
         bind()
     }
     
     private func bind() {
-        delegate = self
-        dataSource = self
-        listDataDisposable = data.listData
-            .bind(to: rx.listData)
-    }
-    
-    deinit {
-        listDataDisposable?.dispose()
-    }
-    
-    func collectionNode(_ collectionNode: ASCollectionNode, numberOfItemsInSection section: Int) -> Int {
-        listData.count
-    }
-    
-    func collectionNode(_ collectionNode: ASCollectionNode, nodeBlockForItemAt indexPath: IndexPath) -> ASCellNodeBlock {
-        let cellData = listData[indexPath.row]
-        return { [data] in
-            data.cellGetter(cellData)
+        let dataSource = RxASCollectionSectionedAnimatedDataSource<S> { [data] _, _, _, item in { data.cellGetter(item) } }
+        data.listDataObs
+            .do(onNext: { [weak self] _ in
+                self?.batchContext?.completeBatchFetching(true)
+                self?.batchContext = nil
+            })
+            .bind(to: rx.items(dataSource: dataSource))
+            .disposed(by: bag)
+        rx.setDelegate(self)
+            .disposed(by: bag)
+        if data.shouldBatchFetch != nil {
+            rx.willBeginBatchFetch
+                .do(onNext: { [weak self] in self?.batchContext = $0 })
+                .map { _ in }
+                .subscribe(onNext: data.loadMore)
+                .disposed(by: bag)
         }
     }
     
-    func collectionNode(_ collectionNode: ASCollectionNode, didSelectItemAt indexPath: IndexPath) {
-        data.onSelect(indexPath)
-        collectionNode.deselectItem(at: indexPath, animated: true)
-    }
+    // MARK: - ASCollectionDelegate
     
-    func collectionNode(_ collectionNode: ASCollectionNode, constrainedSizeForItemAt indexPath: IndexPath) -> ASSizeRange {
-        if let layoutData {
-            if let albumSizing = layoutData.albumSizing {
-                return collectionNode.cellSizeRange(
-                    sizing: (UIApplication.shared.isAlbum ? albumSizing : layoutData.sizing) ?? collectionNode.isHorizontal.fold { .entireWidthFreeHeight() } _: { .entireHeightFreeWidth() },
-                    indexPath: indexPath
-                )
-            } else {
-                return collectionNode.cellSizeRange(
-                    sizing: layoutData.sizing ?? collectionNode.isHorizontal.fold { .entireWidthFreeHeight() } _: { .entireHeightFreeWidth() },
-                    indexPath: indexPath
-                )
-            }
+    public func collectionNode(_ collectionNode: ASCollectionNode, constrainedSizeForItemAt indexPath: IndexPath) -> ASSizeRange {
+        if let albumSizing = layoutData.albumSizing {
+            return collectionNode.cellSizeRange(
+                sizing: (UIApplication.shared.isAlbum ? albumSizing : layoutData.sizing) ?? collectionNode.isHorizontal.fold { .entireWidthFreeHeight() } _: { .entireHeightFreeWidth() },
+                indexPath: indexPath
+            )
         } else {
             return collectionNode.cellSizeRange(
-                sizing: collectionNode.isHorizontal.fold { .entireWidthFreeHeight() } _: { .entireHeightFreeWidth() },
+                sizing: layoutData.sizing ?? collectionNode.isHorizontal.fold { .entireWidthFreeHeight() } _: { .entireHeightFreeWidth() },
                 indexPath: indexPath
             )
         }
     }
+    
+    public func shouldBatchFetch(for collectionNode: ASCollectionNode) -> Bool {
+        data.shouldBatchFetch?() ?? false
+    }
 }
 
-import Differ
-
-public extension ASCollectionNode {
-    
-    func batchUpdate<T: Collection>(from old: T, to new: T, animated: Bool = true, completion: ((Bool) -> Void)? = nil) where T.Element: Equatable {
-        performBatch(
-            animated: animated,
-            updates: {
-                let update = BatchUpdate(diff: old.extendedDiff(new))
-                deleteItems(at: update.deletions)
-                insertItems(at: update.insertions)
-                update.moves.forEach { moveItem(at: $0.from, to: $0.to) }
-            },
-            completion: completion
-        )
-    }
+extension String: IdentifiableType {
+    public var identity: String { self }
 }
