@@ -33,7 +33,6 @@ class CollectionListDifferentCellsNodeController: VANodeController {
     private(set) lazy var leftListNode = VAListNode(
         data: .init(
             listDataObs: viewModel.listDataObs,
-            onSelect: { _ in },
             cellGetter: mapToCell(viewModel:),
             shouldBatchFetch: viewModel.checkMore,
             loadMore: viewModel.loadMore
@@ -45,7 +44,6 @@ class CollectionListDifferentCellsNodeController: VANodeController {
     private(set) lazy var rightListNode = VAListNode(
         data: .init(
             listDataObs: viewModel.listDataObs,
-            onSelect: { _ in },
             cellGetter: mapToCell(viewModel:)
         ),
         layout: .init(

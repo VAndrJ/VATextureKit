@@ -67,14 +67,14 @@ public extension ASCollectionNode {
 public class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollectionDelegate {
     public struct ElementDTO {
         let listDataObs: Observable<[S.Item]>
-        let onSelect: (IndexPath) -> Void
+        let onSelect: ((IndexPath) -> Void)?
         let cellGetter: (S.Item) -> ASCellNode
         let shouldBatchFetch: (() -> Bool)?
         let loadMore: () -> Void
         
         public init(
             listDataObs: Observable<[S.Item]>,
-            onSelect: @escaping (IndexPath) -> Void,
+            onSelect: ((IndexPath) -> Void)? = nil,
             cellGetter: @escaping (S.Item) -> ASCellNode,
             shouldBatchFetch: (() -> Bool)? = nil,
             loadMore: @escaping () -> Void = {}
@@ -89,14 +89,14 @@ public class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASColl
     
     public struct DTO {
         let listDataObs: Observable<[S]>
-        let onSelect: (IndexPath) -> Void
+        let onSelect: ((IndexPath) -> Void)?
         let cellGetter: (S.Item) -> ASCellNode
         let shouldBatchFetch: (() -> Bool)?
         let loadMore: () -> Void
         
         public init(
             listDataObs: Observable<[S]>,
-            onSelect: @escaping (IndexPath) -> Void,
+            onSelect: ((IndexPath) -> Void)? = nil,
             cellGetter: @escaping (S.Item) -> ASCellNode,
             shouldBatchFetch: (() -> Bool)? = nil,
             loadMore: @escaping () -> Void = {}
@@ -193,6 +193,11 @@ public class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASColl
                 .do(onNext: { [weak self] in self?.batchContext = $0 })
                 .map { _ in }
                 .subscribe(onNext: data.loadMore)
+                .disposed(by: bag)
+        }
+        if let onSelect = data.onSelect {
+            rx.itemSelected
+                .subscribe(onNext: onSelect)
                 .disposed(by: bag)
         }
     }

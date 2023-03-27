@@ -13,7 +13,6 @@ class CollectionListNodeController: VANodeController {
     private(set) lazy var horizontalListNode = VAListNode(
         data: .init(
             listDataObs: viewModel.listDataObs,
-            onSelect: { _ in },
             cellGetter: CollectionExampleCellNode.init(viewModel:)
         ),
         layout: .init(
@@ -28,7 +27,6 @@ class CollectionListNodeController: VANodeController {
     private(set) lazy var verticalListNode = VAListNode(
         data: .init(
             listDataObs: viewModel.listDataObs,
-            onSelect: { _ in },
             cellGetter: CollectionExampleCellNode.init(viewModel:)
         ),
         layout: .init(
