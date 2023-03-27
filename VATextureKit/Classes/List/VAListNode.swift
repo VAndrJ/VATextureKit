@@ -1,9 +1,8 @@
 //
 //  VAListNode.swift
-//  VATextureKit_Example
+//  VATextureKit
 //
-//  Created by Volodymyr Andriienko on 23.03.2023.
-//  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
+//  Created by Volodymyr Andriienko on 27.03.2023.
 //
 
 import AsyncDisplayKit
@@ -70,26 +69,72 @@ public class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASColl
         let listDataObs: Observable<[S.Item]>
         let onSelect: (IndexPath) -> Void
         let cellGetter: (S.Item) -> ASCellNode
-        var shouldBatchFetch: (() -> Bool)?
-        var loadMore: () -> Void = {}
+        let shouldBatchFetch: (() -> Bool)?
+        let loadMore: () -> Void
+        
+        public init(
+            listDataObs: Observable<[S.Item]>,
+            onSelect: @escaping (IndexPath) -> Void,
+            cellGetter: @escaping (S.Item) -> ASCellNode,
+            shouldBatchFetch: (() -> Bool)? = nil,
+            loadMore: @escaping () -> Void = {}
+        ) {
+            self.listDataObs = listDataObs
+            self.onSelect = onSelect
+            self.cellGetter = cellGetter
+            self.shouldBatchFetch = shouldBatchFetch
+            self.loadMore = loadMore
+        }
     }
     
     public struct DTO {
         let listDataObs: Observable<[S]>
         let onSelect: (IndexPath) -> Void
         let cellGetter: (S.Item) -> ASCellNode
-        var shouldBatchFetch: (() -> Bool)?
-        var loadMore: () -> Void = {}
+        let shouldBatchFetch: (() -> Bool)?
+        let loadMore: () -> Void
+        
+        public init(
+            listDataObs: Observable<[S]>,
+            onSelect: @escaping (IndexPath) -> Void,
+            cellGetter: @escaping (S.Item) -> ASCellNode,
+            shouldBatchFetch: (() -> Bool)? = nil,
+            loadMore: @escaping () -> Void = {}
+        ) {
+            self.listDataObs = listDataObs
+            self.onSelect = onSelect
+            self.cellGetter = cellGetter
+            self.shouldBatchFetch = shouldBatchFetch
+            self.loadMore = loadMore
+        }
     }
     
     public struct LayoutDTO {
-        var animated = true
-        var scrollDirection: UICollectionView.ScrollDirection = .vertical
-        var minimumLineSpacing: CGFloat = .leastNormalMagnitude
-        var minimumInteritemSpacing: CGFloat = .leastNormalMagnitude
-        var contentInset: UIEdgeInsets = .zero
-        var sizing: CollectionNodeSizing?
-        var albumSizing: CollectionNodeSizing?
+        let animationConfiguration: AnimationConfiguration
+        let scrollDirection: UICollectionView.ScrollDirection
+        let minimumLineSpacing: CGFloat
+        let minimumInteritemSpacing: CGFloat
+        let contentInset: UIEdgeInsets
+        let sizing: CollectionNodeSizing?
+        let albumSizing: CollectionNodeSizing?
+        
+        public init(
+            animationConfiguration: AnimationConfiguration = .init(),
+            scrollDirection: UICollectionView.ScrollDirection = .vertical,
+            minimumLineSpacing: CGFloat = .leastNormalMagnitude,
+            minimumInteritemSpacing: CGFloat = .leastNormalMagnitude,
+            contentInset: UIEdgeInsets = .zero,
+            sizing: CollectionNodeSizing? = nil,
+            albumSizing: CollectionNodeSizing? = nil
+        ) {
+            self.animationConfiguration = animationConfiguration
+            self.scrollDirection = scrollDirection
+            self.minimumLineSpacing = minimumLineSpacing
+            self.minimumInteritemSpacing = minimumInteritemSpacing
+            self.contentInset = contentInset
+            self.sizing = sizing
+            self.albumSizing = albumSizing
+        }
     }
     
     public let data: DTO
@@ -102,7 +147,7 @@ public class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASColl
     public convenience init<T>(data: ElementDTO, layout: LayoutDTO) where S == AnimatableSectionModel<String, T> {
         self.init(
             data: .init(
-                listDataObs: data.listDataObs.map { [AnimatableSectionModel(model: "", items: $0)] },
+                listDataObs: data.listDataObs.map { $0.isEmpty ? [] : [AnimatableSectionModel(model: "", items: $0)] },
                 onSelect: data.onSelect,
                 cellGetter: data.cellGetter,
                 shouldBatchFetch: data.shouldBatchFetch,
@@ -131,7 +176,9 @@ public class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASColl
     }
     
     private func bind() {
-        let dataSource = RxASCollectionSectionedAnimatedDataSource<S> { [data] _, _, _, item in { data.cellGetter(item) } }
+        let dataSource = RxASCollectionSectionedAnimatedDataSource<S>(animationConfiguration: layoutData.animationConfiguration) {
+            [data] _, _, _, item in { data.cellGetter(item) }
+        }
         data.listDataObs
             .do(onNext: { [weak self] _ in
                 self?.batchContext?.completeBatchFetching(true)
@@ -155,12 +202,12 @@ public class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASColl
     public func collectionNode(_ collectionNode: ASCollectionNode, constrainedSizeForItemAt indexPath: IndexPath) -> ASSizeRange {
         if let albumSizing = layoutData.albumSizing {
             return collectionNode.cellSizeRange(
-                sizing: (UIApplication.shared.isAlbum ? albumSizing : layoutData.sizing) ?? collectionNode.isHorizontal.fold { .entireWidthFreeHeight() } _: { .entireHeightFreeWidth() },
+                sizing: (UIApplication.shared.isAlbum ? albumSizing : layoutData.sizing) ?? (collectionNode.isHorizontal ? .entireHeightFreeWidth() : .entireWidthFreeHeight()),
                 indexPath: indexPath
             )
         } else {
             return collectionNode.cellSizeRange(
-                sizing: layoutData.sizing ?? collectionNode.isHorizontal.fold { .entireWidthFreeHeight() } _: { .entireHeightFreeWidth() },
+                sizing: layoutData.sizing ?? (collectionNode.isHorizontal ? .entireHeightFreeWidth() : .entireWidthFreeHeight()),
                 indexPath: indexPath
             )
         }

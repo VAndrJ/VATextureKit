@@ -18,7 +18,7 @@ class CollectionListDifferentCellsViewModel {
     private var count = 0
     
     func checkMore() -> Bool {
-        count < .max
+        count < 3
     }
     
     func loadMore() {

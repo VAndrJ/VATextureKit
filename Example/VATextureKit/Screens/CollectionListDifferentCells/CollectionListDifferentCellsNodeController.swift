@@ -8,6 +8,8 @@
 
 import AsyncDisplayKit
 import VATextureKit
+import RxSwift
+import RxCocoa
 
 private func mapToCell(viewModel: CellViewModel) -> ASCellNode {
     switch viewModel {
@@ -47,7 +49,8 @@ class CollectionListDifferentCellsNodeController: VANodeController {
             cellGetter: mapToCell(viewModel:)
         ),
         layout: .init(
-            minimumLineSpacing: 16
+            minimumLineSpacing: 16,
+            contentInset: UIEdgeInsets(horizontal: 16)
         )
     )
     

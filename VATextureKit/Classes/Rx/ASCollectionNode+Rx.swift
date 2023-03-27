@@ -248,19 +248,33 @@ open class RxASCollectionSectionedAnimatedDataSource<S: AnimatableSectionModelTy
                     let differences = try Diff.differencesForSectionedView(initialSections: oldSections, finalSections: newSections)
                     switch dataSource.decideNodeTransition(dataSource, collectionNode, differences) {
                     case .animated:
-                        // each difference must be run in a separate 'performBatchUpdates', otherwise it crashes.
-                        // this is a limitation of Diff tool
-                        for difference in differences {
+                        if oldSections.count < 2 && newSections.count == 1 {
                             let updateBlock = {
-                                // sections must be set within updateBlock in 'performBatchUpdates'
-                                dataSource.setSections(difference.finalSections)
-                                collectionNode.batchUpdates(difference, animationConfiguration: dataSource.animationConfiguration)
+                                for difference in differences {
+                                    dataSource.setSections(difference.finalSections)
+                                    collectionNode.batchUpdates(difference, animationConfiguration: dataSource.animationConfiguration)
+                                }
                             }
                             collectionNode.performBatch(
                                 animated: dataSource.animationConfiguration.animated,
                                 updates: updateBlock,
                                 completion: nil
                             )
+                        } else {
+                            // each difference must be run in a separate 'performBatchUpdates', otherwise it crashes.
+                            // this is a limitation of Diff tool
+                            for difference in differences {
+                                let updateBlock = {
+                                    // sections must be set within updateBlock in 'performBatchUpdates'
+                                    dataSource.setSections(difference.finalSections)
+                                    collectionNode.batchUpdates(difference, animationConfiguration: dataSource.animationConfiguration)
+                                }
+                                collectionNode.performBatch(
+                                    animated: dataSource.animationConfiguration.animated,
+                                    updates: updateBlock,
+                                    completion: nil
+                                )
+                            }
                         }
                     case .reload:
                         dataSource.setSections(newSections)

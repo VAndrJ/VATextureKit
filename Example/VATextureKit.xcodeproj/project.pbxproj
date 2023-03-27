@@ -40,7 +40,6 @@
 		A3F888CC29CB710B00C67187 /* VATableListNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F888CB29CB710B00C67187 /* VATableListNode.swift */; };
 		A3F888D729CC427000C67187 /* CollectionListNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F888D629CC427000C67187 /* CollectionListNodeController.swift */; };
 		A3F888D929CC427D00C67187 /* CollectionListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F888D829CC427D00C67187 /* CollectionListViewModel.swift */; };
-		A3F888DB29CC431E00C67187 /* VAListNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F888DA29CC431E00C67187 /* VAListNode.swift */; };
 		A3F888DD29CC602900C67187 /* CollectionExampleCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F888DC29CC602900C67187 /* CollectionExampleCellNode.swift */; };
 		A3F888EB29CD951400C67187 /* VABaseScrollNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F888EA29CD951400C67187 /* VABaseScrollNode.swift */; };
 		A3F8890029CE2D0000C67187 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F888FF29CE2D0000C67187 /* Support.swift */; };
@@ -104,7 +103,6 @@
 		A3F888CB29CB710B00C67187 /* VATableListNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VATableListNode.swift; sourceTree = "<group>"; };
 		A3F888D629CC427000C67187 /* CollectionListNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionListNodeController.swift; sourceTree = "<group>"; };
 		A3F888D829CC427D00C67187 /* CollectionListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionListViewModel.swift; sourceTree = "<group>"; };
-		A3F888DA29CC431E00C67187 /* VAListNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAListNode.swift; sourceTree = "<group>"; };
 		A3F888DC29CC602900C67187 /* CollectionExampleCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExampleCellNode.swift; sourceTree = "<group>"; };
 		A3F888EA29CD951400C67187 /* VABaseScrollNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VABaseScrollNode.swift; sourceTree = "<group>"; };
 		A3F888FF29CE2D0000C67187 /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
@@ -354,7 +352,6 @@
 			isa = PBXGroup;
 			children = (
 				A3F888CB29CB710B00C67187 /* VATableListNode.swift */,
-				A3F888DA29CC431E00C67187 /* VAListNode.swift */,
 				A3F888EA29CD951400C67187 /* VABaseScrollNode.swift */,
 			);
 			path = Experiments;
@@ -581,7 +578,6 @@
 				A3B3F3FB29A3CDA10090E6E2 /* RadialGradientControllerNode.swift in Sources */,
 				A3B3F3DC29A358120090E6E2 /* ThemeManager.swift in Sources */,
 				A3B3F3F229A3B8C40090E6E2 /* GradientControllerNode.swift in Sources */,
-				A3F888DB29CC431E00C67187 /* VAListNode.swift in Sources */,
 				A3B3F3F429A3B8CD0090E6E2 /* GradientViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
