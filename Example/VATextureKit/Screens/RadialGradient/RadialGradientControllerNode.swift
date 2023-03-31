@@ -10,7 +10,7 @@ import AsyncDisplayKit
 import VATextureKit
 
 class RadialGradientControllerNode: VASafeAreaDisplayNode {
-    let scrollNode = VABaseScrollNode()
+    let scrollNode = VAScrollNode(data: .init())
     let centeredGradientNode = VARadialGradientNode(gradient: .centered)
     let topLeftGradientNode = VARadialGradientNode(gradient: .topLeft)
     let topRightGradientNode = VARadialGradientNode(gradient: .topRight)
@@ -30,9 +30,9 @@ class RadialGradientControllerNode: VASafeAreaDisplayNode {
         super.layout()
         
         if bounds.width > bounds.height {
-            scrollNode.scrollableDirections = [.left, .right]
+            scrollNode.scrollableDirections = ASScrollDirectionHorizontalDirections
         } else {
-            scrollNode.scrollableDirections = [.up, .down]
+            scrollNode.scrollableDirections = ASScrollDirectionVerticalDirections
         }
     }
     

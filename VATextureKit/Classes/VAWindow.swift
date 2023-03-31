@@ -46,7 +46,8 @@ open class VAWindow: UIWindow {
         appContexts.append(VAAppContext(themeManager: themeManager, window: self))
         appContext.themeManager.updateStandardThemeIfNeeded(userInterfaceStyle: traitCollection.userInterfaceStyle)
     }
-    
+
+    @available(*, unavailable)
     required public init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
