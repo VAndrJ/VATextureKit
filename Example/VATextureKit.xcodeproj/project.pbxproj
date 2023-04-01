@@ -38,6 +38,7 @@
 		A3BCEC5729CFA6770077217F /* LoadingCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BCEC5629CFA6770077217F /* LoadingCellNode.swift */; };
 		A3D2488529CF860300EE1907 /* VAStateModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D2488429CF860300EE1907 /* VAStateModelTests.swift */; };
 		A3D2488A29CF869900EE1907 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D2488929CF869900EE1907 /* Support.swift */; };
+		A3D2FAC229D89E1300AA01CA /* MainListCellNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D2FAC029D89DD900AA01CA /* MainListCellNodeTests.swift */; };
 		A3E47BCC29D763C200D51E08 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = A3E47BCB29D763C200D51E08 /* SnapshotTesting */; };
 		A3F888C729CB67F100C67187 /* Umbrella.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F888C629CB67F100C67187 /* Umbrella.swift */; };
 		A3F888D729CC427000C67187 /* CollectionListNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F888D629CC427000C67187 /* CollectionListNodeController.swift */; };
@@ -102,6 +103,7 @@
 		A3BCEC5629CFA6770077217F /* LoadingCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCellNode.swift; sourceTree = "<group>"; };
 		A3D2488429CF860300EE1907 /* VAStateModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAStateModelTests.swift; sourceTree = "<group>"; };
 		A3D2488929CF869900EE1907 /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
+		A3D2FAC029D89DD900AA01CA /* MainListCellNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListCellNodeTests.swift; sourceTree = "<group>"; };
 		A3E47BC029D75AB300D51E08 /* VATextureKit_Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VATextureKit_Tests-Bridging-Header.h"; sourceTree = "<group>"; };
 		A3F888C629CB67F100C67187 /* Umbrella.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Umbrella.swift; sourceTree = "<group>"; };
 		A3F888D629CC427000C67187 /* CollectionListNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionListNodeController.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 		A328F9A329D757B300FEB663 /* Snapshots */ = {
 			isa = PBXGroup;
 			children = (
+				A3D2FABF29D896B300AA01CA /* Example */,
 				A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */,
 			);
 			path = Snapshots;
@@ -359,6 +362,14 @@
 				A3B3F3FC29A3CEAB0090E6E2 /* RadialGradientViewController.swift */,
 			);
 			path = RadialGradient;
+			sourceTree = "<group>";
+		};
+		A3D2FABF29D896B300AA01CA /* Example */ = {
+			isa = PBXGroup;
+			children = (
+				A3D2FAC029D89DD900AA01CA /* MainListCellNodeTests.swift */,
+			);
+			path = Example;
 			sourceTree = "<group>";
 		};
 		A3F888D529CC424000C67187 /* CollectionList */ = {
@@ -596,6 +607,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
+				A3D2FAC229D89E1300AA01CA /* MainListCellNodeTests.swift in Sources */,
 				A359BE7A29D76C0D003BDE19 /* VADisplayNodeTests.swift in Sources */,
 				A3D2488529CF860300EE1907 /* VAStateModelTests.swift in Sources */,
 				A3D2488A29CF869900EE1907 /* Support.swift in Sources */,
