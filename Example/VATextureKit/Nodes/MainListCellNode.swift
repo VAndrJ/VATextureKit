@@ -29,7 +29,9 @@ class MainListCellNode: VACellNode {
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column(spacing: 4, cross: .stretch) {
             titleNode
+                .flex(shrink: 0.1)
             descriptionNode
+                .flex(shrink: 0.1)
         }
         .padding(.all(16))
     }

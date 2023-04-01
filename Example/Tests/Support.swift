@@ -160,3 +160,10 @@ extension ASDisplayNode {
         recursivelyEnsureDisplaySynchronously(true)
     }
 }
+
+extension String {
+    
+    func dummyLong(separator: String = " ") -> String {
+        (0...10).map { _ in self }.joined(separator: separator)
+    }
+}
