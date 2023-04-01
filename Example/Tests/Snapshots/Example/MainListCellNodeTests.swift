@@ -14,13 +14,22 @@ import VATextureKit
 class MainListCellNodeTests: XCTestCase {
 
     func test_node_short_strings() {
+        appContext.themeManager.setLightAsCustomTheme()
         let sut = MainListCellNode(viewModel: MainListCellNodeViewModel(title: "Title", description: "Description"))
 
         assertNodeSnapshot(matching: sut, size: .freeHeightFixedWidth(375))
     }
 
     func test_node_long_strings() {
+        appContext.themeManager.setLightAsCustomTheme()
         let sut = MainListCellNode(viewModel: MainListCellNodeViewModel(title: "Title".dummyLong(), description: "Description".dummyLong()))
+
+        assertNodeSnapshot(matching: sut, size: .freeHeightFixedWidth(375))
+    }
+
+    func test_node_dark_theme() {
+        appContext.themeManager.setDarkAsCustomTheme()
+        let sut = MainListCellNode(viewModel: MainListCellNodeViewModel(title: "Title", description: "Description"))
 
         assertNodeSnapshot(matching: sut, size: .freeHeightFixedWidth(375))
     }
