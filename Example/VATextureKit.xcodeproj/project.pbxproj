@@ -190,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				607FACD41AFB9204008FA782 /* Info.plist */,
+				A359BE7D29D76E1B003BDE19 /* Environment.swift */,
 				A3F888FF29CE2D0000C67187 /* Support.swift */,
 				A3F888C629CB67F100C67187 /* Umbrella.swift */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
@@ -225,6 +226,14 @@
 				282F60A4B43FD260D631A2BF /* LICENSE */,
 			);
 			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		A328F9A329D757B300FEB663 /* Snapshots */ = {
+			isa = PBXGroup;
+			children = (
+				A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */,
+			);
+			path = Snapshots;
 			sourceTree = "<group>";
 		};
 		A397A2BE29AAA65F00A05B8F /* Alert */ = {
@@ -418,7 +427,7 @@
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1420;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
 				};
@@ -797,6 +806,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Tests/VATextureKit_Tests-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -835,6 +845,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A3E47BCA29D763C200D51E08 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A3E47BCB29D763C200D51E08 /* SnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A3E47BCA29D763C200D51E08 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTesting;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 607FACC81AFB9204008FA782 /* Project object */;
 }
