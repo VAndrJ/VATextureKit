@@ -10,8 +10,7 @@ target 'VATextureKit_Example' do
   target 'VATextureKit_Tests' do
     inhibit_all_warnings!
     inherit! :search_paths
-    
-    pod 'FBSnapshotTestCase', '~> 2.1.4'
+
     pod 'Quick', '~> 2.2.0'
     pod 'Nimble', '~> 10.0.0'
   end

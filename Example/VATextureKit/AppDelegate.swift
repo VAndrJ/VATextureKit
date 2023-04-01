@@ -25,10 +25,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        window = VAWindow(standardLightTheme: .vaLight, standardDarkTheme: .vaDark)
-        configure()
-        window?.rootViewController = appNavigator.navigationController
-        window?.makeKeyAndVisible()
+        func launch() {
+            window = VAWindow(standardLightTheme: .vaLight, standardDarkTheme: .vaDark)
+            configure()
+            window?.rootViewController = appNavigator.navigationController
+            window?.makeKeyAndVisible()
+        }
+        #if DEBUG || targetEnvironment(simulator)
+        if Environment.isTesting {
+            window = VAWindow(standardLightTheme: .vaLight, standardDarkTheme: .vaDark)
+            return true
+        } else {
+            launch()
+        }
+        #else
+        launch()
+        #endif
         
         return true
     }

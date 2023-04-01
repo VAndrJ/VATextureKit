@@ -50,7 +50,13 @@ class GradientControllerNode: VASafeAreaDisplayNode {
         customGradientNode.update(colors: (theme.label, 0), (theme.systemBackground, 1))
     }
     
-    func layoutSpecScroll(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        SafeArea {
+            scrollNode
+        }
+    }
+
+    private func layoutSpecScroll(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         let content = [
             verticalGradientNode
                 .ratio(1),
@@ -75,12 +81,6 @@ class GradientControllerNode: VASafeAreaDisplayNode {
             return Column {
                 content
             }
-        }
-    }
-    
-    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        SafeArea {
-            scrollNode
         }
     }
 }
