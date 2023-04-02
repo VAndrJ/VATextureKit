@@ -18,7 +18,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         let cellGetter: (S.Item) -> ASCellNode
         let sectionHeaderGetter: ((S) -> ASDisplayNode)?
         let sectionFooterGetter: ((S) -> ASDisplayNode)?
-        let shouldBatchFetch: () -> Bool
+        let shouldBatchFetch: (() -> Bool)?
         let loadMore: () -> Void
         
         public init(
@@ -29,7 +29,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
             cellGetter: @escaping (S.Item) -> ASCellNode,
             sectionHeaderGetter: ((S) -> ASDisplayNode)? = nil,
             sectionFooterGetter: ((S) -> ASDisplayNode)? = nil,
-            shouldBatchFetch: @escaping () -> Bool = { false },
+            shouldBatchFetch: (() -> Bool)? = nil,
             loadMore: @escaping () -> Void = {}
         ) {
             self.style = style
@@ -52,7 +52,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         let cellGetter: (Item) -> ASCellNode
         let sectionHeaderGetter: ((Model) -> ASDisplayNode)?
         let sectionFooterGetter: ((Model) -> ASDisplayNode)?
-        let shouldBatchFetch: () -> Bool
+        let shouldBatchFetch: (() -> Bool)?
         let loadMore: () -> Void
 
         public init(
@@ -63,7 +63,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
             cellGetter: @escaping (Item) -> ASCellNode,
             sectionHeaderGetter: ((Model) -> ASDisplayNode)? = nil,
             sectionFooterGetter: ((Model) -> ASDisplayNode)? = nil,
-            shouldBatchFetch: @escaping () -> Bool = { false },
+            shouldBatchFetch: (() -> Bool)? = nil,
             loadMore: @escaping () -> Void = {}
         ) {
             self.style = style
@@ -86,7 +86,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         let cellGetter: (S.Item) -> ASCellNode
         let sectionHeaderGetter: ((S) -> ASDisplayNode)?
         let sectionFooterGetter: ((S) -> ASDisplayNode)?
-        let shouldBatchFetch: () -> Bool
+        let shouldBatchFetch: (() -> Bool)?
         let loadMore: () -> Void
         
         public init(
@@ -97,7 +97,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
             cellGetter: @escaping (S.Item) -> ASCellNode,
             sectionHeaderGetter: ((S) -> ASDisplayNode)? = nil,
             sectionFooterGetter: ((S) -> ASDisplayNode)? = nil,
-            shouldBatchFetch: @escaping () -> Bool = { false },
+            shouldBatchFetch: (() -> Bool)? = nil,
             loadMore: @escaping () -> Void = {}
         ) {
             self.style = style
@@ -156,7 +156,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
     }
     
     public func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
-        data.shouldBatchFetch()
+        data.shouldBatchFetch?() ?? false
     }
 
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

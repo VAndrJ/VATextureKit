@@ -1,5 +1,5 @@
 //
-//  GradientControllerNode.swift
+//  LinearGradientControllerNode.swift
 //  VATextureKit_Example
 //
 //  Created by Volodymyr Andriienko on 18.02.2023.
@@ -9,7 +9,7 @@
 import AsyncDisplayKit
 import VATextureKit
 
-class GradientControllerNode: VASafeAreaDisplayNode {
+class LinearGradientControllerNode: VASafeAreaDisplayNode {
     let scrollNode = VAScrollNode(data: .init())
     let verticalGradientNode = VALinearGradientNode(gradient: .vertical)
     let horizontalGradientNode = VALinearGradientNode(gradient: .horizontal)

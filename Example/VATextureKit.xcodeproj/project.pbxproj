@@ -14,6 +14,8 @@
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		A310A43229CF471400632416 /* CellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A310A43129CF471400632416 /* CellViewModel.swift */; };
+		A33CDF3329D9B875005F77C6 /* SlideAnimationControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CDF3229D9B875005F77C6 /* SlideAnimationControllerNode.swift */; };
+		A33CDF4529D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CDF4429D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift */; };
 		A359BE7A29D76C0D003BDE19 /* VADisplayNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */; };
 		A359BE7E29D76E1B003BDE19 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A359BE7D29D76E1B003BDE19 /* Environment.swift */; };
 		A397A2C229AAA68800A05B8F /* AlertNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A397A2C129AAA68800A05B8F /* AlertNodeController.swift */; };
@@ -31,10 +33,8 @@
 		A3B3F3DE29A37C9C0090E6E2 /* AppearanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3DD29A37C9C0090E6E2 /* AppearanceViewModel.swift */; };
 		A3B3F3E529A3868F0090E6E2 /* ContentSizeControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3E429A3868F0090E6E2 /* ContentSizeControllerNode.swift */; };
 		A3B3F3E729A3869B0090E6E2 /* ContentSizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3E629A3869B0090E6E2 /* ContentSizeViewController.swift */; };
-		A3B3F3F229A3B8C40090E6E2 /* GradientControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3F129A3B8C40090E6E2 /* GradientControllerNode.swift */; };
-		A3B3F3F429A3B8CD0090E6E2 /* GradientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3F329A3B8CD0090E6E2 /* GradientViewController.swift */; };
+		A3B3F3F229A3B8C40090E6E2 /* LinearGradientControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3F129A3B8C40090E6E2 /* LinearGradientControllerNode.swift */; };
 		A3B3F3FB29A3CDA10090E6E2 /* RadialGradientControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3FA29A3CDA10090E6E2 /* RadialGradientControllerNode.swift */; };
-		A3B3F3FD29A3CEAB0090E6E2 /* RadialGradientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3FC29A3CEAB0090E6E2 /* RadialGradientViewController.swift */; };
 		A3BCEC5729CFA6770077217F /* LoadingCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BCEC5629CFA6770077217F /* LoadingCellNode.swift */; };
 		A3D2488529CF860300EE1907 /* VAStateModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D2488429CF860300EE1907 /* VAStateModelTests.swift */; };
 		A3D2488A29CF869900EE1907 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D2488929CF869900EE1907 /* Support.swift */; };
@@ -80,6 +80,8 @@
 		6D876C31217CA656A4FE2F15 /* Pods-VATextureKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VATextureKit_Example.debug.xcconfig"; path = "Target Support Files/Pods-VATextureKit_Example/Pods-VATextureKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		7E7793BF92D39325720321EF /* Pods-VATextureKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VATextureKit_Example.release.xcconfig"; path = "Target Support Files/Pods-VATextureKit_Example/Pods-VATextureKit_Example.release.xcconfig"; sourceTree = "<group>"; };
 		A310A43129CF471400632416 /* CellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellViewModel.swift; sourceTree = "<group>"; };
+		A33CDF3229D9B875005F77C6 /* SlideAnimationControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideAnimationControllerNode.swift; sourceTree = "<group>"; };
+		A33CDF4429D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListSectionHeaderNodeTests.swift; sourceTree = "<group>"; };
 		A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VADisplayNodeTests.swift; sourceTree = "<group>"; };
 		A359BE7D29D76E1B003BDE19 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		A397A2C129AAA68800A05B8F /* AlertNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertNodeController.swift; sourceTree = "<group>"; };
@@ -97,10 +99,8 @@
 		A3B3F3DD29A37C9C0090E6E2 /* AppearanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceViewModel.swift; sourceTree = "<group>"; };
 		A3B3F3E429A3868F0090E6E2 /* ContentSizeControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizeControllerNode.swift; sourceTree = "<group>"; };
 		A3B3F3E629A3869B0090E6E2 /* ContentSizeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizeViewController.swift; sourceTree = "<group>"; };
-		A3B3F3F129A3B8C40090E6E2 /* GradientControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientControllerNode.swift; sourceTree = "<group>"; };
-		A3B3F3F329A3B8CD0090E6E2 /* GradientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientViewController.swift; sourceTree = "<group>"; };
+		A3B3F3F129A3B8C40090E6E2 /* LinearGradientControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearGradientControllerNode.swift; sourceTree = "<group>"; };
 		A3B3F3FA29A3CDA10090E6E2 /* RadialGradientControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialGradientControllerNode.swift; sourceTree = "<group>"; };
-		A3B3F3FC29A3CEAB0090E6E2 /* RadialGradientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialGradientViewController.swift; sourceTree = "<group>"; };
 		A3BCEC5629CFA6770077217F /* LoadingCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCellNode.swift; sourceTree = "<group>"; };
 		A3D2488429CF860300EE1907 /* VAStateModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAStateModelTests.swift; sourceTree = "<group>"; };
 		A3D2488929CF869900EE1907 /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
@@ -250,6 +250,14 @@
 			path = Snapshots;
 			sourceTree = "<group>";
 		};
+		A33CDF3129D9B85F005F77C6 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				A33CDF3229D9B875005F77C6 /* SlideAnimationControllerNode.swift */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
 		A397A2BE29AAA65F00A05B8F /* Alert */ = {
 			isa = PBXGroup;
 			children = (
@@ -270,13 +278,13 @@
 			isa = PBXGroup;
 			children = (
 				A397A2BE29AAA65F00A05B8F /* Alert */,
+				A33CDF3129D9B85F005F77C6 /* Animations */,
 				A3B3F3D429A2C8F40090E6E2 /* Appearance */,
 				A3F888D529CC424000C67187 /* CollectionList */,
 				A3F8890129CE314500C67187 /* CollectionListDifferentCells */,
 				A3B3F3E329A3867F0090E6E2 /* ContentSize */,
-				A3B3F3F029A3B8890090E6E2 /* LinearGradient */,
+				A3B3F3F029A3B8890090E6E2 /* Gradient */,
 				A3B3F37529A0CD970090E6E2 /* Main */,
-				A3B3F3F929A3CD010090E6E2 /* RadialGradient */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -349,28 +357,20 @@
 			path = Navigator;
 			sourceTree = "<group>";
 		};
-		A3B3F3F029A3B8890090E6E2 /* LinearGradient */ = {
+		A3B3F3F029A3B8890090E6E2 /* Gradient */ = {
 			isa = PBXGroup;
 			children = (
-				A3B3F3F129A3B8C40090E6E2 /* GradientControllerNode.swift */,
-				A3B3F3F329A3B8CD0090E6E2 /* GradientViewController.swift */,
-			);
-			path = LinearGradient;
-			sourceTree = "<group>";
-		};
-		A3B3F3F929A3CD010090E6E2 /* RadialGradient */ = {
-			isa = PBXGroup;
-			children = (
+				A3B3F3F129A3B8C40090E6E2 /* LinearGradientControllerNode.swift */,
 				A3B3F3FA29A3CDA10090E6E2 /* RadialGradientControllerNode.swift */,
-				A3B3F3FC29A3CEAB0090E6E2 /* RadialGradientViewController.swift */,
 			);
-			path = RadialGradient;
+			path = Gradient;
 			sourceTree = "<group>";
 		};
 		A3D2FABF29D896B300AA01CA /* Example */ = {
 			isa = PBXGroup;
 			children = (
 				A3D2FAC029D89DD900AA01CA /* MainListCellNodeTests.swift */,
+				A33CDF4429D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -571,12 +571,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				A397A2C529AAAF6800A05B8F /* NSObject+Applyable.swift in Sources */,
+				A33CDF3329D9B875005F77C6 /* SlideAnimationControllerNode.swift in Sources */,
 				A359BE7E29D76E1B003BDE19 /* Environment.swift in Sources */,
 				A3F8890B29CE385B00C67187 /* ImageNumberCellNode.swift in Sources */,
 				A3BCEC5729CFA6770077217F /* LoadingCellNode.swift in Sources */,
 				A3B3F3E529A3868F0090E6E2 /* ContentSizeControllerNode.swift in Sources */,
 				A397A2C229AAA68800A05B8F /* AlertNodeController.swift in Sources */,
-				A3B3F3FD29A3CEAB0090E6E2 /* RadialGradientViewController.swift in Sources */,
 				A3F888D929CC427D00C67187 /* CollectionListViewModel.swift in Sources */,
 				A3B3F3CD29A2B4FC0090E6E2 /* MainListCellNode.swift in Sources */,
 				A3F888DD29CC602900C67187 /* CollectionExampleCellNode.swift in Sources */,
@@ -601,8 +601,7 @@
 				A3F888C729CB67F100C67187 /* Umbrella.swift in Sources */,
 				A3B3F3FB29A3CDA10090E6E2 /* RadialGradientControllerNode.swift in Sources */,
 				A3B3F3DC29A358120090E6E2 /* ThemeManager.swift in Sources */,
-				A3B3F3F229A3B8C40090E6E2 /* GradientControllerNode.swift in Sources */,
-				A3B3F3F429A3B8CD0090E6E2 /* GradientViewController.swift in Sources */,
+				A3B3F3F229A3B8C40090E6E2 /* LinearGradientControllerNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -613,6 +612,7 @@
 				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
 				A3D2FAC229D89E1300AA01CA /* MainListCellNodeTests.swift in Sources */,
 				A359BE7A29D76C0D003BDE19 /* VADisplayNodeTests.swift in Sources */,
+				A33CDF4529D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift in Sources */,
 				A3D2488529CF860300EE1907 /* VAStateModelTests.swift in Sources */,
 				A3D2488A29CF869900EE1907 /* Support.swift in Sources */,
 			);

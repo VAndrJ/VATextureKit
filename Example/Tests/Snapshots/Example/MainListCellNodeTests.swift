@@ -2,8 +2,8 @@
 //  MainListCellNodeTests.swift
 //  VATextureKit_Example
 //
-//  Created by VAndrJ on 01.04.2023.
-//  Copyright © 2023 CocoaPods. All rights reserved.
+//  Created by Volodymyr Andriienko on 01.04.2023.
+//  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
 //
 
 import XCTest
