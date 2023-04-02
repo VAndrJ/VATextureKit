@@ -16,8 +16,8 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         let onSelect: ((IndexPath) -> Void)?
         let shouldDeselect: (deselectOnSelect: Bool, animated: Bool)
         let cellGetter: (S.Item) -> ASCellNode
-        let sectionHeaderGetter: ((S) -> ASCellNode)?
-        let sectionFooterGetter: ((S) -> ASCellNode)?
+        let sectionHeaderGetter: ((S) -> ASDisplayNode)?
+        let sectionFooterGetter: ((S) -> ASDisplayNode)?
         let shouldBatchFetch: () -> Bool
         let loadMore: () -> Void
         
@@ -27,8 +27,42 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
             onSelect: ((IndexPath) -> Void)? = nil,
             shouldDeselect: (deselectOnSelect: Bool, animated: Bool) = (true, true),
             cellGetter: @escaping (S.Item) -> ASCellNode,
-            sectionHeaderGetter: ((S) -> ASCellNode)? = nil,
-            sectionFooterGetter: ((S) -> ASCellNode)? = nil,
+            sectionHeaderGetter: ((S) -> ASDisplayNode)? = nil,
+            sectionFooterGetter: ((S) -> ASDisplayNode)? = nil,
+            shouldBatchFetch: @escaping () -> Bool = { false },
+            loadMore: @escaping () -> Void = {}
+        ) {
+            self.style = style
+            self.listDataObs = listDataObs
+            self.onSelect = onSelect
+            self.shouldDeselect = shouldDeselect
+            self.cellGetter = cellGetter
+            self.sectionHeaderGetter = sectionHeaderGetter
+            self.sectionFooterGetter = sectionFooterGetter
+            self.shouldBatchFetch = shouldBatchFetch
+            self.loadMore = loadMore
+        }
+    }
+
+    public struct AnimatableSectionDTO<Model: IdentifiableType, Item> where Item == S.Item {
+        let style: UITableView.Style
+        let listDataObs: Observable<[AnimatableSectionModel<Model, Item>]>
+        let onSelect: ((IndexPath) -> Void)?
+        let shouldDeselect: (deselectOnSelect: Bool, animated: Bool)
+        let cellGetter: (Item) -> ASCellNode
+        let sectionHeaderGetter: ((Model) -> ASDisplayNode)?
+        let sectionFooterGetter: ((Model) -> ASDisplayNode)?
+        let shouldBatchFetch: () -> Bool
+        let loadMore: () -> Void
+
+        public init(
+            style: UITableView.Style = .plain,
+            listDataObs: Observable<[AnimatableSectionModel<Model, Item>]>,
+            onSelect: ((IndexPath) -> Void)? = nil,
+            shouldDeselect: (deselectOnSelect: Bool, animated: Bool) = (true, true),
+            cellGetter: @escaping (Item) -> ASCellNode,
+            sectionHeaderGetter: ((Model) -> ASDisplayNode)? = nil,
+            sectionFooterGetter: ((Model) -> ASDisplayNode)? = nil,
             shouldBatchFetch: @escaping () -> Bool = { false },
             loadMore: @escaping () -> Void = {}
         ) {
@@ -50,8 +84,8 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         let onSelect: ((IndexPath) -> Void)?
         let shouldDeselect: (deselectOnSelect: Bool, animated: Bool)
         let cellGetter: (S.Item) -> ASCellNode
-        let sectionHeaderGetter: ((S) -> ASCellNode)?
-        let sectionFooterGetter: ((S) -> ASCellNode)?
+        let sectionHeaderGetter: ((S) -> ASDisplayNode)?
+        let sectionFooterGetter: ((S) -> ASDisplayNode)?
         let shouldBatchFetch: () -> Bool
         let loadMore: () -> Void
         
@@ -61,8 +95,8 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
             onSelect: ((IndexPath) -> Void)? = nil,
             shouldDeselect: (deselectOnSelect: Bool, animated: Bool) = (true, true),
             cellGetter: @escaping (S.Item) -> ASCellNode,
-            sectionHeaderGetter: ((S) -> ASCellNode)? = nil,
-            sectionFooterGetter: ((S) -> ASCellNode)? = nil,
+            sectionHeaderGetter: ((S) -> ASDisplayNode)? = nil,
+            sectionFooterGetter: ((S) -> ASDisplayNode)? = nil,
             shouldBatchFetch: @escaping () -> Bool = { false },
             loadMore: @escaping () -> Void = {}
         ) {
@@ -93,6 +127,20 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
             cellGetter: data.cellGetter,
             sectionHeaderGetter: data.sectionHeaderGetter,
             sectionFooterGetter: data.sectionFooterGetter,
+            shouldBatchFetch: data.shouldBatchFetch,
+            loadMore: data.loadMore
+        ))
+    }
+
+    public convenience init<Model, Item>(data: AnimatableSectionDTO<Model, Item>) where Item == S.Item, S == AnimatableSectionModel<Model, Item> {
+        self.init(data: DTO(
+            style: data.style,
+            listDataObs: data.listDataObs,
+            onSelect: data.onSelect,
+            shouldDeselect: data.shouldDeselect,
+            cellGetter: data.cellGetter,
+            sectionHeaderGetter: data.sectionHeaderGetter.flatMap { getter in { getter($0.model) } },
+            sectionFooterGetter: data.sectionFooterGetter.flatMap { getter in { getter($0.model) } },
             shouldBatchFetch: data.shouldBatchFetch,
             loadMore: data.loadMore
         ))
@@ -158,9 +206,16 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
     }
 
     private func configure() {
-        view.sectionHeaderHeight = UITableView.automaticDimension
-        view.estimatedSectionHeaderHeight = .leastNormalMagnitude
-        view.sectionFooterHeight = UITableView.automaticDimension
-        view.estimatedSectionFooterHeight = .leastNormalMagnitude
+        if data.sectionHeaderGetter != nil {
+            view.sectionHeaderHeight = UITableView.automaticDimension
+            view.estimatedSectionHeaderHeight = .leastNormalMagnitude
+            if #available(iOS 15.0, *) {
+                view.sectionHeaderTopPadding = .leastNormalMagnitude
+            }
+        }
+        if data.sectionFooterGetter != nil {
+            view.sectionFooterHeight = UITableView.automaticDimension
+            view.estimatedSectionFooterHeight = .leastNormalMagnitude
+        }
     }
 }
