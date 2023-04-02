@@ -30,7 +30,7 @@ class CollectionListDifferentCellsViewModel {
                 more = data.removeLast()
             }
             data.append(contentsOf: [
-                MainListCellNodeViewModel(title: "Title \(count)", description: "Description \(count)"),
+                MainListCellNodeViewModel(title: "Title \(count)", description: "Description \(count)", route: .alert),
                 ImageCellNodeViewModel(image: testImages.randomElement()),
                 ImageCellNodeViewModel(image: testImages.randomElement(), ratio: 2),
                 ImageCellNodeViewModel(image: testImages.randomElement(), ratio: 1.0 / 2),
