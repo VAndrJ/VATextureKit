@@ -24,7 +24,7 @@ class MainSectionHeaderNode: VADisplayNode {
     }
 
     override func configureTheme(_ theme: VATheme) {
-        backgroundColor = theme.systemGroupedBackground
+        backgroundColor = theme.tertiarySystemGroupedBackground
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
