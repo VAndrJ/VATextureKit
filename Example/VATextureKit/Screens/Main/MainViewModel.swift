@@ -25,6 +25,9 @@ class MainViewModel {
             MainListCellNodeViewModel(title: "List", description: "ASCollectionNode based", route: .collectionList),
             MainListCellNodeViewModel(title: "List", description: "ASCollectionNode based", route: .collectionListDifferentCells),
         ]),
+        AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Animations"), items: [
+            MainListCellNodeViewModel(title: "Slide", description: "Move animations", route: .moveAnimations),
+        ]),
     ])
     var listDataObs: Observable<[AnimatableSectionModel<MainSectionHeaderNodeViewModel, MainListCellNodeViewModel>]>
     
