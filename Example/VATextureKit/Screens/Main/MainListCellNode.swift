@@ -40,9 +40,11 @@ class MainListCellNode: VACellNode {
 class MainListCellNodeViewModel: CellViewModel {
     let title: String
     let description: String
+    let route: NavigationRoute
 
-    init(title: String, description: String) {
+    init(title: String, description: String, route: NavigationRoute) {
         self.title = title
         self.description = description
+        self.route = route
     }
 }
