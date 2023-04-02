@@ -1,0 +1,84 @@
+//
+//  SlideAnimationControllerNode.swift
+//  VATextureKit_Example
+//
+//  Created by Volodymyr Andriienko on 02.04.2023.
+//  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
+//
+
+import AsyncDisplayKit
+import VATextureKit
+
+class SlideAnimationControllerNode: VASafeAreaDisplayNode {
+    let leftNode = VATextNode(text: "left", textStyle: .body, alignment: .center)
+    let rightNode = VATextNode(text: "right", textStyle: .body, alignment: .center)
+    let exchangeButtonNode = VAButtonNode()
+        .apply {
+            $0.setTitle("Exchange", with: nil, with: nil, for: .normal)
+        }
+    let toggleNode = VATextNode(
+        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        textStyle: .body,
+        alignment: .center
+    ).apply {
+        $0.transition = .slide
+    }
+    let toggleButtonNode = VAButtonNode()
+        .apply {
+            $0.setTitle("Toggle", with: nil, with: nil, for: .normal)
+        }
+    var isNodesExchanged = false {
+        didSet { transitionLayout(withAnimation: true, shouldMeasureAsync: false) }
+    }
+    var isNodeToggled = false {
+        didSet { transitionLayout(withAnimation: true, shouldMeasureAsync: false) }
+    }
+
+    override func didLoad() {
+        super.didLoad()
+
+        bind()
+    }
+
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        SafeArea {
+            Column(spacing: 16, cross: .stretch) {
+                Row(spacing: 16) {
+                    if isNodesExchanged {
+                        rightNode
+                        leftNode
+                    } else {
+                        leftNode
+                        rightNode
+                    }
+                }
+                exchangeButtonNode
+                if isNodeToggled {
+                    toggleNode
+                }
+                toggleButtonNode
+            }
+            .padding(.all(16))
+        }
+    }
+
+    override func configureTheme(_ theme: VATheme) {
+        backgroundColor = theme.systemBackground
+        leftNode.backgroundColor = theme.systemOrange
+        rightNode.backgroundColor = theme.systemTeal
+        exchangeButtonNode.tintColor = theme.systemBlue
+    }
+
+    override func animateLayoutTransition(_ context: ASContextTransitioning) {
+        animateLayoutTransition(context: context)
+    }
+
+    private func bind() {
+        exchangeButtonNode.onTap = { [weak self] in
+            self?.isNodesExchanged.toggle()
+        }
+        toggleButtonNode.onTap = { [weak self] in
+            self?.isNodeToggled.toggle()
+        }
+    }
+}

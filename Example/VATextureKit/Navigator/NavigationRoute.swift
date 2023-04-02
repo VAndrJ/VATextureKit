@@ -17,4 +17,5 @@ enum NavigationRoute {
     case alert
     case collectionList
     case collectionListDifferentCells
+    case moveAnimations
 }

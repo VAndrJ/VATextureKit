@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import VATextureKit
 
 class Navigator {
     let screenFactory: ScreenFactory
@@ -64,15 +65,17 @@ class ScreenFactory {
         case .contentSize:
             return ContentSizeViewController(node: ContentSizeControllerNode())
         case .linearGradient:
-            return GradientViewController(node: GradientControllerNode())
+            return VAViewController(node: LinearGradientControllerNode())
         case .radialGradient:
-            return RadialGradientViewController(node: RadialGradientControllerNode())
+            return VAViewController(node: RadialGradientControllerNode())
         case .alert:
             return AlertNodeController()
         case .collectionList:
             return CollectionListNodeController(viewModel: CollectionListViewModel())
         case .collectionListDifferentCells:
             return CollectionListDifferentCellsNodeController(viewModel: CollectionListDifferentCellsViewModel())
+        case .moveAnimations:
+            return VAViewController(node: SlideAnimationControllerNode())
         }
     }
 }
