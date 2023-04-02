@@ -16,7 +16,7 @@ class MainNodeController: VANodeController {
         listDataObs: viewModel.listDataObs,
         onSelect: viewModel.didSelect(indexPath:),
         cellGetter: MainListCellNode.init(viewModel:),
-        sectionHeaderGetter: MainSectionHeaderNode.init(viewModel:)
+        sectionHeaderGetter: MainListSectionHeaderNode.init(viewModel:)
     ))
     let descriptionNode = VATextNode(text: "Examples", textStyle: .headline)
     

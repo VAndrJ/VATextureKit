@@ -1,5 +1,5 @@
 //
-//  MainSectionHeaderNode.swift
+//  MainListSectionHeaderNode.swift
 //  VATextureKit_Example
 //
 //  Created by Volodymyr Andriienko on 02.04.2023.
@@ -9,7 +9,7 @@
 import AsyncDisplayKit
 import VATextureKit
 
-class MainSectionHeaderNode: VADisplayNode {
+class MainListSectionHeaderNode: VADisplayNode {
     private let titleTextNode: VATextNode
 
     init(viewModel: MainSectionHeaderNodeViewModel) {
