@@ -243,7 +243,7 @@ open class ASTableSectionedDataSource<S: SectionModelType>: NSObject, ASTableDat
 #if os(iOS)
     public init(
         configureCellBlock: @escaping ConfigureCellBlock,
-        titleForHeaderInSection: @escaping  TitleForHeaderInSection = { _, _ in nil },
+        titleForHeaderInSection: @escaping TitleForHeaderInSection = { _, _ in nil },
         titleForFooterInSection: @escaping TitleForFooterInSection = { _, _ in nil },
         canEditRowAtIndexPath: @escaping CanEditRowAtIndexPath = { _, _ in false },
         canMoveRowAtIndexPath: @escaping CanMoveRowAtIndexPath = { _, _ in false },

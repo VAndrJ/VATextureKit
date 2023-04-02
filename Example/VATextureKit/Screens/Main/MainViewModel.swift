@@ -7,19 +7,26 @@
 //
 
 import Foundation
+import VATextureKit
 import RxSwift
 
 class MainViewModel {
     @Obs.Relay(value: [
-        (title: "Appearance", description: "Select theme", route: NavigationRoute.apearance),
-        ("Content size", "Content size category name", .contentSize),
-        ("Linear Gradient", "Gradient node examples", .linearGradient),
-        ("Radial Gradient", "Gradient node examples", .radialGradient),
-        ("Alert", "Alert controller", .alert),
-        ("List", "ASCollectionNode based", .collectionList),
-        ("List with different cells", "ASCollectionNode based", .collectionListDifferentCells),
-    ], map: { $0.map { MainListCellNodeViewModel(title: $0.title, description: $0.description) } })
-    var listDataObs: Observable<[MainListCellNodeViewModel]>
+        AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "System"), items: [
+            MainListCellNodeViewModel(title: "Appearance", description: "Select theme", route: .apearance),
+            MainListCellNodeViewModel(title: "Content size", description: "Alert controller", route: .contentSize),
+            MainListCellNodeViewModel(title: "Alert", description: "Content size category name", route: .alert),
+        ]),
+        AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Gradient"), items: [
+            MainListCellNodeViewModel(title: "Linear Gradient", description: "Gradient node examples", route: .linearGradient),
+            MainListCellNodeViewModel(title: "Radial Gradient", description: "Gradient node examples", route: .radialGradient),
+        ]),
+        AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "List"), items: [
+            MainListCellNodeViewModel(title: "List", description: "ASCollectionNode based", route: .collectionList),
+            MainListCellNodeViewModel(title: "List", description: "ASCollectionNode based", route: .collectionListDifferentCells),
+        ]),
+    ])
+    var listDataObs: Observable<[AnimatableSectionModel<MainSectionHeaderNodeViewModel, MainListCellNodeViewModel>]>
     
     private let navigator: Navigator
     
@@ -27,8 +34,8 @@ class MainViewModel {
         self.navigator = navigator
     }
     
-    func didSelect(at index: Int) {
-        let route = _listDataObs.rx.value[index].route
+    func didSelect(indexPath: IndexPath) {
+        let route = _listDataObs.rx.value[indexPath.section].items[indexPath.row].route
         navigator.navigate(to: route)
     }
 }

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'VATextureKit'
-  s.version          = '0.1.7'
+  s.version          = '0.1.8'
   s.summary          = 'Texture library wrapper.'
 
   s.description      = <<-DESC

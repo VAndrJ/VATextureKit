@@ -14,8 +14,9 @@ import SwiftUI
 class MainNodeController: VANodeController {
     private(set) lazy var listNode = VATableListNode(data: .init(
         listDataObs: viewModel.listDataObs,
-        onSelect: { [viewModel] in viewModel.didSelect(at: $0.row) },
-        cellGetter: MainListCellNode.init(viewModel:)
+        onSelect: viewModel.didSelect(indexPath:),
+        cellGetter: MainListCellNode.init(viewModel:),
+        sectionHeaderGetter: MainListSectionHeaderNode.init(viewModel:)
     ))
     let descriptionNode = VATextNode(text: "Examples", textStyle: .headline)
     

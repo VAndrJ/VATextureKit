@@ -15,7 +15,7 @@ public class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASColl
         let onSelect: ((IndexPath) -> Void)?
         let shouldDeselect: (deselectOnSelect: Bool, animated: Bool)
         let cellGetter: (S.Item) -> ASCellNode
-        let shouldBatchFetch: (() -> Bool)?
+        let shouldBatchFetch: () -> Bool
         let loadMore: () -> Void
         
         public init(
@@ -23,7 +23,7 @@ public class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASColl
             onSelect: ((IndexPath) -> Void)? = nil,
             shouldDeselect: (deselectOnSelect: Bool, animated: Bool) = (true, true),
             cellGetter: @escaping (S.Item) -> ASCellNode,
-            shouldBatchFetch: (() -> Bool)? = nil,
+            shouldBatchFetch: @escaping () -> Bool = { false },
             loadMore: @escaping () -> Void = {}
         ) {
             self.listDataObs = listDataObs
@@ -40,7 +40,7 @@ public class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASColl
         let onSelect: ((IndexPath) -> Void)?
         let shouldDeselect: (deselectOnSelect: Bool, animated: Bool)
         let cellGetter: (S.Item) -> ASCellNode
-        let shouldBatchFetch: (() -> Bool)?
+        let shouldBatchFetch: () -> Bool
         let loadMore: () -> Void
         
         public init(
@@ -48,7 +48,7 @@ public class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASColl
             onSelect: ((IndexPath) -> Void)? = nil,
             shouldDeselect: (deselectOnSelect: Bool, animated: Bool) = (true, true),
             cellGetter: @escaping (S.Item) -> ASCellNode,
-            shouldBatchFetch: (() -> Bool)? = nil,
+            shouldBatchFetch: @escaping () -> Bool = { false },
             loadMore: @escaping () -> Void = {}
         ) {
             self.listDataObs = listDataObs
@@ -178,7 +178,7 @@ public class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASColl
     }
     
     public func shouldBatchFetch(for collectionNode: ASCollectionNode) -> Bool {
-        data.shouldBatchFetch?() ?? false
+        data.shouldBatchFetch()
     }
 }
 
