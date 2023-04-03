@@ -154,29 +154,11 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         configure()
         bind()
     }
-    
-    public func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
-        data.shouldBatchFetch?() ?? false
-    }
-
-    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if let getter = data.sectionHeaderGetter, let section = source?[section] {
-            return VAEmbeddableNodeView(contentNode: getter(section))
-        } else {
-            return nil
-        }
-    }
-
-    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if let getter = data.sectionFooterGetter, let section = source?[section] {
-            return VAEmbeddableNodeView(contentNode: getter(section))
-        } else {
-            return nil
-        }
-    }
 
     private func bind() {
-        let dataSource = RxASTableSectionedAnimatedDataSource<S> { [data] _, _, _, item in { data.cellGetter(item) } }
+        let dataSource = RxASTableSectionedAnimatedDataSource<S>(
+            configureCellBlock: { [data] _, _, _, item in { data.cellGetter(item) } }
+        )
         self.source = dataSource
         data.listDataObs
             .do(onNext: { [weak self] _ in self?.batchContext?.completeBatchFetching(true) })
@@ -216,6 +198,28 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         if data.sectionFooterGetter != nil {
             view.sectionFooterHeight = UITableView.automaticDimension
             view.estimatedSectionFooterHeight = .leastNormalMagnitude
+        }
+    }
+    
+    // MARK: - ASTableDelegate
+    
+    public func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
+        data.shouldBatchFetch?() ?? false
+    }
+
+    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if let getter = data.sectionHeaderGetter, let section = source?[section] {
+            return VAEmbeddableNodeView(contentNode: getter(section))
+        } else {
+            return nil
+        }
+    }
+
+    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if let getter = data.sectionFooterGetter, let section = source?[section] {
+            return VAEmbeddableNodeView(contentNode: getter(section))
+        } else {
+            return nil
         }
     }
 }

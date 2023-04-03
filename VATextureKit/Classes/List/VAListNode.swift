@@ -128,9 +128,12 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
     }
     
     private func bind() {
-        let dataSource = RxASCollectionSectionedAnimatedDataSource<S>(animationConfiguration: layoutData.animationConfiguration) {
-            [data] _, _, _, item in { data.cellGetter(item) }
-        }
+        let dataSource = RxASCollectionSectionedAnimatedDataSource<S>(
+            animationConfiguration: layoutData.animationConfiguration,
+            configureCellBlock: {
+                [data] _, _, _, item in { data.cellGetter(item) }
+            }
+        )
         data.listDataObs
             .do(onNext: { [weak self] _ in
                 self?.batchContext?.completeBatchFetching(true)
@@ -162,6 +165,10 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
     }
     
     // MARK: - ASCollectionDelegate
+
+    public func shouldBatchFetch(for collectionNode: ASCollectionNode) -> Bool {
+        data.shouldBatchFetch?() ?? false
+    }
     
     public func collectionNode(_ collectionNode: ASCollectionNode, constrainedSizeForItemAt indexPath: IndexPath) -> ASSizeRange {
         if let albumSizing = layoutData.albumSizing {
@@ -175,10 +182,6 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
                 indexPath: indexPath
             )
         }
-    }
-    
-    public func shouldBatchFetch(for collectionNode: ASCollectionNode) -> Bool {
-        data.shouldBatchFetch?() ?? false
     }
 }
 
