@@ -87,15 +87,44 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
             self.albumSizing = albumSizing
         }
     }
+
+    public struct RefreshDTO {
+        let refreshControlView: () -> UIRefreshControl
+        let isDelayed: Bool
+        let reloadData: (() -> Void)?
+        let isLoadingObs: Observable<Bool>
+
+        public init(
+            refreshControlView: @escaping () -> UIRefreshControl = { UIRefreshControl() },
+            isDelayed: Bool = false,
+            reloadData: @escaping () -> Void,
+            isLoadingObs: Observable<Bool>
+        ) {
+            self.refreshControlView = refreshControlView
+            self.isDelayed = isDelayed
+            self.reloadData = reloadData
+            self.isLoadingObs = isLoadingObs
+        }
+
+        public init() {
+            self.refreshControlView = { UIRefreshControl() }
+            self.isDelayed = false
+            self.reloadData = nil
+            self.isLoadingObs = .empty()
+        }
+    }
     
     public let data: DTO
     public let layoutData: LayoutDTO
+    public let refreshData: RefreshDTO
     public private(set) var batchContext: ASBatchContext?
     
     private let bag = DisposeBag()
     private let isLoadingRelay = BehaviorRelay(value: false)
+    private lazy var refreshControlView = refreshData.refreshControlView()
+    private var isRefreshing = false
     
-    public convenience init<T>(data: ElementDTO, layout: LayoutDTO) where S == AnimatableSectionModel<String, T> {
+    public convenience init<T>(data: ElementDTO, layout: LayoutDTO, refresh: RefreshDTO = .init()) where S == AnimatableSectionModel<String, T> {
         self.init(
             data: .init(
                 listDataObs: data.listDataObs.map { $0.isEmpty ? [] : [AnimatableSectionModel(model: "", items: $0)] },
@@ -105,13 +134,15 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
                 shouldBatchFetch: data.shouldBatchFetch,
                 loadMore: data.loadMore
             ),
-            layout: layout
+            layout: layout,
+            refresh: refresh
         )
     }
     
-    public init(data: DTO, layout: LayoutDTO) {
+    public init(data: DTO, layout: LayoutDTO, refresh: RefreshDTO = .init()) {
         self.layoutData = layout
         self.data = data
+        self.refreshData = refresh
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = layout.scrollDirection
         flowLayout.minimumLineSpacing = layout.minimumLineSpacing
@@ -130,9 +161,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
     private func bind() {
         let dataSource = RxASCollectionSectionedAnimatedDataSource<S>(
             animationConfiguration: layoutData.animationConfiguration,
-            configureCellBlock: {
-                [data] _, _, _, item in { data.cellGetter(item) }
-            }
+            configureCellBlock: { [data] _, _, _, item in { data.cellGetter(item) } }
         )
         data.listDataObs
             .do(onNext: { [weak self] _ in
@@ -162,6 +191,25 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
                 .subscribe(onNext: onSelect)
                 .disposed(by: bag)
         }
+        configureRefresh()
+    }
+
+    open func configureRefresh() {
+        if refreshData.reloadData != nil {
+            view.insertSubview(refreshControlView, at: 0)
+            refreshControlView.rx.controlEvent(.valueChanged)
+                .do(afterNext: { [refreshData] _ in
+                    if !refreshData.isDelayed {
+                        refreshData.reloadData?()
+                    }
+                })
+                .map { _ in true }
+                .bind(to: refreshControlView.rx.isRefreshing)
+                .disposed(by: bag)
+            refreshData.isLoadingObs
+                .bind(to: refreshControlView.rx.isRefreshing, rx.isRefreshing)
+                .disposed(by: bag)
+        }
     }
     
     // MARK: - ASCollectionDelegate
@@ -181,6 +229,22 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
                 sizing: layoutData.sizing ?? (collectionNode.isHorizontal ? .entireHeightFreeWidth() : .entireWidthFreeHeight()),
                 indexPath: indexPath
             )
+        }
+    }
+
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            toggleRefreshIfNeeded()
+        }
+    }
+
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        toggleRefreshIfNeeded()
+    }
+
+    private func toggleRefreshIfNeeded() {
+        if let reloadData = refreshData.reloadData, refreshData.isDelayed && refreshControlView.isRefreshing && !isRefreshing {
+            reloadData()
         }
     }
 }

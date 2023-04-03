@@ -10,6 +10,8 @@ import Foundation
 import RxSwift
 
 class CollectionListDifferentCellsViewModel {
+    @Obs.Relay(value: false)
+    var isLoadingObs: Observable<Bool>
     @Obs.Relay(value: [
         LoadingCellNodeViewModel(),
     ])
@@ -19,6 +21,17 @@ class CollectionListDifferentCellsViewModel {
     
     func checkMore() -> Bool {
         count < 3
+    }
+
+    func reloadData() {
+        _isLoadingObs.rx.accept(true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [self] in
+            count = 0
+            _listDataObs.rx.accept([
+                LoadingCellNodeViewModel(),
+            ])
+            _isLoadingObs.rx.accept(false)
+        }
     }
     
     func loadMore() {

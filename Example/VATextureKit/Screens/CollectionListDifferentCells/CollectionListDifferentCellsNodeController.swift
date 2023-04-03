@@ -39,6 +39,11 @@ class CollectionListDifferentCellsNodeController: VANodeController {
         ),
         layout: .init(
             minimumLineSpacing: 16
+        ),
+        refresh: .init(
+            isDelayed: true,
+            reloadData: viewModel.reloadData,
+            isLoadingObs: viewModel.isLoadingObs
         )
     )
     private(set) lazy var rightListNode = VAListNode(
