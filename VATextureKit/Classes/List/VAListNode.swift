@@ -96,7 +96,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
 
         public init(
             refreshControlView: @escaping () -> UIRefreshControl = { UIRefreshControl() },
-            isDelayed: Bool = false,
+            isDelayed: Bool = true,
             reloadData: @escaping () -> Void,
             isLoadingObs: Observable<Bool>
         ) {
