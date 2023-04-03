@@ -37,8 +37,12 @@ class CollectionListDifferentCellsNodeController: VANodeController {
             shouldBatchFetch: viewModel.checkMore,
             loadMore: viewModel.loadMore
         ),
-        layout: .init(
+        layoutData: .init(
             minimumLineSpacing: 16
+        ),
+        refreshData: .init(
+            reloadData: viewModel.reloadData,
+            isLoadingObs: viewModel.isLoadingObs
         )
     )
     private(set) lazy var rightListNode = VAListNode(
@@ -46,7 +50,7 @@ class CollectionListDifferentCellsNodeController: VANodeController {
             listDataObs: viewModel.listDataObs,
             cellGetter: mapToCell(viewModel:)
         ),
-        layout: .init(
+        layoutData: .init(
             minimumLineSpacing: 16,
             contentInset: UIEdgeInsets(horizontal: 16)
         )

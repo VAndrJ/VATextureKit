@@ -27,10 +27,19 @@ class SlideAnimationControllerNode: VASafeAreaDisplayNode {
         .apply {
             $0.setTitle("Toggle", with: nil, with: nil, for: .normal)
         }
+    let expandButtonNode = VAButtonNode()
+        .apply {
+            $0.setTitle("Expand", with: nil, with: nil, for: .normal)
+        }
+    let expandNode = ASDisplayNode()
+        .sized(width: 100, height: 50)
     var isNodesExchanged = false {
         didSet { transitionLayout(withAnimation: true, shouldMeasureAsync: false) }
     }
     var isNodeToggled = false {
+        didSet { transitionLayout(withAnimation: true, shouldMeasureAsync: false) }
+    }
+    var isNodeExpanded = false {
         didSet { transitionLayout(withAnimation: true, shouldMeasureAsync: false) }
     }
 
@@ -53,10 +62,17 @@ class SlideAnimationControllerNode: VASafeAreaDisplayNode {
                     }
                 }
                 exchangeButtonNode
+
                 if isNodeToggled {
                     toggleNode
                 }
                 toggleButtonNode
+
+                Row {
+                    expandNode
+                        .flex(grow: isNodeExpanded ? 1 : 0)
+                }
+                expandButtonNode
             }
             .padding(.all(16))
         }
@@ -67,6 +83,7 @@ class SlideAnimationControllerNode: VASafeAreaDisplayNode {
         leftNode.backgroundColor = theme.systemOrange
         rightNode.backgroundColor = theme.systemTeal
         exchangeButtonNode.tintColor = theme.systemBlue
+        expandNode.backgroundColor = theme.systemPurple
     }
 
     override func animateLayoutTransition(_ context: ASContextTransitioning) {
@@ -79,6 +96,9 @@ class SlideAnimationControllerNode: VASafeAreaDisplayNode {
         }
         toggleButtonNode.onTap = { [weak self] in
             self?.isNodeToggled.toggle()
+        }
+        expandButtonNode.onTap = { [weak self] in
+            self?.isNodeExpanded.toggle()
         }
     }
 }
