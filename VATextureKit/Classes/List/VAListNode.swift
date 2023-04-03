@@ -120,11 +120,10 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
     public private(set) var batchContext: ASBatchContext?
     
     private let bag = DisposeBag()
-    private let isLoadingRelay = BehaviorRelay(value: false)
     private lazy var refreshControlView = refreshData.refreshControlView()
     private var isRefreshing = false
     
-    public convenience init<T>(data: ElementDTO, layout: LayoutDTO, refresh: RefreshDTO = .init()) where S == AnimatableSectionModel<String, T> {
+    public convenience init<T>(data: ElementDTO, layoutData: LayoutDTO, refreshData: RefreshDTO = .init()) where S == AnimatableSectionModel<String, T> {
         self.init(
             data: .init(
                 listDataObs: data.listDataObs.map { $0.isEmpty ? [] : [AnimatableSectionModel(model: "", items: $0)] },
@@ -134,28 +133,46 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
                 shouldBatchFetch: data.shouldBatchFetch,
                 loadMore: data.loadMore
             ),
-            layout: layout,
-            refresh: refresh
+            layoutData: layoutData,
+            refreshData: refreshData
         )
     }
     
-    public init(data: DTO, layout: LayoutDTO, refresh: RefreshDTO = .init()) {
-        self.layoutData = layout
+    public init(data: DTO, layoutData: LayoutDTO, refreshData: RefreshDTO = .init()) {
         self.data = data
-        self.refreshData = refresh
+        self.layoutData = layoutData
+        self.refreshData = refreshData
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = layout.scrollDirection
-        flowLayout.minimumLineSpacing = layout.minimumLineSpacing
-        flowLayout.minimumInteritemSpacing = layout.minimumInteritemSpacing
+        flowLayout.scrollDirection = layoutData.scrollDirection
+        flowLayout.minimumLineSpacing = layoutData.minimumLineSpacing
+        flowLayout.minimumInteritemSpacing = layoutData.minimumInteritemSpacing
         
         super.init(
             frame: CGRect(origin: .zero, size: CGSize(same: 320)),
             collectionViewLayout: flowLayout,
             layoutFacilitator: nil
         )
-        
-        contentInset = layout.contentInset
+
+        configure()
         bind()
+    }
+
+    open func configureRefresh() {
+        if refreshData.reloadData != nil {
+            view.insertSubview(refreshControlView, at: 0)
+            refreshControlView.rx.controlEvent(.valueChanged)
+                .do(afterNext: { [refreshData] _ in
+                    if !refreshData.isDelayed {
+                        refreshData.reloadData?()
+                    }
+                })
+                .map { _ in true }
+                .bind(to: refreshControlView.rx.isRefreshing)
+                .disposed(by: bag)
+            refreshData.isLoadingObs
+                .bind(to: refreshControlView.rx.isRefreshing, rx.isRefreshing)
+                .disposed(by: bag)
+        }
     }
     
     private func bind() {
@@ -194,22 +211,9 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         configureRefresh()
     }
 
-    open func configureRefresh() {
-        if refreshData.reloadData != nil {
-            view.insertSubview(refreshControlView, at: 0)
-            refreshControlView.rx.controlEvent(.valueChanged)
-                .do(afterNext: { [refreshData] _ in
-                    if !refreshData.isDelayed {
-                        refreshData.reloadData?()
-                    }
-                })
-                .map { _ in true }
-                .bind(to: refreshControlView.rx.isRefreshing)
-                .disposed(by: bag)
-            refreshData.isLoadingObs
-                .bind(to: refreshControlView.rx.isRefreshing, rx.isRefreshing)
-                .disposed(by: bag)
-        }
+    private func configure() {
+        contentInset = layoutData.contentInset
+        configureRefresh()
     }
     
     // MARK: - ASCollectionDelegate

@@ -112,47 +112,101 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         }
     }
     
+    public struct RefreshDTO {
+        let refreshControlView: () -> UIRefreshControl
+        let isDelayed: Bool
+        let reloadData: (() -> Void)?
+        let isLoadingObs: Observable<Bool>
+
+        public init(
+            refreshControlView: @escaping () -> UIRefreshControl = { UIRefreshControl() },
+            isDelayed: Bool = false,
+            reloadData: @escaping () -> Void,
+            isLoadingObs: Observable<Bool>
+        ) {
+            self.refreshControlView = refreshControlView
+            self.isDelayed = isDelayed
+            self.reloadData = reloadData
+            self.isLoadingObs = isLoadingObs
+        }
+
+        public init() {
+            self.refreshControlView = { UIRefreshControl() }
+            self.isDelayed = false
+            self.reloadData = nil
+            self.isLoadingObs = .empty()
+        }
+    }
+    
     public let data: DTO
+    public let refreshData: RefreshDTO
     public private(set) var batchContext: ASBatchContext?
     
     private let bag = DisposeBag()
     private weak var source: RxASTableSectionedAnimatedDataSource<S>?
+    private lazy var refreshControlView = refreshData.refreshControlView()
+    private var isRefreshing = false
     
-    public convenience init<T>(data: ElementDTO) where S == AnimatableSectionModel<String, T> {
-        self.init(data: DTO(
-            style: data.style,
-            listDataObs: data.listDataObs.map { [AnimatableSectionModel(model: "test", items: $0)] },
-            onSelect: data.onSelect,
-            shouldDeselect: data.shouldDeselect,
-            cellGetter: data.cellGetter,
-            sectionHeaderGetter: data.sectionHeaderGetter,
-            sectionFooterGetter: data.sectionFooterGetter,
-            shouldBatchFetch: data.shouldBatchFetch,
-            loadMore: data.loadMore
-        ))
+    public convenience init<T>(data: ElementDTO, refreshData: RefreshDTO = .init()) where S == AnimatableSectionModel<String, T> {
+        self.init(
+            data: DTO(
+                style: data.style,
+                listDataObs: data.listDataObs.map { [AnimatableSectionModel(model: "test", items: $0)] },
+                onSelect: data.onSelect,
+                shouldDeselect: data.shouldDeselect,
+                cellGetter: data.cellGetter,
+                sectionHeaderGetter: data.sectionHeaderGetter,
+                sectionFooterGetter: data.sectionFooterGetter,
+                shouldBatchFetch: data.shouldBatchFetch,
+                loadMore: data.loadMore
+            ),
+            refreshData: refreshData
+        )
     }
 
-    public convenience init<Model, Item>(data: AnimatableSectionDTO<Model, Item>) where Item == S.Item, S == AnimatableSectionModel<Model, Item> {
-        self.init(data: DTO(
-            style: data.style,
-            listDataObs: data.listDataObs,
-            onSelect: data.onSelect,
-            shouldDeselect: data.shouldDeselect,
-            cellGetter: data.cellGetter,
-            sectionHeaderGetter: data.sectionHeaderGetter.flatMap { getter in { getter($0.model) } },
-            sectionFooterGetter: data.sectionFooterGetter.flatMap { getter in { getter($0.model) } },
-            shouldBatchFetch: data.shouldBatchFetch,
-            loadMore: data.loadMore
-        ))
+    public convenience init<Model, Item>(data: AnimatableSectionDTO<Model, Item>, refreshData: RefreshDTO = .init()) where Item == S.Item, S == AnimatableSectionModel<Model, Item> {
+        self.init(
+            data: DTO(
+                style: data.style,
+                listDataObs: data.listDataObs,
+                onSelect: data.onSelect,
+                shouldDeselect: data.shouldDeselect,
+                cellGetter: data.cellGetter,
+                sectionHeaderGetter: data.sectionHeaderGetter.flatMap { getter in { getter($0.model) } },
+                sectionFooterGetter: data.sectionFooterGetter.flatMap { getter in { getter($0.model) } },
+                shouldBatchFetch: data.shouldBatchFetch,
+                loadMore: data.loadMore
+            ),
+            refreshData: refreshData
+        )
     }
     
-    public init(data: DTO) {
+    public init(data: DTO, refreshData: RefreshDTO = .init()) {
+        self.refreshData = refreshData
         self.data = data
         
         super.init(style: data.style)
 
         configure()
         bind()
+    }
+
+    open func configureRefresh() {
+        if refreshData.reloadData != nil {
+            view.insertSubview(refreshControlView, at: 0)
+            refreshControlView.rx.controlEvent(.valueChanged)
+                .do(afterNext: { [refreshData] _ in
+                    if !refreshData.isDelayed {
+                        refreshData.reloadData?()
+                    }
+                })
+                .map { _ in true }
+                .bind(to: refreshControlView.rx.isRefreshing)
+                .disposed(by: bag)
+            refreshData.isLoadingObs
+                .bind(to: refreshControlView.rx.isRefreshing, rx.isRefreshing)
+                .disposed(by: bag)
+        }
     }
 
     private func bind() {
@@ -199,6 +253,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
             view.sectionFooterHeight = UITableView.automaticDimension
             view.estimatedSectionFooterHeight = .leastNormalMagnitude
         }
+        configureRefresh()
     }
     
     // MARK: - ASTableDelegate
@@ -220,6 +275,22 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
             return VAEmbeddableNodeView(contentNode: getter(section))
         } else {
             return nil
+        }
+    }
+
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            toggleRefreshIfNeeded()
+        }
+    }
+
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        toggleRefreshIfNeeded()
+    }
+
+    private func toggleRefreshIfNeeded() {
+        if let reloadData = refreshData.reloadData, refreshData.isDelayed && refreshControlView.isRefreshing && !isRefreshing {
+            reloadData()
         }
     }
 }

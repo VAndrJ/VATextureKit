@@ -15,7 +15,7 @@ class CollectionListNodeController: VANodeController {
             listDataObs: viewModel.listDataObs,
             cellGetter: CollectionExampleCellNode.init(viewModel:)
         ),
-        layout: .init(
+        layoutData: .init(
             scrollDirection: .horizontal,
             minimumLineSpacing: 16,
             minimumInteritemSpacing: 8,
@@ -29,7 +29,7 @@ class CollectionListNodeController: VANodeController {
             listDataObs: viewModel.listDataObs,
             cellGetter: CollectionExampleCellNode.init(viewModel:)
         ),
-        layout: .init(
+        layoutData: .init(
             minimumLineSpacing: 8,
             minimumInteritemSpacing: 8,
             contentInset: UIEdgeInsets(all: 16),
