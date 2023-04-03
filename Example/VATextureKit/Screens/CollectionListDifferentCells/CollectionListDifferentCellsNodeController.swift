@@ -41,7 +41,6 @@ class CollectionListDifferentCellsNodeController: VANodeController {
             minimumLineSpacing: 16
         ),
         refreshData: .init(
-            isDelayed: true,
             reloadData: viewModel.reloadData,
             isLoadingObs: viewModel.isLoadingObs
         )
