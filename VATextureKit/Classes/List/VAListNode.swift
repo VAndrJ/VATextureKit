@@ -9,7 +9,7 @@ import AsyncDisplayKit
 import RxSwift
 import RxCocoa
 
-public class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollectionDelegate {
+open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollectionDelegate {
     public struct ElementDTO {
         let listDataObs: Observable<[S.Item]>
         let onSelect: ((IndexPath) -> Void)?
