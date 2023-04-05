@@ -292,12 +292,12 @@
 		A3B3F37429A0CD830090E6E2 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				A3DDF2F029DD6C9F009460F1 /* Compositing */,
 				A397A2BE29AAA65F00A05B8F /* Alert */,
 				A33CDF3129D9B85F005F77C6 /* Animations */,
 				A3B3F3D429A2C8F40090E6E2 /* Appearance */,
 				A3F888D529CC424000C67187 /* CollectionList */,
 				A3F8890129CE314500C67187 /* CollectionListDifferentCells */,
+				A3DDF2F029DD6C9F009460F1 /* Compositing */,
 				A3B3F3E329A3867F0090E6E2 /* ContentSize */,
 				A3B3F3F029A3B8890090E6E2 /* Gradient */,
 				A3B3F37529A0CD970090E6E2 /* Main */,

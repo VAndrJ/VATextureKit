@@ -34,7 +34,6 @@ public extension ASDisplayNode {
         case vividLight = "vividLightBlendMode"
     }
 
-    /// nil means `plus` blend mode
     public var blendMode: BlendMode? {
         get { (layer.compositingFilter as? String).flatMap(BlendMode.init(rawValue:)) }
         set { layer.compositingFilter = newValue?.rawValue }
