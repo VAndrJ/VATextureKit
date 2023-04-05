@@ -42,6 +42,10 @@
 		A3D2488A29CF869900EE1907 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D2488929CF869900EE1907 /* Support.swift */; };
 		A3D2FAC229D89E1300AA01CA /* MainListCellNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D2FAC029D89DD900AA01CA /* MainListCellNodeTests.swift */; };
 		A3D2FAC829D9687400AA01CA /* MainListSectionHeaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D2FAC729D9687400AA01CA /* MainListSectionHeaderNode.swift */; };
+		A3DDF2F229DD6CB2009460F1 /* CompositingFilterControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DDF2F129DD6CB2009460F1 /* CompositingFilterControllerNode.swift */; };
+		A3DDF2FE29DD7314009460F1 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DDF2FD29DD7314009460F1 /* R.generated.swift */; };
+		A3DDF30029DD84B1009460F1 /* CompositingCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DDF2FF29DD84B1009460F1 /* CompositingCellNode.swift */; };
+		A3DDF30229DD856F009460F1 /* CompositingFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DDF30129DD856F009460F1 /* CompositingFilterViewModel.swift */; };
 		A3E47BCC29D763C200D51E08 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = A3E47BCB29D763C200D51E08 /* SnapshotTesting */; };
 		A3F888C729CB67F100C67187 /* Umbrella.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F888C629CB67F100C67187 /* Umbrella.swift */; };
 		A3F888D729CC427000C67187 /* CollectionListNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F888D629CC427000C67187 /* CollectionListNodeController.swift */; };
@@ -110,6 +114,10 @@
 		A3D2488929CF869900EE1907 /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
 		A3D2FAC029D89DD900AA01CA /* MainListCellNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListCellNodeTests.swift; sourceTree = "<group>"; };
 		A3D2FAC729D9687400AA01CA /* MainListSectionHeaderNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListSectionHeaderNode.swift; sourceTree = "<group>"; };
+		A3DDF2F129DD6CB2009460F1 /* CompositingFilterControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositingFilterControllerNode.swift; sourceTree = "<group>"; };
+		A3DDF2FD29DD7314009460F1 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = R/R.generated.swift; sourceTree = SOURCE_ROOT; };
+		A3DDF2FF29DD84B1009460F1 /* CompositingCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositingCellNode.swift; sourceTree = "<group>"; };
+		A3DDF30129DD856F009460F1 /* CompositingFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositingFilterViewModel.swift; sourceTree = "<group>"; };
 		A3E47BC029D75AB300D51E08 /* VATextureKit_Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VATextureKit_Tests-Bridging-Header.h"; sourceTree = "<group>"; };
 		A3F888C629CB67F100C67187 /* Umbrella.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Umbrella.swift; sourceTree = "<group>"; };
 		A3F888D629CC427000C67187 /* CollectionListNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionListNodeController.swift; sourceTree = "<group>"; };
@@ -206,6 +214,7 @@
 			children = (
 				607FACD41AFB9204008FA782 /* Info.plist */,
 				A359BE7D29D76E1B003BDE19 /* Environment.swift */,
+				A3DDF2FD29DD7314009460F1 /* R.generated.swift */,
 				A3F888FF29CE2D0000C67187 /* Support.swift */,
 				A3F888C629CB67F100C67187 /* Umbrella.swift */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
@@ -283,6 +292,7 @@
 		A3B3F37429A0CD830090E6E2 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				A3DDF2F029DD6C9F009460F1 /* Compositing */,
 				A397A2BE29AAA65F00A05B8F /* Alert */,
 				A33CDF3129D9B85F005F77C6 /* Animations */,
 				A3B3F3D429A2C8F40090E6E2 /* Appearance */,
@@ -381,6 +391,16 @@
 			path = Example;
 			sourceTree = "<group>";
 		};
+		A3DDF2F029DD6C9F009460F1 /* Compositing */ = {
+			isa = PBXGroup;
+			children = (
+				A3DDF2F129DD6CB2009460F1 /* CompositingFilterControllerNode.swift */,
+				A3DDF30129DD856F009460F1 /* CompositingFilterViewModel.swift */,
+				A3DDF2FF29DD84B1009460F1 /* CompositingCellNode.swift */,
+			);
+			path = Compositing;
+			sourceTree = "<group>";
+		};
 		A3F888D529CC424000C67187 /* CollectionList */ = {
 			isa = PBXGroup;
 			children = (
@@ -407,6 +427,7 @@
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "VATextureKit_Example" */;
 			buildPhases = (
 				C6B657BA7760AFFD820AF1BE /* [CP] Check Pods Manifest.lock */,
+				A3DDF2FA29DD728D009460F1 /* R.swift */,
 				A3B3F37A29A0DA230090E6E2 /* SwiftLint */,
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
@@ -547,6 +568,26 @@
 			shellPath = /bin/sh;
 			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n  export PATH=\"$PATH:/opt/homebrew/bin\"\n\n  if which swiftlint >/dev/null; then\n    swiftlint\n  else\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n  fi\nfi\n";
 		};
+		A3DDF2FA29DD728D009460F1 /* R.swift */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = R.swift;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				$SRCROOT/R/R.generated.swift,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/R/R.generated.swift\"\n";
+		};
 		C6B657BA7760AFFD820AF1BE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -589,7 +630,9 @@
 				A3D2FAC829D9687400AA01CA /* MainListSectionHeaderNode.swift in Sources */,
 				A3B3F3E729A3869B0090E6E2 /* ContentSizeViewController.swift in Sources */,
 				A3B3F3CF29A2C0590090E6E2 /* NavigationRoute.swift in Sources */,
+				A3DDF30029DD84B1009460F1 /* CompositingCellNode.swift in Sources */,
 				A3B3F37929A0CDAD0090E6E2 /* MainNodeController.swift in Sources */,
+				A3DDF2F229DD6CB2009460F1 /* CompositingFilterControllerNode.swift in Sources */,
 				A3B3F3DE29A37C9C0090E6E2 /* AppearanceViewModel.swift in Sources */,
 				A3B3F3D629A2C91A0090E6E2 /* AppearanceContollerNode.swift in Sources */,
 				A3F888D729CC427000C67187 /* CollectionListNodeController.swift in Sources */,
@@ -600,6 +643,7 @@
 				A3B3F3D829A2C9340090E6E2 /* AppearanceViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				A310A43229CF471400632416 /* CellViewModel.swift in Sources */,
+				A3DDF2FE29DD7314009460F1 /* R.generated.swift in Sources */,
 				A3B3F3D329A2C8280090E6E2 /* MainViewModel.swift in Sources */,
 				A3F8890329CE316100C67187 /* CollectionListDifferentCellsNodeController.swift in Sources */,
 				A3F8890929CE37BD00C67187 /* ImageCellNode.swift in Sources */,
@@ -607,6 +651,7 @@
 				A3F888C729CB67F100C67187 /* Umbrella.swift in Sources */,
 				A3B3F3FB29A3CDA10090E6E2 /* RadialGradientControllerNode.swift in Sources */,
 				A3B3F3DC29A358120090E6E2 /* ThemeManager.swift in Sources */,
+				A3DDF30229DD856F009460F1 /* CompositingFilterViewModel.swift in Sources */,
 				A3B3F3F229A3B8C40090E6E2 /* LinearGradientControllerNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
