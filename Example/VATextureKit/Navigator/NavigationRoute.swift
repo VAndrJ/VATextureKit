@@ -18,4 +18,6 @@ enum NavigationRoute {
     case collectionList
     case collectionListDifferentCells
     case moveAnimations
+    case blendMode
+    case compositingFilter
 }

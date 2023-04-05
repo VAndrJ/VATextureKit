@@ -28,6 +28,10 @@ class MainViewModel {
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Animations"), items: [
             MainListCellNodeViewModel(title: "Slide", description: "Move animations", route: .moveAnimations),
         ]),
+        AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Compositing"), items: [
+            MainListCellNodeViewModel(title: "Blend mode", description: "Layer", route: .blendMode),
+            MainListCellNodeViewModel(title: "Compositing filter", description: "Layer", route: .compositingFilter),
+        ]),
     ])
     var listDataObs: Observable<[AnimatableSectionModel<MainSectionHeaderNodeViewModel, MainListCellNodeViewModel>]>
     
