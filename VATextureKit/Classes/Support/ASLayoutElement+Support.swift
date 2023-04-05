@@ -123,4 +123,12 @@ public extension ASLayoutElement {
     func wrapped() -> ASWrapperLayoutSpec {
         ASWrapperLayoutSpec(layoutElement: self)
     }
+
+    func corner(_ element: ASLayoutElement, location: ASCornerLayoutLocation = .topRight) -> ASCornerLayoutSpec {
+        ASCornerLayoutSpec(
+            child: self,
+            corner: element,
+            location: location
+        )
+    }
 }
