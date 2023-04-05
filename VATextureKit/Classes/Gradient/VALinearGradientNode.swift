@@ -8,7 +8,7 @@
 import AsyncDisplayKit
 
 open class VALinearGradientNode: VABaseGradientNode {
-    public enum Diagonal {
+    public enum Diagonal: CaseIterable {
         case topLeftToBottomRight
         case topRightToBottomLeft
         case bottomLeftToTopRight
