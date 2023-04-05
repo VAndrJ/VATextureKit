@@ -9,6 +9,7 @@
 import XCTest
 import AsyncDisplayKit
 import SnapshotTesting
+import VATextureKit
 import RxSwift
 
 extension XCTestCase {
@@ -125,15 +126,23 @@ extension XCTestCase {
         precision: Float = 0.995,
         perceptualPrecision: Float = 0.99
     ) {
-        let sizeThatFits = value.layoutThatFits(ASSizeRange(
+        let sut: ASDisplayNode
+        if value.isLayerBacked {
+            sut = ASDisplayNode()
+            sut.addSubnode(value)
+            sut.layoutSpecBlock = { _, _ in value.wrapped() }
+        } else {
+            sut = value
+        }
+        let sizeThatFits = sut.layoutThatFits(ASSizeRange(
             min: CGSize(width: widthRange.lowerBound, height: heightRange.lowerBound),
             max: CGSize(width: widthRange.upperBound, height: heightRange.upperBound)
         )).size
-        value.bounds = CGRect(origin: .zero, size: sizeThatFits)
-        value.loadForTesting()
+        sut.bounds = CGRect(origin: .zero, size: sizeThatFits)
+        sut.loadForTesting()
 
         assertSnapshot(
-            matching: value.view,
+            matching: sut.view,
             as: .image(
                 precision: precision,
                 perceptualPrecision: perceptualPrecision
