@@ -9,6 +9,8 @@
 import AsyncDisplayKit
 import VATextureKit
 
+// MARK: - ViewController as a View example
+
 class CollectionListNodeController: VANodeController {
     private(set) lazy var horizontalListNode = VAListNode(
         data: .init(

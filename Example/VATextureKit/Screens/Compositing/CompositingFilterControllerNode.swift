@@ -11,7 +11,7 @@ import VATextureKit
 import RxSwift
 import Swiftional
 
-// MARK: - Code organization example
+// MARK: - View with ViewModel example. Code organization example
 
 class CompositingFilterControllerNode: VASafeAreaDisplayNode {
 
@@ -87,12 +87,12 @@ class CompositingFilterControllerNode: VASafeAreaDisplayNode {
             .bind(to: composingImageNode.layer.rx.compositingFilter)
             .disposed(by: bag)
         /*
-         or
+        or
 
-         composingImageNode.compositingFilter
-         composingImageNode.blendMode
+        composingImageNode.compositingFilter
+        composingImageNode.blendMode
 
-         variables
-         */
+        variables
+        */
     }
 }
