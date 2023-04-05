@@ -9,7 +9,7 @@ import AsyncDisplayKit
 
 public extension ASDisplayNode {
 
-    public enum BlendMode: String, CaseIterable {
+    enum BlendMode: String, CaseIterable {
         case color = "colorBlendMode"
         case colorBurn = "colorBurnBlendMode"
         case colorDodge = "colorDodgeBlendMode"
@@ -34,8 +34,7 @@ public extension ASDisplayNode {
         case vividLight = "vividLightBlendMode"
     }
 
-    /// nil means `plus` blend mode
-    public var blendMode: BlendMode? {
+    var blendMode: BlendMode? {
         get { (layer.compositingFilter as? String).flatMap(BlendMode.init(rawValue:)) }
         set { layer.compositingFilter = newValue?.rawValue }
     }
@@ -58,7 +57,6 @@ public extension ASDisplayNode {
 }
 
 #if DEBUG || targetEnvironment(simulator)
-
 public extension ASDisplayNode {
     static var shouldDebugLabelBeHidden = true
 

@@ -9,6 +9,8 @@
 import AsyncDisplayKit
 import VATextureKit
 
+// MARK: - ViewController with Node example
+
 class AppearanceViewController: VAViewController<AppearanceContollerNode> {
     let viewModel: AppearanceViewModel
     
@@ -16,10 +18,6 @@ class AppearanceViewController: VAViewController<AppearanceContollerNode> {
         self.viewModel = viewModel
         
         super.init(node: AppearanceContollerNode())
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -40,6 +38,8 @@ class AppearanceViewController: VAViewController<AppearanceContollerNode> {
     }
 }
 
+// MARK: - UIPickerViewDataSource
+
 extension AppearanceViewController: UIPickerViewDataSource {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -50,6 +50,8 @@ extension AppearanceViewController: UIPickerViewDataSource {
         viewModel.themes.count
     }
 }
+
+// MARK: - UIPickerViewDelegate
 
 extension AppearanceViewController: UIPickerViewDelegate {
     
