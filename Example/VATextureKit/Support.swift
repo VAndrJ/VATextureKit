@@ -6,8 +6,6 @@
 //  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
 //
 
-import Foundation
-
 let testImages = [
     "https://img.freepik.com/free-photo/grunge-paint-background_1409-1337.jpg?w=360",
     "https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=360",

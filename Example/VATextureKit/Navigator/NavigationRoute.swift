@@ -6,8 +6,6 @@
 //  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
 //
 
-import Foundation
-
 enum NavigationRoute {
     case main
     case apearance

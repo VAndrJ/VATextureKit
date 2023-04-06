@@ -6,7 +6,6 @@
 //  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
 //
 
-import Foundation
 import Swiftional
 
 extension NSObject: Applyable {}
