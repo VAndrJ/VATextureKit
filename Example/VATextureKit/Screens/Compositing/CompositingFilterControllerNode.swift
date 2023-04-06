@@ -33,16 +33,17 @@ class CompositingFilterControllerNode: VASafeAreaDisplayNode {
     )
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        SafeArea {
-            (constrainedSize.max.width > constrainedSize.max.height).fold({
-                Column(cross: .stretch) {
-                    backgroundImageNode
-                        .ratio(1)
-                        .overlay(composingImageNode)
-                    listNode
-                        .flex(grow: 1)
-                }
-            }, {
+        (constrainedSize.max.width > constrainedSize.max.height).fold({
+            Column(cross: .stretch) {
+                backgroundImageNode
+                    .ratio(1)
+                    .overlay(composingImageNode)
+                listNode
+                    .safe(edges: .bottom, in: self)
+                    .flex(grow: 1)
+            }
+        }, {
+            SafeArea(edges: [.vertical, .right]) {
                 Row(cross: .stretch) {
                     backgroundImageNode
                         .ratio(1)
@@ -50,8 +51,8 @@ class CompositingFilterControllerNode: VASafeAreaDisplayNode {
                     listNode
                         .flex(grow: 1)
                 }
-            })
-        }
+            }
+        })
     }
 
     override func configureTheme(_ theme: VATheme) {
