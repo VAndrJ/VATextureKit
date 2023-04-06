@@ -7,8 +7,6 @@
 //
 
 import VATextureKit
-import RxSwift
-import RxCocoa
 
 private func mapToCell(viewModel: CellViewModel) -> ASCellNode {
     switch viewModel {

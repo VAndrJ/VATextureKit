@@ -7,7 +7,6 @@
 //
 
 import VATextureKit
-import RxSwift
 import Swiftional
 
 // MARK: - View with ViewModel example. Code organization example

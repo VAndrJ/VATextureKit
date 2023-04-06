@@ -9,7 +9,6 @@
 import XCTest
 import SnapshotTesting
 import VATextureKit
-import RxSwift
 
 extension XCTestCase {
 

@@ -7,7 +7,6 @@
 //
 
 import VATextureKit
-import RxSwift
 
 class MainViewModel {
     @Obs.Relay(value: [
