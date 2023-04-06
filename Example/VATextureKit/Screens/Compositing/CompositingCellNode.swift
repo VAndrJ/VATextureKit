@@ -6,7 +6,6 @@
 //  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
 //
 
-import AsyncDisplayKit
 import VATextureKit
 
 class CompositingCellNode: VACellNode {
@@ -23,6 +22,7 @@ class CompositingCellNode: VACellNode {
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         titleTextNode
+            .padding(.all(16))
             .centered()
     }
 }

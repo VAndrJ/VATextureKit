@@ -5,8 +5,8 @@
 //  Created by Volodymyr Andriienko on 22.03.2023.
 //
 
-import RxSwift
-import RxCocoa
+@_exported import RxSwift
+@_exported import RxCocoa
 
 public struct Obs {
     

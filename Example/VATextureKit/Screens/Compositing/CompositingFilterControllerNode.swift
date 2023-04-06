@@ -6,9 +6,7 @@
 //  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
 //
 
-import AsyncDisplayKit
 import VATextureKit
-import RxSwift
 import Swiftional
 
 // MARK: - View with ViewModel example. Code organization example
@@ -25,17 +23,12 @@ class CompositingFilterControllerNode: VASafeAreaDisplayNode {
         image: R.image.colibri(),
         contentMode: .scaleAspectFill
     ))
-    private(set) lazy var listNode = VAListNode(
+    private(set) lazy var listNode = VATableListNode(
         data: .init(
             listDataObs: viewModel.filtersObs,
             onSelect: viewModel.didSelect(indexPath:),
+            shouldDeselect: (false, true),
             cellGetter: CompositingCellNode.init(viewModel:)
-        ),
-        layoutData: .init(
-            minimumLineSpacing: 16,
-            contentInset: UIEdgeInsets(all: 16),
-            sizing: .vertical(columns: 2, ratio: 1 / 4),
-            albumSizing: .vertical(columns: 2, ratio: 1 / 3)
         )
     )
 
@@ -46,21 +39,24 @@ class CompositingFilterControllerNode: VASafeAreaDisplayNode {
                     .ratio(1)
                     .overlay(composingImageNode)
                 listNode
+                    .safe(edges: .bottom, in: self)
                     .flex(grow: 1)
             }
         }, {
-            Row(cross: .stretch) {
-                backgroundImageNode
-                    .ratio(1)
-                    .overlay(composingImageNode)
-                listNode
-                    .flex(grow: 1)
+            SafeArea(edges: [.vertical, .right]) {
+                Row(cross: .stretch) {
+                    backgroundImageNode
+                        .ratio(1)
+                        .overlay(composingImageNode)
+                    listNode
+                        .flex(grow: 1)
+                }
             }
         })
     }
 
     override func configureTheme(_ theme: VATheme) {
-        listNode.backgroundColor = theme.systemBackground
+        backgroundColor = theme.systemBackground
     }
 
     // MARK: - ViewModel related code

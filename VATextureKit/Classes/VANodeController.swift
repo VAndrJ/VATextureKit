@@ -34,18 +34,24 @@ open class VANodeController: VAViewController<ASDisplayNode> {
     }
 }
 
+// MARK: - Capitalized for beauty when used
+
 // swiftlint:disable identifier_name
 public extension VANodeController {
-    
-    // Capitalized for beauty when used
+
     func SafeArea(_ layoutSpec: () -> ASLayoutSpec) -> ASLayoutSpec {
-        layoutSpec()
-            .padding(.insets(contentNode.safeAreaInsets))
+        contentNode.SafeArea(layoutSpec)
     }
-    
-    // Capitalized for beauty when used
+
     func SafeArea(_ layoutElement: () -> ASLayoutElement) -> ASLayoutSpec {
-        layoutElement()
-            .padding(.insets(contentNode.safeAreaInsets))
+        contentNode.SafeArea(layoutElement)
+    }
+
+    func SafeArea(edges: VASafeAreaEdge, _ layoutSpec: () -> ASLayoutSpec) -> ASLayoutSpec {
+        contentNode.SafeArea(edges: edges, layoutSpec)
+    }
+
+    func SafeArea(edges: VASafeAreaEdge, _ layoutElement: () -> ASLayoutElement) -> ASLayoutSpec {
+        contentNode.SafeArea(edges: edges, layoutElement)
     }
 }

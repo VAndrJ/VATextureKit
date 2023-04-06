@@ -6,8 +6,7 @@
 //  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
 //
 
-import Foundation
-import RxSwift
+import VATextureKit
 
 class CollectionListViewModel {
     @Obs.Relay(value: (0..<10).map {

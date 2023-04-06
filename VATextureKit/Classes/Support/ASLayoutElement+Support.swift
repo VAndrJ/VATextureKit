@@ -123,4 +123,60 @@ public extension ASLayoutElement {
     func wrapped() -> ASWrapperLayoutSpec {
         ASWrapperLayoutSpec(layoutElement: self)
     }
+
+    func corner(
+        _ element: ASLayoutElement,
+        location: ASCornerLayoutLocation = .topRight,
+        offset: CGPoint = .zero,
+        wrapsCorner: Bool = false
+    ) -> ASCornerLayoutSpec {
+        let spec = ASCornerLayoutSpec(
+            child: self,
+            corner: element,
+            location: location
+        )
+        spec.offset = offset
+        spec.wrapsCorner = wrapsCorner
+        return spec
+    }
+
+    func `safe`(edges: VASafeAreaEdge, in node: ASDisplayNode) -> ASLayoutSpec {
+        ASInsetLayoutSpec(
+            insets: UIEdgeInsets(paddings: mapToPaddings(edges: edges, in: node)),
+            child: self
+        )
+    }
+
+    func mapToPaddings(edges: VASafeAreaEdge, in node: ASDisplayNode) -> [VAPadding] {
+        var paddings: [VAPadding] = []
+        if edges.contains(.top) {
+            paddings.append(.top(node.safeAreaInsets.top))
+        }
+        if edges.contains(.left) {
+            paddings.append(.left(node.safeAreaInsets.left))
+        }
+        if edges.contains(.bottom) {
+            paddings.append(.bottom(node.safeAreaInsets.bottom))
+        }
+        if edges.contains(.right) {
+            paddings.append(.right(node.safeAreaInsets.right))
+        }
+        return paddings
+    }
+}
+
+public struct VASafeAreaEdge: RawRepresentable, OptionSet {
+    public var rawValue: UInt
+
+    public init(rawValue: UInt) {
+        self.rawValue = rawValue
+    }
+
+    public static let top = VASafeAreaEdge(rawValue: 1 << 1)
+    public static let left = VASafeAreaEdge(rawValue: 1 << 2)
+    public static let bottom = VASafeAreaEdge(rawValue: 1 << 3)
+    public static let right = VASafeAreaEdge(rawValue: 1 << 4)
+    public static let vertical: VASafeAreaEdge = [top, bottom]
+    public static let horizontal: VASafeAreaEdge = [left, right]
+    public static let all: VASafeAreaEdge = [top, left, bottom, right]
 }
