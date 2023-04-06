@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import AsyncDisplayKit
 import VATextureKit
 
 class LoadingCellNode: VACellNode {
