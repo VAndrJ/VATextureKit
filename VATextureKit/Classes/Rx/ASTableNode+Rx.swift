@@ -262,7 +262,7 @@ open class ASTableSectionedDataSource<S: SectionModelType>: NSObject, ASTableDat
 #else
     public init(
         configureCellBlock: @escaping configureCellBlock,
-        titleForHeaderInSection: @escaping  TitleForHeaderInSection = { _, _ in nil },
+        titleForHeaderInSection: @escaping TitleForHeaderInSection = { _, _ in nil },
         titleForFooterInSection: @escaping TitleForFooterInSection = { _, _ in nil },
         canEditRowAtIndexPath: @escaping CanEditRowAtIndexPath = { _, _ in false },
         canMoveRowAtIndexPath: @escaping CanMoveRowAtIndexPath = { _, _ in false }
@@ -439,7 +439,7 @@ open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>: 
         animationConfiguration: AnimationConfiguration = AnimationConfiguration(),
         decideNodeTransition: @escaping DecideNodeTransition = { _, _, _ in .animated },
         configureCellBlock: @escaping ConfigureCellBlock,
-        titleForHeaderInSection: @escaping  TitleForHeaderInSection = { _, _ in nil },
+        titleForHeaderInSection: @escaping TitleForHeaderInSection = { _, _ in nil },
         titleForFooterInSection: @escaping TitleForFooterInSection = { _, _ in nil },
         canEditRowAtIndexPath: @escaping CanEditRowAtIndexPath = { _, _ in false },
         canMoveRowAtIndexPath: @escaping CanMoveRowAtIndexPath = { _, _ in false },
@@ -464,7 +464,7 @@ open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>: 
         animationConfiguration: AnimationConfiguration = AnimationConfiguration(),
         decideNodeTransition: @escaping DecideNodeTransition = { _, _, _ in .animated },
         configureCellBlock: @escaping ConfigureCellBlock,
-        titleForHeaderInSection: @escaping  TitleForHeaderInSection = { _, _ in nil },
+        titleForHeaderInSection: @escaping TitleForHeaderInSection = { _, _ in nil },
         titleForFooterInSection: @escaping TitleForFooterInSection = { _, _ in nil },
         canEditRowAtIndexPath: @escaping CanEditRowAtIndexPath = { _, _ in false },
         canMoveRowAtIndexPath: @escaping CanMoveRowAtIndexPath = { _, _ in false }
