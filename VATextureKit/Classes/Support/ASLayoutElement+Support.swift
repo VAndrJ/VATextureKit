@@ -124,11 +124,19 @@ public extension ASLayoutElement {
         ASWrapperLayoutSpec(layoutElement: self)
     }
 
-    func corner(_ element: ASLayoutElement, location: ASCornerLayoutLocation = .topRight) -> ASCornerLayoutSpec {
-        ASCornerLayoutSpec(
+    func corner(
+        _ element: ASLayoutElement,
+        location: ASCornerLayoutLocation = .topRight,
+        offset: CGPoint = .zero,
+        wrapsCorner: Bool = false
+    ) -> ASCornerLayoutSpec {
+        let spec = ASCornerLayoutSpec(
             child: self,
             corner: element,
             location: location
         )
+        spec.offset = offset
+        spec.wrapsCorner = wrapsCorner
+        return spec
     }
 }
