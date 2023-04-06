@@ -22,6 +22,7 @@ class CompositingCellNode: VACellNode {
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         titleTextNode
+            .padding(.all(16))
             .centered()
     }
 }
