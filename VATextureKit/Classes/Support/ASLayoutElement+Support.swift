@@ -25,6 +25,17 @@ public extension ASLayoutElement {
         return self
     }
 
+    func sized(width: ASDimension? = nil, height: ASDimension? = nil) -> Self {
+        assert(width != nil || height != nil)
+        if let width {
+            style.width = width
+        }
+        if let height {
+            style.height = height
+        }
+        return self
+    }
+
     func flex(shrink: CGFloat? = nil, grow: CGFloat? = nil, basisPercent: CGFloat? = nil) -> Self {
         assert(shrink != nil || grow != nil || basisPercent != nil)
         if let shrink {
@@ -56,6 +67,17 @@ public extension ASLayoutElement {
         return self
     }
 
+    func maxConstrained(width: ASDimension? = nil, height: ASDimension? = nil) -> Self {
+        assert(width != nil || height != nil)
+        if let width {
+            style.maxWidth = width
+        }
+        if let height {
+            style.maxHeight = height
+        }
+        return self
+    }
+
     func minConstrained(size: CGSize) -> Self {
         style.minSize = size
         return self
@@ -68,6 +90,17 @@ public extension ASLayoutElement {
         }
         if let height {
             style.minHeight = ASDimension(unit: .points, value: height)
+        }
+        return self
+    }
+
+    func minConstrained(width: ASDimension? = nil, height: ASDimension? = nil) -> Self {
+        assert(width != nil || height != nil)
+        if let width {
+            style.minWidth = width
+        }
+        if let height {
+            style.minHeight = height
         }
         return self
     }
