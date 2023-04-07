@@ -7,7 +7,13 @@
 
 import UIKit
 
-public var appContext: VAAppContext { appContexts.last! }
+public var appContext: VAAppContext {
+    if let appContext = appContexts.last {
+        return appContext
+    } else {
+        fatalError("Use VAWindow instead of UIWindow")
+    }
+}
 // TODO: - Multiple windows support
 internal var appContexts: [VAAppContext] = []
 
