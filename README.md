@@ -55,7 +55,7 @@ With `ASStackLayoutSpec`:
 
 ```swift
 override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-    return ASStackLayoutSpec(
+    ASStackLayoutSpec(
         direction: .vertical,
         spacing: 8,
         justifyContent: .start,
@@ -91,7 +91,7 @@ With `ASStackLayoutSpec`:
 
 ```swift
 override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-    return ASStackLayoutSpec(
+    ASStackLayoutSpec(
         direction: .horizontal,
         spacing: 4,
         justifyContent: .spaceBetween,
@@ -127,7 +127,7 @@ With `ASStackLayoutSpec` in `ASDisplayNode` that `automaticallyRelayoutOnSafeAre
 
 ```swift
 override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-    return ASInsetLayoutSpec(
+    ASInsetLayoutSpec(
         insets: UIEdgeInsets(
             top: safeAreaInsets.top,
             left: safeAreaInsets.left,
@@ -240,7 +240,7 @@ With `ASStackLayoutSpec` in `ASDisplayNode` that `automaticallyRelayoutOnSafeAre
 
 ```swift
 override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-    return ASInsetLayoutSpec(
+    ASInsetLayoutSpec(
         insets: UIEdgeInsets(
             top: safeAreaInsets.top,
             left: safeAreaInsets.left,
@@ -389,7 +389,147 @@ buttonNode
 
 </details>
 
-// TODO: - Complex layout example
+
+<details>
+<summary>More complex layout example</summary>
+
+
+![Cell layout](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/cell_layout_example.png)
+
+With `VATextureKit`: 
+
+```swift
+override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    Column(cross: .stretch) {
+        Row(main: .spaceBetween) {
+            Row(spacing: 8, cross: .center) {
+                testNameTextNode
+                testInfoButtonNode
+            }
+            testStatusTextNode
+        }
+        titleTextNode
+            .padding(.top(8))
+        resultTextNode
+            .padding(.top(32))
+        resultUnitsTextNode
+        referenceResultBarNode
+            .padding(.vertical(24))
+        Row(spacing: 16, cross: .center) {
+            Column(spacing: 8) {
+                Row(spacing: 8) {
+                    resultBadgeImageNode
+                    resultDescriptionTextNode
+                }
+                referenceValuesTextNode
+            }
+            accessoryImageNode
+        }
+    }
+    .padding(.all(16))
+}
+```
+
+With raw `Texture`:
+
+```swift
+override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    ASInsetLayoutSpec(
+        insets: UIEdgeInsets(
+            top: 16,
+            left: 16,
+            bottom: 16,
+            right: 16
+        ),
+        child: ASStackLayoutSpec(
+            direction: .vertical,
+            spacing: 0,
+            justifyContent: .start,
+            alignItems: .stretch,
+            children: [
+                ASStackLayoutSpec(
+                    direction: .horizontal,
+                    spacing: 0,
+                    justifyContent: .spaceBetween,
+                    alignItems: .start,
+                    children: [
+                        ASStackLayoutSpec(
+                            direction: .horizontal,
+                            spacing: 8,
+                            justifyContent: .start,
+                            alignItems: .center,
+                            children: [
+                                testNameTextNode,
+                                testInfoButtonNode,
+                            ]
+                        ),
+                        testStatusTextNode,
+                    ]
+                ),
+                ASInsetLayoutSpec(
+                    insets: UIEdgeInsets(
+                        top: 8,
+                        left: 0,
+                        bottom: 0,
+                        right: 0
+                    ),
+                    child: titleTextNode
+                ),
+                ASInsetLayoutSpec(
+                    insets: UIEdgeInsets(
+                        top: 32,
+                        left: 0,
+                        bottom: 0,
+                        right: 0
+                    ),
+                    child: resultTextNode
+                ),
+                resultUnitsTextNode,
+                ASInsetLayoutSpec(
+                    insets: UIEdgeInsets(
+                        top: 24,
+                        left: 0,
+                        bottom: 24,
+                        right: 0
+                    ),
+                    child: referenceResultBarNode
+                ),
+                ASStackLayoutSpec(
+                    direction: .horizontal,
+                    spacing: 0,
+                    justifyContent: .start,
+                    alignItems: .center,
+                    children: [
+                        ASStackLayoutSpec(
+                            direction: .vertical,
+                            spacing: 8,
+                            justifyContent: .start,
+                            alignItems: .start,
+                            children: [
+                                ASStackLayoutSpec(
+                                    direction: .horizontal,
+                                    spacing: 8,
+                                    justifyContent: .start,
+                                    alignItems: .start,
+                                    children: [
+                                        resultBadgeImageNode,
+                                        resultDescriptionTextNode,
+                                    ]
+                                ),
+                                referenceValuesTextNode,
+                            ]
+                        ),
+                        accessoryImageNode,
+                    ]
+                ),
+            ]
+        )
+    )
+}
+```
+
+
+</details>
 
 
 ## Modifiers
