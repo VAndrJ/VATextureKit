@@ -415,7 +415,9 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
             .padding(.top(8))
         resultTextNode
             .padding(.top(32))
+            .centered(centering: .X)
         resultUnitsTextNode
+            .centered(centering: .X)
         referenceResultBarNode
             .padding(.vertical(24))
         Row(spacing: 16, cross: .center) {
@@ -478,16 +480,24 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
                     ),
                     child: titleTextNode
                 ),
-                ASInsetLayoutSpec(
-                    insets: UIEdgeInsets(
-                        top: 32,
-                        left: 0,
-                        bottom: 0,
-                        right: 0
-                    ),
-                    child: resultTextNode
+                ASCenterLayoutSpec(
+                    centeringOptions: .X,
+                    sizingOptions: .minimumXY,
+                    child: ASInsetLayoutSpec(
+                        insets: UIEdgeInsets(
+                            top: 32,
+                            left: 0,
+                            bottom: 0,
+                            right: 0
+                        ),
+                        child: resultTextNode
+                    )
                 ),
-                resultUnitsTextNode,
+                ASCenterLayoutSpec(
+                    centeringOptions: .X,
+                    sizingOptions: .minimumXY,
+                    child: resultUnitsTextNode
+                ),
                 ASInsetLayoutSpec(
                     insets: UIEdgeInsets(
                         top: 24,
@@ -653,8 +663,16 @@ titleTextNode
   * VALinearGradientNode
   * VARadialGradientNode
 
+<details>
+<summary>VADisplayNode</summary>
 
-// TODO: - Brief description
+
+A subclass of `ASDisplayNode` that automatically manages subnodes and handles theme updates.
+
+
+</details>
+
+// TODO: - Other nodes brief description
 
 
 ## Containers
