@@ -107,7 +107,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 }
 ```
 
-With `Column`:
+With `Row`:
 
 ```swift
 override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
