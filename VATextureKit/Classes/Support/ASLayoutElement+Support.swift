@@ -9,6 +9,11 @@ import AsyncDisplayKit
 
 public extension ASLayoutElement {
 
+    func sized(_ size: CGSize) -> Self {
+        style.preferredSize = size
+        return self
+    }
+
     func sized(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
         assert(width != nil || height != nil)
         if let width {
@@ -20,13 +25,28 @@ public extension ASLayoutElement {
         return self
     }
 
-    func flex(shrink: CGFloat? = nil, grow: CGFloat? = nil) -> Self {
-        assert(shrink != nil || grow != nil)
+    func sized(width: ASDimension? = nil, height: ASDimension? = nil) -> Self {
+        assert(width != nil || height != nil)
+        if let width {
+            style.width = width
+        }
+        if let height {
+            style.height = height
+        }
+        return self
+    }
+
+    func flex(shrink: CGFloat? = nil, grow: CGFloat? = nil, basisPercent: CGFloat? = nil) -> Self {
+        assert(shrink != nil || grow != nil || basisPercent != nil)
         if let shrink {
             style.flexShrink = shrink
         }
         if let grow {
             style.flexGrow = grow
+        }
+        if let basisPercent {
+            assert((0...100) ~= basisPercent, "ASDimension fraction percent must be between 0 and 100.")
+            style.flexBasis = ASDimensionMake(.fraction, basisPercent / 100)
         }
         return self
     }
@@ -47,6 +67,17 @@ public extension ASLayoutElement {
         return self
     }
 
+    func maxConstrained(width: ASDimension? = nil, height: ASDimension? = nil) -> Self {
+        assert(width != nil || height != nil)
+        if let width {
+            style.maxWidth = width
+        }
+        if let height {
+            style.maxHeight = height
+        }
+        return self
+    }
+
     func minConstrained(size: CGSize) -> Self {
         style.minSize = size
         return self
@@ -63,8 +94,14 @@ public extension ASLayoutElement {
         return self
     }
 
-    func sized(_ size: CGSize) -> Self {
-        style.preferredSize = size
+    func minConstrained(width: ASDimension? = nil, height: ASDimension? = nil) -> Self {
+        assert(width != nil || height != nil)
+        if let width {
+            style.minWidth = width
+        }
+        if let height {
+            style.minHeight = height
+        }
         return self
     }
 
