@@ -10,7 +10,7 @@ import VATextureKit
 
 class SlideAnimationControllerNode: VASafeAreaDisplayNode {
     let leftNode = VATextNode(text: "left", textStyle: .body, alignment: .center)
-        .flex(shrink: 0.1, basisPercent: 100)
+        .flex(shrink: 0.1, basisPercent: 60)
     let rightNode = VATextNode(text: "right", textStyle: .body, alignment: .center)
         .flex(basisPercent: 40)
     let exchangeButtonNode = VAButtonNode()
