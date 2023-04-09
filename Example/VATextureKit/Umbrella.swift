@@ -9,4 +9,3 @@
 import VATextureKit
 
 typealias Obs = VATextureKit.Obs
-typealias IdentifiableType = VATextureKit.IdentifiableType

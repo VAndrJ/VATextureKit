@@ -6,7 +6,7 @@
 //  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
 //
 
-import Foundation
+import VATextureKit
 
 class CellViewModel: Equatable, IdentifiableType {
     static func == (lhs: CellViewModel, rhs: CellViewModel) -> Bool {
