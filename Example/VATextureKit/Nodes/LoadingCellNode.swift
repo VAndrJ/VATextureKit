@@ -89,7 +89,6 @@ struct LoadingCellNode_Preview: PreviewProvider {
     static var previews: some View {
         LoadingCellNode(viewModel: .init(height: 100))
             .sRepresentation(layout: .fixed(CGSize(same: 100)))
-            .previewLayout(.sizeThatFits)
     }
 }
 #endif
