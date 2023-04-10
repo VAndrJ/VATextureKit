@@ -22,11 +22,6 @@
 		A359BE7E29D76E1B003BDE19 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A359BE7D29D76E1B003BDE19 /* Environment.swift */; };
 		A397A2C229AAA68800A05B8F /* AlertNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A397A2C129AAA68800A05B8F /* AlertNodeController.swift */; };
 		A397A2C529AAAF6800A05B8F /* NSObject+Applyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A397A2C429AAAF6800A05B8F /* NSObject+Applyable.swift */; };
-		A3AFD05629E476850049A432 /* VAUIViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AFD05529E476850049A432 /* VAUIViewRepresentable.swift */; };
-		A3AFD05829E476C70049A432 /* View+Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AFD05729E476C70049A432 /* View+Support.swift */; };
-		A3AFD05A29E477080049A432 /* UIView+Representation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AFD05929E477080049A432 /* UIView+Representation.swift */; };
-		A3AFD05C29E4774E0049A432 /* VAPreviewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AFD05B29E4774E0049A432 /* VAPreviewLayout.swift */; };
-		A3AFD05E29E477FE0049A432 /* ASDisplayNode+Representation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3AFD05D29E477FE0049A432 /* ASDisplayNode+Representation.swift */; };
 		A3B3F37929A0CDAD0090E6E2 /* MainNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F37829A0CDAD0090E6E2 /* MainNodeController.swift */; };
 		A3B3F3AF29A17A5B0090E6E2 /* ExampleNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3AE29A17A5B0090E6E2 /* ExampleNavigationController.swift */; };
 		A3B3F3C529A22F860090E6E2 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3C429A22F860090E6E2 /* Theme.swift */; };
@@ -99,11 +94,6 @@
 		A359BE7D29D76E1B003BDE19 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		A397A2C129AAA68800A05B8F /* AlertNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertNodeController.swift; sourceTree = "<group>"; };
 		A397A2C429AAAF6800A05B8F /* NSObject+Applyable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Applyable.swift"; sourceTree = "<group>"; };
-		A3AFD05529E476850049A432 /* VAUIViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAUIViewRepresentable.swift; sourceTree = "<group>"; };
-		A3AFD05729E476C70049A432 /* View+Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Support.swift"; sourceTree = "<group>"; };
-		A3AFD05929E477080049A432 /* UIView+Representation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Representation.swift"; sourceTree = "<group>"; };
-		A3AFD05B29E4774E0049A432 /* VAPreviewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAPreviewLayout.swift; sourceTree = "<group>"; };
-		A3AFD05D29E477FE0049A432 /* ASDisplayNode+Representation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ASDisplayNode+Representation.swift"; sourceTree = "<group>"; };
 		A3B3F37829A0CDAD0090E6E2 /* MainNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNodeController.swift; sourceTree = "<group>"; };
 		A3B3F3AE29A17A5B0090E6E2 /* ExampleNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleNavigationController.swift; sourceTree = "<group>"; };
 		A3B3F3C429A22F860090E6E2 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -213,7 +203,6 @@
 				A397A2C329AAAF5700A05B8F /* Extensions */,
 				A3B3F3EA29A399440090E6E2 /* Navigator */,
 				A3B3F3BD29A20C430090E6E2 /* Nodes */,
-				A3AFD05429E4766D0049A432 /* Previews */,
 				A3B3F37429A0CD830090E6E2 /* Screens */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 				A3B3F38729A11D570090E6E2 /* Theme */,
@@ -300,18 +289,6 @@
 				A397A2C429AAAF6800A05B8F /* NSObject+Applyable.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		A3AFD05429E4766D0049A432 /* Previews */ = {
-			isa = PBXGroup;
-			children = (
-				A3AFD05D29E477FE0049A432 /* ASDisplayNode+Representation.swift */,
-				A3AFD05929E477080049A432 /* UIView+Representation.swift */,
-				A3AFD05B29E4774E0049A432 /* VAPreviewLayout.swift */,
-				A3AFD05529E476850049A432 /* VAUIViewRepresentable.swift */,
-				A3AFD05729E476C70049A432 /* View+Support.swift */,
-			);
-			path = Previews;
 			sourceTree = "<group>";
 		};
 		A3B3F37429A0CD830090E6E2 /* Screens */ = {
@@ -648,9 +625,7 @@
 				A359BE7E29D76E1B003BDE19 /* Environment.swift in Sources */,
 				A3F8890B29CE385B00C67187 /* ImageNumberCellNode.swift in Sources */,
 				A3BCEC5729CFA6770077217F /* LoadingCellNode.swift in Sources */,
-				A3AFD05A29E477080049A432 /* UIView+Representation.swift in Sources */,
 				A3B3F3E529A3868F0090E6E2 /* ContentSizeControllerNode.swift in Sources */,
-				A3AFD05C29E4774E0049A432 /* VAPreviewLayout.swift in Sources */,
 				A397A2C229AAA68800A05B8F /* AlertNodeController.swift in Sources */,
 				A3F888D929CC427D00C67187 /* CollectionListViewModel.swift in Sources */,
 				A3B3F3CD29A2B4FC0090E6E2 /* MainListCellNode.swift in Sources */,
@@ -661,13 +636,11 @@
 				A3DDF30029DD84B1009460F1 /* CompositingCellNode.swift in Sources */,
 				A3B3F37929A0CDAD0090E6E2 /* MainNodeController.swift in Sources */,
 				A3DDF2F229DD6CB2009460F1 /* CompositingFilterControllerNode.swift in Sources */,
-				A3AFD05829E476C70049A432 /* View+Support.swift in Sources */,
 				A3B3F3DE29A37C9C0090E6E2 /* AppearanceViewModel.swift in Sources */,
 				A3B3F3D629A2C91A0090E6E2 /* AppearanceContollerNode.swift in Sources */,
 				A3F888D729CC427000C67187 /* CollectionListNodeController.swift in Sources */,
 				A3B3F3C529A22F860090E6E2 /* Theme.swift in Sources */,
 				A3B3F3D129A2C1190090E6E2 /* Navigator.swift in Sources */,
-				A3AFD05E29E477FE0049A432 /* ASDisplayNode+Representation.swift in Sources */,
 				A3F8890529CE316C00C67187 /* CollectionListDifferentCellsViewModel.swift in Sources */,
 				A3B3F3AF29A17A5B0090E6E2 /* ExampleNavigationController.swift in Sources */,
 				A3B3F3D829A2C9340090E6E2 /* AppearanceViewController.swift in Sources */,
@@ -679,7 +652,6 @@
 				A3F8890929CE37BD00C67187 /* ImageCellNode.swift in Sources */,
 				A3F8890029CE2D0000C67187 /* Support.swift in Sources */,
 				A3F888C729CB67F100C67187 /* Umbrella.swift in Sources */,
-				A3AFD05629E476850049A432 /* VAUIViewRepresentable.swift in Sources */,
 				A3B3F3FB29A3CDA10090E6E2 /* RadialGradientControllerNode.swift in Sources */,
 				A3B3F3DC29A358120090E6E2 /* ThemeManager.swift in Sources */,
 				A3DDF30229DD856F009460F1 /* CompositingFilterViewModel.swift in Sources */,

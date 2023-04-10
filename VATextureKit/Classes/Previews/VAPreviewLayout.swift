@@ -17,10 +17,7 @@ public enum VAPreviewLayout {
     case flexibleWidth(height: CGFloat)
     case flexibleHeight(width: CGFloat)
     case undefined
-}
-
-@available (iOS 13.0, *)
-extension VAPreviewLayout {
+    
     var minSize: CGSize {
         switch self {
         case .auto, .inherited, .undefined:

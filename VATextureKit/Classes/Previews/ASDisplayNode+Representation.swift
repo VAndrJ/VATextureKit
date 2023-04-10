@@ -11,7 +11,7 @@ import SwiftUI
 import AsyncDisplayKit
 
 @available (iOS 13.0, *)
-extension ASDisplayNode {
+public extension ASDisplayNode {
 
     func sRepresentation(layout: VAPreviewLayout) -> AnyView {
         let node: ASDisplayNode
@@ -27,28 +27,17 @@ extension ASDisplayNode {
             max: CGSize(width: layout.maxSize.width, height: layout.maxSize.height)
         )).size
         node.bounds = CGRect(origin: .zero, size: sizeThatFits)
-        node.loadForTesting()
+        node.loadForPreview()
         return node.view.sRepresentation(layout: .inherited)
     }
-}
 
-@available (iOS 13.0, *)
-extension ASDisplayNode {
-
-    func loadForTesting() {
+    func loadForPreview() {
         ASTraitCollectionPropagateDown(self, ASPrimitiveTraitCollectionFromUITraitCollection(UITraitCollection.current))
         displaysAsynchronously = false
         ASDisplayNodePerformBlockOnEveryNode(nil, self, true) {
             $0.layer.setNeedsDisplay()
         }
         recursivelyEnsureDisplaySynchronously(true)
-    }
-}
-
-extension String {
-
-    func dummyLong(separator: String = " ") -> String {
-        (0...10).map { _ in self }.joined(separator: separator)
     }
 }
 #endif
