@@ -58,3 +58,29 @@ class ImageNumberCellNodeViewModel: CellViewModel {
         self.number = number
     }
 }
+
+#if canImport(SwiftUI)
+import SwiftUI
+
+@available (iOS 13.0, *)
+struct ImageNumberCellNode_Preview: PreviewProvider {
+    static var previews: some View {
+        VStack(spacing: 0) {
+            ForEach(
+                [
+                    ImageNumberCellNodeViewModel(image: testImages.randomElement(), ratio: 1, number: 1),
+                    .init(image: testImages.randomElement(), ratio: 1 / 2, number: 1),
+                    .init(image: testImages.randomElement(), ratio: 2, number: 1),
+                ],
+                id: \.identity
+            ) {
+                ImageNumberCellNode(viewModel: $0)
+                    .sRepresentation(layout: .flexibleHeight(width: 100))
+                    .padding(8)
+            }
+        }
+        .background(Color.orange)
+        .previewLayout(.sizeThatFits)
+    }
+}
+#endif

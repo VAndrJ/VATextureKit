@@ -39,3 +39,28 @@ class MainSectionHeaderNodeViewModel: CellViewModel {
         self.title = title
     }
 }
+
+#if canImport(SwiftUI)
+import SwiftUI
+
+@available (iOS 13.0, *)
+struct MainListSectionHeaderNode_Preview: PreviewProvider {
+    static var previews: some View {
+        VStack(spacing: 0) {
+            ForEach(
+                [
+                    MainSectionHeaderNodeViewModel(title: "Title"),
+                    .init(title: "Title".dummyLong()),
+                ],
+                id: \.identity
+            ) {
+                MainListSectionHeaderNode(viewModel: $0)
+                    .sRepresentation(layout: .flexibleHeight(width: 320))
+                    .padding(8)
+            }
+        }
+        .background(Color.orange)
+        .previewLayout(.sizeThatFits)
+    }
+}
+#endif

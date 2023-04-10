@@ -185,6 +185,21 @@ public struct Obs {
             }
         }
     }
+
+    @propertyWrapper
+    public struct State<Value> {
+        public var wrappedValue: Value {
+            get { relay.value }
+            set { relay.accept(newValue) }
+        }
+        public var projectedValue: Observable<Value> { relay.asObservable() }
+
+        private let relay: BehaviorRelay<Value>
+
+        public init(wrappedValue: Value) {
+            self.relay = BehaviorRelay(value: wrappedValue)
+        }
+    }
     
     private init() {}
 }

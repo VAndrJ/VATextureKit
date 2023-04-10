@@ -47,3 +47,31 @@ class MainListCellNodeViewModel: CellViewModel {
         self.route = route
     }
 }
+
+#if canImport(SwiftUI)
+import SwiftUI
+
+@available (iOS 13.0, *)
+struct MainListCellNode_Preview: PreviewProvider {
+    static var previews: some View {
+        VStack(spacing: 0) {
+            ForEach(
+                [
+                    MainListCellNodeViewModel(title: "Title", description: "Description", route: .alert),
+                    .init(title: "Title".dummyLong(), description: "Description".dummyLong(), route: .alert),
+                    .init(title: "Title", description: "Description".dummyLong(), route: .alert),
+                    .init(title: "Title".dummyLong(), description: "Description", route: .alert),
+                ],
+                id: \.identity
+            ) {
+                MainListCellNode(viewModel: $0)
+                    .sRepresentation(layout: .flexibleHeight(width: 320))
+                    .background(Color.white)
+                    .padding(8)
+            }
+        }
+        .background(Color.orange)
+        .previewLayout(.sizeThatFits)
+    }
+}
+#endif

@@ -11,7 +11,14 @@ public var appContext: VAAppContext {
     if let appContext = appContexts.last {
         return appContext
     } else {
-        fatalError("Use VAWindow instead of UIWindow")
+        if ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1" {
+            return VAAppContext(
+                themeManager: .init(standardLightTheme: .vaLight, standardDarkTheme: .vaDark),
+                window: UIWindow()
+            )
+        } else {
+            fatalError("Use VAWindow instead of UIWindow")
+        }
     }
 }
 // TODO: - Multiple windows support

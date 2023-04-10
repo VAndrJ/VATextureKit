@@ -25,3 +25,10 @@ let testImages = [
     "https://img.freepik.com/free-vector/gradient-galaxy-background_23-2148983655.jpg?w=360",
     "https://img.freepik.com/free-vector/gradient-grainy-texture_23-2148981502.jpg?w=360",
 ]
+
+extension String {
+
+    func dummyLong(separator: String = " ") -> String {
+        (0...10).map { _ in self }.joined(separator: separator)
+    }
+}

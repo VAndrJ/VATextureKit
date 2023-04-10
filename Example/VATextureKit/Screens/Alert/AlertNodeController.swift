@@ -48,9 +48,9 @@ class AlertNodeController: VANodeController {
         let alertController = VAAlertController(
             title: "title",
             message: "message",
-            preferredStyle: .alert
+            preferredStyle: .alert,
+            actions: UIAlertAction(title: "OK", style: .cancel)
         )
-        alertController.addAction(UIAlertAction(title: "OK", style: .cancel))
         present(alertController, animated: true)
     }
     

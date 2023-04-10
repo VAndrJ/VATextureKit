@@ -45,3 +45,29 @@ class ImageCellNodeViewModel: CellViewModel {
         self.ratio = ratio
     }
 }
+
+#if canImport(SwiftUI)
+import SwiftUI
+
+@available (iOS 13.0, *)
+struct ImageCellNode_Preview: PreviewProvider {
+    static var previews: some View {
+        VStack(spacing: 0) {
+            ForEach(
+                [
+                    ImageCellNodeViewModel(image: testImages.randomElement(), ratio: 1),
+                    .init(image: testImages.randomElement(), ratio: 1 / 2),
+                    .init(image: testImages.randomElement(), ratio: 2),
+                ],
+                id: \.identity
+            ) {
+                ImageCellNode(viewModel: $0)
+                    .sRepresentation(layout: .flexibleHeight(width: 100))
+                    .padding(8)
+            }
+        }
+        .background(Color.orange)
+        .previewLayout(.sizeThatFits)
+    }
+}
+#endif

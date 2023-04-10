@@ -17,6 +17,23 @@ class LinearGradientControllerNode: VASafeAreaDisplayNode {
     let bottomLeftToTopRightGradientNode = VALinearGradientNode(gradient: .diagonal(.bottomLeftToTopRight))
     let bottomRightToTopLeftGradientNode = VALinearGradientNode(gradient: .diagonal(.bottomRightToTopLeft))
     let customGradientNode = VALinearGradientNode(gradient: .custom(startPoint: CGPoint(x: 0.5, y: 0), endPoint: CGPoint(x: 1, y: 1)))
+
+    private lazy var contentNodes = [
+        verticalGradientNode
+            .ratio(1),
+        horizontalGradientNode
+            .ratio(1),
+        topLeftToBottomRightGradientNode
+            .ratio(1),
+        topRightToBottomLeftGradientNode
+            .ratio(1),
+        bottomLeftToTopRightGradientNode
+            .ratio(1),
+        bottomRightToTopLeftGradientNode
+            .ratio(1),
+        customGradientNode
+            .ratio(1),
+    ]
     
     override init() {
         super.init()
@@ -56,29 +73,13 @@ class LinearGradientControllerNode: VASafeAreaDisplayNode {
     }
 
     private func layoutSpecScroll(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        let content = [
-            verticalGradientNode
-                .ratio(1),
-            horizontalGradientNode
-                .ratio(1),
-            topLeftToBottomRightGradientNode
-                .ratio(1),
-            topRightToBottomLeftGradientNode
-                .ratio(1),
-            bottomLeftToTopRightGradientNode
-                .ratio(1),
-            bottomRightToTopLeftGradientNode
-                .ratio(1),
-            customGradientNode
-                .ratio(1),
-        ]
-        if constrainedSize.min.width > constrainedSize.min.height {
-            return Row {
-                content
+        (constrainedSize.min.width > constrainedSize.min.height).fold {
+            Column {
+                contentNodes
             }
-        } else {
-            return Column {
-                content
+        } _: {
+            Row {
+                contentNodes
             }
         }
     }

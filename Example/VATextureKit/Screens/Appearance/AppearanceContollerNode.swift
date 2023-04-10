@@ -9,7 +9,10 @@
 import VATextureKit
 
 class AppearanceContollerNode: VASafeAreaDisplayNode {
-    let pickerNode = VAViewWrapperNode(childGetter: { UIPickerView() }, sizing: .inheritedHeight)
+    let pickerNode = VAViewWrapperNode(
+        childGetter: { UIPickerView() },
+        sizing: .inheritedHeight
+    )
     
     override func configureTheme(_ theme: VATheme) {
         super.configureTheme(theme)

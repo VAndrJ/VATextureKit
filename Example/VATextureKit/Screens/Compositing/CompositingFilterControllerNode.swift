@@ -23,17 +23,15 @@ class CompositingFilterControllerNode: VASafeAreaDisplayNode {
         image: R.image.colibri(),
         contentMode: .scaleAspectFill
     ))
-    private(set) lazy var listNode = VATableListNode(
-        data: .init(
-            listDataObs: viewModel.filtersObs,
-            onSelect: viewModel.didSelect(indexPath:),
-            shouldDeselect: (false, true),
-            cellGetter: CompositingCellNode.init(viewModel:)
-        )
-    )
+    private(set) lazy var listNode = VATableListNode(data: .init(
+        listDataObs: viewModel.filtersObs,
+        onSelect: viewModel.didSelect(indexPath:),
+        shouldDeselect: (false, true),
+        cellGetter: CompositingCellNode.init(viewModel:)
+    ))
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        (constrainedSize.max.width > constrainedSize.max.height).fold({
+        (constrainedSize.max.width > constrainedSize.max.height).fold {
             Column(cross: .stretch) {
                 backgroundImageNode
                     .ratio(1)
@@ -42,7 +40,7 @@ class CompositingFilterControllerNode: VASafeAreaDisplayNode {
                     .safe(edges: .bottom, in: self)
                     .flex(grow: 1)
             }
-        }, {
+        } _: {
             SafeArea(edges: [.vertical, .right]) {
                 Row(cross: .stretch) {
                     backgroundImageNode
@@ -52,7 +50,7 @@ class CompositingFilterControllerNode: VASafeAreaDisplayNode {
                         .flex(grow: 1)
                 }
             }
-        })
+        }
     }
 
     override func configureTheme(_ theme: VATheme) {
