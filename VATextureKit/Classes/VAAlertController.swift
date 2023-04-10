@@ -9,6 +9,26 @@ import UIKit
 
 open class VAAlertController: UIAlertController {
     open override var preferredStatusBarStyle: UIStatusBarStyle { appContext.themeManager.theme.statusBarStyle }
+
+    public convenience init(
+        title: String? = nil,
+        message: String? = nil,
+        preferredStyle: UIAlertController.Style,
+        actions: UIAlertAction...
+    ) {
+        self.init(title: title, message: message, preferredStyle: preferredStyle, actions: Array(actions))
+    }
+
+    public convenience init(
+        title: String? = nil,
+        message: String? = nil,
+        preferredStyle: UIAlertController.Style,
+        actions: [UIAlertAction]
+    ) {
+        self.init(title: title, message: message, preferredStyle: preferredStyle)
+
+        actions.forEach(addAction(_:))
+    }
     
     open override func viewDidLoad() {
         super.viewDidLoad()
