@@ -69,8 +69,8 @@ struct ImageNumberCellNode_Preview: PreviewProvider {
             ForEach(
                 [
                     ImageNumberCellNodeViewModel(image: testImages.randomElement(), ratio: 1, number: 1),
-                    ImageNumberCellNodeViewModel(image: testImages.randomElement(), ratio: 1 / 2, number: 1),
-                    ImageNumberCellNodeViewModel(image: testImages.randomElement(), ratio: 2, number: 1),
+                    .init(image: testImages.randomElement(), ratio: 1 / 2, number: 1),
+                    .init(image: testImages.randomElement(), ratio: 2, number: 1),
                 ],
                 id: \.identity
             ) {
