@@ -16,6 +16,21 @@ class RadialGradientControllerNode: VASafeAreaDisplayNode {
     let bottomLeftGradientNode = VARadialGradientNode(gradient: .bottomLeft)
     let bottomRightGradientNode = VARadialGradientNode(gradient: .bottomRight)
     let customGradientNode = VARadialGradientNode(gradient: .custom(startPoint: CGPoint(x: 0.4, y: 0.4), endPoint: CGPoint(x: 0.6, y: 0.6)))
+
+    private lazy var contentNodes = [
+        centeredGradientNode
+            .ratio(1),
+        topLeftGradientNode
+            .ratio(1),
+        topRightGradientNode
+            .ratio(1),
+        bottomLeftGradientNode
+            .ratio(1),
+        bottomRightGradientNode
+            .ratio(1),
+        customGradientNode
+            .ratio(1),
+    ]
     
     override init() {
         super.init()
@@ -54,27 +69,13 @@ class RadialGradientControllerNode: VASafeAreaDisplayNode {
     }
 
     private func layoutSpecScroll(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        let content = [
-            centeredGradientNode
-                .ratio(1),
-            topLeftGradientNode
-                .ratio(1),
-            topRightGradientNode
-                .ratio(1),
-            bottomLeftGradientNode
-                .ratio(1),
-            bottomRightGradientNode
-                .ratio(1),
-            customGradientNode
-                .ratio(1),
-        ]
-        if constrainedSize.min.width > constrainedSize.min.height {
-            return Row {
-                content
+        (constrainedSize.min.width > constrainedSize.min.height).fold {
+            Column {
+                contentNodes
             }
-        } else {
-            return Column {
-                content
+        } _: {
+            Row {
+                contentNodes
             }
         }
     }

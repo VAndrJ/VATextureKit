@@ -79,16 +79,16 @@ class SlideAnimationControllerNode: VASafeAreaDisplayNode {
         }
     }
 
+    override func animateLayoutTransition(_ context: ASContextTransitioning) {
+        animateLayoutTransition(context: context)
+    }
+
     override func configureTheme(_ theme: VATheme) {
         backgroundColor = theme.systemBackground
         leftNode.backgroundColor = theme.systemOrange
         rightNode.backgroundColor = theme.systemTeal
         exchangeButtonNode.tintColor = theme.systemBlue
         expandNode.backgroundColor = theme.systemPurple
-    }
-
-    override func animateLayoutTransition(_ context: ASContextTransitioning) {
-        animateLayoutTransition(context: context)
     }
 
     private func bind() {
