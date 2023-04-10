@@ -13,6 +13,7 @@
 * [Themes](#themes)
 * [Rx property wrappers](#rx-property-wrappers)
 * [Extensions](#extensions)
+* [Previews](#previews)
 
 
 ## Installation
@@ -999,3 +1000,16 @@ UIEdgeInsets(vertical: 4, horizontal: 8) == UIEdgeInsets(top: 4, left: 8, bottom
 
 
 </details>
+
+
+## Previews
+
+
+Node preview in easy way with support function:
+
+
+```swift
+sRepresentation(layout:)
+```
+
+![Preview example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/preview_example.png)
