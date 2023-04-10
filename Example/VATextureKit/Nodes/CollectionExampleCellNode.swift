@@ -20,6 +20,7 @@ class CollectionExampleCellNode: VACellNode {
         self.titleNode = VATextNode(
             text: viewModel.title,
             textStyle: .body,
+            lineBreakMode: .byTruncatingTail,
             maximumNumberOfLines: 1
         )
         self.viewModel = viewModel
@@ -55,3 +56,28 @@ class CollectionExampleCellNodeViewModel: CellViewModel {
         self.title = title
     }
 }
+
+#if canImport(SwiftUI)
+import SwiftUI
+
+@available (iOS 13.0, *)
+struct CollectionExampleCellNode_Preview: PreviewProvider {
+    static var previews: some View {
+        VStack(spacing: 0) {
+            ForEach(
+                [
+                    CollectionExampleCellNodeViewModel(image: testImages.randomElement(), title: "Title"),
+                    .init(image: testImages.randomElement(), title: "Title".dummyLong()),
+                ],
+                id: \.identity
+            ) {
+                CollectionExampleCellNode(viewModel: $0)
+                    .sRepresentation(layout: .fixed(CGSize(same: 200)))
+                    .padding(8)
+            }
+        }
+        .background(Color.orange)
+        .previewLayout(.sizeThatFits)
+    }
+}
+#endif
