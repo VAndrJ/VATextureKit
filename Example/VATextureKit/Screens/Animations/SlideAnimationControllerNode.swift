@@ -50,12 +50,9 @@ class SlideAnimationControllerNode: VASafeAreaDisplayNode {
         bind()
     }
 
-    let textFieldNode = VATextFieldNode()
-
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
             Column(spacing: 16, cross: .stretch) {
-                textFieldNode
                 Row(spacing: 16) {
                     if isNodesExchanged {
                         rightNode
