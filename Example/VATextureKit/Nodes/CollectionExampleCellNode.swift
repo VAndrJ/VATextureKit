@@ -20,7 +20,6 @@ class CollectionExampleCellNode: VACellNode {
         self.titleNode = VATextNode(
             text: viewModel.title,
             textStyle: .body,
-            lineBreakMode: .byTruncatingTail,
             maximumNumberOfLines: 1
         )
         self.viewModel = viewModel
