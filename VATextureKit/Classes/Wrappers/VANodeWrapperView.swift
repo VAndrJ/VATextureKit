@@ -1,5 +1,5 @@
 //
-//  VAEmbeddableNodeView.swift
+//  VANodeWrapperView.swift
 //  VATextureKit
 //
 //  Created by Volodymyr Andriienko on 01.04.2023.
@@ -7,7 +7,7 @@
 
 import AsyncDisplayKit
 
-open class VAEmbeddableNodeView<Node: ASDisplayNode>: UIView {
+open class VANodeWrapperView<Node: ASDisplayNode>: UIView {
     public var contentNode: Node { contentNodeView.node }
 
     private let contentNodeView: _ContentNodeView<Node>

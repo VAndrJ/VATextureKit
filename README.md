@@ -851,7 +851,8 @@ To wrap any node with Cell Node.
 
 
 * VAViewWrapperNode
-* VAEmbeddableNodeView
+* VANodeWrapperView
+* VASizedViewWrapperNode
 
 
 <details>
@@ -865,10 +866,20 @@ Container to use `UIView` with nodes.
 
 
 <details>
-<summary>VAEmbeddableNodeView</summary>
+<summary>VANodeWrapperView</summary>
 
 
 Container to use node with views.
+
+
+</details>
+
+
+<details>
+<summary>VASizedViewWrapperNode</summary>
+
+
+Container to use `UIView` with nodes and inheriting its size.
 
 
 </details>

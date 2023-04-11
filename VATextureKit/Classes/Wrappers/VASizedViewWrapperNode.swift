@@ -1,17 +1,15 @@
 //
 //  VASizedViewWrapperNode.swift
-//  VATextureKit_Example
+//  VATextureKit
 //
-//  Created by Volodymyr Andriienko on 11.04.2023.
-//  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
+//  Created by VAndrJ on 11.04.2023.
 //
 
 import UIKit
 import AsyncDisplayKit
-import VATextureKit
 
-class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
-    enum Sizing {
+open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
+    public enum Sizing {
         case viewHeihgt
         case viewWidth
         case viewSize

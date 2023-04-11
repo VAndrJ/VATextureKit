@@ -10,41 +10,14 @@ import UIKit
 import AsyncDisplayKit
 import VATextureKit
 
-class VATextFieldNode: VADisplayNode {
-    public private(set) lazy var child: UITextField = childGetter()
+class VATextFieldNode: VASizedViewWrapperNode<VATextField> {
 
-    private let childGetter: () -> _VATextField
-
-    override init() {
-        self.childGetter = { _VATextField() }
-        
-        super.init()
-    }
-
-    open override func didLoad() {
-        super.didLoad()
-
-        view.addSubview(child)
-    }
-
-    open override func layout() {
-        super.layout()
-
-        if child.frame.height.rounded(.up) != bounds.height.rounded(.up) || child.frame.height.isZero {
-            child.frame.size = CGSize(width: bounds.width, height: UIView.layoutFittingExpandedSize.height)
-            child.setNeedsLayout()
-            child.layoutIfNeeded()
-            let size = child.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-            let height = size.height.rounded(.up)
-            child.frame = CGRect(x: 0, y: 0, width: bounds.width, height: height)
-            style.height = ASDimension(unit: .points, value: height)
-        } else {
-            child.frame = bounds
-        }
+    init() {
+        super.init(childGetter: { VATextField() }, sizing: .viewHeihgt)
     }
 }
 
-private class _VATextField: UITextField {
+class VATextField: UITextField {
     var textContainerInset: UIEdgeInsets {
         get { _textContainerInset }
         set {
