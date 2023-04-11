@@ -20,6 +20,7 @@
 		A3551A5929DD5FCF00B0B18F /* VABaseGradientNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3551A5829DD5FCF00B0B18F /* VABaseGradientNodeTests.swift */; };
 		A359BE7A29D76C0D003BDE19 /* VADisplayNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */; };
 		A359BE7E29D76E1B003BDE19 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A359BE7D29D76E1B003BDE19 /* Environment.swift */; };
+		A3820D1529E53BD600993406 /* VARadialGradientNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3820D1429E53BD600993406 /* VARadialGradientNodeTests.swift */; };
 		A397A2C229AAA68800A05B8F /* AlertNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A397A2C129AAA68800A05B8F /* AlertNodeController.swift */; };
 		A397A2C529AAAF6800A05B8F /* NSObject+Applyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A397A2C429AAAF6800A05B8F /* NSObject+Applyable.swift */; };
 		A3B3F37929A0CDAD0090E6E2 /* MainNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F37829A0CDAD0090E6E2 /* MainNodeController.swift */; };
@@ -92,6 +93,7 @@
 		A3551A5829DD5FCF00B0B18F /* VABaseGradientNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VABaseGradientNodeTests.swift; sourceTree = "<group>"; };
 		A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VADisplayNodeTests.swift; sourceTree = "<group>"; };
 		A359BE7D29D76E1B003BDE19 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		A3820D1429E53BD600993406 /* VARadialGradientNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VARadialGradientNodeTests.swift; sourceTree = "<group>"; };
 		A397A2C129AAA68800A05B8F /* AlertNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertNodeController.swift; sourceTree = "<group>"; };
 		A397A2C429AAAF6800A05B8F /* NSObject+Applyable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Applyable.swift"; sourceTree = "<group>"; };
 		A3B3F37829A0CDAD0090E6E2 /* MainNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNodeController.swift; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 				A3551A5829DD5FCF00B0B18F /* VABaseGradientNodeTests.swift */,
 				A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */,
 				A3551A5429DD57F000B0B18F /* VALinearGradientNodeTests.swift */,
+				A3820D1429E53BD600993406 /* VARadialGradientNodeTests.swift */,
 				A3D2FABF29D896B300AA01CA /* Example */,
 			);
 			path = Snapshots;
@@ -667,6 +670,7 @@
 				A3551A5929DD5FCF00B0B18F /* VABaseGradientNodeTests.swift in Sources */,
 				A3D2FAC229D89E1300AA01CA /* MainListCellNodeTests.swift in Sources */,
 				A3551A5529DD57F000B0B18F /* VALinearGradientNodeTests.swift in Sources */,
+				A3820D1529E53BD600993406 /* VARadialGradientNodeTests.swift in Sources */,
 				A359BE7A29D76C0D003BDE19 /* VADisplayNodeTests.swift in Sources */,
 				A33CDF4529D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift in Sources */,
 				A3D2488529CF860300EE1907 /* VAStateModelTests.swift in Sources */,
