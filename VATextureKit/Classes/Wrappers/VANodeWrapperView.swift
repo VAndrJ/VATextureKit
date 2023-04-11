@@ -169,9 +169,6 @@ private final class _ContentNodeView<Node: ASDisplayNode>: UILabel { // To use `
             range.min.width = validateWidth(bounds.width, 0)
         }
         let calculatedlayout = wrapperNode.calculateLayoutThatFits(range)
-#if DEBUG
-        debugPrint("[CalculateLayoutThatFits] range: \(range), layout: \(calculatedlayout.size) node: \(node)")
-#endif
         return CGRect(origin: .zero, size: calculatedlayout.size)
     }
 
