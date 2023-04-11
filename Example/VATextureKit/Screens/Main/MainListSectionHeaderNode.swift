@@ -15,7 +15,6 @@ class MainListSectionHeaderNode: VADisplayNode {
         self.titleTextNode = VATextNode(
             text: viewModel.title,
             textStyle: .headline,
-            lineBreakMode: .byTruncatingTail,
             maximumNumberOfLines: 1
         )
 

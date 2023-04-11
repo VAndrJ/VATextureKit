@@ -774,6 +774,7 @@ A subclass of `VABaseGradientNode` with parametrized initializer to simplify rad
 * VANavigationController
 * VATabBarController
 * VAWindow
+* VAContainerCellNode
 
 
 <details>
@@ -836,11 +837,22 @@ A subclass of `VAWindow` to handle theme updates and content size changes. Provi
 </details>
 
 
+<details>
+<summary>VAContainerCellNode</summary>
+
+
+To wrap any node with Cell Node.
+
+
+</details>
+
+
 ## Wrappers
 
 
 * VAViewWrapperNode
-* VAEmbeddableNodeView
+* VANodeWrapperView
+* VASizedViewWrapperNode
 
 
 <details>
@@ -854,10 +866,20 @@ Container to use `UIView` with nodes.
 
 
 <details>
-<summary>VAEmbeddableNodeView</summary>
+<summary>VANodeWrapperView</summary>
 
 
 Container to use node with views.
+
+
+</details>
+
+
+<details>
+<summary>VASizedViewWrapperNode</summary>
+
+
+Container to use `UIView` with nodes and inheriting its size.
 
 
 </details>
