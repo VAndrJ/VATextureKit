@@ -8,8 +8,19 @@
 import AsyncDisplayKit
 
 open class VATabBarController: ASTabBarController {
+    public var theme: VATheme { appContext.themeManager.theme }
     open override var childForStatusBarStyle: UIViewController? { selectedViewController }
-    
+    open override var childForStatusBarHidden: UIViewController? { selectedViewController }
+
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+
+    @available(*, unavailable)
+    public required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     open override func viewDidLoad() {
         super.viewDidLoad()
         
