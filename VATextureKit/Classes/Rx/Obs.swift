@@ -204,6 +204,10 @@ public struct Obs {
     private init() {}
 }
 
+public extension Obs.Relay where InputSequence == BehaviorRelay<Input>, Input == Output {
+    var value: Output { rx.value }
+}
+
 public protocol PublishInitializable: ObservableType {
     init()
 }
