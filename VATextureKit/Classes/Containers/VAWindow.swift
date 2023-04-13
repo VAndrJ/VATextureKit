@@ -20,6 +20,10 @@ open class VAWindow: UIWindow {
         )
         appContexts.append(VAAppContext(themeManager: themeManager, window: self))
     }
+
+    public convenience init(standardLightTheme: VATheme) {
+        self.init(standardLightTheme: standardLightTheme, standardDarkTheme: standardLightTheme)
+    }
     
     public init(standardLightTheme: VATheme, standardDarkTheme: VATheme) {
         super.init(frame: UIScreen.main.bounds)
