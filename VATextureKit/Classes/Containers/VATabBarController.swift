@@ -12,6 +12,10 @@ open class VATabBarController: ASTabBarController {
     open override var childForStatusBarStyle: UIViewController? { selectedViewController }
     open override var childForStatusBarHidden: UIViewController? { selectedViewController }
 
+    public init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
