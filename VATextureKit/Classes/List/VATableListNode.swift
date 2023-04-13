@@ -10,9 +10,31 @@ import RxSwift
 import RxCocoa
 
 open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableDelegate {
+    public struct SeparatorConfiguration {
+        let color: UIColor?
+        let style: UITableViewCell.SeparatorStyle
+        let effect: UIVisualEffect?
+        let insetReference: UITableView.SeparatorInsetReference?
+
+        public init(
+            color: UIColor? = nil,
+            style: UITableViewCell.SeparatorStyle = .singleLine,
+            effect: UIVisualEffect? = nil,
+            insetReference: UITableView.SeparatorInsetReference? = nil
+        ) {
+            self.color = color
+            self.style = style
+            self.effect = effect
+            self.insetReference = insetReference
+        }
+    }
+
     public struct ElementDTO {
+        let separatorConfiguration: SeparatorConfiguration
+        let animationConfiguration: AnimationConfiguration
         let style: UITableView.Style
         let listDataObs: Observable<[S.Item]>
+        let shouldScrollToTopOnDataChange: Bool
         let onSelect: ((IndexPath) -> Void)?
         let shouldDeselect: (deselectOnSelect: Bool, animated: Bool)
         let cellGetter: (S.Item) -> ASCellNode
@@ -22,8 +44,11 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         let loadMore: () -> Void
         
         public init(
+            separatorConfiguration: SeparatorConfiguration = .init(),
+            animationConfiguration: AnimationConfiguration = .init(),
             style: UITableView.Style = .plain,
             listDataObs: Observable<[S.Item]>,
+            shouldScrollToTopOnDataChange: Bool = false,
             onSelect: ((IndexPath) -> Void)? = nil,
             shouldDeselect: (deselectOnSelect: Bool, animated: Bool) = (true, true),
             cellGetter: @escaping (S.Item) -> ASCellNode,
@@ -32,8 +57,11 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
             shouldBatchFetch: (() -> Bool)? = nil,
             loadMore: @escaping () -> Void = {}
         ) {
+            self.separatorConfiguration = separatorConfiguration
+            self.animationConfiguration = animationConfiguration
             self.style = style
             self.listDataObs = listDataObs
+            self.shouldScrollToTopOnDataChange = shouldScrollToTopOnDataChange
             self.onSelect = onSelect
             self.shouldDeselect = shouldDeselect
             self.cellGetter = cellGetter
@@ -45,8 +73,11 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
     }
 
     public struct AnimatableSectionDTO<Model: IdentifiableType, Item> where Item == S.Item {
+        let separatorConfiguration: SeparatorConfiguration
+        let animationConfiguration: AnimationConfiguration
         let style: UITableView.Style
         let listDataObs: Observable<[AnimatableSectionModel<Model, Item>]>
+        let shouldScrollToTopOnDataChange: Bool
         let onSelect: ((IndexPath) -> Void)?
         let shouldDeselect: (deselectOnSelect: Bool, animated: Bool)
         let cellGetter: (Item) -> ASCellNode
@@ -56,8 +87,11 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         let loadMore: () -> Void
 
         public init(
+            separatorConfiguration: SeparatorConfiguration = .init(),
+            animationConfiguration: AnimationConfiguration = .init(),
             style: UITableView.Style = .plain,
             listDataObs: Observable<[AnimatableSectionModel<Model, Item>]>,
+            shouldScrollToTopOnDataChange: Bool = false,
             onSelect: ((IndexPath) -> Void)? = nil,
             shouldDeselect: (deselectOnSelect: Bool, animated: Bool) = (true, true),
             cellGetter: @escaping (Item) -> ASCellNode,
@@ -66,8 +100,11 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
             shouldBatchFetch: (() -> Bool)? = nil,
             loadMore: @escaping () -> Void = {}
         ) {
+            self.separatorConfiguration = separatorConfiguration
+            self.animationConfiguration = animationConfiguration
             self.style = style
             self.listDataObs = listDataObs
+            self.shouldScrollToTopOnDataChange = shouldScrollToTopOnDataChange
             self.onSelect = onSelect
             self.shouldDeselect = shouldDeselect
             self.cellGetter = cellGetter
@@ -79,8 +116,11 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
     }
     
     public struct DTO {
+        let separatorConfiguration: SeparatorConfiguration
+        let animationConfiguration: AnimationConfiguration
         let style: UITableView.Style
         let listDataObs: Observable<[S]>
+        let shouldScrollToTopOnDataChange: Bool
         let onSelect: ((IndexPath) -> Void)?
         let shouldDeselect: (deselectOnSelect: Bool, animated: Bool)
         let cellGetter: (S.Item) -> ASCellNode
@@ -90,8 +130,11 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         let loadMore: () -> Void
         
         public init(
+            separatorConfiguration: SeparatorConfiguration = .init(),
+            animationConfiguration: AnimationConfiguration = .init(),
             style: UITableView.Style = .plain,
             listDataObs: Observable<[S]>,
+            shouldScrollToTopOnDataChange: Bool = false,
             onSelect: ((IndexPath) -> Void)? = nil,
             shouldDeselect: (deselectOnSelect: Bool, animated: Bool) = (true, true),
             cellGetter: @escaping (S.Item) -> ASCellNode,
@@ -100,8 +143,11 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
             shouldBatchFetch: (() -> Bool)? = nil,
             loadMore: @escaping () -> Void = {}
         ) {
+            self.separatorConfiguration = separatorConfiguration
+            self.animationConfiguration = animationConfiguration
             self.style = style
             self.listDataObs = listDataObs
+            self.shouldScrollToTopOnDataChange = shouldScrollToTopOnDataChange
             self.onSelect = onSelect
             self.shouldDeselect = shouldDeselect
             self.cellGetter = cellGetter
@@ -146,12 +192,16 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
     private weak var source: RxASTableSectionedAnimatedDataSource<S>?
     private lazy var refreshControlView = refreshData.refreshControlView()
     private var isRefreshing = false
+    private let delayedConfiguration: Bool
     
     public convenience init<T>(data: ElementDTO, refreshData: RefreshDTO = .init()) where S == AnimatableSectionModel<String, T> {
         self.init(
             data: DTO(
+                separatorConfiguration: data.separatorConfiguration,
+                animationConfiguration: data.animationConfiguration,
                 style: data.style,
                 listDataObs: data.listDataObs.map { [AnimatableSectionModel(model: "test", items: $0)] },
+                shouldScrollToTopOnDataChange: data.shouldScrollToTopOnDataChange,
                 onSelect: data.onSelect,
                 shouldDeselect: data.shouldDeselect,
                 cellGetter: data.cellGetter,
@@ -167,8 +217,11 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
     public convenience init<Model, Item>(data: AnimatableSectionDTO<Model, Item>, refreshData: RefreshDTO = .init()) where Item == S.Item, S == AnimatableSectionModel<Model, Item> {
         self.init(
             data: DTO(
+                separatorConfiguration: data.separatorConfiguration,
+                animationConfiguration: data.animationConfiguration,
                 style: data.style,
                 listDataObs: data.listDataObs,
+                shouldScrollToTopOnDataChange: data.shouldScrollToTopOnDataChange,
                 onSelect: data.onSelect,
                 shouldDeselect: data.shouldDeselect,
                 cellGetter: data.cellGetter,
@@ -184,11 +237,23 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
     public init(data: DTO, refreshData: RefreshDTO = .init()) {
         self.refreshData = refreshData
         self.data = data
+        self.delayedConfiguration = !Thread.current.isMainThread
         
         super.init(style: data.style)
 
-        configure()
-        bind()
+        if !delayedConfiguration {
+            configure()
+            bind()
+        }
+    }
+
+    open override func didLoad() {
+        super.didLoad()
+
+        if delayedConfiguration {
+            configure()
+            bind()
+        }
     }
 
     open func configureRefresh() {
@@ -211,11 +276,17 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
 
     private func bind() {
         let dataSource = RxASTableSectionedAnimatedDataSource<S>(
+            animationConfiguration: data.animationConfiguration,
             configureCellBlock: { [data] _, _, _, item in { data.cellGetter(item) } }
         )
         self.source = dataSource
         data.listDataObs
-            .do(onNext: { [weak self] _ in self?.batchContext?.completeBatchFetching(true) })
+            .do(onNext: { [weak self, shouldScrollToTopOnDataChange = data.shouldScrollToTopOnDataChange] _ in
+                self?.batchContext?.completeBatchFetching(true)
+                if shouldScrollToTopOnDataChange {
+                    self?.view.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+                }
+            })
             .bind(to: rx.items(dataSource: dataSource))
             .disposed(by: bag)
         rx.setDelegate(self)
@@ -253,6 +324,10 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
             view.sectionFooterHeight = UITableView.automaticDimension
             view.estimatedSectionFooterHeight = .leastNormalMagnitude
         }
+        data.separatorConfiguration.color.flatMap { view.separatorColor = $0 }
+        view.separatorStyle = data.separatorConfiguration.style
+        data.separatorConfiguration.effect.flatMap { view.separatorEffect = $0 }
+        data.separatorConfiguration.insetReference.flatMap { view.separatorInsetReference = $0 }
         configureRefresh()
     }
     
