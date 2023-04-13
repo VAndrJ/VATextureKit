@@ -305,6 +305,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
             view.sectionFooterHeight = UITableView.automaticDimension
             view.estimatedSectionFooterHeight = .leastNormalMagnitude
         }
+        data.configuration.keyboardDismissMode.flatMap { view.keyboardDismissMode = $0 }
         data.configuration.separatorConfiguration.color.flatMap { view.separatorColor = $0 }
         view.separatorStyle = data.configuration.separatorConfiguration.style
         data.configuration.separatorConfiguration.effect.flatMap { view.separatorEffect = $0 }

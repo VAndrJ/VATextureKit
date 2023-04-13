@@ -1,0 +1,114 @@
+PODS:
+  - Differentiator (5.0.0)
+  - Nimble (10.0.0)
+  - PINCache (3.0.3):
+    - PINCache/Arc-exception-safe (= 3.0.3)
+    - PINCache/Core (= 3.0.3)
+  - PINCache/Arc-exception-safe (3.0.3):
+    - PINCache/Core
+  - PINCache/Core (3.0.3):
+    - PINOperation (~> 1.2.1)
+  - PINOperation (1.2.2)
+  - PINRemoteImage/Core (3.0.3):
+    - PINOperation
+  - PINRemoteImage/iOS (3.0.3):
+    - PINRemoteImage/Core
+  - PINRemoteImage/PINCache (3.0.3):
+    - PINCache (~> 3.0.3)
+    - PINRemoteImage/Core
+  - Quick (2.2.1)
+  - R.swift (7.3.0)
+  - RxCocoa (6.5.0):
+    - RxRelay (= 6.5.0)
+    - RxSwift (= 6.5.0)
+  - RxKeyboard (2.0.0):
+    - RxCocoa (~> 6.0)
+    - RxSwift (~> 6.0)
+  - RxRelay (6.5.0):
+    - RxSwift (= 6.5.0)
+  - RxSwift (6.5.0)
+  - RxSwiftExt (6.0.1):
+    - RxSwiftExt/Core (= 6.0.1)
+    - RxSwiftExt/RxCocoa (= 6.0.1)
+  - RxSwiftExt/Core (6.0.1):
+    - RxSwift (~> 6.0)
+  - RxSwiftExt/RxCocoa (6.0.1):
+    - RxCocoa (~> 6.0)
+    - RxSwiftExt/Core
+  - Swiftional (0.2.5)
+  - Texture (3.1.0):
+    - Texture/AssetsLibrary (= 3.1.0)
+    - Texture/Core (= 3.1.0)
+    - Texture/MapKit (= 3.1.0)
+    - Texture/Photos (= 3.1.0)
+    - Texture/PINRemoteImage (= 3.1.0)
+    - Texture/Video (= 3.1.0)
+  - Texture/AssetsLibrary (3.1.0):
+    - Texture/Core
+  - Texture/Core (3.1.0)
+  - Texture/MapKit (3.1.0):
+    - Texture/Core
+  - Texture/Photos (3.1.0):
+    - Texture/Core
+  - Texture/PINRemoteImage (3.1.0):
+    - PINRemoteImage/iOS (~> 3.0.0)
+    - PINRemoteImage/PINCache
+    - Texture/Core
+  - Texture/Video (3.1.0):
+    - Texture/Core
+  - VATextureKit (0.2.8):
+    - Differentiator (~> 5.0.0)
+    - RxCocoa (~> 6.5.0)
+    - RxSwift (~> 6.5.0)
+    - Texture (~> 3.1.0)
+
+DEPENDENCIES:
+  - Nimble (~> 10.0.0)
+  - Quick (~> 2.2.0)
+  - R.swift
+  - RxKeyboard
+  - RxSwiftExt
+  - Swiftional (= 0.2.5)
+  - VATextureKit (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - Differentiator
+    - Nimble
+    - PINCache
+    - PINOperation
+    - PINRemoteImage
+    - Quick
+    - R.swift
+    - RxCocoa
+    - RxKeyboard
+    - RxRelay
+    - RxSwift
+    - RxSwiftExt
+    - Swiftional
+    - Texture
+
+EXTERNAL SOURCES:
+  VATextureKit:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
+  Nimble: 5316ef81a170ce87baf72dd961f22f89a602ff84
+  PINCache: 7a8fc1a691173d21dbddbf86cd515de6efa55086
+  PINOperation: daa34d4aa1d8449089be7d405b9d974abc4724c6
+  PINRemoteImage: f1295b29f8c5e640e25335a1b2bd9d805171bd01
+  Quick: f5754d69b7013f5864c29aab9ae6f0c79c5bc200
+  R.swift: cef1c530541cb49412752721797f10dae6b32d11
+  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
+  RxKeyboard: 4f5863f43b4ff0cbb2a20b94688d6b80c8a43c14
+  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
+  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
+  RxSwiftExt: d61c4b9b06e0a448041b1c659e0f1b5c5a035afc
+  Swiftional: b0542dc5b8bfe5ec9316ab67327ca1443882eff5
+  Texture: 2e8ab2519452515f7f5a520f5a8f7e0a413abfa3
+  VATextureKit: 81d1b119905c92330a536de55c0905b6587fa230
+
+PODFILE CHECKSUM: 32bd31fa657dec3b76c3a693033b52b33e9310f3
+
+COCOAPODS: 1.12.0

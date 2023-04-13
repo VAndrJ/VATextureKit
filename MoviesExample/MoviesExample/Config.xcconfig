@@ -1,0 +1,8 @@
+//
+//  Config.xcconfig
+//  MoviesExample
+//
+//  Created by VAndrJ on 12.04.2023.
+//
+
+API_KEY = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
