@@ -16,10 +16,20 @@ open class VARadialGradientNode: VABaseGradientNode {
         case bottomRight
         case custom(startPoint: CGPoint, endPoint: CGPoint)
     }
+
+    private var blend: BlendMode?
+    private var gradient: Gradient?
     
-    public convenience init(gradient: Gradient) {
+    public convenience init(gradient: Gradient, blend: BlendMode? = nil) {
         self.init(type: .radial)
-        
+
+        self.blend = blend
+        self.gradient = gradient
+    }
+
+    open override func didLoad() {
+        super.didLoad()
+
         switch gradient {
         case .centered:
             gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.5)
@@ -39,6 +49,11 @@ open class VARadialGradientNode: VABaseGradientNode {
         case let .custom(startPoint, endPoint):
             gradientLayer.startPoint = startPoint
             gradientLayer.endPoint = endPoint
+        case .none:
+            break
+        }
+        if let blend {
+            blendMode = blend
         }
     }
 }
