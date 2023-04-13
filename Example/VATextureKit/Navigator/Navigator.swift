@@ -8,6 +8,7 @@
 
 import VATextureKit
 
+@MainActor
 class Navigator {
     let screenFactory: ScreenFactory
     let navigationController: UINavigationController
@@ -48,6 +49,7 @@ class Navigator {
 //    }
 }
 
+@MainActor
 class ScreenFactory {
     private let themeManager: ThemeManager
     

@@ -7,6 +7,7 @@
 
 import AsyncDisplayKit
 
+@MainActor
 open class VASafeAreaDisplayNode: VADisplayNode {
     
     public override init() {

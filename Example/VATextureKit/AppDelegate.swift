@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.rootViewController = appNavigator.navigationController
             window?.makeKeyAndVisible()
         }
-        #if DEBUG || targetEnvironment(simulator)
+        #if DEBUG && targetEnvironment(simulator)
         if Environment.isTesting {
             window = VAWindow(standardLightTheme: .vaLight, standardDarkTheme: .vaDark)
             return true

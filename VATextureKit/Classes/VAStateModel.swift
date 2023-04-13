@@ -9,7 +9,6 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-// swiftlint:disable indentation_width
 open class VAStateModel<Action, Event, State>: NSObject {
     public let bag = DisposeBag()
     public var state: State { stateRelay.value }

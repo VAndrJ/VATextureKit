@@ -11,6 +11,7 @@ import XCTest
 import SnapshotTesting
 import VATextureKit
 
+@MainActor
 class MainListSectionHeaderNodeTests: XCTestCase {
 
     func test_node_short_strings() {

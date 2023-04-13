@@ -8,6 +8,7 @@
 
 import VATextureKit
 
+@MainActor
 class MainViewModel {
     @Obs.Relay(value: [
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "System"), items: [
