@@ -10,7 +10,18 @@ import RxSwift
 import RxCocoa
 
 open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollectionDelegate {
+    public struct IndicatorConfiguration {
+        let showsVerticalScrollIndicator: Bool
+        let showsHorizontalScrollIndicator: Bool
+
+        public init(showsVerticalScrollIndicator: Bool = true, showsHorizontalScrollIndicator: Bool = true) {
+            self.showsVerticalScrollIndicator = showsVerticalScrollIndicator
+            self.showsHorizontalScrollIndicator = showsHorizontalScrollIndicator
+        }
+    }
+
     public struct ElementDTO {
+        let indicatorConfiguration: IndicatorConfiguration
         let listDataObs: Observable<[S.Item]>
         let onSelect: ((IndexPath) -> Void)?
         let shouldDeselect: (deselectOnSelect: Bool, animated: Bool)
@@ -19,6 +30,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         let loadMore: () -> Void
         
         public init(
+            indicatorConfiguration: IndicatorConfiguration = .init(),
             listDataObs: Observable<[S.Item]>,
             onSelect: ((IndexPath) -> Void)? = nil,
             shouldDeselect: (deselectOnSelect: Bool, animated: Bool) = (true, true),
@@ -26,6 +38,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
             shouldBatchFetch: (() -> Bool)? = nil,
             loadMore: @escaping () -> Void = {}
         ) {
+            self.indicatorConfiguration = indicatorConfiguration
             self.listDataObs = listDataObs
             self.onSelect = onSelect
             self.shouldDeselect = shouldDeselect
@@ -36,6 +49,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
     }
     
     public struct DTO {
+        let indicatorConfiguration: IndicatorConfiguration
         let listDataObs: Observable<[S]>
         let onSelect: ((IndexPath) -> Void)?
         let shouldDeselect: (deselectOnSelect: Bool, animated: Bool)
@@ -44,6 +58,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         let loadMore: () -> Void
         
         public init(
+            indicatorConfiguration: IndicatorConfiguration = .init(),
             listDataObs: Observable<[S]>,
             onSelect: ((IndexPath) -> Void)? = nil,
             shouldDeselect: (deselectOnSelect: Bool, animated: Bool) = (true, true),
@@ -51,6 +66,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
             shouldBatchFetch: (() -> Bool)? = nil,
             loadMore: @escaping () -> Void = {}
         ) {
+            self.indicatorConfiguration = indicatorConfiguration
             self.listDataObs = listDataObs
             self.onSelect = onSelect
             self.shouldDeselect = shouldDeselect
@@ -122,10 +138,12 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
     private let bag = DisposeBag()
     private lazy var refreshControlView = refreshData.refreshControlView()
     private var isRefreshing = false
+    private let delayedConfiguration: Bool
     
     public convenience init<T>(data: ElementDTO, layoutData: LayoutDTO, refreshData: RefreshDTO = .init()) where S == AnimatableSectionModel<String, T> {
         self.init(
             data: .init(
+                indicatorConfiguration: data.indicatorConfiguration,
                 listDataObs: data.listDataObs.map { $0.isEmpty ? [] : [AnimatableSectionModel(model: "", items: $0)] },
                 onSelect: data.onSelect,
                 shouldDeselect: data.shouldDeselect,
@@ -146,6 +164,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         flowLayout.scrollDirection = layoutData.scrollDirection
         flowLayout.minimumLineSpacing = layoutData.minimumLineSpacing
         flowLayout.minimumInteritemSpacing = layoutData.minimumInteritemSpacing
+        self.delayedConfiguration = !Thread.current.isMainThread
         
         super.init(
             frame: CGRect(origin: .zero, size: CGSize(same: 320)),
@@ -153,8 +172,19 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
             layoutFacilitator: nil
         )
 
-        configure()
-        bind()
+        if !delayedConfiguration {
+            configure()
+            bind()
+        }
+    }
+
+    open override func didLoad() {
+        super.didLoad()
+
+        if delayedConfiguration {
+            configure()
+            bind()
+        }
     }
 
     open func configureRefresh() {
@@ -213,6 +243,8 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
 
     private func configure() {
         contentInset = layoutData.contentInset
+        showsVerticalScrollIndicator = data.indicatorConfiguration.showsVerticalScrollIndicator
+        showsHorizontalScrollIndicator = data.indicatorConfiguration.showsHorizontalScrollIndicator
         configureRefresh()
     }
     

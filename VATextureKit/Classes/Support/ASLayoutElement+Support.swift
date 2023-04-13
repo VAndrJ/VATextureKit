@@ -7,6 +7,66 @@
 
 import AsyncDisplayKit
 
+public extension Array where Element: ASLayoutElement {
+
+    func sized(_ size: CGSize) -> Self {
+        forEach { $0.sized(size) }
+        return self
+    }
+
+    func sized(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
+        assert(width != nil || height != nil)
+        forEach { $0.sized(width: width, height: height) }
+        return self
+    }
+
+    func sized(width: ASDimension? = nil, height: ASDimension? = nil) -> Self {
+        assert(width != nil || height != nil)
+        forEach { $0.sized(width: width, height: height) }
+        return self
+    }
+
+    func flex(shrink: CGFloat? = nil, grow: CGFloat? = nil, basisPercent: CGFloat? = nil) -> Self {
+        assert(shrink != nil || grow != nil || basisPercent != nil)
+        forEach { $0.flex(shrink: shrink, grow: grow, basisPercent: basisPercent) }
+        return self
+    }
+
+    func maxConstrained(size: CGSize) -> Self {
+        forEach { $0.maxConstrained(size: size) }
+        return self
+    }
+
+    func maxConstrained(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
+        assert(width != nil || height != nil)
+        forEach { $0.maxConstrained(width: width, height: height) }
+        return self
+    }
+
+    func maxConstrained(width: ASDimension? = nil, height: ASDimension? = nil) -> Self {
+        assert(width != nil || height != nil)
+        forEach { $0.maxConstrained(width: width, height: height) }
+        return self
+    }
+
+    func minConstrained(size: CGSize) -> Self {
+        forEach { $0.minConstrained(size: size) }
+        return self
+    }
+
+    func minConstrained(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
+        assert(width != nil || height != nil)
+        forEach { $0.minConstrained(width: width, height: height) }
+        return self
+    }
+
+    func minConstrained(width: ASDimension? = nil, height: ASDimension? = nil) -> Self {
+        assert(width != nil || height != nil)
+        forEach { $0.minConstrained(width: width, height: height) }
+        return self
+    }
+}
+
 public extension ASLayoutElement {
 
     func sized(_ size: CGSize) -> Self {

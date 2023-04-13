@@ -9,6 +9,20 @@ import AsyncDisplayKit
 
 open class VANavigationController: ASDKNavigationController {
     open override var childForStatusBarStyle: UIViewController? { topViewController }
+    open override var childForStatusBarHidden: UIViewController? { topViewController }
+
+    public init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+
+    @available(*, unavailable)
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     open override func viewDidLoad() {
         super.viewDidLoad()

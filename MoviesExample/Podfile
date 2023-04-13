@@ -1,0 +1,28 @@
+use_modular_headers!
+
+platform :ios, '13.0'
+
+target 'MoviesExample' do
+  inhibit_all_warnings!
+  pod 'VATextureKit', :path => '../'
+  pod 'Swiftional', '0.2.5'
+  pod 'R.swift'
+  pod 'RxSwiftExt'
+  pod 'RxKeyboard'
+
+  target 'MoviesExampleTests' do
+    inhibit_all_warnings!
+    inherit! :search_paths
+
+    pod 'Quick', '~> 2.2.0'
+    pod 'Nimble', '~> 10.0.0'
+  end
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+    end
+  end
+end

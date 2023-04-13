@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  MoviesExample
+
+  Created by VAndrJ on 13.04.2023.
+  
+*/
+
+"cell_recommendations" = "Recommedations";
+"cell_actors" = "Series Cast";
+"rating_percent" = "%d%%";
+"search_screen_title" = "Search";
+"search_section_search" = "Search";
+"search_section_trending" = "Trending";
+"shortcut_search_title" = "Search";
+"shortcut_search_description" = "Movies";
