@@ -43,13 +43,17 @@ final class MovieCardNode: VADisplayNode {
             titleTextNode
         }
     }
+
+    override func configureTheme(_ theme: VATheme) {
+        coverImageNode.backgroundColor = theme.systemGray5
+    }
 }
 
 extension MovieCardNode.DTO {
 
     init(listMovie source: ListMovieEntity) {
         self.init(
-            image: source.image,
+            image: source.poster,
             title: source.title,
             rating: source.rating
         )

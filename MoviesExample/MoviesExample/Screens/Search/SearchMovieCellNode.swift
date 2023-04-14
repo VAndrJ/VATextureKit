@@ -22,8 +22,7 @@ final class SearchMovieCellNode: VACellNode {
             image: viewModel.image?.getImagePath(width: 200),
             contentMode: .scaleAspectFill,
             size: CGSize(width: 32, height: 48),
-            cornerRadius: 4,
-            cornerRoundingType: .precomposited
+            cornerRadius: 4
         ))
 
         super.init()
@@ -43,6 +42,7 @@ final class SearchMovieCellNode: VACellNode {
 
     override func configureTheme(_ theme: VATheme) {
         separatorNode.backgroundColor = theme.opaqueSeparator
+        imageNode.backgroundColor = theme.systemGray6
     }
 }
 

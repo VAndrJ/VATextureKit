@@ -25,12 +25,20 @@ class DisplayNode<ViewModel: Responder>: VASafeAreaDisplayNode, Responder, Contr
 
     func viewDidLoad(in controller: UIViewController) {}
 
+    func viewDidAppear(in controller: UIViewController, animated: Bool) {}
+
+    func viewWillAppear(in controller: UIViewController, animated: Bool) {}
+
+    func viewWillDisappear(in controller: UIViewController, animated: Bool) {}
+
+    func viewDidDisappear(in controller: UIViewController, animated: Bool) {}
+
     func handle(event: ResponderEvent) async -> Bool {
         logResponder(from: self, event: event)
         return await nextEventResponder?.handle(event: event) ?? false
     }
 
-    func bindKeyboardInset(scrollView: UIScrollView, tabBar: UITabBar? = nil) {
+    func bindKeyboardInset(scrollView: UIScrollView, tabBarController: UITabBarController? = nil) {
         let initialBottomInset = scrollView.contentInset.bottom
         let initialIndicatorBottomInset = scrollView.verticalScrollIndicatorInsets.bottom
         Observable
@@ -41,9 +49,16 @@ class DisplayNode<ViewModel: Responder>: VASafeAreaDisplayNode, Responder, Contr
                 rx.observe(UIEdgeInsets.self, #keyPath(ASDisplayNode.safeAreaInsets))
                     .compactMap(\.?.bottom)
                     .distinctUntilChanged(),
-                tabBar?.rx.observe(CGRect.self, #keyPath(UITabBar.bounds))
-                    .compactMap(\.?.height)
-                    .distinctUntilChanged() ?? .just(0)
+                Observable
+                    .combineLatest(
+                        tabBarController?.tabBar.rx.observe(CGRect.self, #keyPath(UITabBar.bounds))
+                            .compactMap(\.?.height)
+                            .distinctUntilChanged() ?? .just(0),
+                        tabBarController?.view.rx.observe(UIEdgeInsets.self, #keyPath(UIView.safeAreaInsets))
+                            .compactMap(\.?.bottom)
+                            .distinctUntilChanged() ?? .just(0)
+                    )
+                    .map { $0 + $1 }
             )
             .map { keyboardHeight, safeAreaBottom, tabBarHeght in
                 let possibleBottomInset = keyboardHeight - max(safeAreaBottom, tabBarHeght)

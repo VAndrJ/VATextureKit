@@ -14,12 +14,12 @@ final class ActorCardNode: VADisplayNode {
         let character: String
     }
 
-    private let avatarNode: VANetworkImageNode
+    private let avatarImageNode: VANetworkImageNode
     private let nameTextNode: VATextNode
     private let roleTextNode: VATextNode
 
     init(data: DTO) {
-        self.avatarNode = VANetworkImageNode(data: .init(
+        self.avatarImageNode = VANetworkImageNode(data: .init(
             image: data.avatar?.getImagePath(width: 500),
             contentMode: .scaleAspectFill
         )).flex(grow: 1)
@@ -40,12 +40,16 @@ final class ActorCardNode: VADisplayNode {
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column(spacing: 2, cross: .center) {
-            avatarNode
+            avatarImageNode
                 .ratio(113 / 83)
             nameTextNode
                 .padding(.top(2))
             roleTextNode
         }
+    }
+
+    override func configureTheme(_ theme: VATheme) {
+        avatarImageNode.backgroundColor = theme.systemGray5
     }
 }
 

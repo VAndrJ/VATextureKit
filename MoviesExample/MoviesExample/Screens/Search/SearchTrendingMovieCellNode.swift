@@ -23,8 +23,7 @@ final class SearchTrendingMovieCellNode: VACellNode {
             image: viewModel.image?.getImagePath(width: 200),
             contentMode: .scaleAspectFill,
             size: CGSize(width: 126, height: 78),
-            cornerRadius: 16,
-            cornerRoundingType: .precomposited
+            cornerRadius: 16
         ))
 
         super.init()
@@ -40,6 +39,10 @@ final class SearchTrendingMovieCellNode: VACellNode {
             .flex(shrink: 0.1, grow: 1)
         }
         .padding(.all(16))
+    }
+
+    override func configureTheme(_ theme: VATheme) {
+        imageNode.backgroundColor = theme.systemGray6
     }
 }
 
