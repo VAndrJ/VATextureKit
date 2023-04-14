@@ -111,6 +111,7 @@ private func mapMovieActors(_ data: [ListActorEntity], viewModel: EventViewModel
     } else {
         return [
             MovieActorsCellNodeViewModel(
+                title: R.string.localizable.cell_actors(),
                 actors: data,
                 onSelect: { viewModel.perform(OpenListActorDetailsEvent(actor: $0)) }
             ),

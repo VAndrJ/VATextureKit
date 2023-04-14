@@ -22,7 +22,7 @@ final class ActorsSliderCellNode: VACellNode {
     init(viewModel: MovieActorsCellNodeViewModel) {
         self.viewModel = viewModel
         self.titleTextNode = VATextNode(
-            text: R.string.localizable.cell_actors(),
+            text: viewModel.title,
             textStyle: .headline
         )
         self.acrorNodes = viewModel.actors.map { listActor in
@@ -57,10 +57,12 @@ final class ActorsSliderCellNode: VACellNode {
 }
 
 final class MovieActorsCellNodeViewModel: CellViewModel {
+    let title: String
     let actors: [ListActorEntity]
     let onSelect: (ListActorEntity) -> Void
 
-    init(actors: [ListActorEntity], onSelect: @escaping (ListActorEntity) -> Void) {
+    init(title: String, actors: [ListActorEntity], onSelect: @escaping (ListActorEntity) -> Void) {
+        self.title = title
         self.actors = actors
         self.onSelect = onSelect
 
