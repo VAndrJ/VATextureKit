@@ -91,3 +91,5 @@ iOSInjectionProject/
 
 # R.swift
 *.generated.swift
+
+Config.xcconfig
