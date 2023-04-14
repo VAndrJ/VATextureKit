@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3ADAB2CF4B6ECC0FAD564B14 /* libPods-MoviesExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BD0706B324EBD5B5FE4BA04 /* libPods-MoviesExampleTests.a */; };
+		A31F889429E9C49C0077296B /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = A31F889329E9C49C0077296B /* SnapshotTesting */; };
 		A333E6AC29E5CC9800A5954F /* NetworkHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = A333E6AB29E5CC9800A5954F /* NetworkHeaders.swift */; };
 		A333E6AE29E5CD9300A5954F /* NetworkPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = A333E6AD29E5CD9300A5954F /* NetworkPath.swift */; };
 		A333E6B029E5CDCF00A5954F /* ReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A333E6AF29E5CDCF00A5954F /* ReachabilityService.swift */; };
@@ -212,6 +213,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7D96227054537F515288EE2 /* libPods-MoviesExampleSnapshotTests.a in Frameworks */,
+				A31F889429E9C49C0077296B /* SnapshotTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,8 +256,24 @@
 		A31F888A29E9C3420077296B /* MoviesExampleSnapshotTests */ = {
 			isa = PBXGroup;
 			children = (
+				A31F889629E9C6440077296B /* MovieDetails */,
+				A31F889529E9C4B40077296B /* Search */,
 			);
 			path = MoviesExampleSnapshotTests;
+			sourceTree = "<group>";
+		};
+		A31F889529E9C4B40077296B /* Search */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		A31F889629E9C6440077296B /* MovieDetails */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MovieDetails;
 			sourceTree = "<group>";
 		};
 		A333E6CE29E6CE0C00A5954F /* DataSource */ = {
@@ -548,6 +566,9 @@
 				A31F888E29E9C3420077296B /* PBXTargetDependency */,
 			);
 			name = MoviesExampleSnapshotTests;
+			packageProductDependencies = (
+				A31F889329E9C49C0077296B /* SnapshotTesting */,
+			);
 			productName = MoviesExampleSnapshotTests;
 			productReference = A31F888929E9C3420077296B /* MoviesExampleSnapshotTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -646,6 +667,9 @@
 				Base,
 			);
 			mainGroup = A3820D3229E59A3000993406;
+			packageReferences = (
+				A31F889229E9C49C0077296B /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
+			);
 			productRefGroup = A3820D3C29E59A3000993406 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1325,6 +1349,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A31F889229E9C49C0077296B /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A31F889329E9C49C0077296B /* SnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A31F889229E9C49C0077296B /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTesting;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A3820D3329E59A3000993406 /* Project object */;
 }
