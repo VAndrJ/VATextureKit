@@ -24,7 +24,6 @@ final class MovieDetailsNode: DisplayNode<MovieDetailsViewModel> {
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
             listNode
-                .wrapped()
         }
     }
 

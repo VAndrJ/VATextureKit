@@ -22,8 +22,18 @@ final class ShimmerCellNode: VACellNode {
         self.viewModel = viewModel
 
         super.init()
+    }
 
-        contentNode.enableSubtreeRasterization()
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        contentNode
+            .wrapped()
+    }
+
+    override func configureTheme(_ theme: VATheme) {
+        backgroundColor = theme.systemBackground
+        if isVisible {
+            startAnimating()
+        }
     }
 
     override func layout() {
@@ -72,18 +82,6 @@ final class ShimmerCellNode: VACellNode {
 
     func stopAnimating() {
         layer.mask = nil
-    }
-
-    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        contentNode
-            .wrapped()
-    }
-
-    override func configureTheme(_ theme: VATheme) {
-        backgroundColor = theme.systemBackground
-        if isVisible {
-            startAnimating()
-        }
     }
 }
 
