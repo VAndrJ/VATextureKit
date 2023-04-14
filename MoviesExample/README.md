@@ -28,4 +28,43 @@ xed .
 ## How its look
 
 
-// TODO: -
+![Movie app example 1](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/movie_app_example_ui.gif)
+
+
+Cell layout code. 
+
+
+* Example 1:
+
+
+```swift
+override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    Row(spacing: 16) {
+        imageNode
+        Column(spacing: 4, cross: .stretch) {
+            titleTextNode
+            descriptionTextNode
+        }
+        .flex(shrink: 0.1, grow: 1)
+    }
+    .padding(.all(16))
+}
+```
+
+
+* Example 2:
+
+
+```swift
+override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    Column {
+        Row(spacing: 16, cross: .center) {
+            imageNode
+            titleTextNode
+        }
+        .padding(.vertical(6), .horizontal(16))
+        separatorNode
+            .padding(.left(60), .right(16))
+    }
+}
+```
