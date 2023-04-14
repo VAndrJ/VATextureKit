@@ -24,9 +24,9 @@ class CompositingFilterControllerNode: VASafeAreaDisplayNode {
         contentMode: .scaleAspectFill
     ))
     private(set) lazy var listNode = VATableListNode(data: .init(
+        configuration: .init(shouldDeselect: (false, true)),
         listDataObs: viewModel.filtersObs,
         onSelect: viewModel.didSelect(indexPath:),
-        shouldDeselect: (false, true),
         cellGetter: CompositingCellNode.init(viewModel:)
     ))
 
