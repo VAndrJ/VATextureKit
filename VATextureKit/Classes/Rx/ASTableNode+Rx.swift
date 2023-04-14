@@ -497,33 +497,19 @@ open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>: 
                     let differences = try Diff.differencesForSectionedView(initialSections: oldSections, finalSections: newSections)
                     switch dataSource.decideNodeTransition(dataSource, tableNode, differences) {
                     case .animated:
-                        if oldSections.count < 2 && newSections.count == 1 {
+                        // each difference must be run in a separate 'performBatchUpdates', otherwise it crashes.
+                        // this is a limitation of Diff tool
+                        for difference in differences {
                             let updateBlock = {
-                                for difference in differences {
-                                    dataSource.setSections(difference.finalSections)
-                                    tableNode.batchUpdates(difference, animationConfiguration: dataSource.animationConfiguration)
-                                }
+                                // sections must be set within updateBlock in 'performBatchUpdates'
+                                dataSource.setSections(difference.finalSections)
+                                tableNode.batchUpdates(difference, animationConfiguration: dataSource.animationConfiguration)
                             }
                             tableNode.performBatch(
                                 animated: dataSource.animationConfiguration.animated,
                                 updates: updateBlock,
                                 completion: nil
                             )
-                        } else {
-                            // each difference must be run in a separate 'performBatchUpdates', otherwise it crashes.
-                            // this is a limitation of Diff tool
-                            for difference in differences {
-                                let updateBlock = {
-                                    // sections must be set within updateBlock in 'performBatchUpdates'
-                                    dataSource.setSections(difference.finalSections)
-                                    tableNode.batchUpdates(difference, animationConfiguration: dataSource.animationConfiguration)
-                                }
-                                tableNode.performBatch(
-                                    animated: dataSource.animationConfiguration.animated,
-                                    updates: updateBlock,
-                                    completion: nil
-                                )
-                            }
                         }
                     case .reload:
                         dataSource.setSections(newSections)
