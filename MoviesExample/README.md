@@ -51,6 +51,11 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 }
 ```
 
+Result:
+
+
+![Cell layout result example 1](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/cell_layout_example_1.png)
+
 
 * Example 2:
 
@@ -68,3 +73,9 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
     }
 }
 ```
+
+
+Result:
+
+
+![Cell layout result example 2](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/cell_layout_example_2.png)

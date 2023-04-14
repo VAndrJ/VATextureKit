@@ -537,6 +537,8 @@
 				A3820D5329E59A3100993406 /* PBXTargetDependency */,
 			);
 			name = MoviesExampleTests;
+			packageProductDependencies = (
+			);
 			productName = MoviesExampleTests;
 			productReference = A3820D5129E59A3100993406 /* MoviesExampleTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -591,6 +593,8 @@
 				Base,
 			);
 			mainGroup = A3820D3229E59A3000993406;
+			packageReferences = (
+			);
 			productRefGroup = A3820D3C29E59A3000993406 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
