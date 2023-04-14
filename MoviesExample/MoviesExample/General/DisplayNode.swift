@@ -25,6 +25,14 @@ class DisplayNode<ViewModel: Responder>: VASafeAreaDisplayNode, Responder, Contr
 
     func viewDidLoad(in controller: UIViewController) {}
 
+    func viewDidAppear(in controller: UIViewController, animated: Bool) {}
+
+    func viewWillAppear(in controller: UIViewController, animated: Bool) {}
+
+    func viewWillDisappear(in controller: UIViewController, animated: Bool) {}
+
+    func viewDidDisappear(in controller: UIViewController, animated: Bool) {}
+
     func handle(event: ResponderEvent) async -> Bool {
         logResponder(from: self, event: event)
         return await nextEventResponder?.handle(event: event) ?? false
