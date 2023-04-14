@@ -13,7 +13,7 @@ class SlideAnimationControllerNode: VASafeAreaDisplayNode {
         .flex(shrink: 0.1, basisPercent: 60)
     let rightNode = VATextNode(text: "right", textStyle: .body, alignment: .center)
         .flex(basisPercent: 40)
-    let exchangeButtonNode = VAButtonNode()
+    let exchangeButtonNode = HapticButtonNode()
         .apply {
             $0.setTitle("Exchange", with: nil, with: nil, for: .normal)
         }
@@ -24,11 +24,11 @@ class SlideAnimationControllerNode: VASafeAreaDisplayNode {
     ).apply {
         $0.transition = .slide
     }
-    let toggleButtonNode = VAButtonNode()
+    let toggleButtonNode = HapticButtonNode()
         .apply {
             $0.setTitle("Toggle", with: nil, with: nil, for: .normal)
         }
-    let expandButtonNode = VAButtonNode()
+    let expandButtonNode = HapticButtonNode()
         .apply {
             $0.setTitle("Expand", with: nil, with: nil, for: .normal)
         }

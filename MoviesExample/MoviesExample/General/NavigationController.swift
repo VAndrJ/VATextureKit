@@ -23,6 +23,16 @@ final class NavigationController: VANavigationController {
 
         view.backgroundColor = theme.systemBackground
     }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+
+        if viewControllers.isNotEmpty {
+            for i in viewControllers.indices.dropLast(1).reversed() where (viewControllers[i] as? NavigationClosable)?.isNotImportant == true {
+                viewControllers.remove(at: i)
+            }
+        }
+    }
 }
 
 extension NavigationController: Responder {

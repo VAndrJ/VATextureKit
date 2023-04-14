@@ -38,14 +38,6 @@ class ViewController<Node: ASDisplayNode & Responder & ControllerNode>: VAViewCo
 
         navigationController?.setNavigationBarHidden(shouldHideNavigationBar, animated: true)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-
-        if contentNode.isVisible {
-            navigationController?.viewControllers.removeAll(where: { ($0 as? NavigationClosable)?.isNotImportant == true && $0 !== self })
-        }
-    }
 }
 
 extension ViewController: Responder {
