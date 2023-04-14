@@ -27,8 +27,8 @@ class ViewController<Node: ASDisplayNode & Responder & ControllerNode>: VAViewCo
         self.title = title
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
         contentNode.viewDidLoad(in: self)
     }
@@ -36,7 +36,26 @@ class ViewController<Node: ASDisplayNode & Responder & ControllerNode>: VAViewCo
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        contentNode.viewWillAppear(in: self, animated: animated)
         navigationController?.setNavigationBarHidden(shouldHideNavigationBar, animated: true)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        contentNode.viewDidAppear(in: self, animated: animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        contentNode.viewWillDisappear(in: self, animated: animated)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        contentNode.viewDidDisappear(in: self, animated: animated)
     }
 }
 
