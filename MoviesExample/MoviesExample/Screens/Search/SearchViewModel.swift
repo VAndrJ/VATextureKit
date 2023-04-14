@@ -127,7 +127,7 @@ private func mapSearchMovies(_ data: [ListMovieEntity]) -> [AnimatableSectionMod
         return [
             AnimatableSectionModel(
                 model: SearchSectionHeaderNodeViewModel(title: R.string.localizable.search_section_search()),
-                items: data.map(SearchTrendingMovieCellNodeViewModel.init(listEntity:))
+                items: data.map(SearchMovieCellNodeViewModel.init(listEntity:))
             ),
         ]
     }

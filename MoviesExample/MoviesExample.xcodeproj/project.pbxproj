@@ -82,6 +82,7 @@
 		A3820DB329E5CB0400993406 /* NetworkResponseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3820DB229E5CB0400993406 /* NetworkResponseParser.swift */; };
 		A3820DB529E5CB3F00993406 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3820DB429E5CB3F00993406 /* NetworkError.swift */; };
 		A383D32329E95A1800ED3BCB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A383D32229E95A1800ED3BCB /* README.md */; };
+		A383D32529E95F8E00ED3BCB /* SearchMovieCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A383D32429E95F8E00ED3BCB /* SearchMovieCellNode.swift */; };
 		A3FC64AB29E86083005A8D7B /* SearchBarNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FC64AA29E86083005A8D7B /* SearchBarNode.swift */; };
 		F5FCE1F10BA9241991200C00 /* libPods-MoviesExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E24C26BCDEEDA10BACAAAD3 /* libPods-MoviesExample.a */; };
 /* End PBXBuildFile section */
@@ -187,6 +188,7 @@
 		A3820DB229E5CB0400993406 /* NetworkResponseParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponseParser.swift; sourceTree = "<group>"; };
 		A3820DB429E5CB3F00993406 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		A383D32229E95A1800ED3BCB /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		A383D32429E95F8E00ED3BCB /* SearchMovieCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMovieCellNode.swift; sourceTree = "<group>"; };
 		A3FC64AA29E86083005A8D7B /* SearchBarNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarNode.swift; sourceTree = "<group>"; };
 		BA9A475EC45C8B50495070E2 /* Pods-MoviesExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoviesExampleTests.release.xcconfig"; path = "Target Support Files/Pods-MoviesExampleTests/Pods-MoviesExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		DBAF07E0D94BABC9CE60DBF9 /* Pods-MoviesExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoviesExample.release.xcconfig"; path = "Target Support Files/Pods-MoviesExample/Pods-MoviesExample.release.xcconfig"; sourceTree = "<group>"; };
@@ -462,6 +464,7 @@
 				A3820D9B29E5B53E00993406 /* SearchViewModel.swift */,
 				A3820DAB29E5C38C00993406 /* SearchSectionHeaderNode.swift */,
 				A3820DAD29E5C47D00993406 /* SearchTrendingMovieCellNode.swift */,
+				A383D32429E95F8E00ED3BCB /* SearchMovieCellNode.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -793,6 +796,7 @@
 				A3820DA829E5BD8F00993406 /* VATheme+Support.swift in Sources */,
 				A357773629E81FA400093AB7 /* CastResponseDTO.swift in Sources */,
 				A333E6C729E6B4A500A5954F /* ViewModel.swift in Sources */,
+				A383D32529E95F8E00ED3BCB /* SearchMovieCellNode.swift in Sources */,
 				A3820D7E29E5A82900993406 /* NavigationController.swift in Sources */,
 				A333E6EB29E74DA800A5954F /* MovieEntity.swift in Sources */,
 				A3820D7C29E5A55B00993406 /* Navigator.swift in Sources */,

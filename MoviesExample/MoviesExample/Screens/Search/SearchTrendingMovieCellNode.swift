@@ -20,7 +20,7 @@ final class SearchTrendingMovieCellNode: VACellNode {
             themeColor: { $0.secondaryLabel }
         )
         self.imageNode = VANetworkImageNode(data: .init(
-            image: viewModel.image,
+            image: viewModel.image?.getImagePath(width: 200),
             contentMode: .scaleAspectFill,
             size: CGSize(width: 126, height: 78),
             cornerRadius: 16,
@@ -48,18 +48,10 @@ final class SearchTrendingMovieCellNodeViewModel: CellViewModel {
     let description: String
     let image: String?
 
-    init(id: Int, title: String, description: String, image: String?) {
-        self.title = title
-        self.description = description
-        self.image = image
-
-        super.init(identity: id)
-    }
-
     init(listEntity source: ListMovieEntity) {
         self.title = source.title
         self.description = source.overview
-        self.image = source.image.flatMap { $0.getImagePath(width: 500) }
+        self.image = source.image
 
         super.init(identity: source.id)
     }

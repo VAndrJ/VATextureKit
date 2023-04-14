@@ -15,7 +15,6 @@ final class SearchNode: DisplayNode<SearchViewModel> {
         configuration: .init(
             keyboardDismissMode: .interactive,
             separatorConfiguration: .init(style: .none),
-            animationConfiguration: .init(insertAnimation: .automatic, reloadAnimation: .none, deleteAnimation: .bottom),
             shouldScrollToTopOnDataChange: true
         ),
         listDataObs: viewModel.listDataObs,
@@ -58,6 +57,7 @@ final class SearchNode: DisplayNode<SearchViewModel> {
                 rx.methodInvoked(#selector(didEnterVisibleState))
                     .map { _ in BecomeVisibleEvent() },
                 searchNode.textObs
+                    .distinctUntilChanged()
                     .map { SearchMovieEvent(query: $0) }
             )
             .bind(to: viewModel.eventRelay)
