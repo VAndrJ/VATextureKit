@@ -1,5 +1,5 @@
 //
-//  SearchMovieCellNode.swift
+//  SearchTrendingMovieCellNode.swift
 //  MoviesExample
 //
 //  Created by VAndrJ on 12.04.2023.
@@ -7,12 +7,12 @@
 
 import VATextureKit
 
-final class SearchMovieCellNode: VACellNode {
+final class SearchTrendingMovieCellNode: VACellNode {
     private let titleTextNode: VATextNode
     private let descriptionTextNode: VATextNode
     private let imageNode: VANetworkImageNode
 
-    init(viewModel: SearchMovieCellNodeViewModel) {
+    init(viewModel: SearchTrendingMovieCellNodeViewModel) {
         self.titleTextNode = VATextNode(text: viewModel.title)
         self.descriptionTextNode = VATextNode(
             text: viewModel.description,
@@ -43,7 +43,7 @@ final class SearchMovieCellNode: VACellNode {
     }
 }
 
-final class SearchMovieCellNodeViewModel: CellViewModel {
+final class SearchTrendingMovieCellNodeViewModel: CellViewModel {
     let title: String
     let description: String
     let image: String?

@@ -34,8 +34,8 @@ class CellViewModel: Equatable, IdentifiableType {
 @MainActor
 func mapToCell(viewModel: CellViewModel) -> ASCellNode {
     switch viewModel {
-    case let viewModel as SearchMovieCellNodeViewModel:
-        return SearchMovieCellNode(viewModel: viewModel)
+    case let viewModel as SearchTrendingMovieCellNodeViewModel:
+        return SearchTrendingMovieCellNode(viewModel: viewModel)
     case let viewModel as ShimmerCellNodeViewModel:
         return ShimmerCellNode(viewModel: viewModel)
     case let viewModel as MoviesSliderCellNodeViewModel:

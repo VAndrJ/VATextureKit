@@ -115,7 +115,7 @@ private func mapSearchTrendingMovies(_ data: [ListMovieEntity]) -> [AnimatableSe
     [
         AnimatableSectionModel(
             model: SearchSectionHeaderNodeViewModel(title: R.string.localizable.search_section_trending()),
-            items: data.isEmpty ? [ShimmerCellNodeViewModel(kind: .trending)] : data.map(SearchMovieCellNodeViewModel.init(listEntity:))
+            items: data.isEmpty ? [ShimmerCellNodeViewModel(kind: .trending)] : data.map(SearchTrendingMovieCellNodeViewModel.init(listEntity:))
         ),
     ]
 }
@@ -127,7 +127,7 @@ private func mapSearchMovies(_ data: [ListMovieEntity]) -> [AnimatableSectionMod
         return [
             AnimatableSectionModel(
                 model: SearchSectionHeaderNodeViewModel(title: R.string.localizable.search_section_search()),
-                items: data.map(SearchMovieCellNodeViewModel.init(listEntity:))
+                items: data.map(SearchTrendingMovieCellNodeViewModel.init(listEntity:))
             ),
         ]
     }

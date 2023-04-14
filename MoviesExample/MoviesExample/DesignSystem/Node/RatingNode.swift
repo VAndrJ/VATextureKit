@@ -14,7 +14,7 @@ final class RatingNode: VADisplayNode {
 
     init(rating: Double) {
         self.percentTextNode = VATextNode(
-            text: R.string.localizable.rating_percent(Int(rating)),
+            text: R.string.localizable.rating_percent(Int(rating.rounded(.up))),
             textStyle: .footnote,
             maximumNumberOfLines: 1,
             themeColor: { $0.secondaryLabel }

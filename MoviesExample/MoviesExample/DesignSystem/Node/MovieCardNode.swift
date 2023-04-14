@@ -1,5 +1,5 @@
 //
-//  MovieCardCellNode.swift
+//  MovieCardNode.swift
 //  MoviesExample
 //
 //  Created by VAndrJ on 13.04.2023.
