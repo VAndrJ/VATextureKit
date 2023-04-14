@@ -44,8 +44,8 @@ func mapToCell(viewModel: CellViewModel) -> ASCellNode {
         return MovieDetailsTitleCellNode(viewModel: viewModel)
     case let viewModel as MovieDetailsTrailerCellNodeViewModel:
         return MovieDetailsTrailerCellNode(viewModel: viewModel)
-    case let viewModel as MovieGenresCellNodeViewModel:
-        return MovieGenresCellNode(viewModel: viewModel)
+    case let viewModel as GenresTagsCellNodeViewModel:
+        return GenresTagsCellNode(viewModel: viewModel)
     case let viewModel as MovieDetailsDescriptionCellNodeViewModel:
         return MovieDetailsDescriptionCellNode(viewModel: viewModel)
     case let viewModel as MovieActorsCellNodeViewModel:

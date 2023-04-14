@@ -99,7 +99,7 @@ private func mapMovieDetails(_ data: MovieEntity, viewModel: EventViewModel) -> 
     [
         MovieDetailsTitleCellNodeViewModel(movie: data),
         MovieDetailsTrailerCellNodeViewModel(image: data.backdropPath),
-        MovieGenresCellNodeViewModel(genres: data.genres),
+        GenresTagsCellNodeViewModel(genres: data.genres),
         MovieDetailsDescriptionCellNodeViewModel(description: data.overview),
     ]
 }
