@@ -1,21 +1,31 @@
 # Movies app example using VATextureKit
 
+  * [Run](#run)
+  * [How its look](#how-its-look)
+
+## Run
+
 
 Steps to run:
 
 
-*
-<pre><code>
+* In the Terminal in the project folder:
+```
 pod install
-</code></pre>
+```
 
-* 
-<pre><code>
+```
 xed .
-</code></pre>
+```
 
 * open `Config.xcconfig` and replace `XXXXXXXXXXXXXXXXXXXXXXXXXXX` with your TMDB API token.
 
 * run
 
 * explore UI examples
+
+
+## How its look
+
+
+// TODO: -
