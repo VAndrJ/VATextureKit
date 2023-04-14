@@ -28,6 +28,7 @@ final class MovieDetailsTrailerCellNode: VACellNode {
 
     override func configureTheme(_ theme: VATheme) {
         gradientNode.update(colors: (theme.systemBackground.withAlphaComponent(1), 0), (theme.darkText.withAlphaComponent(0.32), 1))
+        imageNode.backgroundColor = theme.systemGray6
     }
 }
 
