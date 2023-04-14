@@ -2,28 +2,27 @@
 //  SearchMovieCellNode.swift
 //  MoviesExample
 //
-//  Created by VAndrJ on 12.04.2023.
+//  Created by VAndrJ on 14.04.2023.
 //
 
 import VATextureKit
 
 final class SearchMovieCellNode: VACellNode {
     private let titleTextNode: VATextNode
-    private let descriptionTextNode: VATextNode
     private let imageNode: VANetworkImageNode
+    private lazy var separatorNode = ASDisplayNode()
+        .sized(height: 1)
 
     init(viewModel: SearchMovieCellNodeViewModel) {
-        self.titleTextNode = VATextNode(text: viewModel.title)
-        self.descriptionTextNode = VATextNode(
-            text: viewModel.description,
-            textStyle: .footnote,
-            themeColor: { $0.secondaryLabel }
-        )
+        self.titleTextNode = VATextNode(
+            text: viewModel.title,
+            textStyle: .headline
+        ).flex(shrink: 0.1)
         self.imageNode = VANetworkImageNode(data: .init(
-            image: viewModel.image,
+            image: viewModel.image?.getImagePath(width: 200),
             contentMode: .scaleAspectFill,
-            size: CGSize(width: 126, height: 78),
-            cornerRadius: 16,
+            size: CGSize(width: 32, height: 48),
+            cornerRadius: 4,
             cornerRoundingType: .precomposited
         ))
 
@@ -31,35 +30,29 @@ final class SearchMovieCellNode: VACellNode {
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        Row(spacing: 16) {
-            imageNode
-            Column(spacing: 4, cross: .stretch) {
+        Column {
+            Row(spacing: 16, cross: .center) {
+                imageNode
                 titleTextNode
-                descriptionTextNode
             }
-            .flex(shrink: 0.1, grow: 1)
+            .padding(.vertical(6), .horizontal(16))
+            separatorNode
+                .padding(.left(60), .right(16))
         }
-        .padding(.all(16))
+    }
+
+    override func configureTheme(_ theme: VATheme) {
+        separatorNode.backgroundColor = theme.opaqueSeparator
     }
 }
 
 final class SearchMovieCellNodeViewModel: CellViewModel {
     let title: String
-    let description: String
     let image: String?
-
-    init(id: Int, title: String, description: String, image: String?) {
-        self.title = title
-        self.description = description
-        self.image = image
-
-        super.init(identity: id)
-    }
 
     init(listEntity source: ListMovieEntity) {
         self.title = source.title
-        self.description = source.overview
-        self.image = source.image.flatMap { $0.getImagePath(width: 500) }
+        self.image = source.poster
 
         super.init(identity: source.id)
     }

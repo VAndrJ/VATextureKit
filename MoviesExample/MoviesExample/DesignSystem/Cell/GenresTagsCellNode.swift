@@ -1,5 +1,5 @@
 //
-//  MovieGenresCellNode.swift
+//  GenresTagsCellNode.swift
 //  MoviesExample
 //
 //  Created by VAndrJ on 13.04.2023.
@@ -7,11 +7,11 @@
 
 import VATextureKit
 
-final class MovieGenresCellNode: VACellNode {
+final class GenresTagsCellNode: VACellNode {
     private let genreNodes: [ASDisplayNode]
 
-    init(viewModel: MovieGenresCellNodeViewModel) {
-        self.genreNodes = viewModel.genres.map { GenreNode(genre: $0.name) }
+    init(viewModel: GenresTagsCellNodeViewModel) {
+        self.genreNodes = viewModel.genres.map { GenreTagNode(genre: $0.name) }
 
         super.init()
     }
@@ -24,7 +24,7 @@ final class MovieGenresCellNode: VACellNode {
     }
 }
 
-final class MovieGenresCellNodeViewModel: CellViewModel {
+final class GenresTagsCellNodeViewModel: CellViewModel {
     let genres: [GenreEntity]
 
     init(genres: [GenreEntity]) {

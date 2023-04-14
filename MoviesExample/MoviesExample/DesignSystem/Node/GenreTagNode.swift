@@ -1,5 +1,5 @@
 //
-//  GenreNode.swift
+//  GenreTagNode.swift
 //  MoviesExample
 //
 //  Created by VAndrJ on 13.04.2023.
@@ -7,7 +7,7 @@
 
 import VATextureKit
 
-final class GenreNode: VADisplayNode {
+final class GenreTagNode: VADisplayNode {
     private let titleTextNode: VATextNode
 
     init(genre: String) {

@@ -99,7 +99,7 @@ private func mapMovieDetails(_ data: MovieEntity, viewModel: EventViewModel) -> 
     [
         MovieDetailsTitleCellNodeViewModel(movie: data),
         MovieDetailsTrailerCellNodeViewModel(image: data.backdropPath),
-        MovieGenresCellNodeViewModel(genres: data.genres),
+        GenresTagsCellNodeViewModel(genres: data.genres),
         MovieDetailsDescriptionCellNodeViewModel(description: data.overview),
     ]
 }
@@ -111,6 +111,7 @@ private func mapMovieActors(_ data: [ListActorEntity], viewModel: EventViewModel
     } else {
         return [
             MovieActorsCellNodeViewModel(
+                title: R.string.localizable.cell_actors(),
                 actors: data,
                 onSelect: { viewModel.perform(OpenListActorDetailsEvent(actor: $0)) }
             ),
