@@ -53,7 +53,7 @@ extension MovieCardNode.DTO {
 
     init(listMovie source: ListMovieEntity) {
         self.init(
-            image: source.image,
+            image: source.poster,
             title: source.title,
             rating: source.rating
         )
