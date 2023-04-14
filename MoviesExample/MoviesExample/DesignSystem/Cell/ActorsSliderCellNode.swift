@@ -1,5 +1,5 @@
 //
-//  MovieActorsCellNode.swift
+//  ActorsSliderCellNode.swift
 //  MoviesExample
 //
 //  Created by VAndrJ on 13.04.2023.
@@ -9,7 +9,7 @@ import VATextureKit
 import Swiftional
 
 @MainActor
-final class MovieActorsCellNode: VACellNode {
+final class ActorsSliderCellNode: VACellNode {
     private let titleTextNode: VATextNode
     private lazy var listNode = VAScrollNode(data: .init(
         scrollableDirections: ASScrollDirectionHorizontalDirections,

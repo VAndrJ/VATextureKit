@@ -11,6 +11,10 @@ import RxCocoa
 
 extension ObservableType {
 
+    func asMainObservable() -> Observable<Element> {
+        observe(on: MainScheduler.instance)
+    }
+
     func handleLoading(_ isLoadingRelay: BehaviorRelay<Bool>?) -> Observable<Element> {
         self.do(
             afterNext: { _ in

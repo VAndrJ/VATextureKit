@@ -24,7 +24,7 @@ class RemoteDataSource {
                 cachePolicy: .returnCacheDataElseLoad
             ))
             .map { $0.results.map(ListMovieEntity.init(response:)) }
-            .observe(on: MainScheduler.asyncInstance)
+            .asMainObservable()
     }
 
     func getSearchMovies(query: String) -> Observable<[ListMovieEntity]> {
@@ -37,7 +37,7 @@ class RemoteDataSource {
                 cachePolicy: .returnCacheDataElseLoad
             ))
             .map { $0.results.map(ListMovieEntity.init(response:)) }
-            .observe(on: MainScheduler.asyncInstance)
+            .asMainObservable()
     }
 
     func getMovie(id: Id<Movie>) -> Observable<MovieEntity> {
@@ -49,7 +49,7 @@ class RemoteDataSource {
                 cachePolicy: .returnCacheDataElseLoad
             ))
             .map(MovieEntity.init(response:))
-            .observe(on: MainScheduler.asyncInstance)
+            .asMainObservable()
     }
 
     func getMovieRecommendations(id: Id<Movie>) -> Observable<[ListMovieEntity]> {
@@ -61,7 +61,7 @@ class RemoteDataSource {
                 cachePolicy: .returnCacheDataElseLoad
             ))
             .map { $0.results.map(ListMovieEntity.init(response:)) }
-            .observe(on: MainScheduler.asyncInstance)
+            .asMainObservable()
     }
 
     func getMovieActors(id: Id<Movie>) -> Observable<[ListActorEntity]> {
@@ -73,6 +73,6 @@ class RemoteDataSource {
                 cachePolicy: .returnCacheDataElseLoad
             ))
             .map { $0.cast.compactMap(ListActorEntity.init(response:)) }
-            .observe(on: MainScheduler.asyncInstance)
+            .asMainObservable()
     }
 }
