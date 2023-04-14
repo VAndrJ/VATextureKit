@@ -9,57 +9,67 @@ import AsyncDisplayKit
 
 public extension Array where Element: ASLayoutElement {
 
+    @discardableResult
     func sized(_ size: CGSize) -> Self {
         forEach { $0.sized(size) }
         return self
     }
 
+    @discardableResult
     func sized(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
         assert(width != nil || height != nil)
         forEach { $0.sized(width: width, height: height) }
         return self
     }
 
+    @discardableResult
     func sized(width: ASDimension? = nil, height: ASDimension? = nil) -> Self {
         assert(width != nil || height != nil)
         forEach { $0.sized(width: width, height: height) }
         return self
     }
 
+    @discardableResult
     func flex(shrink: CGFloat? = nil, grow: CGFloat? = nil, basisPercent: CGFloat? = nil) -> Self {
         assert(shrink != nil || grow != nil || basisPercent != nil)
         forEach { $0.flex(shrink: shrink, grow: grow, basisPercent: basisPercent) }
         return self
     }
 
+    @discardableResult
     func maxConstrained(size: CGSize) -> Self {
         forEach { $0.maxConstrained(size: size) }
         return self
     }
 
+    @discardableResult
     func maxConstrained(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
         assert(width != nil || height != nil)
         forEach { $0.maxConstrained(width: width, height: height) }
         return self
     }
 
+    @discardableResult
     func maxConstrained(width: ASDimension? = nil, height: ASDimension? = nil) -> Self {
         assert(width != nil || height != nil)
         forEach { $0.maxConstrained(width: width, height: height) }
         return self
     }
 
+    @discardableResult
     func minConstrained(size: CGSize) -> Self {
         forEach { $0.minConstrained(size: size) }
         return self
     }
 
+    @discardableResult
     func minConstrained(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
         assert(width != nil || height != nil)
         forEach { $0.minConstrained(width: width, height: height) }
         return self
     }
 
+    @discardableResult
     func minConstrained(width: ASDimension? = nil, height: ASDimension? = nil) -> Self {
         assert(width != nil || height != nil)
         forEach { $0.minConstrained(width: width, height: height) }
@@ -69,11 +79,13 @@ public extension Array where Element: ASLayoutElement {
 
 public extension ASLayoutElement {
 
+    @discardableResult
     func sized(_ size: CGSize) -> Self {
         style.preferredSize = size
         return self
     }
 
+    @discardableResult
     func sized(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
         assert(width != nil || height != nil)
         if let width {
@@ -85,6 +97,7 @@ public extension ASLayoutElement {
         return self
     }
 
+    @discardableResult
     func sized(width: ASDimension? = nil, height: ASDimension? = nil) -> Self {
         assert(width != nil || height != nil)
         if let width {
@@ -96,6 +109,7 @@ public extension ASLayoutElement {
         return self
     }
 
+    @discardableResult
     func flex(shrink: CGFloat? = nil, grow: CGFloat? = nil, basisPercent: CGFloat? = nil) -> Self {
         assert(shrink != nil || grow != nil || basisPercent != nil)
         if let shrink {
@@ -111,11 +125,13 @@ public extension ASLayoutElement {
         return self
     }
 
+    @discardableResult
     func maxConstrained(size: CGSize) -> Self {
         style.maxSize = size
         return self
     }
 
+    @discardableResult
     func maxConstrained(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
         assert(width != nil || height != nil)
         if let width {
@@ -127,6 +143,7 @@ public extension ASLayoutElement {
         return self
     }
 
+    @discardableResult
     func maxConstrained(width: ASDimension? = nil, height: ASDimension? = nil) -> Self {
         assert(width != nil || height != nil)
         if let width {
@@ -138,11 +155,13 @@ public extension ASLayoutElement {
         return self
     }
 
+    @discardableResult
     func minConstrained(size: CGSize) -> Self {
         style.minSize = size
         return self
     }
 
+    @discardableResult
     func minConstrained(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
         assert(width != nil || height != nil)
         if let width {
@@ -154,6 +173,7 @@ public extension ASLayoutElement {
         return self
     }
 
+    @discardableResult
     func minConstrained(width: ASDimension? = nil, height: ASDimension? = nil) -> Self {
         assert(width != nil || height != nil)
         if let width {
