@@ -15,6 +15,7 @@ extension XCTestCase {
         case fixed(CGSize)
         case freeHeightFixedWidth(CGFloat)
         case freeWidthFixedHeight(CGFloat)
+        case auto
 
         var widthRange: ClosedRange<CGFloat> {
             switch self {
@@ -23,6 +24,8 @@ extension XCTestCase {
             case let .freeHeightFixedWidth(width):
                 return width...width
             case .freeWidthFixedHeight:
+                return CGFloat.leastNormalMagnitude...CGFloat.greatestFiniteMagnitude
+            case .auto:
                 return CGFloat.leastNormalMagnitude...CGFloat.greatestFiniteMagnitude
             }
         }
@@ -34,6 +37,8 @@ extension XCTestCase {
                 return CGFloat.leastNormalMagnitude...CGFloat.greatestFiniteMagnitude
             case let .freeWidthFixedHeight(height):
                 return height...height
+            case .auto:
+                return CGFloat.leastNormalMagnitude...CGFloat.greatestFiniteMagnitude
             }
         }
     }

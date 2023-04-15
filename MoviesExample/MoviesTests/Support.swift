@@ -21,6 +21,7 @@ extension String {
 }
 
 extension ListMovieEntity {
+
     static func dummy(repeatingString: Int = 0) -> Self {
         .init(
             id: 1,
@@ -29,6 +30,18 @@ extension ListMovieEntity {
             posterPath: .posterFilePath,
             overview: "Overview".dummyLong(range: 0...repeatingString),
             rating: 80
+        )
+    }
+}
+
+extension ListActorEntity {
+
+    static func dummy(repeatingString: Int = 0) -> Self {
+        .init(
+            id: 1,
+            name: "Name".dummyLong(range: 0...repeatingString),
+            avatar: .posterFilePath,
+            character: "Character".dummyLong(range: 0...repeatingString)
         )
     }
 }
