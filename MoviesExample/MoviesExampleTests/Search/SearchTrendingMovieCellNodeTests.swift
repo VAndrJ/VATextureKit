@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import MoviesExample
+//@testable import MoviesExample
 //import SnapshotTesting
 
 //@MainActor

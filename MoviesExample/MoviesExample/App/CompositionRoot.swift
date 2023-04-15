@@ -36,6 +36,7 @@ final class CompositionRoot {
 
         #if DEBUG && targetEnvironment(simulator)
         if Environment.isTesting {
+            window?.rootViewController = UIViewController()
             window?.makeKeyAndVisible()
         } else {
             launch()

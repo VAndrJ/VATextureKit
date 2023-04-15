@@ -14,11 +14,6 @@ target 'MoviesExample' do
     inhibit_all_warnings!
     inherit! :search_paths
   end
-
-  target 'MoviesExampleSnapshotTests' do
-    inhibit_all_warnings!
-    inherit! :search_paths
-  end
 end
 
 post_install do |installer|
