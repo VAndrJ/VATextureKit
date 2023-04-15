@@ -10,6 +10,14 @@
 		3ADAB2CF4B6ECC0FAD564B14 /* libPods-MoviesExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BD0706B324EBD5B5FE4BA04 /* libPods-MoviesExampleTests.a */; };
 		A31F889429E9C49C0077296B /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = A31F889329E9C49C0077296B /* SnapshotTesting */; };
 		A31F889829EA88E80077296B /* MoviesEndpontData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F889729EA88E80077296B /* MoviesEndpontData.swift */; };
+		A31F889C29EA92D60077296B /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F889B29EA92D60077296B /* Support.swift */; };
+		A31F889D29EA92D60077296B /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F889B29EA92D60077296B /* Support.swift */; };
+		A31F88A229EA93400077296B /* Support+Snapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F88A029EA93400077296B /* Support+Snapshots.swift */; };
+		A31F88A529EA97FA0077296B /* SearchTrendingMovieCellNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F88A329EA97FA0077296B /* SearchTrendingMovieCellNodeTests.swift */; };
+		A31F88B229EAA7DC0077296B /* test_poster.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A31F88B029EAA7DC0077296B /* test_poster.jpg */; };
+		A31F88B329EAA7DC0077296B /* test_poster.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A31F88B029EAA7DC0077296B /* test_poster.jpg */; };
+		A31F88B429EAA7DC0077296B /* test_cover.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A31F88B129EAA7DC0077296B /* test_cover.jpg */; };
+		A31F88B529EAA7DC0077296B /* test_cover.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A31F88B129EAA7DC0077296B /* test_cover.jpg */; };
 		A333E6AC29E5CC9800A5954F /* NetworkHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = A333E6AB29E5CC9800A5954F /* NetworkHeaders.swift */; };
 		A333E6AE29E5CD9300A5954F /* NetworkPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = A333E6AD29E5CD9300A5954F /* NetworkPath.swift */; };
 		A333E6B029E5CDCF00A5954F /* ReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A333E6AF29E5CDCF00A5954F /* ReachabilityService.swift */; };
@@ -53,7 +61,6 @@
 		A3820D3F29E59A3000993406 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3820D3E29E59A3000993406 /* AppDelegate.swift */; };
 		A3820D4829E59A3100993406 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3820D4729E59A3100993406 /* Assets.xcassets */; };
 		A3820D4B29E59A3100993406 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A3820D4929E59A3100993406 /* LaunchScreen.storyboard */; };
-		A3820D5629E59A3100993406 /* MoviesExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3820D5529E59A3100993406 /* MoviesExampleTests.swift */; };
 		A3820D6029E59A3100993406 /* MoviesExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3820D5F29E59A3100993406 /* MoviesExampleUITests.swift */; };
 		A3820D6229E59A3100993406 /* MoviesExampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3820D6129E59A3100993406 /* MoviesExampleUITestsLaunchTests.swift */; };
 		A3820D7429E59DE200993406 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3820D7329E59DE200993406 /* R.generated.swift */; };
@@ -122,6 +129,13 @@
 		8E24C26BCDEEDA10BACAAAD3 /* libPods-MoviesExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MoviesExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A31F888929E9C3420077296B /* MoviesExampleSnapshotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoviesExampleSnapshotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A31F889729EA88E80077296B /* MoviesEndpontData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesEndpontData.swift; sourceTree = "<group>"; };
+		A31F889929EA92D60077296B /* MoviesExampleTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoviesExampleTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		A31F889A29EA92D60077296B /* MoviesExampleSnapshotTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoviesExampleSnapshotTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		A31F889B29EA92D60077296B /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
+		A31F88A029EA93400077296B /* Support+Snapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Support+Snapshots.swift"; sourceTree = "<group>"; };
+		A31F88A329EA97FA0077296B /* SearchTrendingMovieCellNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTrendingMovieCellNodeTests.swift; sourceTree = "<group>"; };
+		A31F88B029EAA7DC0077296B /* test_poster.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test_poster.jpg; sourceTree = "<group>"; };
+		A31F88B129EAA7DC0077296B /* test_cover.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test_cover.jpg; sourceTree = "<group>"; };
 		A333E6AB29E5CC9800A5954F /* NetworkHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHeaders.swift; sourceTree = "<group>"; };
 		A333E6AD29E5CD9300A5954F /* NetworkPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPath.swift; sourceTree = "<group>"; };
 		A333E6AF29E5CDCF00A5954F /* ReachabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityService.swift; sourceTree = "<group>"; };
@@ -169,7 +183,6 @@
 		A3820D4A29E59A3100993406 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A3820D4C29E59A3100993406 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A3820D5129E59A3100993406 /* MoviesExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoviesExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A3820D5529E59A3100993406 /* MoviesExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesExampleTests.swift; sourceTree = "<group>"; };
 		A3820D5B29E59A3100993406 /* MoviesExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoviesExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3820D5F29E59A3100993406 /* MoviesExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesExampleUITests.swift; sourceTree = "<group>"; };
 		A3820D6129E59A3100993406 /* MoviesExampleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesExampleUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -258,6 +271,7 @@
 		A31F888A29E9C3420077296B /* MoviesExampleSnapshotTests */ = {
 			isa = PBXGroup;
 			children = (
+				A31F889F29EA931C0077296B /* Supporting Files */,
 				A31F889629E9C6440077296B /* MovieDetails */,
 				A31F889529E9C4B40077296B /* Search */,
 			);
@@ -267,6 +281,7 @@
 		A31F889529E9C4B40077296B /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				A31F88A329EA97FA0077296B /* SearchTrendingMovieCellNodeTests.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -276,6 +291,26 @@
 			children = (
 			);
 			path = MovieDetails;
+			sourceTree = "<group>";
+		};
+		A31F889E29EA93120077296B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A31F88B129EAA7DC0077296B /* test_cover.jpg */,
+				A31F88B029EAA7DC0077296B /* test_poster.jpg */,
+				A31F889B29EA92D60077296B /* Support.swift */,
+				A31F889929EA92D60077296B /* MoviesExampleTests-Bridging-Header.h */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A31F889F29EA931C0077296B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A31F889A29EA92D60077296B /* MoviesExampleSnapshotTests-Bridging-Header.h */,
+				A31F88A029EA93400077296B /* Support+Snapshots.swift */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		A333E6CE29E6CE0C00A5954F /* DataSource */ = {
@@ -409,7 +444,7 @@
 		A3820D5429E59A3100993406 /* MoviesExampleTests */ = {
 			isa = PBXGroup;
 			children = (
-				A3820D5529E59A3100993406 /* MoviesExampleTests.swift */,
+				A31F889E29EA93120077296B /* Supporting Files */,
 			);
 			path = MoviesExampleTests;
 			sourceTree = "<group>";
@@ -646,6 +681,7 @@
 				TargetAttributes = {
 					A31F888829E9C3420077296B = {
 						CreatedOnToolsVersion = 14.3;
+						LastSwiftMigration = 1430;
 						TestTargetID = A3820D3A29E59A3000993406;
 					};
 					A3820D3A29E59A3000993406 = {
@@ -653,6 +689,7 @@
 					};
 					A3820D5029E59A3100993406 = {
 						CreatedOnToolsVersion = 14.2;
+						LastSwiftMigration = 1430;
 						TestTargetID = A3820D3A29E59A3000993406;
 					};
 					A3820D5A29E59A3100993406 = {
@@ -690,6 +727,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A31F88B329EAA7DC0077296B /* test_poster.jpg in Resources */,
+				A31F88B529EAA7DC0077296B /* test_cover.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -708,6 +747,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A31F88B229EAA7DC0077296B /* test_poster.jpg in Resources */,
+				A31F88B429EAA7DC0077296B /* test_cover.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -853,6 +894,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A31F889D29EA92D60077296B /* Support.swift in Sources */,
+				A31F88A529EA97FA0077296B /* SearchTrendingMovieCellNodeTests.swift in Sources */,
+				A31F88A229EA93400077296B /* Support+Snapshots.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -937,7 +981,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A3820D5629E59A3100993406 /* MoviesExampleTests.swift in Sources */,
+				A31F889C29EA92D60077296B /* Support.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -987,6 +1031,7 @@
 			baseConfigurationReference = 5D14A28D5F2175FA82E1C866 /* Pods-MoviesExampleSnapshotTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -998,6 +1043,8 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "MoviesExampleSnapshotTests/MoviesExampleSnapshotTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MoviesExample.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MoviesExample";
@@ -1009,6 +1056,7 @@
 			baseConfigurationReference = AF55F88CA8B7917FC5DCB7E7 /* Pods-MoviesExampleSnapshotTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1020,6 +1068,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "MoviesExampleSnapshotTests/MoviesExampleSnapshotTests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MoviesExample.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MoviesExample";
@@ -1222,6 +1271,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1233,6 +1283,8 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "MoviesExampleTests/MoviesExampleTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MoviesExample.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MoviesExample";
@@ -1245,6 +1297,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1256,6 +1309,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "MoviesExampleTests/MoviesExampleTests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MoviesExample.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MoviesExample";
