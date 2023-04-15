@@ -38,8 +38,10 @@ struct NetworkEndpointData<T: Decodable> {
             base.appendPathComponent($0)
         }
         var urlComponents = URLComponents(url: base, resolvingAgainstBaseURL: false)
-        urlComponents?.queryItems = query.map {
-            URLQueryItem(name: $0.key, value: $0.value)
+        if query.isNotEmpty {
+            urlComponents?.queryItems = query.map {
+                URLQueryItem(name: $0.key, value: $0.value)
+            }
         }
         guard let url = urlComponents?.url else {
             throw NetworkError.incorrectEndpointURLComponents(

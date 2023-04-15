@@ -5,7 +5,8 @@
 //  Created by VAndrJ on 15.04.2023.
 //
 
-import Foundation
+import XCTest
+import RxSwift
 @testable import MoviesExample
 
 class Support {
@@ -22,9 +23,9 @@ extension String {
 
 extension ListMovieEntity {
 
-    static func dummy(repeatingString: Int = 0) -> Self {
+    static func dummy(repeatingString: Int = 0, id: Int = 0) -> Self {
         .init(
-            id: 1,
+            id: .init(rawValue: id),
             title: "Movie".dummyLong(range: 0...repeatingString),
             backdropPath: .coverFilePath,
             posterPath: .posterFilePath,
@@ -36,12 +37,76 @@ extension ListMovieEntity {
 
 extension ListActorEntity {
 
-    static func dummy(repeatingString: Int = 0) -> Self {
+    static func dummy(repeatingString: Int = 0, id: Int = 0) -> Self {
         .init(
-            id: 1,
+            id: .init(rawValue: id),
             name: "Name".dummyLong(range: 0...repeatingString),
             avatar: .posterFilePath,
             character: "Character".dummyLong(range: 0...repeatingString)
         )
+    }
+}
+
+extension GenreEntity {
+
+    static func dummy(repeatingString: Int = 0, id: Int = 0) -> Self {
+        .init(
+            id: .init(rawValue: id),
+            name: "Genre".dummyLong(range: 0...repeatingString)
+        )
+    }
+}
+
+extension XCTestCase {
+
+    func spy<T>(_ observable: Observable<T>, initialExpectation: XCTestExpectation? = nil, timeout: TimeInterval = 10) -> ObservableSpy<T> {
+        ObservableSpy(
+            observable,
+            initialExpectation: initialExpectation,
+            expectationGetter: { self.expectation(description: "Observable spy") },
+            waiter: { self.wait(for: [$0], timeout: timeout) }
+        )
+    }
+}
+
+final class ObservableSpy<T> {
+    private(set) var result: [T] = []
+    private(set) var errors: [Error] = []
+
+    private var disposable: Disposable?
+    private var expectationGetter: () -> XCTestExpectation
+    private var waiter: (XCTestExpectation) -> Void
+    private var expectation: XCTestExpectation?
+
+    init(
+        _ observable: Observable<T>,
+        initialExpectation: XCTestExpectation? = nil,
+        expectationGetter: @escaping () -> XCTestExpectation,
+        waiter: @escaping (XCTestExpectation) -> Void
+    ) {
+        self.expectationGetter = expectationGetter
+        self.waiter = waiter
+        self.expectation = initialExpectation
+
+        disposable = observable
+            .subscribe(
+                onNext: { [weak self] in
+                    self?.result.append($0)
+                    self?.expectation?.fulfill()
+                    self?.expectation = nil
+                },
+                onError: { [weak self] in
+                    self?.errors.append($0)
+                    self?.expectation?.fulfill()
+                    self?.expectation = nil
+                }
+            )
+    }
+
+    func wait(_ expression: @escaping () -> Void) {
+        let expectation = expectationGetter()
+        self.expectation = expectation
+        expression()
+        waiter(expectation)
     }
 }

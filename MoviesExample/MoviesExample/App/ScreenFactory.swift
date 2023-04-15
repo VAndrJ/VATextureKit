@@ -20,7 +20,7 @@ enum Flow {
 
 @MainActor
 final class ScreenFactory {
-    let network = Network()
+    let network = Network(networkLogger: DebugNetworkLogger())
     private(set) lazy var remoteDataSource = RemoteDataSource(
         network: network,
         endpointData: MoviesEndpontData(

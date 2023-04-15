@@ -38,7 +38,7 @@ extension ObservableType {
 
     func retryOnError() -> Observable<Element> {
         retry(
-            .exponentialDelayed(maxCount: 3, initial: 1, multiplier: 3),
+            .exponentialDelayed(maxCount: 3, initial: 2, multiplier: 3),
             scheduler: MainScheduler.asyncInstance,
             shouldRetry: { error in
                 switch error {
@@ -64,9 +64,10 @@ extension ObservableConvertibleType where Element == Error {
     func recoverOnConnection() -> Observable<Void> {
         asObservable()
             .map { error in
-                if let errorCode = (error as? URLError)?.code, errorCode != URLError.Code.notConnectedToInternet {
-                    throw error
+                if let errorCode = (error as? URLError)?.code, errorCode == URLError.Code.notConnectedToInternet {
+                    return
                 }
+                throw error
             }
             .flatMap {
                 ReachabilityService.shared.isConnectionOnlineObs

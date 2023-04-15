@@ -7,11 +7,17 @@
 
 import Foundation
 
-enum NetworkLogger {
+protocol NetworkLogger {
 
-    public static func log(request: URLRequest, response: URLResponse, data: Data?, date: Date) {
+    func log(request: URLRequest, response: URLResponse, data: Data?, date: Date)
+    func log(error: Error, request: URLRequest, date: Date)
+}
+
+class DebugNetworkLogger: NetworkLogger {
+
+    func log(request: URLRequest, response: URLResponse, data: Data?, date: Date) {
 #if DEBUG
-        NetworkLogger.logRequestInfo(request)
+        logRequestInfo(request)
         let httpResponse = response as? HTTPURLResponse
         let statusCode = httpResponse?.statusCode ?? -1
         let url = response.url?.absoluteString ?? ""
@@ -33,7 +39,7 @@ enum NetworkLogger {
 #endif
     }
 
-    public static func log(error: Error, request: URLRequest, date: Date) {
+    func log(error: Error, request: URLRequest, date: Date) {
 #if DEBUG
         let now = Date()
         let url = request.url?.absoluteString ?? ""
@@ -52,7 +58,7 @@ enum NetworkLogger {
 #endif
     }
 
-    private static func logRequestInfo(_ request: URLRequest) {
+    private func logRequestInfo(_ request: URLRequest) {
         let method = String(describing: request.httpMethod ?? "")
         let headers = request.allHTTPHeaderFields ?? [:]
         let url = request.url?.absoluteString ?? ""
@@ -77,7 +83,7 @@ enum NetworkLogger {
         print(result)
     }
 
-    private static func requestDurationTime(startDate: Date, endDate: Date) -> String {
+    private func requestDurationTime(startDate: Date, endDate: Date) -> String {
         let duration = (endDate.timeIntervalSince1970 - startDate.timeIntervalSince1970)
         return "Request duration time: \(String(format: "%.3f", duration)) s."
     }
