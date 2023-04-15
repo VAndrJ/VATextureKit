@@ -13,9 +13,6 @@ target 'MoviesExample' do
   target 'MoviesExampleTests' do
     inhibit_all_warnings!
     inherit! :search_paths
-
-    pod 'Quick', '~> 2.2.0'
-    pod 'Nimble', '~> 10.0.0'
   end
 
   target 'MoviesExampleSnapshotTests' do
