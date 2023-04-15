@@ -20,65 +20,10 @@ struct NetworkEndpointData<T: Decodable> {
     let parser: NetworkResponseParser<T>
 
     init(
-        domain: String = Environment.mainURLString,
-        path: NetworkPath,
-        method: NetworkRequestMethod,
-        pathComponents: [NetworkPath.Component]? = nil,
-        query: [NetworkQuery.Key: String]? = nil,
-        headers: [String: String] = [:],
-        body: Data? = nil,
-        cachePolicy: URLRequest.CachePolicy = .useProtocolCachePolicy,
-        timeout: TimeInterval = 30,
-        parser: NetworkResponseParser<T> = NetworkResponseParser<T>()
-    ) throws {
-        try self.init(
-            urlString: domain + path.rawValue,
-            method: method,
-            pathComponents: pathComponents.flatMap { $0.map(\.rawValue) },
-            query: query.flatMap {
-                Dictionary(
-                    $0.map { ($0.key.rawValue, $0.value) },
-                    uniquingKeysWith: { $1 }
-                )
-            },
-            headers: headers,
-            body: body,
-            cachePolicy: cachePolicy,
-            timeout: timeout,
-            parser: parser
-        )
-    }
-
-    init(
-        domain: String = Environment.mainURLString,
-        path: NetworkPath,
-        method: NetworkRequestMethod,
-        pathComponents: [String]? = nil,
-        query: [String: String]? = nil,
-        headers: [String: String] = [:],
-        body: Data? = nil,
-        cachePolicy: URLRequest.CachePolicy = .useProtocolCachePolicy,
-        timeout: TimeInterval = 30,
-        parser: NetworkResponseParser<T> = NetworkResponseParser<T>()
-    ) throws {
-        try self.init(
-            urlString: domain + path.rawValue,
-            method: method,
-            pathComponents: pathComponents,
-            query: query,
-            headers: headers,
-            body: body,
-            cachePolicy: cachePolicy,
-            timeout: timeout,
-            parser: parser
-        )
-    }
-
-    init(
         urlString: String,
         method: NetworkRequestMethod,
         pathComponents: [String]? = nil,
-        query: [String: String]? = nil,
+        query: [String: String] = [:],
         headers: [String: String] = [:],
         body: Data? = nil,
         cachePolicy: URLRequest.CachePolicy = .useProtocolCachePolicy,
@@ -93,8 +38,6 @@ struct NetworkEndpointData<T: Decodable> {
             base.appendPathComponent($0)
         }
         var urlComponents = URLComponents(url: base, resolvingAgainstBaseURL: false)
-        // TODO: - Move to `getRequest` parameter
-        let query = ["api_key": Environment.apiKey].merging(query ?? [:], uniquingKeysWith: { $1 })
         urlComponents?.queryItems = query.map {
             URLQueryItem(name: $0.key, value: $0.value)
         }
@@ -131,5 +74,65 @@ struct NetworkEndpointData<T: Decodable> {
         }
         request.httpMethod = method.rawValue
         return request
+    }
+}
+
+extension NetworkEndpointData {
+
+    init(
+        domain: String = Environment.mainURLString,
+        path: NetworkPath,
+        method: NetworkRequestMethod,
+        pathComponents: [NetworkPath.Component]? = nil,
+        query: [NetworkQuery.Key: String]? = nil,
+        headers: [String: String] = [:],
+        body: Data? = nil,
+        cachePolicy: URLRequest.CachePolicy = .useProtocolCachePolicy,
+        timeout: TimeInterval = 30,
+        parser: NetworkResponseParser<T> = NetworkResponseParser<T>()
+    ) throws {
+        try self.init(
+            urlString: domain + path.rawValue,
+            method: method,
+            pathComponents: pathComponents.flatMap { $0.map(\.rawValue) },
+            query: ["api_key": Environment.apiKey].merging(
+                query.flatMap {
+                    Dictionary(
+                        $0.map { ($0.key.rawValue, $0.value) },
+                        uniquingKeysWith: { $1 }
+                    )
+                } ?? [:], uniquingKeysWith: { $1 }
+            ),
+            headers: headers,
+            body: body,
+            cachePolicy: cachePolicy,
+            timeout: timeout,
+            parser: parser
+        )
+    }
+
+    init(
+        domain: String = Environment.mainURLString,
+        path: NetworkPath,
+        method: NetworkRequestMethod,
+        pathComponents: [String]? = nil,
+        query: [String: String]? = nil,
+        headers: [String: String] = [:],
+        body: Data? = nil,
+        cachePolicy: URLRequest.CachePolicy = .useProtocolCachePolicy,
+        timeout: TimeInterval = 30,
+        parser: NetworkResponseParser<T> = NetworkResponseParser<T>()
+    ) throws {
+        try self.init(
+            urlString: domain + path.rawValue,
+            method: method,
+            pathComponents: pathComponents,
+            query: ["api_key": Environment.apiKey].merging(query ?? [:], uniquingKeysWith: { $1 }),
+            headers: headers,
+            body: body,
+            cachePolicy: cachePolicy,
+            timeout: timeout,
+            parser: parser
+        )
     }
 }
