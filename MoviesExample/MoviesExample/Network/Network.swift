@@ -82,7 +82,7 @@ final class Network {
         case 400...499:
             throw NetworkError.server(try JSONDecoder().decode(ErrorFromServerResponseDTO.self, from: data))
         default:
-            throw NetworkError.server500
+            throw NetworkError.serverInternal
         }
     }
 }

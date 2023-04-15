@@ -46,7 +46,7 @@ extension ObservableType {
                     switch error {
                     case .server, .incorrectEndpointBaseURL, .incorrectEndpointURLComponents, .emptyRequestData, .emptyResponseData:
                         return false
-                    case .server500:
+                    case .serverInternal:
                         return true
                     }
                 case let error as URLError:
