@@ -12,7 +12,7 @@ enum Environment {
     static let mainURLString = Bundle.main.object(forInfoDictionaryKey: "MAIN_URL") as! String
     static let apiKey: String = {
         let string = Bundle.main.object(forInfoDictionaryKey: "API_KEY") as! String
-        if string.allSatisfy({ $0 == "X" }) {
+        if string.allSatisfy({ $0 == "X" }) && !isTesting {
             fatalError("Replace API_KEY in Config.xcconfig file")
         } else {
             return string

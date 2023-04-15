@@ -10,7 +10,12 @@ target 'MoviesExample' do
   pod 'RxSwiftExt'
   pod 'RxKeyboard'
 
-  target 'MoviesExampleTests' do
+  target 'MoviesTests' do
+    inhibit_all_warnings!
+    inherit! :search_paths
+  end
+
+  target 'MoviesSnapshotTests' do
     inhibit_all_warnings!
     inherit! :search_paths
   end
