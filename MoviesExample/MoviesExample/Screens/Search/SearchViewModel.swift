@@ -111,7 +111,7 @@ final class SearchViewModel: EventViewModel {
     }
 }
 
-private func mapSearchTrendingMovies(_ data: [ListMovieEntity]) -> [AnimatableSectionModel<SearchSectionHeaderNodeViewModel, CellViewModel>] {
+func mapSearchTrendingMovies(_ data: [ListMovieEntity]) -> [AnimatableSectionModel<SearchSectionHeaderNodeViewModel, CellViewModel>] {
     [
         AnimatableSectionModel(
             model: SearchSectionHeaderNodeViewModel(title: R.string.localizable.search_section_trending()),
@@ -120,7 +120,7 @@ private func mapSearchTrendingMovies(_ data: [ListMovieEntity]) -> [AnimatableSe
     ]
 }
 
-private func mapSearchMovies(_ data: [ListMovieEntity]) -> [AnimatableSectionModel<SearchSectionHeaderNodeViewModel, CellViewModel>] {
+func mapSearchMovies(_ data: [ListMovieEntity]) -> [AnimatableSectionModel<SearchSectionHeaderNodeViewModel, CellViewModel>] {
     if data.isEmpty {
         return []
     } else {

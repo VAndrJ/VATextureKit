@@ -94,8 +94,7 @@ final class MovieDetailsViewModel: EventViewModel {
     }
 }
 
-@MainActor
-private func mapMovieDetails(_ data: MovieEntity, viewModel: EventViewModel) -> [CellViewModel] {
+func mapMovieDetails(_ data: MovieEntity, viewModel: EventViewModel) -> [CellViewModel] {
     [
         MovieDetailsTitleCellNodeViewModel(movie: data),
         MovieDetailsTrailerCellNodeViewModel(image: data.backdropPath),
@@ -105,7 +104,7 @@ private func mapMovieDetails(_ data: MovieEntity, viewModel: EventViewModel) -> 
 }
 
 @MainActor
-private func mapMovieActors(_ data: [ListActorEntity], viewModel: EventViewModel) -> [CellViewModel] {
+func mapMovieActors(_ data: [ListActorEntity], viewModel: EventViewModel) -> [CellViewModel] {
     if data.isEmpty {
         return []
     } else {
@@ -120,7 +119,7 @@ private func mapMovieActors(_ data: [ListActorEntity], viewModel: EventViewModel
 }
 
 @MainActor
-private func mapRecommendationMovies(_ data: [ListMovieEntity], viewModel: EventViewModel) -> [CellViewModel] {
+func mapRecommendationMovies(_ data: [ListMovieEntity], viewModel: EventViewModel) -> [CellViewModel] {
     if data.isEmpty {
         return []
     } else {
