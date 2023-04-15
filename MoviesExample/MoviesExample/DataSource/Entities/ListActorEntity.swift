@@ -28,3 +28,10 @@ extension ListActorEntity {
         self.character = character
     }
 }
+
+extension ListActorEntity {
+
+    static func from(response source: CastWrapper<CastResponseDTO>) -> [ListActorEntity] {
+        source.cast.compactMap(Self.init(response:))
+    }
+}

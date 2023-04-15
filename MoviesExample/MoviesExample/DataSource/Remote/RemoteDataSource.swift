@@ -8,45 +8,51 @@
 import RxSwift
 
 @MainActor
-class RemoteDataSource {
-    let network: Network
+final class RemoteDataSource {
+    private let network: Network
+    private let endpointData: MoviesEndpontData
+    private let responseParser = NetworkResponseParser(
+        dateDecodingStrategy: .secondsSince1970,
+        keyDecodingStrategy: .convertFromSnakeCase
+    )
 
-    init(network: Network) {
+    init(network: Network, endpointData: MoviesEndpontData) {
+        self.endpointData = endpointData
         self.network = network
     }
 
     func getTrendingMovies() -> Observable<[ListMovieEntity]> {
         network
-            .request(data: try? NetworkEndpointData<ResultsWrapper<ListMovieResponseDTO>>(
+            .request(data: endpointData.getRequest(
                 path: .trending,
                 method: .GET,
                 pathComponents: [.movie, .day],
-                cachePolicy: .returnCacheDataElseLoad
+                parser: responseParser
             ))
-            .map { $0.results.map(ListMovieEntity.init(response:)) }
+            .map(ListMovieEntity.from(response:))
             .asMainObservable()
     }
 
     func getSearchMovies(query: String) -> Observable<[ListMovieEntity]> {
         network
-            .request(data: try? NetworkEndpointData<ResultsWrapper<ListMovieResponseDTO>>(
+            .request(data: endpointData.getRequest(
                 path: .search,
                 method: .GET,
                 pathComponents: [.movie],
                 query: [.query: query],
-                cachePolicy: .returnCacheDataElseLoad
+                parser: responseParser
             ))
-            .map { $0.results.map(ListMovieEntity.init(response:)) }
+            .map(ListMovieEntity.from(response:))
             .asMainObservable()
     }
 
     func getMovie(id: Id<Movie>) -> Observable<MovieEntity> {
         network
-            .request(data: try? NetworkEndpointData<MovieResponseDTO>(
+            .request(data: endpointData.getRequest(
                 path: .movie,
                 method: .GET,
                 pathComponents: [.convertible(id)],
-                cachePolicy: .returnCacheDataElseLoad
+                parser: responseParser
             ))
             .map(MovieEntity.init(response:))
             .asMainObservable()
@@ -54,25 +60,25 @@ class RemoteDataSource {
 
     func getMovieRecommendations(id: Id<Movie>) -> Observable<[ListMovieEntity]> {
         network
-            .request(data: try? NetworkEndpointData<ResultsWrapper<ListMovieResponseDTO>>(
+            .request(data: endpointData.getRequest(
                 path: .movie,
                 method: .GET,
                 pathComponents: [.convertible(id), .recommendations],
-                cachePolicy: .returnCacheDataElseLoad
+                parser: responseParser
             ))
-            .map { $0.results.map(ListMovieEntity.init(response:)) }
+            .map(ListMovieEntity.from(response:))
             .asMainObservable()
     }
 
     func getMovieActors(id: Id<Movie>) -> Observable<[ListActorEntity]> {
         network
-            .request(data: try? NetworkEndpointData<CastWrapper<CastResponseDTO>>(
+            .request(data: endpointData.getRequest(
                 path: .movie,
                 method: .GET,
                 pathComponents: [.convertible(id), .credits],
-                cachePolicy: .returnCacheDataElseLoad
+                parser: responseParser
             ))
-            .map { $0.cast.compactMap(ListActorEntity.init(response:)) }
+            .map(ListActorEntity.from(response:))
             .asMainObservable()
     }
 }

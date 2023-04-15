@@ -21,7 +21,13 @@ enum Flow {
 @MainActor
 final class ScreenFactory {
     let network = Network()
-    private(set) lazy var remoteDataSource = RemoteDataSource(network: network)
+    private(set) lazy var remoteDataSource = RemoteDataSource(
+        network: network,
+        endpointData: MoviesEndpontData(
+            domain: Environment.mainURLString,
+            apiKey: Environment.apiKey
+        )
+    )
 
     func create(flow: Flow, navigator: Navigator) -> [UIViewController & Responder] {
         switch flow {

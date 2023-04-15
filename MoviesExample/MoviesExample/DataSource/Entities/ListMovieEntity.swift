@@ -29,3 +29,10 @@ extension ListMovieEntity {
         self.rating = source.voteAverage * 10
     }
 }
+
+extension ListMovieEntity {
+
+    static func from(response source: ResultsWrapper<ListMovieResponseDTO>) -> [ListMovieEntity] {
+        source.results.map(Self.init(response:))
+    }
+}

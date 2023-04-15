@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3ADAB2CF4B6ECC0FAD564B14 /* libPods-MoviesExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BD0706B324EBD5B5FE4BA04 /* libPods-MoviesExampleTests.a */; };
 		A31F889429E9C49C0077296B /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = A31F889329E9C49C0077296B /* SnapshotTesting */; };
+		A31F889829EA88E80077296B /* MoviesEndpontData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F889729EA88E80077296B /* MoviesEndpontData.swift */; };
 		A333E6AC29E5CC9800A5954F /* NetworkHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = A333E6AB29E5CC9800A5954F /* NetworkHeaders.swift */; };
 		A333E6AE29E5CD9300A5954F /* NetworkPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = A333E6AD29E5CD9300A5954F /* NetworkPath.swift */; };
 		A333E6B029E5CDCF00A5954F /* ReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A333E6AF29E5CDCF00A5954F /* ReachabilityService.swift */; };
@@ -120,6 +121,7 @@
 		8BD0706B324EBD5B5FE4BA04 /* libPods-MoviesExampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MoviesExampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E24C26BCDEEDA10BACAAAD3 /* libPods-MoviesExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MoviesExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A31F888929E9C3420077296B /* MoviesExampleSnapshotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoviesExampleSnapshotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A31F889729EA88E80077296B /* MoviesEndpontData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesEndpontData.swift; sourceTree = "<group>"; };
 		A333E6AB29E5CC9800A5954F /* NetworkHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHeaders.swift; sourceTree = "<group>"; };
 		A333E6AD29E5CD9300A5954F /* NetworkPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPath.swift; sourceTree = "<group>"; };
 		A333E6AF29E5CDCF00A5954F /* ReachabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityService.swift; sourceTree = "<group>"; };
@@ -299,6 +301,7 @@
 		A333E6D229E6CE4000A5954F /* Remote */ = {
 			isa = PBXGroup;
 			children = (
+				A31F889729EA88E80077296B /* MoviesEndpontData.swift */,
 				A333E6CC29E6CD8000A5954F /* RemoteDataSource.swift */,
 				A333E6CF29E6CE2400A5954F /* DTO */,
 			);
@@ -872,6 +875,7 @@
 				A3820DAC29E5C38C00993406 /* SearchSectionHeaderNode.swift in Sources */,
 				A3820DAE29E5C47D00993406 /* SearchTrendingMovieCellNode.swift in Sources */,
 				A3820D7629E5A1E700993406 /* CompositionRoot.swift in Sources */,
+				A31F889829EA88E80077296B /* MoviesEndpontData.swift in Sources */,
 				A3820D9E29E5B83000993406 /* MainTabBarController.swift in Sources */,
 				A3820D8529E5AE2500993406 /* Log.swift in Sources */,
 				A333E6F629E7FC3600A5954F /* MovieDetailsTitleCellNode.swift in Sources */,
