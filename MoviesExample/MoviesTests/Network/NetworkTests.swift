@@ -7,6 +7,8 @@
 
 import XCTest
 @testable import MoviesExample
+import RxTest
+import RxBlocking
 
 @MainActor
 final class NetworkTests: XCTestCase {
@@ -28,13 +30,12 @@ final class NetworkTests: XCTestCase {
         sut = Network(networkLogger: DebugNetworkLogger(), coreRequest: { [self] request in
             .just((response: HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)!, data: try! encoder.encode(response)))
         })
-        let spy = spy(sut.request(data: try! NetworkEndpointData<TestResponseDTO>(
+
+        XCTAssertEqual(response, try! sut.request(data: try! NetworkEndpointData<TestResponseDTO>(
             urlString: urlString,
             method: .GET,
             parser: parser
-        )))
-
-        XCTAssertEqual([response], spy.result)
+        )).toBlocking().last())
     }
 
     func test_request_errors() {
@@ -48,24 +49,28 @@ final class NetworkTests: XCTestCase {
             XCTAssertEqual(NetworkError.incorrectEndpointBaseURL(string: ""), error as! NetworkError)
         }
 
-        let emptyRequestDataSpy = spy(sut.request(data: NetworkEndpointData<TestResponseDTO>?.none))
-        XCTAssertEqual([NetworkError.emptyRequestData], emptyRequestDataSpy.errors.compactMap { $0 as? NetworkError })
+        XCTAssertThrowsError(try sut.request(data: NetworkEndpointData<TestResponseDTO>?.none).toBlocking().last()) { error in
+            XCTAssertEqual(NetworkError.emptyRequestData, error as! NetworkError)
+        }
 
-        let emptyRawRequestDataSpy = spy(sut.requestRaw(data: NetworkEndpointData<TestResponseDTO>?.none))
-        XCTAssertEqual([NetworkError.emptyRequestData], emptyRawRequestDataSpy.errors.compactMap { $0 as? NetworkError })
+        XCTAssertThrowsError(try sut.requestRaw(data: NetworkEndpointData<TestResponseDTO>?.none).toBlocking().last()) { error in
+            XCTAssertEqual(NetworkError.emptyRequestData, error as! NetworkError)
+        }
     }
 
     func test_request_server_error() {
-        let error = ErrorFromServerResponseDTO(statusMessage: "message", statusCode: 400)
+        let expectedError = ErrorFromServerResponseDTO(statusMessage: "message", statusCode: 400)
         sut = Network(networkLogger: DebugNetworkLogger(), coreRequest: { [self] request in
-            .just((response: HTTPURLResponse(url: request.url!, statusCode: 400, httpVersion: nil, headerFields: nil)!, data: try! encoder.encode(error)))
+            .just((response: HTTPURLResponse(url: request.url!, statusCode: 400, httpVersion: nil, headerFields: nil)!, data: try! encoder.encode(expectedError)))
         })
-        let serverErrorSpy = spy(sut.request(data: try! NetworkEndpointData<TestResponseDTO>(
+
+        XCTAssertThrowsError(try sut.request(data: try! NetworkEndpointData<TestResponseDTO>(
             urlString: urlString,
             method: .GET,
             parser: parser
-        )))
-        XCTAssertEqual([NetworkError.server(error)], serverErrorSpy.errors.compactMap { $0 as? NetworkError })
+        )).toBlocking().last()) { error in
+            XCTAssertEqual(NetworkError.server(expectedError), error as! NetworkError)
+        }
     }
 
     func test_request_internal_server_error() {
@@ -73,16 +78,13 @@ final class NetworkTests: XCTestCase {
         sut = Network(networkLogger: DebugNetworkLogger(), coreRequest: { [self] request in
             .just((response: HTTPURLResponse(url: request.url!, statusCode: 500, httpVersion: nil, headerFields: nil)!, data: try! encoder.encode(error)))
         })
-        let expect = expectation(description: "")
-        let internalServerErrorSpy = spy(
-            sut.request(data: try! NetworkEndpointData<TestResponseDTO>(
-                urlString: urlString,
-                method: .GET,
-                parser: parser
-            )),
-            initialExpectation: expect
-        )
-        wait(for: [expect], timeout: 20)
-        XCTAssertEqual([NetworkError.serverInternal], internalServerErrorSpy.errors.compactMap { $0 as? NetworkError })
+
+        XCTAssertThrowsError(try sut.request(data: try! NetworkEndpointData<TestResponseDTO>(
+            urlString: urlString,
+            method: .GET,
+            parser: parser
+        )).toBlocking().last()) { error in
+            XCTAssertEqual(NetworkError.serverInternal, error as! NetworkError)
+        }
     }
 }

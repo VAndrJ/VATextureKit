@@ -13,6 +13,9 @@ target 'MoviesExample' do
   target 'MoviesTests' do
     inhibit_all_warnings!
     inherit! :search_paths
+
+    pod 'RxBlocking'
+    pod 'RxTest'
   end
 
   target 'MoviesSnapshotTests' do

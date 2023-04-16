@@ -11,7 +11,7 @@ struct SearchMovieEvent: Event {
     let query: String?
 }
 
-private struct LoadTrendingEvent: Event {}
+struct LoadTrendingEvent: Event {}
 
 @MainActor
 final class SearchViewModel: EventViewModel {
