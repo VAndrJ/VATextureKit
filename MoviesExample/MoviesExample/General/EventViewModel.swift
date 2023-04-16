@@ -27,9 +27,9 @@ class EventViewModel: ViewModel {
     weak var controller: UIViewController?
     var isLoadingRelay = BehaviorRelay(value: false)
 
-    private let scheduler: ImmediateSchedulerType
+    let scheduler: SchedulerType
 
-    init(scheduler: ImmediateSchedulerType = MainScheduler.asyncInstance) {
+    init(scheduler: SchedulerType = MainScheduler.asyncInstance) {
         self.scheduler = scheduler
 
         super.init()

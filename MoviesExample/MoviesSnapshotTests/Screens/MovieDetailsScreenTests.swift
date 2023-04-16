@@ -25,6 +25,22 @@ class MovieDetailsScreenTests: XCTestCase {
             )
         ))))
 
-        assertControllerSnapshot(matching: sut, size: .fixed(CGSize(width: 375, height: 812)))
+        assertControllerSnapshot(matching: sut)
+    }
+
+    func test_node() {
+        let sut = ViewController(node: MovieDetailsNode(viewModel: MovieDetailsViewModel(data: .init(
+            related: .init(listMovieEntity: .dummy()),
+            source: .init(
+                getMovie: { _ in .just(.dummy()) },
+                getRecommendations: { _ in .just([.dummy()]) },
+                getMovieActors: { _ in .just([.dummy()]) }
+            ),
+            navigation: .init(
+                followMovie: { _ in nil }
+            )
+        ))))
+
+        assertControllerSnapshot(matching: sut)
     }
 }

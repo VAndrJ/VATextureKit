@@ -427,9 +427,9 @@
 		A368637729EAB6EA006B00FD /* MoviesSnapshotTests */ = {
 			isa = PBXGroup;
 			children = (
-				A3F69F0829EBD733002929C1 /* Screens */,
 				A368638E29EAD457006B00FD /* General */,
 				A31F889629E9C6440077296B /* MovieDetails */,
+				A3F69F0829EBD733002929C1 /* Screens */,
 				A31F889529E9C4B40077296B /* Search */,
 				A368638629EAB753006B00FD /* Supporting Files */,
 			);
@@ -639,8 +639,8 @@
 		A3F69F0829EBD733002929C1 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				A3F69F0929EBD748002929C1 /* SearchScreenTests.swift */,
 				A3F69F0B29EBE322002929C1 /* MovieDetailsScreenTests.swift */,
+				A3F69F0929EBD748002929C1 /* SearchScreenTests.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";

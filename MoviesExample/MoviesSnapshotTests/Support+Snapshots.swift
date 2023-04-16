@@ -45,6 +45,7 @@ extension XCTestCase {
 
     func assertNodeSnapshot(
         matching value: ASDisplayNode,
+        controller: ASDKViewController<ASDisplayNode>? = nil,
         size: SnapshotSize,
         named name: String? = nil,
         record recording: Bool = false,
@@ -55,10 +56,11 @@ extension XCTestCase {
         line: UInt = #line,
         precision: Float = 0.995,
         perceptualPrecision: Float = 0.99,
-        delay: TimeInterval = 1 / 30
+        delay: TimeInterval = .leastNormalMagnitude
     ) {
         assertNodeSnapshot(
             matching: value,
+            controller: controller,
             widthRange: size.widthRange,
             heightRange: size.heightRange,
             named: name,
@@ -76,6 +78,7 @@ extension XCTestCase {
 
     func assertNodeSnapshot(
         matching value: ASDisplayNode,
+        controller: ASDKViewController<ASDisplayNode>? = nil,
         widthRange: ClosedRange<CGFloat>,
         heightRange: ClosedRange<CGFloat>,
         named name: String? = nil,
@@ -87,7 +90,7 @@ extension XCTestCase {
         line: UInt = #line,
         precision: Float = 0.995,
         perceptualPrecision: Float = 0.99,
-        delay: TimeInterval = 1 / 30
+        delay: TimeInterval = .leastNormalMagnitude
     ) {
         let sut: ASDisplayNode
         if value.isLayerBacked {
@@ -97,30 +100,54 @@ extension XCTestCase {
         } else {
             sut = value
         }
-        let sizeThatFits = sut.layoutThatFits(ASSizeRange(
-            min: CGSize(width: widthRange.lowerBound, height: heightRange.lowerBound),
-            max: CGSize(width: widthRange.upperBound, height: heightRange.upperBound)
-        )).size
-        sut.bounds = CGRect(origin: .zero, size: sizeThatFits)
-        sut.loadForPreview()
-
-        let expect = expectation(description: "snapshot")
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { // Crutch for image nodes
+        func refreshLayout() {
+            let sizeThatFits = sut.layoutThatFits(ASSizeRange(
+                min: CGSize(width: widthRange.lowerBound, height: heightRange.lowerBound),
+                max: CGSize(width: widthRange.upperBound, height: heightRange.upperBound)
+            )).size
+            sut.bounds = CGRect(origin: .zero, size: sizeThatFits)
             sut.loadForPreview()
+        }
+        refreshLayout()
+        let expect = expectation(description: "snapshot")
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { // Crutch for image nodes and lists
+            refreshLayout()
             DispatchQueue.main.async {
-                assertSnapshot(
-                    matching: sut.view,
-                    as: .image(
-                        drawHierarchyInKeyWindow: true,
-                        precision: precision,
-                        perceptualPrecision: perceptualPrecision
-                    ),
-                    named: additions,
-                    record: recording,
-                    file: file,
-                    testName: testName,
-                    line: line
-                )
+                if let controller {
+                    assertSnapshot(
+                        matching: controller,
+                        as: .image(
+                            on: .init(
+                                safeArea: UIEdgeInsets(top: 44, bottom: 34),
+                                size: CGSize(width: widthRange.upperBound, height: heightRange.upperBound),
+                                traits: .init()
+                            ),
+                            precision: precision,
+                            perceptualPrecision: perceptualPrecision,
+                            size: CGSize(width: widthRange.upperBound, height: heightRange.upperBound),
+                            traits: .init()
+                        ),
+                        named: additions,
+                        record: recording,
+                        file: file,
+                        testName: testName,
+                        line: line
+                    )
+                } else {
+                    assertSnapshot(
+                        matching: sut.view,
+                        as: .image(
+                            drawHierarchyInKeyWindow: true,
+                            precision: precision,
+                            perceptualPrecision: perceptualPrecision
+                        ),
+                        named: additions,
+                        record: recording,
+                        file: file,
+                        testName: testName,
+                        line: line
+                    )
+                }
                 expect.fulfill()
             }
         }
@@ -129,8 +156,7 @@ extension XCTestCase {
 
     func assertControllerSnapshot(
         matching sut: ASDKViewController<ASDisplayNode>,
-        on config: ViewImageConfig = .iPhoneX,
-        size: SnapshotSize,
+        size: CGSize = CGSize(width: 375, height: 812),
         named name: String? = nil,
         record recording: Bool = false,
         timeout: TimeInterval = 5,
@@ -140,13 +166,16 @@ extension XCTestCase {
         line: UInt = #line,
         precision: Float = 0.995,
         perceptualPrecision: Float = 0.99,
-        delay: TimeInterval = 1 / 30
+        delay: TimeInterval = 0.1
     ) {
-        assertControllerSnapshot(
-            matching: sut,
-            on: config,
-            widthRange: size.widthRange,
-            heightRange: size.heightRange,
+        sut.loadViewIfNeeded()
+        sut.view.frame = CGRect(origin: .zero, size: size)
+        sut.view.setNeedsLayout()
+        sut.view.layoutIfNeeded()
+        assertNodeSnapshot(
+            matching: sut.node,
+            controller: sut,
+            size: .fixed(size),
             named: name,
             record: recording,
             timeout: timeout,
@@ -158,54 +187,5 @@ extension XCTestCase {
             perceptualPrecision: perceptualPrecision,
             delay: delay
         )
-    }
-
-    func assertControllerSnapshot(
-        matching sut: ASDKViewController<ASDisplayNode>,
-        on config: ViewImageConfig = .iPhoneX,
-        widthRange: ClosedRange<CGFloat>,
-        heightRange: ClosedRange<CGFloat>,
-        named name: String? = nil,
-        record recording: Bool = false,
-        timeout: TimeInterval = 5,
-        file: StaticString = #file,
-        testName: String = #function,
-        additions: String? = nil,
-        line: UInt = #line,
-        precision: Float = 0.995,
-        perceptualPrecision: Float = 0.99,
-        delay: TimeInterval = 1 / 30
-    ) {
-        sut.loadViewIfNeeded()
-        sut.view.setNeedsLayout()
-        sut.view.layoutIfNeeded()
-        let sizeThatFits = sut.node.layoutThatFits(ASSizeRange(
-            min: CGSize(width: widthRange.lowerBound, height: heightRange.lowerBound),
-            max: CGSize(width: widthRange.upperBound, height: heightRange.upperBound)
-        )).size
-        sut.node.bounds = CGRect(origin: .zero, size: sizeThatFits)
-        sut.node.loadForPreview()
-
-        let expect = expectation(description: "snapshot")
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { // Crutch for image nodes
-            sut.node.loadForPreview()
-            DispatchQueue.main.async {
-                assertSnapshot(
-                    matching: sut,
-                    as: .image(
-                        on: config,
-                        precision: precision,
-                        perceptualPrecision: perceptualPrecision
-                    ),
-                    named: additions,
-                    record: recording,
-                    file: file,
-                    testName: testName,
-                    line: line
-                )
-                expect.fulfill()
-            }
-        }
-        wait(for: [expect], timeout: 1 + delay * 2)
     }
 }

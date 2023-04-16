@@ -13,7 +13,7 @@ class ShimmerCellNodeTests: XCTestCase {
 
     func test_node() {
         ShimmerCellNodeViewModel.Kind.allCases.forEach { kind in
-            let sut = ShimmerCellNode(viewModel: .init(kind: kind))
+            let sut = ShimmerCellNode(viewModel: .init(kind: kind)).contentNode
 
             assertNodeSnapshot(matching: sut, size: .freeHeightFixedWidth(320), additions: "\(kind)")
         }
