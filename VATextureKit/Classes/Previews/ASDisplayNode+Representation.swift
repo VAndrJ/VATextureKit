@@ -44,6 +44,7 @@ public extension ASDisplayNode {
     }
 }
 
+@available (iOS 13.0, *)
 extension ASCollectionNode {
 
     func loadCollectionForPreview() {
@@ -69,6 +70,7 @@ extension ASCollectionNode {
     }
 }
 
+@available (iOS 13.0, *)
 extension ASTableNode {
 
     func loadTableForPreview() {
