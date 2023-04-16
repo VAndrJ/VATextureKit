@@ -57,6 +57,22 @@ extension GenreEntity {
     }
 }
 
+extension MovieEntity {
+
+    static func dummy(repeatingString: Int = 0, id: Int = 0) -> Self {
+        .init(
+            id: .init(rawValue: id),
+            title: "Title".dummyLong(range: 0...repeatingString),
+            releaseDate: "2023-11-11",
+            rating: 80,
+            year: "2023",
+            backdropPath: .coverFilePath,
+            genres: (0...repeatingString).map { .dummy(id: $0) },
+            overview: "Overview".dummyLong(range: 0...repeatingString)
+        )
+    }
+}
+
 extension XCTestCase {
 
     func spy<T>(_ observable: Observable<T>, initialExpectation: XCTestExpectation? = nil, timeout: TimeInterval = 10) -> ObservableSpy<T> {
