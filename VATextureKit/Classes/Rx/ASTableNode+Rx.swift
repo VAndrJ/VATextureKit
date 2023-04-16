@@ -303,6 +303,14 @@ open class ASTableSectionedDataSource<S: SectionModelType>: NSObject, ASTableDat
         let sectionModel = _sectionModels[section]
         return S(original: sectionModel.model, items: sectionModel.items)
     }
+
+    open subscript(safe section: Int) -> S? {
+        guard _sectionModels.indices ~= section else {
+            return nil
+        }
+        let sectionModel = _sectionModels[section]
+        return S(original: sectionModel.model, items: sectionModel.items)
+    }
     
     open subscript(indexPath: IndexPath) -> Item {
         get { _sectionModels[indexPath.section].items[indexPath.row] }
