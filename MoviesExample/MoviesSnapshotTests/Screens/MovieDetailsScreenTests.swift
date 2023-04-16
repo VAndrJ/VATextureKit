@@ -13,7 +13,7 @@ import XCTest
 class MovieDetailsScreenTests: XCTestCase {
 
     func test_node_initial() {
-        let sut = ViewController(node: MovieDetailsNode(viewModel: MovieDetailsViewModel(data: .init(
+        let sut = MovieDetailsNode(viewModel: MovieDetailsViewModel(data: .init(
             related: .init(listMovieEntity: .dummy()),
             source: .init(
                 getMovie: { _ in .empty() },
@@ -23,13 +23,13 @@ class MovieDetailsScreenTests: XCTestCase {
             navigation: .init(
                 followMovie: { _ in nil }
             )
-        ))))
+        )))
 
-        assertControllerSnapshot(matching: sut)
+        assertNodeSnapshot(matching: sut, size: .iPhone8)
     }
 
     func test_node() {
-        let sut = ViewController(node: MovieDetailsNode(viewModel: MovieDetailsViewModel(data: .init(
+        let sut = MovieDetailsNode(viewModel: MovieDetailsViewModel(data: .init(
             related: .init(listMovieEntity: .dummy()),
             source: .init(
                 getMovie: { _ in .just(.dummy()) },
@@ -39,8 +39,8 @@ class MovieDetailsScreenTests: XCTestCase {
             navigation: .init(
                 followMovie: { _ in nil }
             )
-        ))))
+        )))
 
-        assertControllerSnapshot(matching: sut)
+        assertNodeSnapshot(matching: sut, size: .iPhone8)
     }
 }

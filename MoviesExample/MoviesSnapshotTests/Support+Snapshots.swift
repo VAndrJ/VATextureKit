@@ -17,6 +17,8 @@ extension XCTestCase {
         case freeWidthFixedHeight(CGFloat)
         case auto
 
+        static let iPhone8: SnapshotSize = .fixed(CGSize(width: 375, height: 667))
+
         var widthRange: ClosedRange<CGFloat> {
             switch self {
             case let .fixed(size):
@@ -56,7 +58,7 @@ extension XCTestCase {
         line: UInt = #line,
         precision: Float = 0.995,
         perceptualPrecision: Float = 0.99,
-        delay: TimeInterval = .leastNormalMagnitude
+        delay: TimeInterval = 1 / 30
     ) {
         assertNodeSnapshot(
             matching: value,
@@ -90,7 +92,7 @@ extension XCTestCase {
         line: UInt = #line,
         precision: Float = 0.995,
         perceptualPrecision: Float = 0.99,
-        delay: TimeInterval = .leastNormalMagnitude
+        delay: TimeInterval = 1 / 30
     ) {
         let sut: ASDisplayNode
         if value.isLayerBacked {

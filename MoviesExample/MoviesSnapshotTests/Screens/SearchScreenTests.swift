@@ -14,32 +14,32 @@ import XCTest
 class SearchScreenTests: XCTestCase {
 
     func test_node_initial() {
-        let sut = ViewController(node: SearchNode(viewModel: SearchViewModel(data: .init(
+        let sut = SearchNode(viewModel: SearchViewModel(data: .init(
             source: .init(
                 getTrendingMovies: { .empty() },
                 getSearchMovies: { _ in .empty() }
             ),
             navigation: .init(followMovie: { _ in nil })
-        ))))
+        )))
 
-        assertControllerSnapshot(matching: sut)
+        assertNodeSnapshot(matching: sut, size: .iPhone8)
     }
 
     func test_node_trending() {
-        let sut = ViewController(node: SearchNode(viewModel: SearchViewModel(data: .init(
+        let sut = SearchNode(viewModel: SearchViewModel(data: .init(
             source: .init(
                 getTrendingMovies: { .just([.dummy()]) },
                 getSearchMovies: { _ in .empty() }
             ),
             navigation: .init(followMovie: { _ in nil })
-        ))))
-        sut.contentNode.viewModel.perform(BecomeVisibleEvent())
+        )))
+        sut.viewModel.perform(BecomeVisibleEvent())
 
-        assertControllerSnapshot(matching: sut)
+        assertNodeSnapshot(matching: sut, size: .iPhone8)
     }
 
     func test_node_trending_multiple() {
-        let sut = ViewController(node: SearchNode(viewModel: SearchViewModel(data: .init(
+        let sut = SearchNode(viewModel: SearchViewModel(data: .init(
             source: .init(
                 getTrendingMovies: {
                     .just([
@@ -55,9 +55,9 @@ class SearchScreenTests: XCTestCase {
                 getSearchMovies: { _ in .empty() }
             ),
             navigation: .init(followMovie: { _ in nil })
-        ))))
-        sut.contentNode.viewModel.perform(BecomeVisibleEvent())
+        )))
+        sut.viewModel.perform(BecomeVisibleEvent())
 
-        assertControllerSnapshot(matching: sut, delay: 1)
+        assertNodeSnapshot(matching: sut, size: .iPhone8)
     }
 }
