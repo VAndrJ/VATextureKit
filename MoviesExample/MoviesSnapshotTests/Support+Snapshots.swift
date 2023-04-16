@@ -18,6 +18,7 @@ extension XCTestCase {
         case auto
 
         static let iPhone8: SnapshotSize = .fixed(CGSize(width: 375, height: 667))
+        static let iPhone8HalfHeight: SnapshotSize = .fixed(CGSize(width: 375, height: 333))
 
         var widthRange: ClosedRange<CGFloat> {
             switch self {

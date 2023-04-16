@@ -8,56 +8,52 @@
 import XCTest
 @testable import MoviesExample
 
-// MARK: - Run on iPhone X/XS
-// MARK: - There is an issue with the section header/footer on snapshots
 @MainActor
 class SearchScreenTests: XCTestCase {
+    private let dummyMultipleMovies: [ListMovieEntity] = [.dummy(repeatingString: 10)] + (1...20).map { .dummy(id: $0) }
+    private let dummySingleMovie: [ListMovieEntity] = [.dummy()]
 
     func test_node_initial() {
-        let sut = SearchNode(viewModel: SearchViewModel(data: .init(
-            source: .init(
-                getTrendingMovies: { .empty() },
-                getSearchMovies: { _ in .empty() }
-            ),
-            navigation: .init(followMovie: { _ in nil })
-        )))
+        let sut = generateSUT(movies: [])
 
-        assertNodeSnapshot(matching: sut, size: .iPhone8)
+        assertNodeSnapshot(matching: sut, size: .iPhone8HalfHeight)
     }
 
     func test_node_trending() {
-        let sut = SearchNode(viewModel: SearchViewModel(data: .init(
-            source: .init(
-                getTrendingMovies: { .just([.dummy()]) },
-                getSearchMovies: { _ in .empty() }
-            ),
-            navigation: .init(followMovie: { _ in nil })
-        )))
+        let sut = generateSUT(movies: dummySingleMovie)
         sut.viewModel.perform(BecomeVisibleEvent())
 
-        assertNodeSnapshot(matching: sut, size: .iPhone8)
+        assertNodeSnapshot(matching: sut, size: .iPhone8HalfHeight)
     }
 
     func test_node_trending_multiple() {
-        let sut = SearchNode(viewModel: SearchViewModel(data: .init(
+        let sut = generateSUT(movies: dummyMultipleMovies)
+        sut.viewModel.perform(BecomeVisibleEvent())
+
+        assertNodeSnapshot(matching: sut, size: .iPhone8HalfHeight)
+    }
+
+    func test_node_search() {
+        let sut = generateSUT(movies: dummySingleMovie)
+        sut.viewModel.perform(SearchMovieEvent(query: "movie"))
+
+        assertNodeSnapshot(matching: sut, size: .iPhone8HalfHeight)
+    }
+
+    func test_node_search_multiple() {
+        let sut = generateSUT(movies: dummyMultipleMovies)
+        sut.viewModel.perform(SearchMovieEvent(query: "movie"))
+
+        assertNodeSnapshot(matching: sut, size: .iPhone8HalfHeight)
+    }
+
+    private func generateSUT(movies: [ListMovieEntity]) -> SearchNode {
+        SearchNode(viewModel: SearchViewModel(data: .init(
             source: .init(
-                getTrendingMovies: {
-                    .just([
-                        .dummy(),
-                        .dummy(repeatingString: 10, id: 1),
-                        .dummy(repeatingString: 1, id: 2),
-                        .dummy(repeatingString: 3, id: 3),
-                        .dummy(repeatingString: 4, id: 4),
-                        .dummy(repeatingString: 5, id: 5),
-                        .dummy(id: 6),
-                    ])
-                },
-                getSearchMovies: { _ in .empty() }
+                getTrendingMovies: { .just(movies) },
+                getSearchMovies: { _ in .just(movies) }
             ),
             navigation: .init(followMovie: { _ in nil })
         )))
-        sut.viewModel.perform(BecomeVisibleEvent())
-
-        assertNodeSnapshot(matching: sut, size: .iPhone8)
     }
 }
