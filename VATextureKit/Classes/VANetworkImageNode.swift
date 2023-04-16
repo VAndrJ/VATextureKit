@@ -34,7 +34,12 @@ open class VANetworkImageNode: ASNetworkImageNode {
         self.init()
 
         if let image = data.image {
-            self.url = URL(string: image)
+            switch Self.parseImage(string: image) {
+            case let .image(image):
+                self.image = image
+            case let .url(url):
+                self.url = url
+            }
         }
         if let contentMode = data.contentMode {
             self.contentMode = contentMode
@@ -46,5 +51,39 @@ open class VANetworkImageNode: ASNetworkImageNode {
             self.cornerRadius = cornerRadius
             self.cornerRoundingType = data.cornerRoundingType
         }
+    }
+}
+
+public enum ImageSource: Equatable {
+    case url(URL?)
+    case image(UIImage?)
+
+    public var image: UIImage? {
+        switch self {
+        case .url: return nil
+        case let .image(image): return image
+        }
+    }
+    public var url: URL? {
+        switch self {
+        case let .url(url): return url
+        case .image: return nil
+        }
+    }
+}
+
+public extension VANetworkImageNode {
+
+    static func parseImage(string: String?) -> ImageSource {
+        if let string, !string.isEmpty {
+            if string.hasPrefix("http"), let url = URL(string: string) {
+                return .url(url)
+            } else if string.hasPrefix("file"), let url = URL(string: string), let image = UIImage(contentsOfFile: url.path) {
+                return .image(image)
+            } else if let image = UIImage(contentsOfFile: string) {
+                return .image(image)
+            }
+        }
+        return .url(nil)
     }
 }

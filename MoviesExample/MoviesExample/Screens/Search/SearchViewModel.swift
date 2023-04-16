@@ -90,8 +90,13 @@ final class SearchViewModel: EventViewModel {
 
     override func handle(event: ResponderEvent) async -> Bool {
         logResponder(from: self, event: event)
-        _beginSearchObs.rx.accept(())
-        return true
+        switch event {
+        case _ as ResponderShortcutEvent:
+            _beginSearchObs.rx.accept(())
+            return true
+        default:
+            return await nextEventResponder?.handle(event: event) ?? false
+        }
     }
 
     private func bind() {
@@ -111,7 +116,7 @@ final class SearchViewModel: EventViewModel {
     }
 }
 
-private func mapSearchTrendingMovies(_ data: [ListMovieEntity]) -> [AnimatableSectionModel<SearchSectionHeaderNodeViewModel, CellViewModel>] {
+func mapSearchTrendingMovies(_ data: [ListMovieEntity]) -> [AnimatableSectionModel<SearchSectionHeaderNodeViewModel, CellViewModel>] {
     [
         AnimatableSectionModel(
             model: SearchSectionHeaderNodeViewModel(title: R.string.localizable.search_section_trending()),
@@ -120,7 +125,7 @@ private func mapSearchTrendingMovies(_ data: [ListMovieEntity]) -> [AnimatableSe
     ]
 }
 
-private func mapSearchMovies(_ data: [ListMovieEntity]) -> [AnimatableSectionModel<SearchSectionHeaderNodeViewModel, CellViewModel>] {
+func mapSearchMovies(_ data: [ListMovieEntity]) -> [AnimatableSectionModel<SearchSectionHeaderNodeViewModel, CellViewModel>] {
     if data.isEmpty {
         return []
     } else {

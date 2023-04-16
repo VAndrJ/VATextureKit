@@ -13,7 +13,7 @@ final class MovieDetailsTrailerCellNode: VACellNode {
 
     init(viewModel: MovieDetailsTrailerCellNodeViewModel) {
         self.imageNode = VANetworkImageNode(data: .init(
-            image: viewModel.image,
+            image: viewModel.image?.getImagePath(width: 500),
             contentMode: .scaleAspectFill
         ))
 
@@ -36,7 +36,7 @@ final class MovieDetailsTrailerCellNodeViewModel: CellViewModel {
     let image: String?
 
     init(image: String?) {
-        self.image = image.flatMap { $0.getImagePath(width: 500) }
+        self.image = image
 
         super.init()
     }

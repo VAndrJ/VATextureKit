@@ -2,20 +2,33 @@ use_modular_headers!
 
 platform :ios, '13.0'
 
-target 'MoviesExample' do
+def project_pods
   inhibit_all_warnings!
+
   pod 'VATextureKit', :path => '../'
   pod 'Swiftional', '0.2.5'
   pod 'R.swift'
   pod 'RxSwiftExt'
   pod 'RxKeyboard'
+end
 
-  target 'MoviesExampleTests' do
-    inhibit_all_warnings!
-    inherit! :search_paths
+def test_pods
+  inhibit_all_warnings!
+  inherit! :search_paths
 
-    pod 'Quick', '~> 2.2.0'
-    pod 'Nimble', '~> 10.0.0'
+  pod 'RxBlocking'
+  pod 'RxTest'
+end
+
+target 'MoviesExample' do
+  project_pods
+
+  target 'MoviesTests' do
+    test_pods
+  end
+
+  target 'MoviesSnapshotTests' do
+    test_pods
   end
 end
 

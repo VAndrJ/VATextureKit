@@ -13,11 +13,17 @@ import RxSwiftExt
 @MainActor
 final class Network {
     let coreRequest: (_ request: URLRequest) -> Observable<(response: HTTPURLResponse, data: Data)>
+    let networkLogger: NetworkLogger
 
-    init(coreRequest: @escaping (_ request: URLRequest) -> Observable<(response: HTTPURLResponse, data: Data)> = {
-        URLSession.shared.rx.response(request: $0) }) {
-        URLSession.rx.shouldLogRequest = { _ in false }
+    init(
+        networkLogger: NetworkLogger,
+        coreRequest: @escaping (_ request: URLRequest) -> Observable<(response: HTTPURLResponse, data: Data)> = {
+        URLSession.shared.rx.response(request: $0) }
+    ) {
+        self.networkLogger = networkLogger
         self.coreRequest = coreRequest
+
+        URLSession.rx.shouldLogRequest = { _ in false }
     }
 
     func request<T: Decodable>(data: NetworkEndpointData<T>?) -> Observable<T> {
@@ -27,8 +33,8 @@ final class Network {
         let requestDate = Date()
         return requestRaw(data: data)
             .map { try data.parser.parse(data: $0) }
-            .do(onError: {
-                NetworkLogger.log(
+            .do(onError: { [networkLogger] in
+                networkLogger.log(
                     error: $0,
                     request: data.getRequest(),
                     date: requestDate
@@ -44,16 +50,16 @@ final class Network {
         let request = data.getRequest()
         return getData(response: coreRequest, request: { request })
             .do(
-                onNext: {
-                    NetworkLogger.log(
+                onNext: { [networkLogger] in
+                    networkLogger.log(
                         request: request,
                         response: $0.response,
                         data: $0.data,
                         date: requestDate
                     )
                 },
-                onError: {
-                    NetworkLogger.log(
+                onError: { [networkLogger] in
+                    networkLogger.log(
                         error: $0,
                         request: request,
                         date: requestDate
@@ -82,7 +88,7 @@ final class Network {
         case 400...499:
             throw NetworkError.server(try JSONDecoder().decode(ErrorFromServerResponseDTO.self, from: data))
         default:
-            throw NetworkError.server500
+            throw NetworkError.serverInternal
         }
     }
 }

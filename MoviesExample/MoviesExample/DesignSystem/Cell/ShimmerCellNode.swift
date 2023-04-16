@@ -86,7 +86,7 @@ final class ShimmerCellNode: VACellNode {
 }
 
 class ShimmerCellNodeViewModel: CellViewModel {
-    enum Kind {
+    enum Kind: CaseIterable {
         case trending
         case movieDetails
     }

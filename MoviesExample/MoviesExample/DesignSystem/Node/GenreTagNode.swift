@@ -14,6 +14,7 @@ final class GenreTagNode: VADisplayNode {
         self.titleTextNode = VATextNode(
             text: genre,
             textStyle: .subhead,
+            maximumNumberOfLines: 1,
             themeColor: { $0.secondaryLabel }
         )
 

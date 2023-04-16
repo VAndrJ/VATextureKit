@@ -320,7 +320,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
     }
 
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if let getter = data.sectionHeaderGetter, let section = source?[section] {
+        if let getter = data.sectionHeaderGetter, let section = source?[safe: section] {
             return VANodeWrapperView(contentNode: getter(section))
         } else {
             return nil
@@ -328,7 +328,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
     }
 
     public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if let getter = data.sectionFooterGetter, let section = source?[section] {
+        if let getter = data.sectionFooterGetter, let section = source?[safe: section] {
             return VANodeWrapperView(contentNode: getter(section))
         } else {
             return nil

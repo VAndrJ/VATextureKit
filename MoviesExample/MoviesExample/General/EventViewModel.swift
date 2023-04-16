@@ -27,7 +27,11 @@ class EventViewModel: ViewModel {
     weak var controller: UIViewController?
     var isLoadingRelay = BehaviorRelay(value: false)
 
-    override init() {
+    let scheduler: SchedulerType
+
+    init(scheduler: SchedulerType = MainScheduler.asyncInstance) {
+        self.scheduler = scheduler
+
         super.init()
 
         bind()
@@ -52,7 +56,7 @@ class EventViewModel: ViewModel {
 
     private func bindEvents() {
         eventRelay
-            .observe(on: MainScheduler.asyncInstance)
+            .observe(on: scheduler)
             .subscribe(onNext: { [weak self] in
                 self?.run($0)
             })

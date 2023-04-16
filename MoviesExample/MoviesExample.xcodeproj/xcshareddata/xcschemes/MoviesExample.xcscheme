@@ -26,33 +26,42 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "NO">
+      shouldUseLaunchSchemeArgsEnv = "NO"
+      codeCoverageEnabled = "YES"
+      onlyGenerateCoverageForSpecifiedTargets = "YES">
       <CommandLineArguments>
          <CommandLineArgument
             argument = "IS_TESTING"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
+      <CodeCoverageTargets>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "A3820D3A29E59A3000993406"
+            BuildableName = "MoviesExample.app"
+            BlueprintName = "MoviesExample"
+            ReferencedContainer = "container:MoviesExample.xcodeproj">
+         </BuildableReference>
+      </CodeCoverageTargets>
       <Testables>
          <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
+            skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A3820D5029E59A3100993406"
-               BuildableName = "MoviesExampleTests.xctest"
-               BlueprintName = "MoviesExampleTests"
+               BlueprintIdentifier = "A368636129EAB57B006B00FD"
+               BuildableName = "MoviesTests.xctest"
+               BlueprintName = "MoviesTests"
                ReferencedContainer = "container:MoviesExample.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
+            skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A3820D5A29E59A3100993406"
-               BuildableName = "MoviesExampleUITests.xctest"
-               BlueprintName = "MoviesExampleUITests"
+               BlueprintIdentifier = "A368637529EAB6EA006B00FD"
+               BuildableName = "MoviesSnapshotTests.xctest"
+               BlueprintName = "MoviesSnapshotTests"
                ReferencedContainer = "container:MoviesExample.xcodeproj">
             </BuildableReference>
          </TestableReference>

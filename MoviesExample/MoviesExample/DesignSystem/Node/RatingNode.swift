@@ -36,9 +36,21 @@ final class RatingNode: VADisplayNode {
 final private class RatingIndicatorNode: VADisplayNode {
     struct DTO {
         let rating: Double
-        var lineWidth: CGFloat = 2
-        var withBacking = true
-        var startAngle: CGFloat = -.pi / 2
+        let lineWidth: CGFloat
+        let withBacking: Bool
+        let startAngle: CGFloat
+
+        init(
+            rating: Double,
+            lineWidth: CGFloat = 2,
+            withBacking: Bool = true,
+            startAngle: CGFloat = -.pi / 2
+        ) {
+            self.rating = max(1, rating)
+            self.lineWidth = lineWidth
+            self.withBacking = withBacking
+            self.startAngle = startAngle
+        }
     }
 
     private let shapeLayer = CAShapeLayer()

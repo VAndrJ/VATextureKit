@@ -8,8 +8,13 @@
 import Foundation
 
 extension String {
+    var ns: NSString { self as NSString }
 
     func getImagePath(width: Int) -> String {
-        "https://image.tmdb.org/t/p/w\(width)\(self)"
+        if ns.pathComponents.count != 2 {
+            return self
+        } else {
+            return "https://image.tmdb.org/t/p/w\(width)\(self)"
+        }
     }
 }

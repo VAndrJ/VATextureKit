@@ -13,29 +13,26 @@ enum NetworkError: Error, Equatable {
     case incorrectEndpointURLComponents(path: String, base: String)
     case emptyRequestData
     case server(ErrorFromServerResponseDTO)
-    case server500
+    case serverInternal
 }
 
 extension NetworkError: LocalizedError {
-
     var localizedDescription: String? {
-        return String(describing: self)
-//        switch self {
-//        case .server500:
-//            return R.string.localizable.network_general_error()
-//        case .emptyResponseData:
-//            return R.string.localizable.network_empty_response_data_error()
-//        case .emptyRequestData:
-//            return R.string.localizable.network_empty_request_data_error()
-//        case let .incorrectEndpointBaseURL(string):
-//            return R.string.localizable.network_incorrect_base_url_error(string)
-//        case let .incorrectEndpointURLComponents(path, query, components):
-//            return R.string.localizable.network_incorrect_url_components_error(path, query, components)
-//        case let .server(value):
-//            return value.description
-//        }
+        switch self {
+        case .serverInternal:
+            return R.string.localizable.error_server_internal()
+        case .emptyResponseData:
+            return R.string.localizable.error_response_empty_data()
+        case .emptyRequestData:
+            return R.string.localizable.error_request_empty_data()
+        case let .incorrectEndpointBaseURL(base):
+            return R.string.localizable.error_request_incorrect_base(base)
+        case let .incorrectEndpointURLComponents(path, base):
+            return R.string.localizable.error_request_incorrect_components(path, base)
+        case let .server(value):
+            return value.description
+        }
     }
-
     var errorDescription: String? { localizedDescription }
 }
 

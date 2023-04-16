@@ -8,6 +8,11 @@
 
 "cell_recommendations" = "Recommedations";
 "cell_actors" = "Series Cast";
+"error_request_empty_data" = "Empty request data";
+"error_request_incorrect_base" = "Incorrect base URL: %@";
+"error_request_incorrect_components" = "Incorrect URL components. Path: %@. Base: %@";
+"error_response_empty_data" = "Empty response data";
+"error_server_internal" = "Internal server error";
 "rating_percent" = "%d%%";
 "search_screen_title" = "Search";
 "search_section_search" = "Search";

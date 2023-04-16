@@ -137,7 +137,7 @@ extension XCTestCase {
             max: CGSize(width: widthRange.upperBound, height: heightRange.upperBound)
         )).size
         sut.bounds = CGRect(origin: .zero, size: sizeThatFits)
-        sut.loadForTesting()
+        sut.loadForPreview()
 
         assertSnapshot(
             matching: sut.view,
@@ -154,23 +154,9 @@ extension XCTestCase {
     }
 }
 
-extension ASDisplayNode {
-
-    func loadForTesting() {
-        if #available(iOS 13.0, *) {
-            ASTraitCollectionPropagateDown(self, ASPrimitiveTraitCollectionFromUITraitCollection(UITraitCollection.current))
-        }
-        displaysAsynchronously = false
-        ASDisplayNodePerformBlockOnEveryNode(nil, self, true) {
-            $0.layer.setNeedsDisplay()
-        }
-        recursivelyEnsureDisplaySynchronously(true)
-    }
-}
-
 extension String {
     
-    func dummyLong(separator: String = " ") -> String {
-        (0...10).map { _ in self }.joined(separator: separator)
+    func dummyLong(separator: String = " ", range: ClosedRange<Int> = 0...10) -> String {
+        range.map { _ in self }.joined(separator: separator)
     }
 }

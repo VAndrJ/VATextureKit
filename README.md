@@ -676,7 +676,7 @@ A subclass of `ASDisplayNode` that automatically manages subnodes and handles th
 
 
 <details>
-<summary>ASTextNode</summary>
+<summary>VATextNode</summary>
 
 
 A subclass of `ASTextNode` that handles content size and theme updates. Have default text styles. 
