@@ -129,6 +129,7 @@ extension XCTestCase {
 
     func assertControllerSnapshot(
         matching sut: ASDKViewController<ASDisplayNode>,
+        on config: ViewImageConfig = .iPhoneX,
         size: SnapshotSize,
         named name: String? = nil,
         record recording: Bool = false,
@@ -143,6 +144,7 @@ extension XCTestCase {
     ) {
         assertControllerSnapshot(
             matching: sut,
+            on: config,
             widthRange: size.widthRange,
             heightRange: size.heightRange,
             named: name,
@@ -160,6 +162,7 @@ extension XCTestCase {
 
     func assertControllerSnapshot(
         matching sut: ASDKViewController<ASDisplayNode>,
+        on config: ViewImageConfig = .iPhoneX,
         widthRange: ClosedRange<CGFloat>,
         heightRange: ClosedRange<CGFloat>,
         named name: String? = nil,
@@ -190,7 +193,7 @@ extension XCTestCase {
                 assertSnapshot(
                     matching: sut,
                     as: .image(
-                        on: .iPhoneX,
+                        on: config,
                         precision: precision,
                         perceptualPrecision: perceptualPrecision
                     ),
