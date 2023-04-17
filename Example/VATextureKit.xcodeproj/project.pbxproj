@@ -27,6 +27,8 @@
 		A3820D2A29E568BE00993406 /* VATextFieldNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3820D2929E568BE00993406 /* VATextFieldNode.swift */; };
 		A397A2C229AAA68800A05B8F /* AlertNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A397A2C129AAA68800A05B8F /* AlertNodeController.swift */; };
 		A397A2C529AAAF6800A05B8F /* NSObject+Applyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A397A2C429AAAF6800A05B8F /* NSObject+Applyable.swift */; };
+		A3A0BED629ED4D2D00253AAD /* RowLayoutControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A0BED529ED4D2D00253AAD /* RowLayoutControllerNode.swift */; };
+		A3A0BEE029ED5AE700253AAD /* VATextNode+Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A0BEDF29ED5AE700253AAD /* VATextNode+Support.swift */; };
 		A3B3F37929A0CDAD0090E6E2 /* MainNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F37829A0CDAD0090E6E2 /* MainNodeController.swift */; };
 		A3B3F3AF29A17A5B0090E6E2 /* ExampleNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3AE29A17A5B0090E6E2 /* ExampleNavigationController.swift */; };
 		A3B3F3C529A22F860090E6E2 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3C429A22F860090E6E2 /* Theme.swift */; };
@@ -104,6 +106,8 @@
 		A3820D2929E568BE00993406 /* VATextFieldNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VATextFieldNode.swift; sourceTree = "<group>"; };
 		A397A2C129AAA68800A05B8F /* AlertNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertNodeController.swift; sourceTree = "<group>"; };
 		A397A2C429AAAF6800A05B8F /* NSObject+Applyable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Applyable.swift"; sourceTree = "<group>"; };
+		A3A0BED529ED4D2D00253AAD /* RowLayoutControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowLayoutControllerNode.swift; sourceTree = "<group>"; };
+		A3A0BEDF29ED5AE700253AAD /* VATextNode+Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VATextNode+Support.swift"; sourceTree = "<group>"; };
 		A3B3F37829A0CDAD0090E6E2 /* MainNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNodeController.swift; sourceTree = "<group>"; };
 		A3B3F3AE29A17A5B0090E6E2 /* ExampleNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleNavigationController.swift; sourceTree = "<group>"; };
 		A3B3F3C429A22F860090E6E2 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -293,6 +297,7 @@
 			isa = PBXGroup;
 			children = (
 				A3820D2929E568BE00993406 /* VATextFieldNode.swift */,
+				A3A0BEDF29ED5AE700253AAD /* VATextNode+Support.swift */,
 			);
 			path = Experiments;
 			sourceTree = "<group>";
@@ -313,9 +318,18 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		A3A0BED429ED4D1E00253AAD /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				A3A0BED529ED4D2D00253AAD /* RowLayoutControllerNode.swift */,
+			);
+			path = Layouts;
+			sourceTree = "<group>";
+		};
 		A3B3F37429A0CD830090E6E2 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				A3A0BED429ED4D1E00253AAD /* Layouts */,
 				A397A2BE29AAA65F00A05B8F /* Alert */,
 				A33CDF3129D9B85F005F77C6 /* Animations */,
 				A3B3F3D429A2C8F40090E6E2 /* Appearance */,
@@ -674,7 +688,9 @@
 				A310A43229CF471400632416 /* CellViewModel.swift in Sources */,
 				A3DDF2FE29DD7314009460F1 /* R.generated.swift in Sources */,
 				A3B3F3D329A2C8280090E6E2 /* MainViewModel.swift in Sources */,
+				A3A0BEE029ED5AE700253AAD /* VATextNode+Support.swift in Sources */,
 				A3F8890329CE316100C67187 /* CollectionListDifferentCellsNodeController.swift in Sources */,
+				A3A0BED629ED4D2D00253AAD /* RowLayoutControllerNode.swift in Sources */,
 				A3F8890929CE37BD00C67187 /* ImageCellNode.swift in Sources */,
 				A3820D2A29E568BE00993406 /* VATextFieldNode.swift in Sources */,
 				A3F8890029CE2D0000C67187 /* Support.swift in Sources */,

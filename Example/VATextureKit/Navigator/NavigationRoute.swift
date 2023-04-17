@@ -18,4 +18,7 @@ enum NavigationRoute {
     case moveAnimations
     case blendMode
     case compositingFilter
+    case rowLayout
+    case columnLayout
+    case stackLayout
 }

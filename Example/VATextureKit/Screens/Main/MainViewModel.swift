@@ -11,6 +11,11 @@ import VATextureKit
 @MainActor
 class MainViewModel {
     @Obs.Relay(value: [
+        AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Layouts"), items: [
+            MainListCellNodeViewModel(title: "Row", description: "Layout example", route: .rowLayout),
+            MainListCellNodeViewModel(title: "Column", description: "Layout example", route: .columnLayout),
+            MainListCellNodeViewModel(title: "Stack", description: "Layout example", route: .stackLayout),
+        ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "System"), items: [
             MainListCellNodeViewModel(title: "Appearance", description: "Select theme", route: .apearance),
             MainListCellNodeViewModel(title: "Content size", description: "Alert controller", route: .contentSize),
