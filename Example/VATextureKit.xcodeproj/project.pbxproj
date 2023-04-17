@@ -29,6 +29,7 @@
 		A397A2C529AAAF6800A05B8F /* NSObject+Applyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A397A2C429AAAF6800A05B8F /* NSObject+Applyable.swift */; };
 		A3A0BED629ED4D2D00253AAD /* RowLayoutControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A0BED529ED4D2D00253AAD /* RowLayoutControllerNode.swift */; };
 		A3A0BEE029ED5AE700253AAD /* VATextNode+Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A0BEDF29ED5AE700253AAD /* VATextNode+Support.swift */; };
+		A3A0BEE229ED650000253AAD /* ColumnLayoutControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A0BEE129ED650000253AAD /* ColumnLayoutControllerNode.swift */; };
 		A3B3F37929A0CDAD0090E6E2 /* MainNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F37829A0CDAD0090E6E2 /* MainNodeController.swift */; };
 		A3B3F3AF29A17A5B0090E6E2 /* ExampleNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3AE29A17A5B0090E6E2 /* ExampleNavigationController.swift */; };
 		A3B3F3C529A22F860090E6E2 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3C429A22F860090E6E2 /* Theme.swift */; };
@@ -108,6 +109,7 @@
 		A397A2C429AAAF6800A05B8F /* NSObject+Applyable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Applyable.swift"; sourceTree = "<group>"; };
 		A3A0BED529ED4D2D00253AAD /* RowLayoutControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowLayoutControllerNode.swift; sourceTree = "<group>"; };
 		A3A0BEDF29ED5AE700253AAD /* VATextNode+Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VATextNode+Support.swift"; sourceTree = "<group>"; };
+		A3A0BEE129ED650000253AAD /* ColumnLayoutControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnLayoutControllerNode.swift; sourceTree = "<group>"; };
 		A3B3F37829A0CDAD0090E6E2 /* MainNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNodeController.swift; sourceTree = "<group>"; };
 		A3B3F3AE29A17A5B0090E6E2 /* ExampleNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleNavigationController.swift; sourceTree = "<group>"; };
 		A3B3F3C429A22F860090E6E2 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -322,6 +324,7 @@
 			isa = PBXGroup;
 			children = (
 				A3A0BED529ED4D2D00253AAD /* RowLayoutControllerNode.swift */,
+				A3A0BEE129ED650000253AAD /* ColumnLayoutControllerNode.swift */,
 			);
 			path = Layouts;
 			sourceTree = "<group>";
@@ -687,6 +690,7 @@
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				A310A43229CF471400632416 /* CellViewModel.swift in Sources */,
 				A3DDF2FE29DD7314009460F1 /* R.generated.swift in Sources */,
+				A3A0BEE229ED650000253AAD /* ColumnLayoutControllerNode.swift in Sources */,
 				A3B3F3D329A2C8280090E6E2 /* MainViewModel.swift in Sources */,
 				A3A0BEE029ED5AE700253AAD /* VATextNode+Support.swift in Sources */,
 				A3F8890329CE316100C67187 /* CollectionListDifferentCellsNodeController.swift in Sources */,
