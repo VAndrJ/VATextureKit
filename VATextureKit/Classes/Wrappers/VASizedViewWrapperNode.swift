@@ -2,7 +2,7 @@
 //  VASizedViewWrapperNode.swift
 //  VATextureKit
 //
-//  Created by VAndrJ on 11.04.2023.
+//  Created by Volodymyr Andriienko on 11.04.2023.
 //
 
 import UIKit

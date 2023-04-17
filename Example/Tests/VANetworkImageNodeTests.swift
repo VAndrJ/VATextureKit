@@ -2,8 +2,8 @@
 //  VANetworkImageNodeTests.swift
 //  VATextureKit_Tests
 //
-//  Created by VAndrJ on 15.04.2023.
-//  Copyright © 2023 CocoaPods. All rights reserved.
+//  Created by Volodymyr Andriienko on 15.04.2023.
+//  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
 //
 
 //https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=360

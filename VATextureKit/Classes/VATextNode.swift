@@ -21,7 +21,7 @@ open class VATextNode: ASTextNode {
         case caption1
         case caption2
         
-        func getFontSize(contentSize: UIContentSizeCategory) -> CGFloat {
+        public func getFontSize(contentSize: UIContentSizeCategory) -> CGFloat {
             let traitCollection = UITraitCollection(preferredContentSizeCategory: contentSize)
             switch self {
             case .largeTitle: return UIFontMetrics(forTextStyle: .largeTitle).scaledValue(for: 34, compatibleWith: traitCollection)
@@ -37,7 +37,7 @@ open class VATextNode: ASTextNode {
             case .caption2: return UIFontMetrics(forTextStyle: .caption2).scaledValue(for: 11, compatibleWith: traitCollection)
             }
         }
-        var weight: UIFont.Weight {
+        public var weight: UIFont.Weight {
             switch self {
             case .largeTitle: return .regular
             case .title1: return .regular
@@ -57,8 +57,9 @@ open class VATextNode: ASTextNode {
     public var text: String? {
         didSet { configureTheme() }
     }
+    public var theme: VATheme { appContext.themeManager.theme }
     
-    public let stringGetter: (String?) -> NSAttributedString?
+    public let stringGetter: (String?, VATheme) -> NSAttributedString?
     
     public convenience init(
         text: String? = nil,
@@ -93,8 +94,8 @@ open class VATextNode: ASTextNode {
         }
         self.init(
             text: text,
-            stringGetter: {
-                $0.flatMap {
+            stringGetter: { string, _ in
+                string.flatMap {
                     NSAttributedString(
                         string: $0,
                         attributes: [
@@ -130,8 +131,8 @@ open class VATextNode: ASTextNode {
         }
         self.init(
             text: text,
-            stringGetter: {
-                $0.flatMap {
+            stringGetter: { string, _ in
+                string.flatMap {
                     NSAttributedString(
                         string: $0,
                         attributes: [
@@ -151,7 +152,7 @@ open class VATextNode: ASTextNode {
     
     public init(
         text: String?,
-        stringGetter: @escaping (String?) -> NSAttributedString?
+        stringGetter: @escaping (String?, VATheme) -> NSAttributedString?
     ) {
         self.stringGetter = stringGetter
         
@@ -181,7 +182,7 @@ open class VATextNode: ASTextNode {
     }
     
     open func configureTheme() {
-        attributedText = stringGetter(text)
+        attributedText = stringGetter(text, theme)
     }
     
     open func themeDidChanged() {

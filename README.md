@@ -37,6 +37,7 @@ The following `LayoutSpec` DSL components can be used to compose simple or very 
 | ------------- |-----------------------------------------|
 | Column        | ASStackLayoutSpec (vertical)            |
 | Row           | ASStackLayoutSpec (horizontal)          |
+| Stack         |                                         |
 | SafeArea      | ASInsetLayoutSpec (with safeAreaInsets) |
 | .padding      | ASInsetLayoutSpec                       |
 | .wrapped      | ASWrapperLayoutSpec                     |
@@ -115,6 +116,24 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
     Row(spacing: 4, main: .spaceBetween) {
         titleTextNode
         accessoryNode
+    }
+}
+```
+
+
+</details>
+
+
+<details>
+<summary>Stack</summary>
+
+`Stack`:
+
+```swift
+override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    Stack {
+        firstNode
+        secondNode
     }
 }
 ```

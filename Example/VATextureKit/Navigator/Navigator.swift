@@ -81,6 +81,12 @@ class ScreenFactory {
             return VAViewController(node: CompositingFilterControllerNode(viewModel: CompositingFilterViewModel()))
         case .blendMode:
             return VAViewController(node: CompositingFilterControllerNode(viewModel: BlendModeViewModel()))
+        case .rowLayout:
+            return VAViewController(node: RowLayoutControllerNode())
+        case .columnLayout:
+            return VAViewController(node: ColumnLayoutControllerNode())
+        case .stackLayout:
+            return VAViewController(node: StackLayoutControllerNode())
         }
     }
 }

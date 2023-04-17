@@ -2,7 +2,7 @@
 //  VAHapticable.swift
 //  VATextureKit
 //
-//  Created by VAndrJ on 14.04.2023.
+//  Created by Volodymyr Andriienko on 14.04.2023.
 //
 
 import AsyncDisplayKit
