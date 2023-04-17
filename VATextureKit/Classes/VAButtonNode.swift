@@ -16,6 +16,20 @@ open class VAButtonNode: ASButtonNode {
         
         bind()
     }
+
+    public func onTap<T: AnyObject>(weakify object: T, block: @escaping (T) -> Void) {
+        onTap = { [weak object] in
+            guard let object else { return }
+            block(object)
+        }
+    }
+
+    public func onTap<T: AnyObject, U: AnyObject>(weakify objects: (T, U), block: @escaping (T, U) -> Void) {
+        onTap = { [weak object0 = objects.0, weak object1 = objects.1] in
+            guard let object0, let object1 else { return }
+            block(object0, object1)
+        }
+    }
     
     @objc private func touchUpInside() {
         onTap?()
