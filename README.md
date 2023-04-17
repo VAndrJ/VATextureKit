@@ -66,8 +66,8 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
         justifyContent: .start,
         alignItems: .start,
         children: [
-            titleTextNode,
-            subtitleTextNode,
+            firstRectangleNode,
+            secondRectangleNode,
         ]
     )
 }
@@ -78,11 +78,16 @@ With `Column`:
 ```swift
 override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
     Column(spacing: 8) {
-        titleTextNode
-        subtitleTextNode
+        firstRectangleNode
+        secondRectangleNode
     }
 }
 ```
+
+Example:
+
+
+![Column example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/column_example.png)
 
 
 </details>
@@ -102,8 +107,8 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
         justifyContent: .spaceBetween,
         alignItems: .start,
         children: [
-            titleTextNode,
-            accessoryNode,
+            firstRectangleNode,
+            secondRectangleNode,
         ]
     )
 }
@@ -114,11 +119,17 @@ With `Row`:
 ```swift
 override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
     Row(spacing: 4, main: .spaceBetween) {
-        titleTextNode
-        accessoryNode
+        firstRectangleNode
+        secondRectangleNode
     }
 }
 ```
+
+
+Example:
+
+
+![Column example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/row_example.png)
 
 
 </details>
@@ -132,11 +143,17 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 ```swift
 override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
     Stack {
-        firstNode
-        secondNode
+        firstRectangleNode
+        secondRectangleNode
     }
 }
 ```
+
+
+Example:
+
+
+![Column example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/stack_example.png)
 
 
 </details>
