@@ -31,7 +31,7 @@ extension VATextNode {
         descriptor: FontDescriptor = .default,
         lineBreakMode: NSLineBreakMode? = .byTruncatingTail,
         maximumNumberOfLines: Int? = nil,
-        secondary: [SecondaryTextAttributes]
+        secondary: [SecondaryTextAttributes] = []
     ) {
         func getFont(descriptor: FontDescriptor, textStyle: TextStyle) -> UIFont {
             switch descriptor {

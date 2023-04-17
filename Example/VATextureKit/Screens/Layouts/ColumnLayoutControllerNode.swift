@@ -9,12 +9,8 @@
 import VATextureKit
 
 class ColumnLayoutControllerNode: VASafeAreaDisplayNode {
-    private var exampleMainAxisNodes: [ASDisplayNode] {
-        (0..<4).map { _ in ASDisplayNode().sized(CGSize(same: 24)) }
-    }
-    private var exampleCrossAxisNodes: [ASDisplayNode] {
-        (1...4).map { ASDisplayNode().sized(CGSize(same: 8 * CGFloat($0))) }
-    }
+    private var exampleMainAxisNodes: [ASDisplayNode] { (0..<4).map { _ in ASDisplayNode().sized(CGSize(same: 24)) } }
+    private var exampleCrossAxisNodes: [ASDisplayNode] { (1...4).map { ASDisplayNode().sized(CGSize(same: 8 * CGFloat($0))) } }
     private func getTitleTextNode(string: String, selection: String) -> VATextNode {
         VATextNode(
             string: string,
@@ -23,14 +19,14 @@ class ColumnLayoutControllerNode: VASafeAreaDisplayNode {
             secondary: [.init(strings: [selection], color: { $0.secondaryLabel }, descriptor: .monospaced)]
         )
     }
-    private lazy var startMainAxisTitleNode = getTitleTextNode(string: "Main axis .start\nCross axis .start", selection: ".start")
-    private lazy var endMainAxisTitleNode = getTitleTextNode(string: "Main axis .end", selection: ".end")
-    private lazy var centerMainAxisTitleNode = getTitleTextNode(string: "Main axis .center", selection: ".center")
-    private lazy var spaceBetweenMainAxisTitleNode = getTitleTextNode(string: "Main axis .spaceBetween", selection: ".spaceBetween")
-    private lazy var spaceAroundMainAxisTitleNode = getTitleTextNode(string: "Main axis .spaceAround", selection: ".spaceAround")
-    private lazy var centerCrossAxisTitleNode = getTitleTextNode(string: "Cross axis .center", selection: ".center")
-    private lazy var endCrossAxisTitleNode = getTitleTextNode(string: "Cross axis .end", selection: ".end")
-    private lazy var stretchCrossAxisTitleNode = getTitleTextNode(string: "Cross axis .stretch", selection: ".stretch")
+    private lazy var startMainAxisTitleTextNode = getTitleTextNode(string: "Main axis .start\nCross axis .start", selection: ".start")
+    private lazy var endMainAxisTitleTextNode = getTitleTextNode(string: "Main axis .end", selection: ".end")
+    private lazy var centerMainAxisTitleTextNode = getTitleTextNode(string: "Main axis .center", selection: ".center")
+    private lazy var spaceBetweenMainAxisTitleTextNode = getTitleTextNode(string: "Main axis .spaceBetween", selection: ".spaceBetween")
+    private lazy var spaceAroundMainAxisTitleTextNode = getTitleTextNode(string: "Main axis .spaceAround", selection: ".spaceAround")
+    private lazy var centerCrossAxisTitleTextNode = getTitleTextNode(string: "Cross axis .center", selection: ".center")
+    private lazy var endCrossAxisTitleTextNode = getTitleTextNode(string: "Cross axis .end", selection: ".end")
+    private lazy var stretchCrossAxisTitleTextNode = getTitleTextNode(string: "Cross axis .stretch", selection: ".stretch")
     private lazy var verticalStartMainAxisExampleNode = ASDisplayNode().sized(CGSize(width: 24, height: 200))
     private lazy var startMainAxisExampleNodes = exampleMainAxisNodes
     private lazy var verticalEndMainAxisExampleNode = ASDisplayNode().sized(CGSize(width: 24, height: 200))
@@ -44,7 +40,7 @@ class ColumnLayoutControllerNode: VASafeAreaDisplayNode {
     private lazy var centerCrossAxisExampleNodes = exampleCrossAxisNodes
     private lazy var endCrossAxisExampleNodes = exampleCrossAxisNodes
     private lazy var stretchCrossAxisExampleNodes = (1...4).map { ASDisplayNode().sized(height: 12 * CGFloat($0)) }
-    private lazy var scrollNode = VAScrollNode(data: .init(contentInset: UIEdgeInsets(vertical: 16)))
+    private lazy var scrollNode = VAScrollNode(data: .init(contentInset: UIEdgeInsets(vertical: 24)))
 
     override init() {
         super.init()
@@ -60,9 +56,10 @@ class ColumnLayoutControllerNode: VASafeAreaDisplayNode {
         }
     }
 
+    // swiftlint:disable:next function_body_length
     func layoutSpecScroll(constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column(spacing: 16, cross: .stretch) {
-            startMainAxisTitleNode
+            startMainAxisTitleTextNode
                 .padding(.top(24), .horizontal(16))
             Row(spacing: 16, cross: .stretch) {
                 verticalStartMainAxisExampleNode
@@ -71,7 +68,7 @@ class ColumnLayoutControllerNode: VASafeAreaDisplayNode {
                 }
             }
 
-            endMainAxisTitleNode
+            endMainAxisTitleTextNode
                 .padding(.top(24), .horizontal(16))
             Row(spacing: 16, cross: .stretch) {
                 verticalEndMainAxisExampleNode
@@ -80,7 +77,7 @@ class ColumnLayoutControllerNode: VASafeAreaDisplayNode {
                 }
             }
 
-            centerMainAxisTitleNode
+            centerMainAxisTitleTextNode
                 .padding(.top(24), .horizontal(16))
             Row(spacing: 16, cross: .stretch) {
                 verticalCenterMainAxisExampleNode
@@ -89,7 +86,7 @@ class ColumnLayoutControllerNode: VASafeAreaDisplayNode {
                 }
             }
 
-            spaceBetweenMainAxisTitleNode
+            spaceBetweenMainAxisTitleTextNode
                 .padding(.top(24), .horizontal(16))
             Row(spacing: 16, cross: .stretch) {
                 verticalSpaceBetweenMainAxisExampleNode
@@ -98,7 +95,7 @@ class ColumnLayoutControllerNode: VASafeAreaDisplayNode {
                 }
             }
 
-            spaceAroundMainAxisTitleNode
+            spaceAroundMainAxisTitleTextNode
                 .padding(.top(24), .horizontal(16))
             Row(spacing: 16, cross: .stretch) {
                 verticalSpaceAroundMainAxisExampleNode
@@ -107,19 +104,19 @@ class ColumnLayoutControllerNode: VASafeAreaDisplayNode {
                 }
             }
 
-            centerCrossAxisTitleNode
+            centerCrossAxisTitleTextNode
                 .padding(.top(24), .horizontal(16))
             Column(spacing: 8, cross: .center) {
                 centerCrossAxisExampleNodes
             }
 
-            endCrossAxisTitleNode
+            endCrossAxisTitleTextNode
                 .padding(.top(24), .horizontal(16))
             Column(spacing: 8, cross: .end) {
                 endCrossAxisExampleNodes
             }
 
-            stretchCrossAxisTitleNode
+            stretchCrossAxisTitleTextNode
                 .padding(.top(24), .horizontal(16))
             Column(spacing: 8, cross: .stretch) {
                 stretchCrossAxisExampleNodes

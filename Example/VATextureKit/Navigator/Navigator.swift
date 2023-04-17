@@ -86,7 +86,7 @@ class ScreenFactory {
         case .columnLayout:
             return VAViewController(node: ColumnLayoutControllerNode())
         case .stackLayout:
-            return VAViewController(node: RowLayoutControllerNode())
+            return VAViewController(node: StackLayoutControllerNode())
         }
     }
 }
