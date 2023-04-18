@@ -10,9 +10,9 @@ import RxSwift
 
 open class VATypingTextNode: VATextNode {
     /// Time in milliseconds
-    public private(set) var characterTypingTime = 100
+    public private(set) var typingTime = 100
     /// Time in milliseconds
-    public private(set) var characterErasingTime = 40
+    public private(set) var erasingTime = 40
     public private(set) var offset = 0 {
         didSet { updateTyping() }
     }
@@ -27,24 +27,24 @@ open class VATypingTextNode: VATextNode {
     /// Typing configuration
     ///
     /// - Parameters:
-    ///   - characterTypingTime: Typing animation time in milliseconds
-    ///   - characterErasingTime: Erasing animation time in milliseconds
+    ///   - typingTime: Character typing animation time in milliseconds
+    ///   - erasingTime: Character erasing animation time in milliseconds
     ///   - offset: Visible text offset
     ///   - isRandomizedTypingTime: Randomize animation time in `0...time` range for typing and erasing
     public func configure(
-        characterTypingTime: Int? = nil,
-        characterErasingTime: Int? = nil,
+        typingTime: Int? = nil,
+        erasingTime: Int? = nil,
         offset: Int? = nil,
         isRandomizedTypingTime: Bool? = nil
     ) {
-        if let characterTypingTime {
-            self.characterTypingTime = characterTypingTime
+        if let typingTime {
+            self.typingTime = typingTime
             if isTyping && !isRetyping {
                 startTyping()
             }
         }
-        if let characterErasingTime {
-            self.characterErasingTime = characterErasingTime
+        if let erasingTime {
+            self.erasingTime = erasingTime
             if isTyping && isRetyping {
                 startTyping()
             }
@@ -78,7 +78,13 @@ open class VATypingTextNode: VATextNode {
     public func resetTyping() {
         resetTimer()
         offset = 0
-        updateTyping()
+        if isRandomizedTypingTime {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(typingTime)) { [self] in
+                updateTyping()
+            }
+        } else {
+            updateTyping()
+        }
     }
 
     open override func configureTheme() {
@@ -89,7 +95,7 @@ open class VATypingTextNode: VATextNode {
     private func startTyping(isRetyping: Bool) {
         resetTimer()
         let isRandomized = isRandomizedTypingTime
-        let time = isRetyping ? characterErasingTime : characterTypingTime
+        let time = isRetyping ? erasingTime : typingTime
         timerDisposable = Observable<Int>
             .timer(
                 .milliseconds(isRandomized ? Int.random(in: 0...time) : time),

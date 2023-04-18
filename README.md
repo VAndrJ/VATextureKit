@@ -699,6 +699,7 @@ titleTextNode
 * VABaseGradientNode
 * VALinearGradientNode
 * VARadialGradientNode
+* VATypingTextNode
 
 
 <details>
@@ -796,6 +797,22 @@ A subclass of `VABaseGradientNode` with parametrized initializer to simplify lin
 
 
 A subclass of `VABaseGradientNode` with parametrized initializer to simplify radial gradient creation.
+
+
+</details>
+
+
+<details>
+<summary>VATypingTextNode</summary>
+
+
+A subclass of `VATextNode` with typing animation.
+
+
+Example:
+
+
+![Typing example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/typing_example.gif)
 
 
 </details>
