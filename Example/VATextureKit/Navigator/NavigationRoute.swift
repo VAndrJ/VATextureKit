@@ -21,4 +21,5 @@ enum NavigationRoute {
     case rowLayout
     case columnLayout
     case stackLayout
+    case typingText
 }

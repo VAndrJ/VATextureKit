@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-class CollectionListDifferentCellsViewModel {
+final class CollectionListDifferentCellsViewModel {
     @Obs.Relay(value: false)
     var isLoadingObs: Observable<Bool>
     @Obs.Relay(value: [

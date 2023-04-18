@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-class MainListSectionHeaderNode: VADisplayNode {
+final class MainListSectionHeaderNode: VADisplayNode {
     private let titleTextNode: VATextNode
 
     init(viewModel: MainSectionHeaderNodeViewModel) {

@@ -6,7 +6,7 @@
 //  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
 //
 
-class AppearanceViewModel {
+final class AppearanceViewModel {
     let themes = Theme.allCases
     var currentTheme: Theme { themeManager.currentTheme }
     

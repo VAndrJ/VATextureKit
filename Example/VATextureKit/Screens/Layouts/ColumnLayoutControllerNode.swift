@@ -2,13 +2,13 @@
 //  ColumnLayoutControllerNode.swift
 //  VATextureKit_Example
 //
-//  Created by VAndrJ on 17.04.2023.
-//  Copyright © 2023 CocoaPods. All rights reserved.
+//  Created by Volodymyr Andriienko on 17.04.2023.
+//  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
 //
 
 import VATextureKit
 
-class ColumnLayoutControllerNode: VASafeAreaDisplayNode {
+final class ColumnLayoutControllerNode: VASafeAreaDisplayNode {
     private var exampleMainAxisNodes: [ASDisplayNode] { (0..<4).map { _ in ASDisplayNode().sized(CGSize(same: 24)) } }
     private var exampleCrossAxisNodes: [ASDisplayNode] { (1...4).map { ASDisplayNode().sized(CGSize(same: 8 * CGFloat($0))) } }
     private func getTitleTextNode(string: String, selection: String) -> VATextNode {

@@ -10,7 +10,7 @@ import VATextureKit
 
 // MARK: - ViewController as a View axample
 
-class AlertNodeController: VANodeController {
+final class AlertNodeController: VANodeController {
 
     // MARK: - UI related code
 
@@ -28,12 +28,7 @@ class AlertNodeController: VANodeController {
         super.configureTheme(theme)
 
         contentNode.backgroundColor = theme.systemBackground
-        buttonNode.setTitle(
-            "Show alert",
-            with: nil,
-            with: theme.systemBlue,
-            for: .normal
-        )
+        buttonNode.configure(title: "Show alert", theme: theme)
     }
 
     // MARK: - Controller related code

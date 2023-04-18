@@ -27,6 +27,8 @@
 		A3820D2A29E568BE00993406 /* VATextFieldNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3820D2929E568BE00993406 /* VATextFieldNode.swift */; };
 		A384F0B429EDCA7A006BF197 /* RowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A384F0B329EDCA7A006BF197 /* RowTests.swift */; };
 		A384F0B629EDCB5A006BF197 /* StackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A384F0B529EDCB5A006BF197 /* StackTests.swift */; };
+		A384F0B929EE7215006BF197 /* TypingTextControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A384F0B829EE7215006BF197 /* TypingTextControllerNode.swift */; };
+		A384F0BB29EE752E006BF197 /* VAButtonNode+Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = A384F0BA29EE752E006BF197 /* VAButtonNode+Support.swift */; };
 		A397A2C229AAA68800A05B8F /* AlertNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A397A2C129AAA68800A05B8F /* AlertNodeController.swift */; };
 		A397A2C529AAAF6800A05B8F /* NSObject+Applyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A397A2C429AAAF6800A05B8F /* NSObject+Applyable.swift */; };
 		A3A0BED629ED4D2D00253AAD /* RowLayoutControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A0BED529ED4D2D00253AAD /* RowLayoutControllerNode.swift */; };
@@ -111,6 +113,8 @@
 		A3820D2929E568BE00993406 /* VATextFieldNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VATextFieldNode.swift; sourceTree = "<group>"; };
 		A384F0B329EDCA7A006BF197 /* RowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowTests.swift; sourceTree = "<group>"; };
 		A384F0B529EDCB5A006BF197 /* StackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackTests.swift; sourceTree = "<group>"; };
+		A384F0B829EE7215006BF197 /* TypingTextControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingTextControllerNode.swift; sourceTree = "<group>"; };
+		A384F0BA29EE752E006BF197 /* VAButtonNode+Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VAButtonNode+Support.swift"; sourceTree = "<group>"; };
 		A397A2C129AAA68800A05B8F /* AlertNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertNodeController.swift; sourceTree = "<group>"; };
 		A397A2C429AAAF6800A05B8F /* NSObject+Applyable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Applyable.swift"; sourceTree = "<group>"; };
 		A3A0BED529ED4D2D00253AAD /* RowLayoutControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowLayoutControllerNode.swift; sourceTree = "<group>"; };
@@ -313,6 +317,14 @@
 			path = Experiments;
 			sourceTree = "<group>";
 		};
+		A384F0B729EE71ED006BF197 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				A384F0B829EE7215006BF197 /* TypingTextControllerNode.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		A397A2BE29AAA65F00A05B8F /* Alert */ = {
 			isa = PBXGroup;
 			children = (
@@ -325,6 +337,7 @@
 			isa = PBXGroup;
 			children = (
 				A397A2C429AAAF6800A05B8F /* NSObject+Applyable.swift */,
+				A384F0BA29EE752E006BF197 /* VAButtonNode+Support.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -357,6 +370,7 @@
 				A3B3F3D429A2C8F40090E6E2 /* Appearance */,
 				A3F888D529CC424000C67187 /* CollectionList */,
 				A3F8890129CE314500C67187 /* CollectionListDifferentCells */,
+				A384F0B729EE71ED006BF197 /* Components */,
 				A3DDF2F029DD6C9F009460F1 /* Compositing */,
 				A3B3F3E329A3867F0090E6E2 /* ContentSize */,
 				A3B3F3F029A3B8890090E6E2 /* Gradient */,
@@ -700,6 +714,7 @@
 				A3DDF30029DD84B1009460F1 /* CompositingCellNode.swift in Sources */,
 				A3B3F37929A0CDAD0090E6E2 /* MainNodeController.swift in Sources */,
 				A3DDF2F229DD6CB2009460F1 /* CompositingFilterControllerNode.swift in Sources */,
+				A384F0BB29EE752E006BF197 /* VAButtonNode+Support.swift in Sources */,
 				A3B3F3DE29A37C9C0090E6E2 /* AppearanceViewModel.swift in Sources */,
 				A3B3F3D629A2C91A0090E6E2 /* AppearanceContollerNode.swift in Sources */,
 				A3F888D729CC427000C67187 /* CollectionListNodeController.swift in Sources */,
@@ -720,6 +735,7 @@
 				A3820D2A29E568BE00993406 /* VATextFieldNode.swift in Sources */,
 				A3F8890029CE2D0000C67187 /* Support.swift in Sources */,
 				A3F888C729CB67F100C67187 /* Umbrella.swift in Sources */,
+				A384F0B929EE7215006BF197 /* TypingTextControllerNode.swift in Sources */,
 				A3B3F3FB29A3CDA10090E6E2 /* RadialGradientControllerNode.swift in Sources */,
 				A3B3F3DC29A358120090E6E2 /* ThemeManager.swift in Sources */,
 				A3DDF30229DD856F009460F1 /* CompositingFilterViewModel.swift in Sources */,

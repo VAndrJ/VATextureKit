@@ -10,7 +10,7 @@ import VATextureKit
 
 // MARK: - ViewController with Node example
 
-class AppearanceViewController: VAViewController<AppearanceContollerNode> {
+final class AppearanceViewController: VAViewController<AppearanceContollerNode> {
     let viewModel: AppearanceViewModel
     
     init(viewModel: AppearanceViewModel) {
