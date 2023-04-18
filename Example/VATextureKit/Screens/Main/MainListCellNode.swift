@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-class MainListCellNode: VACellNode {
+final class MainListCellNode: VACellNode {
     private let titleNode: VATextNode
     private let descriptionNode: VATextNode
     

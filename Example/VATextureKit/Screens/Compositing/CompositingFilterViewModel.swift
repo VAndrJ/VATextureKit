@@ -15,7 +15,7 @@ protocol CompositingFilterViewModelProtocol {
     func didSelect(indexPath: IndexPath)
 }
 
-class CompositingFilterViewModel: CompositingFilterViewModelProtocol {
+final class CompositingFilterViewModel: CompositingFilterViewModelProtocol {
     @Obs.Relay(value: nil)
     var selectedFilterObs: Observable<String?>
     @Obs.Relay(

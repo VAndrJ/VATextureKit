@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-class ContentSizeViewController: VAViewController<ContentSizeControllerNode> {
+final class ContentSizeViewController: VAViewController<ContentSizeControllerNode> {
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -11,7 +11,7 @@ import Swiftional
 
 // MARK: - View with ViewModel example. Code organization example
 
-class CompositingFilterControllerNode: VASafeAreaDisplayNode {
+final class CompositingFilterControllerNode: VASafeAreaDisplayNode {
 
     // MARK: - UI related code
 

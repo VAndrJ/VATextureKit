@@ -27,6 +27,7 @@ let testImages = [
 ]
 
 extension String {
+    static let loremText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 
     func dummyLong(separator: String = " ") -> String {
         (0...10).map { _ in self }.joined(separator: separator)

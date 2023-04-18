@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-class CompositingCellNode: VACellNode {
+final class CompositingCellNode: VACellNode {
     let titleTextNode: VATextNode
 
     init(viewModel: CompositingCellNodeViewModel) {

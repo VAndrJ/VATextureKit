@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-class StackLayoutControllerNode: VASafeAreaDisplayNode {
+final class StackLayoutControllerNode: VASafeAreaDisplayNode {
     private var pairNodes: [ASDisplayNode] { [ASDisplayNode().sized(CGSize(same: 128)), ASDisplayNode().sized(CGSize(same: 64))] }
     private func getTitleTextNode(string: String) -> VATextNode {
         VATextNode(
@@ -131,24 +131,9 @@ class StackLayoutControllerNode: VASafeAreaDisplayNode {
         zip(relativePairNodes, [theme.label, theme.systemOrange]).forEach {
             $0.0.backgroundColor = $0.1
         }
-        centeringButtonNode.setTitle(
-            "Change centering",
-            with: nil,
-            with: theme.systemBlue,
-            for: .normal
-        )
-        relativeHorizontalPositionButtonNode.setTitle(
-            "Change horizontal",
-            with: nil,
-            with: theme.systemBlue,
-            for: .normal
-        )
-        relativeVerticalPositionButtonNode.setTitle(
-            "Change vertical",
-            with: nil,
-            with: theme.systemBlue,
-            for: .normal
-        )
+        centeringButtonNode.configure(title: "Change centering", theme: theme)
+        relativeHorizontalPositionButtonNode.configure(title: "Change horizontal", theme: theme)
+        relativeVerticalPositionButtonNode.configure(title: "Change vertical", theme: theme)
     }
 
     private func bind() {

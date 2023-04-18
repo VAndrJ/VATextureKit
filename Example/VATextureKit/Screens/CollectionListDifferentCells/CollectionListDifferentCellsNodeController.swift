@@ -27,7 +27,7 @@ private func mapToCell(viewModel: CellViewModel) -> ASCellNode {
 
 // MARK: - ViewController as a View example
 
-class CollectionListDifferentCellsNodeController: VANodeController {
+final class CollectionListDifferentCellsNodeController: VANodeController {
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask { .portrait }
     
     private(set) lazy var leftListNode = VAListNode(

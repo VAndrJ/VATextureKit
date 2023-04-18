@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-class RadialGradientControllerNode: VASafeAreaDisplayNode {
+final class RadialGradientControllerNode: VASafeAreaDisplayNode {
     let scrollNode = VAScrollNode(data: .init())
     let centeredGradientNode = VARadialGradientNode(gradient: .centered)
     let topLeftGradientNode = VARadialGradientNode(gradient: .topLeft)

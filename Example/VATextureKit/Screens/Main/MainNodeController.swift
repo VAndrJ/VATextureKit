@@ -9,7 +9,7 @@
 import VATextureKit
 
 /// ViewController as a View axample
-class MainNodeController: VANodeController {
+final class MainNodeController: VANodeController {
     private(set) lazy var listNode = VATableListNode(data: .init(
         listDataObs: viewModel.listDataObs,
         onSelect: viewModel.didSelect(indexPath:),

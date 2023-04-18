@@ -8,30 +8,21 @@
 
 import VATextureKit
 
-class SlideAnimationControllerNode: VASafeAreaDisplayNode {
+final class SlideAnimationControllerNode: VASafeAreaDisplayNode {
     let leftNode = VATextNode(text: "left", textStyle: .body, alignment: .center)
         .flex(shrink: 0.1, basisPercent: 60)
     let rightNode = VATextNode(text: "right", textStyle: .body, alignment: .center)
         .flex(basisPercent: 40)
     let exchangeButtonNode = HapticButtonNode()
-        .apply {
-            $0.setTitle("Exchange", with: nil, with: nil, for: .normal)
-        }
     let toggleNode = VATextNode(
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        text: .loremText,
         textStyle: .body,
         alignment: .center
     ).apply {
         $0.transition = .slide
     }
     let toggleButtonNode = HapticButtonNode()
-        .apply {
-            $0.setTitle("Toggle", with: nil, with: nil, for: .normal)
-        }
     let expandButtonNode = HapticButtonNode()
-        .apply {
-            $0.setTitle("Expand", with: nil, with: nil, for: .normal)
-        }
     let expandNode = ASDisplayNode()
         .sized(width: 100, height: 50)
     var isNodesExchanged = false {
@@ -89,6 +80,9 @@ class SlideAnimationControllerNode: VASafeAreaDisplayNode {
         rightNode.backgroundColor = theme.systemTeal
         exchangeButtonNode.tintColor = theme.systemBlue
         expandNode.backgroundColor = theme.systemPurple
+        exchangeButtonNode.configure(title: "Exchange", theme: theme)
+        toggleButtonNode.configure(title: "Toggle", theme: theme)
+        expandButtonNode.configure(title: "Expand", theme: theme)
     }
 
     private func bind() {

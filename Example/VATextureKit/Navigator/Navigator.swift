@@ -87,6 +87,8 @@ class ScreenFactory {
             return VAViewController(node: ColumnLayoutControllerNode())
         case .stackLayout:
             return VAViewController(node: StackLayoutControllerNode())
+        case .typingText:
+            return VAViewController(node: TypingTextControllerNode())
         }
     }
 }

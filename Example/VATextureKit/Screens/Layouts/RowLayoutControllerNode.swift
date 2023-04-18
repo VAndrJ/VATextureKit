@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-class RowLayoutControllerNode: VASafeAreaDisplayNode {
+final class RowLayoutControllerNode: VASafeAreaDisplayNode {
     private var exampleMainAxisNodes: [ASDisplayNode] { (0..<4).map { _ in ASDisplayNode().sized(CGSize(same: 48)) } }
     private var exampleCrossAxisNodes: [ASDisplayNode] { (1...4).map { ASDisplayNode().sized(CGSize(same: 12 * CGFloat($0))) } }
     private func getTitleTextNode(string: String, selection: String) -> VATextNode {

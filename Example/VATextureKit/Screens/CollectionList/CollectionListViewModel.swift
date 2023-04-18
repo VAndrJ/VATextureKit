@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-class CollectionListViewModel {
+final class CollectionListViewModel {
     @Obs.Relay(value: (0..<10).map {
         CollectionExampleCellNodeViewModel(
             image: testImages.randomElement(),

@@ -9,7 +9,7 @@
 import VATextureKit
 
 @MainActor
-class MainViewModel {
+final class MainViewModel {
     @Obs.Relay(value: [
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Layouts"), items: [
             MainListCellNodeViewModel(title: "Row", description: "Layout example", route: .rowLayout),
@@ -35,6 +35,9 @@ class MainViewModel {
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Compositing"), items: [
             MainListCellNodeViewModel(title: "Blend mode", description: "Layer", route: .blendMode),
             MainListCellNodeViewModel(title: "Compositing filter", description: "Layer", route: .compositingFilter),
+        ]),
+        AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Components"), items: [
+            MainListCellNodeViewModel(title: "VATypingTextNode", description: "Typing animation text node", route: .typingText),
         ]),
     ])
     var listDataObs: Observable<[AnimatableSectionModel<MainSectionHeaderNodeViewModel, MainListCellNodeViewModel>]>
