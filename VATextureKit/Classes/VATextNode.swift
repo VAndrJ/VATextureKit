@@ -66,7 +66,7 @@ open class VATextNode: ASTextNode {
         textStyle: TextStyle = .body,
         alignment: NSTextAlignment = .natural,
         truncationMode: NSLineBreakMode = .byTruncatingTail,
-        maximumNumberOfLines: UInt? = nil,
+        maximumNumberOfLines: UInt? = .none,
         themeColor: @escaping (VATheme) -> UIColor
     ) {
         self.init(
@@ -84,7 +84,7 @@ open class VATextNode: ASTextNode {
         textStyle: TextStyle = .body,
         alignment: NSTextAlignment = .natural,
         truncationMode: NSLineBreakMode = .byTruncatingTail,
-        maximumNumberOfLines: UInt? = nil,
+        maximumNumberOfLines: UInt? = .none,
         colorGetter: @escaping () -> UIColor = { appContext.themeManager.theme.label }
     ) {
         let paragraphStyle = NSMutableParagraphStyle()
@@ -119,7 +119,7 @@ open class VATextNode: ASTextNode {
         fontGetter: @escaping (_ contentSize: () -> UIContentSizeCategory) -> UIFont,
         alignment: NSTextAlignment = .natural,
         truncationMode: NSLineBreakMode = .byTruncatingTail,
-        maximumNumberOfLines: UInt? = nil,
+        maximumNumberOfLines: UInt? = .none,
         colorGetter: @escaping () -> UIColor = { appContext.themeManager.theme.label }
     ) {
         let paragraphStyle = NSMutableParagraphStyle()
