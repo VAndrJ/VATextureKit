@@ -7,7 +7,7 @@
 
 import AsyncDisplayKit
 
-open class VATextNode: ASTextNode {
+open class VATextNode: ASTextNode2 {
     public enum TextStyle {
         case largeTitle
         case title1
