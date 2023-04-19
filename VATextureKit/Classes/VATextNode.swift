@@ -65,7 +65,7 @@ open class VATextNode: ASTextNode {
         text: String? = nil,
         textStyle: TextStyle = .body,
         alignment: NSTextAlignment = .natural,
-        lineBreakMode: NSLineBreakMode? = .byTruncatingTail,
+        truncationMode: NSLineBreakMode = .byTruncatingTail,
         maximumNumberOfLines: UInt? = nil,
         themeColor: @escaping (VATheme) -> UIColor
     ) {
@@ -73,7 +73,7 @@ open class VATextNode: ASTextNode {
             text: text,
             textStyle: textStyle,
             alignment: alignment,
-            lineBreakMode: lineBreakMode,
+            truncationMode: truncationMode,
             maximumNumberOfLines: maximumNumberOfLines,
             colorGetter: { themeColor(appContext.themeManager.theme) }
         )
@@ -83,15 +83,12 @@ open class VATextNode: ASTextNode {
         text: String? = nil,
         textStyle: TextStyle = .body,
         alignment: NSTextAlignment = .natural,
-        lineBreakMode: NSLineBreakMode? = .byTruncatingTail,
+        truncationMode: NSLineBreakMode = .byTruncatingTail,
         maximumNumberOfLines: UInt? = nil,
         colorGetter: @escaping () -> UIColor = { appContext.themeManager.theme.label }
     ) {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = alignment
-        if maximumNumberOfLines == 1, let lineBreakMode {
-            paragraphStyle.lineBreakMode = lineBreakMode
-        }
         self.init(
             text: text,
             stringGetter: { string, _ in
@@ -110,7 +107,8 @@ open class VATextNode: ASTextNode {
                 }
             }
         )
-        
+
+        self.truncationMode = truncationMode
         if let maximumNumberOfLines {
             self.maximumNumberOfLines = maximumNumberOfLines
         }
@@ -120,15 +118,12 @@ open class VATextNode: ASTextNode {
         text: String? = nil,
         fontGetter: @escaping (_ contentSize: () -> UIContentSizeCategory) -> UIFont,
         alignment: NSTextAlignment = .natural,
-        lineBreakMode: NSLineBreakMode? = .byTruncatingTail,
+        truncationMode: NSLineBreakMode = .byTruncatingTail,
         maximumNumberOfLines: UInt? = nil,
         colorGetter: @escaping () -> UIColor = { appContext.themeManager.theme.label }
     ) {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = alignment
-        if maximumNumberOfLines == 1, let lineBreakMode {
-            paragraphStyle.lineBreakMode = lineBreakMode
-        }
         self.init(
             text: text,
             stringGetter: { string, _ in
@@ -144,7 +139,8 @@ open class VATextNode: ASTextNode {
                 }
             }
         )
-        
+
+        self.truncationMode = truncationMode
         if let maximumNumberOfLines {
             self.maximumNumberOfLines = maximumNumberOfLines
         }
@@ -157,7 +153,7 @@ open class VATextNode: ASTextNode {
         self.stringGetter = stringGetter
         
         super.init()
-        
+
         if let text {
             self.text = text
             configureTheme()
