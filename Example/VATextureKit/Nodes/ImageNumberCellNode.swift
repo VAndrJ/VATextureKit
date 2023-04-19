@@ -23,7 +23,7 @@ class ImageNumberCellNode: VACellNode {
         self.viewModel = viewModel
         self.numberTextNode = VATextNode(
             text: "\(viewModel.number)",
-            textStyle: .largeTitle,
+            fontStyle: .largeTitle,
             colorGetter: { .white }
         )
         

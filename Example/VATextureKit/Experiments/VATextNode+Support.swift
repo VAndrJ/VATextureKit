@@ -17,7 +17,7 @@ extension VATextNode {
 
     struct SecondaryTextAttributes {
         let strings: [String]
-        var textStyle: TextStyle = .body
+        var textStyle: FontStyle = .body
         let color: (VATheme) -> UIColor
         var descriptor: FontDescriptor = .default
         var attributes: [NSAttributedString.Key: Any] = [:]
@@ -25,7 +25,7 @@ extension VATextNode {
 
     convenience init(
         string: String,
-        textStyle: TextStyle = .body,
+        textStyle: FontStyle = .body,
         color: @escaping (VATheme) -> UIColor,
         alignment: NSTextAlignment = .natural,
         descriptor: FontDescriptor = .default,
@@ -33,7 +33,7 @@ extension VATextNode {
         maximumNumberOfLines: Int? = nil,
         secondary: [SecondaryTextAttributes] = []
     ) {
-        func getFont(descriptor: FontDescriptor, textStyle: TextStyle) -> UIFont {
+        func getFont(descriptor: FontDescriptor, textStyle: FontStyle) -> UIFont {
             switch descriptor {
             case .default:
                 return UIFont.systemFont(

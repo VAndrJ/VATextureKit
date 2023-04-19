@@ -19,7 +19,7 @@ class CollectionExampleCellNode: VACellNode {
     init(viewModel: CollectionExampleCellNodeViewModel) {
         self.titleNode = VATextNode(
             text: viewModel.title,
-            textStyle: .body,
+            fontStyle: .body,
             maximumNumberOfLines: 1
         )
         self.viewModel = viewModel

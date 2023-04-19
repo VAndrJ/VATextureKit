@@ -8,49 +8,32 @@
 import AsyncDisplayKit
 
 open class VATextNode: ASTextNode2 {
-    public enum TextStyle {
-        case largeTitle
-        case title1
-        case title2
-        case title3
-        case headline
-        case body
-        case callout
-        case subhead
-        case footnote
-        case caption1
-        case caption2
+    public struct FontStyle {
+        public static let largeTitle = FontStyle(textStyle: .largeTitle, pointSize: 34, weight: .regular)
+        public static let title1 = FontStyle(textStyle: .title1, pointSize: 28, weight: .regular)
+        public static let title2 = FontStyle(textStyle: .title2, pointSize: 22, weight: .regular)
+        public static let title3 = FontStyle(textStyle: .title3, pointSize: 20, weight: .regular)
+        public static let headline = FontStyle(textStyle: .headline, pointSize: 17, weight: .semibold)
+        public static let body = FontStyle(textStyle: .body, pointSize: 17, weight: .regular)
+        public static let callout = FontStyle(textStyle: .callout, pointSize: 16, weight: .regular)
+        public static let subhead = FontStyle(textStyle: .subheadline, pointSize: 15, weight: .regular)
+        public static let footnote = FontStyle(textStyle: .footnote, pointSize: 13, weight: .regular)
+        public static let caption1 = FontStyle(textStyle: .caption1, pointSize: 12, weight: .regular)
+        public static let caption2 = FontStyle(textStyle: .caption2, pointSize: 11, weight: .regular)
+
+        public let textStyle: UIFont.TextStyle
+        public let pointSize: CGFloat
+        public let weight: UIFont.Weight
+
+        public init(textStyle: UIFont.TextStyle, pointSize: CGFloat, weight: UIFont.Weight) {
+            self.textStyle = textStyle
+            self.pointSize = pointSize
+            self.weight = weight
+        }
         
         public func getFontSize(contentSize: UIContentSizeCategory) -> CGFloat {
             let traitCollection = UITraitCollection(preferredContentSizeCategory: contentSize)
-            switch self {
-            case .largeTitle: return UIFontMetrics(forTextStyle: .largeTitle).scaledValue(for: 34, compatibleWith: traitCollection)
-            case .title1: return UIFontMetrics(forTextStyle: .title1).scaledValue(for: 28, compatibleWith: traitCollection)
-            case .title2: return UIFontMetrics(forTextStyle: .title2).scaledValue(for: 22, compatibleWith: traitCollection)
-            case .title3: return UIFontMetrics(forTextStyle: .title3).scaledValue(for: 20, compatibleWith: traitCollection)
-            case .headline: return UIFontMetrics(forTextStyle: .headline).scaledValue(for: 17, compatibleWith: traitCollection)
-            case .body: return UIFontMetrics(forTextStyle: .body).scaledValue(for: 17, compatibleWith: traitCollection)
-            case .callout: return UIFontMetrics(forTextStyle: .callout).scaledValue(for: 16, compatibleWith: traitCollection)
-            case .subhead: return UIFontMetrics(forTextStyle: .subheadline).scaledValue(for: 15, compatibleWith: traitCollection)
-            case .footnote: return UIFontMetrics(forTextStyle: .footnote).scaledValue(for: 13, compatibleWith: traitCollection)
-            case .caption1: return UIFontMetrics(forTextStyle: .caption1).scaledValue(for: 12, compatibleWith: traitCollection)
-            case .caption2: return UIFontMetrics(forTextStyle: .caption2).scaledValue(for: 11, compatibleWith: traitCollection)
-            }
-        }
-        public var weight: UIFont.Weight {
-            switch self {
-            case .largeTitle: return .regular
-            case .title1: return .regular
-            case .title2: return .regular
-            case .title3: return .regular
-            case .headline: return .semibold
-            case .body: return .regular
-            case .callout: return .regular
-            case .subhead: return .regular
-            case .footnote: return .regular
-            case .caption1: return .regular
-            case .caption2: return .regular
-            }
+            return UIFontMetrics(forTextStyle: textStyle).scaledValue(for: pointSize, compatibleWith: traitCollection)
         }
     }
     
@@ -63,7 +46,7 @@ open class VATextNode: ASTextNode2 {
     
     public convenience init(
         text: String? = nil,
-        textStyle: TextStyle = .body,
+        fontStyle: FontStyle = .body,
         alignment: NSTextAlignment = .natural,
         truncationMode: NSLineBreakMode = .byTruncatingTail,
         maximumNumberOfLines: UInt? = .none,
@@ -71,7 +54,7 @@ open class VATextNode: ASTextNode2 {
     ) {
         self.init(
             text: text,
-            textStyle: textStyle,
+            fontStyle: fontStyle,
             alignment: alignment,
             truncationMode: truncationMode,
             maximumNumberOfLines: maximumNumberOfLines,
@@ -81,7 +64,7 @@ open class VATextNode: ASTextNode2 {
     
     public convenience init(
         text: String? = nil,
-        textStyle: TextStyle = .body,
+        fontStyle: FontStyle = .body,
         alignment: NSTextAlignment = .natural,
         truncationMode: NSLineBreakMode = .byTruncatingTail,
         maximumNumberOfLines: UInt? = .none,
@@ -97,8 +80,8 @@ open class VATextNode: ASTextNode2 {
                         string: $0,
                         attributes: [
                             .font: UIFont.systemFont(
-                                ofSize: textStyle.getFontSize(contentSize: appContext.contentSizeManager.contentSize),
-                                weight: textStyle.weight
+                                ofSize: fontStyle.getFontSize(contentSize: appContext.contentSizeManager.contentSize),
+                                weight: fontStyle.weight
                             ),
                             .foregroundColor: colorGetter(),
                             .paragraphStyle: paragraphStyle,
@@ -162,7 +145,8 @@ open class VATextNode: ASTextNode2 {
     
     open override func didLoad() {
         super.didLoad()
-        
+
+        layer.as_allowsHighlightDrawing = true
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(themeDidChanged(_:)),

@@ -29,15 +29,15 @@ final class StackLayoutControllerNode: VASafeAreaDisplayNode {
     private lazy var relativeVerticalPositionButtonNode = VAButtonNode()
     private lazy var centeringInfoTextNode = VATextNode(
         text: centeringOptions.description,
-        textStyle: .headline
+        fontStyle: .headline
     )
     private lazy var relativePositionHorizontalInfoTextNode = VATextNode(
         text: relativeHorizontalPosition.horizontalDescription,
-        textStyle: .headline
+        fontStyle: .headline
     )
     private lazy var relativePositionVerticalInfoTextNode = VATextNode(
         text: relativeHorizontalPosition.verticalDescription,
-        textStyle: .headline
+        fontStyle: .headline
     )
 
     private var centeringOptions: ASCenterLayoutSpecCenteringOptions = .XY {

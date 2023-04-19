@@ -16,7 +16,7 @@ final class MainNodeController: VANodeController {
         cellGetter: MainListCellNode.init(viewModel:),
         sectionHeaderGetter: MainListSectionHeaderNode.init(viewModel:)
     ))
-    let descriptionNode = VATextNode(text: "Examples", textStyle: .headline)
+    let descriptionNode = VATextNode(text: "Examples", fontStyle: .headline)
     
     let viewModel: MainViewModel
     
