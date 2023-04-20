@@ -322,8 +322,8 @@
 		A384F0B729EE71ED006BF197 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				A384F0B829EE7215006BF197 /* TypingTextControllerNode.swift */,
 				A3B7F23729F0632E00CAA52D /* ReadMoreTextControllerNode.swift */,
+				A384F0B829EE7215006BF197 /* TypingTextControllerNode.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";

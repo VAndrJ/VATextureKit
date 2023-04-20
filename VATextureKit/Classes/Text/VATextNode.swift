@@ -146,7 +146,6 @@ open class VATextNode: ASTextNode2 {
     open override func didLoad() {
         super.didLoad()
 
-        layer.as_allowsHighlightDrawing = true
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(themeDidChanged(_:)),
