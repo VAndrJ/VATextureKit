@@ -14,7 +14,7 @@ final class MainListSectionHeaderNode: VADisplayNode {
     init(viewModel: MainSectionHeaderNodeViewModel) {
         self.titleTextNode = VATextNode(
             text: viewModel.title,
-            textStyle: .headline,
+            fontStyle: .headline,
             maximumNumberOfLines: 1
         )
 

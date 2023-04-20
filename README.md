@@ -700,6 +700,7 @@ titleTextNode
 * VALinearGradientNode
 * VARadialGradientNode
 * VATypingTextNode
+* VAReadMoreTextNode
 
 
 <details>
@@ -813,6 +814,38 @@ Example:
 
 
 ![Typing example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/typing_example.gif)
+
+
+</details>
+
+
+<details>
+<summary>VAReadMoreTextNode</summary>
+
+
+A subclass of `VATextNode` with "Read more" truncation in easy way.
+
+
+Code:
+
+
+```
+lazy var readMoreTextNode = VAReadMoreTextNode(
+    text: .loremText,
+    maximumNumberOfLines: 2,
+    readMore: .init(
+        text: "Read more",
+        fontStyle: .headline,
+        colorGetter: { $0.systemBlue }
+    )
+)
+```
+
+
+Example:
+
+
+![Read more example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/read_more_example.gif)
 
 
 </details>

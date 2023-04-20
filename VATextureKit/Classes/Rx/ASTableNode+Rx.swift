@@ -370,8 +370,6 @@ open class ASTableSectionedDataSource<S: SectionModelType>: NSObject, ASTableDat
         }
     }
     
-    open var rowAnimation: UITableView.RowAnimation = .automatic
-    
 #if os(iOS)
     open var sectionIndexTitles: SectionIndexTitles {
         didSet {

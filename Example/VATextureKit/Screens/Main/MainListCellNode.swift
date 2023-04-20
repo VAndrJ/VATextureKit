@@ -16,13 +16,11 @@ final class MainListCellNode: VACellNode {
         self.titleNode = VATextNode(text: viewModel.title)
         self.descriptionNode = VATextNode(
             text: viewModel.description,
-            textStyle: .footnote,
+            fontStyle: .footnote,
             themeColor: { $0.secondaryLabel }
         )
         
         super.init()
-        
-        accessoryType = .disclosureIndicator
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {

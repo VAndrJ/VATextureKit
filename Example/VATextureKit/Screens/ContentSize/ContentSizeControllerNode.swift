@@ -9,7 +9,7 @@
 import VATextureKit
 
 final class ContentSizeControllerNode: VASafeAreaDisplayNode {
-    let contentSizeTextNode = VATextNode(textStyle: .title3, alignment: .center)
+    let contentSizeTextNode = VATextNode(fontStyle: .title3, alignment: .center)
     
     override func configureTheme(_ theme: VATheme) {
         super.configureTheme(theme)

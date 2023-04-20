@@ -51,6 +51,7 @@
 		A3B3F3E729A3869B0090E6E2 /* ContentSizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3E629A3869B0090E6E2 /* ContentSizeViewController.swift */; };
 		A3B3F3F229A3B8C40090E6E2 /* LinearGradientControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3F129A3B8C40090E6E2 /* LinearGradientControllerNode.swift */; };
 		A3B3F3FB29A3CDA10090E6E2 /* RadialGradientControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3FA29A3CDA10090E6E2 /* RadialGradientControllerNode.swift */; };
+		A3B7F23829F0632E00CAA52D /* ReadMoreTextControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B7F23729F0632E00CAA52D /* ReadMoreTextControllerNode.swift */; };
 		A3BCEC5729CFA6770077217F /* LoadingCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BCEC5629CFA6770077217F /* LoadingCellNode.swift */; };
 		A3D2488529CF860300EE1907 /* VAStateModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D2488429CF860300EE1907 /* VAStateModelTests.swift */; };
 		A3D2488A29CF869900EE1907 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D2488929CF869900EE1907 /* Support.swift */; };
@@ -137,6 +138,7 @@
 		A3B3F3E629A3869B0090E6E2 /* ContentSizeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizeViewController.swift; sourceTree = "<group>"; };
 		A3B3F3F129A3B8C40090E6E2 /* LinearGradientControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearGradientControllerNode.swift; sourceTree = "<group>"; };
 		A3B3F3FA29A3CDA10090E6E2 /* RadialGradientControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialGradientControllerNode.swift; sourceTree = "<group>"; };
+		A3B7F23729F0632E00CAA52D /* ReadMoreTextControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMoreTextControllerNode.swift; sourceTree = "<group>"; };
 		A3BCEC5629CFA6770077217F /* LoadingCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCellNode.swift; sourceTree = "<group>"; };
 		A3C617D329E47E7700CA75B5 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		A3D2488429CF860300EE1907 /* VAStateModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAStateModelTests.swift; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 		A384F0B729EE71ED006BF197 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				A3B7F23729F0632E00CAA52D /* ReadMoreTextControllerNode.swift */,
 				A384F0B829EE7215006BF197 /* TypingTextControllerNode.swift */,
 			);
 			path = Components;
@@ -734,6 +737,7 @@
 				A3F8890929CE37BD00C67187 /* ImageCellNode.swift in Sources */,
 				A3820D2A29E568BE00993406 /* VATextFieldNode.swift in Sources */,
 				A3F8890029CE2D0000C67187 /* Support.swift in Sources */,
+				A3B7F23829F0632E00CAA52D /* ReadMoreTextControllerNode.swift in Sources */,
 				A3F888C729CB67F100C67187 /* Umbrella.swift in Sources */,
 				A384F0B929EE7215006BF197 /* TypingTextControllerNode.swift in Sources */,
 				A3B3F3FB29A3CDA10090E6E2 /* RadialGradientControllerNode.swift in Sources */,

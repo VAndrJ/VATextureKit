@@ -14,7 +14,7 @@ final class CompositingCellNode: VACellNode {
     init(viewModel: CompositingCellNodeViewModel) {
         self.titleTextNode = VATextNode(
             text: viewModel.compositingFilter.flatMap { "\($0)" } ?? viewModel.blendMode.flatMap { "\($0)" } ?? "",
-            textStyle: .body
+            fontStyle: .body
         )
 
         super.init()
