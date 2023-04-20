@@ -15,10 +15,7 @@ final class ReadMoreTextControllerNode: VASafeAreaDisplayNode {
         maximumNumberOfLines: 2,
         readMore: .init(
             text: "Read more",
-            fontStyle: .init(
-                pointSize: 15,
-                weight: .bold
-            ),
+            fontStyle: .headline,
             colorGetter: { $0.systemBlue }
         )
     )
