@@ -25,7 +25,7 @@ open class VATextNode: ASTextNode2 {
         public let pointSize: CGFloat
         public let weight: UIFont.Weight
 
-        public init(textStyle: UIFont.TextStyle, pointSize: CGFloat, weight: UIFont.Weight) {
+        public init(textStyle: UIFont.TextStyle = .body, pointSize: CGFloat, weight: UIFont.Weight) {
             self.textStyle = textStyle
             self.pointSize = pointSize
             self.weight = weight
