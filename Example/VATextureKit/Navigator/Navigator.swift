@@ -56,7 +56,8 @@ class ScreenFactory {
     init(themeManager: ThemeManager) {
         self.themeManager = themeManager
     }
-    
+
+    // swiftlint:disable:next cyclomatic_complexity
     func create(route: NavigationRoute, navigator: Navigator) -> UIViewController {
         switch route {
         case .main:
@@ -89,6 +90,8 @@ class ScreenFactory {
             return VAViewController(node: StackLayoutControllerNode())
         case .typingText:
             return VAViewController(node: TypingTextControllerNode())
+        case .readMoreText:
+            return VAViewController(node: ReadMoreTextControllerNode())
         }
     }
 }
