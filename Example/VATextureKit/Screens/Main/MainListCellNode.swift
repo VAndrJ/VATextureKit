@@ -11,6 +11,12 @@ import VATextureKit
 final class MainListCellNode: VACellNode {
     private let titleNode: VATextNode
     private let descriptionNode: VATextNode
+    private lazy var chevronImageNode = VAImageNode(data: .init(
+        image: R.image.chevron_right(),
+        tintColor: { $0.tertiaryLabel },
+        size: CGSize(same: 14),
+        contentMode: .center
+    ))
     
     init(viewModel: MainListCellNodeViewModel) {
         self.titleNode = VATextNode(text: viewModel.title)
@@ -24,13 +30,17 @@ final class MainListCellNode: VACellNode {
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        Column(spacing: 4, cross: .stretch) {
-            titleNode
-                .flex(shrink: 0.1)
-            descriptionNode
-                .flex(shrink: 0.1)
+        Row(spacing: 4, cross: .center) {
+            Column(spacing: 4, cross: .stretch) {
+                titleNode
+                    .flex(shrink: 0.1)
+                descriptionNode
+                    .flex(shrink: 0.1)
+            }
+            .flex(shrink: 0.1, grow: 1)
+            chevronImageNode
         }
-        .padding(.all(16))
+        .padding(.vertical(16), .left(16), .right(8))
     }
 }
 
