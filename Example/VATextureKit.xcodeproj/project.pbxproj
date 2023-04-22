@@ -19,6 +19,7 @@
 		A33CDF3329D9B875005F77C6 /* SlideAnimationControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CDF3229D9B875005F77C6 /* SlideAnimationControllerNode.swift */; };
 		A33CDF4529D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CDF4429D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift */; };
 		A3483AD029E937B500948574 /* HapticButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3483ACF29E937B500948574 /* HapticButtonNode.swift */; };
+		A34F8E7129F3F1B300EF4C42 /* VAReadMoreTextNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34F8E7029F3F1B300EF4C42 /* VAReadMoreTextNodeTests.swift */; };
 		A3551A5529DD57F000B0B18F /* VALinearGradientNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3551A5429DD57F000B0B18F /* VALinearGradientNodeTests.swift */; };
 		A3551A5929DD5FCF00B0B18F /* VABaseGradientNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3551A5829DD5FCF00B0B18F /* VABaseGradientNodeTests.swift */; };
 		A359BE7A29D76C0D003BDE19 /* VADisplayNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */; };
@@ -106,6 +107,7 @@
 		A33CDF3229D9B875005F77C6 /* SlideAnimationControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideAnimationControllerNode.swift; sourceTree = "<group>"; };
 		A33CDF4429D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListSectionHeaderNodeTests.swift; sourceTree = "<group>"; };
 		A3483ACF29E937B500948574 /* HapticButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticButtonNode.swift; sourceTree = "<group>"; };
+		A34F8E7029F3F1B300EF4C42 /* VAReadMoreTextNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAReadMoreTextNodeTests.swift; sourceTree = "<group>"; };
 		A3551A5429DD57F000B0B18F /* VALinearGradientNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VALinearGradientNodeTests.swift; sourceTree = "<group>"; };
 		A3551A5829DD5FCF00B0B18F /* VABaseGradientNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VABaseGradientNodeTests.swift; sourceTree = "<group>"; };
 		A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VADisplayNodeTests.swift; sourceTree = "<group>"; };
@@ -292,12 +294,13 @@
 		A328F9A329D757B300FEB663 /* Snapshots */ = {
 			isa = PBXGroup;
 			children = (
-				A3A0BEE729EDC3FE00253AAD /* Layouts */,
 				A3551A5829DD5FCF00B0B18F /* VABaseGradientNodeTests.swift */,
 				A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */,
 				A3551A5429DD57F000B0B18F /* VALinearGradientNodeTests.swift */,
 				A3820D1429E53BD600993406 /* VARadialGradientNodeTests.swift */,
+				A34F8E7029F3F1B300EF4C42 /* VAReadMoreTextNodeTests.swift */,
 				A3D2FABF29D896B300AA01CA /* Example */,
+				A3A0BEE729EDC3FE00253AAD /* Layouts */,
 			);
 			path = Snapshots;
 			sourceTree = "<group>";
@@ -761,6 +764,7 @@
 				A384F0B629EDCB5A006BF197 /* StackTests.swift in Sources */,
 				A359BE7A29D76C0D003BDE19 /* VADisplayNodeTests.swift in Sources */,
 				A33CDF4529D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift in Sources */,
+				A34F8E7129F3F1B300EF4C42 /* VAReadMoreTextNodeTests.swift in Sources */,
 				A3D2488529CF860300EE1907 /* VAStateModelTests.swift in Sources */,
 				A3D2488A29CF869900EE1907 /* Support.swift in Sources */,
 				A3A0BEEA29EDC41C00253AAD /* ColumnTests.swift in Sources */,
