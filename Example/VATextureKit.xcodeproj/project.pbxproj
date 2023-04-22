@@ -22,6 +22,8 @@
 		A34F8E7129F3F1B300EF4C42 /* VAReadMoreTextNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34F8E7029F3F1B300EF4C42 /* VAReadMoreTextNodeTests.swift */; };
 		A34F8E7829F43AF100EF4C42 /* CollectionListHeaderFooterControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34F8E7429F43A9B00EF4C42 /* CollectionListHeaderFooterControllerNode.swift */; };
 		A34F8E7929F43AF700EF4C42 /* CollectionListHeaderFooterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34F8E7629F43AA300EF4C42 /* CollectionListHeaderFooterViewModel.swift */; };
+		A34F8E7E29F46B4000EF4C42 /* CollectionListSectionHeaderCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34F8E7C29F46B2A00EF4C42 /* CollectionListSectionHeaderCellNode.swift */; };
+		A34F8E7F29F46B4300EF4C42 /* CollectionListSectionFooterCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34F8E7A29F46B0C00EF4C42 /* CollectionListSectionFooterCellNode.swift */; };
 		A3551A5529DD57F000B0B18F /* VALinearGradientNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3551A5429DD57F000B0B18F /* VALinearGradientNodeTests.swift */; };
 		A3551A5929DD5FCF00B0B18F /* VABaseGradientNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3551A5829DD5FCF00B0B18F /* VABaseGradientNodeTests.swift */; };
 		A359BE7A29D76C0D003BDE19 /* VADisplayNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */; };
@@ -112,6 +114,8 @@
 		A34F8E7029F3F1B300EF4C42 /* VAReadMoreTextNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAReadMoreTextNodeTests.swift; sourceTree = "<group>"; };
 		A34F8E7429F43A9B00EF4C42 /* CollectionListHeaderFooterControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionListHeaderFooterControllerNode.swift; sourceTree = "<group>"; };
 		A34F8E7629F43AA300EF4C42 /* CollectionListHeaderFooterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionListHeaderFooterViewModel.swift; sourceTree = "<group>"; };
+		A34F8E7A29F46B0C00EF4C42 /* CollectionListSectionFooterCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionListSectionFooterCellNode.swift; sourceTree = "<group>"; };
+		A34F8E7C29F46B2A00EF4C42 /* CollectionListSectionHeaderCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionListSectionHeaderCellNode.swift; sourceTree = "<group>"; };
 		A3551A5429DD57F000B0B18F /* VALinearGradientNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VALinearGradientNodeTests.swift; sourceTree = "<group>"; };
 		A3551A5829DD5FCF00B0B18F /* VABaseGradientNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VABaseGradientNodeTests.swift; sourceTree = "<group>"; };
 		A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VADisplayNodeTests.swift; sourceTree = "<group>"; };
@@ -332,6 +336,8 @@
 			children = (
 				A34F8E7429F43A9B00EF4C42 /* CollectionListHeaderFooterControllerNode.swift */,
 				A34F8E7629F43AA300EF4C42 /* CollectionListHeaderFooterViewModel.swift */,
+				A34F8E7C29F46B2A00EF4C42 /* CollectionListSectionHeaderCellNode.swift */,
+				A34F8E7A29F46B0C00EF4C42 /* CollectionListSectionFooterCellNode.swift */,
 			);
 			path = CollectionListHeaderFooter;
 			sourceTree = "<group>";
@@ -742,6 +748,7 @@
 				A3B3F3CF29A2C0590090E6E2 /* NavigationRoute.swift in Sources */,
 				A3DDF30029DD84B1009460F1 /* CompositingCellNode.swift in Sources */,
 				A3B3F37929A0CDAD0090E6E2 /* MainNodeController.swift in Sources */,
+				A34F8E7F29F46B4300EF4C42 /* CollectionListSectionFooterCellNode.swift in Sources */,
 				A3DDF2F229DD6CB2009460F1 /* CompositingFilterControllerNode.swift in Sources */,
 				A384F0BB29EE752E006BF197 /* VAButtonNode+Support.swift in Sources */,
 				A3B3F3DE29A37C9C0090E6E2 /* AppearanceViewModel.swift in Sources */,
@@ -756,6 +763,7 @@
 				A310A43229CF471400632416 /* CellViewModel.swift in Sources */,
 				A3DDF2FE29DD7314009460F1 /* R.generated.swift in Sources */,
 				A3A0BEE229ED650000253AAD /* ColumnLayoutControllerNode.swift in Sources */,
+				A34F8E7E29F46B4000EF4C42 /* CollectionListSectionHeaderCellNode.swift in Sources */,
 				A3B3F3D329A2C8280090E6E2 /* MainViewModel.swift in Sources */,
 				A3A0BEE029ED5AE700253AAD /* VATextNode+Support.swift in Sources */,
 				A3F8890329CE316100C67187 /* CollectionListDifferentCellsNodeController.swift in Sources */,

@@ -56,7 +56,8 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         let cellGetter: (S.Item) -> ASCellNode
         let headerGetter: ((S) -> ASCellNode?)?
         let footerGetter: ((S) -> ASCellNode?)?
-        let moveItem: ((_ sourceIndexPath: IndexPath, _ destinationIndexPath: IndexPath) -> Void)?
+        let canMoveItem: (_ cell: ASCellNode) -> Bool
+        let moveItem: ((_ source: IndexPath, _ destination: IndexPath) -> Void)?
         let shouldBatchFetch: (() -> Bool)?
         let loadMore: () -> Void
         
@@ -68,7 +69,8 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
             cellGetter: @escaping (S.Item) -> ASCellNode,
             headerGetter: ((S) -> ASCellNode?)? = nil,
             footerGetter: ((S) -> ASCellNode?)? = nil,
-            moveItem: ((_ sourceIndexPath: IndexPath, _ destinationIndexPath: IndexPath) -> Void)? = nil,
+            canMoveItem: @escaping (_ cell: ASCellNode) -> Bool = { _ in true },
+            moveItem: ((_ source: IndexPath, _ destination: IndexPath) -> Void)? = nil,
             shouldBatchFetch: (() -> Bool)? = nil,
             loadMore: @escaping () -> Void = {}
         ) {
@@ -80,6 +82,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
             self.headerGetter = headerGetter
             self.footerGetter = footerGetter
             self.moveItem = moveItem
+            self.canMoveItem = canMoveItem
             self.shouldBatchFetch = shouldBatchFetch
             self.loadMore = loadMore
         }
@@ -243,7 +246,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
                 }
             },
             moveItem: { [data] _, source, desctination in data.moveItem?(source, desctination) ?? () },
-            canMoveItemWith: { [data] _, _ in data.moveItem != nil }
+            canMoveItemWith: { [data] _, cell in data.moveItem != nil && data.canMoveItem(cell) }
         )
         if data.moveItem != nil {
             view.addGestureRecognizer(UILongPressGestureRecognizer(
