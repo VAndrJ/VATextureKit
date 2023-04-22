@@ -28,7 +28,7 @@ final class MainViewModel {
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "List"), items: [
             MainListCellNodeViewModel(title: "List", description: "ASCollectionNode based", route: .collectionList),
             MainListCellNodeViewModel(title: "List", description: "ASCollectionNode based", route: .collectionListDifferentCells),
-            MainListCellNodeViewModel(title: "List with header and footer", description: "ASCollectionNode based", route: .collectionListHeaderFooter),
+            MainListCellNodeViewModel(title: "List with header and footer\nMove items on long press", description: "ASCollectionNode based", route: .collectionListHeaderFooter),
         ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Animations"), items: [
             MainListCellNodeViewModel(title: "Slide", description: "Move animations", route: .moveAnimations),
