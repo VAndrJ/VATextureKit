@@ -20,6 +20,8 @@
 		A33CDF4529D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CDF4429D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift */; };
 		A3483AD029E937B500948574 /* HapticButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3483ACF29E937B500948574 /* HapticButtonNode.swift */; };
 		A34F8E7129F3F1B300EF4C42 /* VAReadMoreTextNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34F8E7029F3F1B300EF4C42 /* VAReadMoreTextNodeTests.swift */; };
+		A34F8E7829F43AF100EF4C42 /* CollectionListHeaderFooterControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34F8E7429F43A9B00EF4C42 /* CollectionListHeaderFooterControllerNode.swift */; };
+		A34F8E7929F43AF700EF4C42 /* CollectionListHeaderFooterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34F8E7629F43AA300EF4C42 /* CollectionListHeaderFooterViewModel.swift */; };
 		A3551A5529DD57F000B0B18F /* VALinearGradientNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3551A5429DD57F000B0B18F /* VALinearGradientNodeTests.swift */; };
 		A3551A5929DD5FCF00B0B18F /* VABaseGradientNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3551A5829DD5FCF00B0B18F /* VABaseGradientNodeTests.swift */; };
 		A359BE7A29D76C0D003BDE19 /* VADisplayNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */; };
@@ -108,6 +110,8 @@
 		A33CDF4429D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListSectionHeaderNodeTests.swift; sourceTree = "<group>"; };
 		A3483ACF29E937B500948574 /* HapticButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticButtonNode.swift; sourceTree = "<group>"; };
 		A34F8E7029F3F1B300EF4C42 /* VAReadMoreTextNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAReadMoreTextNodeTests.swift; sourceTree = "<group>"; };
+		A34F8E7429F43A9B00EF4C42 /* CollectionListHeaderFooterControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionListHeaderFooterControllerNode.swift; sourceTree = "<group>"; };
+		A34F8E7629F43AA300EF4C42 /* CollectionListHeaderFooterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionListHeaderFooterViewModel.swift; sourceTree = "<group>"; };
 		A3551A5429DD57F000B0B18F /* VALinearGradientNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VALinearGradientNodeTests.swift; sourceTree = "<group>"; };
 		A3551A5829DD5FCF00B0B18F /* VABaseGradientNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VABaseGradientNodeTests.swift; sourceTree = "<group>"; };
 		A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VADisplayNodeTests.swift; sourceTree = "<group>"; };
@@ -313,6 +317,25 @@
 			path = Animations;
 			sourceTree = "<group>";
 		};
+		A34F8E7229F439AC00EF4C42 /* Lists */ = {
+			isa = PBXGroup;
+			children = (
+				A3F888D529CC424000C67187 /* CollectionList */,
+				A3F8890129CE314500C67187 /* CollectionListDifferentCells */,
+				A34F8E7329F439E400EF4C42 /* CollectionListHeaderFooter */,
+			);
+			path = Lists;
+			sourceTree = "<group>";
+		};
+		A34F8E7329F439E400EF4C42 /* CollectionListHeaderFooter */ = {
+			isa = PBXGroup;
+			children = (
+				A34F8E7429F43A9B00EF4C42 /* CollectionListHeaderFooterControllerNode.swift */,
+				A34F8E7629F43AA300EF4C42 /* CollectionListHeaderFooterViewModel.swift */,
+			);
+			path = CollectionListHeaderFooter;
+			sourceTree = "<group>";
+		};
 		A3820D2B29E56F3D00993406 /* Experiments */ = {
 			isa = PBXGroup;
 			children = (
@@ -374,13 +397,12 @@
 				A397A2BE29AAA65F00A05B8F /* Alert */,
 				A33CDF3129D9B85F005F77C6 /* Animations */,
 				A3B3F3D429A2C8F40090E6E2 /* Appearance */,
-				A3F888D529CC424000C67187 /* CollectionList */,
-				A3F8890129CE314500C67187 /* CollectionListDifferentCells */,
 				A384F0B729EE71ED006BF197 /* Components */,
 				A3DDF2F029DD6C9F009460F1 /* Compositing */,
 				A3B3F3E329A3867F0090E6E2 /* ContentSize */,
 				A3B3F3F029A3B8890090E6E2 /* Gradient */,
 				A3A0BED429ED4D1E00253AAD /* Layouts */,
+				A34F8E7229F439AC00EF4C42 /* Lists */,
 				A3B3F37529A0CD970090E6E2 /* Main */,
 			);
 			path = Screens;
@@ -703,6 +725,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A397A2C529AAAF6800A05B8F /* NSObject+Applyable.swift in Sources */,
+				A34F8E7829F43AF100EF4C42 /* CollectionListHeaderFooterControllerNode.swift in Sources */,
 				A33CDF3329D9B875005F77C6 /* SlideAnimationControllerNode.swift in Sources */,
 				A359BE7E29D76E1B003BDE19 /* Environment.swift in Sources */,
 				A3F8890B29CE385B00C67187 /* ImageNumberCellNode.swift in Sources */,
@@ -739,6 +762,7 @@
 				A3A0BED629ED4D2D00253AAD /* RowLayoutControllerNode.swift in Sources */,
 				A3F8890929CE37BD00C67187 /* ImageCellNode.swift in Sources */,
 				A3820D2A29E568BE00993406 /* VATextFieldNode.swift in Sources */,
+				A34F8E7929F43AF700EF4C42 /* CollectionListHeaderFooterViewModel.swift in Sources */,
 				A3F8890029CE2D0000C67187 /* Support.swift in Sources */,
 				A3B7F23829F0632E00CAA52D /* ReadMoreTextControllerNode.swift in Sources */,
 				A3F888C729CB67F100C67187 /* Umbrella.swift in Sources */,

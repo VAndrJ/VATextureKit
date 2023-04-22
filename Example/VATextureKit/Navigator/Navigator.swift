@@ -76,6 +76,8 @@ class ScreenFactory {
             return CollectionListNodeController(viewModel: CollectionListViewModel())
         case .collectionListDifferentCells:
             return CollectionListDifferentCellsNodeController(viewModel: CollectionListDifferentCellsViewModel())
+        case .collectionListHeaderFooter:
+            return VAViewController(node: CollectionListHeaderFooterControllerNode(viewModel: CollectionListHeaderFooterViewModel()))
         case .moveAnimations:
             return VAViewController(node: SlideAnimationControllerNode())
         case .compositingFilter:

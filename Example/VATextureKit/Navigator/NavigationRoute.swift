@@ -7,14 +7,15 @@
 //
 
 enum NavigationRoute {
-    case main
+    case alert
     case apearance
+    case main
     case contentSize
     case linearGradient
     case radialGradient
-    case alert
     case collectionList
     case collectionListDifferentCells
+    case collectionListHeaderFooter
     case moveAnimations
     case blendMode
     case compositingFilter
