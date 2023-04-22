@@ -35,7 +35,7 @@ open class VADisplayNode: ASDisplayNode {
     open func configureTheme(_ theme: VATheme) {}
     
     open func themeDidChanged() {
-        configureTheme(appContext.themeManager.theme)
+        configureTheme(theme)
     }
     
     @objc private func themeDidChanged(_ notification: Notification) {
