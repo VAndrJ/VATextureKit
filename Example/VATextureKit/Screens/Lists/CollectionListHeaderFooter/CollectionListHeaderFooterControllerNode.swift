@@ -24,21 +24,34 @@ private func mapToCell(viewModel: CellViewModel) -> ASCellNode {
 }
 
 final class CollectionListHeaderFooterControllerNode: VASafeAreaDisplayNode {
-    private(set) lazy var listNode = VAListNode(
+    private(set) lazy var leftListNode = VAListNode(
         data: .init(
             listDataObs: viewModel.listDataObs,
             cellGetter: mapToCell(viewModel:),
-            headerGetter: { sectionModel in
-                sectionModel.model.headerViewModel.flatMap(mapToCell(viewModel:))
-            },
-            footerGetter: { sectionModel in
-                sectionModel.model.footerViewModel.flatMap(mapToCell(viewModel:))
-            }
+            headerGetter: { $0.model.headerViewModel.flatMap(mapToCell(viewModel:)) },
+            footerGetter: { $0.model.footerViewModel.flatMap(mapToCell(viewModel:)) },
+            moveItem: viewModel.moveItem(source:destination:)
         ),
         layoutData: .init(
             sectionHeadersPinToVisibleBounds: true,
             sectionFootersPinToVisibleBounds: true,
-            minimumLineSpacing: 16
+            minimumLineSpacing: 8
+        )
+    )
+    private(set) lazy var rightListNode = VAListNode(
+        data: .init(
+            listDataObs: viewModel.listDataObs,
+            cellGetter: mapToCell(viewModel:),
+            headerGetter: { $0.model.headerViewModel.flatMap(mapToCell(viewModel:)) },
+            footerGetter: { $0.model.footerViewModel.flatMap(mapToCell(viewModel:)) },
+            moveItem: viewModel.moveItem(source:destination:)
+        ),
+        layoutData: .init(
+            sectionHeadersPinToVisibleBounds: true,
+            sectionFootersPinToVisibleBounds: true,
+            minimumLineSpacing: 8,
+            minimumInteritemSpacing: 8,
+            sizing: .vertical(columns: 2, ratio: 1)
         )
     )
 
@@ -52,7 +65,12 @@ final class CollectionListHeaderFooterControllerNode: VASafeAreaDisplayNode {
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
-            listNode
+            Row {
+                leftListNode
+                    .flex(basisPercent: 50)
+                rightListNode
+                    .flex(basisPercent: 50)
+            }
         }
     }
 
@@ -60,6 +78,7 @@ final class CollectionListHeaderFooterControllerNode: VASafeAreaDisplayNode {
         super.configureTheme(theme)
 
         backgroundColor = theme.systemBackground
-        listNode.backgroundColor = theme.systemBackground
+        leftListNode.backgroundColor = theme.systemBackground
+        rightListNode.backgroundColor = theme.systemBackground
     }
 }

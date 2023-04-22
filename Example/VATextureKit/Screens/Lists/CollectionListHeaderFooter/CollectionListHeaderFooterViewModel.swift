@@ -15,22 +15,17 @@ final class CollectionListHeaderFooterViewModel {
                 headerViewModel: CollectionListSectionHeaderViewModel(title: "Header"),
                 footerViewModel: CollectionListSectionFooterViewModel(title: "Footer")
             ),
-            items: (0...3).map { ImageNumberCellNodeViewModel(image: testImages.randomElement(), ratio: 1 / 3, number: $0) }
-        ),
-        AnimatableSectionModel(
-            model: CollectionListSectionHeaderFooterViewModel(
-                headerViewModel: CollectionListSectionHeaderViewModel(title: "Header")
-            ),
-            items: (0...3).map { ImageNumberCellNodeViewModel(image: testImages.randomElement(), ratio: 1 / 3, number: $0) }
-        ),
-        AnimatableSectionModel(
-            model: CollectionListSectionHeaderFooterViewModel(
-                footerViewModel: CollectionListSectionFooterViewModel(title: "Footer")
-            ),
-            items: (0...3).map { ImageNumberCellNodeViewModel(image: testImages.randomElement(), ratio: 1 / 3, number: $0) }
+            items: (0...15).map { ImageNumberCellNodeViewModel(image: testImages.randomElement(), ratio: 1 / 4, number: $0) }
         ),
     ])
     var listDataObs: Observable<[AnimatableSectionModel<CollectionListSectionHeaderFooterViewModel, CellViewModel>]>
+
+    func moveItem(source: IndexPath, destination: IndexPath) {
+        var data = _listDataObs.value
+        let item = data[source.section].items.remove(at: source.item)
+        data[destination.section].items.insert(item, at: destination.item)
+        _listDataObs.rx.accept(data)
+    }
 }
 
 class CollectionListSectionHeaderCellNode: VACellNode {

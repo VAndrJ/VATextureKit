@@ -56,6 +56,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         let cellGetter: (S.Item) -> ASCellNode
         let headerGetter: ((S) -> ASCellNode?)?
         let footerGetter: ((S) -> ASCellNode?)?
+        let moveItem: ((_ sourceIndexPath: IndexPath, _ destinationIndexPath: IndexPath) -> Void)?
         let shouldBatchFetch: (() -> Bool)?
         let loadMore: () -> Void
         
@@ -67,6 +68,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
             cellGetter: @escaping (S.Item) -> ASCellNode,
             headerGetter: ((S) -> ASCellNode?)? = nil,
             footerGetter: ((S) -> ASCellNode?)? = nil,
+            moveItem: ((_ sourceIndexPath: IndexPath, _ destinationIndexPath: IndexPath) -> Void)? = nil,
             shouldBatchFetch: (() -> Bool)? = nil,
             loadMore: @escaping () -> Void = {}
         ) {
@@ -77,6 +79,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
             self.cellGetter = cellGetter
             self.headerGetter = headerGetter
             self.footerGetter = footerGetter
+            self.moveItem = moveItem
             self.shouldBatchFetch = shouldBatchFetch
             self.loadMore = loadMore
         }
@@ -238,8 +241,16 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
                 } else {
                     return { data.footerGetter?(section) ?? ASCellNode() }
                 }
-            }
+            },
+            moveItem: { [data] _, source, desctination in data.moveItem?(source, desctination) ?? () },
+            canMoveItemWith: { [data] _, _ in data.moveItem != nil }
         )
+        if data.moveItem != nil {
+            view.addGestureRecognizer(UILongPressGestureRecognizer(
+                target: self,
+                action: #selector(handleLongPress(_:))
+            ))
+        }
         data.listDataObs
             .do(onNext: { [weak self] _ in
                 self?.batchContext?.completeBatchFetching(true)
@@ -277,21 +288,50 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         showsHorizontalScrollIndicator = data.indicatorConfiguration.showsHorizontalScrollIndicator
         configureRefresh()
     }
+
+    @objc private func handleLongPress(_ sender: UILongPressGestureRecognizer) {
+        switch sender.state {
+        case .began:
+            if let indexPath = view.indexPathForItem(at: sender.location(in: view)) {
+                view.beginInteractiveMovementForItem(at: indexPath)
+            }
+        case .changed:
+            view.updateInteractiveMovementTargetPosition(sender.location(in: view))
+            view.collectionViewLayout.invalidateLayout()
+            invalidateCalculatedLayout()
+            beginUpdates()
+            endUpdates(animated: true)
+        case .ended:
+            view.endInteractiveMovement()
+            beginUpdates()
+            endUpdates(animated: true)
+        case .failed, .cancelled:
+            view.cancelInteractiveMovement()
+        default:
+            break
+        }
+    }
     
     // MARK: - ASCollectionDelegate
 
     public func collectionNode(_ collectionNode: ASCollectionNode, sizeRangeForHeaderInSection section: Int) -> ASSizeRange {
-        ASSizeRangeUnconstrained
+        ASSizeRange(
+            min: CGSize(width: collectionNode.frame.width, height: .leastNormalMagnitude),
+            max: CGSize(width: collectionNode.frame.width, height: .greatestFiniteMagnitude)
+        )
     }
 
     public func collectionNode(_ collectionNode: ASCollectionNode, sizeRangeForFooterInSection section: Int) -> ASSizeRange {
-        ASSizeRangeUnconstrained
+        ASSizeRange(
+            min: CGSize(width: collectionNode.frame.width, height: .leastNormalMagnitude),
+            max: CGSize(width: collectionNode.frame.width, height: .greatestFiniteMagnitude)
+        )
     }
 
     public func shouldBatchFetch(for collectionNode: ASCollectionNode) -> Bool {
         data.shouldBatchFetch?() ?? false
     }
-    
+
     public func collectionNode(_ collectionNode: ASCollectionNode, constrainedSizeForItemAt indexPath: IndexPath) -> ASSizeRange {
         if let albumSizing = layoutData.albumSizing {
             return collectionNode.cellSizeRange(
