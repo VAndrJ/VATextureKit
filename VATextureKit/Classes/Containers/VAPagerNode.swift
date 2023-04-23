@@ -108,6 +108,30 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
         setDataSource(self)
         setDelegate(self)
         checkPosition()
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(themeDidChanged(_:)),
+            name: VAThemeManager.themeDidChangedNotification,
+            object: appContext.themeManager
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(themeDidChanged(_:)),
+            name: VAContentSizeManager.contentSizeDidChangedNotification,
+            object: appContext.contentSizeManager
+        )
+    }
+
+    open func configureTheme() {
+        reloadData()
+    }
+
+    open func themeDidChanged() {
+        configureTheme()
+    }
+
+    @objc private func themeDidChanged(_ notification: Notification) {
+        themeDidChanged()
     }
 
     private func configure() {
