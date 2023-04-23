@@ -9,19 +9,20 @@
 enum NavigationRoute {
     case alert
     case apearance
-    case main
-    case contentSize
-    case linearGradient
-    case radialGradient
+    case blendMode
+    case columnLayout
     case collectionList
     case collectionListDifferentCells
     case collectionListHeaderFooter
-    case moveAnimations
-    case blendMode
     case compositingFilter
+    case contentSize
+    case linearGradient
+    case main
+    case moveAnimations
+    case pager
+    case radialGradient
+    case readMoreText
     case rowLayout
-    case columnLayout
     case stackLayout
     case typingText
-    case readMoreText
 }

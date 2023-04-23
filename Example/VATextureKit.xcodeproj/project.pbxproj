@@ -24,6 +24,8 @@
 		A34F8E7929F43AF700EF4C42 /* CollectionListHeaderFooterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34F8E7629F43AA300EF4C42 /* CollectionListHeaderFooterViewModel.swift */; };
 		A34F8E7E29F46B4000EF4C42 /* CollectionListSectionHeaderCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34F8E7C29F46B2A00EF4C42 /* CollectionListSectionHeaderCellNode.swift */; };
 		A34F8E7F29F46B4300EF4C42 /* CollectionListSectionFooterCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34F8E7A29F46B0C00EF4C42 /* CollectionListSectionFooterCellNode.swift */; };
+		A34F8E8329F52EED00EF4C42 /* PagerControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34F8E8229F52EED00EF4C42 /* PagerControllerNode.swift */; };
+		A34F8E8529F576C000EF4C42 /* PagerCardCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34F8E8429F576C000EF4C42 /* PagerCardCellNode.swift */; };
 		A3551A5529DD57F000B0B18F /* VALinearGradientNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3551A5429DD57F000B0B18F /* VALinearGradientNodeTests.swift */; };
 		A3551A5929DD5FCF00B0B18F /* VABaseGradientNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3551A5829DD5FCF00B0B18F /* VABaseGradientNodeTests.swift */; };
 		A359BE7A29D76C0D003BDE19 /* VADisplayNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */; };
@@ -116,6 +118,8 @@
 		A34F8E7629F43AA300EF4C42 /* CollectionListHeaderFooterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionListHeaderFooterViewModel.swift; sourceTree = "<group>"; };
 		A34F8E7A29F46B0C00EF4C42 /* CollectionListSectionFooterCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionListSectionFooterCellNode.swift; sourceTree = "<group>"; };
 		A34F8E7C29F46B2A00EF4C42 /* CollectionListSectionHeaderCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionListSectionHeaderCellNode.swift; sourceTree = "<group>"; };
+		A34F8E8229F52EED00EF4C42 /* PagerControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerControllerNode.swift; sourceTree = "<group>"; };
+		A34F8E8429F576C000EF4C42 /* PagerCardCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerCardCellNode.swift; sourceTree = "<group>"; };
 		A3551A5429DD57F000B0B18F /* VALinearGradientNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VALinearGradientNodeTests.swift; sourceTree = "<group>"; };
 		A3551A5829DD5FCF00B0B18F /* VABaseGradientNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VABaseGradientNodeTests.swift; sourceTree = "<group>"; };
 		A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VADisplayNodeTests.swift; sourceTree = "<group>"; };
@@ -354,6 +358,7 @@
 		A384F0B729EE71ED006BF197 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				A34F8E8229F52EED00EF4C42 /* PagerControllerNode.swift */,
 				A3B7F23729F0632E00CAA52D /* ReadMoreTextControllerNode.swift */,
 				A384F0B829EE7215006BF197 /* TypingTextControllerNode.swift */,
 			);
@@ -451,6 +456,7 @@
 				A3F8890A29CE385B00C67187 /* ImageNumberCellNode.swift */,
 				A3BCEC5629CFA6770077217F /* LoadingCellNode.swift */,
 				A3483ACF29E937B500948574 /* HapticButtonNode.swift */,
+				A34F8E8429F576C000EF4C42 /* PagerCardCellNode.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -739,10 +745,12 @@
 				A3BCEC5729CFA6770077217F /* LoadingCellNode.swift in Sources */,
 				A3B3F3E529A3868F0090E6E2 /* ContentSizeControllerNode.swift in Sources */,
 				A397A2C229AAA68800A05B8F /* AlertNodeController.swift in Sources */,
+				A34F8E8529F576C000EF4C42 /* PagerCardCellNode.swift in Sources */,
 				A3F888D929CC427D00C67187 /* CollectionListViewModel.swift in Sources */,
 				A3B3F3CD29A2B4FC0090E6E2 /* MainListCellNode.swift in Sources */,
 				A3A0BEE429ED68B900253AAD /* StackLayoutControllerNode.swift in Sources */,
 				A3F888DD29CC602900C67187 /* CollectionExampleCellNode.swift in Sources */,
+				A34F8E8329F52EED00EF4C42 /* PagerControllerNode.swift in Sources */,
 				A3D2FAC829D9687400AA01CA /* MainListSectionHeaderNode.swift in Sources */,
 				A3B3F3E729A3869B0090E6E2 /* ContentSizeViewController.swift in Sources */,
 				A3B3F3CF29A2C0590090E6E2 /* NavigationRoute.swift in Sources */,
