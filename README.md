@@ -867,6 +867,12 @@ Example:
 A subclass of `ASCollectionNode` to use it in declarative way.
 
 
+Example:
+
+
+![List example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/list_example.gif)
+
+
 </details>
 
 
