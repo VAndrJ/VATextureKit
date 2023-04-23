@@ -318,12 +318,10 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
             view.updateInteractiveMovementTargetPosition(sender.location(in: view))
             view.collectionViewLayout.invalidateLayout()
             invalidateCalculatedLayout()
-            beginUpdates()
-            endUpdates(animated: true)
+            performBatch(animated: true, updates: nil)
         case .ended:
             view.endInteractiveMovement()
-            beginUpdates()
-            endUpdates(animated: true)
+            performBatch(animated: true, updates: nil)
         case .failed, .cancelled:
             view.cancelInteractiveMovement()
         default:
