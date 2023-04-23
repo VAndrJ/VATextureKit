@@ -16,8 +16,8 @@ class PagerCardCellNode: VACellNode {
     }
 
     init(viewModel: PagerCardCellNodeViewModel) {
-        self.titleTextNode = VATextNode(text: viewModel.title)
-        self.descriptionTextNode = VATextNode(text: viewModel.description)
+        self.titleTextNode = VATextNode(text: viewModel.title, fontStyle: .largeTitle)
+        self.descriptionTextNode = VATextNode(text: viewModel.description, fontStyle: .title1)
 
         super.init()
     }
@@ -33,7 +33,7 @@ class PagerCardCellNode: VACellNode {
     }
 
     override func configureTheme(_ theme: VATheme) {
-        cardNode.backgroundColor = theme.systemGroupedBackground
+        cardNode.backgroundColor = theme.label.withAlphaComponent(0.12)
     }
 }
 

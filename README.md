@@ -11,7 +11,7 @@
 * [Wrappers](#wrappers)
 * [Animations](#)
 * [Themes](#themes)
-* [Rx property wrappers](#rx-property-wrappers)
+* [Property wrappers](#property-wrappers)
 * [Extensions](#extensions)
 * [Previews](#previews)
 
@@ -881,6 +881,23 @@ A subclass of `ASTableNode` to use it in declarative way.
 
 
 <details>
+<summary>VAPagerNode</summary>
+
+
+A subclass of `ASPagerNode` to use it in declarative way. 
+Some crutches to mimic circular scrolling.
+
+
+Example:
+
+
+![Pager node example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/pager_example.gif)
+
+
+</details>
+
+
+<details>
 <summary>VAViewController</summary>
 
 
@@ -981,12 +998,13 @@ override func animateLayoutTransition(_ context: ASContextTransitioning) {
 Themes support in easy way. Default light / dark or custom init.
 
 
-## Rx property wrappers
+## Property wrappers
 
 
 * Obs
-  * Relay (BehaviorRelay)
-  * Relay (PublishRelay)
+  * Relay(value:) (BehaviorRelay)
+  * Relay() (PublishRelay)
+
 
 With these wrappers, the code becomes more concise. 
 
