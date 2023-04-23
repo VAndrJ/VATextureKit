@@ -228,7 +228,7 @@ public enum ReplayStrategy {
     case custom(Int)
     case none
     
-    var count: Int? {
+    public var count: Int? {
         switch self {
         case .none: return 0
         case .once: return 1

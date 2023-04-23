@@ -9,21 +9,17 @@
 import VATextureKit
 
 class ImageCellNode: VACellNode {
-    let imageNode = ASNetworkImageNode().apply {
-        $0.contentMode = .scaleAspectFill
-    }
-    
+    let imageNode: VANetworkImageNode
     let viewModel: ImageCellNodeViewModel
     
     init(viewModel: ImageCellNodeViewModel) {
         self.viewModel = viewModel
+        self.imageNode = VANetworkImageNode(data: .init(
+            image: viewModel.image,
+            contentMode: .scaleAspectFill
+        ))
         
         super.init()
-        
-        guard let url = viewModel.image.flatMap(URL.init(string:)) else {
-            return
-        }
-        imageNode.url = url
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
