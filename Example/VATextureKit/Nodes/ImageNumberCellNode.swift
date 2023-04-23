@@ -9,9 +9,7 @@
 import VATextureKit
 
 class ImageNumberCellNode: VACellNode {
-    let imageNode = ASNetworkImageNode().apply {
-        $0.contentMode = .scaleAspectFill
-    }
+    let imageNode: VANetworkImageNode
     let numberTextNode: VATextNode
     let tonerNode = ASDisplayNode().apply {
         $0.backgroundColor = .black.withAlphaComponent(0.4)
@@ -26,13 +24,12 @@ class ImageNumberCellNode: VACellNode {
             fontStyle: .largeTitle,
             colorGetter: { .white }
         )
+        self.imageNode = VANetworkImageNode(data: .init(
+            image: viewModel.image,
+            contentMode: .scaleAspectFill
+        ))
         
         super.init()
-        
-        guard let url = viewModel.image.flatMap(URL.init(string:)) else {
-            return
-        }
-        imageNode.url = url
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {

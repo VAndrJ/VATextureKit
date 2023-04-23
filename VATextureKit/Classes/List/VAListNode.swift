@@ -9,7 +9,7 @@ import AsyncDisplayKit
 import RxSwift
 import RxCocoa
 
-open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollectionDelegate {
+open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollectionDelegate, ASCollectionDelegateFlowLayout {
     public struct IndicatorConfiguration {
         let showsVerticalScrollIndicator: Bool
         let showsHorizontalScrollIndicator: Bool
@@ -26,6 +26,10 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         let onSelect: ((IndexPath) -> Void)?
         let shouldDeselect: (deselectOnSelect: Bool, animated: Bool)
         let cellGetter: (S.Item) -> ASCellNode
+        let headerGetter: ((S) -> ASCellNode?)?
+        let footerGetter: ((S) -> ASCellNode?)?
+        let canMoveItem: (_ cell: ASCellNode) -> Bool
+        let moveItem: ((_ source: IndexPath, _ destination: IndexPath) -> Void)?
         let shouldBatchFetch: (() -> Bool)?
         let loadMore: () -> Void
         
@@ -35,6 +39,10 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
             onSelect: ((IndexPath) -> Void)? = nil,
             shouldDeselect: (deselectOnSelect: Bool, animated: Bool) = (true, true),
             cellGetter: @escaping (S.Item) -> ASCellNode,
+            headerGetter: ((S) -> ASCellNode?)? = nil,
+            footerGetter: ((S) -> ASCellNode?)? = nil,
+            canMoveItem: @escaping (_ cell: ASCellNode) -> Bool = { _ in true },
+            moveItem: ((_ source: IndexPath, _ destination: IndexPath) -> Void)? = nil,
             shouldBatchFetch: (() -> Bool)? = nil,
             loadMore: @escaping () -> Void = {}
         ) {
@@ -43,6 +51,10 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
             self.onSelect = onSelect
             self.shouldDeselect = shouldDeselect
             self.cellGetter = cellGetter
+            self.headerGetter = headerGetter
+            self.footerGetter = footerGetter
+            self.moveItem = moveItem
+            self.canMoveItem = canMoveItem
             self.shouldBatchFetch = shouldBatchFetch
             self.loadMore = loadMore
         }
@@ -54,6 +66,10 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         let onSelect: ((IndexPath) -> Void)?
         let shouldDeselect: (deselectOnSelect: Bool, animated: Bool)
         let cellGetter: (S.Item) -> ASCellNode
+        let headerGetter: ((S) -> ASCellNode?)?
+        let footerGetter: ((S) -> ASCellNode?)?
+        let canMoveItem: (_ cell: ASCellNode) -> Bool
+        let moveItem: ((_ source: IndexPath, _ destination: IndexPath) -> Void)?
         let shouldBatchFetch: (() -> Bool)?
         let loadMore: () -> Void
         
@@ -63,6 +79,10 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
             onSelect: ((IndexPath) -> Void)? = nil,
             shouldDeselect: (deselectOnSelect: Bool, animated: Bool) = (true, true),
             cellGetter: @escaping (S.Item) -> ASCellNode,
+            headerGetter: ((S) -> ASCellNode?)? = nil,
+            footerGetter: ((S) -> ASCellNode?)? = nil,
+            canMoveItem: @escaping (_ cell: ASCellNode) -> Bool = { _ in true },
+            moveItem: ((_ source: IndexPath, _ destination: IndexPath) -> Void)? = nil,
             shouldBatchFetch: (() -> Bool)? = nil,
             loadMore: @escaping () -> Void = {}
         ) {
@@ -71,6 +91,10 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
             self.onSelect = onSelect
             self.shouldDeselect = shouldDeselect
             self.cellGetter = cellGetter
+            self.headerGetter = headerGetter
+            self.footerGetter = footerGetter
+            self.moveItem = moveItem
+            self.canMoveItem = canMoveItem
             self.shouldBatchFetch = shouldBatchFetch
             self.loadMore = loadMore
         }
@@ -79,6 +103,8 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
     public struct LayoutDTO {
         let animationConfiguration: AnimationConfiguration
         let scrollDirection: UICollectionView.ScrollDirection
+        let sectionHeadersPinToVisibleBounds: Bool
+        let sectionFootersPinToVisibleBounds: Bool
         let minimumLineSpacing: CGFloat
         let minimumInteritemSpacing: CGFloat
         let contentInset: UIEdgeInsets
@@ -88,6 +114,8 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         public init(
             animationConfiguration: AnimationConfiguration = .init(),
             scrollDirection: UICollectionView.ScrollDirection = .vertical,
+            sectionHeadersPinToVisibleBounds: Bool = false,
+            sectionFootersPinToVisibleBounds: Bool = false,
             minimumLineSpacing: CGFloat = .leastNormalMagnitude,
             minimumInteritemSpacing: CGFloat = .leastNormalMagnitude,
             contentInset: UIEdgeInsets = .zero,
@@ -96,6 +124,8 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         ) {
             self.animationConfiguration = animationConfiguration
             self.scrollDirection = scrollDirection
+            self.sectionHeadersPinToVisibleBounds = sectionHeadersPinToVisibleBounds
+            self.sectionFootersPinToVisibleBounds = sectionFootersPinToVisibleBounds
             self.minimumLineSpacing = minimumLineSpacing
             self.minimumInteritemSpacing = minimumInteritemSpacing
             self.contentInset = contentInset
@@ -148,6 +178,10 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
                 onSelect: data.onSelect,
                 shouldDeselect: data.shouldDeselect,
                 cellGetter: data.cellGetter,
+                headerGetter: data.headerGetter,
+                footerGetter: data.footerGetter,
+                canMoveItem: data.canMoveItem,
+                moveItem: data.moveItem,
                 shouldBatchFetch: data.shouldBatchFetch,
                 loadMore: data.loadMore
             ),
@@ -164,6 +198,8 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         flowLayout.scrollDirection = layoutData.scrollDirection
         flowLayout.minimumLineSpacing = layoutData.minimumLineSpacing
         flowLayout.minimumInteritemSpacing = layoutData.minimumInteritemSpacing
+        flowLayout.sectionHeadersPinToVisibleBounds = layoutData.sectionHeadersPinToVisibleBounds
+        flowLayout.sectionFootersPinToVisibleBounds = layoutData.sectionFootersPinToVisibleBounds
         self.delayedConfiguration = !Thread.current.isMainThread
         
         super.init(
@@ -206,10 +242,34 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
     }
     
     private func bind() {
+        if data.headerGetter != nil {
+            registerSupplementaryNode(ofKind: UICollectionView.elementKindSectionHeader)
+        }
+        if data.footerGetter != nil {
+            registerSupplementaryNode(ofKind: UICollectionView.elementKindSectionFooter)
+        }
         let dataSource = RxASCollectionSectionedAnimatedDataSource<S>(
             animationConfiguration: layoutData.animationConfiguration,
-            configureCellBlock: { [data] _, _, _, item in { data.cellGetter(item) } }
+            configureCellBlock: { [data] _, _, _, item in { data.cellGetter(item) } },
+            configureSupplementaryNodeBlock: { [data] ds, _, kind, indexPath in
+                guard let section = ds[safe: indexPath.section] else {
+                    return nil
+                }
+                if kind == UICollectionView.elementKindSectionHeader {
+                    return { data.headerGetter?(section) ?? ASCellNode() }
+                } else {
+                    return { data.footerGetter?(section) ?? ASCellNode() }
+                }
+            },
+            moveItem: { [data] _, source, desctination in data.moveItem?(source, desctination) ?? () },
+            canMoveItemWith: { [data] _, cell in data.moveItem != nil && data.canMoveItem(cell) }
         )
+        if data.moveItem != nil {
+            view.addGestureRecognizer(UILongPressGestureRecognizer(
+                target: self,
+                action: #selector(handleLongPress(_:))
+            ))
+        }
         data.listDataObs
             .do(onNext: { [weak self] _ in
                 self?.batchContext?.completeBatchFetching(true)
@@ -247,13 +307,48 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         showsHorizontalScrollIndicator = data.indicatorConfiguration.showsHorizontalScrollIndicator
         configureRefresh()
     }
+
+    @objc private func handleLongPress(_ sender: UILongPressGestureRecognizer) {
+        switch sender.state {
+        case .began:
+            if let indexPath = view.indexPathForItem(at: sender.location(in: view)) {
+                view.beginInteractiveMovementForItem(at: indexPath)
+            }
+        case .changed:
+            view.updateInteractiveMovementTargetPosition(sender.location(in: view))
+            view.collectionViewLayout.invalidateLayout()
+            invalidateCalculatedLayout()
+            performBatch(animated: true, updates: nil)
+        case .ended:
+            view.endInteractiveMovement()
+            performBatch(animated: true, updates: nil)
+        case .failed, .cancelled:
+            view.cancelInteractiveMovement()
+        default:
+            break
+        }
+    }
     
     // MARK: - ASCollectionDelegate
+
+    public func collectionNode(_ collectionNode: ASCollectionNode, sizeRangeForHeaderInSection section: Int) -> ASSizeRange {
+        ASSizeRange(
+            min: CGSize(width: collectionNode.frame.width, height: .leastNormalMagnitude),
+            max: CGSize(width: collectionNode.frame.width, height: .greatestFiniteMagnitude)
+        )
+    }
+
+    public func collectionNode(_ collectionNode: ASCollectionNode, sizeRangeForFooterInSection section: Int) -> ASSizeRange {
+        ASSizeRange(
+            min: CGSize(width: collectionNode.frame.width, height: .leastNormalMagnitude),
+            max: CGSize(width: collectionNode.frame.width, height: .greatestFiniteMagnitude)
+        )
+    }
 
     public func shouldBatchFetch(for collectionNode: ASCollectionNode) -> Bool {
         data.shouldBatchFetch?() ?? false
     }
-    
+
     public func collectionNode(_ collectionNode: ASCollectionNode, constrainedSizeForItemAt indexPath: IndexPath) -> ASSizeRange {
         if let albumSizing = layoutData.albumSizing {
             return collectionNode.cellSizeRange(

@@ -11,7 +11,7 @@
 * [Wrappers](#wrappers)
 * [Animations](#)
 * [Themes](#themes)
-* [Rx property wrappers](#rx-property-wrappers)
+* [Property wrappers](#property-wrappers)
 * [Extensions](#extensions)
 * [Previews](#previews)
 
@@ -73,6 +73,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 }
 ```
 
+
 With `Column`:
 
 ```swift
@@ -83,6 +84,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
     }
 }
 ```
+
 
 Example:
 
@@ -114,6 +116,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 }
 ```
 
+
 With `Row`:
 
 ```swift
@@ -138,7 +141,9 @@ Example:
 <details>
 <summary>Stack</summary>
 
+
 `Stack`:
+
 
 ```swift
 override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -179,6 +184,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 }
 ```
 
+
 With `SafeArea`:
 
 ```swift
@@ -211,6 +217,7 @@ ASInsetLayoutSpec(
 )
 ```
 
+
 With `.background`:
 
 ```swift
@@ -231,6 +238,7 @@ With `ASWrapperLayoutSpec`:
 ```swift
 ASWrapperLayoutSpec(layoutElement: imageNode)
 ```
+
 
 With `.background`:
 
@@ -260,6 +268,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
     return spec
 }
 ```
+
 
 With `.corner`:
 
@@ -292,6 +301,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 }
 ```
 
+
 With `SafeArea`:
 
 ```swift
@@ -319,6 +329,7 @@ ASCenterLayoutSpec(
 )
 ```
 
+
 With `.centered`:
 
 ```swift
@@ -342,6 +353,7 @@ ASRatioLayoutSpec(
     child: imageNode
 )
 ```
+
 
 With `.ratio`:
 
@@ -369,6 +381,7 @@ ASOverlayLayoutSpec(
 )
 ```
 
+
 With `.overlay`:
 
 ```swift
@@ -392,6 +405,7 @@ ASBackgroundLayoutSpec(
     background: imageNode
 )
 ```
+
 
 With `.background`:
 
@@ -419,6 +433,7 @@ ASRelativeLayoutSpec(
 )
 ```
 
+
 With `.relatively`:
 
 ```swift
@@ -435,6 +450,7 @@ buttonNode
 
 
 ![Cell layout](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/cell_layout_example.png)
+
 
 With `VATextureKit`: 
 
@@ -471,6 +487,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
     .padding(.all(16))
 }
 ```
+
 
 With raw `Texture`:
 
@@ -584,17 +601,13 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 
 ## Modifiers
 
-  * .sized
-  * .flex
-  * .maxConstrained
-  * .minConstrained
-
 
 <details>
 <summary>.sized</summary>
 
 
-Set `Node` size.
+Set `Node`'s size.
+
 
 With `style`: 
 
@@ -602,6 +615,7 @@ With `style`:
 imageNode.style.width = ASDimension(unit: .points, value: 320)
 imageNode.style.height = ASDimension(unit: .points, value: 480)
 ```
+
 
 With `.sized`:
 
@@ -618,7 +632,8 @@ imageNode
 <summary>.flex</summary>
 
 
-Set `Node` flex.
+Set `Node`'s flex.
+
 
 With `style`: 
 
@@ -626,6 +641,7 @@ With `style`:
 titleTextNode.style.flexShrink = 0.1
 titleTextNode.style.flexGrow = 1
 ```
+
 
 With `.sized`:
 
@@ -642,7 +658,8 @@ titleTextNode
 <summary>.maxConstrained</summary>
 
 
-Set `Node` max possible size.
+Set `Node`'s max possible size.
+
 
 With `style`: 
 
@@ -650,6 +667,7 @@ With `style`:
 titleTextNode.style.maxWidth = ASDimension(unit: .points, value: 320)
 titleTextNode.style.maxHeight = ASDimension(unit: .points, value: 100)
 ```
+
 
 With `.maxConstrained`:
 
@@ -666,7 +684,8 @@ titleTextNode
 <summary>.minConstrained</summary>
 
 
-Set `Node` min possible size.
+Set `Node`'s min possible size.
+
 
 With `style`: 
 
@@ -674,6 +693,7 @@ With `style`:
 titleTextNode.style.minWidth = ASDimension(unit: .points, value: 100)
 titleTextNode.style.minHeight = ASDimension(unit: .points, value: 50)
 ```
+
 
 With `.minConstrained`:
 
@@ -687,20 +707,6 @@ titleTextNode
 
 
 ## Nodes
-
-
-* VADisplayNode
-* VATextNode
-* VAButtonNode
-* VACellNode
-* VAImageNode
-* VASpacerNode
-* VASafeAreaDisplayNode
-* VABaseGradientNode
-* VALinearGradientNode
-* VARadialGradientNode
-* VATypingTextNode
-* VAReadMoreTextNode
 
 
 <details>
@@ -854,20 +860,17 @@ Example:
 ## Containers
 
 
-* VAListNode
-* VATableListNode
-* VAViewController
-* VANavigationController
-* VATabBarController
-* VAWindow
-* VAContainerCellNode
-
-
 <details>
 <summary>VAListNode</summary>
 
 
 A subclass of `ASCollectionNode` to use it in declarative way.
+
+
+Example:
+
+
+![List example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/list_example.gif)
 
 
 </details>
@@ -878,6 +881,23 @@ A subclass of `ASCollectionNode` to use it in declarative way.
 
 
 A subclass of `ASTableNode` to use it in declarative way.
+
+
+</details>
+
+
+<details>
+<summary>VAPagerNode</summary>
+
+
+A subclass of `ASPagerNode` to use it in declarative way. 
+Some crutches to mimic circular scrolling.
+
+
+Example:
+
+
+![Pager node example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/pager_example.gif)
 
 
 </details>
@@ -936,11 +956,6 @@ To wrap any node with Cell Node.
 ## Wrappers
 
 
-* VAViewWrapperNode
-* VANodeWrapperView
-* VASizedViewWrapperNode
-
-
 <details>
 <summary>VAViewWrapperNode</summary>
 
@@ -989,12 +1004,13 @@ override func animateLayoutTransition(_ context: ASContextTransitioning) {
 Themes support in easy way. Default light / dark or custom init.
 
 
-## Rx property wrappers
+## Property wrappers
 
 
 * Obs
-  * Relay (BehaviorRelay)
-  * Relay (PublishRelay)
+  * Relay(value:) (BehaviorRelay)
+  * Relay() (PublishRelay)
+
 
 With these wrappers, the code becomes more concise. 
 
@@ -1051,9 +1067,6 @@ var someObs: Observable<String>
 
 ## Extensions
 
-* CGSize
-* UIEdgeInsets
-
 
 <details open>
 <summary>CGSize</summary>
@@ -1066,6 +1079,7 @@ CGSize(width: 2, height: 2) * 2 = CGSize(width: 4, height: 4)
 
 CGSize(width: 2, height: 2) + 1 = CGSize(width: 3, height: 3)
 ```
+
 
 Initializer:
 
@@ -1093,6 +1107,7 @@ vertical: CGFloat
 /// left + right
 horizontal: CGFloat
 ```
+
 
 Initializer:
 

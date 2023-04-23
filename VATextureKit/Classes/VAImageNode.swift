@@ -10,14 +10,14 @@ import AsyncDisplayKit
 open class VAImageNode: ASImageNode {
     public struct DTO {
         var image: UIImage?
-        var tintColor: UIColor?
+        var tintColor: ((VATheme) -> UIColor)?
         var size: CGSize?
         var contentMode: UIView.ContentMode?
         var backgroundColor: UIColor?
 
         public init(
             image: UIImage? = nil,
-            tintColor: UIColor? = nil,
+            tintColor: ((VATheme) -> UIColor)? = nil,
             size: CGSize? = nil,
             contentMode: UIView.ContentMode? = nil,
             backgroundColor: UIColor? = nil
@@ -30,7 +30,16 @@ open class VAImageNode: ASImageNode {
         }
     }
 
-    private let data: DTO
+    public var theme: VATheme { appContext.themeManager.theme }
+    open override var tintColor: UIColor! {
+        get { data.tintColor?(theme) ?? .clear }
+        set {
+            data.tintColor = { _ in newValue ?? .clear }
+            updateTintColorIfNeeded(theme)
+        }
+    }
+
+    private var data: DTO
 
     public init(data: DTO) {
         self.data = data
@@ -43,9 +52,6 @@ open class VAImageNode: ASImageNode {
         if let image = data.image {
             self.image = image
         }
-        if let tintColor = data.tintColor {
-            self.tintColor = tintColor
-        }
         if let size = data.size {
             self.style.preferredSize = size
         }
@@ -56,6 +62,32 @@ open class VAImageNode: ASImageNode {
 
         if let backgroundColor = data.backgroundColor {
             self.backgroundColor = backgroundColor
+        }
+        configureTheme(theme)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(themeDidChanged(_:)),
+            name: VAThemeManager.themeDidChangedNotification,
+            object: appContext.themeManager
+        )
+    }
+
+    open func configureTheme(_ theme: VATheme) {
+        updateTintColorIfNeeded(theme)
+    }
+
+    open func themeDidChanged() {
+        configureTheme(appContext.themeManager.theme)
+    }
+
+    @objc private func themeDidChanged(_ notification: Notification) {
+        themeDidChanged()
+    }
+
+    private func updateTintColorIfNeeded(_ theme: VATheme) {
+        if let color = data.tintColor?(theme) {
+            imageModificationBlock = ASImageNodeTintColorModificationBlock(color)
+            setNeedsDisplay()
         }
     }
 }

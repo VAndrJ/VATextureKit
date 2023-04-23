@@ -214,7 +214,7 @@ open class RxASCollectionSectionedAnimatedDataSource<S: AnimatableSectionModelTy
         animationConfiguration: AnimationConfiguration = AnimationConfiguration(),
         decideNodeTransition: @escaping DecideNodeTransition = { _, _, _ in .animated },
         configureCellBlock: @escaping ConfigureCellBlock,
-        configureSupplementaryNode: ConfigureSupplementaryNode? = nil,
+        configureSupplementaryNodeBlock: ConfigureSupplementaryNodeBlock? = nil,
         moveItem: @escaping MoveItem = { _, _, _ in () },
         canMoveItemWith: @escaping CanMoveItemWith = { _, _ in false }
     ) {
@@ -223,7 +223,7 @@ open class RxASCollectionSectionedAnimatedDataSource<S: AnimatableSectionModelTy
         
         super.init(
             configureCellBlock: configureCellBlock,
-            configureSupplementaryNode: configureSupplementaryNode,
+            configureSupplementaryNodeBlock: configureSupplementaryNodeBlock,
             moveItem: moveItem,
             canMoveItemWith: canMoveItemWith
         )
@@ -355,18 +355,18 @@ open class ASCollectionSectionedDataSource<S: SectionModelType>: NSObject, ASCol
     public typealias Section = S
     
     public typealias ConfigureCellBlock = (ASCollectionSectionedDataSource<S>, ASCollectionNode, IndexPath, Item) -> ASCellNodeBlock
-    public typealias ConfigureSupplementaryNode = (ASCollectionSectionedDataSource<S>, ASCollectionNode, String, IndexPath) -> ASCellNode
+    public typealias ConfigureSupplementaryNodeBlock = (ASCollectionSectionedDataSource<S>, ASCollectionNode, String, IndexPath) -> ASCellNodeBlock?
     public typealias MoveItem = (ASCollectionSectionedDataSource<S>, _ sourceIndexPath: IndexPath, _ destinationIndexPath: IndexPath) -> Void
     public typealias CanMoveItemWith = (ASCollectionSectionedDataSource<S>, ASCellNode) -> Bool
     
     public init(
         configureCellBlock: @escaping ConfigureCellBlock,
-        configureSupplementaryNode: ConfigureSupplementaryNode? = nil,
+        configureSupplementaryNodeBlock: ConfigureSupplementaryNodeBlock? = nil,
         moveItem: @escaping MoveItem = { _, _, _ in () },
         canMoveItemWith: @escaping CanMoveItemWith = { _, _ in false }
     ) {
         self.configureCellBlock = configureCellBlock
-        self.configureSupplementaryNode = configureSupplementaryNode
+        self.configureSupplementaryNodeBlock = configureSupplementaryNodeBlock
         self.moveItem = moveItem
         self.canMoveItemWith = canMoveItemWith
     }
@@ -399,6 +399,14 @@ open class ASCollectionSectionedDataSource<S: SectionModelType>: NSObject, ASCol
         let sectionModel = _sectionModels[section]
         return S(original: sectionModel.model, items: sectionModel.items)
     }
+
+    open subscript(safe section: Int) -> S? {
+        guard _sectionModels.indices ~= section else {
+            return nil
+        }
+        let sectionModel = _sectionModels[section]
+        return S(original: sectionModel.model, items: sectionModel.items)
+    }
     
     open subscript(indexPath: IndexPath) -> Item {
         get { _sectionModels[indexPath.section].items[indexPath.item] }
@@ -428,7 +436,7 @@ open class ASCollectionSectionedDataSource<S: SectionModelType>: NSObject, ASCol
         }
     }
     
-    open var configureSupplementaryNode: ConfigureSupplementaryNode? {
+    open var configureSupplementaryNodeBlock: ConfigureSupplementaryNodeBlock? {
         didSet {
 #if DEBUG
             ensureNotMutatedAfterBinding()
@@ -466,9 +474,9 @@ open class ASCollectionSectionedDataSource<S: SectionModelType>: NSObject, ASCol
         precondition(indexPath.item < _sectionModels[indexPath.section].items.count)
         return configureCellBlock(self, collectionNode, indexPath, self[indexPath])
     }
-    
-    open func collectionNode(_ collectionNode: ASCollectionNode, nodeForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> ASCellNode {
-        configureSupplementaryNode!(self, collectionNode, kind, indexPath)
+
+    public func collectionNode(_ collectionNode: ASCollectionNode, nodeBlockForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> ASCellNodeBlock {
+        configureSupplementaryNodeBlock?(self, collectionNode, kind, indexPath) ?? { ASCellNode().sized(.zero) }
     }
     
     open func collectionNode(_ collectionNode: ASCollectionNode, canMoveItemWith node: ASCellNode) -> Bool {
@@ -484,8 +492,8 @@ open class ASCollectionSectionedDataSource<S: SectionModelType>: NSObject, ASCol
     }
     
     open override func responds(to aSelector: Selector!) -> Bool {
-        if aSelector == #selector(ASCollectionDataSource.collectionNode(_:nodeForSupplementaryElementOfKind:at:)) {
-            return configureSupplementaryNode != nil
+        if aSelector == #selector(ASCollectionDataSource.collectionNode(_:nodeBlockForSupplementaryElementOfKind:at:)) {
+            return configureSupplementaryNodeBlock != nil
         } else {
             return super.responds(to: aSelector)
         }

@@ -29,8 +29,8 @@ extension VATextNode {
         color: @escaping (VATheme) -> UIColor,
         alignment: NSTextAlignment = .natural,
         descriptor: FontDescriptor = .default,
-        lineBreakMode: NSLineBreakMode? = .byTruncatingTail,
-        maximumNumberOfLines: Int? = nil,
+        truncationMode: NSLineBreakMode = .byTruncatingTail,
+        maximumNumberOfLines: UInt? = nil,
         secondary: [SecondaryTextAttributes] = []
     ) {
         func getFont(descriptor: FontDescriptor, textStyle: FontStyle) -> UIFont {
@@ -61,8 +61,6 @@ extension VATextNode {
                     font: getFont(descriptor: descriptor, textStyle: textStyle),
                     color: color(theme),
                     alignment: alignment,
-                    lineBreakMode: lineBreakMode,
-                    maximumNumberOfLines: maximumNumberOfLines,
                     secondary: secondary.map { secondary in
                         (
                             strings: secondary.strings,
@@ -74,5 +72,10 @@ extension VATextNode {
                 )
             }
         )
+
+        self.truncationMode = truncationMode
+        if let maximumNumberOfLines {
+            self.maximumNumberOfLines = maximumNumberOfLines
+        }
     }
 }
