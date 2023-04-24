@@ -60,7 +60,7 @@ final class PagerControllerNode: VASafeAreaDisplayNode {
                 Stack {
                     pagerNode
                     pagerIndicatorNode
-                        .relatively(horizontal: .start, vertical: .end)
+                        .relatively(horizontal: .center, vertical: .end)
                 }
                 .flex(grow: 1)
                 randomizeButtonNode

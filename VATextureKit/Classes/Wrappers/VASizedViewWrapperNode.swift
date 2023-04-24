@@ -47,6 +47,7 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
                 let height = size.height.rounded(.up)
                 child.frame = CGRect(x: 0, y: 0, width: bounds.width, height: height)
                 style.height = ASDimension(unit: .points, value: height)
+                setNeedsLayout()
             } else {
                 child.frame = bounds
             }
@@ -59,6 +60,7 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
                 let width = size.width.rounded(.up)
                 child.frame = CGRect(x: 0, y: 0, width: width, height: bounds.height)
                 style.width = ASDimension(unit: .points, value: width)
+                setNeedsLayout()
             } else {
                 child.frame = bounds
             }
@@ -70,6 +72,7 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
                 let size = child.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
                 child.frame = CGRect(origin: .zero, size: size)
                 style.preferredSize = size
+                setNeedsLayout()
             } else {
                 child.frame = bounds
             }
