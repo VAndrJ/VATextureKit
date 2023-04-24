@@ -70,7 +70,7 @@ open class VAReadMoreTextNode: VATextNode {
 
     public convenience init(
         text: String? = nil,
-        fontGetter: @escaping (_ contentSize: () -> UIContentSizeCategory) -> UIFont,
+        fontGetter: @escaping (_ contentSize: UIContentSizeCategory, _ theme: VATheme) -> UIFont,
         alignment: NSTextAlignment = .natural,
         truncationMode: NSLineBreakMode = .byWordWrapping,
         maximumNumberOfLines: UInt,

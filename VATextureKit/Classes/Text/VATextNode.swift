@@ -70,36 +70,24 @@ open class VATextNode: ASTextNode2 {
         maximumNumberOfLines: UInt? = .none,
         colorGetter: @escaping () -> UIColor = { appContext.themeManager.theme.label }
     ) {
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = alignment
         self.init(
             text: text,
-            stringGetter: { string, _ in
-                string.flatMap {
-                    NSAttributedString(
-                        string: $0,
-                        attributes: [
-                            .font: UIFont.systemFont(
-                                ofSize: fontStyle.getFontSize(contentSize: appContext.contentSizeManager.contentSize),
-                                weight: fontStyle.weight
-                            ),
-                            .foregroundColor: colorGetter(),
-                            .paragraphStyle: paragraphStyle,
-                        ]
-                    )
-                }
-            }
+            fontGetter: { contentSize, theme in
+                theme.font(
+                    fontStyle.getFontSize(contentSize: contentSize),
+                    fontStyle.weight
+                )
+            },
+            alignment: alignment,
+            truncationMode: truncationMode,
+            maximumNumberOfLines: maximumNumberOfLines,
+            colorGetter: colorGetter
         )
-
-        self.truncationMode = truncationMode
-        if let maximumNumberOfLines {
-            self.maximumNumberOfLines = maximumNumberOfLines
-        }
     }
     
     public convenience init(
         text: String? = nil,
-        fontGetter: @escaping (_ contentSize: () -> UIContentSizeCategory) -> UIFont,
+        fontGetter: @escaping (_ contentSize: UIContentSizeCategory, _ theme: VATheme) -> UIFont,
         alignment: NSTextAlignment = .natural,
         truncationMode: NSLineBreakMode = .byTruncatingTail,
         maximumNumberOfLines: UInt? = .none,
@@ -114,7 +102,10 @@ open class VATextNode: ASTextNode2 {
                     NSAttributedString(
                         string: $0,
                         attributes: [
-                            .font: fontGetter { appContext.contentSizeManager.contentSize },
+                            .font: fontGetter(
+                                appContext.contentSizeManager.contentSize,
+                                appContext.themeManager.theme
+                            ),
                             .foregroundColor: colorGetter(),
                             .paragraphStyle: paragraphStyle,
                         ]

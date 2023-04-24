@@ -1018,7 +1018,7 @@ Themes support in easy way. Default light / dark or custom init.
   * Relay() (PublishRelay)
 
 
-With these wrappers, the code becomes more concise. 
+With these wrappers, the code becomes more concise.
 
 
 <details open>

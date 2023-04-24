@@ -189,7 +189,6 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
 
     private func configure() {
         backgroundColor = .clear
-        shouldAnimateSizeChanges = false
     }
 
     private func checkIndex() {
