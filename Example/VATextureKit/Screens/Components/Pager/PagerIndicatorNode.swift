@@ -25,9 +25,7 @@ final class PagerIndicatorNode<Item: Equatable & IdentifiableType>: VASizedViewW
             .disposed(by: bag)
         itemsCountObs
             .distinctUntilChanged()
-            .do(afterNext: { [weak self] _ in
-                self?.setNeedsLayout()
-            })
+            .do(afterNext: { [weak self] _ in self?.setNeedsLayout() })
             .bind(to: child.rx.numberOfPages)
             .disposed(by: bag)
     }

@@ -998,6 +998,12 @@ override func animateLayoutTransition(_ context: ASContextTransitioning) {
 ```
 
 
+Example:
+
+
+![Layout transition example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/layout_transition_example.gif)
+
+
 ## Themes
 
 
