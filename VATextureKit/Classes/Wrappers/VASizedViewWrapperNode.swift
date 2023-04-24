@@ -36,6 +36,7 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
     open override func layout() {
         super.layout()
 
+        child.sizeToFit()
         switch sizing {
         case .viewHeihgt:
             if child.frame.height.rounded(.up) != bounds.height.rounded(.up) || child.frame.height.isZero {

@@ -14,6 +14,8 @@
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		A310A43229CF471400632416 /* CellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A310A43129CF471400632416 /* CellViewModel.swift */; };
+		A31F445D29F6AD76003618C9 /* PagerControllerNodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F445C29F6AD76003618C9 /* PagerControllerNodeViewModel.swift */; };
+		A31F445F29F6ADC7003618C9 /* PagerIndicatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F445E29F6ADC7003618C9 /* PagerIndicatorNode.swift */; };
 		A31F88A929EA9C840077296B /* test_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A31F88A829EA9C840077296B /* test_image.jpg */; };
 		A31F88AB29EA9CAF0077296B /* VANetworkImageNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F88AA29EA9CAF0077296B /* VANetworkImageNodeTests.swift */; };
 		A33CDF3329D9B875005F77C6 /* SlideAnimationControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CDF3229D9B875005F77C6 /* SlideAnimationControllerNode.swift */; };
@@ -108,6 +110,8 @@
 		6D876C31217CA656A4FE2F15 /* Pods-VATextureKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VATextureKit_Example.debug.xcconfig"; path = "Target Support Files/Pods-VATextureKit_Example/Pods-VATextureKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		7E7793BF92D39325720321EF /* Pods-VATextureKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VATextureKit_Example.release.xcconfig"; path = "Target Support Files/Pods-VATextureKit_Example/Pods-VATextureKit_Example.release.xcconfig"; sourceTree = "<group>"; };
 		A310A43129CF471400632416 /* CellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellViewModel.swift; sourceTree = "<group>"; };
+		A31F445C29F6AD76003618C9 /* PagerControllerNodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerControllerNodeViewModel.swift; sourceTree = "<group>"; };
+		A31F445E29F6ADC7003618C9 /* PagerIndicatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerIndicatorNode.swift; sourceTree = "<group>"; };
 		A31F88A829EA9C840077296B /* test_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test_image.jpg; sourceTree = "<group>"; };
 		A31F88AA29EA9CAF0077296B /* VANetworkImageNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VANetworkImageNodeTests.swift; sourceTree = "<group>"; };
 		A33CDF3229D9B875005F77C6 /* SlideAnimationControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideAnimationControllerNode.swift; sourceTree = "<group>"; };
@@ -303,6 +307,16 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
+		A31F445B29F6AD5F003618C9 /* Pager */ = {
+			isa = PBXGroup;
+			children = (
+				A34F8E8229F52EED00EF4C42 /* PagerControllerNode.swift */,
+				A31F445C29F6AD76003618C9 /* PagerControllerNodeViewModel.swift */,
+				A31F445E29F6ADC7003618C9 /* PagerIndicatorNode.swift */,
+			);
+			path = Pager;
+			sourceTree = "<group>";
+		};
 		A328F9A329D757B300FEB663 /* Snapshots */ = {
 			isa = PBXGroup;
 			children = (
@@ -358,9 +372,9 @@
 		A384F0B729EE71ED006BF197 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				A34F8E8229F52EED00EF4C42 /* PagerControllerNode.swift */,
 				A3B7F23729F0632E00CAA52D /* ReadMoreTextControllerNode.swift */,
 				A384F0B829EE7215006BF197 /* TypingTextControllerNode.swift */,
+				A31F445B29F6AD5F003618C9 /* Pager */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -778,6 +792,8 @@
 				A3A0BED629ED4D2D00253AAD /* RowLayoutControllerNode.swift in Sources */,
 				A3F8890929CE37BD00C67187 /* ImageCellNode.swift in Sources */,
 				A3820D2A29E568BE00993406 /* VATextFieldNode.swift in Sources */,
+				A31F445D29F6AD76003618C9 /* PagerControllerNodeViewModel.swift in Sources */,
+				A31F445F29F6ADC7003618C9 /* PagerIndicatorNode.swift in Sources */,
 				A34F8E7929F43AF700EF4C42 /* CollectionListHeaderFooterViewModel.swift in Sources */,
 				A3F8890029CE2D0000C67187 /* Support.swift in Sources */,
 				A3B7F23829F0632E00CAA52D /* ReadMoreTextControllerNode.swift in Sources */,

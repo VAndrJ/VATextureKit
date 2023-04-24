@@ -119,6 +119,14 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
         }
     }
 
+    public func scroll(to index: Int) {
+        self.scroll(to: index, animated: true)
+    }
+
+    public func scroll(to index: Int, animated: Bool) {
+        scrollToPage(at: index + (data.isCircular ? 1 : 0), animated: animated)
+    }
+
     public func next() {
         next(animated: true)
     }
