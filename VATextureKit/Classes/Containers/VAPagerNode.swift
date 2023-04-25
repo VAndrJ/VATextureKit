@@ -7,11 +7,37 @@
 
 import AsyncDisplayKit
 import RxSwift
+import RxCocoa
 
 /// ASPagerNode does not currently support circular scrolling.
 /// So I added some crutches to mimic it.
 /// In some cases it may not work very well, but I'll deal with that later.
 open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPagerDataSource, ASPagerDelegate {
+    public struct ObsDTO {
+        let itemsObs: Observable<[Item]>
+        let cellGetter: (Item) -> ASCellNode
+        let scrollDirection: UICollectionView.ScrollDirection
+        let minimumLineSpacing: CGFloat
+        let minimumInteritemSpacing: CGFloat
+        let isCircular: Bool
+
+        public init(
+            itemsObs: Observable<[Item]>,
+            cellGetter: @escaping (Item) -> ASCellNode,
+            scrollDirection: UICollectionView.ScrollDirection = .horizontal,
+            minimumLineSpacing: CGFloat = .leastNormalMagnitude,
+            minimumInteritemSpacing: CGFloat = .leastNormalMagnitude,
+            isCircular: Bool = false
+        ) {
+            self.itemsObs = itemsObs
+            self.cellGetter = cellGetter
+            self.scrollDirection = scrollDirection
+            self.minimumLineSpacing = minimumLineSpacing
+            self.minimumInteritemSpacing = minimumInteritemSpacing
+            self.isCircular = isCircular
+        }
+    }
+
     public struct DTO {
         var items: [Item]
         let cellGetter: (Item) -> ASCellNode
@@ -43,11 +69,30 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
         size.height -= (contentInset.top + contentInset.bottom)
         return size
     }
+    public var itemPosition: CGFloat { contentOffset.x / itemSize.width }
+    public let bag = DisposeBag()
 
     private var data: DTO
-    private var itemPosition: CGFloat { contentOffset.x / itemSize.width }
     private let delayedConfiguration: Bool
     private let indexRelay = BehaviorRelay<CGFloat>(value: 0)
+
+    public convenience init(data: ObsDTO) {
+        self.init(data: .init(
+            items: [],
+            cellGetter: data.cellGetter,
+            scrollDirection: data.scrollDirection,
+            minimumLineSpacing: data.minimumLineSpacing,
+            minimumInteritemSpacing: data.minimumInteritemSpacing,
+            isCircular: data.isCircular
+        ))
+
+        data.itemsObs
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] in
+                self?.update(items: $0)
+            })
+            .disposed(by: bag)
+    }
 
     public init(data: DTO) {
         self.data = data
@@ -74,6 +119,14 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
         }
     }
 
+    public func scroll(to index: Int) {
+        self.scroll(to: index, animated: true)
+    }
+
+    public func scroll(to index: Int, animated: Bool) {
+        scrollToPage(at: index + (data.isCircular ? 1 : 0), animated: animated)
+    }
+
     public func next() {
         next(animated: true)
     }
@@ -94,6 +147,14 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
         data.items = items
         reloadData()
         checkPosition()
+    }
+
+    open func configureTheme() {
+        reloadData()
+    }
+
+    open func themeDidChanged() {
+        configureTheme()
     }
 
     private func checkPosition() {
@@ -122,21 +183,12 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
         )
     }
 
-    open func configureTheme() {
-        reloadData()
-    }
-
-    open func themeDidChanged() {
-        configureTheme()
-    }
-
     @objc private func themeDidChanged(_ notification: Notification) {
         themeDidChanged()
     }
 
     private func configure() {
         backgroundColor = .clear
-        shouldAnimateSizeChanges = false
     }
 
     private func checkIndex() {

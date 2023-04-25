@@ -13,7 +13,7 @@ final class SearchSectionHeaderNode: VADisplayNode {
     init(viewModel: SearchSectionHeaderNodeViewModel) {
         self.titleTextNode = VATextNode(
             text: viewModel.title,
-            textStyle: .headline,
+            fontStyle: .headline,
             maximumNumberOfLines: 1
         )
 

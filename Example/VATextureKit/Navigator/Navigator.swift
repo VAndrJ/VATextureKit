@@ -95,7 +95,7 @@ class ScreenFactory {
         case .readMoreText:
             return VAViewController(node: ReadMoreTextControllerNode())
         case .pager:
-            return VAViewController(node: PagerControllerNode())
+            return VAViewController(node: PagerControllerNode(viewModel: PagerControllerNodeViewModel()))
         }
     }
 }

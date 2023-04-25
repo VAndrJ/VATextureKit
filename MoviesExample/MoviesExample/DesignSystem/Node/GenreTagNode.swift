@@ -13,7 +13,7 @@ final class GenreTagNode: VADisplayNode {
     init(genre: String) {
         self.titleTextNode = VATextNode(
             text: genre,
-            textStyle: .subhead,
+            fontStyle: .subhead,
             maximumNumberOfLines: 1,
             themeColor: { $0.secondaryLabel }
         )

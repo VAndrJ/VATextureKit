@@ -55,6 +55,7 @@ open class VATheme {
     public var systemGray4: UIColor
     public var systemGray5: UIColor
     public var systemGray6: UIColor
+    public var font: (_ size: CGFloat, _ weight: UIFont.Weight) -> UIFont
     
     public init(
         tag: VAThemeTag,
@@ -95,7 +96,8 @@ open class VATheme {
         systemGray3: UIColor,
         systemGray4: UIColor,
         systemGray5: UIColor,
-        systemGray6: UIColor
+        systemGray6: UIColor,
+        font: @escaping (_ size: CGFloat, _ weight: UIFont.Weight) -> UIFont
     ) {
         self.tag = tag
         self.userInterfaceStyle = userInterfaceStyle
@@ -136,6 +138,7 @@ open class VATheme {
         self.systemGray4 = systemGray4
         self.systemGray5 = systemGray5
         self.systemGray6 = systemGray6
+        self.font = font
     }
 }
 
@@ -186,7 +189,10 @@ public extension VATheme {
             systemGray3: UIColor.rgba(199, 199, 204, 1),
             systemGray4: UIColor.rgba(209, 209, 214, 1),
             systemGray5: UIColor.rgba(229, 229, 234, 1),
-            systemGray6: UIColor.rgba(242, 242, 247, 1)
+            systemGray6: UIColor.rgba(242, 242, 247, 1),
+            font: { size, weight in
+                UIFont.systemFont(ofSize: size, weight: weight)
+            }
         )
     }
     static var vaDark: VATheme {
@@ -229,7 +235,10 @@ public extension VATheme {
             systemGray3: UIColor.rgba(72, 72, 74, 1),
             systemGray4: UIColor.rgba(58, 58, 60, 1),
             systemGray5: UIColor.rgba(44, 44, 46, 1),
-            systemGray6: UIColor.rgba(28, 28, 30, 1)
+            systemGray6: UIColor.rgba(28, 28, 30, 1),
+            font: { size, weight in
+                UIFont.systemFont(ofSize: size, weight: weight)
+            }
         )
     }
 }

@@ -21,12 +21,27 @@ private func mapToCell(viewModel: CellViewModel) -> ASCellNode {
 
 final class PagerControllerNode: VASafeAreaDisplayNode {
     private lazy var pagerNode = VAPagerNode(data: .init(
-        items: (0...2).map { PagerCardCellNodeViewModel(title: "Title \($0)", description: "Description \($0)") },
+        itemsObs: viewModel.pagerItemsObs,
         cellGetter: mapToCell(viewModel:),
         isCircular: true
     ))
     private lazy var previousButtonNode = VAButtonNode()
+        .minConstrained(size: CGSize(same: 44))
     private lazy var nextButtonNode = VAButtonNode()
+        .minConstrained(size: CGSize(same: 44))
+    private lazy var randomizeButtonNode = VAButtonNode()
+        .minConstrained(size: CGSize(same: 44))
+    private lazy var pagerIndicatorNode = PagerIndicatorNode(
+        pagerNode: pagerNode,
+        itemsCountObs: viewModel.pagerItemsObs.map(\.count)
+    )
+    private let viewModel: PagerControllerNodeViewModel
+
+    init(viewModel: PagerControllerNodeViewModel) {
+        self.viewModel = viewModel
+
+        super.init()
+    }
 
     override func didLoad() {
         super.didLoad()
@@ -35,15 +50,21 @@ final class PagerControllerNode: VASafeAreaDisplayNode {
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        SafeArea(edges: [.top, .horizontal]) {
+        SafeArea {
             Column(cross: .stretch) {
                 Row(main: .spaceBetween) {
                     previousButtonNode
                     nextButtonNode
                 }
-                .padding(.all(16))
-                pagerNode
-                    .flex(grow: 1)
+                .padding(.horizontal(16))
+                Stack {
+                    pagerNode
+                    pagerIndicatorNode
+                        .relatively(horizontal: .center, vertical: .end)
+                }
+                .flex(grow: 1)
+                randomizeButtonNode
+                    .centered(centering: .X)
             }
         }
     }
@@ -54,10 +75,12 @@ final class PagerControllerNode: VASafeAreaDisplayNode {
         backgroundColor = theme.systemBackground
         previousButtonNode.configure(title: "Previous", theme: theme)
         nextButtonNode.configure(title: "Next", theme: theme)
+        randomizeButtonNode.configure(title: "Randomize", theme: theme)
     }
 
     private func bind() {
         previousButtonNode.onTap = pagerNode.previous
         nextButtonNode.onTap = pagerNode.next
+        randomizeButtonNode.onTap = viewModel.generateRandomPagerItems
     }
 }

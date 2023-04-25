@@ -713,7 +713,6 @@
 				3AACFC62975619CCF1B15C80 /* [CP] Check Pods Manifest.lock */,
 				A3820D6F29E59BA300993406 /* R.swift */,
 				A3820D6E29E59B8100993406 /* SwiftLint */,
-				A3820D7029E59C5700993406 /* Unused */,
 				A3820D3729E59A3000993406 /* Sources */,
 				A3820D3829E59A3000993406 /* Frameworks */,
 				A3820D3929E59A3000993406 /* Resources */,
@@ -911,25 +910,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ $ACTION != \"indexbuild\" ]; then\n  \"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/R/R.generated.swift\"\nfi\n";
-		};
-		A3820D7029E59C5700993406 /* Unused */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = Unused;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#if [ $ACTION != \"indexbuild\" ]; then\n#  if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n#    file=\"unused.rb\"\n#    if [ -f \"$file\" ]; then\n#      echo \"$file found.\"\n#      ruby unused.rb xcode\n#    else\n#      echo \"unused.rb doesn't exist\"\n#    fi\n#  fi\n#fi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

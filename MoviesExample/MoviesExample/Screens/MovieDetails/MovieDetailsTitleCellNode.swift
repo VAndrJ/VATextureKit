@@ -13,7 +13,7 @@ final class MovieDetailsTitleCellNode: VACellNode {
     private let ratingNode: RatingNode
 
     init(viewModel: MovieDetailsTitleCellNodeViewModel) {
-        self.titleTextNode = VATextNode(text: viewModel.title, textStyle: .headline)
+        self.titleTextNode = VATextNode(text: viewModel.title, fontStyle: .headline)
         self.yearTextNode = VATextNode(
             text: viewModel.year,
             maximumNumberOfLines: 1,

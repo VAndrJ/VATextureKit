@@ -998,6 +998,12 @@ override func animateLayoutTransition(_ context: ASContextTransitioning) {
 ```
 
 
+Example:
+
+
+![Layout transition example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/layout_transition_example.gif)
+
+
 ## Themes
 
 
@@ -1012,7 +1018,7 @@ Themes support in easy way. Default light / dark or custom init.
   * Relay() (PublishRelay)
 
 
-With these wrappers, the code becomes more concise. 
+With these wrappers, the code becomes more concise.
 
 
 <details open>

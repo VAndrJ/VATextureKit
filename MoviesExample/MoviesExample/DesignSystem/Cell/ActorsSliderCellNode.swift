@@ -23,7 +23,7 @@ final class ActorsSliderCellNode: VACellNode {
         self.viewModel = viewModel
         self.titleTextNode = VATextNode(
             text: viewModel.title,
-            textStyle: .headline
+            fontStyle: .headline
         )
         self.acrorNodes = viewModel.actors.map { listActor in
             VAContainerButtonNode(
