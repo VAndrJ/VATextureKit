@@ -29,18 +29,18 @@ open class VAReadMoreTextNode: VATextNode {
 
     public private(set) var readMore: ReadMore?
     public weak var textDelegate: ASTextNodeDelegate?
-    public private(set) lazy var readMoreStringGetter: ((ReadMore) -> NSAttributedString?)? = { [weak self] in
+    public private(set) lazy var readMoreStringGetter: ((ReadMore, VATheme) -> NSAttributedString?)? = { [weak self] readMore, theme in
         guard let self else {
             return nil
         }
         return NSAttributedString(
-            string: $0.text,
+            string: readMore.text,
             attributes: [
-                .font: UIFont.systemFont(
-                    ofSize: $0.fontStyle.getFontSize(contentSize: appContext.contentSizeManager.contentSize),
-                    weight: $0.fontStyle.weight
+                .font: theme.font(
+                    readMore.fontStyle.getFontSize(contentSize: appContext.contentSizeManager.contentSize),
+                    readMore.fontStyle.weight
                 ),
-                .foregroundColor: $0.colorGetter(self.theme)
+                .foregroundColor: readMore.colorGetter(self.theme)
             ]
         )
     }
@@ -65,7 +65,7 @@ open class VAReadMoreTextNode: VATextNode {
 
         self.readMore = readMore
         truncationAttributedText = NSAttributedString(string: readMore.truncationText)
-        additionalTruncationMessage = readMoreStringGetter?(readMore)
+        additionalTruncationMessage = readMoreStringGetter?(readMore, theme)
     }
 
     public convenience init(
@@ -88,7 +88,7 @@ open class VAReadMoreTextNode: VATextNode {
 
         self.readMore = readMore
         truncationAttributedText = NSAttributedString(string: readMore.truncationText)
-        additionalTruncationMessage = readMoreStringGetter?(readMore)
+        additionalTruncationMessage = readMoreStringGetter?(readMore, theme)
     }
 
     public convenience init(
@@ -111,21 +111,21 @@ open class VAReadMoreTextNode: VATextNode {
 
         self.readMore = readMore
         truncationAttributedText = NSAttributedString(string: readMore.truncationText)
-        additionalTruncationMessage = readMoreStringGetter?(readMore)
+        additionalTruncationMessage = readMoreStringGetter?(readMore, theme)
     }
 
     public convenience init(
         text: String?,
         stringGetter: @escaping (String?, VATheme) -> NSAttributedString?,
         readMore: ReadMore,
-        readMoreStringGetter: @escaping (ReadMore) -> NSAttributedString?
+        readMoreStringGetter: @escaping (ReadMore, VATheme) -> NSAttributedString?
     ) {
         self.init(text: text, stringGetter: stringGetter)
 
         self.readMore = readMore
         self.readMoreStringGetter = readMoreStringGetter
         truncationAttributedText = NSAttributedString(string: readMore.truncationText)
-        additionalTruncationMessage = readMoreStringGetter(readMore)
+        additionalTruncationMessage = readMoreStringGetter(readMore, theme)
     }
 
     open override func didLoad() {
@@ -136,7 +136,7 @@ open class VAReadMoreTextNode: VATextNode {
     }
 
     open override func configureTheme(theme: VATheme) {
-        additionalTruncationMessage = readMore.flatMap { readMoreStringGetter?($0) }
+        additionalTruncationMessage = readMore.flatMap { readMoreStringGetter?($0, theme) }
 
         super.configureTheme(theme: theme)
     }
@@ -146,23 +146,23 @@ open class VAReadMoreTextNode: VATextNode {
 
 extension VAReadMoreTextNode: ASTextNodeDelegate {
 
-    public func textNode(_ textNode: ASTextNode!, shouldHighlightLinkAttribute attribute: String!, value: Any!, at point: CGPoint) -> Bool {
+    public func textNode(_ textNode: ASTextNode, shouldHighlightLinkAttribute attribute: String, value: Any, at point: CGPoint) -> Bool {
         textDelegate?.textNode?(textNode, shouldHighlightLinkAttribute: attribute, value: value, at: point) ?? false
     }
 
-    public func textNode(_ textNode: ASTextNode!, shouldLongPressLinkAttribute attribute: String!, value: Any!, at point: CGPoint) -> Bool {
+    public func textNode(_ textNode: ASTextNode, shouldLongPressLinkAttribute attribute: String, value: Any, at point: CGPoint) -> Bool {
         textDelegate?.textNode?(textNode, shouldLongPressLinkAttribute: attribute, value: value, at: point) ?? false
     }
 
-    public func textNode(_ textNode: ASTextNode!, tappedLinkAttribute attribute: String!, value: Any!, at point: CGPoint, textRange: NSRange) {
+    public func textNode(_ textNode: ASTextNode, tappedLinkAttribute attribute: String, value: Any, at point: CGPoint, textRange: NSRange) {
         textDelegate?.textNode?(textNode, tappedLinkAttribute: attribute, value: value, at: point, textRange: textRange)
     }
 
-    public func textNode(_ textNode: ASTextNode!, longPressedLinkAttribute attribute: String!, value: Any!, at point: CGPoint, textRange: NSRange) {
+    public func textNode(_ textNode: ASTextNode, longPressedLinkAttribute attribute: String, value: Any, at point: CGPoint, textRange: NSRange) {
         textDelegate?.textNode?(textNode, longPressedLinkAttribute: attribute, value: value, at: point, textRange: textRange)
     }
 
-    public func textNodeTappedTruncationToken(_ textNode: ASTextNode!) {
+    public func textNodeTappedTruncationToken(_ textNode: ASTextNode) {
         maximumNumberOfLines = 0
         setNeedsLayout()
         textDelegate?.textNodeTappedTruncationToken?(textNode)

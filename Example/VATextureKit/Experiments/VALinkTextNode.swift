@@ -25,9 +25,14 @@ open class VALinkTextNode: VATextNode {
     open override func didLoad() {
         super.didLoad()
 
-        layer.as_allowsHighlightDrawing = true
         isUserInteractionEnabled = true
         delegate = self
+    }
+
+    open override func didEnterDisplayState() {
+        super.didEnterDisplayState()
+
+        supernode?.layer.as_allowsHighlightDrawing = true
     }
 
     open override func configureTheme(theme: VATheme) {
@@ -58,7 +63,7 @@ open class VALinkTextNode: VATextNode {
 
 extension VALinkTextNode: ASTextNodeDelegate {
 
-    public func textNode(_ textNode: ASTextNode!, tappedLinkAttribute attribute: String!, value: Any!, at point: CGPoint, textRange: NSRange) {
+    public func textNode(_ textNode: ASTextNode, tappedLinkAttribute attribute: String, value: Any, at point: CGPoint, textRange: NSRange) {
         guard let url = value as? URL else { return }
         linkRelay?.accept(url)
         onLinkTap?(url)
