@@ -16,7 +16,7 @@ final class SearchMovieCellNode: VACellNode {
     init(viewModel: SearchMovieCellNodeViewModel) {
         self.titleTextNode = VATextNode(
             text: viewModel.title,
-            textStyle: .headline
+            fontStyle: .headline
         ).flex(shrink: 0.1)
         self.imageNode = VANetworkImageNode(data: .init(
             image: viewModel.image?.getImagePath(width: 200),

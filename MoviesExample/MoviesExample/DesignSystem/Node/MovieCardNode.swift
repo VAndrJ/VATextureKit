@@ -27,7 +27,7 @@ final class MovieCardNode: VADisplayNode {
         )).flex(shrink: 0.1, grow: 1)
         self.titleTextNode = VATextNode(
             text: data.title,
-            textStyle: .footnote
+            fontStyle: .footnote
         )
         self.ratingNode = RatingNode(rating: data.rating)
 

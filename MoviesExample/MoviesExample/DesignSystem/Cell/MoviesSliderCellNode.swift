@@ -21,7 +21,7 @@ final class MoviesSliderCellNode: VACellNode {
     init(viewModel: MoviesSliderCellNodeViewModel) {
         self.titleTextNode = VATextNode(
             text: viewModel.title,
-            textStyle: .headline
+            fontStyle: .headline
         )
         self.movieNodes = viewModel.movies.map { movie in
             VAContainerButtonNode(

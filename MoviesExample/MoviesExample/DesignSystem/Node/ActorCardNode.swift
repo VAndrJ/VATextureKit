@@ -25,12 +25,12 @@ final class ActorCardNode: VADisplayNode {
         )).flex(grow: 1)
         self.nameTextNode = VATextNode(
             text: data.name,
-            textStyle: .caption1,
+            fontStyle: .caption1,
             alignment: .center
         )
         self.roleTextNode = VATextNode(
             text: data.character,
-            textStyle: .caption2,
+            fontStyle: .caption2,
             alignment: .center,
             themeColor: { $0.secondaryLabel }
         )
