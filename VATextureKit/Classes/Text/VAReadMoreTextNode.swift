@@ -135,10 +135,10 @@ open class VAReadMoreTextNode: VATextNode {
         delegate = self
     }
 
-    open override func configureTheme() {
+    open override func configureTheme(theme: VATheme) {
         additionalTruncationMessage = readMore.flatMap { readMoreStringGetter?($0) }
 
-        super.configureTheme()
+        super.configureTheme(theme: theme)
     }
 }
 

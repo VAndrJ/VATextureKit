@@ -38,7 +38,7 @@ open class VATextNode: ASTextNode2 {
     }
     
     public var text: String? {
-        didSet { configureTheme() }
+        didSet { configureTheme(theme: theme) }
     }
     public var theme: VATheme { appContext.themeManager.theme }
     
@@ -130,7 +130,7 @@ open class VATextNode: ASTextNode2 {
 
         if let text {
             self.text = text
-            configureTheme()
+            configureTheme(theme: theme)
         }
     }
     
@@ -151,12 +151,12 @@ open class VATextNode: ASTextNode2 {
         )
     }
     
-    open func configureTheme() {
+    open func configureTheme(theme: VATheme) {
         attributedText = stringGetter(text, theme)
     }
     
     open func themeDidChanged() {
-        configureTheme()
+        configureTheme(theme: theme)
     }
     
     @objc private func themeDidChanged(_ notification: Notification) {
