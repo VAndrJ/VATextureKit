@@ -16,24 +16,15 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
     public struct ObsDTO {
         let itemsObs: Observable<[Item]>
         let cellGetter: (Item) -> ASCellNode
-        let scrollDirection: UICollectionView.ScrollDirection
-        let minimumLineSpacing: CGFloat
-        let minimumInteritemSpacing: CGFloat
         let isCircular: Bool
 
         public init(
             itemsObs: Observable<[Item]>,
             cellGetter: @escaping (Item) -> ASCellNode,
-            scrollDirection: UICollectionView.ScrollDirection = .horizontal,
-            minimumLineSpacing: CGFloat = .leastNormalMagnitude,
-            minimumInteritemSpacing: CGFloat = .leastNormalMagnitude,
             isCircular: Bool = false
         ) {
             self.itemsObs = itemsObs
             self.cellGetter = cellGetter
-            self.scrollDirection = scrollDirection
-            self.minimumLineSpacing = minimumLineSpacing
-            self.minimumInteritemSpacing = minimumInteritemSpacing
             self.isCircular = isCircular
         }
     }
@@ -41,28 +32,20 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
     public struct DTO {
         var items: [Item]
         let cellGetter: (Item) -> ASCellNode
-        let scrollDirection: UICollectionView.ScrollDirection
-        let minimumLineSpacing: CGFloat
-        let minimumInteritemSpacing: CGFloat
         let isCircular: Bool
 
         public init(
             items: [Item],
             cellGetter: @escaping (Item) -> ASCellNode,
-            scrollDirection: UICollectionView.ScrollDirection = .horizontal,
-            minimumLineSpacing: CGFloat = .leastNormalMagnitude,
-            minimumInteritemSpacing: CGFloat = .leastNormalMagnitude,
             isCircular: Bool = false
         ) {
             self.items = items
             self.cellGetter = cellGetter
-            self.scrollDirection = scrollDirection
-            self.minimumLineSpacing = minimumLineSpacing
-            self.minimumInteritemSpacing = minimumInteritemSpacing
             self.isCircular = isCircular
         }
     }
 
+    public var itemsCountObs: Observable<Int> { itemsCountRelay.asObservable() }
     public var indexObs: Observable<CGFloat> { indexRelay.asObservable() }
     public var itemSize: CGSize {
         var size = bounds.size
@@ -71,18 +54,18 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
     }
     public var itemPosition: CGFloat { contentOffset.x / itemSize.width }
     public let bag = DisposeBag()
+    public private(set) var data: DTO {
+        didSet { itemsCountRelay.accept(data.items.count) }
+    }
 
-    private var data: DTO
     private let delayedConfiguration: Bool
     private let indexRelay = BehaviorRelay<CGFloat>(value: 0)
+    private let itemsCountRelay: BehaviorRelay<Int>
 
     public convenience init(data: ObsDTO) {
         self.init(data: .init(
             items: [],
             cellGetter: data.cellGetter,
-            scrollDirection: data.scrollDirection,
-            minimumLineSpacing: data.minimumLineSpacing,
-            minimumInteritemSpacing: data.minimumInteritemSpacing,
             isCircular: data.isCircular
         ))
 
@@ -96,11 +79,12 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
 
     public init(data: DTO) {
         self.data = data
+        self.itemsCountRelay = BehaviorRelay(value: data.items.count)
         self.delayedConfiguration = !Thread.current.isMainThread
         let flowLayout = ASPagerFlowLayout()
-        flowLayout.scrollDirection = data.scrollDirection
-        flowLayout.minimumLineSpacing = data.minimumLineSpacing
-        flowLayout.minimumInteritemSpacing = data.minimumInteritemSpacing
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.minimumLineSpacing = 0
+        flowLayout.minimumInteritemSpacing = 0
 
         super.init(frame: UIScreen.main.bounds, collectionViewLayout: flowLayout, layoutFacilitator: nil)
 

@@ -314,7 +314,6 @@
 			children = (
 				A34F8E8229F52EED00EF4C42 /* PagerControllerNode.swift */,
 				A31F445C29F6AD76003618C9 /* PagerControllerNodeViewModel.swift */,
-				A31F445E29F6ADC7003618C9 /* PagerIndicatorNode.swift */,
 			);
 			path = Pager;
 			sourceTree = "<group>";
@@ -469,11 +468,12 @@
 			children = (
 				A310A43129CF471400632416 /* CellViewModel.swift */,
 				A3F888DC29CC602900C67187 /* CollectionExampleCellNode.swift */,
+				A3483ACF29E937B500948574 /* HapticButtonNode.swift */,
 				A3F8890829CE37BD00C67187 /* ImageCellNode.swift */,
 				A3F8890A29CE385B00C67187 /* ImageNumberCellNode.swift */,
 				A3BCEC5629CFA6770077217F /* LoadingCellNode.swift */,
-				A3483ACF29E937B500948574 /* HapticButtonNode.swift */,
 				A34F8E8429F576C000EF4C42 /* PagerCardCellNode.swift */,
+				A31F445E29F6ADC7003618C9 /* PagerIndicatorNode.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
