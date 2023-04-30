@@ -224,7 +224,7 @@ ASInsetLayoutSpec(
 ```
 
 
-With `.background`:
+With `.padding`:
 
 ```swift
 titleTextNode
@@ -246,7 +246,7 @@ ASWrapperLayoutSpec(layoutElement: imageNode)
 ```
 
 
-With `.background`:
+With `.wrapped`:
 
 ```swift
 imageNode.wrapped()
@@ -308,7 +308,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 ```
 
 
-With `SafeArea`:
+With `.safe`:
 
 ```swift
 override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -649,7 +649,7 @@ titleTextNode.style.flexGrow = 1
 ```
 
 
-With `.sized`:
+With `.flex`:
 
 ```swift
 titleTextNode
