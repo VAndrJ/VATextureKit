@@ -12,18 +12,17 @@ final class PagerIndicatorNode<Item: Equatable & IdentifiableType>: VASizedViewW
     private let bag = DisposeBag()
     private weak var pagerNode: VAPagerNode<Item>?
 
-    convenience init(pagerNode: VAPagerNode<Item>, itemsCountObs: Observable<Int>) {
+    convenience init(pagerNode: VAPagerNode<Item>) {
         self.init(childGetter: { UIPageControl() }, sizing: .viewSize)
 
         self.pagerNode = pagerNode
-        pagerNode
-            .indexObs
+        pagerNode.indexObs
             .map { Int($0 + 0.5) }
             .debounce(.milliseconds(100), scheduler: MainScheduler.asyncInstance)
             .distinctUntilChanged()
             .bind(to: child.rx.currentPage)
             .disposed(by: bag)
-        itemsCountObs
+        pagerNode.itemsCountObs
             .distinctUntilChanged()
             .do(afterNext: { [weak self] _ in self?.setNeedsLayout() })
             .bind(to: child.rx.numberOfPages)

@@ -31,10 +31,7 @@ final class PagerControllerNode: VASafeAreaDisplayNode {
         .minConstrained(size: CGSize(same: 44))
     private lazy var randomizeButtonNode = VAButtonNode()
         .minConstrained(size: CGSize(same: 44))
-    private lazy var pagerIndicatorNode = PagerIndicatorNode(
-        pagerNode: pagerNode,
-        itemsCountObs: viewModel.pagerItemsObs.map(\.count)
-    )
+    private lazy var pagerIndicatorNode = PagerIndicatorNode(pagerNode: pagerNode)
     private let viewModel: PagerControllerNodeViewModel
 
     init(viewModel: PagerControllerNodeViewModel) {

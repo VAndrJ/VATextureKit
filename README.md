@@ -23,9 +23,15 @@ Add the following to your Podfile:
 ```
 pod 'VATextureKit'
 ```
-In the project directory in Terminal:
+In the project directory in the Terminal:
 ```
 pod install
+```
+
+
+Or just try the example project:
+```
+pod try 'VATextureKit'
 ```
 
 
