@@ -1184,11 +1184,19 @@ sRepresentation(layout:)
 
 <details open>
 <summary>VASlidingTabBarNode</summary>
-![Sliding tab bar example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/sliding_tab_bar_example.gif)
+
+
+![Sliding tab bar](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/sliding_tab_bar_example.gif)
+
+
 </details>
 
 
 <details>
 <summary>VALinkTextNode</summary>
-![Link text node example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/link_text_example.gif)
+
+
+![Link text node](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/link_text_example.gif)
+
+
 </details>
