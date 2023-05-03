@@ -54,6 +54,7 @@ The following `LayoutSpec` DSL components can be used to compose simple or very 
 | .overlay      | ASOverlayLayoutSpec                     |
 | .background   | ASBackgroundLayoutSpec                  |
 | .relatively   | ASRelativeLayoutSpec                    |
+| .absolutely   | ASAbsoluteLayoutSpec                    |
 
 
 
@@ -445,6 +446,33 @@ With `.relatively`:
 ```swift
 buttonNode
     .relatively(horizontal: .start, vertical: .end)
+```
+
+
+</details>
+
+
+<details>
+<summary>.absolutely</summary>
+
+
+With `ASAbsoluteLayoutSpec`: 
+
+```swift
+buttonNode.style.preferredSize = frame.size
+buttonNode.style.layoutPosition = frame.origin
+return ASAbsoluteLayoutSpec(
+    sizing: .sizeToFit,
+    children: [buttonNode]
+)
+```
+
+
+With `.absolutely`:
+
+```swift
+buttonNode
+    .absolutely(frame: .frame, sizing: .sizeToFit)
 ```
 
 
