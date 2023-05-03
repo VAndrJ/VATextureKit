@@ -26,4 +26,5 @@ enum NavigationRoute {
     case stackLayout
     case typingText
     case slidingTabBar
+    case linkTextNode
 }

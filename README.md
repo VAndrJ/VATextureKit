@@ -14,6 +14,7 @@
 * [Property wrappers](#property-wrappers)
 * [Extensions](#extensions)
 * [Previews](#previews)
+* [Experiments](#experiments)
 
 
 ## Installation
@@ -1176,3 +1177,18 @@ sRepresentation(layout:)
 ```
 
 ![Preview example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/preview_example.png)
+
+
+## Experiments
+
+
+<details open>
+<summary>VASlidingTabBarNode</summary>
+![Sliding tab bar example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/sliding_tab_bar_example.png)
+</details>
+
+
+<details>
+<summary>VALinkTextNode</summary>
+![Link text node example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/link_text_example.png)
+</details>
