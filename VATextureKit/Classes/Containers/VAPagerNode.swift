@@ -46,6 +46,7 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
     }
 
     public var itemsCountObs: Observable<Int> { itemsCountRelay.asObservable() }
+    public var itemsCount: Int { itemsCountRelay.value }
     public var indexObs: Observable<CGFloat> { indexRelay.asObservable() }
     public var itemSize: CGSize {
         var size = bounds.size

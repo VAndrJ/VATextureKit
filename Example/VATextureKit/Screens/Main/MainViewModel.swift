@@ -42,6 +42,10 @@ final class MainViewModel {
             MainListCellNodeViewModel(title: "VAReadMoreTextNode", description: "`Read more` truncation text node", route: .readMoreText),
             MainListCellNodeViewModel(title: "VAPagerNode", description: "ASPagerNode with improvements", route: .pager),
         ]),
+        AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Experiments"), items: [
+            MainListCellNodeViewModel(title: "VASlidingTabBarNode", description: "ASScrollNode based", route: .slidingTabBar),
+            MainListCellNodeViewModel(title: "VALinkTextNode", description: "ASTextNode based", route: .linkTextNode),
+        ]),
     ])
     var listDataObs: Observable<[AnimatableSectionModel<MainSectionHeaderNodeViewModel, MainListCellNodeViewModel>]>
     

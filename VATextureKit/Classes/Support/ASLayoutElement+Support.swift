@@ -198,6 +198,18 @@ public extension ASLayoutElement {
         )
     }
 
+    func absolutely(
+        frame: CGRect,
+        sizing: ASAbsoluteLayoutSpecSizing = .default
+    ) -> ASAbsoluteLayoutSpec {
+        style.preferredSize = frame.size
+        style.layoutPosition = frame.origin
+        return ASAbsoluteLayoutSpec(
+            sizing: sizing,
+            children: [self]
+        )
+    }
+
     func background(_ element: ASLayoutElement) -> ASBackgroundLayoutSpec {
         ASBackgroundLayoutSpec(
             child: self,

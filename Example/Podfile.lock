@@ -24,7 +24,7 @@ PODS:
   - RxRelay (6.5.0):
     - RxSwift (= 6.5.0)
   - RxSwift (6.5.0)
-  - Swiftional (0.2.7)
+  - Swiftional (0.2.9)
   - Texture (3.1.0):
     - Texture/AssetsLibrary (= 3.1.0)
     - Texture/Core (= 3.1.0)
@@ -45,7 +45,7 @@ PODS:
     - Texture/Core
   - Texture/Video (3.1.0):
     - Texture/Core
-  - VATextureKit (0.4.1):
+  - VATextureKit (0.4.2):
     - Differentiator (~> 5.0.0)
     - RxCocoa (~> 6.5.0)
     - RxSwift (~> 6.5.0)
@@ -55,7 +55,7 @@ DEPENDENCIES:
   - Nimble (~> 10.0.0)
   - Quick (~> 2.2.0)
   - R.swift
-  - Swiftional (= 0.2.7)
+  - Swiftional (= 0.2.9)
   - VATextureKit (from `../`)
 
 SPEC REPOS:
@@ -88,10 +88,10 @@ SPEC CHECKSUMS:
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
-  Swiftional: 7e808bc1cc9627801a7772229719529fc3b7b43e
+  Swiftional: c8b6746865543ab4b696aecaa94a487ad60a4c3d
   Texture: 2e8ab2519452515f7f5a520f5a8f7e0a413abfa3
-  VATextureKit: 1df121999f698ab5219e7716e8a0206d4f868026
+  VATextureKit: de11532f795676a3585b4d6f17602ca7c062185a
 
-PODFILE CHECKSUM: 7d5594043c8a8992977431f6be07c993a3697507
+PODFILE CHECKSUM: 2966fd86c2de4e2bcca3e92dc7464620cd879a71
 
 COCOAPODS: 1.12.1

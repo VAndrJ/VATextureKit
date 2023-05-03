@@ -14,6 +14,7 @@
 * [Property wrappers](#property-wrappers)
 * [Extensions](#extensions)
 * [Previews](#previews)
+* [Experiments](#experiments)
 
 
 ## Installation
@@ -54,6 +55,7 @@ The following `LayoutSpec` DSL components can be used to compose simple or very 
 | .overlay      | ASOverlayLayoutSpec                     |
 | .background   | ASBackgroundLayoutSpec                  |
 | .relatively   | ASRelativeLayoutSpec                    |
+| .absolutely   | ASAbsoluteLayoutSpec                    |
 
 
 
@@ -445,6 +447,33 @@ With `.relatively`:
 ```swift
 buttonNode
     .relatively(horizontal: .start, vertical: .end)
+```
+
+
+</details>
+
+
+<details>
+<summary>.absolutely</summary>
+
+
+With `ASAbsoluteLayoutSpec`: 
+
+```swift
+buttonNode.style.preferredSize = frame.size
+buttonNode.style.layoutPosition = frame.origin
+return ASAbsoluteLayoutSpec(
+    sizing: .sizeToFit,
+    children: [buttonNode]
+)
+```
+
+
+With `.absolutely`:
+
+```swift
+buttonNode
+    .absolutely(frame: .frame, sizing: .sizeToFit)
 ```
 
 
@@ -1148,3 +1177,18 @@ sRepresentation(layout:)
 ```
 
 ![Preview example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/preview_example.png)
+
+
+## Experiments
+
+
+<details open>
+<summary>VASlidingTabBarNode</summary>
+![Sliding tab bar example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/sliding_tab_bar_example.png)
+</details>
+
+
+<details>
+<summary>VALinkTextNode</summary>
+![Link text node example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/link_text_example.png)
+</details>

@@ -7,6 +7,7 @@
 
 import AsyncDisplayKit
 
+@MainActor
 open class VAScrollNode: ASScrollNode {
     public struct DTO {
         let scrollableDirections: ASScrollDirection
