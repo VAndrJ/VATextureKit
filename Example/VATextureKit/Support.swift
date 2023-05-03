@@ -32,4 +32,8 @@ extension String {
     func dummyLong(separator: String = " ") -> String {
         (0...10).map { _ in self }.joined(separator: separator)
     }
+
+    func repeating(_ count: Int) -> String {
+        (0...count).map { _ in self }.joined(separator: "")
+    }
 }
