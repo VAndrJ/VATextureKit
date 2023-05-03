@@ -31,6 +31,11 @@
 		A34F8E8529F576C000EF4C42 /* PagerCardCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34F8E8429F576C000EF4C42 /* PagerCardCellNode.swift */; };
 		A3551A5529DD57F000B0B18F /* VALinearGradientNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3551A5429DD57F000B0B18F /* VALinearGradientNodeTests.swift */; };
 		A3551A5929DD5FCF00B0B18F /* VABaseGradientNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3551A5829DD5FCF00B0B18F /* VABaseGradientNodeTests.swift */; };
+		A357B7F929FFF290004835C5 /* SlidingTabBarControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357B7F829FFF290004835C5 /* SlidingTabBarControllerNode.swift */; };
+		A357B7FE2A01644C004835C5 /* VASlidingTabBarNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357B7FD2A01644C004835C5 /* VASlidingTabBarNode.swift */; };
+		A357B8002A02483C004835C5 /* VASlidingTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357B7FF2A02483C004835C5 /* VASlidingTab.swift */; };
+		A357B8022A0248B9004835C5 /* VASlidingTabTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357B8012A0248B9004835C5 /* VASlidingTabTextNode.swift */; };
+		A357B8042A02490E004835C5 /* VASlidingIndicatorContainerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357B8032A02490E004835C5 /* VASlidingIndicatorContainerNode.swift */; };
 		A359BE7A29D76C0D003BDE19 /* VADisplayNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */; };
 		A359BE7E29D76E1B003BDE19 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A359BE7D29D76E1B003BDE19 /* Environment.swift */; };
 		A3820D1529E53BD600993406 /* VARadialGradientNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3820D1429E53BD600993406 /* VARadialGradientNodeTests.swift */; };
@@ -128,6 +133,11 @@
 		A34F8E8429F576C000EF4C42 /* PagerCardCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerCardCellNode.swift; sourceTree = "<group>"; };
 		A3551A5429DD57F000B0B18F /* VALinearGradientNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VALinearGradientNodeTests.swift; sourceTree = "<group>"; };
 		A3551A5829DD5FCF00B0B18F /* VABaseGradientNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VABaseGradientNodeTests.swift; sourceTree = "<group>"; };
+		A357B7F829FFF290004835C5 /* SlidingTabBarControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidingTabBarControllerNode.swift; sourceTree = "<group>"; };
+		A357B7FD2A01644C004835C5 /* VASlidingTabBarNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASlidingTabBarNode.swift; sourceTree = "<group>"; };
+		A357B7FF2A02483C004835C5 /* VASlidingTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASlidingTab.swift; sourceTree = "<group>"; };
+		A357B8012A0248B9004835C5 /* VASlidingTabTextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASlidingTabTextNode.swift; sourceTree = "<group>"; };
+		A357B8032A02490E004835C5 /* VASlidingIndicatorContainerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASlidingIndicatorContainerNode.swift; sourceTree = "<group>"; };
 		A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VADisplayNodeTests.swift; sourceTree = "<group>"; };
 		A359BE7D29D76E1B003BDE19 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		A3820D1429E53BD600993406 /* VARadialGradientNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VARadialGradientNodeTests.swift; sourceTree = "<group>"; };
@@ -361,12 +371,24 @@
 			path = CollectionListHeaderFooter;
 			sourceTree = "<group>";
 		};
+		A357B7FC2A016405004835C5 /* SlidingTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				A357B7FF2A02483C004835C5 /* VASlidingTab.swift */,
+				A357B7FD2A01644C004835C5 /* VASlidingTabBarNode.swift */,
+				A357B8012A0248B9004835C5 /* VASlidingTabTextNode.swift */,
+				A357B8032A02490E004835C5 /* VASlidingIndicatorContainerNode.swift */,
+			);
+			path = SlidingTabBar;
+			sourceTree = "<group>";
+		};
 		A3820D2B29E56F3D00993406 /* Experiments */ = {
 			isa = PBXGroup;
 			children = (
+				A31F446029F70A7A003618C9 /* VALinkTextNode.swift */,
 				A3820D2929E568BE00993406 /* VATextFieldNode.swift */,
 				A3A0BEDF29ED5AE700253AAD /* VATextNode+Support.swift */,
-				A31F446029F70A7A003618C9 /* VALinkTextNode.swift */,
+				A357B7FC2A016405004835C5 /* SlidingTabBar */,
 			);
 			path = Experiments;
 			sourceTree = "<group>";
@@ -375,6 +397,7 @@
 			isa = PBXGroup;
 			children = (
 				A3B7F23729F0632E00CAA52D /* ReadMoreTextControllerNode.swift */,
+				A357B7F829FFF290004835C5 /* SlidingTabBarControllerNode.swift */,
 				A384F0B829EE7215006BF197 /* TypingTextControllerNode.swift */,
 				A31F445B29F6AD5F003618C9 /* Pager */,
 			);
@@ -764,12 +787,16 @@
 				A397A2C229AAA68800A05B8F /* AlertNodeController.swift in Sources */,
 				A34F8E8529F576C000EF4C42 /* PagerCardCellNode.swift in Sources */,
 				A3F888D929CC427D00C67187 /* CollectionListViewModel.swift in Sources */,
+				A357B8002A02483C004835C5 /* VASlidingTab.swift in Sources */,
 				A3B3F3CD29A2B4FC0090E6E2 /* MainListCellNode.swift in Sources */,
 				A3A0BEE429ED68B900253AAD /* StackLayoutControllerNode.swift in Sources */,
 				A3F888DD29CC602900C67187 /* CollectionExampleCellNode.swift in Sources */,
+				A357B7F929FFF290004835C5 /* SlidingTabBarControllerNode.swift in Sources */,
 				A34F8E8329F52EED00EF4C42 /* PagerControllerNode.swift in Sources */,
 				A3D2FAC829D9687400AA01CA /* MainListSectionHeaderNode.swift in Sources */,
 				A3B3F3E729A3869B0090E6E2 /* ContentSizeViewController.swift in Sources */,
+				A357B7FE2A01644C004835C5 /* VASlidingTabBarNode.swift in Sources */,
+				A357B8042A02490E004835C5 /* VASlidingIndicatorContainerNode.swift in Sources */,
 				A3B3F3CF29A2C0590090E6E2 /* NavigationRoute.swift in Sources */,
 				A3DDF30029DD84B1009460F1 /* CompositingCellNode.swift in Sources */,
 				A3B3F37929A0CDAD0090E6E2 /* MainNodeController.swift in Sources */,
@@ -802,6 +829,7 @@
 				A3F8890029CE2D0000C67187 /* Support.swift in Sources */,
 				A3B7F23829F0632E00CAA52D /* ReadMoreTextControllerNode.swift in Sources */,
 				A3F888C729CB67F100C67187 /* Umbrella.swift in Sources */,
+				A357B8022A0248B9004835C5 /* VASlidingTabTextNode.swift in Sources */,
 				A384F0B929EE7215006BF197 /* TypingTextControllerNode.swift in Sources */,
 				A3B3F3FB29A3CDA10090E6E2 /* RadialGradientControllerNode.swift in Sources */,
 				A3B3F3DC29A358120090E6E2 /* ThemeManager.swift in Sources */,
