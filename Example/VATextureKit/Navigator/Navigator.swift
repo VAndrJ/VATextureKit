@@ -57,7 +57,7 @@ class ScreenFactory {
         self.themeManager = themeManager
     }
 
-    // swiftlint:disable:next cyclomatic_complexity
+    // swiftlint:disable:next cyclomatic_complexity function_body_length
     func create(route: NavigationRoute, navigator: Navigator) -> UIViewController {
         switch route {
         case .main:
