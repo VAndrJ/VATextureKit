@@ -72,19 +72,31 @@ final class Navigator: Hashable, Equatable {
         }
     }
 
-    func present(route: NavigationRoute) -> Responder? {
+    func closeAllAndPop(to controller: UIViewController?) {
+        navigationController.presentedViewController?.dismiss(animated: false)
+        if let controller {
+            navigationController.popToViewController(controller, animated: false)
+        }
+    }
+
+    func getChildNavigator(route: NavigationRoute? = nil) -> Navigator {
         let navigator = Navigator(
             screenFactory: ScreenFactory(),
             navigationController: NavigationController(),
             initialRoute: route
         )
-        navigationController.pushViewController(navigator.navigationController, animated: true)
         _ = childNavigators.insert(navigator)
-        navigationController.onDismissed = { [weak self, weak navigator] in
+        navigator.navigationController.onDismissed = { [weak self, weak navigator] in
             if let navigator {
                 self?.childNavigators.remove(navigator)
             }
         }
+        return navigator
+    }
+
+    func present(route: NavigationRoute) -> Responder? {
+        let navigator = getChildNavigator(route: route)
+        navigationController.pushViewController(navigator.navigationController, animated: true)
         return navigator
     }
 }
@@ -103,11 +115,14 @@ extension Navigator: Responder {
 
 enum NavigationRoute {
     case main
+    case search
     case movie(ListMovieEntity)
     indirect case present(NavigationRoute)
 
     var screen: Screen {
         switch self {
+        case .search:
+            return .search
         case .main:
             return .main
         case let .movie(entity):

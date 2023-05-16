@@ -9,7 +9,7 @@ import VATextureKit
 import RxKeyboard
 
 @MainActor
-class DisplayNode<ViewModel: Responder>: VASafeAreaDisplayNode, Responder, ControllerNode {
+class DisplayNode<ViewModel: EventViewModel>: VASafeAreaDisplayNode, Responder, ControllerNode {
     let bag = DisposeBag()
     var nextEventResponder: Responder? {
         get { viewModel }
@@ -23,7 +23,9 @@ class DisplayNode<ViewModel: Responder>: VASafeAreaDisplayNode, Responder, Contr
         super.init()
     }
 
-    func viewDidLoad(in controller: UIViewController) {}
+    func viewDidLoad(in controller: UIViewController) {
+        viewModel.controller = controller
+    }
 
     func viewDidAppear(in controller: UIViewController, animated: Bool) {}
 

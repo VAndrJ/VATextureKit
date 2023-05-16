@@ -52,6 +52,8 @@ func mapToCell(viewModel: CellViewModel) -> ASCellNode {
         return ActorsSliderCellNode(viewModel: viewModel)
     case let viewModel as SearchMovieCellNodeViewModel:
         return SearchMovieCellNode(viewModel: viewModel)
+    case let viewModel as HomeCellNodeViewModel:
+        return HomeCellNode(viewModel: viewModel)
     default:
         assertionFailure("Implement for \(type(of: viewModel))")
         return ASCellNode()

@@ -10,6 +10,12 @@ import VATextureKit
 final class NavigationController: VANavigationController {
     var onDismissed: (() -> Void)?
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 

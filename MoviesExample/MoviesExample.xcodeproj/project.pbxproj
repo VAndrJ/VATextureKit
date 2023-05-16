@@ -100,6 +100,8 @@
 		A3820DB529E5CB3F00993406 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3820DB429E5CB3F00993406 /* NetworkError.swift */; };
 		A383D32329E95A1800ED3BCB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A383D32229E95A1800ED3BCB /* README.md */; };
 		A383D32529E95F8E00ED3BCB /* SearchMovieCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A383D32429E95F8E00ED3BCB /* SearchMovieCellNode.swift */; };
+		A39898172A04EBB800CC7CC8 /* MainSectionHeaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39898162A04EBB800CC7CC8 /* MainSectionHeaderNode.swift */; };
+		A398982C2A050DF300CC7CC8 /* HomeCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A398982B2A050DF300CC7CC8 /* HomeCellNode.swift */; };
 		A3F69EF229EB23EA002929C1 /* NetworkPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F69EF129EB23EA002929C1 /* NetworkPathTests.swift */; };
 		A3F69EF429EB3A74002929C1 /* ActorsSliderCellNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F69EF329EB3A74002929C1 /* ActorsSliderCellNodeTests.swift */; };
 		A3F69EF629EB3C20002929C1 /* GenresTagsCellNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F69EF529EB3C20002929C1 /* GenresTagsCellNodeTests.swift */; };
@@ -238,6 +240,8 @@
 		A3820DB429E5CB3F00993406 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		A383D32229E95A1800ED3BCB /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		A383D32429E95F8E00ED3BCB /* SearchMovieCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMovieCellNode.swift; sourceTree = "<group>"; };
+		A39898162A04EBB800CC7CC8 /* MainSectionHeaderNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSectionHeaderNode.swift; sourceTree = "<group>"; };
+		A398982B2A050DF300CC7CC8 /* HomeCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCellNode.swift; sourceTree = "<group>"; };
 		A3F69EF129EB23EA002929C1 /* NetworkPathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPathTests.swift; sourceTree = "<group>"; };
 		A3F69EF329EB3A74002929C1 /* ActorsSliderCellNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorsSliderCellNodeTests.swift; sourceTree = "<group>"; };
 		A3F69EF529EB3C20002929C1 /* GenresTagsCellNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresTagsCellNodeTests.swift; sourceTree = "<group>"; };
@@ -374,6 +378,7 @@
 			children = (
 				A357773929E8227200093AB7 /* ActorsSliderCellNode.swift */,
 				A357772F29E8161400093AB7 /* GenresTagsCellNode.swift */,
+				A398982B2A050DF300CC7CC8 /* HomeCellNode.swift */,
 				A333E6ED29E7CA5000A5954F /* MoviesSliderCellNode.swift */,
 				A333E6CA29E6BE7E00A5954F /* ShimmerCellNode.swift */,
 			);
@@ -592,6 +597,7 @@
 			children = (
 				A3820D9429E5B4F400993406 /* MainNode.swift */,
 				A3820D9629E5B4FD00993406 /* MainViewModel.swift */,
+				A39898162A04EBB800CC7CC8 /* MainSectionHeaderNode.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -995,6 +1001,7 @@
 				A333E6E729E74AE700A5954F /* Id.swift in Sources */,
 				A3820DB129E5CAE500993406 /* NetworkRequestMethod.swift in Sources */,
 				A333E6EE29E7CA5000A5954F /* MoviesSliderCellNode.swift in Sources */,
+				A398982C2A050DF300CC7CC8 /* HomeCellNode.swift in Sources */,
 				A3820DA429E5BC6D00993406 /* UITabBar+Support.swift in Sources */,
 				A333E6B229E5CE6000A5954F /* Network.swift in Sources */,
 				A3820D7A29E5A40A00993406 /* Environment.swift in Sources */,
@@ -1028,6 +1035,7 @@
 				A333E6B629E5D06000A5954F /* NetworkLogger.swift in Sources */,
 				A333E6B029E5CDCF00A5954F /* ReachabilityService.swift in Sources */,
 				A333E6CD29E6CD8000A5954F /* RemoteDataSource.swift in Sources */,
+				A39898172A04EBB800CC7CC8 /* MainSectionHeaderNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

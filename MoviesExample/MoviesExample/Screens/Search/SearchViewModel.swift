@@ -22,6 +22,7 @@ final class SearchViewModel: EventViewModel {
         }
 
         struct Navigation {
+            let closeAllAndPopTo: (_ controller: UIViewController?) -> Void
             let followMovie: @MainActor (ListMovieEntity) -> Responder?
         }
 
@@ -91,9 +92,16 @@ final class SearchViewModel: EventViewModel {
     override func handle(event: ResponderEvent) async -> Bool {
         logResponder(from: self, event: event)
         switch event {
-        case _ as ResponderShortcutEvent:
-            _beginSearchObs.rx.accept(())
-            return true
+        case let event as ResponderShortcutEvent:
+            switch event.shortcut {
+            case .search:
+                data.navigation.closeAllAndPopTo(controller)
+                Task.detached { [weak self] in
+                    try? await Task.sleep(milliseconds: 300)
+                    await self?._beginSearchObs.rx.accept(())
+                }
+                return true
+            }
         default:
             return await nextEventResponder?.handle(event: event) ?? false
         }
