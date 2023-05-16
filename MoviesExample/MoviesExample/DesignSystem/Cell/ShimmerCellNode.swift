@@ -18,6 +18,8 @@ final class ShimmerCellNode: VACellNode {
             self.contentNode = ShimmerTrendingListNode()
         case .movieDetails:
             self.contentNode = ShimmerMovieDetailsNode()
+        case .homeCell:
+            self.contentNode = ShimmerHomeCellNode()
         }
         self.viewModel = viewModel
 
@@ -30,7 +32,12 @@ final class ShimmerCellNode: VACellNode {
     }
 
     override func configureTheme(_ theme: VATheme) {
-        backgroundColor = theme.systemBackground
+        switch viewModel.kind {
+        case .movieDetails, .trending:
+            backgroundColor = theme.systemBackground
+        case .homeCell:
+            break
+        }
         if isVisible {
             startAnimating()
         }
@@ -89,6 +96,7 @@ class ShimmerCellNodeViewModel: CellViewModel {
     enum Kind: CaseIterable {
         case trending
         case movieDetails
+        case homeCell
     }
 
     let kind: Kind
@@ -157,5 +165,60 @@ private final class ShimmerTrendingListNode: VADisplayNode {
         imageNode.backgroundColor = theme.systemGray6
         titleNode.backgroundColor = theme.systemGray6
         descriptionNode.backgroundColor = theme.systemGray6
+    }
+}
+
+@MainActor
+private final class ShimmerHomeCellNode: VADisplayNode {
+    private let sliderNode = ASDisplayNode()
+        .sized(height: 44)
+        .apply {
+            $0.cornerRadius = 22
+        }
+    private let cardNode = ShimmerHomeListMovieNode()
+
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        Column {
+            sliderNode
+            cardNode
+                .maxConstrained(width: constrainedSize.min.width / 2.5)
+                .padding(.top(16))
+        }
+        .padding(.vertical(8), .horizontal(16))
+    }
+
+    override func configureTheme(_ theme: VATheme) {
+        sliderNode.backgroundColor = theme.systemGray6
+    }
+}
+
+@MainActor
+private final class ShimmerHomeListMovieNode: VADisplayNode {
+    private let cardNode = ASDisplayNode()
+        .apply {
+            $0.cornerRadius = 16
+        }
+    private let ratingNode = ASDisplayNode()
+        .sized(width: 46, height: 18)
+    private let titleNode = ASDisplayNode()
+        .sized(height: 18)
+
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        Column(cross: .stretch) {
+            cardNode
+                .ratio(190 / 126)
+            Row {
+                ratingNode
+                    .padding(.top(8))
+            }
+            titleNode
+                .padding(.top(4))
+        }
+    }
+
+    override func configureTheme(_ theme: VATheme) {
+        cardNode.backgroundColor = theme.systemGray6
+        ratingNode.backgroundColor = theme.systemGray6
+        titleNode.backgroundColor = theme.systemGray6
     }
 }

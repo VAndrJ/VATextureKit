@@ -69,14 +69,3 @@ extension VALinkTextNode: ASTextNodeDelegate {
         onLinkTap?(url)
     }
 }
-
-extension ASTextNode2 {
-
-    @objc static func _highlightColorFor(style: ASTextNodeHighlightStyle) -> CGColor {
-        appContext.themeManager.theme.quaternaryLabel.cgColor
-    }
-
-    @objc static func _highlightOpacityFor(style: ASTextNodeHighlightStyle) -> CGFloat {
-        1
-    }
-}

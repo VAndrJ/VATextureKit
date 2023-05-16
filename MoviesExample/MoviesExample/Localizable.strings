@@ -19,3 +19,6 @@
 "search_section_trending" = "Trending";
 "shortcut_search_title" = "Search";
 "shortcut_search_description" = "Movies";
+"home_screen_title" = "Home";
+"home_section_trending" = "Trending";
+"home_section_popular" = "Popular";

@@ -47,7 +47,8 @@ final class MainTabBarController: VATabBarController, Responder {
         logResponder(from: self, event: event)
         switch event {
         case let event as ResponderShortcutEvent:
-            navigationController?.popToViewController(self, animated: true)
+            presentedViewController?.dismiss(animated: false)
+            navigationController?.popToViewController(self, animated: false)
             switch event.shortcut {
             case .search:
                 selectedIndex = tabs.firstIndex(of: .search) ?? 0

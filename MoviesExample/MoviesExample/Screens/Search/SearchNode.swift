@@ -48,6 +48,8 @@ final class SearchNode: DisplayNode<SearchViewModel> {
     }
 
     override func viewDidLoad(in controller: UIViewController) {
+        super.viewDidLoad(in: controller)
+        
         bindKeyboardInset(scrollView: listNode.view, tabBarController: controller.tabBarController)
     }
 

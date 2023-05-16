@@ -34,8 +34,8 @@ final class ScreenFactory {
         case .tabs:
             return [
                 MainTabBarController(tabs: [
-                    // (.main, create(screen: .main, navigator: navigator)), // WIP
-                    (.search, create(screen: .search, navigator: navigator)),
+                    // (.main, navigator.getChildNavigator(route: .main).navigationController), // WIP
+                    (.search, navigator.getChildNavigator(route: .search).navigationController),
                 ]),
             ]
         }
@@ -61,7 +61,13 @@ final class ScreenFactory {
                 title: entity.title
             )
         case .main:
-            fatalError("WIP")
+            return ViewController(
+                node: MainNode(viewModel: MainViewModel(data: .init(
+                    source: .init(),
+                    navigation: .init()
+                ))),
+                title: R.string.localizable.home_screen_title()
+            )
         case .search:
             return ViewController(
                 node: SearchNode(viewModel: SearchViewModel(data: .init(
@@ -70,6 +76,7 @@ final class ScreenFactory {
                         getSearchMovies: remoteDataSource.getSearchMovies
                     ),
                     navigation: .init(
+                        closeAllAndPopTo: { [weak navigator] in navigator?.closeAllAndPop(to: $0) },
                         followMovie: { [weak navigator] in navigator?.navigate(to: .movie($0)) }
                     )
                 ))),
