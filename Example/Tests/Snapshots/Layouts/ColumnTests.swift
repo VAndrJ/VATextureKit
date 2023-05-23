@@ -10,7 +10,6 @@ import XCTest
 import SnapshotTesting
 import VATextureKit
 
-@MainActor
 class ColumnTests: XCTestCase {
     private let firstRectangleNode = ASDisplayNode()
         .sized(CGSize(same: 64))

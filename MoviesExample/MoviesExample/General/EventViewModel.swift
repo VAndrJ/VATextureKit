@@ -18,7 +18,6 @@ struct DidSelectEvent: Event {
 
 protocol Event {}
 
-@MainActor
 class EventViewModel: ViewModel {
     let bag = DisposeBag()
     let eventRelay = PublishRelay<Event>()

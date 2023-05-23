@@ -8,7 +8,6 @@
 
 import VATextureKit
 
-@MainActor
 final class MainViewModel {
     @Obs.Relay(value: [
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Layouts"), items: [

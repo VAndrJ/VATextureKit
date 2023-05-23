@@ -7,7 +7,6 @@
 
 import AsyncDisplayKit
 
-@MainActor
 open class VADisplayNode: ASDisplayNode {
     public var theme: VATheme { appContext.themeManager.theme }
     

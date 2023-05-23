@@ -16,7 +16,6 @@ struct OpenListActorDetailsEvent: Event {
     let actor: ListActorEntity
 }
 
-@MainActor
 final class MovieDetailsViewModel: EventViewModel {
     struct DTO {
         struct Related {
@@ -24,13 +23,13 @@ final class MovieDetailsViewModel: EventViewModel {
         }
 
         struct DataSource {
-            let getMovie: @MainActor (Id<Movie>) -> Observable<MovieEntity>
-            let getRecommendations: @MainActor (Id<Movie>) -> Observable<[ListMovieEntity]>
-            let getMovieActors: @MainActor (Id<Movie>) -> Observable<[ListActorEntity]>
+            let getMovie: (Id<Movie>) -> Observable<MovieEntity>
+            let getRecommendations: (Id<Movie>) -> Observable<[ListMovieEntity]>
+            let getMovieActors: (Id<Movie>) -> Observable<[ListActorEntity]>
         }
 
         struct Navigation {
-            let followMovie: @MainActor (ListMovieEntity) -> Responder?
+            let followMovie: (ListMovieEntity) -> Responder?
         }
 
         let related: Related
@@ -103,7 +102,6 @@ func mapMovieDetails(_ data: MovieEntity, viewModel: EventViewModel) -> [CellVie
     ]
 }
 
-@MainActor
 func mapMovieActors(_ data: [ListActorEntity], viewModel: EventViewModel) -> [CellViewModel] {
     if data.isEmpty {
         return []
@@ -112,13 +110,16 @@ func mapMovieActors(_ data: [ListActorEntity], viewModel: EventViewModel) -> [Ce
             MovieActorsCellNodeViewModel(
                 title: R.string.localizable.cell_actors(),
                 actors: data,
-                onSelect: { viewModel.perform(OpenListActorDetailsEvent(actor: $0)) }
+                onSelect: { movieActor in
+                    Task {
+                        await viewModel.perform(OpenListActorDetailsEvent(actor: movieActor))
+                    }
+                }
             ),
         ]
     }
 }
 
-@MainActor
 func mapRecommendationMovies(_ data: [ListMovieEntity], viewModel: EventViewModel) -> [CellViewModel] {
     if data.isEmpty {
         return []
@@ -127,7 +128,11 @@ func mapRecommendationMovies(_ data: [ListMovieEntity], viewModel: EventViewMode
             MoviesSliderCellNodeViewModel(
                 title: R.string.localizable.cell_recommendations(),
                 movies: data,
-                onSelect: { viewModel.perform(OpenListMovieDetailsEvent(movie: $0)) }
+                onSelect: { movie in
+                    Task {
+                        await viewModel.perform(OpenListMovieDetailsEvent(movie: movie))
+                    }
+                }
             ),
         ]
     }

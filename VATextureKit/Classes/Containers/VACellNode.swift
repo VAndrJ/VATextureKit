@@ -7,7 +7,6 @@
 
 import AsyncDisplayKit
 
-@MainActor
 open class VACellNode: ASCellNode {
     public var theme: VATheme { appContext.themeManager.theme }
     

@@ -7,7 +7,6 @@
 //
 
 import VATextureKit
-import Swiftional
 
 final class LinkTextControllerNode: VASafeAreaDisplayNode {
     private lazy var linkTextNode = VALinkTextNode(text: [
@@ -35,8 +34,6 @@ final class LinkTextControllerNode: VASafeAreaDisplayNode {
     }
 
     private func bind() {
-        linkTextNode.onLinkTap = {
-            UIApplication.shared.open($0)
-        }
+        linkTextNode.onLinkTap = { UIApplication.shared.open($0) }
     }
 }

@@ -10,7 +10,6 @@ import XCTest
 import SnapshotTesting
 import VATextureKit
 
-@MainActor
 class VADisplayNodeTests: XCTestCase {
 
     func test_node_color() {

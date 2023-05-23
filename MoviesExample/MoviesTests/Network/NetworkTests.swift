@@ -10,7 +10,6 @@ import XCTest
 import RxTest
 import RxBlocking
 
-@MainActor
 final class NetworkTests: XCTestCase {
     var sut: Network!
     let response = TestResponseDTO(camelCase: "string", date: Date(timeIntervalSince1970: 0))

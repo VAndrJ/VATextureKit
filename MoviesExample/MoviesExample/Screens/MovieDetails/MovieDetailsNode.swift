@@ -8,7 +8,6 @@
 import VATextureKit
 import Swiftional
 
-@MainActor
 final class MovieDetailsNode: DisplayNode<MovieDetailsViewModel> {
     private lazy var listNode = VAListNode(
         data: .init(

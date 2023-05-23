@@ -8,7 +8,6 @@
 import XCTest
 @testable import MoviesExample
 
-@MainActor
 class ShimmerCellNodeTests: XCTestCase {
 
     func test_node() {

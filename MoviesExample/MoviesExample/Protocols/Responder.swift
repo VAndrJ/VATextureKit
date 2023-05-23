@@ -11,9 +11,9 @@ struct ResponderDismissEvent: ResponderEvent {}
 
 protocol ResponderEvent {}
 
-@MainActor
 protocol Responder: AnyObject {
     var nextEventResponder: Responder? { get set }
 
+    @MainActor
     func handle(event: ResponderEvent) async -> Bool
 }

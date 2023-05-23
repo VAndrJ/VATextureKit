@@ -7,7 +7,6 @@
 
 import VATextureKit
 
-@MainActor
 final class Navigator: Hashable, Equatable {
     nonisolated static func == (lhs: Navigator, rhs: Navigator) -> Bool {
         lhs.id == rhs.id

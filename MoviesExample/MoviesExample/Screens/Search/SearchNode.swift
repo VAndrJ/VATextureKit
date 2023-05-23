@@ -8,7 +8,6 @@
 import VATextureKit
 import Swiftional
 
-@MainActor
 final class SearchNode: DisplayNode<SearchViewModel> {
     private lazy var searchNode = SearchBarNode(beginSearchObs: viewModel.beginSearchObs)
     private lazy var listNode = VATableListNode(data: .init(

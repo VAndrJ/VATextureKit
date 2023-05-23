@@ -9,7 +9,6 @@ import VATextureKit
 
 private struct LoadMainEvent: Event {}
 
-@MainActor
 final class MainViewModel: EventViewModel {
     struct DTO {
         struct DataSource {

@@ -8,7 +8,6 @@
 import VATextureKit
 import Swiftional
 
-@MainActor
 final class ActorsSliderCellNode: VACellNode {
     private let titleTextNode: VATextNode
     private lazy var listNode = VAScrollNode(data: .init(

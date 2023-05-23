@@ -8,7 +8,6 @@
 import UIKit
 import AsyncDisplayKit
 
-@MainActor
 protocol ControllerNode: ASDisplayNode {
 
     func viewDidLoad(in controller: UIViewController)

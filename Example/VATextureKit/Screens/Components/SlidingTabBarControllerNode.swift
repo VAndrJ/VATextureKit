@@ -7,9 +7,7 @@
 //
 
 import VATextureKit
-import Swiftional
 
-@MainActor
 private func mapToCell(viewModel: CellViewModel) -> ASCellNode {
     switch viewModel {
     case let viewModel as PagerCardCellNodeViewModel:

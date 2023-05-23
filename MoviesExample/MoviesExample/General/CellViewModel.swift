@@ -31,7 +31,6 @@ class CellViewModel: Equatable, IdentifiableType {
     }
 }
 
-@MainActor
 func mapToCell(viewModel: CellViewModel) -> ASCellNode {
     switch viewModel {
     case let viewModel as SearchTrendingMovieCellNodeViewModel:

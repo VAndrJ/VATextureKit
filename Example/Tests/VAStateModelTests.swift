@@ -10,7 +10,6 @@ import XCTest
 @testable import VATextureKit_Example
 import VATextureKit
 
-@MainActor
 class VAStateModelTests: XCTestCase {
     private var sut: VAStateModel<Actionable, Eventable, State>!
     
