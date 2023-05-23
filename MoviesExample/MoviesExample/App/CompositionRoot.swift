@@ -10,7 +10,6 @@ import VATextureKit
 import PINCache
 import PINRemoteImage
 
-@MainActor
 final class CompositionRoot {
     private weak var window: UIWindow?
     private let navigator: Navigator

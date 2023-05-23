@@ -7,7 +7,6 @@
 
 import VATextureKit
 
-@MainActor
 final class MovieCardNode: VADisplayNode {
     struct DTO {
         let image: String?

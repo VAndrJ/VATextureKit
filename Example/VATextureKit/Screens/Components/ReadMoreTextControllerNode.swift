@@ -7,7 +7,6 @@
 //
 
 import VATextureKit
-import Swiftional
 
 final class ReadMoreTextControllerNode: VASafeAreaDisplayNode {
     private lazy var readMoreTextNode = VAReadMoreTextNode(

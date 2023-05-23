@@ -7,7 +7,6 @@
 
 import AsyncDisplayKit
 
-@MainActor
 open class VAButtonNode: ASButtonNode {
     public var onTap: (() -> Void)?
     

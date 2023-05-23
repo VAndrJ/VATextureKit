@@ -7,7 +7,6 @@
 
 import RxSwift
 
-@MainActor
 final class RemoteDataSource {
     private let network: Network
     private let endpointData: MoviesEndpontData

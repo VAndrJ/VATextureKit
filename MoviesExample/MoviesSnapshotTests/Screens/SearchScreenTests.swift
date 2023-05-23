@@ -8,7 +8,6 @@
 import XCTest
 @testable import MoviesExample
 
-@MainActor
 class SearchScreenTests: XCTestCase {
     private let dummyMultipleMovies: [ListMovieEntity] = [.dummy(repeatingString: 10)] + (1...20).map { .dummy(id: $0) }
     private let dummySingleMovie: [ListMovieEntity] = [.dummy()]
@@ -53,7 +52,10 @@ class SearchScreenTests: XCTestCase {
                 getTrendingMovies: { .just(movies) },
                 getSearchMovies: { _ in .just(movies) }
             ),
-            navigation: .init(followMovie: { _ in nil })
+            navigation: .init(
+                closeAllAndPopTo: { _ in },
+                followMovie: { _ in nil }
+            )
         )))
     }
 }

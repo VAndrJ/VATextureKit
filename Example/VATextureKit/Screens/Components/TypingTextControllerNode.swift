@@ -7,7 +7,6 @@
 //
 
 import VATextureKit
-import Swiftional
 
 final class TypingTextControllerNode: VASafeAreaDisplayNode {
     private lazy var typingTextNode = VATypingTextNode(text: .loremText)

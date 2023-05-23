@@ -8,7 +8,6 @@
 import VATextureKit
 import Swiftional
 
-@MainActor
 final class MainNode: DisplayNode<MainViewModel> {
     private lazy var backgoundNode = VAImageNode(data: .init(image: R.image.main_background()))
     private lazy var listNode = VAListNode(

@@ -8,7 +8,6 @@
 
 import VATextureKit
 
-@MainActor
 private func mapToCell(viewModel: CellViewModel) -> ASCellNode {
     switch viewModel {
     case let viewModel as PagerCardCellNodeViewModel:

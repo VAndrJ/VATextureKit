@@ -8,7 +8,6 @@
 import XCTest
 @testable import MoviesExample
 
-@MainActor
 class MovieDetailsDescriptionCellNodeTests: XCTestCase {
 
     func test_node_short() {

@@ -7,7 +7,6 @@
 
 import VATextureKit
 
-@MainActor
 final class ShimmerCellNode: VACellNode {
     let viewModel: ShimmerCellNodeViewModel
     let contentNode: ASDisplayNode
@@ -108,7 +107,6 @@ class ShimmerCellNodeViewModel: CellViewModel {
     }
 }
 
-@MainActor
 private final class ShimmerMovieDetailsNode: VADisplayNode {
     private let titleNode = ASDisplayNode()
         .sized(CGSize(width: 120, height: 24))
@@ -137,7 +135,6 @@ private final class ShimmerMovieDetailsNode: VADisplayNode {
     }
 }
 
-@MainActor
 private final class ShimmerTrendingListNode: VADisplayNode {
     private let imageNode = ASDisplayNode()
         .sized(CGSize(width: 126, height: 78))
@@ -168,7 +165,6 @@ private final class ShimmerTrendingListNode: VADisplayNode {
     }
 }
 
-@MainActor
 private final class ShimmerHomeCellNode: VADisplayNode {
     private let sliderNode = ASDisplayNode()
         .sized(height: 44)
@@ -192,7 +188,6 @@ private final class ShimmerHomeCellNode: VADisplayNode {
     }
 }
 
-@MainActor
 private final class ShimmerHomeListMovieNode: VADisplayNode {
     private let cardNode = ASDisplayNode()
         .apply {

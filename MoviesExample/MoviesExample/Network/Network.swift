@@ -10,7 +10,6 @@ import RxSwift
 import RxCocoa
 import RxSwiftExt
 
-@MainActor
 final class Network {
     let coreRequest: (_ request: URLRequest) -> Observable<(response: HTTPURLResponse, data: Data)>
     let networkLogger: NetworkLogger

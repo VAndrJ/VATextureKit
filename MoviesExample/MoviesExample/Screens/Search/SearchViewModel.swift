@@ -13,17 +13,16 @@ struct SearchMovieEvent: Event {
 
 private struct LoadTrendingEvent: Event {}
 
-@MainActor
 final class SearchViewModel: EventViewModel {
     struct DTO {
         struct DataSource {
-            let getTrendingMovies: @MainActor () -> Observable<[ListMovieEntity]>
-            let getSearchMovies: @MainActor (_ query: String) -> Observable<[ListMovieEntity]>
+            let getTrendingMovies: () -> Observable<[ListMovieEntity]>
+            let getSearchMovies: (_ query: String) -> Observable<[ListMovieEntity]>
         }
 
         struct Navigation {
             let closeAllAndPopTo: (_ controller: UIViewController?) -> Void
-            let followMovie: @MainActor (ListMovieEntity) -> Responder?
+            let followMovie: (ListMovieEntity) -> Responder?
         }
 
         let source: DataSource
@@ -98,7 +97,7 @@ final class SearchViewModel: EventViewModel {
                 data.navigation.closeAllAndPopTo(controller)
                 Task.detached { [weak self] in
                     try? await Task.sleep(milliseconds: 300)
-                    await self?._beginSearchObs.rx.accept(())
+                    self?._beginSearchObs.rx.accept(())
                 }
                 return true
             }

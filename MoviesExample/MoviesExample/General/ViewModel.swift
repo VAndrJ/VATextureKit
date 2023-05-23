@@ -7,7 +7,6 @@
 
 import Foundation
 
-@MainActor
 class ViewModel: NSObject, Responder {
     weak var nextEventResponder: Responder?
 
