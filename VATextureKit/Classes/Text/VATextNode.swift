@@ -27,7 +27,7 @@ public enum VALineHeight {
     case custom(_ heightGetter: (_ pointSize: CGFloat) -> CGFloat)
 }
 
-open class VATextNode: ASTextNode2 {
+open class VATextNode: ASTextNode {
     public struct FontStyle {
         public static let largeTitle = FontStyle(textStyle: .largeTitle, pointSize: 34, weight: .regular)
         public static let title1 = FontStyle(textStyle: .title1, pointSize: 28, weight: .regular)
