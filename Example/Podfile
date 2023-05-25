@@ -22,5 +22,15 @@ post_install do |installer|
     target.build_configurations.each do |config|
       config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
     end
+    if target.name == "Texture"
+      target.build_configurations.each do |config|
+        config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'AS_ENABLE_TEXTNODE=1']
+      end
+    end
+    if target.name == "VATextureKit"
+      target.build_configurations.each do |config|
+        config.build_settings['OTHER_SWIFT_FLAGS'] ||= ['$(inherited) -D AS_ENABLE_TEXTNODE2']
+      end
+    end
   end
 end
