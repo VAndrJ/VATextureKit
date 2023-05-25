@@ -2,8 +2,8 @@
 //  VATextNodeTests.swift
 //  VATextureKit_Tests
 //
-//  Created by VAndrJ on 25.05.2023.
-//  Copyright © 2023 CocoaPods. All rights reserved.
+//  Created by Volodymyr Andriienko on 25.05.2023.
+//  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
 //
 
 import XCTest

@@ -149,7 +149,8 @@ open class VATheme {
 }
 
 public extension VATheme {
-    @AtomicWrite static var fontCache: [VAThemeFont: UIFont] = [:]
+    static var lock = NSRecursiveLock()
+    static var fontCache: [VAThemeFont: UIFont] = [:]
     static var vaLight: VATheme {
         let statusBarStyle: UIStatusBarStyle
         if #available(iOS 13.0, *) {
@@ -246,6 +247,10 @@ public extension VATheme {
     }
 
     static func getDefaultThemeFont(_ themeFont: VAThemeFont) -> UIFont {
+        lock.lock()
+        defer {
+            lock.unlock()
+        }
         if let font = fontCache[themeFont] {
             return font
         }
@@ -271,9 +276,7 @@ public extension VATheme {
                 font = UIFont.italicSystemFont(ofSize: size)
             }
         }
-        _fontCache.mutate {
-            $0[themeFont] = font
-        }
+        fontCache[themeFont] = font
         return font
     }
 }
