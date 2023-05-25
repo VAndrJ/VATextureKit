@@ -7,6 +7,14 @@
 
 import AsyncDisplayKit
 
+public enum VAFontDesign: Hashable {
+    case `default`
+    @available (iOS 13.0, *)
+    case monospaced
+    case monospacedDigits
+    case italic
+}
+
 public enum VAKern {
     case fixed(_ point: CGFloat)
     case relative(_ percent: CGFloat)
@@ -92,10 +100,11 @@ open class VATextNode: ASTextNode2 {
         self.init(
             text: text,
             fontGetter: { contentSize, theme in
-                theme.font(
-                    fontStyle.getFontSize(contentSize: contentSize),
-                    fontStyle.weight
-                )
+                theme.font(.design(
+                    .default,
+                    size: fontStyle.getFontSize(contentSize: contentSize),
+                    weight: fontStyle.weight
+                ))
             },
             kern: kern,
             lineHeight: lineHeight,

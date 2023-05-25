@@ -36,10 +36,11 @@ open class VAReadMoreTextNode: VATextNode {
         return NSAttributedString(
             string: readMore.text,
             attributes: [
-                .font: theme.font(
-                    readMore.fontStyle.getFontSize(contentSize: appContext.contentSizeManager.contentSize),
-                    readMore.fontStyle.weight
-                ),
+                .font: theme.font(.design(
+                    .default,
+                    size: readMore.fontStyle.getFontSize(contentSize: appContext.contentSizeManager.contentSize),
+                    weight: readMore.fontStyle.weight
+                )),
                 .foregroundColor: readMore.colorGetter(self.theme)
             ]
         )

@@ -71,10 +71,11 @@ class VATextNodeTests: XCTestCase {
                 .init(
                     strings: ["string"],
                     fontGetter: { contentSize, theme in
-                        theme.font(
-                            VATextNode.FontStyle.caption2.getFontSize(contentSize: contentSize),
-                            VATextNode.FontStyle.caption2.weight
-                        )
+                        theme.font(.design(
+                            .default,
+                            size: VATextNode.FontStyle.caption2.getFontSize(contentSize: contentSize),
+                            weight: VATextNode.FontStyle.caption2.weight
+                        ))
                     },
                     kern: .relative(10),
                     colorGetter: { $0.systemGreen }

@@ -9,17 +9,11 @@
 import VATextureKit
 
 extension VATextNode {
-    enum FontDescriptor {
-        case `default`
-        case monospaced
-        case monospacedDigits
-    }
-
     struct SecondaryTextAttributes {
         let strings: [String]
         var textStyle: FontStyle = .body
         let color: (VATheme) -> UIColor
-        var descriptor: FontDescriptor = .default
+        var descriptor: VAFontDesign = .default
         var attributes: [NSAttributedString.Key: Any] = [:]
     }
 
@@ -28,12 +22,12 @@ extension VATextNode {
         textStyle: FontStyle = .body,
         color: @escaping (VATheme) -> UIColor,
         alignment: NSTextAlignment = .natural,
-        descriptor: FontDescriptor = .default,
+        descriptor: VAFontDesign = .default,
         truncationMode: NSLineBreakMode = .byTruncatingTail,
         maximumNumberOfLines: UInt? = nil,
         secondary: [SecondaryTextAttributes] = []
     ) {
-        func getFont(descriptor: FontDescriptor, textStyle: FontStyle) -> UIFont {
+        func getFont(descriptor: VAFontDesign, textStyle: FontStyle) -> UIFont {
             switch descriptor {
             case .default:
                 return UIFont.systemFont(
@@ -49,6 +43,10 @@ extension VATextNode {
                 return UIFont.monospacedDigitSystemFont(
                     ofSize: textStyle.getFontSize(contentSize: appContext.contentSizeManager.contentSize),
                     weight: textStyle.weight
+                )
+            case .italic:
+                return UIFont.italicSystemFont(
+                    ofSize: textStyle.getFontSize(contentSize: appContext.contentSizeManager.contentSize)
                 )
             }
         }
