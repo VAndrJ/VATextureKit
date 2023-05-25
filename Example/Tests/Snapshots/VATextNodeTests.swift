@@ -42,11 +42,34 @@ class VATextNodeTests: XCTestCase {
         assertNodeSnapshot(matching: sut, size: .freeHeightFixedWidth(320))
     }
 
-    private func generateSUT(text: String = "Text".dummyLong(range: 0...20), kern: VAKern? = nil) -> VATextNode {
+    func test_node_lineHeight_fixed() {
+        let sut = generateSUT(lineHeight: .fixed(30))
+
+        assertNodeSnapshot(matching: sut, size: .freeHeightFixedWidth(320))
+    }
+
+    func test_node_lineHeight_proportional() {
+        let sut = generateSUT(lineHeight: .proportional(200))
+
+        assertNodeSnapshot(matching: sut, size: .freeHeightFixedWidth(320))
+    }
+
+    func test_node_lineHeight_custom() {
+        let sut = generateSUT(lineHeight: .custom({ $0 * 2 }))
+
+        assertNodeSnapshot(matching: sut, size: .freeHeightFixedWidth(320))
+    }
+
+    private func generateSUT(
+        text: String = "Text".dummyLong(range: 0...20),
+        kern: VAKern? = nil,
+        lineHeight: VALineHeight? = nil
+    ) -> VATextNode {
         VATextNode(
             text: text,
             fontStyle: .headline,
             kern: kern,
+            lineHeight: lineHeight,
             alignment: .left,
             truncationMode: .byTruncatingTail,
             maximumNumberOfLines: 2,
