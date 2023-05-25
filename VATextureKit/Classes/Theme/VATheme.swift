@@ -246,33 +246,33 @@ public extension VATheme {
     }
 
     static func getDefaultThemeFont(_ themeFont: VAThemeFont) -> UIFont {
-            if let font = fontCache[themeFont] {
-                return font
-            }
-            let font: UIFont
-            switch themeFont {
-            case let .name(name, size):
-                font = UIFont(name: name, size: size)!
-            case let .descriptor(descriptor, size):
-                font = UIFont(descriptor: descriptor, size: size)
-            case let .design(fontDesign, size, weight):
-                switch fontDesign {
-                case .default:
-                    font = UIFont.systemFont(ofSize: size, weight: weight)
-                case .monospaced:
-                    if #available(iOS 13.0, *) {
-                        font = UIFont.monospacedSystemFont(ofSize: size, weight: weight)
-                    } else {
-                        font = UIFont.monospacedDigitSystemFont(ofSize: size, weight: weight)
-                    }
-                case .monospacedDigits:
-                    font = UIFont.monospacedDigitSystemFont(ofSize: size, weight: weight)
-                case .italic:
-                    font = UIFont.italicSystemFont(ofSize: size)
-                }
-            }
-            fontCache[themeFont] = font
+        if let font = fontCache[themeFont] {
             return font
+        }
+        let font: UIFont
+        switch themeFont {
+        case let .name(name, size):
+            font = UIFont(name: name, size: size)!
+        case let .descriptor(descriptor, size):
+            font = UIFont(descriptor: descriptor, size: size)
+        case let .design(fontDesign, size, weight):
+            switch fontDesign {
+            case .default:
+                font = UIFont.systemFont(ofSize: size, weight: weight)
+            case .monospaced:
+                if #available(iOS 13.0, *) {
+                    font = UIFont.monospacedSystemFont(ofSize: size, weight: weight)
+                } else {
+                    font = UIFont.monospacedDigitSystemFont(ofSize: size, weight: weight)
+                }
+            case .monospacedDigits:
+                font = UIFont.monospacedDigitSystemFont(ofSize: size, weight: weight)
+            case .italic:
+                font = UIFont.italicSystemFont(ofSize: size)
+            }
+        }
+        fontCache[themeFont] = font
+        return font
     }
 }
 
