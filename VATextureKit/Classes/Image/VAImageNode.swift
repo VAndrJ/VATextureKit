@@ -13,14 +13,14 @@ open class VAImageNode: ASImageNode {
         var tintColor: ((VATheme) -> UIColor)?
         var size: CGSize?
         var contentMode: UIView.ContentMode?
-        var backgroundColor: UIColor?
+        var backgroundColor: ((VATheme) -> UIColor)?
 
         public init(
             image: UIImage? = nil,
             tintColor: ((VATheme) -> UIColor)? = nil,
             size: CGSize? = nil,
             contentMode: UIView.ContentMode? = nil,
-            backgroundColor: UIColor? = nil
+            backgroundColor: ((VATheme) -> UIColor)? = nil
         ) {
             self.image = image
             self.tintColor = tintColor
@@ -60,9 +60,6 @@ open class VAImageNode: ASImageNode {
     open override func didLoad() {
         super.didLoad()
 
-        if let backgroundColor = data.backgroundColor {
-            self.backgroundColor = backgroundColor
-        }
         configureTheme(theme)
         NotificationCenter.default.addObserver(
             self,
@@ -74,6 +71,7 @@ open class VAImageNode: ASImageNode {
 
     open func configureTheme(_ theme: VATheme) {
         updateTintColorIfNeeded(theme)
+        updateBackgroundColorIfNeeded(theme)
     }
 
     open func themeDidChanged() {
@@ -88,6 +86,12 @@ open class VAImageNode: ASImageNode {
         if let color = data.tintColor?(theme) {
             imageModificationBlock = ASImageNodeTintColorModificationBlock(color)
             setNeedsDisplay()
+        }
+    }
+
+    private func updateBackgroundColorIfNeeded(_ theme: VATheme) {
+        if let color = data.backgroundColor?(theme) {
+            backgroundColor = color
         }
     }
 }

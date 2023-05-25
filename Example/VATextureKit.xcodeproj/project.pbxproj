@@ -39,6 +39,7 @@
 		A357B8062A025116004835C5 /* LinkTextControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357B8052A025116004835C5 /* LinkTextControllerNode.swift */; };
 		A359BE7A29D76C0D003BDE19 /* VADisplayNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */; };
 		A359BE7E29D76E1B003BDE19 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A359BE7D29D76E1B003BDE19 /* Environment.swift */; };
+		A364DA892A1F4973001355AE /* VATextNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A364DA882A1F4973001355AE /* VATextNodeTests.swift */; };
 		A3820D1529E53BD600993406 /* VARadialGradientNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3820D1429E53BD600993406 /* VARadialGradientNodeTests.swift */; };
 		A3820D2A29E568BE00993406 /* VATextFieldNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3820D2929E568BE00993406 /* VATextFieldNode.swift */; };
 		A384F0B429EDCA7A006BF197 /* RowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A384F0B329EDCA7A006BF197 /* RowTests.swift */; };
@@ -142,6 +143,7 @@
 		A357B8052A025116004835C5 /* LinkTextControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkTextControllerNode.swift; sourceTree = "<group>"; };
 		A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VADisplayNodeTests.swift; sourceTree = "<group>"; };
 		A359BE7D29D76E1B003BDE19 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		A364DA882A1F4973001355AE /* VATextNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VATextNodeTests.swift; sourceTree = "<group>"; };
 		A3820D1429E53BD600993406 /* VARadialGradientNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VARadialGradientNodeTests.swift; sourceTree = "<group>"; };
 		A3820D2929E568BE00993406 /* VATextFieldNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VATextFieldNode.swift; sourceTree = "<group>"; };
 		A384F0B329EDCA7A006BF197 /* RowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowTests.swift; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 				A3551A5429DD57F000B0B18F /* VALinearGradientNodeTests.swift */,
 				A3820D1429E53BD600993406 /* VARadialGradientNodeTests.swift */,
 				A34F8E7029F3F1B300EF4C42 /* VAReadMoreTextNodeTests.swift */,
+				A364DA882A1F4973001355AE /* VATextNodeTests.swift */,
 				A3D2FABF29D896B300AA01CA /* Example */,
 				A3A0BEE729EDC3FE00253AAD /* Layouts */,
 			);
@@ -853,6 +856,7 @@
 				A31F88AB29EA9CAF0077296B /* VANetworkImageNodeTests.swift in Sources */,
 				A3551A5529DD57F000B0B18F /* VALinearGradientNodeTests.swift in Sources */,
 				A3820D1529E53BD600993406 /* VARadialGradientNodeTests.swift in Sources */,
+				A364DA892A1F4973001355AE /* VATextNodeTests.swift in Sources */,
 				A384F0B629EDCB5A006BF197 /* StackTests.swift in Sources */,
 				A359BE7A29D76C0D003BDE19 /* VADisplayNodeTests.swift in Sources */,
 				A33CDF4529D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift in Sources */,

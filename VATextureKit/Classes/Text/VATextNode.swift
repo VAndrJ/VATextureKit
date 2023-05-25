@@ -7,6 +7,18 @@
 
 import AsyncDisplayKit
 
+public enum VAKern {
+    case fixed(_ point: CGFloat)
+    case relative(_ percent: CGFloat)
+    case custom(_ kernGetter: (_ pointSize: CGFloat) -> CGFloat)
+}
+
+public enum VALineHeight {
+    case fixed(_ height: CGFloat)
+    case proportional(_ percent: CGFloat)
+    case custom(_ heightGetter: (_ pointSize: CGFloat) -> CGFloat)
+}
+
 open class VATextNode: ASTextNode2 {
     public struct FontStyle {
         public static let largeTitle = FontStyle(textStyle: .largeTitle, pointSize: 34, weight: .regular)
@@ -47,6 +59,8 @@ open class VATextNode: ASTextNode2 {
     public convenience init(
         text: String? = nil,
         fontStyle: FontStyle = .body,
+        kern: VAKern? = nil,
+        lineHeight: VALineHeight? = nil,
         alignment: NSTextAlignment = .natural,
         truncationMode: NSLineBreakMode = .byTruncatingTail,
         maximumNumberOfLines: UInt? = .none,
@@ -55,6 +69,8 @@ open class VATextNode: ASTextNode2 {
         self.init(
             text: text,
             fontStyle: fontStyle,
+            kern: kern,
+            lineHeight: lineHeight,
             alignment: alignment,
             truncationMode: truncationMode,
             maximumNumberOfLines: maximumNumberOfLines,
@@ -65,6 +81,8 @@ open class VATextNode: ASTextNode2 {
     public convenience init(
         text: String? = nil,
         fontStyle: FontStyle = .body,
+        kern: VAKern? = nil,
+        lineHeight: VALineHeight? = nil,
         alignment: NSTextAlignment = .natural,
         truncationMode: NSLineBreakMode = .byTruncatingTail,
         maximumNumberOfLines: UInt? = .none,
@@ -78,6 +96,8 @@ open class VATextNode: ASTextNode2 {
                     fontStyle.weight
                 )
             },
+            kern: kern,
+            lineHeight: lineHeight,
             alignment: alignment,
             truncationMode: truncationMode,
             maximumNumberOfLines: maximumNumberOfLines,
@@ -88,6 +108,8 @@ open class VATextNode: ASTextNode2 {
     public convenience init(
         text: String? = nil,
         fontGetter: @escaping (_ contentSize: UIContentSizeCategory, _ theme: VATheme) -> UIFont,
+        kern: VAKern? = nil,
+        lineHeight: VALineHeight? = nil,
         alignment: NSTextAlignment = .natural,
         truncationMode: NSLineBreakMode = .byTruncatingTail,
         maximumNumberOfLines: UInt? = .none,
@@ -99,17 +121,42 @@ open class VATextNode: ASTextNode2 {
             text: text,
             stringGetter: { string, _ in
                 string.flatMap {
-                    NSAttributedString(
-                        string: $0,
-                        attributes: [
-                            .font: fontGetter(
-                                appContext.contentSizeManager.contentSize,
-                                appContext.themeManager.theme
-                            ),
-                            .foregroundColor: colorGetter(),
-                            .paragraphStyle: paragraphStyle,
-                        ]
+                    let font = fontGetter(
+                        appContext.contentSizeManager.contentSize,
+                        appContext.themeManager.theme
                     )
+                    if let lineHeight {
+                        let customLineHeight: CGFloat
+                        switch lineHeight {
+                        case let .fixed(height):
+                            customLineHeight = height
+                        case let .proportional(percent):
+                            customLineHeight = font.pointSize * percent / 100
+                        case let .custom(heightGetter):
+                            customLineHeight = heightGetter(font.pointSize)
+                        }
+                        paragraphStyle.minimumLineHeight = customLineHeight
+                        paragraphStyle.maximumLineHeight = customLineHeight
+                        paragraphStyle.lineHeightMultiple = customLineHeight / font.pointSize
+                    }
+                    var attributes: [NSAttributedString.Key: Any] = [
+                        .font: font,
+                        .foregroundColor: colorGetter(),
+                        .paragraphStyle: paragraphStyle,
+                    ]
+                    if let kern {
+                        let kernPoint: CGFloat
+                        switch kern {
+                        case let .fixed(point):
+                            kernPoint = point
+                        case let .relative(percent):
+                            kernPoint = font.pointSize * percent / 100
+                        case let .custom(kernGetter):
+                            kernPoint = kernGetter(font.pointSize)
+                        }
+                        attributes[.kern] = kernPoint
+                    }
+                    return NSAttributedString(string: $0, attributes: attributes)
                 }
             }
         )
