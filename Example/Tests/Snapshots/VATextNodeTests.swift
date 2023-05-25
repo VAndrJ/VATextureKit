@@ -60,10 +60,36 @@ class VATextNodeTests: XCTestCase {
         assertNodeSnapshot(matching: sut, size: .freeHeightFixedWidth(320))
     }
 
+    func test_node_secondary() {
+        let sut = generateSUT(
+            text: "Text test string example".dummyLong(range: 0...20),
+            secondary: [
+                .init(
+                    strings: ["test", "example"],
+                    colorGetter: { $0.systemOrange }
+                ),
+                .init(
+                    strings: ["string"],
+                    fontGetter: { contentSize, theme in
+                        theme.font(
+                            VATextNode.FontStyle.caption2.getFontSize(contentSize: contentSize),
+                            VATextNode.FontStyle.caption2.weight
+                        )
+                    },
+                    kern: .relative(10),
+                    colorGetter: { $0.systemGreen }
+                ),
+            ]
+        )
+
+        assertNodeSnapshot(matching: sut, size: .freeHeightFixedWidth(320))
+    }
+
     private func generateSUT(
         text: String = "Text".dummyLong(range: 0...20),
         kern: VAKern? = nil,
-        lineHeight: VALineHeight? = nil
+        lineHeight: VALineHeight? = nil,
+        secondary: [VATextNode.SecondaryAttributes] = []
     ) -> VATextNode {
         VATextNode(
             text: text,
@@ -73,7 +99,8 @@ class VATextNodeTests: XCTestCase {
             alignment: .left,
             truncationMode: .byTruncatingTail,
             maximumNumberOfLines: 2,
-            themeColor: { $0.label }
+            colorGetter: { $0.label },
+            secondary: secondary
         )
     }
 }

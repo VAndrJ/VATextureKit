@@ -22,7 +22,7 @@ class ImageNumberCellNode: VACellNode {
         self.numberTextNode = VATextNode(
             text: "\(viewModel.number)",
             fontStyle: .largeTitle,
-            colorGetter: { .white }
+            colorGetter: { _ in .white }
         )
         self.imageNode = VANetworkImageNode(data: .init(
             image: viewModel.image,

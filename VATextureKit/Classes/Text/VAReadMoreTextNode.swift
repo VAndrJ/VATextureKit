@@ -47,34 +47,11 @@ open class VAReadMoreTextNode: VATextNode {
 
     public convenience init(
         text: String? = nil,
-        fontStyle: FontStyle = .body,
-        alignment: NSTextAlignment = .natural,
-        truncationMode: NSLineBreakMode = .byTruncatingTail,
-        maximumNumberOfLines: UInt,
-        themeColor: @escaping (VATheme) -> UIColor,
-        readMore: ReadMore
-    ) {
-        self.init(
-            text: text,
-            fontStyle: fontStyle,
-            alignment: alignment,
-            truncationMode: truncationMode,
-            maximumNumberOfLines: maximumNumberOfLines,
-            themeColor: themeColor
-        )
-
-        self.readMore = readMore
-        truncationAttributedText = NSAttributedString(string: readMore.truncationText)
-        additionalTruncationMessage = readMoreStringGetter?(readMore, theme)
-    }
-
-    public convenience init(
-        text: String? = nil,
         fontGetter: @escaping (_ contentSize: UIContentSizeCategory, _ theme: VATheme) -> UIFont,
         alignment: NSTextAlignment = .natural,
         truncationMode: NSLineBreakMode = .byWordWrapping,
         maximumNumberOfLines: UInt,
-        colorGetter: @escaping () -> UIColor = { appContext.themeManager.theme.label },
+        colorGetter: @escaping (VATheme) -> UIColor = { $0.label },
         readMore: ReadMore
     ) {
         self.init(
@@ -97,7 +74,7 @@ open class VAReadMoreTextNode: VATextNode {
         alignment: NSTextAlignment = .natural,
         truncationMode: NSLineBreakMode = .byWordWrapping,
         maximumNumberOfLines: UInt,
-        colorGetter: @escaping () -> UIColor = { appContext.themeManager.theme.label },
+        colorGetter: @escaping (VATheme) -> UIColor = { $0.label },
         readMore: ReadMore
     ) {
         self.init(
