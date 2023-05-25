@@ -15,6 +15,12 @@ public class VALightThemeTag: VAThemeTag {}
 
 public class VADarkThemeTag: VAThemeTag {}
 
+public enum VAThemeFont: Hashable {
+    case name(_ name: String, size: CGFloat)
+    case descriptor(_ descriptor: UIFontDescriptor, size: CGFloat)
+    case design(_ design: VAFontDesign, size: CGFloat, weight: UIFont.Weight)
+}
+
 open class VATheme {
     public var tag: VAThemeTag
     public var userInterfaceStyle: UIUserInterfaceStyle
@@ -55,7 +61,7 @@ open class VATheme {
     public var systemGray4: UIColor
     public var systemGray5: UIColor
     public var systemGray6: UIColor
-    public var font: (_ size: CGFloat, _ weight: UIFont.Weight) -> UIFont
+    public var font: (VAThemeFont) -> UIFont
     
     public init(
         tag: VAThemeTag,
@@ -97,7 +103,7 @@ open class VATheme {
         systemGray4: UIColor,
         systemGray5: UIColor,
         systemGray6: UIColor,
-        font: @escaping (_ size: CGFloat, _ weight: UIFont.Weight) -> UIFont
+        font: @escaping (VAThemeFont) -> UIFont
     ) {
         self.tag = tag
         self.userInterfaceStyle = userInterfaceStyle
@@ -143,6 +149,8 @@ open class VATheme {
 }
 
 public extension VATheme {
+    static var lock = NSRecursiveLock()
+    static var fontCache: [VAThemeFont: UIFont] = [:]
     static var vaLight: VATheme {
         let statusBarStyle: UIStatusBarStyle
         if #available(iOS 13.0, *) {
@@ -190,9 +198,7 @@ public extension VATheme {
             systemGray4: UIColor.rgba(209, 209, 214, 1),
             systemGray5: UIColor.rgba(229, 229, 234, 1),
             systemGray6: UIColor.rgba(242, 242, 247, 1),
-            font: { size, weight in
-                UIFont.systemFont(ofSize: size, weight: weight)
-            }
+            font: getDefaultThemeFont(_:)
         )
     }
     static var vaDark: VATheme {
@@ -236,14 +242,49 @@ public extension VATheme {
             systemGray4: UIColor.rgba(58, 58, 60, 1),
             systemGray5: UIColor.rgba(44, 44, 46, 1),
             systemGray6: UIColor.rgba(28, 28, 30, 1),
-            font: { size, weight in
-                UIFont.systemFont(ofSize: size, weight: weight)
-            }
+            font: getDefaultThemeFont(_:)
         )
+    }
+
+    static func getDefaultThemeFont(_ themeFont: VAThemeFont) -> UIFont {
+        lock.lock()
+        defer { lock.unlock() }
+
+        if let font = fontCache[themeFont] {
+            return font
+        }
+
+        let font: UIFont
+        switch themeFont {
+        case let .name(name, size):
+            font = UIFont(name: name, size: size)!
+        case let .descriptor(descriptor, size):
+            font = UIFont(descriptor: descriptor, size: size)
+        case let .design(fontDesign, size, weight):
+            switch fontDesign {
+            case .default:
+                font = UIFont.systemFont(ofSize: size, weight: weight)
+            case .monospaced:
+                if #available(iOS 13.0, *) {
+                    font = UIFont.monospacedSystemFont(ofSize: size, weight: weight)
+                } else {
+                    font = UIFont.monospacedDigitSystemFont(ofSize: size, weight: weight)
+                }
+            case .monospacedDigits:
+                font = UIFont.monospacedDigitSystemFont(ofSize: size, weight: weight)
+            case .italic:
+                font = UIFont.italicSystemFont(ofSize: size)
+            }
+        }
+        
+        fontCache[themeFont] = font
+
+        return font
     }
 }
 
 public extension UIColor {
+
     static func rgba(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat, _ a: CGFloat = 1) -> UIColor {
         UIColor(red: r / 255, green: g / 255, blue: b / 255, alpha: a)
     }

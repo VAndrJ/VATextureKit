@@ -6,7 +6,7 @@
 //
 
 import VATextureKit
-import Swiftional
+@_exported import Swiftional
 
 enum Screen {
     case main

@@ -32,7 +32,7 @@ final class ActorCardNode: VADisplayNode {
             text: data.character,
             fontStyle: .caption2,
             alignment: .center,
-            themeColor: { $0.secondaryLabel }
+            colorGetter: { $0.secondaryLabel }
         )
 
         super.init()

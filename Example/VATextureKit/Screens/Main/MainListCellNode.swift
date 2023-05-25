@@ -23,7 +23,7 @@ final class MainListCellNode: VACellNode {
         self.descriptionNode = VATextNode(
             text: viewModel.description,
             fontStyle: .footnote,
-            themeColor: { $0.secondaryLabel }
+            colorGetter: { $0.secondaryLabel }
         )
         
         super.init()

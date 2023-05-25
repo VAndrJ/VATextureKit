@@ -17,7 +17,7 @@ final class SearchTrendingMovieCellNode: VACellNode {
         self.descriptionTextNode = VATextNode(
             text: viewModel.description,
             fontStyle: .footnote,
-            themeColor: { $0.secondaryLabel }
+            colorGetter: { $0.secondaryLabel }
         )
         self.imageNode = VANetworkImageNode(data: .init(
             image: viewModel.image?.getImagePath(width: 200),
