@@ -15,7 +15,7 @@ final class GenreTagNode: VADisplayNode {
             text: genre,
             fontStyle: .subhead,
             maximumNumberOfLines: 1,
-            themeColor: { $0.secondaryLabel }
+            colorGetter: { $0.secondaryLabel }
         )
 
         super.init()

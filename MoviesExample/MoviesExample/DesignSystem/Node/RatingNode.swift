@@ -17,7 +17,7 @@ final class RatingNode: VADisplayNode {
             text: R.string.localizable.rating_percent(Int(rating.rounded(.up))),
             fontStyle: .footnote,
             maximumNumberOfLines: 1,
-            themeColor: { $0.secondaryLabel }
+            colorGetter: { $0.secondaryLabel }
         )
         self.indicatorNode = RatingIndicatorNode(data: .init(rating: rating))
             .sized(CGSize(same: 16))

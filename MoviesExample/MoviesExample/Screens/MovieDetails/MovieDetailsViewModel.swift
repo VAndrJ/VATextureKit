@@ -110,11 +110,7 @@ func mapMovieActors(_ data: [ListActorEntity], viewModel: EventViewModel) -> [Ce
             MovieActorsCellNodeViewModel(
                 title: R.string.localizable.cell_actors(),
                 actors: data,
-                onSelect: { movieActor in
-                    Task {
-                        await viewModel.perform(OpenListActorDetailsEvent(actor: movieActor))
-                    }
-                }
+                onSelect: viewModel ?> { $0.perform(OpenListActorDetailsEvent(actor: $1)) }
             ),
         ]
     }
@@ -128,11 +124,7 @@ func mapRecommendationMovies(_ data: [ListMovieEntity], viewModel: EventViewMode
             MoviesSliderCellNodeViewModel(
                 title: R.string.localizable.cell_recommendations(),
                 movies: data,
-                onSelect: { movie in
-                    Task {
-                        await viewModel.perform(OpenListMovieDetailsEvent(movie: movie))
-                    }
-                }
+                onSelect: viewModel ?> { $0.perform(OpenListMovieDetailsEvent(movie: $1)) }
             ),
         ]
     }

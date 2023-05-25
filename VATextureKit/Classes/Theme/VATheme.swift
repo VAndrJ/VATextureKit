@@ -248,12 +248,12 @@ public extension VATheme {
 
     static func getDefaultThemeFont(_ themeFont: VAThemeFont) -> UIFont {
         lock.lock()
-        defer {
-            lock.unlock()
-        }
+        defer { lock.unlock() }
+
         if let font = fontCache[themeFont] {
             return font
         }
+
         let font: UIFont
         switch themeFont {
         case let .name(name, size):
@@ -276,7 +276,9 @@ public extension VATheme {
                 font = UIFont.italicSystemFont(ofSize: size)
             }
         }
+        
         fontCache[themeFont] = font
+
         return font
     }
 }

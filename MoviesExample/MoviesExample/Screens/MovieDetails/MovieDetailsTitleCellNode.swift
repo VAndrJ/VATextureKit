@@ -17,7 +17,7 @@ final class MovieDetailsTitleCellNode: VACellNode {
         self.yearTextNode = VATextNode(
             text: viewModel.year,
             maximumNumberOfLines: 1,
-            themeColor: { $0.secondaryLabel }
+            colorGetter: { $0.secondaryLabel }
         )
         self.ratingNode = RatingNode(rating: viewModel.rating)
 
