@@ -7,6 +7,12 @@
 
 import AsyncDisplayKit
 
+public enum VAKern {
+    case fixed(_ point: CGFloat)
+    case relative(_ percent: CGFloat)
+    case custom(_ kernGetter: (_ pointSize: CGFloat) -> CGFloat)
+}
+
 open class VATextNode: ASTextNode2 {
     public struct FontStyle {
         public static let largeTitle = FontStyle(textStyle: .largeTitle, pointSize: 34, weight: .regular)
@@ -47,6 +53,7 @@ open class VATextNode: ASTextNode2 {
     public convenience init(
         text: String? = nil,
         fontStyle: FontStyle = .body,
+        kern: VAKern? = nil,
         alignment: NSTextAlignment = .natural,
         truncationMode: NSLineBreakMode = .byTruncatingTail,
         maximumNumberOfLines: UInt? = .none,
@@ -55,6 +62,7 @@ open class VATextNode: ASTextNode2 {
         self.init(
             text: text,
             fontStyle: fontStyle,
+            kern: kern,
             alignment: alignment,
             truncationMode: truncationMode,
             maximumNumberOfLines: maximumNumberOfLines,
@@ -65,6 +73,7 @@ open class VATextNode: ASTextNode2 {
     public convenience init(
         text: String? = nil,
         fontStyle: FontStyle = .body,
+        kern: VAKern? = nil,
         alignment: NSTextAlignment = .natural,
         truncationMode: NSLineBreakMode = .byTruncatingTail,
         maximumNumberOfLines: UInt? = .none,
@@ -78,6 +87,7 @@ open class VATextNode: ASTextNode2 {
                     fontStyle.weight
                 )
             },
+            kern: kern,
             alignment: alignment,
             truncationMode: truncationMode,
             maximumNumberOfLines: maximumNumberOfLines,
@@ -88,6 +98,7 @@ open class VATextNode: ASTextNode2 {
     public convenience init(
         text: String? = nil,
         fontGetter: @escaping (_ contentSize: UIContentSizeCategory, _ theme: VATheme) -> UIFont,
+        kern: VAKern? = nil,
         alignment: NSTextAlignment = .natural,
         truncationMode: NSLineBreakMode = .byTruncatingTail,
         maximumNumberOfLines: UInt? = .none,
@@ -99,17 +110,28 @@ open class VATextNode: ASTextNode2 {
             text: text,
             stringGetter: { string, _ in
                 string.flatMap {
-                    NSAttributedString(
-                        string: $0,
-                        attributes: [
-                            .font: fontGetter(
-                                appContext.contentSizeManager.contentSize,
-                                appContext.themeManager.theme
-                            ),
-                            .foregroundColor: colorGetter(),
-                            .paragraphStyle: paragraphStyle,
-                        ]
+                    let font = fontGetter(
+                        appContext.contentSizeManager.contentSize,
+                        appContext.themeManager.theme
                     )
+                    var attributes: [NSAttributedString.Key: Any] = [
+                        .font: font,
+                        .foregroundColor: colorGetter(),
+                        .paragraphStyle: paragraphStyle,
+                    ]
+                    if let kern {
+                        let kernPoint: CGFloat
+                        switch kern {
+                        case let .fixed(point):
+                            kernPoint = point
+                        case let .relative(percent):
+                            kernPoint = font.pointSize * percent / 100
+                        case let .custom(kernGetter):
+                            kernPoint = kernGetter(font.pointSize)
+                        }
+                        attributes[.kern] = kernPoint
+                    }
+                    return NSAttributedString(string: $0, attributes: attributes)
                 }
             }
         )
