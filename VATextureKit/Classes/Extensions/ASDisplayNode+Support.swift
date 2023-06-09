@@ -66,8 +66,8 @@ public extension ASDisplayNode {
         position: NSLayoutConstraint.Attribute = .bottom,
         side: NSLayoutConstraint.Attribute = .trailing
     ) {
-        guard !isLayerBacked else { return }
-        guard !Self.shouldDebugLabelBeHidden else { return }
+        guard !isLayerBacked, !Self.shouldDebugLabelBeHidden else { return }
+
         let className = (String(describing: type(of: self)) as NSString).lastPathComponent
         let debugLabel = UILabel()
         debugLabel.font = .systemFont(ofSize: 6, weight: .ultraLight)
@@ -79,8 +79,8 @@ public extension ASDisplayNode {
         debugLabel.isAccessibilityElement = false
         view.addAutolayoutSubview(debugLabel)
         debugLabel
-            .toSuper(position, constant: offset.height)
-            .toSuper(side, constant: offset.width)
+            .toSuper(position, constant: offset.height, isSafe: true)
+            .toSuper(side, constant: offset.width, isSafe: true)
             .size(height: 6)
         debugLabel.addGestureRecognizer(UILongPressGestureRecognizer(
             target: self,
@@ -96,8 +96,8 @@ public extension ASDisplayNode {
     }
     
     @objc private func onTapLabel(_ sender: UILongPressGestureRecognizer) {
-        guard sender.state == .began else { return }
-        guard let label = sender.view as? UILabel else { return }
+        guard sender.state == .began, let label = sender.view as? UILabel else { return }
+
         print("copied", label.text ?? "")
         UIPasteboard.general.string = label.text
     }
@@ -112,23 +112,3 @@ public extension ASDisplayNode {
     }
 }
 #endif
-
-/*
- CIFilter
-     .filterNames(inCategory: nil)
-     .filter { $0.contains("BlendMode") }
-     .map {
-         let filter = $0.dropFirst(2)
-         return "\(filter.first?.lowercased() ?? "")\(filter.dropFirst())"
-     }
- */
-
-/*
- CIFilter
-     .filterNames(inCategory: nil)
-     .filter { $0.contains("Compositing")}
-     .map {
-         let capitalizedFilter = $0.dropFirst(2)
-         return "\(capitalizedFilter.first?.lowercased() ?? "")\(capitalizedFilter.dropFirst().dropLast("Compositing".count))"
-     }
- */
