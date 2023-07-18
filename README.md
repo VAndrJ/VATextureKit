@@ -1117,6 +1117,7 @@ Init support.
 
 With raw `Texture`: 
 ```
+style.height = ASDimension(unit: .auto, value: 0)
 style.height = ASDimension(unit: .points, value: height)
 style.height = ASDimension(unit: .fraction, value: 0.3)
 ```
@@ -1124,6 +1125,7 @@ style.height = ASDimension(unit: .fraction, value: 0.3)
 
 With `VATextureKit`:
 ```
+style.height = .auto
 style.height = .points(height)
 style.height = .fraction(0.3)
 style.height = .fraction(percent: 30)
