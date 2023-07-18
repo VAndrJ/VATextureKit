@@ -13,7 +13,7 @@ class LoadingCellNode: VACellNode {
     init(viewModel: LoadingCellNodeViewModel) {
         super.init()
         
-        style.height = ASDimension(unit: .points, value: viewModel.height)
+        style.height = .points(viewModel.height)
     }
     
     override func layout() {
