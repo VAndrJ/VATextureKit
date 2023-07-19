@@ -18,7 +18,8 @@ class LoadingCellNode: VACellNode {
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        loaderNode.wrapped()
+        loaderNode
+            .wrapped()
     }
 }
 
@@ -35,10 +36,6 @@ private class _LoadingCellShimmerNode: VAShimmerNode {
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         tileNode.wrapped()
-    }
-
-    override func configureTheme(_ theme: VATheme) {
-        backgroundColor = theme.systemGreen
     }
 }
 

@@ -8,16 +8,6 @@
 
 import VATextureKit
 
-private func mapToCell(viewModel: CellViewModel) -> ASCellNode {
-    switch viewModel {
-    case let viewModel as PagerCardCellNodeViewModel:
-        return PagerCardCellNode(viewModel: viewModel)
-    default:
-        assertionFailure("Implement \(type(of: viewModel))")
-        return ASCellNode()
-    }
-}
-
 class SlidingTabBarControllerNode: VASafeAreaDisplayNode {
     private lazy var pagerNode = VAPagerNode(data: .init(
         items: (0...5).map { PagerCardCellNodeViewModel(title: "Title \($0)", description: "Description \($0)") },
@@ -82,5 +72,15 @@ class SlidingTabBarControllerNode: VASafeAreaDisplayNode {
         backgroundColor = theme.systemBackground
         floatingTabBarNode.backgroundColor = theme.systemBackground
         floatingTabBarNode.borderColor = theme.quaternaryLabel.cgColor
+    }
+}
+
+private func mapToCell(viewModel: CellViewModel) -> ASCellNode {
+    switch viewModel {
+    case let viewModel as PagerCardCellNodeViewModel:
+        return PagerCardCellNode(viewModel: viewModel)
+    default:
+        assertionFailure("Implement \(type(of: viewModel))")
+        return ASCellNode()
     }
 }

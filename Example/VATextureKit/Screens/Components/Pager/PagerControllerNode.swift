@@ -8,16 +8,6 @@
 
 import VATextureKit
 
-private func mapToCell(viewModel: CellViewModel) -> ASCellNode {
-    switch viewModel {
-    case let viewModel as PagerCardCellNodeViewModel:
-        return PagerCardCellNode(viewModel: viewModel)
-    default:
-        assertionFailure("Implement \(type(of: viewModel))")
-        return ASCellNode()
-    }
-}
-
 final class PagerControllerNode: VASafeAreaDisplayNode {
     private lazy var pagerNode = VAPagerNode(data: .init(
         itemsObs: viewModel.pagerItemsObs,
@@ -78,5 +68,15 @@ final class PagerControllerNode: VASafeAreaDisplayNode {
         previousButtonNode.onTap = pagerNode.previous
         nextButtonNode.onTap = pagerNode.next
         randomizeButtonNode.onTap = viewModel.generateRandomPagerItems
+    }
+}
+
+private func mapToCell(viewModel: CellViewModel) -> ASCellNode {
+    switch viewModel {
+    case let viewModel as PagerCardCellNodeViewModel:
+        return PagerCardCellNode(viewModel: viewModel)
+    default:
+        assertionFailure("Implement \(type(of: viewModel))")
+        return ASCellNode()
     }
 }

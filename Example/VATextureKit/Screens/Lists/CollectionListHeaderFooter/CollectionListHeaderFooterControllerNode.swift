@@ -8,20 +8,6 @@
 
 import VATextureKit
 
-private func mapToCell(viewModel: CellViewModel) -> ASCellNode {
-    switch viewModel {
-    case let viewModel as ImageNumberCellNodeViewModel:
-        return ImageNumberCellNode(viewModel: viewModel)
-    case let viewModel as CollectionListSectionFooterViewModel:
-        return CollectionListSectionFooterCellNode(viewModel: viewModel)
-    case let viewModel as CollectionListSectionHeaderViewModel:
-        return CollectionListSectionHeaderCellNode(viewModel: viewModel)
-    default:
-        assertionFailure("Implement \(type(of: viewModel))")
-        return ASCellNode()
-    }
-}
-
 final class CollectionListHeaderFooterControllerNode: VASafeAreaDisplayNode {
     private(set) lazy var leftListNode = VAListNode(
         data: .init(
@@ -79,5 +65,19 @@ final class CollectionListHeaderFooterControllerNode: VASafeAreaDisplayNode {
         backgroundColor = theme.systemBackground
         leftListNode.backgroundColor = theme.systemBackground
         rightListNode.backgroundColor = theme.systemBackground
+    }
+}
+
+private func mapToCell(viewModel: CellViewModel) -> ASCellNode {
+    switch viewModel {
+    case let viewModel as ImageNumberCellNodeViewModel:
+        return ImageNumberCellNode(viewModel: viewModel)
+    case let viewModel as CollectionListSectionFooterViewModel:
+        return CollectionListSectionFooterCellNode(viewModel: viewModel)
+    case let viewModel as CollectionListSectionHeaderViewModel:
+        return CollectionListSectionHeaderCellNode(viewModel: viewModel)
+    default:
+        assertionFailure("Implement \(type(of: viewModel))")
+        return ASCellNode()
     }
 }
