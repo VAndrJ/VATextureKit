@@ -8,22 +8,6 @@
 
 import VATextureKit
 
-private func mapToCell(viewModel: CellViewModel) -> ASCellNode {
-    switch viewModel {
-    case let viewModel as MainListCellNodeViewModel:
-        return MainListCellNode(viewModel: viewModel)
-    case let viewModel as ImageCellNodeViewModel:
-        return ImageCellNode(viewModel: viewModel)
-    case let viewModel as ImageNumberCellNodeViewModel:
-        return ImageNumberCellNode(viewModel: viewModel)
-    case let viewModel as LoadingCellNodeViewModel:
-        return LoadingCellNode(viewModel: viewModel)
-    default:
-        assertionFailure("Implement")
-        return ASCellNode()
-    }
-}
-
 // MARK: - ViewController as a View example
 
 final class CollectionListDifferentCellsNodeController: VANodeController {
@@ -80,5 +64,21 @@ final class CollectionListDifferentCellsNodeController: VANodeController {
         contentNode.backgroundColor = theme.systemBackground
         leftListNode.backgroundColor = theme.systemBackground
         rightListNode.backgroundColor = theme.systemBackground
+    }
+}
+
+private func mapToCell(viewModel: CellViewModel) -> ASCellNode {
+    switch viewModel {
+    case let viewModel as MainListCellNodeViewModel:
+        return MainListCellNode(viewModel: viewModel)
+    case let viewModel as ImageCellNodeViewModel:
+        return ImageCellNode(viewModel: viewModel)
+    case let viewModel as ImageNumberCellNodeViewModel:
+        return ImageNumberCellNode(viewModel: viewModel)
+    case let viewModel as LoadingCellNodeViewModel:
+        return LoadingCellNode(viewModel: viewModel)
+    default:
+        assertionFailure("Implement")
+        return ASCellNode()
     }
 }
