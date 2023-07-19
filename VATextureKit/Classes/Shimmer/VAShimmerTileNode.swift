@@ -7,16 +7,24 @@
 
 import AsyncDisplayKit
 
-public final class VAShimmerTileNode: VADisplayNode {
-    struct DTO {
-        var backgroundColor: UIColor = .gray
+open class VAShimmerTileNode: VADisplayNode {
+    public struct DTO {
+        let backgroundColor: (VATheme) -> UIColor
         // Rounded on nil
-        var cornerRadius: CGFloat? = 0.0
+        let cornerRadius: CGFloat?
+
+        public init(
+            backgroundColor: @escaping (VATheme) -> UIColor = { $0.systemGray },
+            cornerRadius: CGFloat? = 0.0
+        ) {
+            self.backgroundColor = backgroundColor
+            self.cornerRadius = cornerRadius
+        }
     }
 
     let data: DTO
 
-    init(data: DTO) {
+    public init(data: DTO) {
         self.data = data
 
         super.init()
@@ -34,9 +42,7 @@ public final class VAShimmerTileNode: VADisplayNode {
         }
     }
 
-    public override func didLoad() {
-        super.didLoad()
-
-        backgroundColor = data.backgroundColor
+    open override func configureTheme(_ theme: VATheme) {
+        backgroundColor = data.backgroundColor(theme)
     }
 }
