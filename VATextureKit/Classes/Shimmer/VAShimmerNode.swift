@@ -78,18 +78,18 @@ open class VAShimmerNode: VADisplayNode {
         if data.isAcrossWindow, let window = view.window {
             let windowBounds = window.bounds
             let convertedOriginX = window.convert(view.frame.origin, from: view).x
-            maskLayer.frame = getFrame(for: windowBounds, originXDelta: convertedOriginX)
+            maskLayer.frame = getMaskFrame(for: windowBounds, originXDelta: convertedOriginX)
         } else if data.isAcrossWindow, let controller = closestViewController {
             let controllerViewBounds = controller.view.bounds
             let convertedOriginX = controller.view.convert(view.frame.origin, from: view).x
-            maskLayer.frame = getFrame(for: controllerViewBounds, originXDelta: convertedOriginX)
+            maskLayer.frame = getMaskFrame(for: controllerViewBounds, originXDelta: convertedOriginX)
         } else {
-            maskLayer.frame = getFrame(for: bounds, originXDelta: 0)
+            maskLayer.frame = getMaskFrame(for: bounds, originXDelta: 0)
         }
         updateShimmer()
     }
 
-    private func getFrame(for bounds: CGRect, originXDelta: CGFloat) -> CGRect {
+    private func getMaskFrame(for bounds: CGRect, originXDelta: CGFloat) -> CGRect {
         CGRect(
             x: -(bounds.width + originXDelta),
             y: 0,
