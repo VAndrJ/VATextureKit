@@ -892,6 +892,22 @@ Example:
 </details>
 
 
+<details>
+<summary>VAShimmerNode</summary>
+
+
+A subclass of `VADisplayNode` with shimmering animation.
+
+
+Example:
+
+
+![Shimmer example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/shimmer_example.gif)
+
+
+</details>
+
+
 ## Containers
 
 

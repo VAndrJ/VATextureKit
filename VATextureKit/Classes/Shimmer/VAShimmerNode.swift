@@ -10,11 +10,15 @@ import AsyncDisplayKit
 open class VAShimmerNode: VADisplayNode {
     public struct DTO {
         let isAcrossWindow: Bool
+        let isSynchronized: Bool
+        let animationDuration: CFTimeInterval
         let maskLayer: () -> CAGradientLayer
-        let animation: () -> CABasicAnimation
+        let animation: (_ duration: CFTimeInterval, _ timeOffset: CFTimeInterval) -> CABasicAnimation
 
         public init(
             isAcrossWindow: Bool = true,
+            isSynchronized: Bool = true,
+            animationDuration: CFTimeInterval = 1,
             maskLayer: @escaping () -> CAGradientLayer = {
                 let gradient = CAGradientLayer()
                 gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
@@ -28,17 +32,20 @@ open class VAShimmerNode: VADisplayNode {
                 gradient.colors = colors.map(\.cgColor)
                 return gradient
             },
-            animation: @escaping () -> CABasicAnimation = {
+            animation: @escaping (_ duration: CFTimeInterval, _ timeOffset: CFTimeInterval) -> CABasicAnimation = { duration, timeOffset in
                 let animation = CABasicAnimation(keyPath: #keyPath(CAGradientLayer.locations))
                 animation.fromValue = [0.0, 0.1, 0.2]
                 animation.toValue = [0.8, 0.9, 1.0]
-                animation.duration = 1.2
+                animation.timeOffset = timeOffset
+                animation.duration = duration
                 animation.repeatCount = .greatestFiniteMagnitude
                 animation.isRemovedOnCompletion = false
                 return animation
             }
         ) {
             self.isAcrossWindow = isAcrossWindow
+            self.isSynchronized = isSynchronized
+            self.animationDuration = animationDuration
             self.maskLayer = maskLayer
             self.animation = animation
         }
@@ -98,7 +105,9 @@ open class VAShimmerNode: VADisplayNode {
 
     private func startShimmering() {
         layer.mask = maskLayer
-        let animation = data.animation()
+        let timeOffset = data.isSynchronized ? Date().timeIntervalSince1970.remainder(dividingBy: data.animationDuration) : 0
+        let animation = data.animation(data.animationDuration, timeOffset)
+
         maskLayer.add(animation, forKey: animation.keyPath)
     }
 
