@@ -10,7 +10,7 @@ import AsyncDisplayKit
 
 // swiftlint:disable all
 public extension CALayer {
-    public struct VASpring {
+    struct VASpring {
         let initialVelocity: CGFloat
         let damping: CGFloat
         let mass: CGFloat
