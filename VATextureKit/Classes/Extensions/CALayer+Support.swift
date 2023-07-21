@@ -10,6 +10,20 @@ import AsyncDisplayKit
 
 // swiftlint:disable all
 public extension CALayer {
+    public struct VASpring {
+        let initialVelocity: CGFloat
+        let damping: CGFloat
+        let mass: CGFloat
+        let swiftness: CGFloat
+
+        public init(initialVelocity: CGFloat = 0, damping: CGFloat = 100, mass: CGFloat = 2, swiftness: CGFloat = 100) {
+            self.initialVelocity = initialVelocity
+            self.damping = damping
+            self.mass = mass
+            self.swiftness = swiftness
+        }
+    }
+
     enum VAAnimation {
         case anchor(
             from: CGPoint,
@@ -21,6 +35,20 @@ public extension CALayer {
             removeOnCompletion: Bool = true,
             additive: Bool = false,
             force: Bool = false,
+            spring: VASpring? = nil,
+            completion: ((Bool) -> Void)? = nil
+        )
+        case borderColor(
+            from: CGFloat,
+            to: CGFloat,
+            duration: Double,
+            delay: Double = 0.0,
+            timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
+            mediaTimingFunction: CAMediaTimingFunction? = nil,
+            removeOnCompletion: Bool = true,
+            additive: Bool = false,
+            continueFromCurrent: Bool = false,
+            spring: VASpring? = nil,
             completion: ((Bool) -> Void)? = nil
         )
         case cornerRadius(
@@ -33,6 +61,7 @@ public extension CALayer {
             removeOnCompletion: Bool = true,
             additive: Bool = false,
             continueFromCurrent: Bool = false,
+            spring: VASpring? = nil,
             completion: ((Bool) -> Void)? = nil
         )
         case opacity(
@@ -45,6 +74,7 @@ public extension CALayer {
             removeOnCompletion: Bool = true,
             additive: Bool = false,
             continueFromCurrent: Bool = false,
+            spring: VASpring? = nil,
             completion: ((Bool) -> Void)? = nil
         )
         case scale(
@@ -57,6 +87,7 @@ public extension CALayer {
             removeOnCompletion: Bool = true,
             additive: Bool = false,
             continueFromCurrent: Bool = false,
+            spring: VASpring? = nil,
             completion: ((Bool) -> Void)? = nil
         )
         case scaleX(
@@ -69,6 +100,7 @@ public extension CALayer {
             removeOnCompletion: Bool = true,
             additive: Bool = false,
             continueFromCurrent: Bool = false,
+            spring: VASpring? = nil,
             completion: ((Bool) -> Void)? = nil
         )
         case scaleY(
@@ -81,6 +113,7 @@ public extension CALayer {
             removeOnCompletion: Bool = true,
             additive: Bool = false,
             continueFromCurrent: Bool = false,
+            spring: VASpring? = nil,
             completion: ((Bool) -> Void)? = nil
         )
         case position(
@@ -93,6 +126,7 @@ public extension CALayer {
             removeOnCompletion: Bool = true,
             additive: Bool = false,
             force: Bool = false,
+            spring: VASpring? = nil,
             completion: ((Bool) -> Void)? = nil
         )
         case positionX(
@@ -105,6 +139,7 @@ public extension CALayer {
             removeOnCompletion: Bool = true,
             additive: Bool = false,
             force: Bool = false,
+            spring: VASpring? = nil,
             completion: ((Bool) -> Void)? = nil
         )
         case positionY(
@@ -117,6 +152,7 @@ public extension CALayer {
             removeOnCompletion: Bool = true,
             additive: Bool = false,
             force: Bool = false,
+            spring: VASpring? = nil,
             completion: ((Bool) -> Void)? = nil
         )
         case bounds(
@@ -129,6 +165,7 @@ public extension CALayer {
             removeOnCompletion: Bool = true,
             additive: Bool = false,
             force: Bool = false,
+            spring: VASpring? = nil,
             completion: ((Bool) -> Void)? = nil
         )
         case originX(
@@ -141,6 +178,7 @@ public extension CALayer {
             removeOnCompletion: Bool = true,
             additive: Bool = false,
             continueFromCurrent: Bool = false,
+            spring: VASpring? = nil,
             completion: ((Bool) -> Void)? = nil
         )
         case originY(
@@ -153,6 +191,7 @@ public extension CALayer {
             removeOnCompletion: Bool = true,
             additive: Bool = false,
             continueFromCurrent: Bool = false,
+            spring: VASpring? = nil,
             completion: ((Bool) -> Void)? = nil
         )
         case width(
@@ -165,6 +204,7 @@ public extension CALayer {
             removeOnCompletion: Bool = true,
             additive: Bool = false,
             force: Bool = false,
+            spring: VASpring? = nil,
             completion: ((Bool) -> Void)? = nil
         )
         case height(
@@ -177,6 +217,7 @@ public extension CALayer {
             removeOnCompletion: Bool = true,
             additive: Bool = false,
             force: Bool = false,
+            spring: VASpring? = nil,
             completion: ((Bool) -> Void)? = nil
         )
         case rotation(
@@ -189,12 +230,14 @@ public extension CALayer {
             removeOnCompletion: Bool = true,
             additive: Bool = false,
             continueFromCurrent: Bool = false,
+            spring: VASpring? = nil,
             completion: ((Bool) -> Void)? = nil
         )
 
         var keyPath: String {
             switch self {
             case .anchor: return "anchorPoint"
+            case .borderColor: return "borderColor"
             case .bounds: return  "bounds"
             case .cornerRadius: return "cornerRadius"
             case .originX: return "bounds.origin.x"
@@ -216,14 +259,15 @@ public extension CALayer {
     @discardableResult
     func add(animation: VAAnimation) -> Self {
         switch animation {
-        case let .cornerRadius(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, completion),
-            let .scale(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, completion),
-            let .scaleX(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, completion),
-            let .scaleY(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, completion),
-            let .opacity(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, completion),
-            let .originX(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, completion),
-            let .originY(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, completion),
-            let .rotation(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, completion):
+        case let .borderColor(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, spring, completion),
+            let .cornerRadius(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, spring, completion),
+            let .scale(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, spring, completion),
+            let .scaleX(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, spring, completion),
+            let .scaleY(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, spring, completion),
+            let .opacity(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, spring, completion),
+            let .originX(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, spring, completion),
+            let .originY(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, spring, completion),
+            let .rotation(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, spring, completion):
             var duration = duration
             var from = from
             if delay.isZero, continueFromCurrent, let value = presentation()?.value(forKeyPath: animation.keyPath) as? CGFloat {
@@ -241,10 +285,11 @@ public extension CALayer {
                 mediaTimingFunction: mediaTimingFunction,
                 removeOnCompletion: removeOnCompletion,
                 additive: additive,
+                spring: spring,
                 completion: completion
             )
-        case let .position(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, force, completion),
-            let .anchor(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, force, completion):
+        case let .position(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, force, spring, completion),
+            let .anchor(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, force, spring, completion):
             if from == to && !force {
                 if let completion {
                     completion(true)
@@ -261,12 +306,13 @@ public extension CALayer {
                 mediaTimingFunction: mediaTimingFunction,
                 removeOnCompletion: removeOnCompletion,
                 additive: additive,
+                spring: spring,
                 completion: completion
             )
-        case let .positionX(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, force, completion),
-            let .positionY(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, force, completion),
-            let .height(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, force, completion),
-            let .width(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, force, completion):
+        case let .positionX(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, force, spring, completion),
+            let .positionY(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, force, spring, completion),
+            let .height(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, force, spring, completion),
+            let .width(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, force, spring, completion):
             if from == to && !force {
                 if let completion {
                     completion(true)
@@ -283,9 +329,10 @@ public extension CALayer {
                 mediaTimingFunction: mediaTimingFunction,
                 removeOnCompletion: removeOnCompletion,
                 additive: additive,
+                spring: spring,
                 completion: completion
             )
-        case let .bounds(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, force, completion):
+        case let .bounds(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, force, spring, completion):
             if from == to && !force {
                 if let completion {
                     completion(true)
@@ -302,6 +349,7 @@ public extension CALayer {
                 mediaTimingFunction: mediaTimingFunction,
                 removeOnCompletion: removeOnCompletion,
                 additive: additive,
+                spring: spring,
                 completion: completion
             )
         }
@@ -426,21 +474,36 @@ public extension CALayer {
     }
 
     private func animate(
-        from: AnyObject?,
-        to: AnyObject,
+        from: Any?,
+        to: Any,
         keyPath: String,
         duration: Double,
         delay: Double,
         timingFunction: CAMediaTimingFunctionName,
-        mediaTimingFunction: CAMediaTimingFunction? = nil,
-        removeOnCompletion: Bool = true,
-        additive: Bool = false,
-        completion: ((Bool) -> Void)? = nil
+        mediaTimingFunction: CAMediaTimingFunction?,
+        removeOnCompletion: Bool,
+        additive: Bool,
+        spring: VASpring?,
+        completion: ((Bool) -> Void)?
     ) {
-        let animation = CABasicAnimation(keyPath: keyPath)
+        let animation: CABasicAnimation
+        if let spring {
+            let springAnimation = CASpringAnimation(keyPath: keyPath)
+            springAnimation.mass = spring.mass
+            springAnimation.stiffness = spring.swiftness
+            springAnimation.damping = spring.damping
+            springAnimation.initialVelocity = spring.initialVelocity
+            animation = springAnimation
+        } else {
+            animation = CABasicAnimation(keyPath: keyPath)
+        }
         animation.fromValue = from
         animation.toValue = to
-        animation.duration = duration
+        if let anim = animation as? CASpringAnimation {
+            animation.duration = anim.settlingDuration
+        } else {
+            animation.duration = duration
+        }
         if !delay.isZero {
             animation.beginTime = convertTime(CACurrentMediaTime(), from: nil) + delay
             animation.fillMode = .both
@@ -452,7 +515,6 @@ public extension CALayer {
         }
         animation.isRemovedOnCompletion = removeOnCompletion
         animation.fillMode = .forwards
-        animation.speed = speed
         animation.isAdditive = additive
         if let completion {
             animation.delegate = _AnimationDelegate(animation: animation, completion: completion)

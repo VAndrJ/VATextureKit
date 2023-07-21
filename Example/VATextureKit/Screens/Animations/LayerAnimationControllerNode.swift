@@ -52,7 +52,8 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
                 from: oldValue ? CGRect(origin: .zero, size: CGSize(same: 100)) : CGRect(origin: .zero, size: CGSize(same: 20)),
                 to: oldValue ? CGRect(origin: .zero, size: CGSize(same: 20)) : CGRect(origin: .zero, size: CGSize(same: 100)),
                 duration: defaultLayoutTransitionDuration,
-                removeOnCompletion: false
+                removeOnCompletion: false,
+                spring: .init(initialVelocity: 100, damping: 200, mass: 10, swiftness: 2000)
             ))
             setNeedsLayoutAnimated()
         }
@@ -71,7 +72,8 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
                 from: oldValue ? .pi / 2 : 0,
                 to: oldValue ? 0 : .pi / 2,
                 duration: 1,
-                removeOnCompletion: false
+                removeOnCompletion: false,
+                continueFromCurrent: true
             ))
         }
     }
