@@ -54,6 +54,10 @@ public extension ASDisplayNode {
         get { (layer.compositingFilter as? String).flatMap(CompositingFilter.init(rawValue:)) }
         set { layer.compositingFilter = newValue?.rawValue }
     }
+
+    func setNeedsLayoutAnimated(shouldMeasureAsync: Bool = false, completion: (() -> Void)? = nil) {
+        transitionLayout(withAnimation: true, shouldMeasureAsync: shouldMeasureAsync, measurementCompletion: completion)
+    }
 }
 
 #if DEBUG || targetEnvironment(simulator)

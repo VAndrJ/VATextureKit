@@ -26,13 +26,13 @@ final class SlideAnimationControllerNode: VASafeAreaDisplayNode {
     let expandNode = ASDisplayNode()
         .sized(width: 100, height: 50)
     var isNodesExchanged = false {
-        didSet { transitionLayout(withAnimation: true, shouldMeasureAsync: false) }
+        didSet { setNeedsLayoutAnimated() }
     }
     var isNodeToggled = false {
-        didSet { transitionLayout(withAnimation: true, shouldMeasureAsync: false) }
+        didSet { setNeedsLayoutAnimated() }
     }
     var isNodeExpanded = false {
-        didSet { transitionLayout(withAnimation: true, shouldMeasureAsync: false) }
+        didSet { setNeedsLayoutAnimated() }
     }
 
     override func didLoad() {
