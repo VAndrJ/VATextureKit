@@ -11,6 +11,30 @@ import AsyncDisplayKit
 // swiftlint:disable all
 public extension CALayer {
     enum VAAnimation {
+        case anchor(
+            from: CGPoint,
+            to: CGPoint,
+            duration: Double,
+            delay: Double = 0.0,
+            timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
+            mediaTimingFunction: CAMediaTimingFunction? = nil,
+            removeOnCompletion: Bool = true,
+            additive: Bool = false,
+            force: Bool = false,
+            completion: ((Bool) -> Void)? = nil
+        )
+        case cornerRadius(
+            from: CGFloat,
+            to: CGFloat,
+            duration: Double,
+            delay: Double = 0.0,
+            timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
+            mediaTimingFunction: CAMediaTimingFunction? = nil,
+            removeOnCompletion: Bool = true,
+            additive: Bool = false,
+            continueFromCurrent: Bool = false,
+            completion: ((Bool) -> Void)? = nil
+        )
         case opacity(
             from: CGFloat,
             to: CGFloat,
@@ -20,6 +44,7 @@ public extension CALayer {
             mediaTimingFunction: CAMediaTimingFunction? = nil,
             removeOnCompletion: Bool = true,
             additive: Bool = false,
+            continueFromCurrent: Bool = false,
             completion: ((Bool) -> Void)? = nil
         )
         case scale(
@@ -31,6 +56,7 @@ public extension CALayer {
             mediaTimingFunction: CAMediaTimingFunction? = nil,
             removeOnCompletion: Bool = true,
             additive: Bool = false,
+            continueFromCurrent: Bool = false,
             completion: ((Bool) -> Void)? = nil
         )
         case scaleX(
@@ -42,6 +68,7 @@ public extension CALayer {
             mediaTimingFunction: CAMediaTimingFunction? = nil,
             removeOnCompletion: Bool = true,
             additive: Bool = false,
+            continueFromCurrent: Bool = false,
             completion: ((Bool) -> Void)? = nil
         )
         case scaleY(
@@ -53,6 +80,7 @@ public extension CALayer {
             mediaTimingFunction: CAMediaTimingFunction? = nil,
             removeOnCompletion: Bool = true,
             additive: Bool = false,
+            continueFromCurrent: Bool = false,
             completion: ((Bool) -> Void)? = nil
         )
         case position(
@@ -112,6 +140,7 @@ public extension CALayer {
             mediaTimingFunction: CAMediaTimingFunction? = nil,
             removeOnCompletion: Bool = true,
             additive: Bool = false,
+            continueFromCurrent: Bool = false,
             completion: ((Bool) -> Void)? = nil
         )
         case originY(
@@ -123,6 +152,7 @@ public extension CALayer {
             mediaTimingFunction: CAMediaTimingFunction? = nil,
             removeOnCompletion: Bool = true,
             additive: Bool = false,
+            continueFromCurrent: Bool = false,
             completion: ((Bool) -> Void)? = nil
         )
         case width(
@@ -149,18 +179,6 @@ public extension CALayer {
             force: Bool = false,
             completion: ((Bool) -> Void)? = nil
         )
-        case anchor(
-            from: CGPoint,
-            to: CGPoint,
-            duration: Double,
-            delay: Double = 0.0,
-            timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
-            mediaTimingFunction: CAMediaTimingFunction? = nil,
-            removeOnCompletion: Bool = true,
-            additive: Bool = false,
-            force: Bool = false,
-            completion: ((Bool) -> Void)? = nil
-        )
         case rotation(
             from: CGFloat,
             to: CGFloat,
@@ -170,6 +188,7 @@ public extension CALayer {
             mediaTimingFunction: CAMediaTimingFunction? = nil,
             removeOnCompletion: Bool = true,
             additive: Bool = false,
+            continueFromCurrent: Bool = false,
             completion: ((Bool) -> Void)? = nil
         )
 
@@ -177,6 +196,7 @@ public extension CALayer {
             switch self {
             case .anchor: return "anchorPoint"
             case .bounds: return  "bounds"
+            case .cornerRadius: return "cornerRadius"
             case .originX: return "bounds.origin.x"
             case .originY: return "bounds.origin.y"
             case .width: return "bounds.size.width"
@@ -196,13 +216,21 @@ public extension CALayer {
     @discardableResult
     func add(animation: VAAnimation) -> Self {
         switch animation {
-        case let .scale(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, completion),
-            let .scaleX(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, completion),
-            let .scaleY(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, completion),
-            let .opacity(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, completion),
-            let .originX(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, completion),
-            let .originY(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, completion),
-            let .rotation(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, completion):
+        case let .cornerRadius(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, completion),
+            let .scale(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, completion),
+            let .scaleX(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, completion),
+            let .scaleY(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, completion),
+            let .opacity(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, completion),
+            let .originX(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, completion),
+            let .originY(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, completion),
+            let .rotation(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, completion):
+            var duration = duration
+            var from = from
+            if delay.isZero, continueFromCurrent, let value = presentation()?.value(forKeyPath: animation.keyPath) as? CGFloat {
+                let multiplier = (to - value) / (to - from)
+                duration *= multiplier
+                from = value
+            }
             animate(
                 from: NSNumber(value: from),
                 to: NSNumber(value: to),
