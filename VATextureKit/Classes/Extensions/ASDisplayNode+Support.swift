@@ -67,14 +67,56 @@ public extension ASDisplayNode {
     }
 
     @discardableResult
-    func animate(_ animation: CALayer.VAAnimation) -> Self {
-        layer.add(animation: animation)
+    func animate(
+        _ animation: CALayer.VAAnimation,
+        duration: Double,
+        delay: Double = 0.0,
+        timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
+        mediaTimingFunction: CAMediaTimingFunction? = nil,
+        removeOnCompletion: Bool = true,
+        additive: Bool = false,
+        continueFromCurrent: Bool = false,
+        force: Bool = false,
+        spring: CALayer.VASpring? = nil,
+        completion: ((Bool) -> Void)? = nil
+    ) -> Self {
+        layer.add(
+            animation: animation,
+            duration: duration,
+            delay: delay,
+            timingFunction: timingFunction,
+            mediaTimingFunction: mediaTimingFunction,
+            removeOnCompletion: removeOnCompletion,
+            additive: additive,
+            continueFromCurrent: continueFromCurrent,
+            force: force,
+            spring: spring,
+            completion: completion
+        )
         return self
     }
 
     @discardableResult
-    func animate(_ animation: CALayer.VAKeyFrameAnimation) -> Self {
-        layer.add(animation: animation)
+    func animate(
+        _ animation: CALayer.VAKeyFrameAnimation,
+        duration: Double,
+        delay: Double = 0.0,
+        timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
+        mediaTimingFunction: CAMediaTimingFunction? = nil,
+        removeOnCompletion: Bool = true,
+        additive: Bool = false,
+        completion: ((Bool) -> Void)? = nil
+    ) -> Self {
+        layer.add(
+            animation: animation,
+            duration: duration,
+            delay: delay,
+            timingFunction: timingFunction,
+            mediaTimingFunction: mediaTimingFunction,
+            removeOnCompletion: removeOnCompletion,
+            additive: additive,
+            completion: completion
+        )
         return self
     }
 }

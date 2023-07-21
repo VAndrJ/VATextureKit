@@ -14,12 +14,14 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
     let opacityButtonNode = HapticButtonNode()
     var isTransparent = false {
         didSet {
-            opacityNode.animate(.opacity(
-                from: oldValue ? 0 : 1,
-                to: oldValue ? 1 : 0,
+            opacityNode.animate(
+                .opacity(
+                    from: oldValue ? 0 : 1,
+                    to: !oldValue ? 0 : 1
+                ),
                 duration: 1,
                 removeOnCompletion: false
-            ))
+            )
         }
     }
     let scaleNode = VADisplayNode()
@@ -27,12 +29,14 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
     let scaleButtonNode = HapticButtonNode()
     var isScaled = false {
         didSet {
-            scaleNode.animate(.scale(
-                from: oldValue ? 1.1 : 1,
-                to: oldValue ? 1 : 1.1,
+            scaleNode.animate(
+                .scale(
+                    from: oldValue ? 1.1 : 1,
+                    to: !oldValue ? 1.1 : 1
+                ),
                 duration: 1,
                 removeOnCompletion: false
-            ))
+            )
         }
     }
 
@@ -48,13 +52,15 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
     let boundsButtonNode = HapticButtonNode()
     var isBoundsChanged = false {
         didSet {
-            boundsNode.animate(.bounds(
-                from: oldValue ? CGRect(origin: .zero, size: CGSize(same: 100)) : CGRect(origin: .zero, size: CGSize(same: 20)),
-                to: oldValue ? CGRect(origin: .zero, size: CGSize(same: 20)) : CGRect(origin: .zero, size: CGSize(same: 100)),
+            boundsNode.animate(
+                .bounds(
+                    from: oldValue ? CGRect(origin: .zero, size: CGSize(same: 100)) : CGRect(origin: .zero, size: CGSize(same: 20)),
+                    to: !oldValue ? CGRect(origin: .zero, size: CGSize(same: 100)) : CGRect(origin: .zero, size: CGSize(same: 20))
+                ),
                 duration: defaultLayoutTransitionDuration,
                 removeOnCompletion: false,
                 spring: .init(initialVelocity: 100, damping: 200, mass: 10, swiftness: 2000)
-            ))
+            )
             setNeedsLayoutAnimated()
         }
     }
@@ -68,13 +74,15 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
     let rotationButtonNode = HapticButtonNode()
     var isRotated = false {
         didSet {
-            rotationNode.animate(.rotation(
-                from: oldValue ? .pi / 2 : 0,
-                to: oldValue ? 0 : .pi / 2,
+            rotationNode.animate(
+                .rotation(
+                    from: oldValue ? .pi / 2 : 0,
+                    to: !oldValue ? .pi / 2 : 0
+                ),
                 duration: 1,
                 removeOnCompletion: false,
                 continueFromCurrent: true
-            ))
+            )
         }
     }
 
@@ -93,12 +101,14 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
     let cornerRadiusButtonNode = HapticButtonNode()
     var isCornersRounded = false {
         didSet {
-            cornerRadiusNode.animate(.cornerRadius(
-                from: oldValue ? 10 : 0,
-                to: oldValue ? 0 : 10,
+            cornerRadiusNode.animate(
+                .cornerRadius(
+                    from: oldValue ? 10 : 0,
+                    to: !oldValue ? 10 : 0
+                ),
                 duration: 1,
                 continueFromCurrent: true
-            ))
+            )
             cornerRadiusNode.cornerRadius = isCornersRounded ? 10 : 0
         }
     }
@@ -199,17 +209,17 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
         boundsButtonNode.onTap = self ?> { $0.isBoundsChanged.toggle() }
         rotationButtonNode.onTap = self ?> { $0.isRotated.toggle() }
         pulseButtonNode.onTap = pulseNode ?> {
-            $0.animate(.scale(values: [1, 1.1, 0.9, 1.2, 0.8, 1.1, 0.9, 1], duration: 1))
+            $0.animate(.scale(values: [1, 1.1, 0.9, 1.2, 0.8, 1.1, 0.9, 1]), duration: 1)
         }
         shakeButtonNode.onTap = self ?> {
-            $0.shakeXNode.animate(.positionX(
-                values: [0, -10, +10, -20, +20, -10, +10, 0] + $0.shakeXNode.position.x,
+            $0.shakeXNode.animate(
+                .positionX(values: [0, -10, +10, -20, +20, -10, +10, 0] + $0.shakeXNode.position.x),
                 duration: 0.5
-            ))
-            $0.shakeYNode.animate(.positionY(
-                values: [0, -10, +10, -20, +20, -10, +10, 0] + $0.shakeYNode.position.y,
+            )
+            $0.shakeYNode.animate(
+                .positionY(values: [0, -10, +10, -20, +20, -10, +10, 0] + $0.shakeYNode.position.y),
                 duration: 1
-            ))
+            )
         }
         cornerRadiusButtonNode.onTap = self ?> { $0.isCornersRounded.toggle() }
     }

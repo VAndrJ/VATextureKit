@@ -10,7 +10,7 @@ import AsyncDisplayKit
 
 // swiftlint:disable all
 public extension CALayer {
-    public struct VASpring {
+    struct VASpring {
         let initialVelocity: CGFloat
         let damping: CGFloat
         let mass: CGFloat
@@ -25,219 +25,35 @@ public extension CALayer {
     }
 
     enum VAAnimation {
-        case anchor(
-            from: CGPoint,
-            to: CGPoint,
-            duration: Double,
-            delay: Double = 0.0,
-            timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
-            mediaTimingFunction: CAMediaTimingFunction? = nil,
-            removeOnCompletion: Bool = true,
-            additive: Bool = false,
-            force: Bool = false,
-            spring: VASpring? = nil,
-            completion: ((Bool) -> Void)? = nil
-        )
-        case borderColor(
-            from: CGFloat,
-            to: CGFloat,
-            duration: Double,
-            delay: Double = 0.0,
-            timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
-            mediaTimingFunction: CAMediaTimingFunction? = nil,
-            removeOnCompletion: Bool = true,
-            additive: Bool = false,
-            continueFromCurrent: Bool = false,
-            spring: VASpring? = nil,
-            completion: ((Bool) -> Void)? = nil
-        )
-        case cornerRadius(
-            from: CGFloat,
-            to: CGFloat,
-            duration: Double,
-            delay: Double = 0.0,
-            timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
-            mediaTimingFunction: CAMediaTimingFunction? = nil,
-            removeOnCompletion: Bool = true,
-            additive: Bool = false,
-            continueFromCurrent: Bool = false,
-            spring: VASpring? = nil,
-            completion: ((Bool) -> Void)? = nil
-        )
-        case opacity(
-            from: CGFloat,
-            to: CGFloat,
-            duration: Double,
-            delay: Double = 0.0,
-            timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
-            mediaTimingFunction: CAMediaTimingFunction? = nil,
-            removeOnCompletion: Bool = true,
-            additive: Bool = false,
-            continueFromCurrent: Bool = false,
-            spring: VASpring? = nil,
-            completion: ((Bool) -> Void)? = nil
-        )
-        case scale(
-            from: CGFloat,
-            to: CGFloat,
-            duration: Double,
-            delay: Double = 0.0,
-            timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
-            mediaTimingFunction: CAMediaTimingFunction? = nil,
-            removeOnCompletion: Bool = true,
-            additive: Bool = false,
-            continueFromCurrent: Bool = false,
-            spring: VASpring? = nil,
-            completion: ((Bool) -> Void)? = nil
-        )
-        case scaleX(
-            from: CGFloat,
-            to: CGFloat,
-            duration: Double,
-            delay: Double = 0.0,
-            timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
-            mediaTimingFunction: CAMediaTimingFunction? = nil,
-            removeOnCompletion: Bool = true,
-            additive: Bool = false,
-            continueFromCurrent: Bool = false,
-            spring: VASpring? = nil,
-            completion: ((Bool) -> Void)? = nil
-        )
-        case scaleY(
-            from: CGFloat,
-            to: CGFloat,
-            duration: Double,
-            delay: Double = 0.0,
-            timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
-            mediaTimingFunction: CAMediaTimingFunction? = nil,
-            removeOnCompletion: Bool = true,
-            additive: Bool = false,
-            continueFromCurrent: Bool = false,
-            spring: VASpring? = nil,
-            completion: ((Bool) -> Void)? = nil
-        )
-        case position(
-            from: CGPoint,
-            to: CGPoint,
-            duration: Double,
-            delay: Double = 0.0,
-            timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
-            mediaTimingFunction: CAMediaTimingFunction? = nil,
-            removeOnCompletion: Bool = true,
-            additive: Bool = false,
-            force: Bool = false,
-            spring: VASpring? = nil,
-            completion: ((Bool) -> Void)? = nil
-        )
-        case positionX(
-            from: CGFloat,
-            to: CGFloat,
-            duration: Double,
-            delay: Double = 0.0,
-            timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
-            mediaTimingFunction: CAMediaTimingFunction? = nil,
-            removeOnCompletion: Bool = true,
-            additive: Bool = false,
-            force: Bool = false,
-            spring: VASpring? = nil,
-            completion: ((Bool) -> Void)? = nil
-        )
-        case positionY(
-            from: CGFloat,
-            to: CGFloat,
-            duration: Double,
-            delay: Double = 0.0,
-            timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
-            mediaTimingFunction: CAMediaTimingFunction? = nil,
-            removeOnCompletion: Bool = true,
-            additive: Bool = false,
-            force: Bool = false,
-            spring: VASpring? = nil,
-            completion: ((Bool) -> Void)? = nil
-        )
-        case bounds(
-            from: CGRect,
-            to: CGRect,
-            duration: Double,
-            delay: Double = 0.0,
-            timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
-            mediaTimingFunction: CAMediaTimingFunction? = nil,
-            removeOnCompletion: Bool = true,
-            additive: Bool = false,
-            force: Bool = false,
-            spring: VASpring? = nil,
-            completion: ((Bool) -> Void)? = nil
-        )
-        case originX(
-            from: CGFloat,
-            to: CGFloat,
-            duration: Double,
-            delay: Double = 0.0,
-            timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
-            mediaTimingFunction: CAMediaTimingFunction? = nil,
-            removeOnCompletion: Bool = true,
-            additive: Bool = false,
-            continueFromCurrent: Bool = false,
-            spring: VASpring? = nil,
-            completion: ((Bool) -> Void)? = nil
-        )
-        case originY(
-            from: CGFloat,
-            to: CGFloat,
-            duration: Double,
-            delay: Double = 0.0,
-            timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
-            mediaTimingFunction: CAMediaTimingFunction? = nil,
-            removeOnCompletion: Bool = true,
-            additive: Bool = false,
-            continueFromCurrent: Bool = false,
-            spring: VASpring? = nil,
-            completion: ((Bool) -> Void)? = nil
-        )
-        case width(
-            from: CGFloat,
-            to: CGFloat,
-            duration: Double,
-            delay: Double = 0.0,
-            timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
-            mediaTimingFunction: CAMediaTimingFunction? = nil,
-            removeOnCompletion: Bool = true,
-            additive: Bool = false,
-            force: Bool = false,
-            spring: VASpring? = nil,
-            completion: ((Bool) -> Void)? = nil
-        )
-        case height(
-            from: CGFloat,
-            to: CGFloat,
-            duration: Double,
-            delay: Double = 0.0,
-            timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
-            mediaTimingFunction: CAMediaTimingFunction? = nil,
-            removeOnCompletion: Bool = true,
-            additive: Bool = false,
-            force: Bool = false,
-            spring: VASpring? = nil,
-            completion: ((Bool) -> Void)? = nil
-        )
-        case rotation(
-            from: CGFloat,
-            to: CGFloat,
-            duration: Double,
-            delay: Double = 0.0,
-            timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
-            mediaTimingFunction: CAMediaTimingFunction? = nil,
-            removeOnCompletion: Bool = true,
-            additive: Bool = false,
-            continueFromCurrent: Bool = false,
-            spring: VASpring? = nil,
-            completion: ((Bool) -> Void)? = nil
-        )
+        case anchor(from: CGPoint, to: CGPoint)
+        case backgroundColor(from: UIColor, to: UIColor)
+        case borderColor(from: UIColor, to: UIColor)
+        case borderWidth(from: CGFloat, to: CGFloat)
+        case cornerRadius(from: CGFloat, to: CGFloat)
+        case opacity(from: CGFloat, to: CGFloat)
+        case scale(from: CGFloat, to: CGFloat)
+        case scaleX(from: CGFloat, to: CGFloat)
+        case scaleY(from: CGFloat, to: CGFloat)
+        case shadowColor(from: UIColor, to: UIColor)
+        case shadowOpacity(from: CGFloat, to: CGFloat)
+        case shadowOffset(from: CGSize, to: CGSize)
+        case shadowRadius(from: CGFloat, to: CGFloat)
+        case position(from: CGPoint, to: CGPoint)
+        case positionX(from: CGFloat, to: CGFloat)
+        case positionY(from: CGFloat, to: CGFloat)
+        case bounds(from: CGRect, to: CGRect)
+        case originX(from: CGFloat, to: CGFloat)
+        case originY(from: CGFloat, to: CGFloat)
+        case width(from: CGFloat, to: CGFloat)
+        case height(from: CGFloat, to: CGFloat)
+        case rotation(from: CGFloat, to: CGFloat)
 
         var keyPath: String {
             switch self {
             case .anchor: return "anchorPoint"
+            case .backgroundColor: return "backgroundColor"
             case .borderColor: return "borderColor"
+            case .borderWidth: return "borderWidth"
             case .bounds: return  "bounds"
             case .cornerRadius: return "cornerRadius"
             case .originX: return "bounds.origin.x"
@@ -251,23 +67,120 @@ public extension CALayer {
             case .scale: return "transform.scale"
             case .scaleX: return "transform.scale.x"
             case .scaleY: return "transform.scale.y"
+            case .shadowColor: return "shadowColor"
+            case .shadowOpacity: return "shadowOpacity"
+            case .shadowOffset: return "shadowOffset"
+            case .shadowRadius: return "shadowRadius"
             case .rotation: return "transform.rotation.z"
             }
         }
     }
 
     @discardableResult
-    func add(animation: VAAnimation) -> Self {
+    func add(
+        animation: VAAnimation,
+        duration: Double,
+        delay: Double = 0.0,
+        timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
+        mediaTimingFunction: CAMediaTimingFunction? = nil,
+        removeOnCompletion: Bool = true,
+        additive: Bool = false,
+        continueFromCurrent: Bool = false,
+        force: Bool = false,
+        spring: VASpring? = nil,
+        completion: ((Bool) -> Void)? = nil
+    ) -> Self {
         switch animation {
-        case let .borderColor(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, spring, completion),
-            let .cornerRadius(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, spring, completion),
-            let .scale(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, spring, completion),
-            let .scaleX(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, spring, completion),
-            let .scaleY(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, spring, completion),
-            let .opacity(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, spring, completion),
-            let .originX(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, spring, completion),
-            let .originY(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, spring, completion),
-            let .rotation(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, continueFromCurrent, spring, completion):
+        case let .shadowOpacity(from, to),
+            let .shadowRadius(from, to),
+            let .borderWidth(from, to),
+            let .cornerRadius(from, to),
+            let .scale(from, to),
+            let .scaleX(from, to),
+            let .scaleY(from, to),
+            let .opacity(from, to),
+            let .originX(from, to),
+            let .originY(from, to),
+            let .rotation(from, to),
+            let .positionX(from, to),
+            let .positionY(from, to),
+            let .height(from, to),
+            let .width(from, to):
+            if from == to && !force {
+                completion?(true)
+                return self
+            }
+        case let .backgroundColor(from, to),
+            let .borderColor(from, to),
+            let .shadowColor(from, to):
+            if from == to && !force {
+                completion?(true)
+                return self
+            }
+        case let .position(from, to),
+            let .anchor(from, to):
+            if from == to && !force {
+                completion?(true)
+                return self
+            }
+        case let .bounds(from, to):
+            if from == to && !force {
+                completion?(true)
+                return self
+            }
+        case let .shadowOffset(from, to):
+            if from == to && !force {
+                completion?(true)
+                return self
+            }
+        }
+        let basicAnimation = getAnimation(
+            animation,
+            duration: duration,
+            delay: delay,
+            timingFunction: timingFunction,
+            mediaTimingFunction: mediaTimingFunction,
+            removeOnCompletion: removeOnCompletion,
+            additive: additive,
+            continueFromCurrent: continueFromCurrent,
+            force: force,
+            spring: spring,
+            completion: completion
+        )
+        add(basicAnimation, forKey: additive ? nil : animation.keyPath)
+        return self
+    }
+
+    func getAnimation(
+        _ animation: VAAnimation,
+        duration: Double,
+        delay: Double = 0.0,
+        timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
+        mediaTimingFunction: CAMediaTimingFunction? = nil,
+        removeOnCompletion: Bool = true,
+        additive: Bool = false,
+        continueFromCurrent: Bool = false,
+        force: Bool = false,
+        spring: VASpring? = nil,
+        completion: ((Bool) -> Void)? = nil
+    ) -> CABasicAnimation {
+        let basicAnimation: CABasicAnimation
+        switch animation {
+        case let .shadowOpacity(from, to),
+            let .shadowRadius(from, to),
+            let .borderWidth(from, to),
+            let .cornerRadius(from, to),
+            let .scale(from, to),
+            let .scaleX(from, to),
+            let .scaleY(from, to),
+            let .opacity(from, to),
+            let .originX(from, to),
+            let .originY(from, to),
+            let .rotation(from, to),
+            let .positionX(from, to),
+            let .positionY(from, to),
+            let .height(from, to),
+            let .width(from, to):
             var duration = duration
             var from = from
             if delay.isZero, continueFromCurrent, let value = presentation()?.value(forKeyPath: animation.keyPath) as? CGFloat {
@@ -275,7 +188,7 @@ public extension CALayer {
                 duration *= multiplier
                 from = value
             }
-            animate(
+            basicAnimation = getAnimation(
                 from: NSNumber(value: from),
                 to: NSNumber(value: to),
                 keyPath: animation.keyPath,
@@ -288,15 +201,25 @@ public extension CALayer {
                 spring: spring,
                 completion: completion
             )
-        case let .position(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, force, spring, completion),
-            let .anchor(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, force, spring, completion):
-            if from == to && !force {
-                if let completion {
-                    completion(true)
-                }
-                return self
-            }
-            animate(
+        case let .backgroundColor(from, to),
+            let .borderColor(from, to),
+            let .shadowColor(from, to):
+            basicAnimation = getAnimation(
+                from: from.cgColor,
+                to: to.cgColor,
+                keyPath: animation.keyPath,
+                duration: duration,
+                delay: delay,
+                timingFunction: timingFunction,
+                mediaTimingFunction: mediaTimingFunction,
+                removeOnCompletion: removeOnCompletion,
+                additive: additive,
+                spring: spring,
+                completion: completion
+            )
+        case let .position(from, to),
+            let .anchor(from, to):
+            basicAnimation = getAnimation(
                 from: NSValue(cgPoint: from),
                 to: NSValue(cgPoint: to),
                 keyPath: animation.keyPath,
@@ -309,37 +232,8 @@ public extension CALayer {
                 spring: spring,
                 completion: completion
             )
-        case let .positionX(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, force, spring, completion),
-            let .positionY(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, force, spring, completion),
-            let .height(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, force, spring, completion),
-            let .width(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, force, spring, completion):
-            if from == to && !force {
-                if let completion {
-                    completion(true)
-                }
-                return self
-            }
-            animate(
-                from: NSNumber(value: from),
-                to: NSNumber(value: to),
-                keyPath: animation.keyPath,
-                duration: duration,
-                delay: delay,
-                timingFunction: timingFunction,
-                mediaTimingFunction: mediaTimingFunction,
-                removeOnCompletion: removeOnCompletion,
-                additive: additive,
-                spring: spring,
-                completion: completion
-            )
-        case let .bounds(from, to, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, force, spring, completion):
-            if from == to && !force {
-                if let completion {
-                    completion(true)
-                }
-                return self
-            }
-            animate(
+        case let .bounds(from, to):
+            basicAnimation = getAnimation(
                 from: NSValue(cgRect: from),
                 to: NSValue(cgRect: to),
                 keyPath: #keyPath(CALayer.bounds),
@@ -352,51 +246,29 @@ public extension CALayer {
                 spring: spring,
                 completion: completion
             )
+        case let .shadowOffset(from, to):
+            basicAnimation = getAnimation(
+                from: NSValue(cgSize: from),
+                to: NSValue(cgSize: to),
+                keyPath: #keyPath(CALayer.bounds),
+                duration: duration,
+                delay: delay,
+                timingFunction: timingFunction,
+                mediaTimingFunction: mediaTimingFunction,
+                removeOnCompletion: removeOnCompletion,
+                additive: additive,
+                spring: spring,
+                completion: completion
+            )
         }
-        return self
+        return basicAnimation
     }
 
     enum VAKeyFrameAnimation {
-        case scale(
-            values: [CGFloat],
-            duration: Double,
-            delay: Double = 0.0,
-            timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
-            mediaTimingFunction: CAMediaTimingFunction? = nil,
-            removeOnCompletion: Bool = true,
-            additive: Bool = false,
-            completion: ((Bool) -> Void)? = nil
-        )
-        case positionX(
-            values: [CGFloat],
-            duration: Double,
-            delay: Double = 0.0,
-            timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
-            mediaTimingFunction: CAMediaTimingFunction? = nil,
-            removeOnCompletion: Bool = true,
-            additive: Bool = false,
-            completion: ((Bool) -> Void)? = nil
-        )
-        case positionY(
-            values: [CGFloat],
-            duration: Double,
-            delay: Double = 0.0,
-            timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
-            mediaTimingFunction: CAMediaTimingFunction? = nil,
-            removeOnCompletion: Bool = true,
-            additive: Bool = false,
-            completion: ((Bool) -> Void)? = nil
-        )
-        case opacity(
-            values: [CGFloat],
-            duration: Double,
-            delay: Double = 0.0,
-            timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
-            mediaTimingFunction: CAMediaTimingFunction? = nil,
-            removeOnCompletion: Bool = true,
-            additive: Bool = false,
-            completion: ((Bool) -> Void)? = nil
-        )
+        case scale(values: [CGFloat])
+        case positionX(values: [CGFloat])
+        case positionY(values: [CGFloat])
+        case opacity(values: [CGFloat])
 
         var keyPath: String {
             switch self {
@@ -409,13 +281,47 @@ public extension CALayer {
     }
 
     @discardableResult
-    func add(animation: VAKeyFrameAnimation) -> Self {
+    func add(
+        animation: VAKeyFrameAnimation,
+        duration: Double,
+        delay: Double = 0.0,
+        timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
+        mediaTimingFunction: CAMediaTimingFunction? = nil,
+        removeOnCompletion: Bool = true,
+        additive: Bool = false,
+        completion: ((Bool) -> Void)? = nil
+    ) -> Self {
+        let kfAnimation = getAnimation(
+            animation,
+            duration: duration,
+            delay: delay,
+            timingFunction: timingFunction,
+            mediaTimingFunction: mediaTimingFunction,
+            removeOnCompletion: removeOnCompletion,
+            additive: additive,
+            completion: completion
+        )
+        add(kfAnimation, forKey: additive ? nil : animation.keyPath)
+        return self
+    }
+
+    func getAnimation(
+        _ animation: VAKeyFrameAnimation,
+        duration: Double,
+        delay: Double = 0.0,
+        timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
+        mediaTimingFunction: CAMediaTimingFunction? = nil,
+        removeOnCompletion: Bool = true,
+        additive: Bool = false,
+        completion: ((Bool) -> Void)? = nil
+    ) -> CAKeyframeAnimation {
+        let kfAnimation: CAKeyframeAnimation
         switch animation {
-        case let .scale(values, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, completion),
-            let .positionX(values, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, completion),
-            let .positionY(values, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, completion),
-            let .opacity(values, duration, delay, timingFunction, mediaTimingFunction, removeOnCompletion, additive, completion):
-            animate(
+        case let .scale(values),
+            let .positionX(values),
+            let .positionY(values),
+            let .opacity(values):
+            kfAnimation = getAnimation(
                 keyFrames: values,
                 duration: duration,
                 delay: delay,
@@ -427,20 +333,20 @@ public extension CALayer {
                 completion: completion
             )
         }
-        return self
+        return kfAnimation
     }
 
-    private func animate(
+    private func getAnimation(
         keyFrames: [Any],
         duration: Double,
         delay: Double,
         keyPath: String,
-        timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
-        mediaTimingFunction: CAMediaTimingFunction? = nil,
-        removeOnCompletion: Bool = true,
-        additive: Bool = false,
-        completion: ((Bool) -> Void)? = nil
-    ) {
+        timingFunction: CAMediaTimingFunctionName,
+        mediaTimingFunction: CAMediaTimingFunction?,
+        removeOnCompletion: Bool,
+        additive: Bool,
+        completion: ((Bool) -> Void)?
+    ) -> CAKeyframeAnimation {
         let animation = CAKeyframeAnimation(keyPath: keyPath)
         animation.values = keyFrames
         var keyTimes: [NSNumber] = []
@@ -469,8 +375,7 @@ public extension CALayer {
         if let completion {
             animation.delegate = _AnimationDelegate(animation: animation, completion: completion)
         }
-
-        add(animation, forKey: keyPath)
+        return animation
     }
 
     private func animate(
@@ -486,6 +391,35 @@ public extension CALayer {
         spring: VASpring?,
         completion: ((Bool) -> Void)?
     ) {
+        let animation = getAnimation(
+            from: from,
+            to: to,
+            keyPath: keyPath,
+            duration: duration,
+            delay: delay,
+            timingFunction: timingFunction,
+            mediaTimingFunction: mediaTimingFunction,
+            removeOnCompletion: removeOnCompletion,
+            additive: additive,
+            spring: spring,
+            completion: completion
+        )
+        add(animation, forKey: additive ? nil : keyPath)
+    }
+
+    private func getAnimation(
+        from: Any?,
+        to: Any,
+        keyPath: String,
+        duration: Double,
+        delay: Double,
+        timingFunction: CAMediaTimingFunctionName,
+        mediaTimingFunction: CAMediaTimingFunction?,
+        removeOnCompletion: Bool,
+        additive: Bool,
+        spring: VASpring?,
+        completion: ((Bool) -> Void)?
+    ) -> CABasicAnimation {
         let animation: CABasicAnimation
         if let spring {
             let springAnimation = CASpringAnimation(keyPath: keyPath)
@@ -519,7 +453,24 @@ public extension CALayer {
         if let completion {
             animation.delegate = _AnimationDelegate(animation: animation, completion: completion)
         }
-        add(animation, forKey: additive ? nil : keyPath)
+        return animation
+    }
+
+    @discardableResult
+    func animate(chain animations: [CAAnimation], key: String = UUID().uuidString, completion: ((Bool) -> Void)? = nil) -> Self {
+        let animationGroup = CAAnimationGroup()
+        var duration = 0.0
+        for animation in animations {
+            animation.beginTime = convertTime(animation.beginTime, from: nil) + duration
+            duration += animation.duration
+        }
+        animationGroup.animations = animations
+        animationGroup.duration = duration
+        if let completion {
+            animationGroup.delegate = _AnimationDelegate(animation: animationGroup, completion: completion)
+        }
+        add(animationGroup, forKey: key)
+        return self
     }
 }
 

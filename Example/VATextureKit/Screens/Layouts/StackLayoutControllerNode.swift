@@ -42,19 +42,19 @@ final class StackLayoutControllerNode: VASafeAreaDisplayNode {
 
     private var centeringOptions: ASCenterLayoutSpecCenteringOptions = .XY {
         didSet {
-            scrollNode.transitionLayout(withAnimation: true, shouldMeasureAsync: false)
+            scrollNode.setNeedsLayoutAnimated()
             centeringInfoTextNode.text = centeringOptions.description
         }
     }
     private var relativeHorizontalPosition: ASRelativeLayoutSpecPosition = .end {
         didSet {
-            scrollNode.transitionLayout(withAnimation: true, shouldMeasureAsync: false)
+            scrollNode.setNeedsLayoutAnimated()
             relativePositionHorizontalInfoTextNode.text = relativeHorizontalPosition.horizontalDescription
         }
     }
     private var relativeVerticalPosition: ASRelativeLayoutSpecPosition = .end {
         didSet {
-            scrollNode.transitionLayout(withAnimation: true, shouldMeasureAsync: false)
+            scrollNode.setNeedsLayoutAnimated()
             relativePositionVerticalInfoTextNode.text = relativeVerticalPosition.verticalDescription
         }
     }

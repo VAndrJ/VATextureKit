@@ -98,7 +98,7 @@ open class VATextNode: _VATextNode {
         kern: VAKern? = nil,
         lineHeight: VALineHeight? = nil,
         alignment: NSTextAlignment = .natural,
-        truncationMode: NSLineBreakMode = .byTruncatingTail,
+        truncationMode: NSLineBreakMode = .byWordWrapping,
         maximumNumberOfLines: UInt? = .none,
         colorGetter: @escaping (VATheme) -> UIColor = { $0.label },
         secondary: [SecondaryAttributes]? = nil
@@ -128,7 +128,7 @@ open class VATextNode: _VATextNode {
         kern: VAKern? = nil,
         lineHeight: VALineHeight? = nil,
         alignment: NSTextAlignment = .natural,
-        truncationMode: NSLineBreakMode = .byTruncatingTail,
+        truncationMode: NSLineBreakMode = .byWordWrapping,
         maximumNumberOfLines: UInt? = .none,
         colorGetter: @escaping (VATheme) -> UIColor = { $0.label },
         secondary: [SecondaryAttributes]? = nil
