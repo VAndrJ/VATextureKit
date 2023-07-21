@@ -53,6 +53,7 @@
 		A3A0BEE229ED650000253AAD /* ColumnLayoutControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A0BEE129ED650000253AAD /* ColumnLayoutControllerNode.swift */; };
 		A3A0BEE429ED68B900253AAD /* StackLayoutControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A0BEE329ED68B900253AAD /* StackLayoutControllerNode.swift */; };
 		A3A0BEEA29EDC41C00253AAD /* ColumnTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A0BEE829EDC40B00253AAD /* ColumnTests.swift */; };
+		A3A72F652A6A68A90008B2DC /* LayerAnimationControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A72F642A6A68A90008B2DC /* LayerAnimationControllerNode.swift */; };
 		A3B3F37929A0CDAD0090E6E2 /* MainNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F37829A0CDAD0090E6E2 /* MainNodeController.swift */; };
 		A3B3F3AF29A17A5B0090E6E2 /* ExampleNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3AE29A17A5B0090E6E2 /* ExampleNavigationController.swift */; };
 		A3B3F3C529A22F860090E6E2 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3C429A22F860090E6E2 /* Theme.swift */; };
@@ -157,6 +158,7 @@
 		A3A0BEE129ED650000253AAD /* ColumnLayoutControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnLayoutControllerNode.swift; sourceTree = "<group>"; };
 		A3A0BEE329ED68B900253AAD /* StackLayoutControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackLayoutControllerNode.swift; sourceTree = "<group>"; };
 		A3A0BEE829EDC40B00253AAD /* ColumnTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnTests.swift; sourceTree = "<group>"; };
+		A3A72F642A6A68A90008B2DC /* LayerAnimationControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerAnimationControllerNode.swift; sourceTree = "<group>"; };
 		A3B3F37829A0CDAD0090E6E2 /* MainNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNodeController.swift; sourceTree = "<group>"; };
 		A3B3F3AE29A17A5B0090E6E2 /* ExampleNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleNavigationController.swift; sourceTree = "<group>"; };
 		A3B3F3C429A22F860090E6E2 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -351,6 +353,7 @@
 			isa = PBXGroup;
 			children = (
 				A33CDF3229D9B875005F77C6 /* SlideAnimationControllerNode.swift */,
+				A3A72F642A6A68A90008B2DC /* LayerAnimationControllerNode.swift */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
@@ -790,6 +793,7 @@
 				A3483AD029E937B500948574 /* HapticButtonNode.swift in Sources */,
 				A3BCEC5729CFA6770077217F /* LoadingCellNode.swift in Sources */,
 				A3B3F3E529A3868F0090E6E2 /* ContentSizeControllerNode.swift in Sources */,
+				A3A72F652A6A68A90008B2DC /* LayerAnimationControllerNode.swift in Sources */,
 				A357B8062A025116004835C5 /* LinkTextControllerNode.swift in Sources */,
 				A397A2C229AAA68800A05B8F /* AlertNodeController.swift in Sources */,
 				A34F8E8529F576C000EF4C42 /* PagerCardCellNode.swift in Sources */,

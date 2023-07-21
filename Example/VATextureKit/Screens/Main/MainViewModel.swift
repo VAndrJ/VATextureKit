@@ -15,6 +15,10 @@ final class MainViewModel {
             MainListCellNodeViewModel(title: "Column", description: "Layout example", route: .columnLayout),
             MainListCellNodeViewModel(title: "Stack", description: "Layout example", route: .stackLayout),
         ]),
+        AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Animations"), items: [
+            MainListCellNodeViewModel(title: "Transition", description: "Layout transition animations", route: .moveAnimations),
+            MainListCellNodeViewModel(title: "Custom", description: "Layer animations", route: .layerAnimations),
+        ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "System"), items: [
             MainListCellNodeViewModel(title: "Appearance", description: "Select theme", route: .apearance),
             MainListCellNodeViewModel(title: "Content size", description: "Alert controller", route: .contentSize),
@@ -28,9 +32,6 @@ final class MainViewModel {
             MainListCellNodeViewModel(title: "List", description: "ASCollectionNode based", route: .collectionList),
             MainListCellNodeViewModel(title: "List", description: "ASCollectionNode based", route: .collectionListDifferentCells),
             MainListCellNodeViewModel(title: "List with header and footer\nMove items on long press", description: "ASCollectionNode based", route: .collectionListHeaderFooter),
-        ]),
-        AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Animations"), items: [
-            MainListCellNodeViewModel(title: "Slide", description: "Move animations", route: .moveAnimations),
         ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Compositing"), items: [
             MainListCellNodeViewModel(title: "Blend mode", description: "Layer", route: .blendMode),
