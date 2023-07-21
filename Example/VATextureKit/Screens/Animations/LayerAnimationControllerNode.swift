@@ -52,7 +52,8 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
                 from: oldValue ? CGRect(origin: .zero, size: CGSize(same: 100)) : CGRect(origin: .zero, size: CGSize(same: 20)),
                 to: oldValue ? CGRect(origin: .zero, size: CGSize(same: 20)) : CGRect(origin: .zero, size: CGSize(same: 100)),
                 duration: defaultLayoutTransitionDuration,
-                removeOnCompletion: false
+                removeOnCompletion: false,
+                spring: .init(initialVelocity: 100, damping: 200, mass: 10, swiftness: 2000)
             ))
             setNeedsLayoutAnimated()
         }
@@ -71,7 +72,8 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
                 from: oldValue ? .pi / 2 : 0,
                 to: oldValue ? 0 : .pi / 2,
                 duration: 1,
-                removeOnCompletion: false
+                removeOnCompletion: false,
+                continueFromCurrent: true
             ))
         }
     }
@@ -85,6 +87,21 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
     let shakeYNode = VADisplayNode()
         .sized(width: 100, height: 20)
     let shakeButtonNode = HapticButtonNode()
+
+    let cornerRadiusNode = VADisplayNode()
+        .sized(width: 100, height: 20)
+    let cornerRadiusButtonNode = HapticButtonNode()
+    var isCornersRounded = false {
+        didSet {
+            cornerRadiusNode.animate(.cornerRadius(
+                from: oldValue ? 10 : 0,
+                to: oldValue ? 0 : 10,
+                duration: 1,
+                continueFromCurrent: true
+            ))
+            cornerRadiusNode.cornerRadius = isCornersRounded ? 10 : 0
+        }
+    }
 
     override func didLoad() {
         super.didLoad()
@@ -129,6 +146,10 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
                 }
                 shakeButtonNode
                     .padding(.bottom(16))
+
+                cornerRadiusNode
+                cornerRadiusButtonNode
+                    .padding(.bottom(16))
             }
             .padding(.all(16))
         }
@@ -166,6 +187,10 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
         shakeYNode.backgroundColor = theme.systemIndigo
         shakeButtonNode.tintColor = theme.systemBlue
         shakeButtonNode.configure(title: "Animate shake", theme: theme)
+
+        cornerRadiusNode.backgroundColor = theme.systemGray
+        cornerRadiusButtonNode.tintColor = theme.systemBlue
+        cornerRadiusButtonNode.configure(title: "Animate corner radius", theme: theme)
     }
 
     private func bind() {
@@ -186,5 +211,6 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
                 duration: 1
             ))
         }
+        cornerRadiusButtonNode.onTap = self ?> { $0.isCornersRounded.toggle() }
     }
 }
