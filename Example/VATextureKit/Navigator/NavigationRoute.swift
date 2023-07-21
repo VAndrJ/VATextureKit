@@ -19,6 +19,7 @@ enum NavigationRoute {
     case linearGradient
     case main
     case moveAnimations
+    case layerAnimations
     case pager
     case radialGradient
     case readMoreText

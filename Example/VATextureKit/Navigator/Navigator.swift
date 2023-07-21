@@ -79,6 +79,8 @@ class ScreenFactory {
             return VAViewController(node: CollectionListHeaderFooterControllerNode(viewModel: CollectionListHeaderFooterViewModel()))
         case .moveAnimations:
             return VAViewController(node: SlideAnimationControllerNode())
+        case .layerAnimations:
+            return VAViewController(node: LayerAnimationControllerNode())
         case .compositingFilter:
             return VAViewController(node: CompositingFilterControllerNode(viewModel: CompositingFilterViewModel()))
         case .blendMode:

@@ -9,9 +9,9 @@
 import VATextureKit
 
 final class SlideAnimationControllerNode: VASafeAreaDisplayNode {
-    let leftNode = VATextNode(text: "left", fontStyle: .body, alignment: .center)
+    let leftTextNode = VATextNode(text: "left", fontStyle: .body, alignment: .center)
         .flex(shrink: 0.1, basisPercent: 60)
-    let rightNode = VATextNode(text: "right", fontStyle: .body, alignment: .center)
+    let rightTextNode = VATextNode(text: "right", fontStyle: .body, alignment: .center)
         .flex(basisPercent: 40)
     let exchangeButtonNode = HapticButtonNode()
     let toggleNode = VATextNode(
@@ -23,7 +23,7 @@ final class SlideAnimationControllerNode: VASafeAreaDisplayNode {
     }
     let toggleButtonNode = HapticButtonNode()
     let expandButtonNode = HapticButtonNode()
-    let expandNode = ASDisplayNode()
+    let expandNode = VADisplayNode()
         .sized(width: 100, height: 50)
     var isNodesExchanged = false {
         didSet { setNeedsLayoutAnimated() }
@@ -46,11 +46,11 @@ final class SlideAnimationControllerNode: VASafeAreaDisplayNode {
             Column(spacing: 16, cross: .stretch) {
                 Row(spacing: 16) {
                     if isNodesExchanged {
-                        rightNode
-                        leftNode
+                        rightTextNode
+                        leftTextNode
                     } else {
-                        leftNode
-                        rightNode
+                        leftTextNode
+                        rightTextNode
                     }
                 }
                 exchangeButtonNode
@@ -76,12 +76,15 @@ final class SlideAnimationControllerNode: VASafeAreaDisplayNode {
 
     override func configureTheme(_ theme: VATheme) {
         backgroundColor = theme.systemBackground
-        leftNode.backgroundColor = theme.systemOrange
-        rightNode.backgroundColor = theme.systemTeal
+
+        leftTextNode.backgroundColor = theme.systemOrange
+        rightTextNode.backgroundColor = theme.systemTeal
         exchangeButtonNode.tintColor = theme.systemBlue
-        expandNode.backgroundColor = theme.systemPurple
         exchangeButtonNode.configure(title: "Exchange", theme: theme)
+
         toggleButtonNode.configure(title: "Toggle", theme: theme)
+
+        expandNode.backgroundColor = theme.systemPurple
         expandButtonNode.configure(title: "Expand", theme: theme)
     }
 
