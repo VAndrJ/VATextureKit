@@ -40,7 +40,7 @@ open class VAThemeManager {
         standardDarkTheme: VATheme,
         userInterfaceStyle: UIUserInterfaceStyle = .light
     ) {
-        self.theme = standardLightTheme
+        self.theme = userInterfaceStyle == .dark ? standardDarkTheme : standardLightTheme
         self.themeType = .standard
         self.standardLightTheme = standardLightTheme
         self.standardDarkTheme = standardDarkTheme
