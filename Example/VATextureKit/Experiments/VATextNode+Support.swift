@@ -23,7 +23,7 @@ extension VATextNode {
         color: @escaping (VATheme) -> UIColor,
         alignment: NSTextAlignment = .natural,
         descriptor: VAFontDesign = .default,
-        truncationMode: NSLineBreakMode = .byTruncatingTail,
+        truncationMode: NSLineBreakMode = .byWordWrapping,
         maximumNumberOfLines: UInt? = nil,
         secondary: [SecondaryTextAttributes] = []
     ) {
