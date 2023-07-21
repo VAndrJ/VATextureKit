@@ -7,6 +7,8 @@
 
 @_exported import AsyncDisplayKit
 
+// MARK: - Filters
+
 public extension ASDisplayNode {
 
     enum BlendMode: String, CaseIterable {
@@ -54,9 +56,26 @@ public extension ASDisplayNode {
         get { (layer.compositingFilter as? String).flatMap(CompositingFilter.init(rawValue:)) }
         set { layer.compositingFilter = newValue?.rawValue }
     }
+}
+
+// MARK: - Animtations
+
+public extension ASDisplayNode {
 
     func setNeedsLayoutAnimated(shouldMeasureAsync: Bool = false, completion: (() -> Void)? = nil) {
         transitionLayout(withAnimation: true, shouldMeasureAsync: shouldMeasureAsync, measurementCompletion: completion)
+    }
+
+    @discardableResult
+    func animate(_ animation: CALayer.VAAnimation) -> Self {
+        layer.add(animation: animation)
+        return self
+    }
+
+    @discardableResult
+    func animate(_ animation: CALayer.VAKeyFrameAnimation) -> Self {
+        layer.add(animation: animation)
+        return self
     }
 }
 
