@@ -1040,6 +1040,10 @@ Container to use `UIView` with nodes and inheriting its size.
 ## Animations
 
 
+<details>
+<summary>Layout transition animations</summary>
+
+
 Layout transition animations in easy way. Just write:
 
 ```
@@ -1053,6 +1057,32 @@ Example:
 
 
 ![Layout transition example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/layout_transition_example.gif)
+
+
+</details>
+
+
+<details>
+<summary>Node animations</summary>
+
+
+Node animations in easy way. 
+
+
+Example:
+
+```
+pulseNode.animate(.scale(values: [1, 1.1, 0.9, 1.2, 0.8, 1.1, 0.9, 1], duration: 1))
+```
+
+
+Result:
+
+
+![Layout transition example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/pulse_animation_example.gif)
+
+
+</details>
 
 
 ## Themes
