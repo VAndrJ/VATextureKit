@@ -1082,6 +1082,12 @@ Result:
 ![Layout transition example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/pulse_animation_example.gif)
 
 
+More examples:
+
+
+![Layout transition example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/animations_example.gif)
+
+
 </details>
 
 
