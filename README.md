@@ -9,7 +9,7 @@
 * [Nodes](#nodes)
 * [Containers](#containers)
 * [Wrappers](#wrappers)
-* [Animations](#)
+* [Animations](#animations)
 * [Themes](#themes)
 * [Property wrappers](#property-wrappers)
 * [Extensions](#extensions)
@@ -1072,7 +1072,7 @@ Node animations in easy way.
 Example:
 
 ```
-pulseNode.animate(.scale(values: [1, 1.1, 0.9, 1.2, 0.8, 1.1, 0.9, 1], duration: 1))
+pulseNode.animate(.scale(values: [1, 1.1, 0.9, 1.2, 0.8, 1.1, 0.9, 1]), duration: 1)
 ```
 
 
