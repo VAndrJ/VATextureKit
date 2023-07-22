@@ -130,12 +130,20 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
 
     public func update(items: [Item]) {
         data.items = items
-        reloadData()
+        reload()
         checkPosition()
     }
 
     open func configureTheme() {
-        reloadData()
+        reload()
+    }
+
+    open func reload() {
+        reloadData { [weak self] in
+            DispatchQueue.main.async {
+                self?.disableAllLayerAnimations()
+            }
+        }
     }
 
     open func themeDidChanged() {
