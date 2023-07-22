@@ -496,7 +496,17 @@ open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>: 
             if !dataSource.dataSet {
                 dataSource.dataSet = true
                 dataSource.setSections(newSections)
-                tableNode.reloadData()
+                if dataSource.animationConfiguration.animatedOnInit {
+                    tableNode.reloadData()
+                } else {
+                    // Because of
+                    // [self endUpdatesAnimated:[UIView areAnimationsEnabled] completion:completion];
+                    // in ASTableNode
+                    UIView.setAnimationsEnabled(false)
+                    tableNode.reloadData {
+                        UIView.setAnimationsEnabled(true)
+                    }
+                }
             } else {
                 let oldSections = dataSource.sectionModels
                 do {

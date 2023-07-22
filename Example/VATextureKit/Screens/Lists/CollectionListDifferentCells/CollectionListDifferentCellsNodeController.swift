@@ -21,7 +21,9 @@ final class CollectionListDifferentCellsNodeController: VANodeController {
             loadMore: viewModel.loadMore
         ),
         layoutData: .init(
-            minimumLineSpacing: 16
+            layout: .default(parameters: .init(
+                minimumLineSpacing: 16
+            ))
         ),
         refreshData: .init(
             reloadData: viewModel.reloadData,
@@ -34,8 +36,10 @@ final class CollectionListDifferentCellsNodeController: VANodeController {
             cellGetter: mapToCell(viewModel:)
         ),
         layoutData: .init(
-            minimumLineSpacing: 16,
-            contentInset: UIEdgeInsets(horizontal: 16)
+            contentInset: UIEdgeInsets(horizontal: 16),
+            layout: .default(parameters: .init(
+                minimumLineSpacing: 16
+            ))
         )
     )
     

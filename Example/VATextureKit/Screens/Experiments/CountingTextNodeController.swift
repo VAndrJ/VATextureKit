@@ -9,7 +9,9 @@
 import VATextureKit
 
 final class CountingTextNodeController: VASafeAreaDisplayNode {
-    private lazy var countingTextNode = VACountingTextNode(string: "0", color: { $0.label })
+    private lazy var countingTextNode = VACountingTextNode(string: "", color: { $0.label }).apply {
+        $0.updateCount(to: 0)
+    }
     private lazy var randomButtonNode = VAButtonNode()
 
     override func didLoad() {

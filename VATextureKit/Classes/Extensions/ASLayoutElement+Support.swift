@@ -232,7 +232,7 @@ public extension ASLayoutElement {
     }
 
     func centered(
-        centering: ASCenterLayoutSpecCenteringOptions = .XY,
+        _ centering: ASCenterLayoutSpecCenteringOptions = .XY,
         sizing: ASCenterLayoutSpecSizingOptions = .minimumXY
     ) -> ASCenterLayoutSpec {
         ASCenterLayoutSpec(

@@ -103,6 +103,8 @@ class ScreenFactory {
             return VAViewController(node: LinkTextControllerNode())
         case .countingTextNode:
             return VAViewController(node: CountingTextNodeController())
+        case .dynamicHeightGridList:
+            return VAViewController(node: DynamicHeightGridListControllerNode())
         }
     }
 }

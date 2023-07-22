@@ -96,7 +96,7 @@ final class StackLayoutControllerNode: VASafeAreaDisplayNode {
             Stack {
                 centeredPairNodes[0]
                 centeredPairNodes[1]
-                    .centered(centering: centeringOptions)
+                    .centered(centeringOptions)
             }
 
             stackRelativeElementTitleTextNode

@@ -77,12 +77,8 @@ open class VATypingTextNode: VATextNode {
 
     public func resetTyping() {
         resetTimer()
-        offset = 0
-        if isRandomizedTypingTime {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(typingTime)) { [self] in
-                updateTyping()
-            }
-        } else {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(typingTime * 2)) { [self] in
+            offset = 0
             updateTyping()
         }
     }

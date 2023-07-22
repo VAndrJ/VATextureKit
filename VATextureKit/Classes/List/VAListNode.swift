@@ -101,36 +101,52 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
     }
     
     public struct LayoutDTO {
+        public struct DefaultLayoutParameters {
+            let scrollDirection: UICollectionView.ScrollDirection
+            let minimumLineSpacing: CGFloat
+            let minimumInteritemSpacing: CGFloat
+            let sectionHeadersPinToVisibleBounds: Bool
+            let sectionFootersPinToVisibleBounds: Bool
+
+            public init(
+                scrollDirection: UICollectionView.ScrollDirection = .vertical,
+                minimumLineSpacing: CGFloat = .leastNormalMagnitude,
+                minimumInteritemSpacing: CGFloat = .leastNormalMagnitude,
+                sectionHeadersPinToVisibleBounds: Bool = false,
+                sectionFootersPinToVisibleBounds: Bool = false
+            ) {
+                self.scrollDirection = scrollDirection
+                self.minimumLineSpacing = minimumLineSpacing
+                self.minimumInteritemSpacing = minimumInteritemSpacing
+                self.sectionHeadersPinToVisibleBounds = sectionHeadersPinToVisibleBounds
+                self.sectionFootersPinToVisibleBounds = sectionFootersPinToVisibleBounds
+            }
+        }
+
+        public enum Layout {
+            case `default`(parameters: DefaultLayoutParameters)
+            case delegate(ASCollectionLayoutDelegate)
+            case custom(UICollectionViewLayout)
+        }
+
         let animationConfiguration: AnimationConfiguration
-        let scrollDirection: UICollectionView.ScrollDirection
-        let sectionHeadersPinToVisibleBounds: Bool
-        let sectionFootersPinToVisibleBounds: Bool
-        let minimumLineSpacing: CGFloat
-        let minimumInteritemSpacing: CGFloat
         let contentInset: UIEdgeInsets
         let sizing: VACollectionNodeSizing?
         let albumSizing: VACollectionNodeSizing?
+        let layout: Layout
         
         public init(
             animationConfiguration: AnimationConfiguration = .init(),
-            scrollDirection: UICollectionView.ScrollDirection = .vertical,
-            sectionHeadersPinToVisibleBounds: Bool = false,
-            sectionFootersPinToVisibleBounds: Bool = false,
-            minimumLineSpacing: CGFloat = .leastNormalMagnitude,
-            minimumInteritemSpacing: CGFloat = .leastNormalMagnitude,
             contentInset: UIEdgeInsets = .zero,
             sizing: VACollectionNodeSizing? = nil,
-            albumSizing: VACollectionNodeSizing? = nil
+            albumSizing: VACollectionNodeSizing? = nil,
+            layout: Layout = .default(parameters: .init())
         ) {
             self.animationConfiguration = animationConfiguration
-            self.scrollDirection = scrollDirection
-            self.sectionHeadersPinToVisibleBounds = sectionHeadersPinToVisibleBounds
-            self.sectionFootersPinToVisibleBounds = sectionFootersPinToVisibleBounds
-            self.minimumLineSpacing = minimumLineSpacing
-            self.minimumInteritemSpacing = minimumInteritemSpacing
             self.contentInset = contentInset
             self.sizing = sizing
             self.albumSizing = albumSizing
+            self.layout = layout
         }
     }
 
@@ -160,15 +176,15 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         }
     }
     
-    public let data: DTO
-    public let layoutData: LayoutDTO
-    public let refreshData: RefreshDTO
+    public private(set) var data: DTO!
+    public private(set) var layoutData: LayoutDTO!
+    public private(set) var refreshData: RefreshDTO!
     public private(set) var batchContext: ASBatchContext?
     
     private let bag = DisposeBag()
     private lazy var refreshControlView = refreshData.refreshControlView()
     private var isRefreshing = false
-    private let delayedConfiguration: Bool
+    private var delayedConfiguration: Bool!
     
     public convenience init<T>(data: ElementDTO, layoutData: LayoutDTO, refreshData: RefreshDTO = .init()) where S == AnimatableSectionModel<String, T> {
         self.init(
@@ -190,23 +206,33 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         )
     }
     
-    public init(data: DTO, layoutData: LayoutDTO, refreshData: RefreshDTO = .init()) {
+    public convenience init(data: DTO, layoutData: LayoutDTO, refreshData: RefreshDTO = .init()) {
+        switch layoutData.layout {
+        case let .default(parameters):
+            let flowLayout = UICollectionViewFlowLayout()
+            flowLayout.scrollDirection = parameters.scrollDirection
+            flowLayout.minimumLineSpacing = parameters.minimumLineSpacing
+            flowLayout.minimumInteritemSpacing = parameters.minimumInteritemSpacing
+            flowLayout.sectionHeadersPinToVisibleBounds = parameters.sectionHeadersPinToVisibleBounds
+            flowLayout.sectionFootersPinToVisibleBounds = parameters.sectionFootersPinToVisibleBounds
+            self.init(
+                frame: CGRect(origin: .zero, size: CGSize(same: 320)),
+                collectionViewLayout: flowLayout,
+                layoutFacilitator: nil
+            )
+        case let .custom(customLayout):
+            self.init(
+                frame: CGRect(origin: .zero, size: CGSize(same: 320)),
+                collectionViewLayout: customLayout,
+                layoutFacilitator: nil
+            )
+        case let .delegate(layoutDelegate):
+            self.init(layoutDelegate: layoutDelegate, layoutFacilitator: nil)
+        }
+        self.delayedConfiguration = !Thread.current.isMainThread
         self.data = data
         self.layoutData = layoutData
         self.refreshData = refreshData
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = layoutData.scrollDirection
-        flowLayout.minimumLineSpacing = layoutData.minimumLineSpacing
-        flowLayout.minimumInteritemSpacing = layoutData.minimumInteritemSpacing
-        flowLayout.sectionHeadersPinToVisibleBounds = layoutData.sectionHeadersPinToVisibleBounds
-        flowLayout.sectionFootersPinToVisibleBounds = layoutData.sectionFootersPinToVisibleBounds
-        self.delayedConfiguration = !Thread.current.isMainThread
-        
-        super.init(
-            frame: CGRect(origin: .zero, size: CGSize(same: 320)),
-            collectionViewLayout: flowLayout,
-            layoutFacilitator: nil
-        )
 
         if !delayedConfiguration {
             configure()
@@ -227,9 +253,11 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         if refreshData.reloadData != nil {
             view.insertSubview(refreshControlView, at: 0)
             refreshControlView.rx.controlEvent(.valueChanged)
-                .do(afterNext: { [refreshData] _ in
-                    if !refreshData.isDelayed {
-                        refreshData.reloadData?()
+                .do(afterNext: { [weak self] _ in
+                    guard let self else { return }
+
+                    if !self.refreshData.isDelayed {
+                        self.refreshData.reloadData?()
                     }
                 })
                 .map { _ in true }
@@ -248,6 +276,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         if data.footerGetter != nil {
             registerSupplementaryNode(ofKind: UICollectionView.elementKindSectionFooter)
         }
+        let data: DTO = data
         let dataSource = RxASCollectionSectionedAnimatedDataSource<S>(
             animationConfiguration: layoutData.animationConfiguration,
             configureCellBlock: { [data] _, _, _, item in { data.cellGetter(item) } },

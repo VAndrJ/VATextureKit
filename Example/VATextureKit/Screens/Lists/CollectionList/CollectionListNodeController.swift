@@ -17,12 +17,14 @@ final class CollectionListNodeController: VANodeController {
             cellGetter: CollectionExampleCellNode.init(viewModel:)
         ),
         layoutData: .init(
-            scrollDirection: .horizontal,
-            minimumLineSpacing: 16,
-            minimumInteritemSpacing: 8,
             contentInset: UIEdgeInsets(all: 8),
             sizing: .horizontal(columns: 2, ratio: 1),
-            albumSizing: .horizontal(columns: 1, ratio: 1)
+            albumSizing: .horizontal(columns: 1, ratio: 1),
+            layout: .default(parameters: .init(
+                scrollDirection: .horizontal,
+                minimumLineSpacing: 16,
+                minimumInteritemSpacing: 8
+            ))
         )
     )
     private(set) lazy var verticalListNode = VAListNode(
@@ -31,11 +33,13 @@ final class CollectionListNodeController: VANodeController {
             cellGetter: CollectionExampleCellNode.init(viewModel:)
         ),
         layoutData: .init(
-            minimumLineSpacing: 8,
-            minimumInteritemSpacing: 8,
             contentInset: UIEdgeInsets(all: 16),
             sizing: .vertical(columns: 2, ratio: 1),
-            albumSizing: .vertical(columns: 3, ratio: 1)
+            albumSizing: .vertical(columns: 3, ratio: 1),
+            layout: .default(parameters: .init(
+                minimumLineSpacing: 8,
+                minimumInteritemSpacing: 8
+            ))
         )
     )
     

@@ -50,7 +50,7 @@ final class PagerControllerNode: VASafeAreaDisplayNode {
                 }
                 .flex(grow: 1)
                 randomizeButtonNode
-                    .centered(centering: .X)
+                    .centered(.X)
             }
         }
     }

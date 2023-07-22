@@ -46,6 +46,7 @@ final class MainViewModel {
             MainListCellNodeViewModel(title: "VACountingTextNode", description: "ASTextNode based", route: .countingTextNode),
             MainListCellNodeViewModel(title: "VASlidingTabBarNode", description: "ASScrollNode based", route: .slidingTabBar),
             MainListCellNodeViewModel(title: "VALinkTextNode", description: "ASTextNode based", route: .linkTextNode),
+            MainListCellNodeViewModel(title: "Dynamic height grid list", description: "ASCollectionNode based", route: .dynamicHeightGridList),
         ]),
     ])
     var listDataObs: Observable<[AnimatableSectionModel<MainSectionHeaderNodeViewModel, MainListCellNodeViewModel>]>
