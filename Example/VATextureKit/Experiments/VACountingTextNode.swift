@@ -14,22 +14,25 @@ open class VACountingTextNode: VATextNode {
         public let animationDuration: TimeInterval
         public let rate: Double
         public let preferredFramesPerSecond: Int
+        public let format: (Int) -> String
 
         public init(
             timingFunction: CAMediaTimingFunctionName = .easeIn,
             animationDuration: TimeInterval = 1.0,
             rate: Double = 3.0,
-            preferredFramesPerSecond: Int = 30
+            preferredFramesPerSecond: Int = 30,
+            format: @escaping (Int) -> String = { "Count: \($0)" }
         ) {
             self.timingFunction = timingFunction
             self.animationDuration = animationDuration
             self.rate = rate
             self.preferredFramesPerSecond = preferredFramesPerSecond
+            self.format = format
         }
     }
 
     public var configuration = Configuration()
-    public private(set) lazy var value = Int(text ?? "0")
+    public private(set) lazy var value = Int(text ?? configuration.format(0))
 
     private var beginValue = 0
     private var targetValue = 0
@@ -48,7 +51,7 @@ open class VACountingTextNode: VATextNode {
         if let value {
             count(from: value, to: newValue)
         } else {
-            text = "\(newValue)"
+            text = configuration.format(newValue)
         }
         value = newValue
     }
@@ -58,7 +61,7 @@ open class VACountingTextNode: VATextNode {
         targetValue = to
         cancelCounting()
         if configuration.animationDuration.isZero {
-            text = "\(to)"
+            text = configuration.format(to)
         } else {
             progressTime = 0
             totalTime = configuration.animationDuration
@@ -95,7 +98,7 @@ open class VACountingTextNode: VATextNode {
         if progressTime >= totalTime {
             cancelCounting()
         }
-        text = "\(currentValue)"
+        text = configuration.format(currentValue)
     }
 }
 
