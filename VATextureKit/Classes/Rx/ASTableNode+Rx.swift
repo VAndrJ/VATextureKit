@@ -499,6 +499,9 @@ open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>: 
                 if dataSource.animationConfiguration.animatedOnInit {
                     tableNode.reloadData()
                 } else {
+                    // Because of
+                    // [self endUpdatesAnimated:[UIView areAnimationsEnabled] completion:completion];
+                    // in ASTableNode
                     UIView.setAnimationsEnabled(false)
                     tableNode.reloadData {
                         UIView.setAnimationsEnabled(true)

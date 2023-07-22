@@ -29,4 +29,5 @@ enum NavigationRoute {
     case slidingTabBar
     case linkTextNode
     case countingTextNode
+    case dynamicHeightGridList
 }
