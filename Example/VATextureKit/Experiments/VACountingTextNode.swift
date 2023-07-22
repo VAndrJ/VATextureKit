@@ -13,15 +13,18 @@ open class VACountingTextNode: VATextNode {
         public let timingFunction: CAMediaTimingFunctionName
         public let animationDuration: TimeInterval
         public let rate: Double
+        public let preferredFramesPerSecond: Int
 
         public init(
             timingFunction: CAMediaTimingFunctionName = .easeIn,
             animationDuration: TimeInterval = 1.0,
-            rate: Double = 3.0
+            rate: Double = 3.0,
+            preferredFramesPerSecond: Int = 30
         ) {
             self.timingFunction = timingFunction
             self.animationDuration = animationDuration
             self.rate = rate
+            self.preferredFramesPerSecond = preferredFramesPerSecond
         }
     }
 
@@ -75,6 +78,12 @@ open class VACountingTextNode: VATextNode {
             target: self,
             selector: #selector(updateText)
         )
+        if #available(iOS 15.0, *) {
+            let rate = Float(configuration.preferredFramesPerSecond)
+            displayLink?.preferredFrameRateRange = CAFrameRateRange(minimum: rate, maximum: rate, preferred: rate)
+        } else {
+            displayLink?.preferredFramesPerSecond = configuration.preferredFramesPerSecond
+        }
         displayLink?.add(to: .main, forMode: .default)
         displayLink?.add(to: .main, forMode: .tracking)
     }
