@@ -1261,13 +1261,23 @@ sRepresentation(layout:)
 
 
 <details open>
+<summary>VACountingTextNode</summary>
+
+
+![Link text node](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/counting_text_example.gif)
+
+
+</details>
+
+
+<details open>
 <summary>VASlidingTabBarNode</summary>
 
 
 ![Sliding tab bar](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/sliding_tab_bar_example.gif)
 
 
-</details>
+</details open>
 
 
 <details>

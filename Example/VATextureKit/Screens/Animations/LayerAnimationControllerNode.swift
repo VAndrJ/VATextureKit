@@ -9,10 +9,10 @@
 import VATextureKit
 
 final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
-    let opacityNode = VADisplayNode()
+    private lazy var opacityNode = VADisplayNode()
         .sized(height: 20)
-    let opacityButtonNode = HapticButtonNode()
-    var isTransparent = false {
+    private lazy var opacityButtonNode = HapticButtonNode()
+    private var isTransparent = false {
         didSet {
             opacityNode.animate(
                 .opacity(
@@ -25,10 +25,10 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
         }
     }
 
-    let scaleNode = VADisplayNode()
+    private lazy var  scaleNode = VADisplayNode()
         .sized(height: 20)
-    let scaleButtonNode = HapticButtonNode()
-    var isScaled = false {
+    private lazy var  scaleButtonNode = HapticButtonNode()
+    private var isScaled = false {
         didSet {
             scaleNode.animate(
                 .scale(
@@ -41,17 +41,17 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
         }
     }
 
-    private(set) lazy var heightNode = VADisplayNode()
+    private lazy var heightNode = VADisplayNode()
         .sized(width: 100, height: isBoundsChanged ? 100 : 20)
-    private(set) lazy var widthNode = VADisplayNode()
+    private lazy var widthNode = VADisplayNode()
         .sized(width: isBoundsChanged ? 20 : 100, height: 20)
-    let boundsNode = VADisplayNode()
+    private lazy var boundsNode = VADisplayNode()
         .sized(CGSize(same: 20))
         .apply {
             $0.anchorPoint = .zero
         }
-    let boundsButtonNode = HapticButtonNode()
-    var isBoundsChanged = false {
+    private lazy var boundsButtonNode = HapticButtonNode()
+    private var isBoundsChanged = false {
         didSet {
             boundsNode.animate(
                 .bounds(
@@ -68,14 +68,14 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
         }
     }
 
-    let rotationNode = VAImageNode(data: .init(
+    private lazy var rotationNode = VAImageNode(data: .init(
         image: R.image.chevron_right(),
         tintColor: { $0.darkText },
         size: CGSize(same: 50),
         contentMode: .center
     ))
-    let rotationButtonNode = HapticButtonNode()
-    var isRotated = false {
+    private lazy var rotationButtonNode = HapticButtonNode()
+    private var isRotated = false {
         didSet {
             rotationNode.animate(
                 .rotation(
@@ -89,20 +89,20 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
         }
     }
 
-    let pulseNode = VADisplayNode()
+    private lazy var pulseNode = VADisplayNode()
         .sized(width: 200, height: 20)
-    let pulseButtonNode = HapticButtonNode()
+    private lazy var pulseButtonNode = HapticButtonNode()
 
-    let shakeXNode = VADisplayNode()
+    private lazy var shakeXNode = VADisplayNode()
         .sized(width: 100, height: 20)
-    let shakeYNode = VADisplayNode()
+    private lazy var shakeYNode = VADisplayNode()
         .sized(width: 100, height: 20)
-    let shakeButtonNode = HapticButtonNode()
+    private lazy var shakeButtonNode = HapticButtonNode()
 
-    let cornerRadiusNode = VADisplayNode()
+    private lazy var cornerRadiusNode = VADisplayNode()
         .sized(width: 100, height: 20)
-    let cornerRadiusButtonNode = HapticButtonNode()
-    var isCornersRounded = false {
+    private lazy var cornerRadiusButtonNode = HapticButtonNode()
+    private var isCornersRounded = false {
         didSet {
             cornerRadiusNode.animate(
                 .cornerRadius(
@@ -160,7 +160,6 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
 
                 cornerRadiusNode
                 cornerRadiusButtonNode
-                    .padding(.bottom(16))
             }
             .padding(.all(16))
         }
