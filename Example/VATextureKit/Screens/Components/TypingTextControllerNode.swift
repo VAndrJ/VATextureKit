@@ -44,9 +44,9 @@ final class TypingTextControllerNode: VASafeAreaDisplayNode {
     }
 
     private func bind() {
-        startTypingButtonNode.onTap = typingTextNode.startTyping
-        pauseTypingButtonNode.onTap = typingTextNode.pauseTyping
-        resetTypingButtonNode.onTap = typingTextNode.resetTyping
-        eraseAndRetypeButtonNode.onTap = typingTextNode.startRetyping(to:) <<| ("Retyped: " + .loremText)
+        startTypingButtonNode.onTap = self ?> { $0.typingTextNode.startTyping() }
+        pauseTypingButtonNode.onTap = self ?> { $0.typingTextNode.pauseTyping() }
+        resetTypingButtonNode.onTap = self ?> { $0.typingTextNode.resetTyping() }
+        eraseAndRetypeButtonNode.onTap = self ?> { $0.typingTextNode.startRetyping(to: "Retyped: " + .loremText) }
     }
 }

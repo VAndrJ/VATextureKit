@@ -36,6 +36,6 @@ final class CountingTextNodeController: VASafeAreaDisplayNode {
     }
 
     private func bind() {
-        randomButtonNode.onTap = countingTextNode ?> { $0.updateCount(to: Int.random(in: 0...1000)) }
+        randomButtonNode.onTap = self ?> { $0.countingTextNode.updateCount(to: Int.random(in: 0...1000)) }
     }
 }
