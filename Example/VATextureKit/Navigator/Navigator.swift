@@ -101,6 +101,8 @@ class ScreenFactory {
             return VAViewController(node: SlidingTabBarControllerNode())
         case .linkTextNode:
             return VAViewController(node: LinkTextControllerNode())
+        case .countingTextNode:
+            return VAViewController(node: CountingTextNodeController())
         }
     }
 }

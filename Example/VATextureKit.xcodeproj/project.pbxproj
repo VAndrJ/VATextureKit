@@ -46,6 +46,8 @@
 		A384F0B629EDCB5A006BF197 /* StackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A384F0B529EDCB5A006BF197 /* StackTests.swift */; };
 		A384F0B929EE7215006BF197 /* TypingTextControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A384F0B829EE7215006BF197 /* TypingTextControllerNode.swift */; };
 		A384F0BB29EE752E006BF197 /* VAButtonNode+Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = A384F0BA29EE752E006BF197 /* VAButtonNode+Support.swift */; };
+		A38D5E902A6BB99000A67BC7 /* VACountingTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E8F2A6BB99000A67BC7 /* VACountingTextNode.swift */; };
+		A38D5E932A6BBEF200A67BC7 /* CountingTextNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E922A6BBEF200A67BC7 /* CountingTextNodeController.swift */; };
 		A397A2C229AAA68800A05B8F /* AlertNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A397A2C129AAA68800A05B8F /* AlertNodeController.swift */; };
 		A397A2C529AAAF6800A05B8F /* NSObject+Applyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A397A2C429AAAF6800A05B8F /* NSObject+Applyable.swift */; };
 		A3A0BED629ED4D2D00253AAD /* RowLayoutControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A0BED529ED4D2D00253AAD /* RowLayoutControllerNode.swift */; };
@@ -151,6 +153,8 @@
 		A384F0B529EDCB5A006BF197 /* StackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackTests.swift; sourceTree = "<group>"; };
 		A384F0B829EE7215006BF197 /* TypingTextControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingTextControllerNode.swift; sourceTree = "<group>"; };
 		A384F0BA29EE752E006BF197 /* VAButtonNode+Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VAButtonNode+Support.swift"; sourceTree = "<group>"; };
+		A38D5E8F2A6BB99000A67BC7 /* VACountingTextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VACountingTextNode.swift; sourceTree = "<group>"; };
+		A38D5E922A6BBEF200A67BC7 /* CountingTextNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountingTextNodeController.swift; sourceTree = "<group>"; };
 		A397A2C129AAA68800A05B8F /* AlertNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertNodeController.swift; sourceTree = "<group>"; };
 		A397A2C429AAAF6800A05B8F /* NSObject+Applyable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Applyable.swift"; sourceTree = "<group>"; };
 		A3A0BED529ED4D2D00253AAD /* RowLayoutControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowLayoutControllerNode.swift; sourceTree = "<group>"; };
@@ -393,6 +397,7 @@
 		A3820D2B29E56F3D00993406 /* Experiments */ = {
 			isa = PBXGroup;
 			children = (
+				A38D5E8F2A6BB99000A67BC7 /* VACountingTextNode.swift */,
 				A31F446029F70A7A003618C9 /* VALinkTextNode.swift */,
 				A3820D2929E568BE00993406 /* VATextFieldNode.swift */,
 				A3A0BEDF29ED5AE700253AAD /* VATextNode+Support.swift */,
@@ -404,13 +409,31 @@
 		A384F0B729EE71ED006BF197 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				A357B8052A025116004835C5 /* LinkTextControllerNode.swift */,
 				A3B7F23729F0632E00CAA52D /* ReadMoreTextControllerNode.swift */,
-				A357B7F829FFF290004835C5 /* SlidingTabBarControllerNode.swift */,
 				A384F0B829EE7215006BF197 /* TypingTextControllerNode.swift */,
 				A31F445B29F6AD5F003618C9 /* Pager */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		A38D5E912A6BBECB00A67BC7 /* Experiments */ = {
+			isa = PBXGroup;
+			children = (
+				A357B8052A025116004835C5 /* LinkTextControllerNode.swift */,
+				A357B7F829FFF290004835C5 /* SlidingTabBarControllerNode.swift */,
+				A38D5E922A6BBEF200A67BC7 /* CountingTextNodeController.swift */,
+			);
+			path = Experiments;
+			sourceTree = "<group>";
+		};
+		A38D5E942A6BC2AF00A67BC7 /* System */ = {
+			isa = PBXGroup;
+			children = (
+				A397A2BE29AAA65F00A05B8F /* Alert */,
+				A3B3F3D429A2C8F40090E6E2 /* Appearance */,
+				A3B3F3E329A3867F0090E6E2 /* ContentSize */,
+			);
+			path = System;
 			sourceTree = "<group>";
 		};
 		A397A2BE29AAA65F00A05B8F /* Alert */ = {
@@ -453,16 +476,15 @@
 		A3B3F37429A0CD830090E6E2 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				A397A2BE29AAA65F00A05B8F /* Alert */,
 				A33CDF3129D9B85F005F77C6 /* Animations */,
-				A3B3F3D429A2C8F40090E6E2 /* Appearance */,
 				A384F0B729EE71ED006BF197 /* Components */,
 				A3DDF2F029DD6C9F009460F1 /* Compositing */,
-				A3B3F3E329A3867F0090E6E2 /* ContentSize */,
-				A3B3F3F029A3B8890090E6E2 /* Gradient */,
+				A38D5E912A6BBECB00A67BC7 /* Experiments */,
+				A3B3F3F029A3B8890090E6E2 /* Gradients */,
 				A3A0BED429ED4D1E00253AAD /* Layouts */,
 				A34F8E7229F439AC00EF4C42 /* Lists */,
 				A3B3F37529A0CD970090E6E2 /* Main */,
+				A38D5E942A6BC2AF00A67BC7 /* System */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -538,13 +560,13 @@
 			path = Navigator;
 			sourceTree = "<group>";
 		};
-		A3B3F3F029A3B8890090E6E2 /* Gradient */ = {
+		A3B3F3F029A3B8890090E6E2 /* Gradients */ = {
 			isa = PBXGroup;
 			children = (
 				A3B3F3F129A3B8C40090E6E2 /* LinearGradientControllerNode.swift */,
 				A3B3F3FA29A3CDA10090E6E2 /* RadialGradientControllerNode.swift */,
 			);
-			path = Gradient;
+			path = Gradients;
 			sourceTree = "<group>";
 		};
 		A3D2FABF29D896B300AA01CA /* Example */ = {
@@ -795,6 +817,7 @@
 				A3B3F3E529A3868F0090E6E2 /* ContentSizeControllerNode.swift in Sources */,
 				A3A72F652A6A68A90008B2DC /* LayerAnimationControllerNode.swift in Sources */,
 				A357B8062A025116004835C5 /* LinkTextControllerNode.swift in Sources */,
+				A38D5E902A6BB99000A67BC7 /* VACountingTextNode.swift in Sources */,
 				A397A2C229AAA68800A05B8F /* AlertNodeController.swift in Sources */,
 				A34F8E8529F576C000EF4C42 /* PagerCardCellNode.swift in Sources */,
 				A3F888D929CC427D00C67187 /* CollectionListViewModel.swift in Sources */,
@@ -825,6 +848,7 @@
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				A310A43229CF471400632416 /* CellViewModel.swift in Sources */,
 				A3DDF2FE29DD7314009460F1 /* R.generated.swift in Sources */,
+				A38D5E932A6BBEF200A67BC7 /* CountingTextNodeController.swift in Sources */,
 				A3A0BEE229ED650000253AAD /* ColumnLayoutControllerNode.swift in Sources */,
 				A34F8E7E29F46B4000EF4C42 /* CollectionListSectionHeaderCellNode.swift in Sources */,
 				A3B3F3D329A2C8280090E6E2 /* MainViewModel.swift in Sources */,

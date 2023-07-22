@@ -2,7 +2,7 @@
 //  CALayer+Support.swift
 //  VATextureKit
 //
-//  Created by VAndrJ on 21.07.2023.
+//  Created by Volodymyr Andriienko on 21.07.2023.
 //
 
 import UIKit

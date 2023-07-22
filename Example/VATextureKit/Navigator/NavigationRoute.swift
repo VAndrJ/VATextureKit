@@ -28,4 +28,5 @@ enum NavigationRoute {
     case typingText
     case slidingTabBar
     case linkTextNode
+    case countingTextNode
 }

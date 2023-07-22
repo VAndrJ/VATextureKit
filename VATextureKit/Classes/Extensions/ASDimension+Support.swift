@@ -2,7 +2,7 @@
 //  ASDimension+Support.swift
 //  VATextureKit
 //
-//  Created by VAndrJ on 19.07.2023.
+//  Created by Volodymyr Andriienko on 19.07.2023.
 //
 
 import AsyncDisplayKit
