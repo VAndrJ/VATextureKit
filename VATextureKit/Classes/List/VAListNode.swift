@@ -207,7 +207,6 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
     }
     
     public convenience init(data: DTO, layoutData: LayoutDTO, refreshData: RefreshDTO = .init()) {
-        let layout: UICollectionViewLayout
         switch layoutData.layout {
         case let .default(parameters):
             let flowLayout = UICollectionViewFlowLayout()
@@ -257,8 +256,8 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
                 .do(afterNext: { [weak self] _ in
                     guard let self else { return }
 
-                    if !refreshData.isDelayed {
-                        refreshData.reloadData?()
+                    if !self.refreshData.isDelayed {
+                        self.refreshData.reloadData?()
                     }
                 })
                 .map { _ in true }
