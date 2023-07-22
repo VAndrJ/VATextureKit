@@ -2,7 +2,7 @@
 //  LayerAnimationControllerNode.swift
 //  VATextureKit_Example
 //
-//  Created by VAndrJ on 21.07.2023.
+//  Created by Volodymyr Andriienko on 21.07.2023.
 //  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
 //
 
@@ -24,6 +24,7 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
             )
         }
     }
+
     let scaleNode = VADisplayNode()
         .sized(height: 20)
     let scaleButtonNode = HapticButtonNode()
@@ -40,10 +41,10 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
         }
     }
 
-    let heightNode = VADisplayNode()
-        .sized(width: 100, height: 20)
-    let widthNode = VADisplayNode()
-        .sized(width: 100, height: 20)
+    private(set) lazy var heightNode = VADisplayNode()
+        .sized(width: 100, height: isBoundsChanged ? 100 : 20)
+    private(set) lazy var widthNode = VADisplayNode()
+        .sized(width: isBoundsChanged ? 20 : 100, height: 20)
     let boundsNode = VADisplayNode()
         .sized(CGSize(same: 20))
         .apply {
@@ -61,6 +62,8 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
                 removeOnCompletion: false,
                 spring: .init(initialVelocity: 100, damping: 200, mass: 10, swiftness: 2000)
             )
+            heightNode.style.height = .points(isBoundsChanged ? 100 : 20)
+            widthNode.style.width = .points(isBoundsChanged ? 20 : 100)
             setNeedsLayoutAnimated()
         }
     }
@@ -132,9 +135,7 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
 
                 Row(spacing: 8) {
                     heightNode
-                        .sized(height: isBoundsChanged ? 100 : 20)
                     widthNode
-                        .sized(width: isBoundsChanged ? 20 : 100)
                     boundsNode
                 }
                 boundsButtonNode
