@@ -18,9 +18,11 @@ final class CollectionListHeaderFooterControllerNode: VASafeAreaDisplayNode {
             moveItem: viewModel.moveItem(source:destination:)
         ),
         layoutData: .init(
-            sectionHeadersPinToVisibleBounds: true,
-            sectionFootersPinToVisibleBounds: true,
-            minimumLineSpacing: 8
+            layout: .default(parameters: .init(
+                minimumLineSpacing: 8,
+                sectionHeadersPinToVisibleBounds: true,
+                sectionFootersPinToVisibleBounds: true
+            ))
         )
     )
     private(set) lazy var rightListNode = VAListNode(
@@ -32,11 +34,13 @@ final class CollectionListHeaderFooterControllerNode: VASafeAreaDisplayNode {
             moveItem: viewModel.moveItem(source:destination:)
         ),
         layoutData: .init(
-            sectionHeadersPinToVisibleBounds: true,
-            sectionFootersPinToVisibleBounds: true,
-            minimumLineSpacing: 8,
-            minimumInteritemSpacing: 8,
-            sizing: .vertical(columns: 2, ratio: 1)
+            sizing: .vertical(columns: 2, ratio: 1),
+            layout: .default(parameters: .init(
+                minimumLineSpacing: 8,
+                minimumInteritemSpacing: 8,
+                sectionHeadersPinToVisibleBounds: true,
+                sectionFootersPinToVisibleBounds: true
+            ))
         )
     )
 
