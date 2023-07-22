@@ -14,22 +14,26 @@ import RxCocoa
 /// Provides custom animation styles for insertion, deletion, and reloading behavior.
 ///
 /// Properties
+/// `animatedOnInit`: determines whether the animation is enabled or not on init.
 /// `animated`: determines whether the animation is enabled or not.
 /// `insertAnimation`: defines the animation style for insertion.
 /// `reloadAnimation`: defines the animation style for reloading.
 /// `deleteAnimation`: defines the animation style for deletion.
 public struct AnimationConfiguration {
+    public let animatedOnInit: Bool
     public let animated: Bool
     public let insertAnimation: UITableView.RowAnimation
     public let reloadAnimation: UITableView.RowAnimation
     public let deleteAnimation: UITableView.RowAnimation
     
     public init(
+        animatedOnInit: Bool = false,
         animated: Bool = true,
         insertAnimation: UITableView.RowAnimation = .automatic,
         reloadAnimation: UITableView.RowAnimation = .automatic,
         deleteAnimation: UITableView.RowAnimation = .automatic
     ) {
+        self.animatedOnInit = animatedOnInit
         self.animated = animated
         self.insertAnimation = insertAnimation
         self.reloadAnimation = reloadAnimation
