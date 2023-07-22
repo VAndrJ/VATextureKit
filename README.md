@@ -503,9 +503,9 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
             .padding(.top(8))
         resultTextNode
             .padding(.top(32))
-            .centered(centering: .X)
+            .centered(.X)
         resultUnitsTextNode
-            .centered(centering: .X)
+            .centered(.X)
         referenceResultBarNode
             .padding(.vertical(24))
         Row(spacing: 16, cross: .center) {
@@ -1277,10 +1277,10 @@ sRepresentation(layout:)
 ![Sliding tab bar](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/sliding_tab_bar_example.gif)
 
 
-</details open>
+</details>
 
 
-<details>
+<details open>
 <summary>VALinkTextNode</summary>
 
 
