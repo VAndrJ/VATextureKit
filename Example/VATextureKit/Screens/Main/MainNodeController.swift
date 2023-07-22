@@ -38,7 +38,7 @@ final class MainNodeController: VANodeController {
                 listNode
                     .flex(shrink: 0.1, grow: 1)
                 descriptionNode
-                    .centered(centering: .X)
+                    .centered(.X)
             }
         }
     }
