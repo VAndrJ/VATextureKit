@@ -504,7 +504,9 @@ open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>: 
                     // in ASTableNode
                     UIView.setAnimationsEnabled(false)
                     tableNode.reloadData {
-                        UIView.setAnimationsEnabled(true)
+                        DispatchQueue.main.async {
+                            UIView.setAnimationsEnabled(true)
+                        }
                     }
                 }
             } else {
