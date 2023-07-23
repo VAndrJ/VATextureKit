@@ -27,7 +27,7 @@ final class CompositingFilterControllerNode: VASafeAreaDisplayNode {
         listDataObs: viewModel.filtersObs,
         onSelect: viewModel.didSelect(indexPath:),
         cellGetter: CompositingCellNode.init(viewModel:)
-    ))
+    )).flex(grow: 1)
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         (constrainedSize.max.width > constrainedSize.max.height).fold {
@@ -37,7 +37,6 @@ final class CompositingFilterControllerNode: VASafeAreaDisplayNode {
                     .overlay(composingImageNode)
                 listNode
                     .safe(edges: .bottom, in: self)
-                    .flex(grow: 1)
             }
         } _: {
             SafeArea(edges: [.vertical, .right]) {
@@ -46,7 +45,6 @@ final class CompositingFilterControllerNode: VASafeAreaDisplayNode {
                         .ratio(1)
                         .overlay(composingImageNode)
                     listNode
-                        .flex(grow: 1)
                 }
             }
         }

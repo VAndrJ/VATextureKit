@@ -105,6 +105,8 @@ class ScreenFactory {
             return VAViewController(node: CountingTextNodeController())
         case .dynamicHeightGridList:
             return VAViewController(node: DynamicHeightGridListControllerNode())
+        case .shimmers:
+            return VAViewController(node: ShimmersControllerNode())
         }
     }
 }

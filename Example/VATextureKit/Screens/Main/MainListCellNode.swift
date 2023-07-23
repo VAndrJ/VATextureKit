@@ -20,11 +20,13 @@ final class MainListCellNode: VACellNode {
     
     init(viewModel: MainListCellNodeViewModel) {
         self.titleNode = VATextNode(text: viewModel.title)
+            .flex(shrink: 0.1)
         self.descriptionNode = VATextNode(
             text: viewModel.description,
             fontStyle: .footnote,
             colorGetter: { $0.secondaryLabel }
         )
+        .flex(shrink: 0.1)
         
         super.init()
     }
@@ -33,9 +35,7 @@ final class MainListCellNode: VACellNode {
         Row(spacing: 4, cross: .center) {
             Column(spacing: 4, cross: .stretch) {
                 titleNode
-                    .flex(shrink: 0.1)
                 descriptionNode
-                    .flex(shrink: 0.1)
             }
             .flex(shrink: 0.1, grow: 1)
             chevronImageNode

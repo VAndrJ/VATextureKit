@@ -15,7 +15,7 @@ final class MainNodeController: VANodeController {
         onSelect: viewModel.didSelect(indexPath:),
         cellGetter: MainListCellNode.init(viewModel:),
         sectionHeaderGetter: MainListSectionHeaderNode.init(viewModel:)
-    ))
+    )).flex(shrink: 0.1, grow: 1)
     let descriptionNode = VATextNode(text: "Examples", fontStyle: .headline)
     
     let viewModel: MainViewModel
@@ -36,7 +36,6 @@ final class MainNodeController: VANodeController {
         SafeArea {
             Column(cross: .stretch) {
                 listNode
-                    .flex(shrink: 0.1, grow: 1)
                 descriptionNode
                     .centered(.X)
             }

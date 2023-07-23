@@ -38,6 +38,7 @@ final class MainViewModel {
             MainListCellNodeViewModel(title: "Compositing filter", description: "Layer", route: .compositingFilter),
         ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Components"), items: [
+            MainListCellNodeViewModel(title: "VAShimmerNode", description: "Shimmering animation node", route: .shimmers),
             MainListCellNodeViewModel(title: "VATypingTextNode", description: "Typing animation text node", route: .typingText),
             MainListCellNodeViewModel(title: "VAReadMoreTextNode", description: "`Read more` truncation text node", route: .readMoreText),
             MainListCellNodeViewModel(title: "VAPagerNode", description: "ASPagerNode with improvements", route: .pager),

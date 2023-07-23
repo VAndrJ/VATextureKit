@@ -20,6 +20,7 @@ public final class VAContainerButtonNode<Node: ASDisplayNode>: VAButtonNode {
     }
 
     public override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        child.wrapped()
+        child
+            .wrapped()
     }
 }

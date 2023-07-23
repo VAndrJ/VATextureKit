@@ -26,7 +26,7 @@ final class CollectionListNodeController: VANodeController {
                 minimumInteritemSpacing: 8
             ))
         )
-    )
+    ).flex(grow: 0.25)
     private(set) lazy var verticalListNode = VAListNode(
         data: .init(
             listDataObs: viewModel.listDataObs,
@@ -41,7 +41,7 @@ final class CollectionListNodeController: VANodeController {
                 minimumInteritemSpacing: 8
             ))
         )
-    )
+    ).flex(grow: 0.75)
     
     let viewModel: CollectionListViewModel
     
@@ -55,9 +55,7 @@ final class CollectionListNodeController: VANodeController {
         SafeArea {
             Column(spacing: 16, cross: .stretch) {
                 horizontalListNode
-                    .flex(grow: 0.25)
                 verticalListNode
-                    .flex(grow: 0.75)
             }
         }
     }
