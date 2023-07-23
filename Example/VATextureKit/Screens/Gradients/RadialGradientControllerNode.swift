@@ -44,9 +44,9 @@ final class RadialGradientControllerNode: VASafeAreaDisplayNode {
         super.layout()
         
         if bounds.width > bounds.height {
-            scrollNode.scrollableDirections = ASScrollDirectionHorizontalDirections
+            scrollNode.scrollableDirections = .horizontal
         } else {
-            scrollNode.scrollableDirections = ASScrollDirectionVerticalDirections
+            scrollNode.scrollableDirections = .vertical
         }
     }
     

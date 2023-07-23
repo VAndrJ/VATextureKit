@@ -8,5 +8,5 @@
 import AsyncDisplayKit
 
 public extension ASCollectionNode {
-    var isHorizontal: Bool { scrollableDirections == ASScrollDirectionHorizontalDirections }
+    var isHorizontal: Bool { scrollableDirections == .horizontal }
 }

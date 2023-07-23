@@ -19,7 +19,7 @@ open class VAScrollNode: ASScrollNode {
         let shouldAnimateSizeChanges: Bool
 
         public init(
-            scrollableDirections: ASScrollDirection = ASScrollDirectionVerticalDirections,
+            scrollableDirections: ASScrollDirection = .vertical,
             alwaysBounceVertical: Bool = true,
             alwaysBounceHorizontal: Bool = false,
             bounces: Bool? = nil,

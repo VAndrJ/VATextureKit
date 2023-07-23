@@ -16,7 +16,7 @@ public class VADynamicHeightGridListLayoutDelegate: NSObject, ASCollectionLayout
     }
 
     public func scrollableDirections() -> ASScrollDirection {
-        ASScrollDirectionVerticalDirections
+        .vertical
     }
 
     public func additionalInfoForLayout(withElements elements: ASElementMap) -> Any? {
