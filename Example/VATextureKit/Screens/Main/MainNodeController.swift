@@ -47,6 +47,7 @@ final class MainNodeController: VANodeController {
         super.configureTheme(theme)
         
         contentNode.backgroundColor = theme.systemBackground
+        listNode.backgroundColor = theme.systemBackground
     }
     
     private func configure() {
