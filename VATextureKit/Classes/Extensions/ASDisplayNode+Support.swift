@@ -120,7 +120,7 @@ public extension ASDisplayNode {
         return self
     }
 
-    public func disableAllLayerAnimations() {
+    func disableAllLayerAnimations() {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         disableAllAnimations(layer: layer)

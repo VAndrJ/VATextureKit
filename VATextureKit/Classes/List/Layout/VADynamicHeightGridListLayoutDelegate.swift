@@ -24,9 +24,11 @@ public class VADynamicHeightGridListLayoutDelegate: NSObject, ASCollectionLayout
     }
 
     public static func calculateLayout(with context: ASCollectionLayoutContext) -> ASCollectionLayoutState {
+        guard let elements = context.elements, !elements.itemIndexPaths.isEmpty else {
+            return ASCollectionLayoutState(context: context)
+        }
         let info = context.additionalInfo as! VADynamicHeightGridListLayoutInfo
         let layoutWidth = context.viewportSize.width
-        let elements = context.elements ?? ASElementMap()
         let numberOfSections = elements.numberOfSections
         let attrsMap = NSMapTable<ASCollectionElement, UICollectionViewLayoutAttributes>.elementToLayoutAttributes()
         var top = 0.0

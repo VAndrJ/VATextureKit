@@ -32,7 +32,8 @@ final class MainViewModel {
             MainListCellNodeViewModel(title: "List", description: "ASCollectionNode based", route: .collectionList),
             MainListCellNodeViewModel(title: "List with different cells", description: "ASCollectionNode based", route: .collectionListDifferentCells),
             MainListCellNodeViewModel(title: "List with header and footer\nMove items on long press", description: "ASCollectionNode based", route: .collectionListHeaderFooter),
-            MainListCellNodeViewModel(title: "Dynamic height grid list", description: "ASCollectionNode based", route: .dynamicHeightGridList),
+            MainListCellNodeViewModel(title: "Dynamic height grid list layout", description: "ASCollectionNode based", route: .dynamicHeightGridList),
+            MainListCellNodeViewModel(title: "Spec based grid list layout", description: "ASCollectionNode based", route: .specBasedGridList),
         ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Compositing"), items: [
             MainListCellNodeViewModel(title: "Blend mode", description: "Layer", route: .blendMode),

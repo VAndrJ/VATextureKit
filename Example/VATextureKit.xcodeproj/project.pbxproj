@@ -50,6 +50,8 @@
 		A38D5E932A6BBEF200A67BC7 /* CountingTextNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E922A6BBEF200A67BC7 /* CountingTextNodeController.swift */; };
 		A38D5E982A6C14F200A67BC7 /* DynamicHeightGridListControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E972A6C14F200A67BC7 /* DynamicHeightGridListControllerNode.swift */; };
 		A38D5E9C2A6D251E00A67BC7 /* ShimmersControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E9B2A6D251E00A67BC7 /* ShimmersControllerNode.swift */; };
+		A38D5EAB2A6D63BF00A67BC7 /* SpecBasedGridListControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5EAA2A6D63BF00A67BC7 /* SpecBasedGridListControllerNode.swift */; };
+		A38D5EAD2A6D654C00A67BC7 /* TagCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5EAC2A6D654C00A67BC7 /* TagCellNode.swift */; };
 		A397A2C229AAA68800A05B8F /* AlertNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A397A2C129AAA68800A05B8F /* AlertNodeController.swift */; };
 		A397A2C529AAAF6800A05B8F /* NSObject+Applyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A397A2C429AAAF6800A05B8F /* NSObject+Applyable.swift */; };
 		A3A0BED629ED4D2D00253AAD /* RowLayoutControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A0BED529ED4D2D00253AAD /* RowLayoutControllerNode.swift */; };
@@ -159,6 +161,8 @@
 		A38D5E922A6BBEF200A67BC7 /* CountingTextNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountingTextNodeController.swift; sourceTree = "<group>"; };
 		A38D5E972A6C14F200A67BC7 /* DynamicHeightGridListControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicHeightGridListControllerNode.swift; sourceTree = "<group>"; };
 		A38D5E9B2A6D251E00A67BC7 /* ShimmersControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmersControllerNode.swift; sourceTree = "<group>"; };
+		A38D5EAA2A6D63BF00A67BC7 /* SpecBasedGridListControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecBasedGridListControllerNode.swift; sourceTree = "<group>"; };
+		A38D5EAC2A6D654C00A67BC7 /* TagCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCellNode.swift; sourceTree = "<group>"; };
 		A397A2C129AAA68800A05B8F /* AlertNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertNodeController.swift; sourceTree = "<group>"; };
 		A397A2C429AAAF6800A05B8F /* NSObject+Applyable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Applyable.swift"; sourceTree = "<group>"; };
 		A3A0BED529ED4D2D00253AAD /* RowLayoutControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowLayoutControllerNode.swift; sourceTree = "<group>"; };
@@ -370,6 +374,7 @@
 			isa = PBXGroup;
 			children = (
 				A38D5E972A6C14F200A67BC7 /* DynamicHeightGridListControllerNode.swift */,
+				A38D5EAA2A6D63BF00A67BC7 /* SpecBasedGridListControllerNode.swift */,
 				A3F888D529CC424000C67187 /* CollectionList */,
 				A3F8890129CE314500C67187 /* CollectionListDifferentCells */,
 				A34F8E7329F439E400EF4C42 /* CollectionListHeaderFooter */,
@@ -534,6 +539,7 @@
 				A3BCEC5629CFA6770077217F /* LoadingCellNode.swift */,
 				A34F8E8429F576C000EF4C42 /* PagerCardCellNode.swift */,
 				A31F445E29F6ADC7003618C9 /* PagerIndicatorNode.swift */,
+				A38D5EAC2A6D654C00A67BC7 /* TagCellNode.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -842,6 +848,7 @@
 				A3B3F3CF29A2C0590090E6E2 /* NavigationRoute.swift in Sources */,
 				A3DDF30029DD84B1009460F1 /* CompositingCellNode.swift in Sources */,
 				A3B3F37929A0CDAD0090E6E2 /* MainNodeController.swift in Sources */,
+				A38D5EAD2A6D654C00A67BC7 /* TagCellNode.swift in Sources */,
 				A34F8E7F29F46B4300EF4C42 /* CollectionListSectionFooterCellNode.swift in Sources */,
 				A3DDF2F229DD6CB2009460F1 /* CompositingFilterControllerNode.swift in Sources */,
 				A384F0BB29EE752E006BF197 /* VAButtonNode+Support.swift in Sources */,
@@ -875,6 +882,7 @@
 				A357B8022A0248B9004835C5 /* VASlidingTabTextNode.swift in Sources */,
 				A384F0B929EE7215006BF197 /* TypingTextControllerNode.swift in Sources */,
 				A3B3F3FB29A3CDA10090E6E2 /* RadialGradientControllerNode.swift in Sources */,
+				A38D5EAB2A6D63BF00A67BC7 /* SpecBasedGridListControllerNode.swift in Sources */,
 				A3B3F3DC29A358120090E6E2 /* ThemeManager.swift in Sources */,
 				A3DDF30229DD856F009460F1 /* CompositingFilterViewModel.swift in Sources */,
 				A3B3F3F229A3B8C40090E6E2 /* LinearGradientControllerNode.swift in Sources */,
