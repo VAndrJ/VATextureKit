@@ -924,6 +924,12 @@ Example:
 ![List example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/list_example.gif)
 
 
+![Dynamic heights layout example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/dynamic_heights_example.gif)
+
+
+![Spec layout example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/spec_layout_example.gif)
+
+
 </details>
 
 
