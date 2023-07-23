@@ -502,12 +502,7 @@ open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>: 
                     // Because of
                     // [self endUpdatesAnimated:[UIView areAnimationsEnabled] completion:completion];
                     // in ASTableNode
-                    UIView.setAnimationsEnabled(false)
-                    tableNode.reloadData {
-                        DispatchQueue.main.async {
-                            UIView.setAnimationsEnabled(true)
-                        }
-                    }
+                    tableNode.reloadDataWithoutAnimations()
                 }
             } else {
                 let oldSections = dataSource.sectionModels

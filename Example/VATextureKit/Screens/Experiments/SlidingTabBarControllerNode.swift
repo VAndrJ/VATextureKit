@@ -33,6 +33,10 @@ class SlidingTabBarControllerNode: VASafeAreaDisplayNode {
         indexObs: pagerNode.indexObs,
         onSelect: pagerNode ?> { $0.scroll(to: $1) }
     ))
+    private lazy var previousButtonNode = VAButtonNode()
+        .minConstrained(size: CGSize(same: 44))
+    private lazy var nextButtonNode = VAButtonNode()
+        .minConstrained(size: CGSize(same: 44))
 
     private let bag = DisposeBag()
 
@@ -41,6 +45,7 @@ class SlidingTabBarControllerNode: VASafeAreaDisplayNode {
 
         floatingTabBarNode.layer.cornerCurve = .continuous
         floatingTabBarNode.borderWidth = 1
+        bind()
     }
 
     override func layout() {
@@ -51,9 +56,14 @@ class SlidingTabBarControllerNode: VASafeAreaDisplayNode {
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
-            Column {
+            Column(cross: .stretch) {
                 topTabBarNode
                     .wrapped()
+                Row(main: .spaceBetween) {
+                    previousButtonNode
+                    nextButtonNode
+                }
+                .padding(.horizontal(16))
                 Stack {
                     pagerNode
                     Column {
@@ -72,6 +82,13 @@ class SlidingTabBarControllerNode: VASafeAreaDisplayNode {
         backgroundColor = theme.systemBackground
         floatingTabBarNode.backgroundColor = theme.systemBackground
         floatingTabBarNode.borderColor = theme.quaternaryLabel.cgColor
+        previousButtonNode.configure(title: "Previous", theme: theme)
+        nextButtonNode.configure(title: "Next", theme: theme)
+    }
+
+    private func bind() {
+        previousButtonNode.onTap = self ?> { $0.pagerNode.previous() }
+        nextButtonNode.onTap = self ?> { $0.pagerNode.next() }
     }
 }
 

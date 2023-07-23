@@ -24,7 +24,7 @@ final class CollectionListHeaderFooterControllerNode: VASafeAreaDisplayNode {
                 sectionFootersPinToVisibleBounds: true
             ))
         )
-    )
+    ).flex(basisPercent: 50)
     private(set) lazy var rightListNode = VAListNode(
         data: .init(
             listDataObs: viewModel.listDataObs,
@@ -42,7 +42,7 @@ final class CollectionListHeaderFooterControllerNode: VASafeAreaDisplayNode {
                 sectionFootersPinToVisibleBounds: true
             ))
         )
-    )
+    ).flex(basisPercent: 50)
 
     let viewModel: CollectionListHeaderFooterViewModel
 
@@ -56,9 +56,7 @@ final class CollectionListHeaderFooterControllerNode: VASafeAreaDisplayNode {
         SafeArea {
             Row {
                 leftListNode
-                    .flex(basisPercent: 50)
                 rightListNode
-                    .flex(basisPercent: 50)
             }
         }
     }

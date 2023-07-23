@@ -9,9 +9,7 @@ import AsyncDisplayKit
 
 public final class Stack: ASWrapperLayoutSpec {
 
-    public init(
-        @LayoutSpecBuilder content: () -> [ASLayoutElement]
-    ) {
+    public init(@LayoutSpecBuilder content: () -> [ASLayoutElement]) {
         super.init(layoutElements: content())
     }
 

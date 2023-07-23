@@ -29,7 +29,7 @@ final class CollectionListDifferentCellsNodeController: VANodeController {
             reloadData: viewModel.reloadData,
             isLoadingObs: viewModel.isLoadingObs
         )
-    )
+    ).flex(grow: 1 / 3)
     private(set) lazy var rightListNode = VAListNode(
         data: .init(
             listDataObs: viewModel.listDataObs,
@@ -41,7 +41,7 @@ final class CollectionListDifferentCellsNodeController: VANodeController {
                 minimumLineSpacing: 16
             ))
         )
-    )
+    ).flex(grow: 2 / 3)
     
     let viewModel: CollectionListDifferentCellsViewModel
     
@@ -55,9 +55,7 @@ final class CollectionListDifferentCellsNodeController: VANodeController {
         SafeArea {
             Row {
                 leftListNode
-                    .flex(grow: 1 / 3)
                 rightListNode
-                    .flex(grow: 2 / 3)
             }
         }
     }

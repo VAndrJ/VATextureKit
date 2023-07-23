@@ -130,12 +130,12 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
 
     public func update(items: [Item]) {
         data.items = items
-        reloadData()
+        reloadDataWithoutAnimations()
         checkPosition()
     }
 
     open func configureTheme() {
-        reloadData()
+        reloadDataWithoutAnimations()
     }
 
     open func themeDidChanged() {

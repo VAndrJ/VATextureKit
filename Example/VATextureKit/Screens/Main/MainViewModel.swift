@@ -30,14 +30,17 @@ final class MainViewModel {
         ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "List"), items: [
             MainListCellNodeViewModel(title: "List", description: "ASCollectionNode based", route: .collectionList),
-            MainListCellNodeViewModel(title: "List", description: "ASCollectionNode based", route: .collectionListDifferentCells),
+            MainListCellNodeViewModel(title: "List with different cells", description: "ASCollectionNode based", route: .collectionListDifferentCells),
             MainListCellNodeViewModel(title: "List with header and footer\nMove items on long press", description: "ASCollectionNode based", route: .collectionListHeaderFooter),
+            MainListCellNodeViewModel(title: "Dynamic height grid list layout", description: "ASCollectionNode based", route: .dynamicHeightGridList),
+            MainListCellNodeViewModel(title: "Spec based grid list layout", description: "ASCollectionNode based", route: .specBasedGridList),
         ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Compositing"), items: [
             MainListCellNodeViewModel(title: "Blend mode", description: "Layer", route: .blendMode),
             MainListCellNodeViewModel(title: "Compositing filter", description: "Layer", route: .compositingFilter),
         ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Components"), items: [
+            MainListCellNodeViewModel(title: "VAShimmerNode", description: "Shimmering animation node", route: .shimmers),
             MainListCellNodeViewModel(title: "VATypingTextNode", description: "Typing animation text node", route: .typingText),
             MainListCellNodeViewModel(title: "VAReadMoreTextNode", description: "`Read more` truncation text node", route: .readMoreText),
             MainListCellNodeViewModel(title: "VAPagerNode", description: "ASPagerNode with improvements", route: .pager),
@@ -46,7 +49,6 @@ final class MainViewModel {
             MainListCellNodeViewModel(title: "VACountingTextNode", description: "ASTextNode based", route: .countingTextNode),
             MainListCellNodeViewModel(title: "VASlidingTabBarNode", description: "ASScrollNode based", route: .slidingTabBar),
             MainListCellNodeViewModel(title: "VALinkTextNode", description: "ASTextNode based", route: .linkTextNode),
-            MainListCellNodeViewModel(title: "Dynamic height grid list", description: "ASCollectionNode based", route: .dynamicHeightGridList),
         ]),
     ])
     var listDataObs: Observable<[AnimatableSectionModel<MainSectionHeaderNodeViewModel, MainListCellNodeViewModel>]>

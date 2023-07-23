@@ -32,7 +32,7 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode {
         }
 
         super.init(data: .init(
-            scrollableDirections: ASScrollDirectionHorizontalDirections,
+            scrollableDirections: .horizontal,
             alwaysBounceVertical: false,
             alwaysBounceHorizontal: true
         ))

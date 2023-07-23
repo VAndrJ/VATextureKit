@@ -208,8 +208,8 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
         scaleButtonNode.onTap = self ?> { $0.isScaled.toggle() }
         boundsButtonNode.onTap = self ?> { $0.isBoundsChanged.toggle() }
         rotationButtonNode.onTap = self ?> { $0.isRotated.toggle() }
-        pulseButtonNode.onTap = pulseNode ?> {
-            $0.animate(.scale(values: [1, 1.1, 0.9, 1.2, 0.8, 1.1, 0.9, 1]), duration: 1)
+        pulseButtonNode.onTap = self ?> {
+            $0.pulseNode.animate(.scale(values: [1, 1.1, 0.9, 1.2, 0.8, 1.1, 0.9, 1]), duration: 1)
         }
         shakeButtonNode.onTap = self ?> {
             $0.shakeXNode.animate(

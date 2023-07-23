@@ -36,5 +36,6 @@ final class DynamicHeightGridListControllerNode: VASafeAreaDisplayNode {
 
     override func configureTheme(_ theme: VATheme) {
         backgroundColor = theme.systemBackground
+        listNode.backgroundColor = theme.systemBackground
     }
 }

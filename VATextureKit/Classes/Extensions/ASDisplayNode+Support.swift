@@ -119,6 +119,18 @@ public extension ASDisplayNode {
         )
         return self
     }
+
+    func disableAllLayerAnimations() {
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        disableAllAnimations(layer: layer)
+        CATransaction.commit()
+    }
+
+    private func disableAllAnimations(layer: CALayer) {
+        layer.removeAllAnimations()
+        layer.sublayers?.forEach(disableAllAnimations(layer:))
+    }
 }
 
 #if DEBUG || targetEnvironment(simulator)

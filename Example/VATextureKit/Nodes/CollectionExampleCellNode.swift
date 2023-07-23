@@ -9,9 +9,8 @@
 import VATextureKit
 
 class CollectionExampleCellNode: VACellNode {
-    let imageNode = ASNetworkImageNode().apply {
-        $0.contentMode = .scaleAspectFill
-    }
+    let imageNode = VANetworkImageNode(data: .init(contentMode: .scaleAspectFill))
+        .flex(shrink: 0.1, grow: 1)
     let titleNode: VATextNode
     
     let viewModel: CollectionExampleCellNodeViewModel
@@ -35,7 +34,6 @@ class CollectionExampleCellNode: VACellNode {
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column {
             imageNode
-                .flex(shrink: 0.1, grow: 1)
             titleNode
                 .padding(.all(4))
         }

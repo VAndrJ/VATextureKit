@@ -30,4 +30,6 @@ enum NavigationRoute {
     case linkTextNode
     case countingTextNode
     case dynamicHeightGridList
+    case shimmers
+    case specBasedGridList
 }

@@ -8,7 +8,7 @@
 import AsyncDisplayKit
 
 public extension ASDimension {
-    static var auto: ASDimension { ASDimension(unit: .auto, value: 0) }
+    static let auto = ASDimensionAuto
 
     static func points(_ value: CGFloat) -> ASDimension {
         ASDimension(unit: .points, value: value)

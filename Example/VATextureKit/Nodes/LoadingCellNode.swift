@@ -35,7 +35,8 @@ private class _LoadingCellShimmerNode: VAShimmerNode {
     let tileNode = VAShimmerTileNode(data: .init())
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        tileNode.wrapped()
+        tileNode
+            .wrapped()
     }
 }
 

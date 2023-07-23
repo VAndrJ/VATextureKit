@@ -1,14 +1,13 @@
 //
-//  ASCollectionNode+Support.swift
+//  ASTableNode+Support.swift
 //  VATextureKit
 //
-//  Created by Volodymyr Andriienko on 23.03.2023.
+//  Created by VAndrJ on 23.07.2023.
 //
 
 import AsyncDisplayKit
 
-public extension ASCollectionNode {
-    var isHorizontal: Bool { scrollableDirections == .horizontal }
+extension ASTableNode {
 
     func reloadDataWithoutAnimations() {
         reloadData { [weak self] in
