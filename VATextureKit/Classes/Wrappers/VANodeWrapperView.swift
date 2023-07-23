@@ -163,7 +163,7 @@ private final class _ContentNodeView<Node: ASDisplayNode>: UILabel { // To use `
             }
             return value
         }
-        var range = ASSizeRangeUnconstrained
+        var range = ASSizeRange.unconstrained
         range.max.width = validateWidth(bounds.width, 10000)
         if shouldExpandToMaximumWidth {
             range.min.width = validateWidth(bounds.width, 0)

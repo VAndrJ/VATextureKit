@@ -2,7 +2,7 @@
 //  VADynamicHeightGridListLayoutDelegate.swift
 //  Differentiator
 //
-//  Created by VAndrJ on 23.07.2023.
+//  Created by Volodymyr Andriienko on 23.07.2023.
 //
 
 import AsyncDisplayKit

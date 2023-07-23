@@ -8,6 +8,8 @@
 import AsyncDisplayKit
 
 public extension ASSizeRange {
+    public static let unconstrained = ASSizeRangeUnconstrained
+    public static let zero = ASSizeRangeZero
 
     init(width: ClosedRange<CGFloat>, height: ClosedRange<CGFloat>) {
         self.init(
