@@ -48,7 +48,6 @@
 		A384F0BB29EE752E006BF197 /* VAButtonNode+Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = A384F0BA29EE752E006BF197 /* VAButtonNode+Support.swift */; };
 		A38D5E902A6BB99000A67BC7 /* VACountingTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E8F2A6BB99000A67BC7 /* VACountingTextNode.swift */; };
 		A38D5E932A6BBEF200A67BC7 /* CountingTextNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E922A6BBEF200A67BC7 /* CountingTextNodeController.swift */; };
-		A38D5E962A6C14D200A67BC7 /* VADynamicHeightGridListLayoutDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E952A6C14D200A67BC7 /* VADynamicHeightGridListLayoutDelegate.swift */; };
 		A38D5E982A6C14F200A67BC7 /* DynamicHeightGridListControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E972A6C14F200A67BC7 /* DynamicHeightGridListControllerNode.swift */; };
 		A38D5E9C2A6D251E00A67BC7 /* ShimmersControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E9B2A6D251E00A67BC7 /* ShimmersControllerNode.swift */; };
 		A397A2C229AAA68800A05B8F /* AlertNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A397A2C129AAA68800A05B8F /* AlertNodeController.swift */; };
@@ -158,7 +157,6 @@
 		A384F0BA29EE752E006BF197 /* VAButtonNode+Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VAButtonNode+Support.swift"; sourceTree = "<group>"; };
 		A38D5E8F2A6BB99000A67BC7 /* VACountingTextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VACountingTextNode.swift; sourceTree = "<group>"; };
 		A38D5E922A6BBEF200A67BC7 /* CountingTextNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountingTextNodeController.swift; sourceTree = "<group>"; };
-		A38D5E952A6C14D200A67BC7 /* VADynamicHeightGridListLayoutDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VADynamicHeightGridListLayoutDelegate.swift; sourceTree = "<group>"; };
 		A38D5E972A6C14F200A67BC7 /* DynamicHeightGridListControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicHeightGridListControllerNode.swift; sourceTree = "<group>"; };
 		A38D5E9B2A6D251E00A67BC7 /* ShimmersControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmersControllerNode.swift; sourceTree = "<group>"; };
 		A397A2C129AAA68800A05B8F /* AlertNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertNodeController.swift; sourceTree = "<group>"; };
@@ -371,6 +369,7 @@
 		A34F8E7229F439AC00EF4C42 /* Lists */ = {
 			isa = PBXGroup;
 			children = (
+				A38D5E972A6C14F200A67BC7 /* DynamicHeightGridListControllerNode.swift */,
 				A3F888D529CC424000C67187 /* CollectionList */,
 				A3F8890129CE314500C67187 /* CollectionListDifferentCells */,
 				A34F8E7329F439E400EF4C42 /* CollectionListHeaderFooter */,
@@ -405,7 +404,6 @@
 			children = (
 				A38D5E8F2A6BB99000A67BC7 /* VACountingTextNode.swift */,
 				A31F446029F70A7A003618C9 /* VALinkTextNode.swift */,
-				A38D5E952A6C14D200A67BC7 /* VADynamicHeightGridListLayoutDelegate.swift */,
 				A3820D2929E568BE00993406 /* VATextFieldNode.swift */,
 				A3A0BEDF29ED5AE700253AAD /* VATextNode+Support.swift */,
 				A357B7FC2A016405004835C5 /* SlidingTabBar */,
@@ -429,7 +427,6 @@
 			children = (
 				A38D5E922A6BBEF200A67BC7 /* CountingTextNodeController.swift */,
 				A357B8052A025116004835C5 /* LinkTextControllerNode.swift */,
-				A38D5E972A6C14F200A67BC7 /* DynamicHeightGridListControllerNode.swift */,
 				A357B7F829FFF290004835C5 /* SlidingTabBarControllerNode.swift */,
 			);
 			path = Experiments;
@@ -849,7 +846,6 @@
 				A3DDF2F229DD6CB2009460F1 /* CompositingFilterControllerNode.swift in Sources */,
 				A384F0BB29EE752E006BF197 /* VAButtonNode+Support.swift in Sources */,
 				A3B3F3DE29A37C9C0090E6E2 /* AppearanceViewModel.swift in Sources */,
-				A38D5E962A6C14D200A67BC7 /* VADynamicHeightGridListLayoutDelegate.swift in Sources */,
 				A3B3F3D629A2C91A0090E6E2 /* AppearanceContollerNode.swift in Sources */,
 				A3F888D729CC427000C67187 /* CollectionListNodeController.swift in Sources */,
 				A3B3F3C529A22F860090E6E2 /* Theme.swift in Sources */,

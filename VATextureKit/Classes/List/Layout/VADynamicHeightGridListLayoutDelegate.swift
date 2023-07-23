@@ -1,30 +1,29 @@
 //
 //  VADynamicHeightGridListLayoutDelegate.swift
-//  VATextureKit_Example
+//  Differentiator
 //
-//  Created by Volodymyr Andriienko on 22.07.2023.
-//  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
+//  Created by VAndrJ on 23.07.2023.
 //
 
 import AsyncDisplayKit
 
 // swiftlint:disable all
-class VADynamicHeightGridListLayoutDelegate: NSObject, ASCollectionLayoutDelegate {
+public class VADynamicHeightGridListLayoutDelegate: NSObject, ASCollectionLayoutDelegate {
     private let info: VADynamicHeightGridListLayoutInfo
 
-    init(info: VADynamicHeightGridListLayoutInfo) {
+    public init(info: VADynamicHeightGridListLayoutInfo) {
         self.info = info
     }
 
-    func scrollableDirections() -> ASScrollDirection {
+    public func scrollableDirections() -> ASScrollDirection {
         ASScrollDirectionVerticalDirections
     }
 
-    func additionalInfoForLayout(withElements elements: ASElementMap) -> Any? {
+    public func additionalInfoForLayout(withElements elements: ASElementMap) -> Any? {
         info
     }
 
-    static func calculateLayout(with context: ASCollectionLayoutContext) -> ASCollectionLayoutState {
+    public static func calculateLayout(with context: ASCollectionLayoutContext) -> ASCollectionLayoutState {
         let info = context.additionalInfo as! VADynamicHeightGridListLayoutInfo
         let layoutWidth = context.viewportSize.width
         let elements = context.elements ?? ASElementMap()
@@ -147,12 +146,30 @@ class VADynamicHeightGridListLayoutDelegate: NSObject, ASCollectionLayoutDelegat
     }
 }
 
-struct VADynamicHeightGridListLayoutInfo {
-    var portraitColumns = 2
-    var albumColumns: Int?
-    var headerHeight = CGFloat.leastNormalMagnitude
-    var columnSpacing = CGFloat.leastNormalMagnitude
-    var interItemSpacing = CGFloat.leastNormalMagnitude
-    var sectionInsets = UIEdgeInsets.zero
-    var supportedCellTypes: [AnyClass] = []
+public struct VADynamicHeightGridListLayoutInfo {
+    let portraitColumns: Int
+    let albumColumns: Int?
+    let headerHeight: CGFloat
+    let columnSpacing: CGFloat
+    let interItemSpacing: CGFloat
+    let sectionInsets: UIEdgeInsets
+    let supportedCellTypes: [AnyClass]
+
+    public init(
+        portraitColumns: Int = 2,
+        albumColumns: Int? = nil,
+        headerHeight: CGFloat = .leastNormalMagnitude,
+        columnSpacing: CGFloat = .leastNormalMagnitude,
+        interItemSpacing: CGFloat = .leastNormalMagnitude,
+        sectionInsets: UIEdgeInsets = .zero,
+        supportedCellTypes: [AnyClass] = []
+    ) {
+        self.portraitColumns = portraitColumns
+        self.albumColumns = albumColumns
+        self.headerHeight = headerHeight
+        self.columnSpacing = columnSpacing
+        self.interItemSpacing = interItemSpacing
+        self.sectionInsets = sectionInsets
+        self.supportedCellTypes = supportedCellTypes
+    }
 }

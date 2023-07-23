@@ -30,8 +30,9 @@ final class MainViewModel {
         ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "List"), items: [
             MainListCellNodeViewModel(title: "List", description: "ASCollectionNode based", route: .collectionList),
-            MainListCellNodeViewModel(title: "List", description: "ASCollectionNode based", route: .collectionListDifferentCells),
+            MainListCellNodeViewModel(title: "List with different cells", description: "ASCollectionNode based", route: .collectionListDifferentCells),
             MainListCellNodeViewModel(title: "List with header and footer\nMove items on long press", description: "ASCollectionNode based", route: .collectionListHeaderFooter),
+            MainListCellNodeViewModel(title: "Dynamic height grid list", description: "ASCollectionNode based", route: .dynamicHeightGridList),
         ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Compositing"), items: [
             MainListCellNodeViewModel(title: "Blend mode", description: "Layer", route: .blendMode),
@@ -47,7 +48,6 @@ final class MainViewModel {
             MainListCellNodeViewModel(title: "VACountingTextNode", description: "ASTextNode based", route: .countingTextNode),
             MainListCellNodeViewModel(title: "VASlidingTabBarNode", description: "ASScrollNode based", route: .slidingTabBar),
             MainListCellNodeViewModel(title: "VALinkTextNode", description: "ASTextNode based", route: .linkTextNode),
-            MainListCellNodeViewModel(title: "Dynamic height grid list", description: "ASCollectionNode based", route: .dynamicHeightGridList),
         ]),
     ])
     var listDataObs: Observable<[AnimatableSectionModel<MainSectionHeaderNodeViewModel, MainListCellNodeViewModel>]>
