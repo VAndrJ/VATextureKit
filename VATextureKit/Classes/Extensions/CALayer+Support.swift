@@ -236,7 +236,7 @@ public extension CALayer {
             basicAnimation = getAnimation(
                 from: NSValue(cgRect: from),
                 to: NSValue(cgRect: to),
-                keyPath: #keyPath(CALayer.bounds),
+                keyPath: animation.keyPath,
                 duration: duration,
                 delay: delay,
                 timingFunction: timingFunction,
@@ -250,7 +250,7 @@ public extension CALayer {
             basicAnimation = getAnimation(
                 from: NSValue(cgSize: from),
                 to: NSValue(cgSize: to),
-                keyPath: #keyPath(CALayer.bounds),
+                keyPath: animation.keyPath,
                 duration: duration,
                 delay: delay,
                 timingFunction: timingFunction,
@@ -466,6 +466,20 @@ public extension CALayer {
         }
         animationGroup.animations = animations
         animationGroup.duration = duration
+        if let completion {
+            animationGroup.delegate = _AnimationDelegate(animation: animationGroup, completion: completion)
+        }
+        add(animationGroup, forKey: key)
+        return self
+    }
+
+    @discardableResult
+    func animate(group animations: [CAAnimation], duration: TimeInterval, key: String = UUID().uuidString, removeOnCompletion: Bool = false, completion: ((Bool) -> Void)? = nil) -> Self {
+        let animationGroup = CAAnimationGroup()
+        animationGroup.animations = animations
+        
+        animationGroup.duration = duration
+        animationGroup.isRemovedOnCompletion = removeOnCompletion
         if let completion {
             animationGroup.delegate = _AnimationDelegate(animation: animationGroup, completion: completion)
         }
