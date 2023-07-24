@@ -13,7 +13,7 @@ It provides an easier syntax and includes modern features to make developing fas
   s.author           = { 'Volodymyr Andriienko' => 'vandrjios@gmail.com' }
   s.source           = { :git => 'https://github.com/VAndrJ/VATextureKit.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '12.0'
+  s.ios.deployment_target = '11.0'
 
   s.source_files = 'VATextureKit/Classes/**/*'
   

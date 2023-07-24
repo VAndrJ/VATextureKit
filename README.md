@@ -35,6 +35,8 @@ Or just try the example project:
 pod try 'VATextureKit'
 ```
 
+Minimum deployment target: **iOS 11**
+
 
 ## Layout Specs
 

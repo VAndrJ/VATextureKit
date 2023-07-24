@@ -36,7 +36,7 @@ open class VAViewController<Node: ASDisplayNode>: ASDKViewController<ASDisplayNo
     
     open func configureTheme(_ theme: VATheme) {
         if #available(iOS 13.0, *) {
-            overrideUserInterfaceStyle = theme.userInterfaceStyle
+            overrideUserInterfaceStyle = theme.userInterfaceStyle.uiUserInterfaceStyle
         }
     }
     

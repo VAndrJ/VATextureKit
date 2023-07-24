@@ -24,7 +24,7 @@ PODS:
   - RxRelay (6.5.0):
     - RxSwift (= 6.5.0)
   - RxSwift (6.5.0)
-  - Swiftional (0.3.0)
+  - Swiftional (0.3.2)
   - Texture (3.1.0):
     - Texture/AssetsLibrary (= 3.1.0)
     - Texture/Core (= 3.1.0)
@@ -55,7 +55,7 @@ DEPENDENCIES:
   - Nimble (~> 10.0.0)
   - Quick (~> 2.2.0)
   - R.swift
-  - Swiftional (= 0.3.0)
+  - Swiftional (= 0.3.2)
   - VATextureKit (from `../`)
 
 SPEC REPOS:
@@ -88,10 +88,10 @@ SPEC CHECKSUMS:
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
-  Swiftional: 59add4d4beea3e44c9866e888ad89f75e2b4d8a5
+  Swiftional: af8d77b7efb836c4597095361b9a5bddad5f386a
   Texture: 2e8ab2519452515f7f5a520f5a8f7e0a413abfa3
-  VATextureKit: 2efce0a3e9d8c537a51cdc77e9b7a59dc94f94d1
+  VATextureKit: 33d0f6b93143a7f9cd86d68dc81b785cb01e5ab9
 
-PODFILE CHECKSUM: be073741e1adb22bebf4176a40d41ddcb778c0b6
+PODFILE CHECKSUM: 25531733daa8902cbd6787d188fef18cdab536ef
 
 COCOAPODS: 1.12.1

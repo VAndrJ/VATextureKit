@@ -1,11 +1,11 @@
 use_modular_headers!
 
-platform :ios, '12.0'
+platform :ios, '11.0'
 
 target 'VATextureKit_Example' do
   inhibit_all_warnings!
   pod 'VATextureKit', :path => '../'
-  pod 'Swiftional', '0.3.0'
+  pod 'Swiftional', '0.3.2'
   pod 'R.swift'
 
   target 'VATextureKit_Tests' do
@@ -20,7 +20,7 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '11.0'
     end
     if target.name == "Texture"
       target.build_configurations.each do |config|

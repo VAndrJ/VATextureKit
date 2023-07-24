@@ -23,7 +23,7 @@ public enum VAThemeFont: Hashable {
 
 open class VATheme {
     public var tag: VAThemeTag
-    public var userInterfaceStyle: UIUserInterfaceStyle
+    public var userInterfaceStyle: VAUserInterfaceStyle
     public var statusBarStyle: UIStatusBarStyle
     public var barStyle: UIBarStyle
     public var label: UIColor
@@ -65,7 +65,7 @@ open class VATheme {
     
     public init(
         tag: VAThemeTag,
-        userInterfaceStyle: UIUserInterfaceStyle,
+        userInterfaceStyle: VAUserInterfaceStyle,
         statusBarStyle: UIStatusBarStyle,
         barStyle: UIBarStyle,
         label: UIColor,

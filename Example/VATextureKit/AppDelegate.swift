@@ -24,7 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         func launch() {
-            window = VAWindow(standardLightTheme: .vaLight, standardDarkTheme: .vaDark)
+            if #available(iOS 12.0, *) {
+                window = VAWindow(standardLightTheme: .vaLight, standardDarkTheme: .vaDark)
+            } else {
+                window = VAWindow(legacyLightTheme: .vaLight, legacyDarkTheme: .vaDark)
+            }
             configure()
             window?.rootViewController = appNavigator.navigationController
             window?.makeKeyAndVisible()
