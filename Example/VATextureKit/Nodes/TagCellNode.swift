@@ -20,7 +20,9 @@ class TagCellNode: VACellNode {
     override func didLoad() {
         super.didLoad()
 
-        layer.cornerCurve = .continuous
+        if #available(iOS 13.0, *) {
+            layer.cornerCurve = .continuous
+        }
     }
 
     override func layout() {

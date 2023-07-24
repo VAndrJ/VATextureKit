@@ -43,7 +43,9 @@ class SlidingTabBarControllerNode: VASafeAreaDisplayNode {
     override func didLoad() {
         super.didLoad()
 
-        floatingTabBarNode.layer.cornerCurve = .continuous
+        if #available(iOS 13.0, *) {
+            floatingTabBarNode.layer.cornerCurve = .continuous
+        }
         floatingTabBarNode.borderWidth = 1
         bind()
     }

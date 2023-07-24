@@ -18,6 +18,7 @@ final class AppearanceContollerNode: VASafeAreaDisplayNode {
         super.configureTheme(theme)
         
         backgroundColor = theme.systemBackground
+        pickerNode.child.reloadAllComponents()
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {

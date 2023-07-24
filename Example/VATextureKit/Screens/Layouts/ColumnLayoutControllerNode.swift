@@ -12,11 +12,17 @@ final class ColumnLayoutControllerNode: VASafeAreaDisplayNode {
     private var exampleMainAxisNodes: [ASDisplayNode] { (0..<4).map { _ in ASDisplayNode().sized(CGSize(same: 24)) } }
     private var exampleCrossAxisNodes: [ASDisplayNode] { (1...4).map { ASDisplayNode().sized(CGSize(same: 8 * CGFloat($0))) } }
     private func getTitleTextNode(string: String, selection: String) -> VATextNode {
-        VATextNode(
+        let fontDesign: VAFontDesign
+        if #available(iOS 13.0, *) {
+            fontDesign = .monospaced
+        } else {
+            fontDesign = .default
+        }
+        return VATextNode(
             string: string,
             color: { $0.label },
-            descriptor: .monospaced,
-            secondary: [.init(strings: [selection], color: { $0.secondaryLabel }, descriptor: .monospaced)]
+            descriptor: fontDesign,
+            secondary: [.init(strings: [selection], color: { $0.secondaryLabel }, descriptor: fontDesign)]
         )
     }
     private lazy var startMainAxisTitleTextNode = getTitleTextNode(string: "Main axis .start\nCross axis .start", selection: ".start")

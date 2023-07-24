@@ -53,9 +53,14 @@ extension AppearanceViewController: UIPickerViewDataSource {
 // MARK: - UIPickerViewDelegate
 
 extension AppearanceViewController: UIPickerViewDelegate {
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        "\(viewModel.themes[row])".capitalized
+
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        NSMutableAttributedString(
+            string: "\(viewModel.themes[row])".capitalized,
+            font: .boldSystemFont(ofSize: 13),
+            color: contentNode.theme.label,
+            alignment: .center
+        )
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {

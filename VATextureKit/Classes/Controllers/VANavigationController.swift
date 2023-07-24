@@ -83,17 +83,20 @@ open class VANavigationController: ASDKNavigationController {
                     toLayerSnapshot.frame.origin = toConvertedBounds
                     overlayView.layer.addSublayer(fromLayerSnapshot)
                     overlayView.layer.addSublayer(toLayerSnapshot)
-                    fromLayerSnapshot.add(animation: .bounds(from: fromLayerSnapshot.bounds, to: toLayerSnapshot.bounds), duration: animationDuration)
-                    fromLayerSnapshot.add(animation: .position(from: fromConvertedPosition, to: toConvertedPosition), duration: animationDuration)
-                    fromLayerSnapshot.add(animation: .opacity(from: 1, to: 0), duration: animationDuration)
-                    toLayerSnapshot.add(animation: .bounds(from: fromLayerSnapshot.bounds, to: toLayerSnapshot.bounds), duration: animationDuration)
-                    toLayerSnapshot.add(animation: .position(from: fromConvertedPosition, to: toConvertedPosition), duration: animationDuration)
-                    toLayerSnapshot.add(animation: .opacity(from: 0, to: 1), duration: animationDuration, completion: { _ in
+                    CATransaction.begin()
+                    CATransaction.setCompletionBlock {
+                        fromLayerSnapshot.removeFromSuperlayer()
                         from.isHidden = false
                         to.isHidden = false
                         toLayerSnapshot.removeFromSuperlayer()
-                        fromLayerSnapshot.removeFromSuperlayer()
-                    })
+                    }
+                    fromLayerSnapshot.add(animation: .bounds(from: fromLayerSnapshot.bounds, to: toLayerSnapshot.bounds), duration: animationDuration, removeOnCompletion: false)
+                    fromLayerSnapshot.add(animation: .position(from: fromConvertedPosition, to: toConvertedPosition), duration: animationDuration, removeOnCompletion: false)
+                    fromLayerSnapshot.add(animation: .opacity(from: 1, to: 0), duration: animationDuration, removeOnCompletion: false)
+                    toLayerSnapshot.add(animation: .bounds(from: fromLayerSnapshot.bounds, to: toLayerSnapshot.bounds), duration: animationDuration, removeOnCompletion: false)
+                    toLayerSnapshot.add(animation: .position(from: fromConvertedPosition, to: toConvertedPosition), duration: animationDuration, removeOnCompletion: false)
+                    toLayerSnapshot.add(animation: .opacity(from: 0, to: 1), duration: animationDuration, removeOnCompletion: false)
+                    CATransaction.commit()
                 }
             }
             if !(fromLayersDict.isEmpty || toLayersDict.isEmpty) {
