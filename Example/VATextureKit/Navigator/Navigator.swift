@@ -10,13 +10,13 @@ import VATextureKit
 
 class Navigator {
     let screenFactory: ScreenFactory
-    let navigationController: UINavigationController
+    let navigationController: VANavigationController
     
     private var childNavigators: [Navigator] = []
     
     init(
         screenFactory: ScreenFactory,
-        navigationController: UINavigationController,
+        navigationController: VANavigationController,
         initialRoute: NavigationRoute? = nil
     ) {
         self.screenFactory = screenFactory
@@ -79,6 +79,7 @@ class ScreenFactory {
             return VAViewController(node: CollectionListHeaderFooterControllerNode(viewModel: CollectionListHeaderFooterViewModel()))
         case .moveAnimations:
             return VAViewController(node: SlideAnimationControllerNode())
+                .withAnimatedTransitionEnabled()
         case .layerAnimations:
             return VAViewController(node: LayerAnimationControllerNode())
         case .compositingFilter:

@@ -2,7 +2,7 @@
 //  CALayer+NavigationTransition.swift
 //  Differentiator
 //
-//  Created by VAndrJ on 24.07.2023.
+//  Created by Volodymyr Andriienko on 24.07.2023.
 //
 
 import UIKit
