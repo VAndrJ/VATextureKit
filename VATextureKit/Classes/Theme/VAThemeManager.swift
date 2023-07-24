@@ -18,6 +18,7 @@ public enum VAUserInterfaceStyle: Int {
         case .unspecified: self = .unspecified
         case .light: self = .light
         case .dark: self = .dark
+        @unknown default: self = .light
         }
     }
 
