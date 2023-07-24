@@ -29,6 +29,13 @@ final class MainListCellNode: VACellNode {
         .flex(shrink: 0.1)
         
         super.init()
+
+        if let titleTransitionAnimationId = viewModel.titleTransitionAnimationId {
+            titleNode.transitionAnimationId = titleTransitionAnimationId
+        }
+        if let descriptionTransitionAnimationId = viewModel.descriptionTransitionAnimationId {
+            descriptionNode.transitionAnimationId = descriptionTransitionAnimationId
+        }
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -48,11 +55,23 @@ class MainListCellNodeViewModel: CellViewModel {
     let title: String
     let description: String
     let route: NavigationRoute
+    let titleTransitionAnimationId: String?
+    let descriptionTransitionAnimationId: String?
 
     init(title: String, description: String, route: NavigationRoute) {
         self.title = title
         self.description = description
         self.route = route
+        self.titleTransitionAnimationId = nil
+        self.descriptionTransitionAnimationId = nil
+    }
+
+    init(title: String, description: String, route: NavigationRoute, titleTransitionAnimationId: String, descriptionTransitionAnimationId: String) {
+        self.title = title
+        self.description = description
+        self.route = route
+        self.titleTransitionAnimationId = titleTransitionAnimationId
+        self.descriptionTransitionAnimationId = descriptionTransitionAnimationId
     }
 }
 

@@ -16,7 +16,7 @@ final class MainViewModel {
             MainListCellNodeViewModel(title: "Stack", description: "Layout example", route: .stackLayout),
         ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Animations"), items: [
-            MainListCellNodeViewModel(title: "Transition", description: "Layout transition animations", route: .moveAnimations),
+            MainListCellNodeViewModel(title: "Transition", description: "Layout transition animations", route: .moveAnimations, titleTransitionAnimationId: "Test", descriptionTransitionAnimationId: "Test1"),
             MainListCellNodeViewModel(title: "Custom", description: "Layer animations", route: .layerAnimations),
         ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "System"), items: [

@@ -10,8 +10,10 @@ import VATextureKit
 
 final class SlideAnimationControllerNode: VASafeAreaDisplayNode {
     let leftTextNode = VATextNode(text: "left", fontStyle: .body, alignment: .center)
+        .withAnimatedTransition(id: "Test")
         .flex(shrink: 0.1, basisPercent: 60)
     let rightTextNode = VATextNode(text: "right", fontStyle: .body, alignment: .center)
+        .withAnimatedTransition(id: "Test1")
         .flex(basisPercent: 40)
     let exchangeButtonNode = HapticButtonNode()
     let toggleNode = VATextNode(
