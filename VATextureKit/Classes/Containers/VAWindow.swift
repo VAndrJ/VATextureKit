@@ -94,9 +94,9 @@ open class VAWindow: UIWindow {
             if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
                 appContext.themeManager.updateStandardThemeIfNeeded(userInterfaceStyle: VAUserInterfaceStyle(userInterfaceStyle: traitCollection.userInterfaceStyle))
             }
-            if traitCollection.preferredContentSizeCategory != previousTraitCollection?.preferredContentSizeCategory {
-                appContext.contentSizeManager.updateIfNeeded(contentSize: traitCollection.preferredContentSizeCategory)
-            }
+        }
+        if traitCollection.preferredContentSizeCategory != previousTraitCollection?.preferredContentSizeCategory {
+            appContext.contentSizeManager.updateIfNeeded(contentSize: traitCollection.preferredContentSizeCategory)
         }
     }
     
