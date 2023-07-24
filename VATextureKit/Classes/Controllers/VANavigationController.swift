@@ -98,7 +98,6 @@ open class VANavigationController: ASDKNavigationController {
             }
             if !(fromLayersDict.isEmpty || toLayersDict.isEmpty) {
                 let transitionOverlayView = addTransitionOverlayView()
-                var isAnimationAdded = false
                 CATransaction.begin()
                 CATransaction.setCompletionBlock {
                     transitionOverlayView.removeFromSuperview()
