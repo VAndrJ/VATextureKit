@@ -7,12 +7,41 @@
 
 import UIKit
 
+public struct VATransitionTimings {
+    public let bounds: CAMediaTimingFunctionName
+    public let positionX: CAMediaTimingFunctionName
+    public let positionY: CAMediaTimingFunctionName
+    public let opacity: CAMediaTimingFunctionName
+
+    public init(
+        bounds: CAMediaTimingFunctionName = .easeInEaseOut,
+        positionX: CAMediaTimingFunctionName = .easeInEaseOut,
+        positionY: CAMediaTimingFunctionName = .easeInEaseOut,
+        opacity: CAMediaTimingFunctionName = .easeInEaseOut
+    ) {
+        self.bounds = bounds
+        self.positionX = positionX
+        self.positionY = positionY
+        self.opacity = opacity
+    }
+}
+
+public enum VATransitionAnimation {
+    case `default`(timings: VATransitionTimings)
+}
+
 public extension CALayer {
+    var transitionAnimation: VATransitionAnimation {
+        get { (objc_getAssociatedObject(self, &transitionAnimationTimingsKey) as? VATransitionAnimation) ?? .default(timings: .init()) }
+        set { objc_setAssociatedObject(self, &transitionAnimationTimingsKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
+    }
     var transitionAnimationId: String? {
         get { objc_getAssociatedObject(self, &transitionAnimationIdKey) as? String }
         set { objc_setAssociatedObject(self, &transitionAnimationIdKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
 }
+
+private var transitionAnimationTimingsKey = "transitionAnimationTimingsKey"
 
 private var transitionAnimationIdKey = "transitionAnimationIdKey"
 
