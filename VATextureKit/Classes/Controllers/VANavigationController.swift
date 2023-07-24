@@ -83,17 +83,26 @@ open class VANavigationController: ASDKNavigationController {
                     toLayerSnapshot.frame.origin = toConvertedBounds
                     overlayView.layer.addSublayer(fromLayerSnapshot)
                     overlayView.layer.addSublayer(toLayerSnapshot)
-                    fromLayerSnapshot.add(animation: .bounds(from: fromLayerSnapshot.bounds, to: toLayerSnapshot.bounds), duration: animationDuration)
-                    fromLayerSnapshot.add(animation: .position(from: fromConvertedPosition, to: toConvertedPosition), duration: animationDuration)
-                    fromLayerSnapshot.add(animation: .opacity(from: 1, to: 0), duration: animationDuration)
-                    toLayerSnapshot.add(animation: .bounds(from: fromLayerSnapshot.bounds, to: toLayerSnapshot.bounds), duration: animationDuration)
-                    toLayerSnapshot.add(animation: .position(from: fromConvertedPosition, to: toConvertedPosition), duration: animationDuration)
-                    toLayerSnapshot.add(animation: .opacity(from: 0, to: 1), duration: animationDuration, completion: { _ in
+                    CATransaction.begin()
+                    CATransaction.setCompletionBlock {
+                        fromLayerSnapshot.removeFromSuperlayer()
                         from.isHidden = false
                         to.isHidden = false
                         toLayerSnapshot.removeFromSuperlayer()
-                        fromLayerSnapshot.removeFromSuperlayer()
-                    })
+                    }
+                    func addAnimations(to layer: CALayer, isTarget: Bool, transitionAnimation: VATransitionAnimation) {
+                        switch transitionAnimation {
+                        case let .default(timings):
+                            layer.add(animation: .bounds(from: fromLayerSnapshot.bounds, to: toLayerSnapshot.bounds), duration: animationDuration, timingFunction: timings.bounds, removeOnCompletion: false)
+                            layer.add(animation: .positionX(from: fromConvertedPosition.x, to: toConvertedPosition.x), duration: animationDuration, timingFunction: timings.positionX, removeOnCompletion: false)
+                            layer.add(animation: .positionY(from: fromConvertedPosition.y, to: toConvertedPosition.y), duration: animationDuration, timingFunction: timings.positionY, removeOnCompletion: false)
+                            layer.add(animation: .opacity(from: isTarget ? 0 : 1, to: !isTarget ? 0 : 1), duration: animationDuration, timingFunction: timings.opacity, removeOnCompletion: false)
+                        }
+                    }
+                    let transitionAnimation = to.transitionAnimation
+                    addAnimations(to: fromLayerSnapshot, isTarget: false, transitionAnimation: transitionAnimation)
+                    addAnimations(to: toLayerSnapshot, isTarget: true, transitionAnimation: transitionAnimation)
+                    CATransaction.commit()
                 }
             }
             if !(fromLayersDict.isEmpty || toLayersDict.isEmpty) {

@@ -54,6 +54,7 @@ final class CompositingFilterControllerNode: VASafeAreaDisplayNode {
 
     override func configureTheme(_ theme: VATheme) {
         backgroundColor = theme.systemBackground
+        listNode.backgroundColor = theme.systemBackground
     }
 
     // MARK: - ViewModel related code

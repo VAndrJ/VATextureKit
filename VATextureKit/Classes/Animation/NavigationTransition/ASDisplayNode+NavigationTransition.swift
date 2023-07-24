@@ -16,10 +16,21 @@ public extension ASDisplayNode {
             }
         }
     }
+    var transitionAnimation: VATransitionAnimation {
+        get { layer.transitionAnimation }
+        set {
+            ensureOnMain { [self] in
+                layer.transitionAnimation = newValue
+            }
+        }
+    }
 
     @discardableResult
-    func withAnimatedTransition(id: String) -> Self {
+    func withAnimatedTransition(id: String, animation: VATransitionAnimation? = nil) -> Self {
         transitionAnimationId = id
+        if let animation {
+            transitionAnimation = animation
+        }
         return self
     }
 }

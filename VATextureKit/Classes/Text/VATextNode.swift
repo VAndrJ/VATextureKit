@@ -58,8 +58,11 @@ open class VATextNode: _VATextNode {
         }
         
         public func getFontSize(contentSize: UIContentSizeCategory) -> CGFloat {
-            let traitCollection = UITraitCollection(preferredContentSizeCategory: contentSize)
-            return UIFontMetrics(forTextStyle: textStyle).scaledValue(for: pointSize, compatibleWith: traitCollection)
+            UIFontMetrics(forTextStyle: textStyle)
+                .scaledValue(
+                    for: pointSize,
+                    compatibleWith: UITraitCollection(preferredContentSizeCategory: contentSize)
+                )
         }
     }
 
@@ -244,6 +247,7 @@ open class VATextNode: _VATextNode {
             name: VAContentSizeManager.contentSizeDidChangedNotification,
             object: appContext.contentSizeManager
         )
+        configureTheme(theme: theme)
     }
     
     open func configureTheme(theme: VATheme) {

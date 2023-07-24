@@ -1,5 +1,5 @@
 //
-//  SlideAnimationControllerNode.swift
+//  TransitionAnimationControllerNode.swift
 //  VATextureKit_Example
 //
 //  Created by Volodymyr Andriienko on 02.04.2023.
@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-final class SlideAnimationControllerNode: VASafeAreaDisplayNode {
+final class TransitionAnimationControllerNode: VASafeAreaDisplayNode {
     let leftTextNode = VATextNode(text: "left", fontStyle: .body, alignment: .center)
         .withAnimatedTransition(id: "Test")
         .flex(shrink: 0.1, basisPercent: 60)

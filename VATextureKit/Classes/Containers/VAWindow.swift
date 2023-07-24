@@ -8,7 +8,8 @@
 import UIKit
 
 open class VAWindow: UIWindow {
-    
+
+    @available(iOS 12.0, *)
     public init(customTheme: VATheme, standardLightTheme: VATheme, standardDarkTheme: VATheme) {
         super.init(frame: UIScreen.main.bounds)
         
@@ -16,31 +17,61 @@ open class VAWindow: UIWindow {
             customTheme: customTheme,
             standardLightTheme: standardLightTheme,
             standardDarkTheme: standardDarkTheme,
-            userInterfaceStyle: traitCollection.userInterfaceStyle
+            userInterfaceStyle: VAUserInterfaceStyle(userInterfaceStyle: traitCollection.userInterfaceStyle)
         )
         appContexts.append(VAAppContext(themeManager: themeManager, window: self))
     }
 
+    public init(customTheme: VATheme, legacyLightTheme: VATheme, legacyDarkTheme: VATheme) {
+        super.init(frame: UIScreen.main.bounds)
+
+        let themeManager = VAThemeManager(
+            customTheme: customTheme,
+            standardLightTheme: legacyLightTheme,
+            standardDarkTheme: legacyDarkTheme,
+            userInterfaceStyle: .light
+        )
+        appContexts.append(VAAppContext(themeManager: themeManager, window: self))
+    }
+
+    @available(iOS 12.0, *)
     public convenience init(standardLightTheme: VATheme) {
         self.init(standardLightTheme: standardLightTheme, standardDarkTheme: standardLightTheme)
     }
-    
+
+    public convenience init(legacyLightTheme: VATheme) {
+        self.init(legacyLightTheme: legacyLightTheme, legacyDarkTheme: legacyLightTheme)
+    }
+
+    @available(iOS 12.0, *)
     public init(standardLightTheme: VATheme, standardDarkTheme: VATheme) {
         super.init(frame: UIScreen.main.bounds)
         
         let themeManager = VAThemeManager(
             standardLightTheme: standardLightTheme,
             standardDarkTheme: standardDarkTheme,
-            userInterfaceStyle: traitCollection.userInterfaceStyle
+            userInterfaceStyle: VAUserInterfaceStyle(userInterfaceStyle: traitCollection.userInterfaceStyle)
         )
         appContexts.append(VAAppContext(themeManager: themeManager, window: self))
     }
-    
+
+    public init(legacyLightTheme: VATheme, legacyDarkTheme: VATheme) {
+        super.init(frame: UIScreen.main.bounds)
+
+        let themeManager = VAThemeManager(
+            standardLightTheme: legacyLightTheme,
+            standardDarkTheme: legacyDarkTheme,
+            userInterfaceStyle: .light
+        )
+        appContexts.append(VAAppContext(themeManager: themeManager, window: self))
+    }
+
+    @available(iOS 12.0, *)
     public init(themeManager: VAThemeManager) {
         super.init(frame: UIScreen.main.bounds)
         
         appContexts.append(VAAppContext(themeManager: themeManager, window: self))
-        appContext.themeManager.updateStandardThemeIfNeeded(userInterfaceStyle: traitCollection.userInterfaceStyle)
+        appContext.themeManager.updateStandardThemeIfNeeded(userInterfaceStyle: VAUserInterfaceStyle(userInterfaceStyle: traitCollection.userInterfaceStyle))
     }
     
     @available(iOS 13.0, *)
@@ -48,7 +79,7 @@ open class VAWindow: UIWindow {
         super.init(windowScene: windowScene)
         
         appContexts.append(VAAppContext(themeManager: themeManager, window: self))
-        appContext.themeManager.updateStandardThemeIfNeeded(userInterfaceStyle: traitCollection.userInterfaceStyle)
+        appContext.themeManager.updateStandardThemeIfNeeded(userInterfaceStyle: VAUserInterfaceStyle(userInterfaceStyle: traitCollection.userInterfaceStyle))
     }
 
     @available(*, unavailable)
@@ -58,12 +89,14 @@ open class VAWindow: UIWindow {
     
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        
-        if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
-            appContext.themeManager.updateStandardThemeIfNeeded(userInterfaceStyle: traitCollection.userInterfaceStyle)
-        }
-        if traitCollection.preferredContentSizeCategory != previousTraitCollection?.preferredContentSizeCategory {
-            appContext.contentSizeManager.updateIfNeeded(contentSize: traitCollection.preferredContentSizeCategory)
+
+        if #available(iOS 12.0, *) {
+            if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+                appContext.themeManager.updateStandardThemeIfNeeded(userInterfaceStyle: VAUserInterfaceStyle(userInterfaceStyle: traitCollection.userInterfaceStyle))
+            }
+            if traitCollection.preferredContentSizeCategory != previousTraitCollection?.preferredContentSizeCategory {
+                appContext.contentSizeManager.updateIfNeeded(contentSize: traitCollection.preferredContentSizeCategory)
+            }
         }
     }
     

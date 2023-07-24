@@ -11,10 +11,16 @@ import VATextureKit
 final class StackLayoutControllerNode: VASafeAreaDisplayNode {
     private var pairNodes: [ASDisplayNode] { [ASDisplayNode().sized(CGSize(same: 128)), ASDisplayNode().sized(CGSize(same: 64))] }
     private func getTitleTextNode(string: String) -> VATextNode {
-        VATextNode(
+        let fontDesign: VAFontDesign
+        if #available(iOS 13.0, *) {
+            fontDesign = .monospaced
+        } else {
+            fontDesign = .default
+        }
+        return VATextNode(
             string: string,
             color: { $0.label },
-            descriptor: .monospaced
+            descriptor: fontDesign
         )
     }
     private lazy var stackTitleTextNode = getTitleTextNode(string: "Stack with 2 elements")

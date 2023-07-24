@@ -35,10 +35,17 @@ extension VATextNode {
                     weight: textStyle.weight
                 )
             case .monospaced:
-                return UIFont.monospacedSystemFont(
-                    ofSize: textStyle.getFontSize(contentSize: appContext.contentSizeManager.contentSize),
-                    weight: textStyle.weight
-                )
+                if #available(iOS 13.0, *) {
+                    return UIFont.monospacedSystemFont(
+                        ofSize: textStyle.getFontSize(contentSize: appContext.contentSizeManager.contentSize),
+                        weight: textStyle.weight
+                    )
+                } else {
+                    return UIFont.systemFont(
+                        ofSize: textStyle.getFontSize(contentSize: appContext.contentSizeManager.contentSize),
+                        weight: textStyle.weight
+                    )
+                }
             case .monospacedDigits:
                 return UIFont.monospacedDigitSystemFont(
                     ofSize: textStyle.getFontSize(contentSize: appContext.contentSizeManager.contentSize),

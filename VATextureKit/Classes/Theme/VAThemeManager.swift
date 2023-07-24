@@ -7,6 +7,31 @@
 
 import UIKit
 
+public enum VAUserInterfaceStyle: Int {
+    case unspecified = 0
+    case light = 1
+    case dark = 2
+
+    @available(iOS 12.0, *)
+    public init(userInterfaceStyle: UIUserInterfaceStyle) {
+        switch userInterfaceStyle {
+        case .unspecified: self = .unspecified
+        case .light: self = .light
+        case .dark: self = .dark
+        @unknown default: self = .light
+        }
+    }
+
+    @available(iOS 12.0, *)
+    var uiUserInterfaceStyle: UIUserInterfaceStyle {
+        switch self {
+        case .unspecified: return .unspecified
+        case .light: return .light
+        case .dark: return .dark
+        }
+    }
+}
+
 open class VAThemeManager {
     public enum ThemeType {
         case standard
@@ -20,13 +45,13 @@ open class VAThemeManager {
     
     private let standardLightTheme: VATheme
     private let standardDarkTheme: VATheme
-    private var userInterfaceStyle: UIUserInterfaceStyle
+    private var userInterfaceStyle: VAUserInterfaceStyle
     
     public init(
         customTheme: VATheme,
         standardLightTheme: VATheme,
         standardDarkTheme: VATheme,
-        userInterfaceStyle: UIUserInterfaceStyle = .light
+        userInterfaceStyle: VAUserInterfaceStyle = .light
     ) {
         self.theme = customTheme
         self.themeType = .custom
@@ -38,7 +63,7 @@ open class VAThemeManager {
     public init(
         standardLightTheme: VATheme,
         standardDarkTheme: VATheme,
-        userInterfaceStyle: UIUserInterfaceStyle = .light
+        userInterfaceStyle: VAUserInterfaceStyle = .light
     ) {
         self.theme = userInterfaceStyle == .dark ? standardDarkTheme : standardLightTheme
         self.themeType = .standard
@@ -52,7 +77,7 @@ open class VAThemeManager {
         updateStandardThemeIfNeeded(userInterfaceStyle: userInterfaceStyle)
     }
     
-    public func updateStandardThemeIfNeeded(userInterfaceStyle: UIUserInterfaceStyle) {
+    public func updateStandardThemeIfNeeded(userInterfaceStyle: VAUserInterfaceStyle) {
         self.userInterfaceStyle = userInterfaceStyle
         if themeType == .standard {
             if userInterfaceStyle == .dark {
