@@ -54,6 +54,7 @@ final class MovieDetailsViewModel: EventViewModel {
             .startWith([
                 MovieDetailsTitleCellNodeViewModel(listMovie: data.related.listMovieEntity),
                 MovieDetailsTrailerCellNodeViewModel(listMovie: data.related.listMovieEntity),
+                ShimmerCellNodeViewModel(kind: .movieDetails),
             ])
     }
     let data: DTO

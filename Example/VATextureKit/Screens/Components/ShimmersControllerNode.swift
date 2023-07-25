@@ -9,6 +9,7 @@
 import VATextureKit
 
 final class ShimmersControllerNode: VASafeAreaDisplayNode {
+    private lazy var acrossWindowSynchronizedTextNode = VATextNode(text: "Shimmer across window synchronized")
     private lazy var acrossWindowShimmer0Node = _ShimmerExampleNode(data: .init())
         .flex(grow: 1)
     private lazy var acrossWindowShimmer1Node = _ShimmerExampleNode(data: .init())
@@ -16,6 +17,7 @@ final class ShimmersControllerNode: VASafeAreaDisplayNode {
     private lazy var acrossWindowShimmer2Node = _ShimmerExampleNode(data: .init())
         .flex(grow: 1)
 
+    private lazy var acrossWindowNotSynchronizedTextNode = VATextNode(text: "Shimmer across window not synchronized")
     private lazy var notSynchronizedShimmer0Node = _ShimmerExampleNode(data: .init(isSynchronized: false))
         .flex(grow: 1)
     private lazy var notSynchronizedShimmer1Node = _ShimmerExampleNode(data: .init(isSynchronized: false))
@@ -23,6 +25,7 @@ final class ShimmersControllerNode: VASafeAreaDisplayNode {
     private lazy var notSynchronizedShimmer2Node = _ShimmerExampleNode(data: .init(isSynchronized: false))
         .flex(grow: 1)
 
+    private lazy var acrossNodeSynchronizedTextNode = VATextNode(text: "Shimmer across node synchronized")
     private lazy var notAcrossWindowShimmer0Node = _ShimmerExampleNode(data: .init(isAcrossWindow: false))
         .flex(grow: 1)
     private lazy var notAcrossWindowShimmer1Node = _ShimmerExampleNode(data: .init(isAcrossWindow: false))
@@ -47,20 +50,29 @@ final class ShimmersControllerNode: VASafeAreaDisplayNode {
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
             Column(spacing: 64, cross: .stretch) {
-                Row(spacing: 16) {
-                    acrossWindowShimmer0Node
-                    acrossWindowShimmer1Node
-                    acrossWindowShimmer2Node
+                Column(spacing: 16, cross: .stretch) {
+                    acrossWindowSynchronizedTextNode
+                    Row(spacing: 16) {
+                        acrossWindowShimmer0Node
+                        acrossWindowShimmer1Node
+                        acrossWindowShimmer2Node
+                    }
                 }
-                Row(spacing: 16) {
-                    notSynchronizedShimmer0Node
-                    notSynchronizedShimmer1Node
-                    notSynchronizedShimmer2Node
+                Column(spacing: 16, cross: .stretch) {
+                    acrossWindowNotSynchronizedTextNode
+                    Row(spacing: 16) {
+                        notSynchronizedShimmer0Node
+                        notSynchronizedShimmer1Node
+                        notSynchronizedShimmer2Node
+                    }
                 }
-                Row(spacing: 16) {
-                    notAcrossWindowShimmer0Node
-                    notAcrossWindowShimmer1Node
-                    notAcrossWindowShimmer2Node
+                Column(spacing: 16, cross: .stretch) {
+                    acrossNodeSynchronizedTextNode
+                    Row(spacing: 16) {
+                        notAcrossWindowShimmer0Node
+                        notAcrossWindowShimmer1Node
+                        notAcrossWindowShimmer2Node
+                    }
                 }
             }
             .padding(.all(16))
