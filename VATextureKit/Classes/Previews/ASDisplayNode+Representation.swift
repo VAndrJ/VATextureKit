@@ -38,10 +38,9 @@ public extension ASCollectionNode {
             ASTraitCollectionPropagateDown(self, ASPrimitiveTraitCollectionFromUITraitCollection(UITraitCollection.current))
         }
         displaysAsynchronously = false
-        reloadDataWithoutAnimations()
+        reloadData()
+        layer.removeAllAnimations()
         waitUntilAllUpdatesAreProcessed()
-        setNeedsLayout()
-        layoutIfNeeded()
         setNeedsDisplay()
         recursivelyEnsureDisplaySynchronously(true)
         ASDisplayNodePerformBlockOnEveryNode(nil, self, true) {
@@ -49,16 +48,6 @@ public extension ASCollectionNode {
             $0.setNeedsDisplay()
             $0.recursivelyEnsureDisplaySynchronously(true)
         }
-//        visibleNodes.forEach {
-//            $0.displaysAsynchronously = false
-//            $0.setNeedsDisplay()
-//            $0.recursivelyEnsureDisplaySynchronously(true)
-//            ASDisplayNodePerformBlockOnEveryNode(nil, $0, true) {
-//                $0.displaysAsynchronously = false
-//                $0.setNeedsDisplay()
-//                $0.recursivelyEnsureDisplaySynchronously(true)
-//            }
-//        }
     }
 }
 
@@ -69,10 +58,9 @@ extension ASTableNode {
             ASTraitCollectionPropagateDown(self, ASPrimitiveTraitCollectionFromUITraitCollection(UITraitCollection.current))
         }
         displaysAsynchronously = false
-        reloadDataWithoutAnimations()
+        reloadData()
+        layer.removeAllAnimations()
         waitUntilAllUpdatesAreProcessed()
-        setNeedsLayout()
-        layoutIfNeeded()
         setNeedsDisplay()
         recursivelyEnsureDisplaySynchronously(true)
         ASDisplayNodePerformBlockOnEveryNode(nil, self, true) {
@@ -80,16 +68,6 @@ extension ASTableNode {
             $0.setNeedsDisplay()
             $0.recursivelyEnsureDisplaySynchronously(true)
         }
-//        visibleNodes.forEach {
-//            $0.displaysAsynchronously = false
-//            $0.setNeedsDisplay()
-//            $0.recursivelyEnsureDisplaySynchronously(true)
-//            ASDisplayNodePerformBlockOnEveryNode(nil, $0, true) {
-//                $0.displaysAsynchronously = false
-//                $0.setNeedsDisplay()
-//                $0.recursivelyEnsureDisplaySynchronously(true)
-//            }
-//        }
     }
 }
 

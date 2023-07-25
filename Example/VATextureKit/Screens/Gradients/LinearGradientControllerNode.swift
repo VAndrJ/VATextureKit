@@ -9,31 +9,23 @@
 import VATextureKit
 
 final class LinearGradientControllerNode: VASafeAreaDisplayNode {
-    let scrollNode = VAScrollNode(data: .init())
-    let verticalGradientNode = VALinearGradientNode(gradient: .vertical)
-    let horizontalGradientNode = VALinearGradientNode(gradient: .horizontal)
-    let topLeftToBottomRightGradientNode = VALinearGradientNode(gradient: .diagonal(.topLeftToBottomRight))
-    let topRightToBottomLeftGradientNode = VALinearGradientNode(gradient: .diagonal(.topRightToBottomLeft))
-    let bottomLeftToTopRightGradientNode = VALinearGradientNode(gradient: .diagonal(.bottomLeftToTopRight))
-    let bottomRightToTopLeftGradientNode = VALinearGradientNode(gradient: .diagonal(.bottomRightToTopLeft))
-    let customGradientNode = VALinearGradientNode(gradient: .custom(startPoint: CGPoint(x: 0.5, y: 0), endPoint: CGPoint(x: 1, y: 1)))
-
+    private lazy var scrollNode = VAScrollNode(data: .init())
+    private lazy var verticalGradientNode = VALinearGradientNode(gradient: .vertical)
+    private lazy var horizontalGradientNode = VALinearGradientNode(gradient: .horizontal)
+    private lazy var topLeftToBottomRightGradientNode = VALinearGradientNode(gradient: .diagonal(.topLeftToBottomRight))
+    private lazy var topRightToBottomLeftGradientNode = VALinearGradientNode(gradient: .diagonal(.topRightToBottomLeft))
+    private lazy var bottomLeftToTopRightGradientNode = VALinearGradientNode(gradient: .diagonal(.bottomLeftToTopRight))
+    private lazy var bottomRightToTopLeftGradientNode = VALinearGradientNode(gradient: .diagonal(.bottomRightToTopLeft))
+    private lazy var customGradientNode = VALinearGradientNode(gradient: .custom(startPoint: CGPoint(x: 0.5, y: 0), endPoint: CGPoint(x: 1, y: 1)))
     private lazy var contentNodes = [
-        verticalGradientNode
-            .ratio(1),
-        horizontalGradientNode
-            .ratio(1),
-        topLeftToBottomRightGradientNode
-            .ratio(1),
-        topRightToBottomLeftGradientNode
-            .ratio(1),
-        bottomLeftToTopRightGradientNode
-            .ratio(1),
-        bottomRightToTopLeftGradientNode
-            .ratio(1),
-        customGradientNode
-            .ratio(1),
-    ]
+        verticalGradientNode,
+        horizontalGradientNode,
+        topLeftToBottomRightGradientNode,
+        topRightToBottomLeftGradientNode,
+        bottomLeftToTopRightGradientNode,
+        bottomRightToTopLeftGradientNode,
+        customGradientNode,
+    ].map { $0.ratio(1) }
     
     override init() {
         super.init()

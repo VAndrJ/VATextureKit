@@ -109,7 +109,7 @@ open class VAShimmerNode: VADisplayNode {
     private func startShimmering() {
         maskLayer.removeAllAnimations()
         layer.mask = maskLayer
-        let timeOffset = data.isSynchronized ? Date().timeIntervalSinceReferenceDate.remainder(dividingBy: data.animationDuration) : 0
+        let timeOffset = data.isSynchronized ? Date.timeIntervalSinceReferenceDate.remainder(dividingBy: data.animationDuration) : 0
         let animation = data.animation(maskLayer, data.animationDuration, timeOffset)
 
         maskLayer.add(animation, forKey: animation.keyPath)

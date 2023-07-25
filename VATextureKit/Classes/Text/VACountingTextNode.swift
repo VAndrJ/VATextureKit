@@ -1,12 +1,11 @@
 //
 //  VACountingTextNode.swift
-//  VATextureKit_Example
+//  VATextureKit
 //
-//  Created by Volodymyr Andriienko on 22.07.2023.
-//  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
+//  Created by Volodymyr Andriienko on 25.07.2023.
 //
 
-import VATextureKit
+import AsyncDisplayKit
 
 open class VACountingTextNode: VATextNode {
     public struct Configuration {

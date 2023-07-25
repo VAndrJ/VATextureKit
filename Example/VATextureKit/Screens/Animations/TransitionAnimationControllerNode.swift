@@ -91,14 +91,8 @@ final class TransitionAnimationControllerNode: VASafeAreaDisplayNode {
     }
 
     private func bind() {
-        exchangeButtonNode.onTap(weakify: self) {
-            $0.isNodesExchanged.toggle()
-        }
-        toggleButtonNode.onTap(weakify: self) {
-            $0.isNodeToggled.toggle()
-        }
-        expandButtonNode.onTap(weakify: self) {
-            $0.isNodeExpanded.toggle()
-        }
+        exchangeButtonNode.onTap = self ?> { $0.isNodesExchanged.toggle() }
+        toggleButtonNode.onTap = self ?> { $0.isNodeToggled.toggle() }
+        expandButtonNode.onTap = self ?> { $0.isNodeExpanded.toggle() }
     }
 }
