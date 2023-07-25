@@ -24,7 +24,7 @@ public class VASpecGridListLayoutDelegate: NSObject, ASCollectionLayoutDelegate 
     }
 
     public static func calculateLayout(with context: ASCollectionLayoutContext) -> ASCollectionLayoutState {
-        guard let elements = context.elements, !elements.itemIndexPaths.isEmpty else {
+        guard let elements = context.elements, !elements.itemIndexPaths.isEmpty, context.viewportSize != .zero else {
             return ASCollectionLayoutState(context: context)
         }
         let info = context.additionalInfo as! VASpecGridListLayoutInfo

@@ -71,8 +71,6 @@ class ScreenFactory {
             return VAViewController(node: RadialGradientControllerNode())
         case .alert:
             return AlertNodeController()
-        case .collectionList:
-            return CollectionListNodeController(viewModel: CollectionListViewModel())
         case .collectionListDifferentCells:
             return CollectionListDifferentCellsNodeController(viewModel: CollectionListDifferentCellsViewModel())
         case .collectionListHeaderFooter:

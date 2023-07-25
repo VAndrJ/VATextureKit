@@ -87,8 +87,6 @@
 		A3DDF30229DD856F009460F1 /* CompositingFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DDF30129DD856F009460F1 /* CompositingFilterViewModel.swift */; };
 		A3E47BCC29D763C200D51E08 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = A3E47BCB29D763C200D51E08 /* SnapshotTesting */; };
 		A3F888C729CB67F100C67187 /* Umbrella.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F888C629CB67F100C67187 /* Umbrella.swift */; };
-		A3F888D729CC427000C67187 /* CollectionListNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F888D629CC427000C67187 /* CollectionListNodeController.swift */; };
-		A3F888D929CC427D00C67187 /* CollectionListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F888D829CC427D00C67187 /* CollectionListViewModel.swift */; };
 		A3F888DD29CC602900C67187 /* CollectionExampleCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F888DC29CC602900C67187 /* CollectionExampleCellNode.swift */; };
 		A3F8890029CE2D0000C67187 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F888FF29CE2D0000C67187 /* Support.swift */; };
 		A3F8890329CE316100C67187 /* CollectionListDifferentCellsNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F8890229CE316100C67187 /* CollectionListDifferentCellsNodeController.swift */; };
@@ -199,8 +197,6 @@
 		A3DDF30129DD856F009460F1 /* CompositingFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositingFilterViewModel.swift; sourceTree = "<group>"; };
 		A3E47BC029D75AB300D51E08 /* VATextureKit_Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VATextureKit_Tests-Bridging-Header.h"; sourceTree = "<group>"; };
 		A3F888C629CB67F100C67187 /* Umbrella.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Umbrella.swift; sourceTree = "<group>"; };
-		A3F888D629CC427000C67187 /* CollectionListNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionListNodeController.swift; sourceTree = "<group>"; };
-		A3F888D829CC427D00C67187 /* CollectionListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionListViewModel.swift; sourceTree = "<group>"; };
 		A3F888DC29CC602900C67187 /* CollectionExampleCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExampleCellNode.swift; sourceTree = "<group>"; };
 		A3F888FF29CE2D0000C67187 /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
 		A3F8890229CE316100C67187 /* CollectionListDifferentCellsNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionListDifferentCellsNodeController.swift; sourceTree = "<group>"; };
@@ -375,7 +371,6 @@
 			children = (
 				A38D5E972A6C14F200A67BC7 /* DynamicHeightGridListControllerNode.swift */,
 				A38D5EAA2A6D63BF00A67BC7 /* SpecBasedGridListControllerNode.swift */,
-				A3F888D529CC424000C67187 /* CollectionList */,
 				A3F8890129CE314500C67187 /* CollectionListDifferentCells */,
 				A34F8E7329F439E400EF4C42 /* CollectionListHeaderFooter */,
 			);
@@ -598,15 +593,6 @@
 				A3DDF2FF29DD84B1009460F1 /* CompositingCellNode.swift */,
 			);
 			path = Compositing;
-			sourceTree = "<group>";
-		};
-		A3F888D529CC424000C67187 /* CollectionList */ = {
-			isa = PBXGroup;
-			children = (
-				A3F888D629CC427000C67187 /* CollectionListNodeController.swift */,
-				A3F888D829CC427D00C67187 /* CollectionListViewModel.swift */,
-			);
-			path = CollectionList;
 			sourceTree = "<group>";
 		};
 		A3F8890129CE314500C67187 /* CollectionListDifferentCells */ = {
@@ -834,7 +820,6 @@
 				A38D5E902A6BB99000A67BC7 /* VACountingTextNode.swift in Sources */,
 				A397A2C229AAA68800A05B8F /* AlertNodeController.swift in Sources */,
 				A34F8E8529F576C000EF4C42 /* PagerCardCellNode.swift in Sources */,
-				A3F888D929CC427D00C67187 /* CollectionListViewModel.swift in Sources */,
 				A357B8002A02483C004835C5 /* VASlidingTab.swift in Sources */,
 				A3B3F3CD29A2B4FC0090E6E2 /* MainListCellNode.swift in Sources */,
 				A3A0BEE429ED68B900253AAD /* StackLayoutControllerNode.swift in Sources */,
@@ -854,7 +839,6 @@
 				A384F0BB29EE752E006BF197 /* VAButtonNode+Support.swift in Sources */,
 				A3B3F3DE29A37C9C0090E6E2 /* AppearanceViewModel.swift in Sources */,
 				A3B3F3D629A2C91A0090E6E2 /* AppearanceContollerNode.swift in Sources */,
-				A3F888D729CC427000C67187 /* CollectionListNodeController.swift in Sources */,
 				A3B3F3C529A22F860090E6E2 /* Theme.swift in Sources */,
 				A3B3F3D129A2C1190090E6E2 /* Navigator.swift in Sources */,
 				A3F8890529CE316C00C67187 /* CollectionListDifferentCellsViewModel.swift in Sources */,
