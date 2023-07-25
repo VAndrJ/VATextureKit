@@ -241,36 +241,41 @@ open class RxASCollectionSectionedAnimatedDataSource<S: AnimatableSectionModelTy
             if !dataSource.dataSet {
                 dataSource.dataSet = true
                 dataSource.setSections(newSections)
-                collectionNode.reloadData()
+                collectionNode.reloadDataWithoutAnimations()
             } else {
-                let oldSections = dataSource.sectionModels
-                do {
-                    let differences = try Diff.differencesForSectionedView(initialSections: oldSections, finalSections: newSections)
-                    switch dataSource.decideNodeTransition(dataSource, collectionNode, differences) {
-                    case .animated:
-                        // each difference must be run in a separate 'performBatchUpdates', otherwise it crashes.
-                        // this is a limitation of Diff tool
-                        for difference in differences {
-                            let updateBlock = {
-                                // sections must be set within updateBlock in 'performBatchUpdates'
-                                dataSource.setSections(difference.finalSections)
-                                collectionNode.batchUpdates(difference, animationConfiguration: dataSource.animationConfiguration)
+                if dataSource.animationConfiguration.animated {
+                    let oldSections = dataSource.sectionModels
+                    do {
+                        let differences = try Diff.differencesForSectionedView(initialSections: oldSections, finalSections: newSections)
+                        switch dataSource.decideNodeTransition(dataSource, collectionNode, differences) {
+                        case .animated:
+                            // each difference must be run in a separate 'performBatchUpdates', otherwise it crashes.
+                            // this is a limitation of Diff tool
+                            for difference in differences {
+                                let updateBlock = {
+                                    // sections must be set within updateBlock in 'performBatchUpdates'
+                                    dataSource.setSections(difference.finalSections)
+                                    collectionNode.batchUpdates(difference, animationConfiguration: dataSource.animationConfiguration)
+                                }
+                                collectionNode.performBatch(
+                                    animated: dataSource.animationConfiguration.animated,
+                                    updates: updateBlock,
+                                    completion: nil
+                                )
                             }
-                            collectionNode.performBatch(
-                                animated: dataSource.animationConfiguration.animated,
-                                updates: updateBlock,
-                                completion: nil
-                            )
+                        case .reload:
+                            dataSource.setSections(newSections)
+                            collectionNode.reloadDataWithoutAnimations()
+                            return
                         }
-                    case .reload:
+                    } catch {
+                        rxDebugFatalError(error)
                         dataSource.setSections(newSections)
-                        collectionNode.reloadData()
-                        return
+                        collectionNode.reloadDataWithoutAnimations()
                     }
-                } catch {
-                    rxDebugFatalError(error)
+                } else {
                     dataSource.setSections(newSections)
-                    collectionNode.reloadData()
+                    collectionNode.reloadDataWithoutAnimations()
                 }
             }
         }.on(observedEvent)

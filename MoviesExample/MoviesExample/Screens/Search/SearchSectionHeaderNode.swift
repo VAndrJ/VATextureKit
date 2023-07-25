@@ -7,7 +7,7 @@
 
 import VATextureKit
 
-final class SearchSectionHeaderNode: VADisplayNode {
+final class SearchSectionHeaderNode: VACellNode {
     private let titleTextNode: VATextNode
 
     init(viewModel: SearchSectionHeaderNodeViewModel) {

@@ -13,12 +13,9 @@ final class ShimmerCellNode: VACellNode {
 
     init(viewModel: ShimmerCellNodeViewModel) {
         switch viewModel.kind {
-        case .trending:
-            self.contentNode = ShimmerTrendingListNode()
-        case .movieDetails:
-            self.contentNode = ShimmerMovieDetailsNode()
-        case .homeCell:
-            self.contentNode = ShimmerHomeCellNode()
+        case .trending: self.contentNode = TrendingListShimmerNode(data: .init())
+        case .movieDetails: self.contentNode = MovieDetailsShimmerNode(data: .init())
+        case .homeCell: self.contentNode = HomeCellShimmerNode(data: .init())
         }
         self.viewModel = viewModel
 
@@ -37,57 +34,6 @@ final class ShimmerCellNode: VACellNode {
         case .homeCell:
             break
         }
-        if isVisible {
-            startAnimating()
-        }
-    }
-
-    override func layout() {
-        super.layout()
-
-        if isVisible {
-            startAnimating()
-        }
-    }
-
-    override func didEnterVisibleState() {
-        super.didEnterVisibleState()
-
-        startAnimating()
-    }
-
-    override func didExitVisibleState() {
-        super.didExitVisibleState()
-
-        stopAnimating()
-    }
-
-    func startAnimating() {
-        let light = theme.systemBackground.cgColor
-        let alpha = theme.systemBackground.withAlphaComponent(0.16).cgColor
-        let gradient = CAGradientLayer()
-        gradient.frame = CGRect(
-            x: -bounds.width,
-            y: 0,
-            width: 3 * bounds.width,
-            height: bounds.height
-        )
-        gradient.startPoint = CGPoint(x: 0, y: 0.5)
-        gradient.endPoint = CGPoint(x: 1, y: 0.5)
-        gradient.locations = [0.4, 0.5, 0.6]
-        layer.mask = gradient
-        let animation = CABasicAnimation(keyPath: "locations")
-        animation.fromValue = [0.0, 0.1, 0.2]
-        animation.toValue = [0.8, 0.9, 1.0]
-        animation.duration = 1
-        animation.repeatCount = .greatestFiniteMagnitude
-        animation.isRemovedOnCompletion = false
-        gradient.colors = [light, alpha, light]
-        gradient.add(animation, forKey: "shimmer")
-    }
-
-    func stopAnimating() {
-        layer.mask = nil
     }
 }
 
@@ -107,43 +53,40 @@ class ShimmerCellNodeViewModel: CellViewModel {
     }
 }
 
-private final class ShimmerMovieDetailsNode: VADisplayNode {
-    private let titleNode = ASDisplayNode()
-        .sized(CGSize(width: 120, height: 24))
-    private let descriptionNode = ASDisplayNode()
-        .sized(CGSize(width: 46, height: 24))
-    private let imageNode = ASDisplayNode()
+private final class MovieDetailsShimmerNode: VAShimmerNode {
+    private let tag0Node = VAShimmerTileNode(data: .init(cornerRadius: 8))
+        .sized(CGSize(width: 64, height: 34))
+    private let tag1Node = VAShimmerTileNode(data: .init(cornerRadius: 8))
+        .sized(CGSize(width: 96, height: 34))
+    private let tag2Node = VAShimmerTileNode(data: .init(cornerRadius: 8))
+        .sized(CGSize(width: 48, height: 34))
+    private let description0Node = VAShimmerTileNode(data: .init(cornerRadius: 2))
+        .sized(CGSize(width: 96, height: 18))
+    private let description1Node = VAShimmerTileNode(data: .init(cornerRadius: 2))
+        .sized(CGSize(width: 48, height: 18))
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        Column(spacing: 8, cross: .stretch) {
-            Column(spacing: 4) {
-                titleNode
-                descriptionNode
+        Column(spacing: 12) {
+            Row(spacing: 8) {
+                tag0Node
+                tag1Node
+                tag2Node
             }
-            .padding(.left(16))
-            imageNode
-                .ratio(230 / 375)
-                .padding(.top(4))
+            Column(spacing: 4) {
+                description0Node
+                description1Node
+            }
         }
-        .padding(.vertical(16))
-    }
-
-    override func configureTheme(_ theme: VATheme) {
-        imageNode.backgroundColor = theme.systemGray6
-        titleNode.backgroundColor = theme.systemGray6
-        descriptionNode.backgroundColor = theme.systemGray6
+        .padding(.vertical(12), .horizontal(16))
     }
 }
 
-private final class ShimmerTrendingListNode: VADisplayNode {
-    private let imageNode = ASDisplayNode()
+private final class TrendingListShimmerNode: VAShimmerNode {
+    private let imageNode = VAShimmerTileNode(data: .init(cornerRadius: 16))
         .sized(CGSize(width: 126, height: 78))
-        .apply {
-            $0.cornerRadius = 16
-        }
-    private let titleNode = ASDisplayNode()
+    private let titleNode = VAShimmerTileNode(data: .init(cornerRadius: 2))
         .sized(CGSize(width: 120, height: 20))
-    private let descriptionNode = ASDisplayNode()
+    private let descriptionNode = VAShimmerTileNode(data: .init(cornerRadius: 2))
         .sized(CGSize(width: 80, height: 16))
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -157,21 +100,12 @@ private final class ShimmerTrendingListNode: VADisplayNode {
         }
         .padding(.all(16))
     }
-
-    override func configureTheme(_ theme: VATheme) {
-        imageNode.backgroundColor = theme.systemGray6
-        titleNode.backgroundColor = theme.systemGray6
-        descriptionNode.backgroundColor = theme.systemGray6
-    }
 }
 
-private final class ShimmerHomeCellNode: VADisplayNode {
-    private let sliderNode = ASDisplayNode()
+private final class HomeCellShimmerNode: VAShimmerNode {
+    private let sliderNode = VAShimmerTileNode(data: .init(cornerRadius: 22))
         .sized(height: 44)
-        .apply {
-            $0.cornerRadius = 22
-        }
-    private let cardNode = ShimmerHomeListMovieNode()
+    private let cardNode = HomeCellShimmerCardPartNode()
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column {
@@ -182,20 +116,13 @@ private final class ShimmerHomeCellNode: VADisplayNode {
         }
         .padding(.vertical(8), .horizontal(16))
     }
-
-    override func configureTheme(_ theme: VATheme) {
-        sliderNode.backgroundColor = theme.systemGray6
-    }
 }
 
-private final class ShimmerHomeListMovieNode: VADisplayNode {
-    private let cardNode = ASDisplayNode()
-        .apply {
-            $0.cornerRadius = 16
-        }
-    private let ratingNode = ASDisplayNode()
+private final class HomeCellShimmerCardPartNode: VADisplayNode {
+    private let cardNode = VAShimmerTileNode(data: .init(cornerRadius: 16))
+    private let ratingNode = VAShimmerTileNode(data: .init(cornerRadius: 2))
         .sized(width: 46, height: 18)
-    private let titleNode = ASDisplayNode()
+    private let titleNode = VAShimmerTileNode(data: .init(cornerRadius: 2))
         .sized(height: 18)
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -209,11 +136,5 @@ private final class ShimmerHomeListMovieNode: VADisplayNode {
             titleNode
                 .padding(.top(4))
         }
-    }
-
-    override func configureTheme(_ theme: VATheme) {
-        cardNode.backgroundColor = theme.systemGray6
-        ratingNode.backgroundColor = theme.systemGray6
-        titleNode.backgroundColor = theme.systemGray6
     }
 }

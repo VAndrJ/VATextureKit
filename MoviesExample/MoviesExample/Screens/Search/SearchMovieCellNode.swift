@@ -19,7 +19,7 @@ final class SearchMovieCellNode: VACellNode {
             fontStyle: .headline
         ).flex(shrink: 0.1)
         self.imageNode = VANetworkImageNode(data: .init(
-            image: viewModel.image?.getImagePath(width: 200),
+            image: viewModel.image?.getImagePath(width: 500),
             contentMode: .scaleAspectFill,
             size: CGSize(width: 32, height: 48),
             cornerRadius: 4
@@ -52,8 +52,8 @@ final class SearchMovieCellNodeViewModel: CellViewModel {
 
     init(listEntity source: ListMovieEntity) {
         self.title = source.title
-        self.image = source.poster
+        self.image = source.backdropPath
 
-        super.init(identity: source.id)
+        super.init(identity: "\(source.id)_\(String(describing: type(of: self)))")
     }
 }

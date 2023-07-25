@@ -25,7 +25,7 @@ extension MovieEntity {
         self.title = source.title
         self.releaseDate = source.releaseDate
         self.rating = source.voteAverage * 10
-        self.year = source.releaseDate.split(separator: "-").first.flatMap(String.init) ?? ""
+        self.year = source.releaseDate.components(separatedBy: "-").first ?? ""
         self.backdropPath = source.backdropPath
         self.genres = source.genres.map { GenreEntity(id: .init(rawValue: $0.id), name: $0.name) }
         self.overview = source.overview

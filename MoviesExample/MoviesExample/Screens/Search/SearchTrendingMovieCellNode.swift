@@ -14,17 +14,18 @@ final class SearchTrendingMovieCellNode: VACellNode {
 
     init(viewModel: SearchTrendingMovieCellNodeViewModel) {
         self.titleTextNode = VATextNode(text: viewModel.title)
+            .withAnimatedTransition(id: "title_\(viewModel.transitionId)")
         self.descriptionTextNode = VATextNode(
             text: viewModel.description,
             fontStyle: .footnote,
             colorGetter: { $0.secondaryLabel }
         )
         self.imageNode = VANetworkImageNode(data: .init(
-            image: viewModel.image?.getImagePath(width: 200),
+            image: viewModel.image?.getImagePath(width: 500),
             contentMode: .scaleAspectFill,
             size: CGSize(width: 126, height: 78),
             cornerRadius: 16
-        ))
+        )).withAnimatedTransition(id: "image_\(viewModel.transitionId)")
 
         super.init()
     }
@@ -32,7 +33,7 @@ final class SearchTrendingMovieCellNode: VACellNode {
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Row(spacing: 16) {
             imageNode
-            Column(spacing: 4, cross: .stretch) {
+            Column(spacing: 4) {
                 titleTextNode
                 descriptionTextNode
             }
@@ -56,6 +57,6 @@ final class SearchTrendingMovieCellNodeViewModel: CellViewModel {
         self.description = source.overview
         self.image = source.image
 
-        super.init(identity: source.id)
+        super.init(identity: "\(source.id)_\(String(describing: type(of: self)))")
     }
 }

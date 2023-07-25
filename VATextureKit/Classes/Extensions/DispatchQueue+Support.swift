@@ -7,6 +7,14 @@
 
 import Foundation
 
+public func mainAsync(after: TimeInterval = 0, _ block: @escaping () -> Void) {
+    if after > 0 {
+        DispatchQueue.main.asyncAfter(deadline: .now() + after, execute: block)
+    } else {
+        DispatchQueue.main.async(execute: block)
+    }
+}
+
 public func ensureOnMain(_ block: @escaping () -> Void) {
     if Thread.current.isMainThread {
         block()

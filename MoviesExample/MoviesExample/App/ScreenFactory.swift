@@ -58,7 +58,7 @@ final class ScreenFactory {
                 shouldHideNavigationBar: false,
                 isNotImportant: true,
                 title: entity.title
-            )
+            ).withAnimatedTransitionEnabled()
         case .main:
             return ViewController(
                 node: MainNode(viewModel: MainViewModel(data: .init(

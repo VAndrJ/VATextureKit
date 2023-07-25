@@ -10,17 +10,20 @@ import Swiftional
 
 final class SearchNode: DisplayNode<SearchViewModel> {
     private lazy var searchNode = SearchBarNode(beginSearchObs: viewModel.beginSearchObs)
-    private lazy var listNode = VATableListNode(data: .init(
-        configuration: .init(
-            keyboardDismissMode: .interactive,
-            separatorConfiguration: .init(style: .none),
-            shouldScrollToTopOnDataChange: true
+    private lazy var listNode = VAListNode(
+        data: .init(
+            listDataObs: viewModel.listDataObs,
+            onSelect: { [viewModel] in viewModel.perform(DidSelectEvent(indexPath: $0)) },
+            cellGetter: mapToCell(viewModel:),
+            headerGetter: { SearchSectionHeaderNode(viewModel: $0.model) }
         ),
-        listDataObs: viewModel.listDataObs,
-        onSelect: { [viewModel] in viewModel.perform(DidSelectEvent(indexPath: $0)) },
-        cellGetter: mapToCell(viewModel:),
-        sectionHeaderGetter: SearchSectionHeaderNode.init(viewModel:)
-    )).flex(grow: 1)
+        layoutData: .init(
+            keyboardDismissMode: .interactive,
+            shouldScrollToTopOnDataChange: true,
+            sizing: .entireWidthFreeHeight(),
+            layout: .default(parameters: .init(sectionHeadersPinToVisibleBounds: true))
+        )
+    ).flex(grow: 1)
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {

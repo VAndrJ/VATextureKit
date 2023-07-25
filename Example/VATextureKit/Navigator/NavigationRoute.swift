@@ -11,7 +11,6 @@ enum NavigationRoute {
     case apearance
     case blendMode
     case columnLayout
-    case collectionList
     case collectionListDifferentCells
     case collectionListHeaderFooter
     case compositingFilter

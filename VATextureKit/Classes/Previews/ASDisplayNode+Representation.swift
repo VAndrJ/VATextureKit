@@ -6,6 +6,93 @@
 //  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
 //
 
+import AsyncDisplayKit
+
+public extension ASDisplayNode {
+
+    func loadForPreview() {
+        if #available(iOS 13.0, *) {
+            ASTraitCollectionPropagateDown(self, ASPrimitiveTraitCollectionFromUITraitCollection(UITraitCollection.current))
+        }
+        displaysAsynchronously = false
+        setNeedsDisplay()
+        recursivelyEnsureDisplaySynchronously(true)
+        ASDisplayNodePerformBlockOnEveryNode(nil, self, true) {
+            if let node = $0 as? ASCollectionNode {
+                node.loadCollectionForPreview()
+            } else if let node = $0 as? ASTableNode {
+                node.loadTableForPreview()
+            } else {
+                $0.displaysAsynchronously = false
+                $0.setNeedsDisplay()
+                $0.recursivelyEnsureDisplaySynchronously(true)
+            }
+        }
+    }
+}
+
+public extension ASCollectionNode {
+
+    func loadCollectionForPreview() {
+        if #available(iOS 13.0, *) {
+            ASTraitCollectionPropagateDown(self, ASPrimitiveTraitCollectionFromUITraitCollection(UITraitCollection.current))
+        }
+        displaysAsynchronously = false
+        reloadDataWithoutAnimations()
+        waitUntilAllUpdatesAreProcessed()
+        setNeedsLayout()
+        layoutIfNeeded()
+        setNeedsDisplay()
+        recursivelyEnsureDisplaySynchronously(true)
+        ASDisplayNodePerformBlockOnEveryNode(nil, self, true) {
+            $0.displaysAsynchronously = false
+            $0.setNeedsDisplay()
+            $0.recursivelyEnsureDisplaySynchronously(true)
+        }
+//        visibleNodes.forEach {
+//            $0.displaysAsynchronously = false
+//            $0.setNeedsDisplay()
+//            $0.recursivelyEnsureDisplaySynchronously(true)
+//            ASDisplayNodePerformBlockOnEveryNode(nil, $0, true) {
+//                $0.displaysAsynchronously = false
+//                $0.setNeedsDisplay()
+//                $0.recursivelyEnsureDisplaySynchronously(true)
+//            }
+//        }
+    }
+}
+
+extension ASTableNode {
+
+    func loadTableForPreview() {
+        if #available(iOS 13.0, *) {
+            ASTraitCollectionPropagateDown(self, ASPrimitiveTraitCollectionFromUITraitCollection(UITraitCollection.current))
+        }
+        displaysAsynchronously = false
+        reloadDataWithoutAnimations()
+        waitUntilAllUpdatesAreProcessed()
+        setNeedsLayout()
+        layoutIfNeeded()
+        setNeedsDisplay()
+        recursivelyEnsureDisplaySynchronously(true)
+        ASDisplayNodePerformBlockOnEveryNode(nil, self, true) {
+            $0.displaysAsynchronously = false
+            $0.setNeedsDisplay()
+            $0.recursivelyEnsureDisplaySynchronously(true)
+        }
+//        visibleNodes.forEach {
+//            $0.displaysAsynchronously = false
+//            $0.setNeedsDisplay()
+//            $0.recursivelyEnsureDisplaySynchronously(true)
+//            ASDisplayNodePerformBlockOnEveryNode(nil, $0, true) {
+//                $0.displaysAsynchronously = false
+//                $0.setNeedsDisplay()
+//                $0.recursivelyEnsureDisplaySynchronously(true)
+//            }
+//        }
+    }
+}
+
 #if canImport(SwiftUI)
 import SwiftUI
 import AsyncDisplayKit
@@ -29,70 +116,6 @@ public extension ASDisplayNode {
         node.bounds = CGRect(origin: .zero, size: sizeThatFits)
         node.loadForPreview()
         return node.view.sRepresentation(layout: .inherited)
-    }
-
-    func loadForPreview() {
-        ASTraitCollectionPropagateDown(self, ASPrimitiveTraitCollectionFromUITraitCollection(UITraitCollection.current))
-        displaysAsynchronously = false
-        ASDisplayNodePerformBlockOnEveryNode(nil, self, true) {
-            $0.displaysAsynchronously = false
-            $0.setNeedsDisplay()
-            ($0 as? ASCollectionNode)?.loadCollectionForPreview()
-            ($0 as? ASTableNode)?.loadTableForPreview()
-        }
-        recursivelyEnsureDisplaySynchronously(true)
-    }
-}
-
-@available (iOS 13.0, *)
-extension ASCollectionNode {
-
-    func loadCollectionForPreview() {
-        ASTraitCollectionPropagateDown(self, ASPrimitiveTraitCollectionFromUITraitCollection(UITraitCollection.current))
-        displaysAsynchronously = false
-        reloadData()
-        waitUntilAllUpdatesAreProcessed()
-        setNeedsLayout()
-        layoutIfNeeded()
-        ASDisplayNodePerformBlockOnEveryNode(nil, self, true) {
-            $0.displaysAsynchronously = false
-            $0.setNeedsDisplay()
-        }
-        recursivelyEnsureDisplaySynchronously(true)
-        visibleNodes.forEach {
-            $0.displaysAsynchronously = false
-            ASDisplayNodePerformBlockOnEveryNode(nil, $0, true) {
-                $0.displaysAsynchronously = false
-                $0.setNeedsDisplay()
-            }
-            $0.recursivelyEnsureDisplaySynchronously(true)
-        }
-    }
-}
-
-@available (iOS 13.0, *)
-extension ASTableNode {
-
-    func loadTableForPreview() {
-        ASTraitCollectionPropagateDown(self, ASPrimitiveTraitCollectionFromUITraitCollection(UITraitCollection.current))
-        displaysAsynchronously = false
-        reloadData()
-        waitUntilAllUpdatesAreProcessed()
-        setNeedsLayout()
-        layoutIfNeeded()
-        ASDisplayNodePerformBlockOnEveryNode(nil, self, true) {
-            $0.displaysAsynchronously = false
-            $0.setNeedsDisplay()
-        }
-        recursivelyEnsureDisplaySynchronously(true)
-        visibleNodes.forEach {
-            $0.displaysAsynchronously = false
-            ASDisplayNodePerformBlockOnEveryNode(nil, $0, true) {
-                $0.displaysAsynchronously = false
-                $0.setNeedsDisplay()
-            }
-            $0.recursivelyEnsureDisplaySynchronously(true)
-        }
     }
 }
 #endif

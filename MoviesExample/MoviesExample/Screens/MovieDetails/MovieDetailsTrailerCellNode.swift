@@ -9,7 +9,6 @@ import VATextureKit
 
 final class MovieDetailsTrailerCellNode: VACellNode {
     private let imageNode: VANetworkImageNode
-    private lazy var gradientNode = VALinearGradientNode(gradient: .vertical, blend: .multiply)
 
     init(viewModel: MovieDetailsTrailerCellNodeViewModel) {
         self.imageNode = VANetworkImageNode(data: .init(
@@ -18,16 +17,17 @@ final class MovieDetailsTrailerCellNode: VACellNode {
         ))
 
         super.init()
+
+        transitionAnimationId = "image_\(viewModel.transitionId)"
+        transitionAnimation = .default(additions: .init(opacity: .skip))
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         imageNode
             .ratio(230 / 375)
-            .overlay(gradientNode)
     }
 
     override func configureTheme(_ theme: VATheme) {
-        gradientNode.update(colors: (theme.systemBackground.withAlphaComponent(1), 0), (theme.darkText.withAlphaComponent(0.32), 1))
         imageNode.backgroundColor = theme.systemGray6
     }
 }
@@ -35,9 +35,21 @@ final class MovieDetailsTrailerCellNode: VACellNode {
 final class MovieDetailsTrailerCellNodeViewModel: CellViewModel {
     let image: String?
 
-    init(image: String?) {
+    init(image: String?, transitionId: String?) {
         self.image = image
 
-        super.init()
+        super.init(identity: image ?? UUID().uuidString)
+    }
+
+    init(movie source: MovieEntity) {
+        self.image = source.backdropPath
+
+        super.init(identity: "\(source.id)_\(String(describing: type(of: self)))")
+    }
+
+    init(listMovie source: ListMovieEntity) {
+        self.image = source.backdropPath
+
+        super.init(identity: "\(source.id)_\(String(describing: type(of: self)))")
     }
 }

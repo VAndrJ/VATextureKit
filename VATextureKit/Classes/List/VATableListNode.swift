@@ -264,6 +264,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         data.listDataObs
             .do(onNext: { [weak self, shouldScrollToTopOnDataChange = data.configuration.shouldScrollToTopOnDataChange] _ in
                 self?.batchContext?.completeBatchFetching(true)
+                self?.batchContext = nil
                 if shouldScrollToTopOnDataChange {
                     self?.view.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
                 }

@@ -35,7 +35,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         #if DEBUG && targetEnvironment(simulator)
         if Environment.isTesting {
-            window = VAWindow(standardLightTheme: .vaLight, standardDarkTheme: .vaDark)
+            if #available(iOS 12.0, *) {
+                window = VAWindow(standardLightTheme: .vaLight, standardDarkTheme: .vaDark)
+            } else {
+                window = VAWindow(legacyLightTheme: .vaLight, legacyDarkTheme: .vaDark)
+            }
             return true
         } else {
             launch()

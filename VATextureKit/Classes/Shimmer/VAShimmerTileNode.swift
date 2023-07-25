@@ -14,7 +14,7 @@ open class VAShimmerTileNode: VADisplayNode {
         let cornerRadius: CGFloat?
 
         public init(
-            backgroundColor: @escaping (VATheme) -> UIColor = { $0.systemGray },
+            backgroundColor: @escaping (VATheme) -> UIColor = { $0.systemGray6 },
             cornerRadius: CGFloat? = 0.0
         ) {
             self.backgroundColor = backgroundColor

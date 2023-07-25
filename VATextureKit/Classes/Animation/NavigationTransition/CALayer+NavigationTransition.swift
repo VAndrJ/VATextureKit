@@ -11,28 +11,46 @@ public struct VATransitionTimings {
     public let bounds: CAMediaTimingFunctionName
     public let positionX: CAMediaTimingFunctionName
     public let positionY: CAMediaTimingFunctionName
+    public let cornerRadius: CAMediaTimingFunctionName
     public let opacity: CAMediaTimingFunctionName
 
     public init(
         bounds: CAMediaTimingFunctionName = .easeInEaseOut,
         positionX: CAMediaTimingFunctionName = .easeInEaseOut,
         positionY: CAMediaTimingFunctionName = .easeInEaseOut,
+        cornerRadius: CAMediaTimingFunctionName = .easeInEaseOut,
         opacity: CAMediaTimingFunctionName = .easeInEaseOut
     ) {
         self.bounds = bounds
         self.positionX = positionX
         self.positionY = positionY
+        self.cornerRadius = cornerRadius
+        self.opacity = opacity
+    }
+}
+
+public enum VATransitionAnimationAddition {
+    case `default`
+    case skip
+    case skipSource
+    case skipDestination
+}
+
+public struct VATransitionTimingsAddition {
+    public let opacity: VATransitionAnimationAddition
+
+    public init(opacity: VATransitionAnimationAddition = .default) {
         self.opacity = opacity
     }
 }
 
 public enum VATransitionAnimation {
-    case `default`(timings: VATransitionTimings)
+    case `default`(timings: VATransitionTimings = .init(), additions: VATransitionTimingsAddition = .init())
 }
 
 public extension CALayer {
     var transitionAnimation: VATransitionAnimation {
-        get { (objc_getAssociatedObject(self, &transitionAnimationTimingsKey) as? VATransitionAnimation) ?? .default(timings: .init()) }
+        get { (objc_getAssociatedObject(self, &transitionAnimationTimingsKey) as? VATransitionAnimation) ?? .default() }
         set { objc_setAssociatedObject(self, &transitionAnimationTimingsKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
     var transitionAnimationId: String? {

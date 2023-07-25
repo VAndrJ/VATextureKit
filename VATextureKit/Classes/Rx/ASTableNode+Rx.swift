@@ -505,34 +505,39 @@ open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>: 
                     tableNode.reloadDataWithoutAnimations()
                 }
             } else {
-                let oldSections = dataSource.sectionModels
-                do {
-                    let differences = try Diff.differencesForSectionedView(initialSections: oldSections, finalSections: newSections)
-                    switch dataSource.decideNodeTransition(dataSource, tableNode, differences) {
-                    case .animated:
-                        // each difference must be run in a separate 'performBatchUpdates', otherwise it crashes.
-                        // this is a limitation of Diff tool
-                        for difference in differences {
-                            let updateBlock = {
-                                // sections must be set within updateBlock in 'performBatchUpdates'
-                                dataSource.setSections(difference.finalSections)
-                                tableNode.batchUpdates(difference, animationConfiguration: dataSource.animationConfiguration)
+                if dataSource.animationConfiguration.animated {
+                    let oldSections = dataSource.sectionModels
+                    do {
+                        let differences = try Diff.differencesForSectionedView(initialSections: oldSections, finalSections: newSections)
+                        switch dataSource.decideNodeTransition(dataSource, tableNode, differences) {
+                        case .animated:
+                            // each difference must be run in a separate 'performBatchUpdates', otherwise it crashes.
+                            // this is a limitation of Diff tool
+                            for difference in differences {
+                                let updateBlock = {
+                                    // sections must be set within updateBlock in 'performBatchUpdates'
+                                    dataSource.setSections(difference.finalSections)
+                                    tableNode.batchUpdates(difference, animationConfiguration: dataSource.animationConfiguration)
+                                }
+                                tableNode.performBatch(
+                                    animated: dataSource.animationConfiguration.animated,
+                                    updates: updateBlock,
+                                    completion: nil
+                                )
                             }
-                            tableNode.performBatch(
-                                animated: dataSource.animationConfiguration.animated,
-                                updates: updateBlock,
-                                completion: nil
-                            )
+                        case .reload:
+                            dataSource.setSections(newSections)
+                            tableNode.reloadDataWithoutAnimations()
+                            return
                         }
-                    case .reload:
+                    } catch {
+                        rxDebugFatalError(error)
                         dataSource.setSections(newSections)
-                        tableNode.reloadData()
-                        return
+                        tableNode.reloadDataWithoutAnimations()
                     }
-                } catch {
-                    rxDebugFatalError(error)
+                } else {
                     dataSource.setSections(newSections)
-                    tableNode.reloadData()
+                    tableNode.reloadDataWithoutAnimations()
                 }
             }
         }.on(observedEvent)
