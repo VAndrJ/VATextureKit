@@ -13,29 +13,29 @@ open class VAShimmerNode: VADisplayNode {
         let isSynchronized: Bool
         let animationDuration: CFTimeInterval
         let maskLayer: () -> CAGradientLayer
-        let animation: (_ duration: CFTimeInterval, _ timeOffset: CFTimeInterval) -> CABasicAnimation
+        let animation: (_ layer: CALayer, _ duration: CFTimeInterval, _ timeOffset: CFTimeInterval) -> CABasicAnimation
 
         public init(
             isAcrossWindow: Bool = true,
             isSynchronized: Bool = true,
-            animationDuration: CFTimeInterval = 1,
+            animationDuration: CFTimeInterval = 1.5,
             maskLayer: @escaping () -> CAGradientLayer = {
                 let gradient = CAGradientLayer()
                 gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
                 gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
                 gradient.locations = [0.4, 0.5, 0.6]
                 let colors: [UIColor] = [
-                    .black.withAlphaComponent(0.18),
-                    .black.withAlphaComponent(0.1),
-                    .black.withAlphaComponent(0.18),
+                    .black,
+                    .black.withAlphaComponent(0.16),
+                    .black,
                 ]
                 gradient.colors = colors.map(\.cgColor)
                 return gradient
             },
-            animation: @escaping (_ duration: CFTimeInterval, _ timeOffset: CFTimeInterval) -> CABasicAnimation = { duration, timeOffset in
+            animation: @escaping (_ layer: CALayer, _ duration: CFTimeInterval, _ timeOffset: CFTimeInterval) -> CABasicAnimation = { layer, duration, timeOffset in
                 let animation = CABasicAnimation(keyPath: #keyPath(CAGradientLayer.locations))
-                animation.fromValue = [0.0, 0.1, 0.2]
-                animation.toValue = [0.8, 0.9, 1.0]
+                animation.fromValue = [0.0, 0.05, 0.1]
+                animation.toValue = [0.9, 0.95, 1.0]
                 animation.timeOffset = timeOffset
                 animation.duration = duration
                 animation.repeatCount = .greatestFiniteMagnitude
@@ -77,11 +77,11 @@ open class VAShimmerNode: VADisplayNode {
 
         if data.isAcrossWindow, let window = view.window {
             let windowBounds = window.bounds
-            let convertedOriginX = window.convert(view.frame.origin, from: view).x
+            let convertedOriginX = window.convert(view.bounds.origin, from: view).x
             maskLayer.frame = getMaskFrame(for: windowBounds, originXDelta: convertedOriginX)
         } else if data.isAcrossWindow, let controller = closestViewController {
             let controllerViewBounds = controller.view.bounds
-            let convertedOriginX = controller.view.convert(view.frame.origin, from: view).x
+            let convertedOriginX = controller.view.convert(view.bounds.origin, from: view).x
             maskLayer.frame = getMaskFrame(for: controllerViewBounds, originXDelta: convertedOriginX)
         } else {
             maskLayer.frame = getMaskFrame(for: bounds, originXDelta: 0)
@@ -91,9 +91,9 @@ open class VAShimmerNode: VADisplayNode {
 
     private func getMaskFrame(for bounds: CGRect, originXDelta: CGFloat) -> CGRect {
         CGRect(
-            x: -(bounds.width + originXDelta),
+            x: -(bounds.width * 1.5 + originXDelta),
             y: 0,
-            width: 3 * bounds.width,
+            width: 4 * bounds.width,
             height: bounds.height
         )
     }
@@ -110,7 +110,7 @@ open class VAShimmerNode: VADisplayNode {
         maskLayer.removeAllAnimations()
         layer.mask = maskLayer
         let timeOffset = data.isSynchronized ? Date().timeIntervalSinceReferenceDate.remainder(dividingBy: data.animationDuration) : 0
-        let animation = data.animation(data.animationDuration, timeOffset)
+        let animation = data.animation(maskLayer, data.animationDuration, timeOffset)
 
         maskLayer.add(animation, forKey: animation.keyPath)
     }

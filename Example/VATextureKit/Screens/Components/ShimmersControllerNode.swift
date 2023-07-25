@@ -52,7 +52,7 @@ final class ShimmersControllerNode: VASafeAreaDisplayNode {
             Column(spacing: 64, cross: .stretch) {
                 Column(spacing: 16, cross: .stretch) {
                     acrossWindowSynchronizedTextNode
-                    Row(spacing: 16) {
+                    Row(spacing: 8) {
                         acrossWindowShimmer0Node
                         acrossWindowShimmer1Node
                         acrossWindowShimmer2Node
@@ -60,7 +60,7 @@ final class ShimmersControllerNode: VASafeAreaDisplayNode {
                 }
                 Column(spacing: 16, cross: .stretch) {
                     acrossWindowNotSynchronizedTextNode
-                    Row(spacing: 16) {
+                    Row(spacing: 8) {
                         notSynchronizedShimmer0Node
                         notSynchronizedShimmer1Node
                         notSynchronizedShimmer2Node
@@ -68,7 +68,7 @@ final class ShimmersControllerNode: VASafeAreaDisplayNode {
                 }
                 Column(spacing: 16, cross: .stretch) {
                     acrossNodeSynchronizedTextNode
-                    Row(spacing: 16) {
+                    Row(spacing: 8) {
                         notAcrossWindowShimmer0Node
                         notAcrossWindowShimmer1Node
                         notAcrossWindowShimmer2Node
