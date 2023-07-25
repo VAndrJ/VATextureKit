@@ -126,7 +126,13 @@ open class VANavigationController: ASDKNavigationController {
 
     private func storeAnimationLayers(layer: CALayer, to: inout [String: (CALayer, CGRect)]) {
         if let id = layer.transitionAnimationId {
-            to[id] = (layer, layer.convert(layer.bounds, to: view.layer))
+            if let node = (layer.delegate as? _ASDisplayView)?.asyncdisplaykit_node {
+                if node.isVisible {
+                    to[id] = (layer, layer.convert(layer.bounds, to: view.layer))
+                }
+            } else {
+                to[id] = (layer, layer.convert(layer.bounds, to: view.layer))
+            }
         }
         layer.sublayers?.forEach { storeAnimationLayers(layer: $0, to: &to) }
     }

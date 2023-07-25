@@ -130,6 +130,8 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         }
 
         let animationConfiguration: AnimationConfiguration
+        let keyboardDismissMode: UIScrollView.KeyboardDismissMode
+        let shouldScrollToTopOnDataChange: Bool
         let contentInset: UIEdgeInsets
         let sizing: VACollectionNodeSizing?
         let albumSizing: VACollectionNodeSizing?
@@ -137,12 +139,16 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         
         public init(
             animationConfiguration: AnimationConfiguration = .init(),
+            keyboardDismissMode: UIScrollView.KeyboardDismissMode = .none,
+            shouldScrollToTopOnDataChange: Bool = false,
             contentInset: UIEdgeInsets = .zero,
             sizing: VACollectionNodeSizing? = nil,
             albumSizing: VACollectionNodeSizing? = nil,
             layout: Layout = .default(parameters: .init())
         ) {
             self.animationConfiguration = animationConfiguration
+            self.keyboardDismissMode = keyboardDismissMode
+            self.shouldScrollToTopOnDataChange = shouldScrollToTopOnDataChange
             self.contentInset = contentInset
             self.sizing = sizing
             self.albumSizing = albumSizing
@@ -300,9 +306,12 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
             ))
         }
         data.listDataObs
-            .do(onNext: { [weak self] _ in
+            .do(onNext: { [weak self, shouldScrollToTopOnDataChange = layoutData.shouldScrollToTopOnDataChange] _ in
                 self?.batchContext?.completeBatchFetching(true)
                 self?.batchContext = nil
+                if shouldScrollToTopOnDataChange {
+                    self?.view.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+                }
             })
             .bind(to: rx.items(dataSource: dataSource))
             .disposed(by: bag)
@@ -335,6 +344,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         showsVerticalScrollIndicator = data.indicatorConfiguration.showsVerticalScrollIndicator
         showsHorizontalScrollIndicator = data.indicatorConfiguration.showsHorizontalScrollIndicator
         configureRefresh()
+        view.keyboardDismissMode = layoutData.keyboardDismissMode
     }
 
     @objc private func handleLongPress(_ sender: UILongPressGestureRecognizer) {
