@@ -14,4 +14,5 @@ struct ListMovieResponseDTO: Decodable {
     let posterPath: String?
     let title: String
     let overview: String
+    let releaseDate: String
 }

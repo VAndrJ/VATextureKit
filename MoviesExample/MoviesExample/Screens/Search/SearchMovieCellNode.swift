@@ -17,13 +17,13 @@ final class SearchMovieCellNode: VACellNode {
         self.titleTextNode = VATextNode(
             text: viewModel.title,
             fontStyle: .headline
-        ).flex(shrink: 0.1)
+        ).withAnimatedTransition(id: "title_\(viewModel.transitionId)").flex(shrink: 0.1)
         self.imageNode = VANetworkImageNode(data: .init(
-            image: viewModel.image?.getImagePath(width: 200),
+            image: viewModel.image?.getImagePath(width: 500),
             contentMode: .scaleAspectFill,
             size: CGSize(width: 32, height: 48),
             cornerRadius: 4
-        ))
+        )).withAnimatedTransition(id: "image_\(viewModel.transitionId)")
 
         super.init()
     }
@@ -54,6 +54,6 @@ final class SearchMovieCellNodeViewModel: CellViewModel {
         self.title = source.title
         self.image = source.poster
 
-        super.init(identity: source.id)
+        super.init(identity: "\(source.id)_\(String(describing: type(of: self)))")
     }
 }

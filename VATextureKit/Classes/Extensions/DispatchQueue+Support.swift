@@ -7,6 +7,10 @@
 
 import Foundation
 
+public func mainAsync(_ block: @escaping () -> Void) {
+    DispatchQueue.main.async(execute: block)
+}
+
 public func ensureOnMain(_ block: @escaping () -> Void) {
     if Thread.current.isMainThread {
         block()

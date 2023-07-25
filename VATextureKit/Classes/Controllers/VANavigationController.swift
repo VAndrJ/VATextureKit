@@ -47,79 +47,88 @@ open class VANavigationController: ASDKNavigationController {
 
     open override func pushViewController(_ viewController: UIViewController, animated: Bool) {
         // TODO: - Extend
+        // TODO: - Split for different animations
         if viewController.isTransitionAnimationEnabled,
-           let nextController = viewController as? ASDKViewController,
-           let previousController = viewControllers.last as? ASDKViewController {
-            nextController.node.displaysAsynchronously = false
-            nextController.node.setNeedsDisplay()
-            nextController.node.recursivelyEnsureDisplaySynchronously(true)
-            var fromLayersDict: [String: CALayer] = [:]
-            var toLayersDict: [String: CALayer] = [:]
-            func storeAnimationLayers(layer: CALayer, to: inout [String: CALayer]) {
-                if let id = layer.transitionAnimationId {
-                    to[id] = layer
+           let destinationController = viewController as? ASDKViewController,
+           let sourceController = viewControllers.last as? ASDKViewController {
+            let transitionOverlayView = addTransitionOverlayView()
+            var fromLayersDict: [String: (CALayer, CGRect)] = [:]
+            storeAnimationLayers(layer: sourceController.node.layer, to: &fromLayersDict)
+            destinationController.node.loadForPreview()
+            mainAsync { [self] in
+                var toLayersDict: [String: (CALayer, CGRect)] = [:]
+                storeAnimationLayers(layer: destinationController.node.layer, to: &toLayersDict)
+                func getAnimations(from source: (layer: CALayer, bounds: CGRect), to destination: (layer: CALayer, bounds: CGRect), in overlayView: UIView) {
+                    let from = source.layer
+                    let to = destination.layer
+                    if let fromLayerSnapshot = from.getSnapshot(), let toLayerSnapshot = to.getSnapshot() {
+                        let transitionAnimation = to.transitionAnimation
+                        to.isHidden = true
+                        from.isHidden = true
+                        toLayerSnapshot.opacity = 0
+                        let fromConvertedFrame = source.bounds
+                        let toConvertedFrame = destination.bounds
+                        let fromConvertedPosition = source.bounds.position
+                        let toConvertedPosition = destination.bounds.position
+                        fromLayerSnapshot.frame.origin = fromConvertedFrame.origin
+                        toLayerSnapshot.frame.origin = toConvertedFrame.origin
+                        overlayView.layer.addSublayer(fromLayerSnapshot)
+                        overlayView.layer.addSublayer(toLayerSnapshot)
+                        CATransaction.begin()
+                        CATransaction.setCompletionBlock {
+                            fromLayerSnapshot.removeFromSuperlayer()
+                            from.isHidden = false
+                            to.isHidden = false
+                            toLayerSnapshot.removeFromSuperlayer()
+                        }
+                        func addAnimations(to layer: CALayer, corner: CGFloat, isTarget: Bool, transitionAnimation: VATransitionAnimation) {
+                            switch transitionAnimation {
+                            case let .default(timings, additions):
+                                layer.add(animation: .bounds(from: fromLayerSnapshot.bounds, to: toLayerSnapshot.bounds), duration: animationDuration, timingFunction: timings.bounds, removeOnCompletion: false)
+                                layer.add(animation: .positionX(from: fromConvertedPosition.x, to: toConvertedPosition.x), duration: animationDuration, timingFunction: timings.positionX, removeOnCompletion: false)
+                                layer.add(animation: .positionY(from: fromConvertedPosition.y, to: toConvertedPosition.y), duration: animationDuration, timingFunction: timings.positionY, removeOnCompletion: false)
+                                layer.add(animation: .cornerRadius(from: layer.cornerRadius, to: corner), duration: animationDuration, timingFunction: timings.cornerRadius, removeOnCompletion: false)
+                                let shouldAnimateOpacity: Bool
+                                switch additions.opacity {
+                                case .skip: shouldAnimateOpacity = false
+                                case .skipSource: shouldAnimateOpacity = !isTarget
+                                case .skipDestination: shouldAnimateOpacity = isTarget
+                                default: shouldAnimateOpacity = true
+                                }
+                                if shouldAnimateOpacity {
+                                    layer.add(animation: .opacity(from: isTarget ? 0 : 1, to: !isTarget ? 0 : 1), duration: animationDuration, timingFunction: timings.opacity, removeOnCompletion: false)
+                                }
+                            }
+                        }
+                        addAnimations(to: fromLayerSnapshot, corner: toLayerSnapshot.cornerRadius, isTarget: false, transitionAnimation: transitionAnimation)
+                        addAnimations(to: toLayerSnapshot, corner: fromLayerSnapshot.cornerRadius, isTarget: true, transitionAnimation: transitionAnimation)
+                        CATransaction.commit()
+                    }
                 }
-                layer.sublayers?.forEach { storeAnimationLayers(layer: $0, to: &to) }
-            }
-            storeAnimationLayers(layer: previousController.node.layer, to: &fromLayersDict)
-            storeAnimationLayers(layer: nextController.node.layer, to: &toLayersDict)
-            func getAnimations(from: CALayer, to: CALayer, in overlayView: UIView) {
-                if let fromLayerSnapshot = from.getSnapshot(), let toLayerSnapshot = to.getSnapshot() {
-                    to.isHidden = true
-                    from.isHidden = true
-                    toLayerSnapshot.opacity = 0
-                    let fromConvertedBounds = from.convert(from.bounds.origin, to: overlayView.layer)
-                    var toBounds = to.bounds.origin
-                    // TODO: - Without hardcode
-                    toBounds.y += view.safeAreaInsets.top
-                    toBounds.y += navigationBar.frame.height
-                    let toConvertedBounds = to.convert(toBounds, to: overlayView.layer)
-                    let fromConvertedPosition = from.convert(from.position - from.frame.origin, to: overlayView.layer)
-                    var toPosition = to.position
-                    toPosition.y += view.safeAreaInsets.top
-                    toPosition.y += navigationBar.frame.height
-                    let toConvertedPosition = to.convert(toPosition - to.frame.origin, to: overlayView.layer)
-                    fromLayerSnapshot.frame.origin = fromConvertedBounds
-                    toLayerSnapshot.frame.origin = toConvertedBounds
-                    overlayView.layer.addSublayer(fromLayerSnapshot)
-                    overlayView.layer.addSublayer(toLayerSnapshot)
+                if !(fromLayersDict.isEmpty || toLayersDict.isEmpty) {
                     CATransaction.begin()
                     CATransaction.setCompletionBlock {
-                        fromLayerSnapshot.removeFromSuperlayer()
-                        from.isHidden = false
-                        to.isHidden = false
-                        toLayerSnapshot.removeFromSuperlayer()
+                        transitionOverlayView.removeFromSuperview()
                     }
-                    func addAnimations(to layer: CALayer, isTarget: Bool, transitionAnimation: VATransitionAnimation) {
-                        switch transitionAnimation {
-                        case let .default(timings):
-                            layer.add(animation: .bounds(from: fromLayerSnapshot.bounds, to: toLayerSnapshot.bounds), duration: animationDuration, timingFunction: timings.bounds, removeOnCompletion: false)
-                            layer.add(animation: .positionX(from: fromConvertedPosition.x, to: toConvertedPosition.x), duration: animationDuration, timingFunction: timings.positionX, removeOnCompletion: false)
-                            layer.add(animation: .positionY(from: fromConvertedPosition.y, to: toConvertedPosition.y), duration: animationDuration, timingFunction: timings.positionY, removeOnCompletion: false)
-                            layer.add(animation: .opacity(from: isTarget ? 0 : 1, to: !isTarget ? 0 : 1), duration: animationDuration, timingFunction: timings.opacity, removeOnCompletion: false)
+                    for key in fromLayersDict.keys {
+                        if let from = fromLayersDict[key], let to = toLayersDict[key] {
+                            getAnimations(from: from, to: to, in: transitionOverlayView)
                         }
                     }
-                    let transitionAnimation = to.transitionAnimation
-                    addAnimations(to: fromLayerSnapshot, isTarget: false, transitionAnimation: transitionAnimation)
-                    addAnimations(to: toLayerSnapshot, isTarget: true, transitionAnimation: transitionAnimation)
                     CATransaction.commit()
-                }
-            }
-            if !(fromLayersDict.isEmpty || toLayersDict.isEmpty) {
-                let transitionOverlayView = addTransitionOverlayView()
-                CATransaction.begin()
-                CATransaction.setCompletionBlock {
+                } else {
                     transitionOverlayView.removeFromSuperview()
                 }
-                for key in fromLayersDict.keys {
-                    if let from = fromLayersDict[key], let to = toLayersDict[key] {
-                        getAnimations(from: from, to: to, in: transitionOverlayView)
-                    }
-                }
-                CATransaction.commit()
             }
         }
         super.pushViewController(viewController, animated: animated)
+    }
+
+    private func storeAnimationLayers(layer: CALayer, to: inout [String: (CALayer, CGRect)]) {
+        if let id = layer.transitionAnimationId {
+            to[id] = (layer, layer.convert(layer.bounds, to: view.layer))
+        }
+        layer.sublayers?.forEach { storeAnimationLayers(layer: $0, to: &to) }
     }
 
     // TODO: - Touches transparent

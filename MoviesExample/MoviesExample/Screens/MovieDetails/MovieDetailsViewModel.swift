@@ -51,7 +51,10 @@ final class MovieDetailsViewModel: EventViewModel {
                     .map { mapRecommendationMovies($0, viewModel: self) }
             )
             .map { $0 + $1 + $2 }
-            .startWith([ShimmerCellNodeViewModel(kind: .movieDetails)])
+            .startWith([
+                MovieDetailsTitleCellNodeViewModel(listMovie: data.related.listMovieEntity),
+                MovieDetailsTrailerCellNodeViewModel(listMovie: data.related.listMovieEntity),
+            ])
     }
     let data: DTO
 
@@ -96,7 +99,7 @@ final class MovieDetailsViewModel: EventViewModel {
 func mapMovieDetails(_ data: MovieEntity, viewModel: EventViewModel) -> [CellViewModel] {
     [
         MovieDetailsTitleCellNodeViewModel(movie: data),
-        MovieDetailsTrailerCellNodeViewModel(image: data.backdropPath),
+        MovieDetailsTrailerCellNodeViewModel(movie: data),
         GenresTagsCellNodeViewModel(genres: data.genres),
         MovieDetailsDescriptionCellNodeViewModel(description: data.overview),
     ]

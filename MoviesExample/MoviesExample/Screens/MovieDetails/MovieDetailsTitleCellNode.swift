@@ -14,11 +14,12 @@ final class MovieDetailsTitleCellNode: VACellNode {
 
     init(viewModel: MovieDetailsTitleCellNodeViewModel) {
         self.titleTextNode = VATextNode(text: viewModel.title, fontStyle: .headline)
+            .withAnimatedTransition(id: "title_\(viewModel.transitionId)")
         self.yearTextNode = VATextNode(
             text: viewModel.year,
             maximumNumberOfLines: 1,
             colorGetter: { $0.secondaryLabel }
-        )
+        ).flex(shrink: 0.1)
         self.ratingNode = RatingNode(rating: viewModel.rating)
 
         super.init()
@@ -26,10 +27,11 @@ final class MovieDetailsTitleCellNode: VACellNode {
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column(spacing: 4, cross: .stretch) {
-            titleTextNode
+            Row {
+                titleTextNode
+            }
             Row(spacing: 4, main: .spaceBetween, cross: .center) {
                 yearTextNode
-                    .flex(shrink: 0.1)
                 ratingNode
             }
         }
@@ -47,6 +49,14 @@ final class MovieDetailsTitleCellNodeViewModel: CellViewModel {
         self.year = source.year
         self.rating = source.rating
 
-        super.init()
+        super.init(identity: "\(source.id)_\(String(describing: type(of: self)))")
+    }
+
+    init(listMovie source: ListMovieEntity) {
+        self.title = source.title
+        self.year = source.year
+        self.rating = source.rating
+
+        super.init(identity: "\(source.id)_\(String(describing: type(of: self)))")
     }
 }

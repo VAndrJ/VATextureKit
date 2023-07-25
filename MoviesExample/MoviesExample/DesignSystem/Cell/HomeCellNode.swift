@@ -20,7 +20,8 @@ class HomeCellNode: VACellNode {
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        shimmerNode.wrapped()
+        shimmerNode
+            .wrapped()
     }
 
     override func didLoad() {

@@ -12,6 +12,7 @@ class CellViewModel: Equatable, IdentifiableType {
         lhs.identity == rhs.identity
     }
 
+    var transitionId: String { identity.components(separatedBy: "_").first ?? "" }
     var identity: String
 
     init() {

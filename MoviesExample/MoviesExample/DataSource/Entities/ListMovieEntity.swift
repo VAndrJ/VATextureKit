@@ -14,6 +14,7 @@ struct ListMovieEntity {
     let posterPath: String?
     let overview: String
     let rating: Double
+    let year: String
     var image: String? { backdropPath ?? posterPath }
     var poster: String? { posterPath ?? backdropPath }
 }
@@ -27,6 +28,7 @@ extension ListMovieEntity {
         self.posterPath = source.posterPath
         self.overview = source.overview
         self.rating = source.voteAverage * 10
+        self.year = source.releaseDate.components(separatedBy: "-").first ?? ""
     }
 }
 
