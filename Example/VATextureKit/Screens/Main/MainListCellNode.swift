@@ -25,8 +25,7 @@ final class MainListCellNode: VACellNode {
             text: viewModel.description,
             fontStyle: .footnote,
             colorGetter: { $0.secondaryLabel }
-        )
-        .flex(shrink: 0.1)
+        ).flex(shrink: 0.1)
         
         super.init()
 
@@ -39,12 +38,12 @@ final class MainListCellNode: VACellNode {
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        Row(spacing: 4, cross: .center) {
-            Column(spacing: 4, cross: .stretch) {
+        Row(spacing: 4, main: .spaceBetween, cross: .center) {
+            Column(spacing: 4) {
                 titleNode
                 descriptionNode
             }
-            .flex(shrink: 0.1, grow: 1)
+            .flex(shrink: 0.1)
             chevronImageNode
         }
         .padding(.vertical(16), .left(16), .right(8))

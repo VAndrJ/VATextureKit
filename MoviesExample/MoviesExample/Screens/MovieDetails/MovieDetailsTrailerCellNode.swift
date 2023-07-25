@@ -14,12 +14,9 @@ final class MovieDetailsTrailerCellNode: VACellNode {
         self.imageNode = VANetworkImageNode(data: .init(
             image: viewModel.image?.getImagePath(width: 500),
             contentMode: .scaleAspectFill
-        ))
+        )).withAnimatedTransition(id: "image_\(viewModel.transitionId)", animation: .default(additions: .init(opacity: .skip)))
 
         super.init()
-
-        transitionAnimationId = "image_\(viewModel.transitionId)"
-        transitionAnimation = .default(additions: .init(opacity: .skip))
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {

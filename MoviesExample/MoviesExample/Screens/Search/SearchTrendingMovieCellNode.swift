@@ -25,7 +25,7 @@ final class SearchTrendingMovieCellNode: VACellNode {
             contentMode: .scaleAspectFill,
             size: CGSize(width: 126, height: 78),
             cornerRadius: 16
-        )).withAnimatedTransition(id: "image_\(viewModel.transitionId)")
+        )).withAnimatedTransition(id: "image_\(viewModel.transitionId)", animation: .default(additions: .init(opacity: .skip)))
 
         super.init()
     }
