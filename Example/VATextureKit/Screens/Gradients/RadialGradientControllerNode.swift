@@ -9,28 +9,21 @@
 import VATextureKit
 
 final class RadialGradientControllerNode: VASafeAreaDisplayNode {
-    let scrollNode = VAScrollNode(data: .init())
-    let centeredGradientNode = VARadialGradientNode(gradient: .centered)
-    let topLeftGradientNode = VARadialGradientNode(gradient: .topLeft)
-    let topRightGradientNode = VARadialGradientNode(gradient: .topRight)
-    let bottomLeftGradientNode = VARadialGradientNode(gradient: .bottomLeft)
-    let bottomRightGradientNode = VARadialGradientNode(gradient: .bottomRight)
-    let customGradientNode = VARadialGradientNode(gradient: .custom(startPoint: CGPoint(x: 0.4, y: 0.4), endPoint: CGPoint(x: 0.6, y: 0.6)))
-
+    private lazy var scrollNode = VAScrollNode(data: .init())
+    private lazy var centeredGradientNode = VARadialGradientNode(gradient: .centered)
+    private lazy var topLeftGradientNode = VARadialGradientNode(gradient: .topLeft)
+    private lazy var topRightGradientNode = VARadialGradientNode(gradient: .topRight)
+    private lazy var bottomLeftGradientNode = VARadialGradientNode(gradient: .bottomLeft)
+    private lazy var bottomRightGradientNode = VARadialGradientNode(gradient: .bottomRight)
+    private lazy var customGradientNode = VARadialGradientNode(gradient: .custom(startPoint: CGPoint(x: 0.4, y: 0.4), endPoint: CGPoint(x: 0.6, y: 0.6)))
     private lazy var contentNodes = [
-        centeredGradientNode
-            .ratio(1),
-        topLeftGradientNode
-            .ratio(1),
-        topRightGradientNode
-            .ratio(1),
-        bottomLeftGradientNode
-            .ratio(1),
-        bottomRightGradientNode
-            .ratio(1),
-        customGradientNode
-            .ratio(1),
-    ]
+        centeredGradientNode,
+        topLeftGradientNode,
+        topRightGradientNode,
+        bottomLeftGradientNode,
+        bottomRightGradientNode,
+        customGradientNode,
+    ].map { $0.ratio(1) }
     
     override init() {
         super.init()

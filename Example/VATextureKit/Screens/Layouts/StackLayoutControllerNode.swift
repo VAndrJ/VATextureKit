@@ -143,15 +143,9 @@ final class StackLayoutControllerNode: VASafeAreaDisplayNode {
     }
 
     private func bind() {
-        centeringButtonNode.onTap(weakify: self) {
-            $0.centeringOptions = $0.centeringOptions.toggled
-        }
-        relativeHorizontalPositionButtonNode.onTap(weakify: self) {
-            $0.relativeHorizontalPosition = $0.relativeHorizontalPosition.toggled
-        }
-        relativeVerticalPositionButtonNode.onTap(weakify: self) {
-            $0.relativeVerticalPosition = $0.relativeVerticalPosition.toggled
-        }
+        centeringButtonNode.onTap = self ?> { $0.centeringOptions.toggle() }
+        relativeHorizontalPositionButtonNode.onTap = self ?> { $0.relativeHorizontalPosition.toggle() }
+        relativeVerticalPositionButtonNode.onTap = self ?> { $0.relativeVerticalPosition.toggle() }
     }
 }
 
@@ -172,6 +166,10 @@ private extension ASCenterLayoutSpecCenteringOptions {
         case .Y: return .XY
         default: return .X
         }
+    }
+
+    mutating func toggle() {
+        self = toggled
     }
 }
 
@@ -194,5 +192,9 @@ private extension ASRelativeLayoutSpecPosition {
         case .center: return .end
         default: return .start
         }
+    }
+
+    mutating func toggle() {
+        self = toggled
     }
 }

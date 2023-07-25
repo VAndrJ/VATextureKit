@@ -411,6 +411,7 @@
 		A384F0B729EE71ED006BF197 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				A38D5E922A6BBEF200A67BC7 /* CountingTextNodeController.swift */,
 				A3B7F23729F0632E00CAA52D /* ReadMoreTextControllerNode.swift */,
 				A38D5E9B2A6D251E00A67BC7 /* ShimmersControllerNode.swift */,
 				A384F0B829EE7215006BF197 /* TypingTextControllerNode.swift */,
@@ -422,7 +423,6 @@
 		A38D5E912A6BBECB00A67BC7 /* Experiments */ = {
 			isa = PBXGroup;
 			children = (
-				A38D5E922A6BBEF200A67BC7 /* CountingTextNodeController.swift */,
 				A357B8052A025116004835C5 /* LinkTextControllerNode.swift */,
 				A357B7F829FFF290004835C5 /* SlidingTabBarControllerNode.swift */,
 			);
