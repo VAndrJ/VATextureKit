@@ -76,7 +76,7 @@ class ScreenFactory {
         case .collectionListHeaderFooter:
             return VAViewController(node: CollectionListHeaderFooterControllerNode(viewModel: CollectionListHeaderFooterViewModel()))
         case .moveAnimations:
-            return VAViewController(node: TransitionAnimationControllerNode())
+            return VAViewController(node: TransitionAnimationControllerNode(isPresented: false))
                 .withAnimatedTransitionEnabled()
         case .layerAnimations:
             return VAViewController(node: LayerAnimationControllerNode())
