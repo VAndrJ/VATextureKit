@@ -65,9 +65,9 @@ final class PagerControllerNode: VASafeAreaDisplayNode {
     }
 
     private func bind() {
-        previousButtonNode.onTap = self ?> { $0.pagerNode.previous() }
-        nextButtonNode.onTap = self ?> { $0.pagerNode.next() }
-        randomizeButtonNode.onTap = self ?> { $0.viewModel.generateRandomPagerItems() }
+        previousButtonNode.onTap = self ?>> { $0.pagerNode.previous }
+        nextButtonNode.onTap = self ?>> { $0.pagerNode.next }
+        randomizeButtonNode.onTap = self ?>> { $0.viewModel.generateRandomPagerItems }
     }
 }
 

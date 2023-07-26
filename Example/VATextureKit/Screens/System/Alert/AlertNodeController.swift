@@ -50,8 +50,6 @@ final class AlertNodeController: VANodeController {
     }
     
     private func bind() {
-        buttonNode.onTap(weakify: self) {
-            $0.showAlert()
-        }
+        buttonNode.onTap = self ?>> { $0.showAlert }
     }
 }
