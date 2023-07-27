@@ -28,8 +28,8 @@ final class RadialGradientControllerNode: VASafeAreaDisplayNode {
     override init() {
         super.init()
         
-        scrollNode.layoutSpecBlock = { [weak self] _, constrainedSize in
-            self?.layoutSpecScroll(constrainedSize) ?? ASLayoutSpec()
+        scrollNode.layoutSpecBlock = { [weak self] in
+            self?.layoutSpecScroll($1) ?? ASLayoutSpec()
         }
     }
     

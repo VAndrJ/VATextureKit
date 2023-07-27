@@ -89,8 +89,8 @@ class SlidingTabBarControllerNode: VASafeAreaDisplayNode {
     }
 
     private func bind() {
-        previousButtonNode.onTap = self ?> { $0.pagerNode.previous() }
-        nextButtonNode.onTap = self ?> { $0.pagerNode.next() }
+        previousButtonNode.onTap = self ?>> { $0.pagerNode.previous }
+        nextButtonNode.onTap = self ?>> { $0.pagerNode.next }
     }
 }
 

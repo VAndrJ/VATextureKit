@@ -76,7 +76,7 @@ class ScreenFactory {
         case .collectionListHeaderFooter:
             return VAViewController(node: CollectionListHeaderFooterControllerNode(viewModel: CollectionListHeaderFooterViewModel()))
         case .moveAnimations:
-            return VAViewController(node: TransitionAnimationControllerNode())
+            return VAViewController(node: TransitionAnimationControllerNode(isPresented: false))
                 .withAnimatedTransitionEnabled()
         case .layerAnimations:
             return VAViewController(node: LayerAnimationControllerNode())
@@ -108,6 +108,10 @@ class ScreenFactory {
             return VAViewController(node: ShimmersControllerNode())
         case .specBasedGridList:
             return VAViewController(node: SpecBasedGridListControllerNode())
+        case .gradientLayerAnimations:
+            return VAViewController(node: GradientLayerAnimationControllerNode())
+        case .shapeLayerAnimations:
+            return VAViewController(node: ShapeLayerAnimationControllerNode())
         }
     }
 }

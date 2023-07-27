@@ -894,6 +894,29 @@ Example:
 </details>
 
 
+<details open>
+<summary>VACountingTextNode</summary>
+
+
+A subclass of `VATextNode` with counting initation.
+
+
+Code:
+
+
+```
+countingTextNode.updateCount(to: Int.random(in: 0...1000))
+```
+
+
+Example:
+
+![Link text node](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/counting_text_example.gif)
+
+
+</details>
+
+
 <details>
 <summary>VAShimmerNode</summary>
 
@@ -1266,16 +1289,6 @@ sRepresentation(layout:)
 
 
 ## Experiments
-
-
-<details open>
-<summary>VACountingTextNode</summary>
-
-
-![Link text node](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/counting_text_example.gif)
-
-
-</details>
 
 
 <details open>

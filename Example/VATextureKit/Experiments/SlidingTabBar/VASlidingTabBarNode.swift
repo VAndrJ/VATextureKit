@@ -93,9 +93,7 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode {
 
     private func bind() {
         data.indexObs
-            .subscribe(onNext: { [weak self] index in
-                self?.scroll(index: index)
-            })
+            .subscribe(onNext: self ?>> { $0.scroll(index:) })
             .disposed(by: bag)
     }
 }

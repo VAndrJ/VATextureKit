@@ -31,4 +31,6 @@ enum NavigationRoute {
     case dynamicHeightGridList
     case shimmers
     case specBasedGridList
+    case gradientLayerAnimations
+    case shapeLayerAnimations
 }
