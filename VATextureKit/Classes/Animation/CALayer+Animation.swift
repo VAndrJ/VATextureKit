@@ -142,7 +142,7 @@ public extension CALayer {
                 return from.getIsEqual(to: to)
             }
         }
-        var values: (from: Any?, to: Any?) {
+        var values: (from: Any, to: Any) {
             switch self {
             case let .anchor(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
                 let .backgroundColor(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),

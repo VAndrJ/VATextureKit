@@ -8,14 +8,14 @@
 import UIKit
 
 protocol VALayerAnimationValueConvertible {
-    var animationValue: Any? { get }
+    var animationValue: Any { get }
 
     func getIsEqual(to: Any?) -> Bool
     func getProgressMultiplier(to: Any?, current: Any?) -> Double
 }
 
 extension CGFloat: VALayerAnimationValueConvertible {
-    var animationValue: Any? { self as NSNumber }
+    var animationValue: Any { self as NSNumber }
 
     func getIsEqual(to: Any?) -> Bool {
         guard let to = to as? CGFloat else {
@@ -51,7 +51,7 @@ extension CGFloat: VALayerAnimationValueConvertible {
 }
 
 extension CGPoint: VALayerAnimationValueConvertible {
-    var animationValue: Any? { NSValue(cgPoint: self) }
+    var animationValue: Any { NSValue(cgPoint: self) }
 
     func getIsEqual(to: Any?) -> Bool {
         guard let to = to as? CGPoint else {
@@ -75,7 +75,7 @@ extension CGPoint: VALayerAnimationValueConvertible {
 }
 
 extension CGRect: VALayerAnimationValueConvertible {
-    var animationValue: Any? { NSValue(cgRect: self) }
+    var animationValue: Any { NSValue(cgRect: self) }
 
     func getIsEqual(to: Any?) -> Bool {
         guard let to = to as? CGRect else {
@@ -99,7 +99,7 @@ extension CGRect: VALayerAnimationValueConvertible {
 }
 
 extension CGSize: VALayerAnimationValueConvertible {
-    var animationValue: Any? { NSValue(cgSize: self) }
+    var animationValue: Any { NSValue(cgSize: self) }
 
     func getIsEqual(to: Any?) -> Bool {
         guard let to = to as? CGSize else {
@@ -123,7 +123,7 @@ extension CGSize: VALayerAnimationValueConvertible {
 }
 
 extension UIColor: VALayerAnimationValueConvertible {
-    var animationValue: Any? { cgColor }
+    var animationValue: Any { cgColor }
 
     func getIsEqual(to: Any?) -> Bool {
         guard let to = to as? UIColor else {
@@ -149,7 +149,7 @@ extension UIColor: VALayerAnimationValueConvertible {
 }
 
 extension CGPath: VALayerAnimationValueConvertible {
-    var animationValue: Any? { self }
+    var animationValue: Any { self }
 
     func getIsEqual(to: Any?) -> Bool {
         if let to, type(of: to) == CGPath.self {
@@ -168,7 +168,7 @@ extension CGPath: VALayerAnimationValueConvertible {
 }
 
 extension Array: VALayerAnimationValueConvertible where Element: VALayerAnimationValueConvertible & Equatable {
-    var animationValue: Any? { map(\.animationValue) }
+    var animationValue: Any { map(\.animationValue) }
 
     func getIsEqual(to: Any?) -> Bool {
         guard let to = to as? [Element] else {
