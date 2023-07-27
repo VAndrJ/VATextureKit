@@ -353,13 +353,14 @@ public enum Progress: Hashable, Codable {
         .removal(edge.progress)
     }
 
-    case insertion(CGFloat), removal(CGFloat)
+    case insertion(CGFloat)
+    case removal(CGFloat)
 
     public var value: CGFloat {
         get {
             switch self {
-            case .insertion(let float): return float
-            case .removal(let float): return float
+            case let .insertion(value): return value
+            case let .removal(value): return value
             }
         }
         set {
@@ -372,8 +373,8 @@ public enum Progress: Hashable, Codable {
     public var progress: CGFloat {
         get {
             switch self {
-            case .insertion(let float): return float
-            case .removal(let float): return 1 - float
+            case let .insertion(value): return value
+            case let .removal(value): return 1 - value
             }
         }
         set {
@@ -385,14 +386,14 @@ public enum Progress: Hashable, Codable {
     }
     public var inverted: Progress {
         switch self {
-        case .insertion(let float): return .removal(1 - float)
-        case .removal(let float): return .insertion(1 - float)
+        case let .insertion(value): return .removal(1 - value)
+        case let .removal(value): return .insertion(1 - value)
         }
     }
     public var reversed: Progress {
         switch self {
-        case .insertion(let float): return .insertion(1 - float)
-        case .removal(let float): return .removal(1 - float)
+        case let .insertion(value): return .insertion(1 - value)
+        case let .removal(value): return .removal(1 - value)
         }
     }
     public var direction: TransitionDirection {

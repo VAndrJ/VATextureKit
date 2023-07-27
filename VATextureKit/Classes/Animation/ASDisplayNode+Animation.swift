@@ -1,5 +1,5 @@
 //
-//  ASDisplayNode+VAAnimation.swift
+//  ASDisplayNode+Animation.swift
 //  VATextureKit
 //
 //  Created by Volodymyr Andriienko on 02.04.2023.
