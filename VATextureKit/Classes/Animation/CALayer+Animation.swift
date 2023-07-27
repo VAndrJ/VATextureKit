@@ -183,9 +183,12 @@ public extension CALayer {
         animation: VAAnimation,
         duration: Double,
         delay: Double = 0.0,
+        timeOffset: Double = 0.0,
+        repeatCount: Float = 0.0,
         timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
         mediaTimingFunction: CAMediaTimingFunction? = nil,
         removeOnCompletion: Bool = true,
+        autoreverses: Bool = false,
         additive: Bool = false,
         continueFromCurrent: Bool = false,
         force: Bool = false,
@@ -200,6 +203,8 @@ public extension CALayer {
             animation,
             duration: duration,
             delay: delay,
+            timeOffset: timeOffset,
+            repeatCount: repeatCount,
             timingFunction: timingFunction,
             mediaTimingFunction: mediaTimingFunction,
             removeOnCompletion: removeOnCompletion,
@@ -217,9 +222,12 @@ public extension CALayer {
         _ animation: VAAnimation,
         duration: Double,
         delay: Double = 0.0,
+        timeOffset: Double = 0.0,
+        repeatCount: Float = 0.0,
         timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
         mediaTimingFunction: CAMediaTimingFunction? = nil,
         removeOnCompletion: Bool = true,
+        autoreverses: Bool = false,
         additive: Bool = false,
         continueFromCurrent: Bool = false,
         force: Bool = false,
@@ -248,9 +256,12 @@ public extension CALayer {
             keyPath: animation.keyPath,
             duration: duration,
             delay: delay,
+            timeOffset: timeOffset,
+            repeatCount: repeatCount,
             timingFunction: timingFunction,
             mediaTimingFunction: mediaTimingFunction,
             removeOnCompletion: removeOnCompletion,
+            autoreverses: autoreverses,
             additive: additive,
             spring: spring,
             completion: completion
@@ -278,9 +289,12 @@ public extension CALayer {
         animation: VAKeyFrameAnimation,
         duration: Double,
         delay: Double = 0.0,
+        timeOffset: Double = 0.0,
+        repeatCount: Float = 0.0,
         timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
         mediaTimingFunction: CAMediaTimingFunction? = nil,
         removeOnCompletion: Bool = true,
+        autoreverses: Bool = false,
         additive: Bool = false,
         completion: ((Bool) -> Void)? = nil
     ) -> Self {
@@ -288,9 +302,12 @@ public extension CALayer {
             animation,
             duration: duration,
             delay: delay,
+            timeOffset: timeOffset,
+            repeatCount: repeatCount,
             timingFunction: timingFunction,
             mediaTimingFunction: mediaTimingFunction,
             removeOnCompletion: removeOnCompletion,
+            autoreverses: autoreverses,
             additive: additive,
             completion: completion
         )
@@ -302,9 +319,12 @@ public extension CALayer {
         _ animation: VAKeyFrameAnimation,
         duration: Double,
         delay: Double = 0.0,
+        timeOffset: Double = 0.0,
+        repeatCount: Float = 0.0,
         timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
         mediaTimingFunction: CAMediaTimingFunction? = nil,
         removeOnCompletion: Bool = true,
+        autoreverses: Bool = false,
         additive: Bool = false,
         completion: ((Bool) -> Void)? = nil
     ) -> CAKeyframeAnimation {
@@ -318,10 +338,13 @@ public extension CALayer {
                 keyFrames: values,
                 duration: duration,
                 delay: delay,
+                timeOffset: timeOffset,
+                repeatCount: repeatCount,
                 keyPath: animation.keyPath,
                 timingFunction: timingFunction,
                 mediaTimingFunction: mediaTimingFunction,
                 removeOnCompletion: removeOnCompletion,
+                autoreverses: autoreverses,
                 additive: additive,
                 completion: completion
             )
@@ -333,10 +356,13 @@ public extension CALayer {
         keyFrames: [Any],
         duration: Double,
         delay: Double,
+        timeOffset: Double,
+        repeatCount: Float,
         keyPath: String,
         timingFunction: CAMediaTimingFunctionName,
         mediaTimingFunction: CAMediaTimingFunction?,
         removeOnCompletion: Bool,
+        autoreverses: Bool,
         additive: Bool,
         completion: ((Bool) -> Void)?
     ) -> CAKeyframeAnimation {
@@ -358,12 +384,15 @@ public extension CALayer {
             animation.beginTime = convertTime(CACurrentMediaTime(), from: nil) + delay
             animation.fillMode = .both
         }
+        animation.timeOffset = timeOffset
+        animation.repeatCount = repeatCount
         if let mediaTimingFunction = mediaTimingFunction {
             animation.timingFunction = mediaTimingFunction
         } else {
             animation.timingFunction = CAMediaTimingFunction(name: timingFunction)
         }
         animation.isRemovedOnCompletion = removeOnCompletion
+        animation.autoreverses = autoreverses
         animation.isAdditive = additive
         if let completion {
             animation.delegate = _AnimationDelegate(animation: animation, completion: completion)
@@ -377,9 +406,12 @@ public extension CALayer {
         keyPath: String,
         duration: Double,
         delay: Double,
+        timeOffset: Double,
+        repeatCount: Float,
         timingFunction: CAMediaTimingFunctionName,
         mediaTimingFunction: CAMediaTimingFunction?,
         removeOnCompletion: Bool,
+        autoreverses: Bool,
         additive: Bool,
         spring: VASpring?,
         completion: ((Bool) -> Void)?
@@ -390,9 +422,12 @@ public extension CALayer {
             keyPath: keyPath,
             duration: duration,
             delay: delay,
+            timeOffset: timeOffset,
+            repeatCount: repeatCount,
             timingFunction: timingFunction,
             mediaTimingFunction: mediaTimingFunction,
             removeOnCompletion: removeOnCompletion,
+            autoreverses: autoreverses,
             additive: additive,
             spring: spring,
             completion: completion
@@ -406,9 +441,12 @@ public extension CALayer {
         keyPath: String,
         duration: Double,
         delay: Double,
+        timeOffset: Double,
+        repeatCount: Float,
         timingFunction: CAMediaTimingFunctionName,
         mediaTimingFunction: CAMediaTimingFunction?,
         removeOnCompletion: Bool,
+        autoreverses: Bool,
         additive: Bool,
         spring: VASpring?,
         completion: ((Bool) -> Void)?
@@ -440,7 +478,10 @@ public extension CALayer {
         } else {
             animation.timingFunction = CAMediaTimingFunction(name: timingFunction)
         }
+        animation.timeOffset = timeOffset
+        animation.repeatCount = repeatCount
         animation.isRemovedOnCompletion = removeOnCompletion
+        animation.autoreverses = autoreverses
         animation.fillMode = .forwards
         animation.isAdditive = additive
         if let completion {
@@ -479,6 +520,29 @@ public extension CALayer {
         add(animationGroup, forKey: key)
         return self
     }
+
+    var isAnimationsPaused: Bool { speed.isZero }
+
+    func pauseAnimations() {
+        if !isAnimationsPaused {
+            let pausedTime = convertTime(CACurrentMediaTime(), from: nil)
+            speed = 0.0
+            timeOffset = pausedTime
+        }
+    }
+
+    func resumeAnimations() {
+        if isAnimationsPaused {
+            let pausedTime = timeOffset
+            speed = 1.0
+            timeOffset = 0.0
+            beginTime = 0.0
+            let timeSincePause = convertTime(CACurrentMediaTime(), from: nil) - pausedTime
+            beginTime = timeSincePause
+        }
+    }
+
+    var hasAnimations: Bool { animationKeys().map { !$0.isEmpty } ?? false }
 }
 
 @objc private class _AnimationDelegate: NSObject, CAAnimationDelegate {

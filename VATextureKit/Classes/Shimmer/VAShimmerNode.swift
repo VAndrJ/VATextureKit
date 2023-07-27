@@ -33,14 +33,16 @@ open class VAShimmerNode: VADisplayNode {
                 return gradient
             },
             animation: @escaping (_ layer: CALayer, _ duration: CFTimeInterval, _ timeOffset: CFTimeInterval) -> CABasicAnimation = { layer, duration, timeOffset in
-                let animation = CABasicAnimation(keyPath: #keyPath(CAGradientLayer.locations))
-                animation.fromValue = [0.0, 0.05, 0.1]
-                animation.toValue = [0.9, 0.95, 1.0]
-                animation.timeOffset = timeOffset
-                animation.duration = duration
-                animation.repeatCount = .greatestFiniteMagnitude
-                animation.isRemovedOnCompletion = false
-                return animation
+                return layer.getAnimation(
+                    .locations(
+                        from: [0.0, 0.05, 0.1],
+                        to: [0.9, 0.95, 1.0]
+                    ),
+                    duration: duration,
+                    timeOffset: timeOffset,
+                    repeatCount: .greatestFiniteMagnitude,
+                    removeOnCompletion: false
+                )
             }
         ) {
             self.isAcrossWindow = isAcrossWindow

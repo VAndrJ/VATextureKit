@@ -441,3 +441,122 @@ public struct MapTransitionModifier<Base: TransitionModifier, Root>: TransitionM
         base.value(for: map(root))
     }
 }
+
+public extension ASDisplayNode {
+
+    func setNeedsLayoutAnimated(shouldMeasureAsync: Bool = false, completion: (() -> Void)? = nil) {
+        transitionLayout(withAnimation: true, shouldMeasureAsync: shouldMeasureAsync, measurementCompletion: completion)
+        var supernode = supernode
+        while supernode != nil {
+            if supernode is ASScrollNode {
+                supernode?.setNeedsLayoutAnimated()
+                return
+            }
+            supernode = supernode?.supernode
+        }
+    }
+
+    @discardableResult
+    func animate(
+        _ animation: CALayer.VAAnimation,
+        duration: Double,
+        delay: Double = 0.0,
+        timeOffset: Double = 0.0,
+        repeatCount: Float = 0.0,
+        timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
+        mediaTimingFunction: CAMediaTimingFunction? = nil,
+        removeOnCompletion: Bool = true,
+        autoreverses: Bool = false,
+        additive: Bool = false,
+        continueFromCurrent: Bool = false,
+        force: Bool = false,
+        spring: CALayer.VASpring? = nil,
+        completion: ((Bool) -> Void)? = nil
+    ) -> Self {
+        ensureOnMain { [self] in
+            layer.add(
+                animation: animation,
+                duration: duration,
+                delay: delay,
+                timeOffset: timeOffset,
+                repeatCount: repeatCount,
+                timingFunction: timingFunction,
+                mediaTimingFunction: mediaTimingFunction,
+                removeOnCompletion: removeOnCompletion,
+                autoreverses: autoreverses,
+                additive: additive,
+                continueFromCurrent: continueFromCurrent,
+                force: force,
+                spring: spring,
+                completion: completion
+            )
+        }
+        return self
+    }
+
+    @discardableResult
+    func animate(
+        _ animation: CALayer.VAKeyFrameAnimation,
+        duration: Double,
+        delay: Double = 0.0,
+        timeOffset: Double = 0.0,
+        repeatCount: Float = 0.0,
+        timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
+        mediaTimingFunction: CAMediaTimingFunction? = nil,
+        removeOnCompletion: Bool = true,
+        autoreverses: Bool = false,
+        additive: Bool = false,
+        completion: ((Bool) -> Void)? = nil
+    ) -> Self {
+        ensureOnMain { [self] in
+            layer.add(
+                animation: animation,
+                duration: duration,
+                delay: delay,
+                timeOffset: timeOffset,
+                repeatCount: repeatCount,
+                timingFunction: timingFunction,
+                mediaTimingFunction: mediaTimingFunction,
+                removeOnCompletion: removeOnCompletion,
+                autoreverses: autoreverses,
+                additive: additive,
+                completion: completion
+            )
+        }
+        return self
+    }
+
+    func disableAllLayerAnimations() {
+        ensureOnMain { [self] in
+            CATransaction.begin()
+            CATransaction.setDisableActions(true)
+            disableAllAnimations(layer: layer)
+            CATransaction.commit()
+        }
+    }
+
+    private func disableAllAnimations(layer: CALayer) {
+        ensureOnMain { [self] in
+            layer.removeAllAnimations()
+            layer.sublayers?.forEach(disableAllAnimations(layer:))
+        }
+    }
+
+    func getHasAnimations(_ block: @escaping (Bool) -> Void) {
+        ensureOnMain { [self] in
+            block(layer.hasAnimations)
+        }
+    }
+
+    func pauseAnimations() {
+        ensureOnMain { [self] in
+            layer.pauseAnimations()
+        }
+    }
+
+    func resumeAnimations() {
+        ensureOnMain { [self] in
+            layer.resumeAnimations()
+        }
+    }
+}
