@@ -51,8 +51,8 @@ final class ColumnLayoutControllerNode: VASafeAreaDisplayNode {
     override init() {
         super.init()
 
-        scrollNode.layoutSpecBlock = { [weak self] _, size in
-            self?.layoutSpecScroll(constrainedSize: size) ?? ASLayoutSpec()
+        scrollNode.layoutSpecBlock = { [weak self] in
+            self?.layoutSpecScroll(constrainedSize: $1) ?? ASLayoutSpec()
         }
     }
 

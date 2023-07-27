@@ -58,6 +58,10 @@ open class VAScrollNode: ASScrollNode {
         configure()
     }
 
+    open override func animateLayoutTransition(_ context: ASContextTransitioning) {
+        animateLayoutTransition(context: context)
+    }
+
     private func configure() {
         view.showsVerticalScrollIndicator = false
         view.showsHorizontalScrollIndicator = false

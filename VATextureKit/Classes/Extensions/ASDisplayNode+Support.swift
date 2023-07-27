@@ -64,6 +64,14 @@ public extension ASDisplayNode {
 
     func setNeedsLayoutAnimated(shouldMeasureAsync: Bool = false, completion: (() -> Void)? = nil) {
         transitionLayout(withAnimation: true, shouldMeasureAsync: shouldMeasureAsync, measurementCompletion: completion)
+        var supernode = supernode
+        while supernode != nil {
+            if supernode is ASScrollNode {
+                supernode?.setNeedsLayoutAnimated()
+                return
+            }
+            supernode = supernode?.supernode
+        }
     }
 
     @discardableResult
