@@ -193,9 +193,9 @@ private class CornerRadiusAnimationExampleNode: VADisplayNode {
                     to: !oldValue ? 20 : 0
                 ),
                 duration: 2,
+                applyingResult: true,
                 continueFromCurrent: true
             )
-            exampleNode.cornerRadius = isToggled ? 20 : 0
         }
     }
 
@@ -238,7 +238,7 @@ private class RotationAnimationExampleNode: VADisplayNode {
                     to: !oldValue ? .pi / 2 : 0
                 ),
                 duration: 2,
-                removeOnCompletion: false,
+                applyingResult: true,
                 continueFromCurrent: true
             )
         }
@@ -279,7 +279,7 @@ private class ScaleAnimationExampleNode: VADisplayNode {
                     to: !oldValue ? 1.1 : 1
                 ),
                 duration: 2,
-                removeOnCompletion: false,
+                applyingResult: true,
                 continueFromCurrent: true
             )
         }
@@ -361,7 +361,7 @@ private class OpacityAnimationExampleNode: VADisplayNode {
                     to: !oldValue ? 0 : 1
                 ),
                 duration: 2,
-                removeOnCompletion: false,
+                applyingResult: true,
                 continueFromCurrent: true
             )
         }

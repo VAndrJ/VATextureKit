@@ -47,10 +47,21 @@ public extension CALayer {
         case width(from: CGFloat, to: CGFloat)
         case height(from: CGFloat, to: CGFloat)
         case rotation(from: CGFloat, to: CGFloat)
+        case zPosition(from: CGFloat, to: CGFloat)
+        // CAGradientLayer
         case locations(from: [CGFloat], to: [CGFloat])
         case colors(from: [UIColor], to: [UIColor])
         case startPoint(from: CGPoint, to: CGPoint)
         case endPoint(from: CGPoint, to: CGPoint)
+        // CAShapeLayer
+        case lineDashPhase(from: CGFloat, to: CGFloat)
+        case miterLimit(from: CGFloat, to: CGFloat)
+        case lineWidth(from: CGFloat, to: CGFloat)
+        case strokeStart(from: CGFloat, to: CGFloat)
+        case strokeEnd(from: CGFloat, to: CGFloat)
+        case strokeColor(from: UIColor, to: UIColor)
+        case fillColor(from: UIColor, to: UIColor)
+        case path(from: CGPath, to: CGPath)
 
         var keyPath: String {
             switch self {
@@ -80,6 +91,15 @@ public extension CALayer {
             case .rotation: return "transform.rotation.z"
             case .startPoint: return "startPoint"
             case .endPoint: return "endPoint"
+            case .zPosition: return "zPosition"
+            case .lineDashPhase: return "lineDashPhase"
+            case .miterLimit: return "miterLimit"
+            case .lineWidth: return "lineWidth"
+            case .strokeStart: return "strokeStart"
+            case .strokeEnd: return "strokeEnd"
+            case .strokeColor: return "strokeColor"
+            case .fillColor: return "fillColor"
+            case .path: return "path"
             }
         }
         var isToEqualsFrom: Bool {
@@ -109,7 +129,16 @@ public extension CALayer {
                 let .shadowRadius(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
                 let .rotation(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
                 let .startPoint(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .endPoint(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible):
+                let .endPoint(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
+                let .lineDashPhase(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
+                let .miterLimit(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
+                let .lineWidth(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
+                let .strokeStart(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
+                let .strokeEnd(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
+                let .strokeColor(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
+                let .fillColor(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
+                let .path(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
+                let .zPosition(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible):
                 return from.getIsEqual(to: to)
             }
         }
@@ -140,7 +169,16 @@ public extension CALayer {
                 let .shadowRadius(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
                 let .rotation(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
                 let .startPoint(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .endPoint(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible):
+                let .endPoint(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
+                let .lineDashPhase(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
+                let .miterLimit(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
+                let .lineWidth(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
+                let .strokeStart(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
+                let .strokeEnd(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
+                let .strokeColor(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
+                let .fillColor(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
+                let .path(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
+                let .zPosition(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible):
                 return (from.animationValue, to.animationValue)
             }
         }
@@ -172,7 +210,16 @@ public extension CALayer {
                 let .shadowRadius(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
                 let .rotation(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
                 let .startPoint(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .endPoint(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible):
+                let .endPoint(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
+                let .lineDashPhase(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
+                let .miterLimit(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
+                let .lineWidth(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
+                let .strokeStart(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
+                let .strokeEnd(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
+                let .strokeColor(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
+                let .fillColor(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
+                let .path(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
+                let .zPosition(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible):
                 return from.getProgressMultiplier(to: to, current: current)
             }
         }
@@ -208,6 +255,7 @@ public extension CALayer {
             timingFunction: timingFunction,
             mediaTimingFunction: mediaTimingFunction,
             removeOnCompletion: removeOnCompletion,
+            autoreverses: autoreverses,
             additive: additive,
             continueFromCurrent: continueFromCurrent,
             force: force,
@@ -238,6 +286,8 @@ public extension CALayer {
         switch animation {
         case .locations, .colors, .startPoint, .endPoint:
             assert(self is CAGradientLayer)
+        case .lineDashPhase, .miterLimit, .lineWidth, .strokeStart, .strokeEnd, .strokeColor, .fillColor, .path:
+            assert(self is CAShapeLayer)
         default:
             break
         }
@@ -248,7 +298,6 @@ public extension CALayer {
             let progress = animation.getProgressMultiplier(current: value)
             duration *= progress
             from = value
-            print(progress, duration, from)
         }
         return getAnimation(
             from: from,
@@ -568,171 +617,5 @@ public extension CALayer {
             completion(flag)
             self.completion = nil
         }
-    }
-}
-
-protocol VALayerAnimationValueConvertible {
-    var animationValue: Any? { get }
-
-    func getIsEqual(to: Any?) -> Bool
-    func getProgressMultiplier(to: Any?, current: Any?) -> Double
-}
-
-extension CGFloat: VALayerAnimationValueConvertible {
-    var animationValue: Any? { self as NSNumber }
-
-    func getIsEqual(to: Any?) -> Bool {
-        guard let to = to as? CGFloat else {
-            return false
-        }
-        return to == self
-    }
-
-    func getProgressMultiplier(to: Any?, current: Any?) -> Double {
-        guard let to = to as? CGFloat else {
-            return 0
-        }
-        return getProgress(toComponent: to, currentComponent: (current as? CGFloat) ?? self)
-    }
-
-    func getProgress(toComponent: CGFloat, currentComponent: CGFloat) -> Double {
-        let fullPath = toComponent - self
-        guard !fullPath.isZero else {
-            return 0
-        }
-        let currentPath = toComponent - currentComponent
-        return currentPath.getProgress(total: fullPath)
-    }
-
-    private func getProgress(total: CGFloat) -> Double {
-        let progress = self / total
-        if progress.isNaN || progress.isInfinite {
-            return 0
-        } else {
-            return Swift.max(0, Swift.min(1, abs(progress)))
-        }
-    }
-}
-
-extension CGPoint: VALayerAnimationValueConvertible {
-    var animationValue: Any? { NSValue(cgPoint: self) }
-
-    func getIsEqual(to: Any?) -> Bool {
-        guard let to = to as? CGPoint else {
-            return false
-        }
-        return to == self
-    }
-
-    func getProgressMultiplier(to: Any?, current: Any?) -> Double {
-        guard let to = to as? CGPoint else {
-            return 0
-        }
-        let from = self
-        let current = (current as? CGPoint) ?? from
-        let progressArr = [
-            from.x.getProgress(toComponent: to.x, currentComponent: current.x),
-            from.y.getProgress(toComponent: to.y, currentComponent: current.y),
-        ]
-        return progressArr.reduce(0.0, +) / Double(progressArr.count)
-    }
-}
-
-extension CGRect: VALayerAnimationValueConvertible {
-    var animationValue: Any? { NSValue(cgRect: self) }
-
-    func getIsEqual(to: Any?) -> Bool {
-        guard let to = to as? CGRect else {
-            return false
-        }
-        return to == self
-    }
-
-    func getProgressMultiplier(to: Any?, current: Any?) -> Double {
-        guard let to = to as? CGRect else {
-            return 0
-        }
-        let from = self
-        let current = (current as? CGRect) ?? from
-        let progressArr = [
-            from.origin.getProgressMultiplier(to: to.origin, current: current.origin),
-            from.size.getProgressMultiplier(to: to.size, current: current.size),
-        ]
-        return progressArr.reduce(0.0, +) / Double(progressArr.count)
-    }
-}
-
-extension CGSize: VALayerAnimationValueConvertible {
-    var animationValue: Any? { NSValue(cgSize: self) }
-
-    func getIsEqual(to: Any?) -> Bool {
-        guard let to = to as? CGSize else {
-            return false
-        }
-        return to == self
-    }
-
-    func getProgressMultiplier(to: Any?, current: Any?) -> Double {
-        guard let to = to as? CGSize else {
-            return 0
-        }
-        let from = self
-        let current = (current as? CGSize) ?? from
-        let progressArr = [
-            from.width.getProgress(toComponent: to.width, currentComponent: current.width),
-            from.height.getProgress(toComponent: to.height, currentComponent: current.height),
-        ]
-        return progressArr.reduce(0.0, +) / Double(progressArr.count)
-    }
-}
-
-extension UIColor: VALayerAnimationValueConvertible {
-    var animationValue: Any? { cgColor }
-
-    func getIsEqual(to: Any?) -> Bool {
-        guard let to = to as? UIColor else {
-            return false
-        }
-        return to == self
-    }
-
-    func getProgressMultiplier(to: Any?, current: Any?) -> Double {
-        guard let to = (to as? UIColor)?.rgba else {
-            return 0
-        }
-        let from = rgba
-        let current = (current as? UIColor)?.rgba ?? from
-        let progressArr = [
-            from.red.getProgress(toComponent: to.red, currentComponent: current.red),
-            from.green.getProgress(toComponent: to.green, currentComponent: current.green),
-            from.blue.getProgress(toComponent: to.blue, currentComponent: current.blue),
-            from.alpha.getProgress(toComponent: to.alpha, currentComponent: current.alpha),
-        ]
-        return progressArr.reduce(0.0, +) / Double(progressArr.count)
-    }
-}
-
-extension Array: VALayerAnimationValueConvertible where Element: VALayerAnimationValueConvertible & Equatable {
-    var animationValue: Any? { map(\.animationValue) }
-
-    func getIsEqual(to: Any?) -> Bool {
-        guard let to = to as? [Element] else {
-            return false
-        }
-        return to == self
-    }
-
-    func getProgressMultiplier(to: Any?, current: Any?) -> Double {
-        guard let to = to as? [VALayerAnimationValueConvertible] else {
-            return 0
-        }
-        let current = (current as? [VALayerAnimationValueConvertible]) ?? self
-        var progressArr: [Double] = []
-        for (i, color) in self.enumerated() {
-            if to.indices ~= i && current.indices ~= i {
-                progressArr.append(color.getProgressMultiplier(to: to[i], current: current[i]))
-            }
-        }
-        return progressArr.reduce(0.0, +) / Double(progressArr.count)
     }
 }

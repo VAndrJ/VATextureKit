@@ -18,6 +18,8 @@ final class MainViewModel {
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Animations"), items: [
             MainListCellNodeViewModel(title: "Transition", description: "Layout transition animations", route: .moveAnimations, titleTransitionAnimationId: "Test", descriptionTransitionAnimationId: "Test1"),
             MainListCellNodeViewModel(title: "Custom", description: "Layer animations", route: .layerAnimations),
+            MainListCellNodeViewModel(title: "Gradient", description: "Layer animations", route: .gradientLayerAnimations),
+            MainListCellNodeViewModel(title: "Shape", description: "Layer animations", route: .shapeLayerAnimations),
         ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "System"), items: [
             MainListCellNodeViewModel(title: "Appearance", description: "Select theme", route: .apearance),

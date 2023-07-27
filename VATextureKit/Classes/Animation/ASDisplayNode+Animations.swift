@@ -466,6 +466,7 @@ public extension ASDisplayNode {
         timingFunction: CAMediaTimingFunctionName = .easeInEaseOut,
         mediaTimingFunction: CAMediaTimingFunction? = nil,
         removeOnCompletion: Bool = true,
+        applyingResult: Bool = false,
         autoreverses: Bool = false,
         additive: Bool = false,
         continueFromCurrent: Bool = false,
@@ -490,6 +491,9 @@ public extension ASDisplayNode {
                 spring: spring,
                 completion: completion
             )
+            if applyingResult {
+                layer.setValue(animation.values.to, forKeyPath: animation.keyPath)
+            }
         }
         return self
     }

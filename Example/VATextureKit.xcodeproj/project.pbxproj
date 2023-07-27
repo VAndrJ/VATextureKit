@@ -31,6 +31,8 @@
 		A34F8E8529F576C000EF4C42 /* PagerCardCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34F8E8429F576C000EF4C42 /* PagerCardCellNode.swift */; };
 		A3551A5529DD57F000B0B18F /* VALinearGradientNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3551A5429DD57F000B0B18F /* VALinearGradientNodeTests.swift */; };
 		A3551A5929DD5FCF00B0B18F /* VABaseGradientNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3551A5829DD5FCF00B0B18F /* VABaseGradientNodeTests.swift */; };
+		A35639902A72D24300DE531F /* GradientLayerAnimationControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A356398F2A72D24300DE531F /* GradientLayerAnimationControllerNode.swift */; };
+		A35639922A72E0D300DE531F /* ShapeLayerAnimationControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35639912A72E0D300DE531F /* ShapeLayerAnimationControllerNode.swift */; };
 		A357B7F929FFF290004835C5 /* SlidingTabBarControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357B7F829FFF290004835C5 /* SlidingTabBarControllerNode.swift */; };
 		A357B7FE2A01644C004835C5 /* VASlidingTabBarNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357B7FD2A01644C004835C5 /* VASlidingTabBarNode.swift */; };
 		A357B8002A02483C004835C5 /* VASlidingTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357B7FF2A02483C004835C5 /* VASlidingTab.swift */; };
@@ -140,6 +142,8 @@
 		A34F8E8429F576C000EF4C42 /* PagerCardCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerCardCellNode.swift; sourceTree = "<group>"; };
 		A3551A5429DD57F000B0B18F /* VALinearGradientNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VALinearGradientNodeTests.swift; sourceTree = "<group>"; };
 		A3551A5829DD5FCF00B0B18F /* VABaseGradientNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VABaseGradientNodeTests.swift; sourceTree = "<group>"; };
+		A356398F2A72D24300DE531F /* GradientLayerAnimationControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientLayerAnimationControllerNode.swift; sourceTree = "<group>"; };
+		A35639912A72E0D300DE531F /* ShapeLayerAnimationControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeLayerAnimationControllerNode.swift; sourceTree = "<group>"; };
 		A357B7F829FFF290004835C5 /* SlidingTabBarControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidingTabBarControllerNode.swift; sourceTree = "<group>"; };
 		A357B7FD2A01644C004835C5 /* VASlidingTabBarNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASlidingTabBarNode.swift; sourceTree = "<group>"; };
 		A357B7FF2A02483C004835C5 /* VASlidingTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASlidingTab.swift; sourceTree = "<group>"; };
@@ -362,6 +366,8 @@
 			children = (
 				A33CDF3229D9B875005F77C6 /* TransitionAnimationControllerNode.swift */,
 				A3A72F642A6A68A90008B2DC /* LayerAnimationControllerNode.swift */,
+				A356398F2A72D24300DE531F /* GradientLayerAnimationControllerNode.swift */,
+				A35639912A72E0D300DE531F /* ShapeLayerAnimationControllerNode.swift */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
@@ -853,9 +859,11 @@
 				A3A0BEE029ED5AE700253AAD /* VATextNode+Support.swift in Sources */,
 				A3F8890329CE316100C67187 /* CollectionListDifferentCellsNodeController.swift in Sources */,
 				A3A0BED629ED4D2D00253AAD /* RowLayoutControllerNode.swift in Sources */,
+				A35639902A72D24300DE531F /* GradientLayerAnimationControllerNode.swift in Sources */,
 				A3F8890929CE37BD00C67187 /* ImageCellNode.swift in Sources */,
 				A3820D2A29E568BE00993406 /* VATextFieldNode.swift in Sources */,
 				A31F445D29F6AD76003618C9 /* PagerControllerNodeViewModel.swift in Sources */,
+				A35639922A72E0D300DE531F /* ShapeLayerAnimationControllerNode.swift in Sources */,
 				A31F445F29F6ADC7003618C9 /* PagerIndicatorNode.swift in Sources */,
 				A34F8E7929F43AF700EF4C42 /* CollectionListHeaderFooterViewModel.swift in Sources */,
 				A31F446129F70A7A003618C9 /* VALinkTextNode.swift in Sources */,
