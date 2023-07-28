@@ -74,7 +74,15 @@ private class PathExampleNode: VADisplayNode {
         exampleNode.animate(
             .path(
                 from: UIBezierPath(rect: CGRect(x: 0, y: 0, width: 100, height: 20)).cgPath,
-                to: UIBezierPath(rect: CGRect(x: 100, y: 20, width: 200, height: 54)).cgPath
+                to: {
+                    let path = UIBezierPath()
+                    path.move(to: .zero)
+                    path.addLine(to: CGPoint(x: 60, y: 10))
+                    path.addLine(to: CGPoint(x: 100, y: 0))
+                    path.addLine(to: CGPoint(x: 150, y: 64))
+                    path.close()
+                    return path.cgPath
+                }()
             ),
             duration: 2,
             repeatCount: .greatestFiniteMagnitude,
