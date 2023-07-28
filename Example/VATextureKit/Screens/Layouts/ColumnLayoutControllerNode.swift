@@ -9,43 +9,46 @@
 import VATextureKit
 
 final class ColumnLayoutControllerNode: VASafeAreaDisplayNode {
-    private var exampleMainAxisNodes: [ASDisplayNode] { (0..<4).map { _ in ASDisplayNode().sized(CGSize(same: 24)) } }
-    private var exampleCrossAxisNodes: [ASDisplayNode] { (1...4).map { ASDisplayNode().sized(CGSize(same: 8 * CGFloat($0))) } }
-    private func getTitleTextNode(string: String, selection: String) -> VATextNode {
-        let fontDesign: VAFontDesign
-        if #available(iOS 13.0, *) {
-            fontDesign = .monospaced
-        } else {
-            fontDesign = .default
-        }
-        return VATextNode(
-            string: string,
-            color: { $0.label },
-            descriptor: fontDesign,
-            secondary: [.init(strings: [selection], color: { $0.secondaryLabel }, descriptor: fontDesign)]
-        )
-    }
-    private lazy var startMainAxisTitleTextNode = getTitleTextNode(string: "Main axis .start\nCross axis .start", selection: ".start")
-    private lazy var endMainAxisTitleTextNode = getTitleTextNode(string: "Main axis .end", selection: ".end")
-    private lazy var centerMainAxisTitleTextNode = getTitleTextNode(string: "Main axis .center", selection: ".center")
-    private lazy var spaceBetweenMainAxisTitleTextNode = getTitleTextNode(string: "Main axis .spaceBetween", selection: ".spaceBetween")
-    private lazy var spaceAroundMainAxisTitleTextNode = getTitleTextNode(string: "Main axis .spaceAround", selection: ".spaceAround")
-    private lazy var centerCrossAxisTitleTextNode = getTitleTextNode(string: "Cross axis .center", selection: ".center")
-    private lazy var endCrossAxisTitleTextNode = getTitleTextNode(string: "Cross axis .end", selection: ".end")
-    private lazy var stretchCrossAxisTitleTextNode = getTitleTextNode(string: "Cross axis .stretch", selection: ".stretch")
-    private lazy var verticalStartMainAxisExampleNode = ASDisplayNode().sized(CGSize(width: 24, height: 200))
-    private lazy var startMainAxisExampleNodes = exampleMainAxisNodes
-    private lazy var verticalEndMainAxisExampleNode = ASDisplayNode().sized(CGSize(width: 24, height: 200))
-    private lazy var endMainAxisExampleNodes = exampleMainAxisNodes
-    private lazy var verticalCenterMainAxisExampleNode = ASDisplayNode().sized(CGSize(width: 24, height: 200))
-    private lazy var centerMainAxisExampleNodes = exampleMainAxisNodes
-    private lazy var verticalSpaceBetweenMainAxisExampleNode = ASDisplayNode().sized(CGSize(width: 24, height: 200))
-    private lazy var spaceBetweenMainAxisExampleNodes = exampleMainAxisNodes
-    private lazy var verticalSpaceAroundMainAxisExampleNode = ASDisplayNode().sized(CGSize(width: 24, height: 200))
-    private lazy var spaceAroundMainAxisExampleNodes = exampleMainAxisNodes
-    private lazy var centerCrossAxisExampleNodes = exampleCrossAxisNodes
-    private lazy var endCrossAxisExampleNodes = exampleCrossAxisNodes
-    private lazy var stretchCrossAxisExampleNodes = (1...4).map { ASDisplayNode().sized(height: 12 * CGFloat($0)) }
+    private lazy var mainCrossStartExampleNode = MainAxisColumnLayoutExampleNode(
+        title: "Main axis .start\nCross axis .start",
+        selection: ".start",
+        main: .start
+    )
+    private lazy var mainEndExampleNode = MainAxisColumnLayoutExampleNode(
+        title: "Main axis .end",
+        selection: ".end",
+        main: .end
+    )
+    private lazy var mainCenterExampleNode = MainAxisColumnLayoutExampleNode(
+        title: "Main axis .center",
+        selection: ".center",
+        main: .center
+    )
+    private lazy var mainSpaceBetweenExampleNode = MainAxisColumnLayoutExampleNode(
+        title: "Main axis .spaceBetween",
+        selection: ".spaceBetween",
+        main: .spaceBetween
+    )
+    private lazy var mainSpaceAroundExampleNode = MainAxisColumnLayoutExampleNode(
+        title: "Main axis .spaceAround",
+        selection: ".spaceAround",
+        main: .spaceAround
+    )
+    private lazy var crossCenterExampleNode = CrossAxisColumnLayoutExampleNode(
+        title: "Cross axis .center",
+        selection: ".center",
+        cross: .center
+    )
+    private lazy var crossEndExampleNode = CrossAxisColumnLayoutExampleNode(
+        title: "Cross axis .end",
+        selection: ".end",
+        cross: .end
+    )
+    private lazy var crossStretchExampleNode = CrossAxisColumnLayoutExampleNode(
+        title: "Cross axis .stretch",
+        selection: ".stretch",
+        cross: .stretch
+    )
     private lazy var scrollNode = VAScrollNode(data: .init(contentInset: UIEdgeInsets(vertical: 24)))
 
     override init() {
@@ -62,93 +65,85 @@ final class ColumnLayoutControllerNode: VASafeAreaDisplayNode {
         }
     }
 
-    // swiftlint:disable:next function_body_length
     func layoutSpecScroll(constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        Column(spacing: 16, cross: .stretch) {
-            startMainAxisTitleTextNode
-                .padding(.top(24), .horizontal(16))
-            Row(spacing: 16, cross: .stretch) {
-                verticalStartMainAxisExampleNode
-                Column(spacing: 8) {
-                    startMainAxisExampleNodes
-                }
-            }
-
-            endMainAxisTitleTextNode
-                .padding(.top(24), .horizontal(16))
-            Row(spacing: 16, cross: .stretch) {
-                verticalEndMainAxisExampleNode
-                Column(spacing: 8, main: .end) {
-                    endMainAxisExampleNodes
-                }
-            }
-
-            centerMainAxisTitleTextNode
-                .padding(.top(24), .horizontal(16))
-            Row(spacing: 16, cross: .stretch) {
-                verticalCenterMainAxisExampleNode
-                Column(spacing: 8, main: .center) {
-                    centerMainAxisExampleNodes
-                }
-            }
-
-            spaceBetweenMainAxisTitleTextNode
-                .padding(.top(24), .horizontal(16))
-            Row(spacing: 16, cross: .stretch) {
-                verticalSpaceBetweenMainAxisExampleNode
-                Column(spacing: 8, main: .spaceBetween) {
-                    spaceBetweenMainAxisExampleNodes
-                }
-            }
-
-            spaceAroundMainAxisTitleTextNode
-                .padding(.top(24), .horizontal(16))
-            Row(spacing: 16, cross: .stretch) {
-                verticalSpaceAroundMainAxisExampleNode
-                Column(spacing: 8, main: .spaceAround) {
-                    spaceAroundMainAxisExampleNodes
-                }
-            }
-
-            centerCrossAxisTitleTextNode
-                .padding(.top(24), .horizontal(16))
-            Column(spacing: 8, cross: .center) {
-                centerCrossAxisExampleNodes
-            }
-
-            endCrossAxisTitleTextNode
-                .padding(.top(24), .horizontal(16))
-            Column(spacing: 8, cross: .end) {
-                endCrossAxisExampleNodes
-            }
-
-            stretchCrossAxisTitleTextNode
-                .padding(.top(24), .horizontal(16))
-            Column(spacing: 8, cross: .stretch) {
-                stretchCrossAxisExampleNodes
-            }
+        Column(spacing: 32, cross: .stretch) {
+            mainCrossStartExampleNode
+            mainEndExampleNode
+            mainCenterExampleNode
+            mainSpaceBetweenExampleNode
+            mainSpaceAroundExampleNode
+            crossCenterExampleNode
+            crossEndExampleNode
+            crossStretchExampleNode
         }
     }
 
     override func configureTheme(_ theme: VATheme) {
         backgroundColor = theme.systemBackground
-        [
-            startMainAxisExampleNodes,
-            endMainAxisExampleNodes,
-            centerMainAxisExampleNodes,
-            spaceBetweenMainAxisExampleNodes,
-            spaceAroundMainAxisExampleNodes,
-            centerCrossAxisExampleNodes,
-            endCrossAxisExampleNodes,
-            stretchCrossAxisExampleNodes,
-            stretchCrossAxisExampleNodes,
-        ].forEach { $0.forEach { $0.backgroundColor = theme.systemGray } }
-        [
-            verticalStartMainAxisExampleNode,
-            verticalEndMainAxisExampleNode,
-            verticalCenterMainAxisExampleNode,
-            verticalSpaceBetweenMainAxisExampleNode,
-            verticalSpaceAroundMainAxisExampleNode,
-        ].forEach { $0.backgroundColor = theme.systemGray6 }
+    }
+}
+
+private class MainAxisColumnLayoutExampleNode: VADisplayNode {
+    private lazy var exampleNodes = (1..<4).map { _ in ASDisplayNode().sized(CGSize(same: 24)) }
+    private lazy var comparisonNode = ASDisplayNode().sized(CGSize(width: 24, height: 200))
+    private let titleTextNode: VATextNode
+    private let main: ASStackLayoutJustifyContent
+
+    init(title: String, selection: String, main: ASStackLayoutJustifyContent) {
+        self.titleTextNode = getTitleTextNode(string: title, selection: selection)
+        self.main = main
+
+        super.init()
+    }
+
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        Column(spacing: 16, cross: .stretch) {
+            titleTextNode
+                .padding(.horizontal(16))
+            Row(spacing: 16, cross: .stretch) {
+                comparisonNode
+                Column(spacing: 8, main: main) {
+                    exampleNodes
+                }
+            }
+        }
+    }
+
+    override func configureTheme(_ theme: VATheme) {
+        exampleNodes.forEach { $0.backgroundColor = theme.systemGray }
+        comparisonNode.backgroundColor = theme.systemGray6
+    }
+}
+
+private class CrossAxisColumnLayoutExampleNode: VADisplayNode {
+    private lazy var exampleNodes = (1...4).map {
+        if cross == .stretch {
+            return ASDisplayNode().sized(height: 12 * CGFloat($0))
+        } else {
+            return ASDisplayNode().sized(CGSize(same: 8 * CGFloat($0)))
+        }
+    }
+    private let titleTextNode: VATextNode
+    private let cross: ASStackLayoutAlignItems
+
+    init(title: String, selection: String, cross: ASStackLayoutAlignItems) {
+        self.titleTextNode = getTitleTextNode(string: title, selection: selection)
+        self.cross = cross
+
+        super.init()
+    }
+
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        Column(spacing: 16, cross: .stretch) {
+            titleTextNode
+                .padding(.horizontal(16))
+            Column(spacing: 8, cross: cross) {
+                exampleNodes
+            }
+        }
+    }
+
+    override func configureTheme(_ theme: VATheme) {
+        exampleNodes.forEach { $0.backgroundColor = theme.systemGray }
     }
 }

@@ -84,3 +84,18 @@ extension VATextNode {
         }
     }
 }
+
+func getTitleTextNode(string: String, selection: String) -> VATextNode {
+    let fontDesign: VAFontDesign
+    if #available(iOS 13.0, *) {
+        fontDesign = .monospaced
+    } else {
+        fontDesign = .default
+    }
+    return VATextNode(
+        string: string,
+        color: { $0.label },
+        descriptor: fontDesign,
+        secondary: [.init(strings: [selection], color: { $0.secondaryLabel }, descriptor: fontDesign)]
+    )
+}

@@ -444,15 +444,17 @@ public struct MapTransitionModifier<Base: TransitionModifier, Root>: TransitionM
 
 public extension ASDisplayNode {
 
-    func setNeedsLayoutAnimated(shouldMeasureAsync: Bool = false, completion: (() -> Void)? = nil) {
+    func setNeedsLayoutAnimated(shouldMeasureAsync: Bool = false, isWithSupernodes: Bool = false, completion: (() -> Void)? = nil) {
         transitionLayout(withAnimation: true, shouldMeasureAsync: shouldMeasureAsync, measurementCompletion: completion)
-        var supernode = supernode
-        while supernode != nil {
-            if supernode is ASScrollNode {
-                supernode?.setNeedsLayoutAnimated()
-                return
+        if isWithSupernodes {
+            var supernode = supernode
+            while supernode != nil {
+                if supernode is ASScrollNode {
+                    supernode?.setNeedsLayoutAnimated()
+                    return
+                }
+                supernode = supernode?.supernode
             }
-            supernode = supernode?.supernode
         }
     }
 
