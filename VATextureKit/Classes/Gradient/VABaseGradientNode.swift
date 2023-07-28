@@ -25,7 +25,9 @@ open class VABaseGradientNode: ASDisplayNode {
     }
     
     public func update(colors: (color: UIColor, location: NSNumber)...) {
-        layer.colors = colors.map(\.color.cgColor)
-        layer.locations = colors.map(\.location)
+        ensureOnMain { [self] in
+            layer.colors = colors.map(\.color.cgColor)
+            layer.locations = colors.map(\.location)
+        }
     }
 }
