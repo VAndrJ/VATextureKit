@@ -7,8 +7,13 @@
 
 import AsyncDisplayKit
 
+/// The `Stack` class is a wrapper around `ASStackLayoutSpec` for `depth towards` direction.
 public final class Stack: ASWrapperLayoutSpec {
 
+    /// Wrapper init, creates a new `Stack`
+    ///
+    /// - Parameters:
+    ///   - content: A rewult builder closure that returns an array of `ASLayoutElement` objects, representing the child elements to be included in the horizontal stack.
     public init(@LayoutSpecBuilder content: () -> [ASLayoutElement]) {
         super.init(layoutElements: content())
     }
