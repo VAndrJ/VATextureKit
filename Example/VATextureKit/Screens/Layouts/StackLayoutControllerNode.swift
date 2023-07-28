@@ -29,7 +29,7 @@ final class StackLayoutControllerNode: VASafeAreaDisplayNode {
     }
 
     func scrollLayoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        Column(spacing: 32) {
+        Column(spacing: 32, cross: .stretch) {
             stackLayoutExampleNode
             stackCenteringLayoutExampleNode
             stackPositionsLayoutExampleNode
@@ -42,7 +42,7 @@ final class StackLayoutControllerNode: VASafeAreaDisplayNode {
     }
 
     override func configureTheme(_ theme: VATheme) {
-        backgroundColor = theme.systemBackground
+        backgroundColor = theme.secondarySystemBackground
     }
 }
 
@@ -62,6 +62,7 @@ private class StackLayoutExampleNode: VADisplayNode {
     }
 
     override func configureTheme(_ theme: VATheme) {
+        backgroundColor = theme.systemBackground
         zip(pairNodes, [theme.label, theme.systemOrange]).forEach {
             $0.0.backgroundColor = $0.1
         }
@@ -106,6 +107,7 @@ private class StackCenteringLayoutExampleNode: VADisplayNode {
     }
 
     override func configureTheme(_ theme: VATheme) {
+        backgroundColor = theme.systemBackground
         zip(pairNodes, [theme.label, theme.systemOrange]).forEach {
             $0.0.backgroundColor = $0.1
         }
@@ -152,7 +154,6 @@ private class StackPositionsLayoutExampleNode: VADisplayNode {
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column(spacing: 8) {
             titleTextNode
-                .padding(.top(24))
             Column {
                 relativeHorizontalPositionButtonNode
                 relativePositionHorizontalInfoTextNode
@@ -169,6 +170,7 @@ private class StackPositionsLayoutExampleNode: VADisplayNode {
     }
 
     override func configureTheme(_ theme: VATheme) {
+        backgroundColor = theme.systemBackground
         zip(pairNodes, [theme.label, theme.systemOrange]).forEach {
             $0.0.backgroundColor = $0.1
         }

@@ -79,7 +79,7 @@ final class ColumnLayoutControllerNode: VASafeAreaDisplayNode {
     }
 
     override func configureTheme(_ theme: VATheme) {
-        backgroundColor = theme.systemBackground
+        backgroundColor = theme.secondarySystemBackground
     }
 }
 
@@ -110,6 +110,7 @@ private class MainAxisColumnLayoutExampleNode: VADisplayNode {
     }
 
     override func configureTheme(_ theme: VATheme) {
+        backgroundColor = theme.systemBackground
         exampleNodes.forEach { $0.backgroundColor = theme.systemGray }
         comparisonNode.backgroundColor = theme.systemGray6
     }
@@ -144,6 +145,7 @@ private class CrossAxisColumnLayoutExampleNode: VADisplayNode {
     }
 
     override func configureTheme(_ theme: VATheme) {
+        backgroundColor = theme.systemBackground
         exampleNodes.forEach { $0.backgroundColor = theme.systemGray }
     }
 }
