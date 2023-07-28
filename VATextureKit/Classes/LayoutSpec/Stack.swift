@@ -14,9 +14,11 @@ public final class Stack: ASWrapperLayoutSpec {
     }
 
     public override func calculateLayoutThatFits(_ constrainedSize: ASSizeRange) -> ASLayout {
-        let children = self.children ?? []
         var rawSubLayouts: [ASLayout] = []
         var size = constrainedSize.min
+        guard let children, !children.isEmpty else {
+            return ASLayout(layoutElement: self, size: size, sublayouts: rawSubLayouts)
+        }
         for child in children {
             let sublayout = child.layoutThatFits(constrainedSize, parentSize: constrainedSize.max)
             sublayout.position = .zero
