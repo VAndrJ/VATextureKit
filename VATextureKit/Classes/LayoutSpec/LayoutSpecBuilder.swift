@@ -7,6 +7,7 @@
 
 import AsyncDisplayKit
 
+/// `LayoutSpecBuilder` is a result builder used to construct an array of `ASLayoutElement` objects for use in `Layout Spec`.
 @resultBuilder
 public struct LayoutSpecBuilder {
 
@@ -37,18 +38,18 @@ public struct LayoutSpecBuilder {
             case let elements as [[ASLayoutElement]]:
                 data.append(contentsOf: elements.flatMap { $0 })
             default:
-                assertionFailure(String(describing: element))
+                assertionFailure("Failed element: \(String(describing: element)). Use only ASLayoutElements")
             }
         }
         components.forEach(append(element:))
         return data
     }
 
-    public static func buildIf(_ content: [ASLayoutElement]) -> [ASLayoutElement] { // unused:ignore
+    public static func buildIf(_ content: [ASLayoutElement]) -> [ASLayoutElement] {
         content
     }
 
-    public static func buildOptional(_ component: [ASLayoutElement]?) -> [ASLayoutElement] { // unused:ignore
+    public static func buildOptional(_ component: [ASLayoutElement]?) -> [ASLayoutElement] {
         component ?? []
     }
 

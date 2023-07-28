@@ -33,6 +33,9 @@
 		A3551A5929DD5FCF00B0B18F /* VABaseGradientNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3551A5829DD5FCF00B0B18F /* VABaseGradientNodeTests.swift */; };
 		A35639902A72D24300DE531F /* GradientLayerAnimationControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A356398F2A72D24300DE531F /* GradientLayerAnimationControllerNode.swift */; };
 		A35639922A72E0D300DE531F /* ShapeLayerAnimationControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35639912A72E0D300DE531F /* ShapeLayerAnimationControllerNode.swift */; };
+		A35639972A7408F500DE531F /* MetalCoreImageKernel.metal in Sources */ = {isa = PBXBuildFile; fileRef = A35639962A7408F500DE531F /* MetalCoreImageKernel.metal */; };
+		A35639992A740A5E00DE531F /* MetalCoreImageFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35639982A740A5E00DE531F /* MetalCoreImageFilters.swift */; };
+		A356399B2A740C0E00DE531F /* FilterControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A356399A2A740C0E00DE531F /* FilterControllerNode.swift */; };
 		A357B7F929FFF290004835C5 /* SlidingTabBarControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357B7F829FFF290004835C5 /* SlidingTabBarControllerNode.swift */; };
 		A357B7FE2A01644C004835C5 /* VASlidingTabBarNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357B7FD2A01644C004835C5 /* VASlidingTabBarNode.swift */; };
 		A357B8002A02483C004835C5 /* VASlidingTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357B7FF2A02483C004835C5 /* VASlidingTab.swift */; };
@@ -144,6 +147,9 @@
 		A3551A5829DD5FCF00B0B18F /* VABaseGradientNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VABaseGradientNodeTests.swift; sourceTree = "<group>"; };
 		A356398F2A72D24300DE531F /* GradientLayerAnimationControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientLayerAnimationControllerNode.swift; sourceTree = "<group>"; };
 		A35639912A72E0D300DE531F /* ShapeLayerAnimationControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeLayerAnimationControllerNode.swift; sourceTree = "<group>"; };
+		A35639962A7408F500DE531F /* MetalCoreImageKernel.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = MetalCoreImageKernel.metal; sourceTree = "<group>"; };
+		A35639982A740A5E00DE531F /* MetalCoreImageFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalCoreImageFilters.swift; sourceTree = "<group>"; };
+		A356399A2A740C0E00DE531F /* FilterControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterControllerNode.swift; sourceTree = "<group>"; };
 		A357B7F829FFF290004835C5 /* SlidingTabBarControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidingTabBarControllerNode.swift; sourceTree = "<group>"; };
 		A357B7FD2A01644C004835C5 /* VASlidingTabBarNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASlidingTabBarNode.swift; sourceTree = "<group>"; };
 		A357B7FF2A02483C004835C5 /* VASlidingTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASlidingTab.swift; sourceTree = "<group>"; };
@@ -394,6 +400,15 @@
 			path = CollectionListHeaderFooter;
 			sourceTree = "<group>";
 		};
+		A35639952A7408B900DE531F /* MetalCoreImage */ = {
+			isa = PBXGroup;
+			children = (
+				A35639982A740A5E00DE531F /* MetalCoreImageFilters.swift */,
+				A35639962A7408F500DE531F /* MetalCoreImageKernel.metal */,
+			);
+			path = MetalCoreImage;
+			sourceTree = "<group>";
+		};
 		A357B7FC2A016405004835C5 /* SlidingTabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -412,6 +427,7 @@
 				A31F446029F70A7A003618C9 /* VALinkTextNode.swift */,
 				A3820D2929E568BE00993406 /* VATextFieldNode.swift */,
 				A3A0BEDF29ED5AE700253AAD /* VATextNode+Support.swift */,
+				A35639952A7408B900DE531F /* MetalCoreImage */,
 				A357B7FC2A016405004835C5 /* SlidingTabBar */,
 			);
 			path = Experiments;
@@ -432,6 +448,7 @@
 		A38D5E912A6BBECB00A67BC7 /* Experiments */ = {
 			isa = PBXGroup;
 			children = (
+				A356399A2A740C0E00DE531F /* FilterControllerNode.swift */,
 				A357B8052A025116004835C5 /* LinkTextControllerNode.swift */,
 				A357B7F829FFF290004835C5 /* SlidingTabBarControllerNode.swift */,
 			);
@@ -828,6 +845,7 @@
 				A357B8002A02483C004835C5 /* VASlidingTab.swift in Sources */,
 				A3B3F3CD29A2B4FC0090E6E2 /* MainListCellNode.swift in Sources */,
 				A3A0BEE429ED68B900253AAD /* StackLayoutControllerNode.swift in Sources */,
+				A35639992A740A5E00DE531F /* MetalCoreImageFilters.swift in Sources */,
 				A3F888DD29CC602900C67187 /* CollectionExampleCellNode.swift in Sources */,
 				A357B7F929FFF290004835C5 /* SlidingTabBarControllerNode.swift in Sources */,
 				A34F8E8329F52EED00EF4C42 /* PagerControllerNode.swift in Sources */,
@@ -865,6 +883,7 @@
 				A31F445D29F6AD76003618C9 /* PagerControllerNodeViewModel.swift in Sources */,
 				A35639922A72E0D300DE531F /* ShapeLayerAnimationControllerNode.swift in Sources */,
 				A31F445F29F6ADC7003618C9 /* PagerIndicatorNode.swift in Sources */,
+				A356399B2A740C0E00DE531F /* FilterControllerNode.swift in Sources */,
 				A34F8E7929F43AF700EF4C42 /* CollectionListHeaderFooterViewModel.swift in Sources */,
 				A31F446129F70A7A003618C9 /* VALinkTextNode.swift in Sources */,
 				A3F8890029CE2D0000C67187 /* Support.swift in Sources */,
@@ -873,6 +892,7 @@
 				A357B8022A0248B9004835C5 /* VASlidingTabTextNode.swift in Sources */,
 				A384F0B929EE7215006BF197 /* TypingTextControllerNode.swift in Sources */,
 				A3B3F3FB29A3CDA10090E6E2 /* RadialGradientControllerNode.swift in Sources */,
+				A35639972A7408F500DE531F /* MetalCoreImageKernel.metal in Sources */,
 				A38D5EAB2A6D63BF00A67BC7 /* SpecBasedGridListControllerNode.swift in Sources */,
 				A3737A932A710B9200D2EA6F /* Operators.swift in Sources */,
 				A3B3F3DC29A358120090E6E2 /* ThemeManager.swift in Sources */,
@@ -1046,6 +1066,8 @@
 					"@executable_path/Frameworks",
 				);
 				MODULE_NAME = ExampleApp;
+				MTLLINKER_FLAGS = "-cikernel";
+				MTL_COMPILER_FLAGS = "-fcikernel";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1067,6 +1089,8 @@
 					"@executable_path/Frameworks",
 				);
 				MODULE_NAME = ExampleApp;
+				MTLLINKER_FLAGS = "-cikernel";
+				MTL_COMPILER_FLAGS = "-fcikernel";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;

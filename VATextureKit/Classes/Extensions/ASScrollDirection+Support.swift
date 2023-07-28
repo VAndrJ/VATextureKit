@@ -8,6 +8,8 @@
 import AsyncDisplayKit
 
 public extension ASScrollDirection {
+    /// A predefined `ASScrollDirectionVerticalDirections` constant in Swift way.
     static let vertical = ASScrollDirectionVerticalDirections
+    /// A predefined `ASScrollDirectionHorizontalDirections` constant in Swift way.
     static let horizontal = ASScrollDirectionHorizontalDirections
 }

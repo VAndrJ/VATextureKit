@@ -8,9 +8,9 @@
 import AsyncDisplayKit
 
 open class VABaseGradientNode: ASDisplayNode {
-    public var gradientLayer: CAGradientLayer { layer as! CAGradientLayer }
+    public override var layer: CAGradientLayer { super.layer as! CAGradientLayer }
 
-    private var gradientType: CAGradientLayerType?
+    private var gradientType: CAGradientLayerType!
     
     public convenience init(type: CAGradientLayerType) {
         self.init { CAGradientLayer() }
@@ -21,13 +21,13 @@ open class VABaseGradientNode: ASDisplayNode {
     open override func didLoad() {
         super.didLoad()
 
-        if let gradientType {
-            gradientLayer.type = gradientType
-        }
+        layer.type = gradientType
     }
     
     public func update(colors: (color: UIColor, location: NSNumber)...) {
-        gradientLayer.colors = colors.map(\.color.cgColor)
-        gradientLayer.locations = colors.map(\.location)
+        ensureOnMain { [self] in
+            layer.colors = colors.map(\.color.cgColor)
+            layer.locations = colors.map(\.location)
+        }
     }
 }

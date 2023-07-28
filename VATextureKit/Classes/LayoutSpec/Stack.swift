@@ -7,16 +7,23 @@
 
 import AsyncDisplayKit
 
+/// The `Stack` class is a wrapper around `ASStackLayoutSpec` for `depth towards` direction.
 public final class Stack: ASWrapperLayoutSpec {
 
+    /// Wrapper init, creates a new `Stack`
+    ///
+    /// - Parameters:
+    ///   - content: A rewult builder closure that returns an array of `ASLayoutElement` objects, representing the child elements to be included in the horizontal stack.
     public init(@LayoutSpecBuilder content: () -> [ASLayoutElement]) {
         super.init(layoutElements: content())
     }
 
     public override func calculateLayoutThatFits(_ constrainedSize: ASSizeRange) -> ASLayout {
-        let children = self.children ?? []
         var rawSubLayouts: [ASLayout] = []
         var size = constrainedSize.min
+        guard let children, !children.isEmpty else {
+            return ASLayout(layoutElement: self, size: size, sublayouts: rawSubLayouts)
+        }
         for child in children {
             let sublayout = child.layoutThatFits(constrainedSize, parentSize: constrainedSize.max)
             sublayout.position = .zero

@@ -894,7 +894,7 @@ Example:
 </details>
 
 
-<details open>
+<details>
 <summary>VACountingTextNode</summary>
 
 

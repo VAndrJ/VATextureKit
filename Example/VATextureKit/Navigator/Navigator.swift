@@ -112,6 +112,8 @@ class ScreenFactory {
             return VAViewController(node: GradientLayerAnimationControllerNode())
         case .shapeLayerAnimations:
             return VAViewController(node: ShapeLayerAnimationControllerNode())
+        case .filter:
+            return VAViewController(node: FilterControllerNode())
         }
     }
 }

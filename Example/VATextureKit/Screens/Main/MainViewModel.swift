@@ -50,6 +50,7 @@ final class MainViewModel {
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Experiments"), items: [
             MainListCellNodeViewModel(title: "VASlidingTabBarNode", description: "ASScrollNode based", route: .slidingTabBar),
             MainListCellNodeViewModel(title: "VALinkTextNode", description: "ASTextNode based", route: .linkTextNode),
+            MainListCellNodeViewModel(title: "Filter", description: "Experiments", route: .filter),
         ]),
     ])
     var listDataObs: Observable<[AnimatableSectionModel<MainSectionHeaderNodeViewModel, MainListCellNodeViewModel>]>

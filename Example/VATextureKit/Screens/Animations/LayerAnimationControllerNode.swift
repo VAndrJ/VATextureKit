@@ -414,7 +414,7 @@ private class BoundsAnimationExampleNode: VADisplayNode {
             )
             heightNode.style.height = .points(isToggled ? 100 : 20)
             widthNode.style.width = .points(isToggled ? 20 : 100)
-            setNeedsLayoutAnimated()
+            setNeedsLayoutAnimated(isWithSupernodes: true)
         }
     }
 

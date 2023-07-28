@@ -33,4 +33,5 @@ enum NavigationRoute {
     case specBasedGridList
     case gradientLayerAnimations
     case shapeLayerAnimations
+    case filter
 }
