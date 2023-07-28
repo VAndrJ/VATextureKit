@@ -37,29 +37,29 @@ open class VALinearGradientNode: VABaseGradientNode {
 
         switch gradient {
         case .vertical:
-            gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
-            gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
+            layer.startPoint = CGPoint(x: 0.5, y: 0)
+            layer.endPoint = CGPoint(x: 0.5, y: 1)
         case .horizontal:
-            gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
-            gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
+            layer.startPoint = CGPoint(x: 0, y: 0.5)
+            layer.endPoint = CGPoint(x: 1, y: 0.5)
         case let .diagonal(diagonal):
             switch diagonal {
             case .bottomLeftToTopRight:
-                gradientLayer.startPoint = CGPoint(x: 0, y: 1)
-                gradientLayer.endPoint = CGPoint(x: 1, y: 0)
+                layer.startPoint = CGPoint(x: 0, y: 1)
+                layer.endPoint = CGPoint(x: 1, y: 0)
             case .bottomRightToTopLeft:
-                gradientLayer.startPoint = CGPoint(x: 1, y: 1)
-                gradientLayer.endPoint = CGPoint(x: 0, y: 0)
+                layer.startPoint = CGPoint(x: 1, y: 1)
+                layer.endPoint = CGPoint(x: 0, y: 0)
             case .topLeftToBottomRight:
-                gradientLayer.startPoint = CGPoint(x: 0, y: 0)
-                gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+                layer.startPoint = CGPoint(x: 0, y: 0)
+                layer.endPoint = CGPoint(x: 1, y: 1)
             case .topRightToBottomLeft:
-                gradientLayer.startPoint = CGPoint(x: 1, y: 0)
-                gradientLayer.endPoint = CGPoint(x: 0, y: 1)
+                layer.startPoint = CGPoint(x: 1, y: 0)
+                layer.endPoint = CGPoint(x: 0, y: 1)
             }
         case let .custom(startPoint, endPoint):
-            gradientLayer.startPoint = startPoint
-            gradientLayer.endPoint = endPoint
+            layer.startPoint = startPoint
+            layer.endPoint = endPoint
         case .none:
             break
         }

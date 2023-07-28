@@ -33,9 +33,8 @@ final class ShapeLayerAnimationControllerNode: VASafeAreaDisplayNode {
     }
 }
 
-// swiftlint:disable force_cast
 private class FillColorExampleNode: VADisplayNode {
-    private lazy var exampleNode = ASDisplayNode(layerBlock: { CAShapeLayer() })
+    private lazy var exampleNode = VAShapeNode(data: .init(fillColor: .orange))
         .sized(height: 64)
 
     override func didLoad() {
@@ -52,7 +51,7 @@ private class FillColorExampleNode: VADisplayNode {
     override func layout() {
         super.layout()
 
-        (exampleNode.layer as! CAShapeLayer).path = UIBezierPath(rect: bounds).cgPath
+        exampleNode.layer.path = UIBezierPath(rect: bounds).cgPath
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -62,11 +61,8 @@ private class FillColorExampleNode: VADisplayNode {
 }
 
 private class PathExampleNode: VADisplayNode {
-    private lazy var exampleNode = ASDisplayNode(layerBlock: {
-        CAShapeLayer().apply {
-            $0.fillColor = UIColor.orange.cgColor
-        }
-    }).sized(height: 64)
+    private lazy var exampleNode = VAShapeNode(data: .init(fillColor: .orange))
+        .sized(height: 64)
 
     override func didLoad() {
         super.didLoad()
@@ -97,11 +93,11 @@ private class PathExampleNode: VADisplayNode {
 }
 
 private class StrokeColorExampleNode: VADisplayNode {
-    private lazy var exampleNode = ASDisplayNode(layerBlock: {
-        CAShapeLayer().apply {
-            $0.lineWidth = 10
+    private lazy var exampleNode = VAShapeNode(data: .init(strokeColor: .orange))
+        .apply {
+            $0.setLineWidth(10)
         }
-    }).sized(height: 64)
+        .sized(height: 64)
 
     override func didLoad() {
         super.didLoad()
@@ -117,7 +113,7 @@ private class StrokeColorExampleNode: VADisplayNode {
     override func layout() {
         super.layout()
 
-        (exampleNode.layer as! CAShapeLayer).path = UIBezierPath(rect: bounds).cgPath
+        exampleNode.layer.path = UIBezierPath(rect: bounds).cgPath
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -127,12 +123,11 @@ private class StrokeColorExampleNode: VADisplayNode {
 }
 
 private class StrokeEndExampleNode: VADisplayNode {
-    private lazy var exampleNode = ASDisplayNode(layerBlock: {
-        CAShapeLayer().apply {
-            $0.lineWidth = 32
-            $0.strokeColor = UIColor.orange.cgColor
+    private lazy var exampleNode = VAShapeNode(data: .init(strokeColor: .orange))
+        .apply {
+            $0.setLineWidth(32)
         }
-    }).sized(height: 64)
+        .sized(height: 64)
 
     override func didLoad() {
         super.didLoad()
@@ -148,7 +143,7 @@ private class StrokeEndExampleNode: VADisplayNode {
     override func layout() {
         super.layout()
 
-        (exampleNode.layer as! CAShapeLayer).path = UIBezierPath(rect: bounds).cgPath
+        exampleNode.layer.path = UIBezierPath(rect: bounds).cgPath
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -158,39 +153,33 @@ private class StrokeEndExampleNode: VADisplayNode {
 }
 
 private class LineDashExampleNode: VADisplayNode {
-    private lazy var exampleNode = ASDisplayNode(layerBlock: {
-        CAShapeLayer().apply {
-            $0.lineWidth = 2
-            $0.strokeColor = UIColor.orange.cgColor
-            $0.fillColor = UIColor.clear.cgColor
-            $0.lineDashPattern = [4, 4]
-            $0.lineJoin = .round
+    private lazy var exampleNode = VAShapeNode(data: .init(strokeColor: .orange))
+        .apply {
+            $0.setLineWidth(2)
+            $0.setLineDashPattern([4, 4])
+            $0.setLineJoin(.round)
+            let path = UIBezierPath()
+            path.move(to: .zero)
+            path.addLine(to: CGPoint(x: 50, y: 32))
+            path.addLine(to: CGPoint(x: 100, y: 0))
+            path.addLine(to: CGPoint(x: 150, y: 64))
+            path.addLine(to: CGPoint(x: 200, y: 0))
+            path.addLine(to: CGPoint(x: 300, y: 32))
+            path.close()
+            $0.setPath(path)
         }
-    }).sized(height: 64)
+        .sized(height: 64)
 
     override func didLoad() {
         super.didLoad()
 
         exampleNode.animate(
-            .lineDashPhase(from: 0, to: 100),
+            .lineDashPhase(from: 0, to: 80),
             duration: 2,
             repeatCount: .greatestFiniteMagnitude,
-            autoreverses: true
+            timingFunction: .linear,
+            continueFromCurrent: true
         )
-    }
-
-    override func layout() {
-        super.layout()
-
-        let path = UIBezierPath()
-        path.move(to: .zero)
-        path.addLine(to: CGPoint(x: 50, y: 32))
-        path.addLine(to: CGPoint(x: 100, y: 0))
-        path.addLine(to: CGPoint(x: 150, y: 64))
-        path.addLine(to: CGPoint(x: 200, y: 0))
-        path.addLine(to: CGPoint(x: 300, y: 32))
-        path.close()
-        (exampleNode.layer as! CAShapeLayer).path = path.cgPath
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {

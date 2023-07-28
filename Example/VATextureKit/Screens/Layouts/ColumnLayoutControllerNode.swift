@@ -55,7 +55,7 @@ final class ColumnLayoutControllerNode: VASafeAreaDisplayNode {
         super.init()
 
         scrollNode.layoutSpecBlock = { [weak self] in
-            self?.layoutSpecScroll(constrainedSize: $1) ?? ASLayoutSpec()
+            self?.scrollLayoutSpecThatFits(constrainedSize: $1) ?? ASLayoutSpec()
         }
     }
 
@@ -65,7 +65,7 @@ final class ColumnLayoutControllerNode: VASafeAreaDisplayNode {
         }
     }
 
-    func layoutSpecScroll(constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    func scrollLayoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column(spacing: 32, cross: .stretch) {
             mainCrossStartExampleNode
             mainEndExampleNode

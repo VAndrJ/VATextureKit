@@ -31,7 +31,7 @@ final class LinearGradientControllerNode: VASafeAreaDisplayNode {
         super.init()
         
         scrollNode.layoutSpecBlock = { [weak self] in
-            self?.layoutSpecScroll($1) ?? ASLayoutSpec()
+            self?.scrollLayoutSpecThatFits($1) ?? ASLayoutSpec()
         }
     }
     
@@ -45,26 +45,13 @@ final class LinearGradientControllerNode: VASafeAreaDisplayNode {
         }
     }
     
-    override func configureTheme(_ theme: VATheme) {
-        super.configureTheme(theme)
-        
-        backgroundColor = theme.systemBackground
-        verticalGradientNode.update(colors: (theme.label, 0), (theme.systemBackground, 1))
-        horizontalGradientNode.update(colors: (theme.label, 0), (theme.systemBackground, 1))
-        topLeftToBottomRightGradientNode.update(colors: (theme.label, 0), (theme.systemBackground, 1))
-        topRightToBottomLeftGradientNode.update(colors: (theme.label, 0), (theme.systemBackground, 1))
-        bottomLeftToTopRightGradientNode.update(colors: (theme.label, 0), (theme.systemBackground, 1))
-        bottomRightToTopLeftGradientNode.update(colors: (theme.label, 0), (theme.systemBackground, 1))
-        customGradientNode.update(colors: (theme.label, 0), (theme.systemBackground, 1))
-    }
-    
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
             scrollNode
         }
     }
 
-    private func layoutSpecScroll(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    private func scrollLayoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         (constrainedSize.min.width > constrainedSize.min.height).fold {
             Column {
                 contentNodes
@@ -74,5 +61,18 @@ final class LinearGradientControllerNode: VASafeAreaDisplayNode {
                 contentNodes
             }
         }
+    }
+
+    override func configureTheme(_ theme: VATheme) {
+        super.configureTheme(theme)
+
+        backgroundColor = theme.systemBackground
+        verticalGradientNode.update(colors: (theme.label, 0), (theme.systemBackground, 1))
+        horizontalGradientNode.update(colors: (theme.label, 0), (theme.systemBackground, 1))
+        topLeftToBottomRightGradientNode.update(colors: (theme.label, 0), (theme.systemBackground, 1))
+        topRightToBottomLeftGradientNode.update(colors: (theme.label, 0), (theme.systemBackground, 1))
+        bottomLeftToTopRightGradientNode.update(colors: (theme.label, 0), (theme.systemBackground, 1))
+        bottomRightToTopLeftGradientNode.update(colors: (theme.label, 0), (theme.systemBackground, 1))
+        customGradientNode.update(colors: (theme.label, 0), (theme.systemBackground, 1))
     }
 }

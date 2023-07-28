@@ -18,7 +18,7 @@ final class StackLayoutControllerNode: VASafeAreaDisplayNode {
         super.init()
 
         scrollNode.layoutSpecBlock = { [weak self] in
-            self?.layoutSpecScroll(constrainedSize: $1) ?? ASLayoutSpec()
+            self?.scrollLayoutSpecThatFits(constrainedSize: $1) ?? ASLayoutSpec()
         }
     }
 
@@ -28,7 +28,7 @@ final class StackLayoutControllerNode: VASafeAreaDisplayNode {
         }
     }
 
-    func layoutSpecScroll(constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    func scrollLayoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column(spacing: 32) {
             stackLayoutExampleNode
             stackCenteringLayoutExampleNode
@@ -54,7 +54,9 @@ private class StackLayoutExampleNode: VADisplayNode {
         Column(spacing: 8) {
             titleTextNode
             Stack {
-                pairNodes
+                pairNodes[0]
+                pairNodes[1]
+                    .padding(.all(4))
             }
         }
     }
@@ -97,6 +99,7 @@ private class StackCenteringLayoutExampleNode: VADisplayNode {
             Stack {
                 pairNodes[0]
                 pairNodes[1]
+                    .padding(.all(4))
                     .centered(centeringOptions)
             }
         }
@@ -159,6 +162,7 @@ private class StackPositionsLayoutExampleNode: VADisplayNode {
             Stack {
                 pairNodes[0]
                 pairNodes[1]
+                    .padding(.all(4))
                     .relatively(horizontal: relativeHorizontalPosition, vertical: relativeVerticalPosition)
             }
         }
