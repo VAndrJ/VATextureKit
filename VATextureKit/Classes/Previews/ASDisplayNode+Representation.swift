@@ -14,7 +14,6 @@ public extension ASDisplayNode {
         if #available(iOS 13.0, *) {
             ASTraitCollectionPropagateDown(self, ASPrimitiveTraitCollectionFromUITraitCollection(UITraitCollection.current))
         }
-        displaysAsynchronously = false
         setNeedsDisplay()
         recursivelyEnsureDisplaySynchronously(true)
         ASDisplayNodePerformBlockOnEveryNode(nil, self, true) {
@@ -23,7 +22,6 @@ public extension ASDisplayNode {
             } else if let node = $0 as? ASTableNode {
                 node.loadTableForPreview()
             } else {
-                $0.displaysAsynchronously = false
                 $0.setNeedsDisplay()
                 $0.recursivelyEnsureDisplaySynchronously(true)
             }
@@ -37,14 +35,12 @@ public extension ASCollectionNode {
         if #available(iOS 13.0, *) {
             ASTraitCollectionPropagateDown(self, ASPrimitiveTraitCollectionFromUITraitCollection(UITraitCollection.current))
         }
-        displaysAsynchronously = false
         reloadData()
         layer.removeAllAnimations()
         waitUntilAllUpdatesAreProcessed()
         setNeedsDisplay()
         recursivelyEnsureDisplaySynchronously(true)
         ASDisplayNodePerformBlockOnEveryNode(nil, self, true) {
-            $0.displaysAsynchronously = false
             $0.setNeedsDisplay()
             $0.recursivelyEnsureDisplaySynchronously(true)
         }
@@ -57,14 +53,12 @@ extension ASTableNode {
         if #available(iOS 13.0, *) {
             ASTraitCollectionPropagateDown(self, ASPrimitiveTraitCollectionFromUITraitCollection(UITraitCollection.current))
         }
-        displaysAsynchronously = false
         reloadData()
         layer.removeAllAnimations()
         waitUntilAllUpdatesAreProcessed()
         setNeedsDisplay()
         recursivelyEnsureDisplaySynchronously(true)
         ASDisplayNodePerformBlockOnEveryNode(nil, self, true) {
-            $0.displaysAsynchronously = false
             $0.setNeedsDisplay()
             $0.recursivelyEnsureDisplaySynchronously(true)
         }
