@@ -45,7 +45,6 @@
 		A359BE7A29D76C0D003BDE19 /* VADisplayNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */; };
 		A359BE7E29D76E1B003BDE19 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A359BE7D29D76E1B003BDE19 /* Environment.swift */; };
 		A364DA892A1F4973001355AE /* VATextNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A364DA882A1F4973001355AE /* VATextNodeTests.swift */; };
-		A3737A932A710B9200D2EA6F /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3737A922A710B9200D2EA6F /* Operators.swift */; };
 		A3820D1529E53BD600993406 /* VARadialGradientNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3820D1429E53BD600993406 /* VARadialGradientNodeTests.swift */; };
 		A3820D2A29E568BE00993406 /* VATextFieldNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3820D2929E568BE00993406 /* VATextFieldNode.swift */; };
 		A384F0B429EDCA7A006BF197 /* RowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A384F0B329EDCA7A006BF197 /* RowTests.swift */; };
@@ -159,7 +158,6 @@
 		A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VADisplayNodeTests.swift; sourceTree = "<group>"; };
 		A359BE7D29D76E1B003BDE19 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		A364DA882A1F4973001355AE /* VATextNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VATextNodeTests.swift; sourceTree = "<group>"; };
-		A3737A922A710B9200D2EA6F /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		A3820D1429E53BD600993406 /* VARadialGradientNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VARadialGradientNodeTests.swift; sourceTree = "<group>"; };
 		A3820D2929E568BE00993406 /* VATextFieldNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VATextFieldNode.swift; sourceTree = "<group>"; };
 		A384F0B329EDCA7A006BF197 /* RowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowTests.swift; sourceTree = "<group>"; };
@@ -423,7 +421,6 @@
 		A3820D2B29E56F3D00993406 /* Experiments */ = {
 			isa = PBXGroup;
 			children = (
-				A3737A922A710B9200D2EA6F /* Operators.swift */,
 				A31F446029F70A7A003618C9 /* VALinkTextNode.swift */,
 				A3820D2929E568BE00993406 /* VATextFieldNode.swift */,
 				A3A0BEDF29ED5AE700253AAD /* VATextNode+Support.swift */,
@@ -894,7 +891,6 @@
 				A3B3F3FB29A3CDA10090E6E2 /* RadialGradientControllerNode.swift in Sources */,
 				A35639972A7408F500DE531F /* MetalCoreImageKernel.metal in Sources */,
 				A38D5EAB2A6D63BF00A67BC7 /* SpecBasedGridListControllerNode.swift in Sources */,
-				A3737A932A710B9200D2EA6F /* Operators.swift in Sources */,
 				A3B3F3DC29A358120090E6E2 /* ThemeManager.swift in Sources */,
 				A3DDF30229DD856F009460F1 /* CompositingFilterViewModel.swift in Sources */,
 				A3B3F3F229A3B8C40090E6E2 /* LinearGradientControllerNode.swift in Sources */,
