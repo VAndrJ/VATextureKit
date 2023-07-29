@@ -123,25 +123,14 @@ public extension CALayer {
         )
     }
 
-    enum VAKeyFrameAnimation {
-        case scale(values: [CGFloat])
-        case positionX(values: [CGFloat])
-        case positionY(values: [CGFloat])
-        case opacity(values: [CGFloat])
-
-        var keyPath: String {
-            switch self {
-            case .opacity: return "opacity"
-            case .positionX: return "position.x"
-            case .positionY: return "position.y"
-            case .scale: return "transform.scale"
-            }
-        }
+    struct VALayerKeyFrameAnimation {
+        let values: [Any]
+        let keyPath: String
     }
 
     @discardableResult
     func add(
-        animation: VAKeyFrameAnimation,
+        animation: VALayerKeyFrameAnimation,
         duration: Double,
         delay: Double = 0.0,
         timeOffset: Double = 0.0,
@@ -171,7 +160,7 @@ public extension CALayer {
     }
 
     func getAnimation(
-        _ animation: VAKeyFrameAnimation,
+        _ animation: VALayerKeyFrameAnimation,
         duration: Double,
         delay: Double = 0.0,
         timeOffset: Double = 0.0,
@@ -183,28 +172,20 @@ public extension CALayer {
         additive: Bool = false,
         completion: ((Bool) -> Void)? = nil
     ) -> CAKeyframeAnimation {
-        let kfAnimation: CAKeyframeAnimation
-        switch animation {
-        case let .scale(values),
-            let .positionX(values),
-            let .positionY(values),
-            let .opacity(values):
-            kfAnimation = getAnimation(
-                keyFrames: values,
-                duration: duration,
-                delay: delay,
-                timeOffset: timeOffset,
-                repeatCount: repeatCount,
-                keyPath: animation.keyPath,
-                timingFunction: timingFunction,
-                mediaTimingFunction: mediaTimingFunction,
-                removeOnCompletion: removeOnCompletion,
-                autoreverses: autoreverses,
-                additive: additive,
-                completion: completion
-            )
-        }
-        return kfAnimation
+        getAnimation(
+            keyFrames: animation.values,
+            duration: duration,
+            delay: delay,
+            timeOffset: timeOffset,
+            repeatCount: repeatCount,
+            keyPath: animation.keyPath,
+            timingFunction: timingFunction,
+            mediaTimingFunction: mediaTimingFunction,
+            removeOnCompletion: removeOnCompletion,
+            autoreverses: autoreverses,
+            additive: additive,
+            completion: completion
+        )
     }
 
     private func getAnimation(
