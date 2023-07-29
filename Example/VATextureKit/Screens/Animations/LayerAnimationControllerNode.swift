@@ -273,6 +273,7 @@ private class ScaleAnimationExampleNode: VADisplayNode {
     private lazy var  buttonNode = HapticButtonNode()
     private var isToggled = false {
         didSet {
+//            exampleNode.animate(.lo, duration: <#T##Double#>)
             exampleNode.animate(
                 .scale(
                     from: oldValue ? 1.1 : 1,

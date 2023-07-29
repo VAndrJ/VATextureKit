@@ -460,7 +460,7 @@ public extension ASDisplayNode {
 
     @discardableResult
     func animate(
-        _ animation: CALayer.VAAnimation,
+        _ animation: CALayer.VALayerAnimation,
         duration: Double,
         delay: Double = 0.0,
         timeOffset: Double = 0.0,
@@ -494,7 +494,7 @@ public extension ASDisplayNode {
                 completion: completion
             )
             if applyingResult {
-                layer.setValue(animation.values.to, forKeyPath: animation.keyPath)
+                layer.setValue(animation.to, forKeyPath: animation.keyPath)
             }
         }
         return self

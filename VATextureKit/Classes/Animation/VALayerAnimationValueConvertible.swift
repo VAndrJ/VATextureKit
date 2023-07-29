@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol VALayerAnimationValueConvertible {
+public protocol VALayerAnimationValueConvertible {
     var animationValue: Any { get }
 
     func getIsEqual(to: Any?) -> Bool
@@ -15,16 +15,16 @@ protocol VALayerAnimationValueConvertible {
 }
 
 extension CGFloat: VALayerAnimationValueConvertible {
-    var animationValue: Any { self as NSNumber }
+    public var animationValue: Any { self as NSNumber }
 
-    func getIsEqual(to: Any?) -> Bool {
+    public func getIsEqual(to: Any?) -> Bool {
         guard let to = to as? CGFloat else {
             return false
         }
         return to == self
     }
 
-    func getProgressMultiplier(to: Any?, current: Any?) -> Double {
+    public func getProgressMultiplier(to: Any?, current: Any?) -> Double {
         guard let to = to as? CGFloat else {
             return 0
         }
@@ -51,16 +51,16 @@ extension CGFloat: VALayerAnimationValueConvertible {
 }
 
 extension CGPoint: VALayerAnimationValueConvertible {
-    var animationValue: Any { NSValue(cgPoint: self) }
+    public var animationValue: Any { NSValue(cgPoint: self) }
 
-    func getIsEqual(to: Any?) -> Bool {
+    public func getIsEqual(to: Any?) -> Bool {
         guard let to = to as? CGPoint else {
             return false
         }
         return to == self
     }
 
-    func getProgressMultiplier(to: Any?, current: Any?) -> Double {
+    public func getProgressMultiplier(to: Any?, current: Any?) -> Double {
         guard let to = to as? CGPoint else {
             return 0
         }
@@ -75,16 +75,16 @@ extension CGPoint: VALayerAnimationValueConvertible {
 }
 
 extension CGRect: VALayerAnimationValueConvertible {
-    var animationValue: Any { NSValue(cgRect: self) }
+    public var animationValue: Any { NSValue(cgRect: self) }
 
-    func getIsEqual(to: Any?) -> Bool {
+    public func getIsEqual(to: Any?) -> Bool {
         guard let to = to as? CGRect else {
             return false
         }
         return to == self
     }
 
-    func getProgressMultiplier(to: Any?, current: Any?) -> Double {
+    public func getProgressMultiplier(to: Any?, current: Any?) -> Double {
         guard let to = to as? CGRect else {
             return 0
         }
@@ -99,16 +99,16 @@ extension CGRect: VALayerAnimationValueConvertible {
 }
 
 extension CGSize: VALayerAnimationValueConvertible {
-    var animationValue: Any { NSValue(cgSize: self) }
+    public var animationValue: Any { NSValue(cgSize: self) }
 
-    func getIsEqual(to: Any?) -> Bool {
+    public func getIsEqual(to: Any?) -> Bool {
         guard let to = to as? CGSize else {
             return false
         }
         return to == self
     }
 
-    func getProgressMultiplier(to: Any?, current: Any?) -> Double {
+    public func getProgressMultiplier(to: Any?, current: Any?) -> Double {
         guard let to = to as? CGSize else {
             return 0
         }
@@ -123,16 +123,16 @@ extension CGSize: VALayerAnimationValueConvertible {
 }
 
 extension UIColor: VALayerAnimationValueConvertible {
-    var animationValue: Any { cgColor }
+    public var animationValue: Any { cgColor }
 
-    func getIsEqual(to: Any?) -> Bool {
+    public func getIsEqual(to: Any?) -> Bool {
         guard let to = to as? UIColor else {
             return false
         }
         return to == self
     }
 
-    func getProgressMultiplier(to: Any?, current: Any?) -> Double {
+    public func getProgressMultiplier(to: Any?, current: Any?) -> Double {
         guard let to = (to as? UIColor)?.rgba else {
             return 0
         }
@@ -149,9 +149,9 @@ extension UIColor: VALayerAnimationValueConvertible {
 }
 
 extension CGPath: VALayerAnimationValueConvertible {
-    var animationValue: Any { self }
+    public var animationValue: Any { self }
 
-    func getIsEqual(to: Any?) -> Bool {
+    public func getIsEqual(to: Any?) -> Bool {
         if let to, type(of: to) == CGPath.self {
             return (to as! CGPath) == self
         } else {
@@ -162,22 +162,37 @@ extension CGPath: VALayerAnimationValueConvertible {
 //        }
     }
 
-    func getProgressMultiplier(to: Any?, current: Any?) -> Double {
+    public func getProgressMultiplier(to: Any?, current: Any?) -> Double {
+        return 0
+    }
+}
+
+extension UIBezierPath: VALayerAnimationValueConvertible {
+    public var animationValue: Any { cgPath }
+
+    public func getIsEqual(to: Any?) -> Bool {
+        guard let to = to as? UIBezierPath else {
+            return false
+        }
+        return cgPath == to.cgPath
+    }
+
+    public func getProgressMultiplier(to: Any?, current: Any?) -> Double {
         return 0
     }
 }
 
 extension Array: VALayerAnimationValueConvertible where Element: VALayerAnimationValueConvertible & Equatable {
-    var animationValue: Any { map(\.animationValue) }
+    public var animationValue: Any { map(\.animationValue) }
 
-    func getIsEqual(to: Any?) -> Bool {
+    public func getIsEqual(to: Any?) -> Bool {
         guard let to = to as? [Element] else {
             return false
         }
         return to == self
     }
 
-    func getProgressMultiplier(to: Any?, current: Any?) -> Double {
+    public func getProgressMultiplier(to: Any?, current: Any?) -> Double {
         guard let to = to as? [VALayerAnimationValueConvertible] else {
             return 0
         }
