@@ -14,6 +14,8 @@
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		A310A43229CF471400632416 /* CellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A310A43129CF471400632416 /* CellViewModel.swift */; };
+		A311B22E2A7668240025B060 /* ElementsScrollingAnimationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A311B22D2A7668240025B060 /* ElementsScrollingAnimationListViewController.swift */; };
+		A311B2302A768C490025B060 /* VAScrollRespondingEdgeCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A311B22F2A768C490025B060 /* VAScrollRespondingEdgeCellNode.swift */; };
 		A31F445D29F6AD76003618C9 /* PagerControllerNodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F445C29F6AD76003618C9 /* PagerControllerNodeViewModel.swift */; };
 		A31F445F29F6ADC7003618C9 /* PagerIndicatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F445E29F6ADC7003618C9 /* PagerIndicatorNode.swift */; };
 		A31F446129F70A7A003618C9 /* VALinkTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F446029F70A7A003618C9 /* VALinkTextNode.swift */; };
@@ -45,7 +47,6 @@
 		A359BE7A29D76C0D003BDE19 /* VADisplayNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */; };
 		A359BE7E29D76E1B003BDE19 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A359BE7D29D76E1B003BDE19 /* Environment.swift */; };
 		A364DA892A1F4973001355AE /* VATextNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A364DA882A1F4973001355AE /* VATextNodeTests.swift */; };
-		A3737A932A710B9200D2EA6F /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3737A922A710B9200D2EA6F /* Operators.swift */; };
 		A3820D1529E53BD600993406 /* VARadialGradientNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3820D1429E53BD600993406 /* VARadialGradientNodeTests.swift */; };
 		A3820D2A29E568BE00993406 /* VATextFieldNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3820D2929E568BE00993406 /* VATextFieldNode.swift */; };
 		A384F0B429EDCA7A006BF197 /* RowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A384F0B329EDCA7A006BF197 /* RowTests.swift */; };
@@ -82,6 +83,7 @@
 		A3B3F3FB29A3CDA10090E6E2 /* RadialGradientControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3FA29A3CDA10090E6E2 /* RadialGradientControllerNode.swift */; };
 		A3B7F23829F0632E00CAA52D /* ReadMoreTextControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B7F23729F0632E00CAA52D /* ReadMoreTextControllerNode.swift */; };
 		A3BCEC5729CFA6770077217F /* LoadingCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BCEC5629CFA6770077217F /* LoadingCellNode.swift */; };
+		A3CC9FAF2A75B82800A66DC0 /* KeyframeAnimationsControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CC9FAE2A75B82800A66DC0 /* KeyframeAnimationsControllerNode.swift */; };
 		A3D2488529CF860300EE1907 /* VAStateModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D2488429CF860300EE1907 /* VAStateModelTests.swift */; };
 		A3D2488A29CF869900EE1907 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D2488929CF869900EE1907 /* Support.swift */; };
 		A3D2FAC229D89E1300AA01CA /* MainListCellNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D2FAC029D89DD900AA01CA /* MainListCellNodeTests.swift */; };
@@ -128,6 +130,8 @@
 		6D876C31217CA656A4FE2F15 /* Pods-VATextureKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VATextureKit_Example.debug.xcconfig"; path = "Target Support Files/Pods-VATextureKit_Example/Pods-VATextureKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		7E7793BF92D39325720321EF /* Pods-VATextureKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VATextureKit_Example.release.xcconfig"; path = "Target Support Files/Pods-VATextureKit_Example/Pods-VATextureKit_Example.release.xcconfig"; sourceTree = "<group>"; };
 		A310A43129CF471400632416 /* CellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellViewModel.swift; sourceTree = "<group>"; };
+		A311B22D2A7668240025B060 /* ElementsScrollingAnimationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementsScrollingAnimationListViewController.swift; sourceTree = "<group>"; };
+		A311B22F2A768C490025B060 /* VAScrollRespondingEdgeCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAScrollRespondingEdgeCellNode.swift; sourceTree = "<group>"; };
 		A31F445C29F6AD76003618C9 /* PagerControllerNodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerControllerNodeViewModel.swift; sourceTree = "<group>"; };
 		A31F445E29F6ADC7003618C9 /* PagerIndicatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerIndicatorNode.swift; sourceTree = "<group>"; };
 		A31F446029F70A7A003618C9 /* VALinkTextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VALinkTextNode.swift; sourceTree = "<group>"; };
@@ -159,7 +163,6 @@
 		A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VADisplayNodeTests.swift; sourceTree = "<group>"; };
 		A359BE7D29D76E1B003BDE19 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		A364DA882A1F4973001355AE /* VATextNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VATextNodeTests.swift; sourceTree = "<group>"; };
-		A3737A922A710B9200D2EA6F /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		A3820D1429E53BD600993406 /* VARadialGradientNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VARadialGradientNodeTests.swift; sourceTree = "<group>"; };
 		A3820D2929E568BE00993406 /* VATextFieldNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VATextFieldNode.swift; sourceTree = "<group>"; };
 		A384F0B329EDCA7A006BF197 /* RowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowTests.swift; sourceTree = "<group>"; };
@@ -197,6 +200,7 @@
 		A3B7F23729F0632E00CAA52D /* ReadMoreTextControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMoreTextControllerNode.swift; sourceTree = "<group>"; };
 		A3BCEC5629CFA6770077217F /* LoadingCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCellNode.swift; sourceTree = "<group>"; };
 		A3C617D329E47E7700CA75B5 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		A3CC9FAE2A75B82800A66DC0 /* KeyframeAnimationsControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyframeAnimationsControllerNode.swift; sourceTree = "<group>"; };
 		A3D2488429CF860300EE1907 /* VAStateModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAStateModelTests.swift; sourceTree = "<group>"; };
 		A3D2488929CF869900EE1907 /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
 		A3D2FAC029D89DD900AA01CA /* MainListCellNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListCellNodeTests.swift; sourceTree = "<group>"; };
@@ -370,10 +374,11 @@
 		A33CDF3129D9B85F005F77C6 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
-				A33CDF3229D9B875005F77C6 /* TransitionAnimationControllerNode.swift */,
-				A3A72F642A6A68A90008B2DC /* LayerAnimationControllerNode.swift */,
 				A356398F2A72D24300DE531F /* GradientLayerAnimationControllerNode.swift */,
+				A3CC9FAE2A75B82800A66DC0 /* KeyframeAnimationsControllerNode.swift */,
+				A3A72F642A6A68A90008B2DC /* LayerAnimationControllerNode.swift */,
 				A35639912A72E0D300DE531F /* ShapeLayerAnimationControllerNode.swift */,
+				A33CDF3229D9B875005F77C6 /* TransitionAnimationControllerNode.swift */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
@@ -382,6 +387,7 @@
 			isa = PBXGroup;
 			children = (
 				A38D5E972A6C14F200A67BC7 /* DynamicHeightGridListControllerNode.swift */,
+				A311B22D2A7668240025B060 /* ElementsScrollingAnimationListViewController.swift */,
 				A38D5EAA2A6D63BF00A67BC7 /* SpecBasedGridListControllerNode.swift */,
 				A3F8890129CE314500C67187 /* CollectionListDifferentCells */,
 				A34F8E7329F439E400EF4C42 /* CollectionListHeaderFooter */,
@@ -423,7 +429,6 @@
 		A3820D2B29E56F3D00993406 /* Experiments */ = {
 			isa = PBXGroup;
 			children = (
-				A3737A922A710B9200D2EA6F /* Operators.swift */,
 				A31F446029F70A7A003618C9 /* VALinkTextNode.swift */,
 				A3820D2929E568BE00993406 /* VATextFieldNode.swift */,
 				A3A0BEDF29ED5AE700253AAD /* VATextNode+Support.swift */,
@@ -558,6 +563,7 @@
 				A34F8E8429F576C000EF4C42 /* PagerCardCellNode.swift */,
 				A31F445E29F6ADC7003618C9 /* PagerIndicatorNode.swift */,
 				A38D5EAC2A6D654C00A67BC7 /* TagCellNode.swift */,
+				A311B22F2A768C490025B060 /* VAScrollRespondingEdgeCellNode.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -874,15 +880,18 @@
 				A3A0BEE229ED650000253AAD /* ColumnLayoutControllerNode.swift in Sources */,
 				A34F8E7E29F46B4000EF4C42 /* CollectionListSectionHeaderCellNode.swift in Sources */,
 				A3B3F3D329A2C8280090E6E2 /* MainViewModel.swift in Sources */,
+				A311B22E2A7668240025B060 /* ElementsScrollingAnimationListViewController.swift in Sources */,
 				A3A0BEE029ED5AE700253AAD /* VATextNode+Support.swift in Sources */,
 				A3F8890329CE316100C67187 /* CollectionListDifferentCellsNodeController.swift in Sources */,
 				A3A0BED629ED4D2D00253AAD /* RowLayoutControllerNode.swift in Sources */,
 				A35639902A72D24300DE531F /* GradientLayerAnimationControllerNode.swift in Sources */,
 				A3F8890929CE37BD00C67187 /* ImageCellNode.swift in Sources */,
 				A3820D2A29E568BE00993406 /* VATextFieldNode.swift in Sources */,
+				A3CC9FAF2A75B82800A66DC0 /* KeyframeAnimationsControllerNode.swift in Sources */,
 				A31F445D29F6AD76003618C9 /* PagerControllerNodeViewModel.swift in Sources */,
 				A35639922A72E0D300DE531F /* ShapeLayerAnimationControllerNode.swift in Sources */,
 				A31F445F29F6ADC7003618C9 /* PagerIndicatorNode.swift in Sources */,
+				A311B2302A768C490025B060 /* VAScrollRespondingEdgeCellNode.swift in Sources */,
 				A356399B2A740C0E00DE531F /* FilterControllerNode.swift in Sources */,
 				A34F8E7929F43AF700EF4C42 /* CollectionListHeaderFooterViewModel.swift in Sources */,
 				A31F446129F70A7A003618C9 /* VALinkTextNode.swift in Sources */,
@@ -894,7 +903,6 @@
 				A3B3F3FB29A3CDA10090E6E2 /* RadialGradientControllerNode.swift in Sources */,
 				A35639972A7408F500DE531F /* MetalCoreImageKernel.metal in Sources */,
 				A38D5EAB2A6D63BF00A67BC7 /* SpecBasedGridListControllerNode.swift in Sources */,
-				A3737A932A710B9200D2EA6F /* Operators.swift in Sources */,
 				A3B3F3DC29A358120090E6E2 /* ThemeManager.swift in Sources */,
 				A3DDF30229DD856F009460F1 /* CompositingFilterViewModel.swift in Sources */,
 				A3B3F3F229A3B8C40090E6E2 /* LinearGradientControllerNode.swift in Sources */,

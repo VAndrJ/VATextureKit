@@ -11,10 +11,10 @@ import AsyncDisplayKit
 // swiftlint:disable all
 public extension CALayer {
     struct VASpring {
-        let initialVelocity: CGFloat
-        let damping: CGFloat
-        let mass: CGFloat
-        let swiftness: CGFloat
+        public let initialVelocity: CGFloat
+        public let damping: CGFloat
+        public let mass: CGFloat
+        public let swiftness: CGFloat
 
         public init(initialVelocity: CGFloat = 0, damping: CGFloat = 100, mass: CGFloat = 2, swiftness: CGFloat = 100) {
             self.initialVelocity = initialVelocity
@@ -24,210 +24,42 @@ public extension CALayer {
         }
     }
 
-    enum VAAnimation {
-        case anchor(from: CGPoint, to: CGPoint)
-        case backgroundColor(from: UIColor, to: UIColor)
-        case borderColor(from: UIColor, to: UIColor)
-        case borderWidth(from: CGFloat, to: CGFloat)
-        case cornerRadius(from: CGFloat, to: CGFloat)
-        case opacity(from: CGFloat, to: CGFloat)
-        case scale(from: CGFloat, to: CGFloat)
-        case scaleX(from: CGFloat, to: CGFloat)
-        case scaleY(from: CGFloat, to: CGFloat)
-        case shadowColor(from: UIColor, to: UIColor)
-        case shadowOpacity(from: CGFloat, to: CGFloat)
-        case shadowOffset(from: CGSize, to: CGSize)
-        case shadowRadius(from: CGFloat, to: CGFloat)
-        case position(from: CGPoint, to: CGPoint)
-        case positionX(from: CGFloat, to: CGFloat)
-        case positionY(from: CGFloat, to: CGFloat)
-        case bounds(from: CGRect, to: CGRect)
-        case originX(from: CGFloat, to: CGFloat)
-        case originY(from: CGFloat, to: CGFloat)
-        case width(from: CGFloat, to: CGFloat)
-        case height(from: CGFloat, to: CGFloat)
-        case rotation(from: CGFloat, to: CGFloat)
-        case zPosition(from: CGFloat, to: CGFloat)
-        // CAGradientLayer
-        case locations(from: [CGFloat], to: [CGFloat])
-        case colors(from: [UIColor], to: [UIColor])
-        case startPoint(from: CGPoint, to: CGPoint)
-        case endPoint(from: CGPoint, to: CGPoint)
-        // CAShapeLayer
-        case lineDashPhase(from: CGFloat, to: CGFloat)
-        case miterLimit(from: CGFloat, to: CGFloat)
-        case lineWidth(from: CGFloat, to: CGFloat)
-        case strokeStart(from: CGFloat, to: CGFloat)
-        case strokeEnd(from: CGFloat, to: CGFloat)
-        case strokeColor(from: UIColor, to: UIColor)
-        case fillColor(from: UIColor, to: UIColor)
-        case path(from: CGPath, to: CGPath)
+    struct VALayerAnimation {
+        public let from: Any?
+        public let to: Any?
+        public let fromOriginalValue: Any?
+        public let toOriginalValue: Any?
+        public let keyPath: String
+        public let isToEqualsFrom: Bool
 
-        var keyPath: String {
-            switch self {
-            case .anchor: return "anchorPoint"
-            case .backgroundColor: return "backgroundColor"
-            case .borderColor: return "borderColor"
-            case .borderWidth: return "borderWidth"
-            case .bounds: return "bounds"
-            case .colors: return "colors"
-            case .cornerRadius: return "cornerRadius"
-            case .originX: return "bounds.origin.x"
-            case .originY: return "bounds.origin.y"
-            case .width: return "bounds.size.width"
-            case .height: return "bounds.size.height"
-            case .locations: return "locations"
-            case .position: return "position"
-            case .positionX: return "position.x"
-            case .positionY: return "position.y"
-            case .opacity: return "opacity"
-            case .scale: return "transform.scale"
-            case .scaleX: return "transform.scale.x"
-            case .scaleY: return "transform.scale.y"
-            case .shadowColor: return "shadowColor"
-            case .shadowOpacity: return "shadowOpacity"
-            case .shadowOffset: return "shadowOffset"
-            case .shadowRadius: return "shadowRadius"
-            case .rotation: return "transform.rotation.z"
-            case .startPoint: return "startPoint"
-            case .endPoint: return "endPoint"
-            case .zPosition: return "zPosition"
-            case .lineDashPhase: return "lineDashPhase"
-            case .miterLimit: return "miterLimit"
-            case .lineWidth: return "lineWidth"
-            case .strokeStart: return "strokeStart"
-            case .strokeEnd: return "strokeEnd"
-            case .strokeColor: return "strokeColor"
-            case .fillColor: return "fillColor"
-            case .path: return "path"
-            }
-        }
-        var isToEqualsFrom: Bool {
-            switch self {
-            case let .anchor(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .backgroundColor(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .borderColor(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .borderWidth(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .bounds(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .colors(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .cornerRadius(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .originX(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .originY(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .width(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .height(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .locations(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .position(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .positionX(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .positionY(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .opacity(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .scale(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .scaleX(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .scaleY(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .shadowColor(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .shadowOpacity(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .shadowOffset(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .shadowRadius(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .rotation(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .startPoint(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .endPoint(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .lineDashPhase(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .miterLimit(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .lineWidth(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .strokeStart(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .strokeEnd(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .strokeColor(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .fillColor(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .path(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .zPosition(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible):
-                return from.getIsEqual(to: to)
-            }
-        }
-        var values: (from: Any, to: Any) {
-            switch self {
-            case let .anchor(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .backgroundColor(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .borderColor(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .borderWidth(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .bounds(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .colors(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .cornerRadius(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .originX(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .originY(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .width(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .height(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .locations(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .position(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .positionX(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .positionY(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .opacity(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .scale(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .scaleX(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .scaleY(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .shadowColor(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .shadowOpacity(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .shadowOffset(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .shadowRadius(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .rotation(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .startPoint(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .endPoint(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .lineDashPhase(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .miterLimit(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .lineWidth(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .strokeStart(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .strokeEnd(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .strokeColor(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .fillColor(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .path(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .zPosition(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible):
-                return (from.animationValue, to.animationValue)
-            }
+        public init(
+            from: Any?,
+            to: Any?,
+            fromOriginalValue: Any?,
+            toOriginalValue: Any?,
+            keyPath: String,
+            isToEqualsFrom: Bool
+        ) {
+            self.from = from
+            self.to = to
+            self.fromOriginalValue = fromOriginalValue
+            self.toOriginalValue = toOriginalValue
+            self.keyPath = keyPath
+            self.isToEqualsFrom = isToEqualsFrom
         }
 
         func getProgressMultiplier(current: Any?) -> Double {
-            switch self {
-            case let .anchor(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .backgroundColor(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .borderColor(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .borderWidth(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .bounds(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .colors(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .cornerRadius(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .originX(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .originY(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .width(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .height(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .locations(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .position(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .positionX(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .positionY(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .opacity(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .scale(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .scaleX(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .scaleY(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .shadowColor(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .shadowOpacity(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .shadowOffset(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .shadowRadius(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .rotation(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .startPoint(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .endPoint(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .lineDashPhase(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .miterLimit(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .lineWidth(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .strokeStart(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .strokeEnd(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .strokeColor(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .fillColor(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .path(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible),
-                let .zPosition(from as VALayerAnimationValueConvertible, to as VALayerAnimationValueConvertible):
-                return from.getProgressMultiplier(to: to, current: current)
+            if let fromOriginalValue = fromOriginalValue as? VALayerAnimationValueConvertible {
+                return fromOriginalValue.getProgressMultiplier(to: toOriginalValue, current: current)
+            } else {
+                return 0
             }
         }
     }
 
     @discardableResult
     func add(
-        animation: VAAnimation,
+        animation: VALayerAnimation,
         duration: Double,
         delay: Double = 0.0,
         timeOffset: Double = 0.0,
@@ -267,7 +99,7 @@ public extension CALayer {
     }
 
     func getAnimation(
-        _ animation: VAAnimation,
+        _ animation: VALayerAnimation,
         duration: Double,
         delay: Double = 0.0,
         timeOffset: Double = 0.0,
@@ -282,18 +114,8 @@ public extension CALayer {
         spring: VASpring? = nil,
         completion: ((Bool) -> Void)? = nil
     ) -> CABasicAnimation {
-#if DEBUG
-        switch animation {
-        case .locations, .colors, .startPoint, .endPoint:
-            assert(self is CAGradientLayer)
-        case .lineDashPhase, .miterLimit, .lineWidth, .strokeStart, .strokeEnd, .strokeColor, .fillColor, .path:
-            assert(self is CAShapeLayer)
-        default:
-            break
-        }
-#endif
         var duration = duration
-        var (from, to) = animation.values
+        var from = animation.from
         if delay.isZero, continueFromCurrent, let value = presentation()?.value(forKeyPath: animation.keyPath) {
             let progress = animation.getProgressMultiplier(current: value)
             duration *= progress
@@ -301,7 +123,7 @@ public extension CALayer {
         }
         return getAnimation(
             from: from,
-            to: to,
+            to: animation.to,
             keyPath: animation.keyPath,
             duration: duration,
             delay: delay,
@@ -317,25 +139,19 @@ public extension CALayer {
         )
     }
 
-    enum VAKeyFrameAnimation {
-        case scale(values: [CGFloat])
-        case positionX(values: [CGFloat])
-        case positionY(values: [CGFloat])
-        case opacity(values: [CGFloat])
+    struct VALayerKeyframeAnimation {
+        public let values: [Any]
+        public let keyPath: String
 
-        var keyPath: String {
-            switch self {
-            case .opacity: return "opacity"
-            case .positionX: return "position.x"
-            case .positionY: return "position.y"
-            case .scale: return "transform.scale"
-            }
+        public init(values: [Any], keyPath: String) {
+            self.values = values
+            self.keyPath = keyPath
         }
     }
 
     @discardableResult
     func add(
-        animation: VAKeyFrameAnimation,
+        animation: VALayerKeyframeAnimation,
         duration: Double,
         delay: Double = 0.0,
         timeOffset: Double = 0.0,
@@ -365,7 +181,7 @@ public extension CALayer {
     }
 
     func getAnimation(
-        _ animation: VAKeyFrameAnimation,
+        _ animation: VALayerKeyframeAnimation,
         duration: Double,
         delay: Double = 0.0,
         timeOffset: Double = 0.0,
@@ -377,28 +193,20 @@ public extension CALayer {
         additive: Bool = false,
         completion: ((Bool) -> Void)? = nil
     ) -> CAKeyframeAnimation {
-        let kfAnimation: CAKeyframeAnimation
-        switch animation {
-        case let .scale(values),
-            let .positionX(values),
-            let .positionY(values),
-            let .opacity(values):
-            kfAnimation = getAnimation(
-                keyFrames: values,
-                duration: duration,
-                delay: delay,
-                timeOffset: timeOffset,
-                repeatCount: repeatCount,
-                keyPath: animation.keyPath,
-                timingFunction: timingFunction,
-                mediaTimingFunction: mediaTimingFunction,
-                removeOnCompletion: removeOnCompletion,
-                autoreverses: autoreverses,
-                additive: additive,
-                completion: completion
-            )
-        }
-        return kfAnimation
+        getAnimation(
+            keyFrames: animation.values,
+            duration: duration,
+            delay: delay,
+            timeOffset: timeOffset,
+            repeatCount: repeatCount,
+            keyPath: animation.keyPath,
+            timingFunction: timingFunction,
+            mediaTimingFunction: mediaTimingFunction,
+            removeOnCompletion: removeOnCompletion,
+            autoreverses: autoreverses,
+            additive: additive,
+            completion: completion
+        )
     }
 
     private func getAnimation(
@@ -486,7 +294,7 @@ public extension CALayer {
 
     private func getAnimation(
         from: Any?,
-        to: Any,
+        to: Any?,
         keyPath: String,
         duration: Double,
         delay: Double,

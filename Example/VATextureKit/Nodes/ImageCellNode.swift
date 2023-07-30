@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-class ImageCellNode: VACellNode {
+class ImageCellNode: VAScrollRespondingEdgeCellNode {
     let imageNode: VANetworkImageNode
     let viewModel: ImageCellNodeViewModel
     
@@ -19,7 +19,11 @@ class ImageCellNode: VACellNode {
             contentMode: .scaleAspectFill
         ))
         
-        super.init()
+        super.init(onScroll: viewModel.onScroll)
+
+        if let cornerRadius = viewModel.cornerRadius {
+            self.cornerRadius = cornerRadius
+        }
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -35,10 +39,19 @@ class ImageCellNode: VACellNode {
 class ImageCellNodeViewModel: CellViewModel {
     let image: String?
     let ratio: CGFloat
+    let cornerRadius: CGFloat?
+    let onScroll: VAEdgeCellChangeOnScroll
 
-    init(image: String? = nil, ratio: CGFloat = 1) {
+    init(
+        image: String? = nil,
+        ratio: CGFloat = 1,
+        cornerRadius: CGFloat? = nil,
+        onScroll: VAEdgeCellChangeOnScroll = .none
+    ) {
         self.image = image
         self.ratio = ratio
+        self.cornerRadius = cornerRadius
+        self.onScroll = onScroll
     }
 }
 

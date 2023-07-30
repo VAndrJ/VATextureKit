@@ -20,6 +20,7 @@ final class MainViewModel {
             MainListCellNodeViewModel(title: "Layer", description: "Layer animations", route: .layerAnimations),
             MainListCellNodeViewModel(title: "Gradient Layer", description: "Layer animations", route: .gradientLayerAnimations),
             MainListCellNodeViewModel(title: "Shape layer", description: "Layer animations", route: .shapeLayerAnimations),
+            MainListCellNodeViewModel(title: "Keyframe", description: "Layer animations", route: .keyframeLayerAnimations),
         ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "System"), items: [
             MainListCellNodeViewModel(title: "Appearance", description: "Select theme", route: .apearance),
@@ -35,6 +36,7 @@ final class MainViewModel {
             MainListCellNodeViewModel(title: "List with header and footer\nMove items on long press", description: "ASCollectionNode based", route: .collectionListHeaderFooter),
             MainListCellNodeViewModel(title: "Dynamic height grid list layout", description: "ASCollectionNode based", route: .dynamicHeightGridList),
             MainListCellNodeViewModel(title: "Spec based grid list layout", description: "ASCollectionNode based", route: .specBasedGridList),
+            MainListCellNodeViewModel(title: "Cells responding to scroll", description: "ASCollectionNode based", route: .elementsScrollingAnimationList),
         ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Compositing"), items: [
             MainListCellNodeViewModel(title: "Blend mode", description: "Layer", route: .blendMode),

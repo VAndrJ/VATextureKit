@@ -5,7 +5,7 @@
 //  Created by Volodymyr Andriienko on 24.07.2023.
 //
 
-import Foundation
+import UIKit
 
 public extension UIViewController {
      var isTransitionAnimationEnabled: Bool {

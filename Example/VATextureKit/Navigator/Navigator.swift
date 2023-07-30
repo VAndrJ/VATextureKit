@@ -114,6 +114,10 @@ class ScreenFactory {
             return VAViewController(node: ShapeLayerAnimationControllerNode())
         case .filter:
             return VAViewController(node: FilterControllerNode())
+        case .keyframeLayerAnimations:
+            return VAViewController(node: KeyframeAnimationsControllerNode())
+        case .elementsScrollingAnimationList:
+            return ElementsScrollingAnimationListViewController()
         }
     }
 }

@@ -14,10 +14,7 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
     private lazy var scaleAnimationExampleNode = ScaleAnimationExampleNode()
     private lazy var rotationAnimationExampleNode = RotationAnimationExampleNode()
     private lazy var cornerRadiusAnimationExampleNode = CornerRadiusAnimationExampleNode()
-    private lazy var pulseAnimationExampleNode = PulseAnimationExampleNode()
-    private lazy var shakeAnimationExampleNode = ShakeAnimationExampleNode()
     private lazy var colorAnimationExampleNode = ColorAnimationExampleNode()
-    private lazy var shakeAnimationPauseResumeExampleNode = ShakeAnimationPauseResumeExampleNode()
     private lazy var scrollNode = VAScrollNode(data: .init())
 
     override init() {
@@ -42,142 +39,12 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
             scaleAnimationExampleNode
             rotationAnimationExampleNode
             cornerRadiusAnimationExampleNode
-            pulseAnimationExampleNode
-            shakeAnimationExampleNode
-            shakeAnimationPauseResumeExampleNode
         }
         .padding(.all(16))
     }
 
     override func configureTheme(_ theme: VATheme) {
         backgroundColor = theme.systemBackground
-    }
-}
-
-private class ShakeAnimationPauseResumeExampleNode: VADisplayNode {
-    private lazy var shakeXNode = VADisplayNode()
-        .sized(width: 100, height: 20)
-    private lazy var buttonNode = HapticButtonNode()
-    private lazy var pauseButtonNode = HapticButtonNode()
-    private lazy var resumeButtonNode = HapticButtonNode()
-    private var isToggled = false {
-        didSet {
-            setNeedsLayout()
-            shakeXNode.animate(
-                .positionX(values: [0, -100, 0, +100, 0] + shakeXNode.position.x),
-                duration: 2,
-                repeatCount: .greatestFiniteMagnitude,
-                autoreverses: true
-            )
-        }
-    }
-
-    override func didLoad() {
-        super.didLoad()
-
-        bind()
-    }
-
-    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        Column(cross: .center) {
-            shakeXNode
-            if isToggled {
-                Row(spacing: 32) {
-                    pauseButtonNode
-                    resumeButtonNode
-                }
-            } else {
-                buttonNode
-            }
-        }
-    }
-
-    override func configureTheme(_ theme: VATheme) {
-        shakeXNode.backgroundColor = theme.label
-        buttonNode.configure(title: "Animate shake", theme: theme)
-        pauseButtonNode.configure(title: "Pause", theme: theme)
-        resumeButtonNode.configure(title: "Resume", theme: theme)
-    }
-
-    private func bind() {
-        buttonNode.onTap = self ?> { $0.isToggled = true }
-        pauseButtonNode.onTap = self ?>> { $0.shakeXNode.pauseAnimations }
-        resumeButtonNode.onTap = self ?>> { $0.shakeXNode.resumeAnimations }
-    }
-}
-
-private class ShakeAnimationExampleNode: VADisplayNode {
-    private lazy var shakeXNode = VADisplayNode()
-        .sized(width: 100, height: 20)
-    private lazy var shakeYNode = VADisplayNode()
-        .sized(width: 100, height: 20)
-    private lazy var buttonNode = HapticButtonNode()
-
-    override func didLoad() {
-        super.didLoad()
-
-        bind()
-    }
-
-    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        Column(cross: .stretch) {
-            Row(main: .spaceAround) {
-                shakeXNode
-                shakeYNode
-            }
-            buttonNode
-        }
-    }
-
-    override func configureTheme(_ theme: VATheme) {
-        shakeXNode.backgroundColor = theme.systemIndigo
-        shakeYNode.backgroundColor = theme.systemIndigo
-        buttonNode.configure(title: "Animate shake", theme: theme)
-    }
-
-    private func bind() {
-        buttonNode.onTap = self ?> {
-            $0.shakeXNode.animate(
-                .positionX(values: [0, -10, +10, -20, +20, -10, +10, 0] + $0.shakeXNode.position.x),
-                duration: 0.5
-            )
-            $0.shakeYNode.animate(
-                .positionY(values: [0, -10, +10, -20, +20, -10, +10, 0] + $0.shakeYNode.position.y),
-                duration: 1
-            )
-        }
-    }
-}
-
-private class PulseAnimationExampleNode: VADisplayNode {
-    private lazy var exampleNode = VADisplayNode()
-        .sized(width: 200, height: 20)
-    private lazy var buttonNode = HapticButtonNode()
-
-    override func didLoad() {
-        super.didLoad()
-
-        bind()
-    }
-
-    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        Column(cross: .stretch) {
-            Row(main: .center) {
-                exampleNode
-            }
-            buttonNode
-        }
-    }
-
-    override func configureTheme(_ theme: VATheme) {
-        exampleNode.backgroundColor = theme.systemTeal
-        buttonNode.configure(title: "Animate pulse", theme: theme)
-    }
-
-    private func bind() {
-        buttonNode.onTap = self ?> {
-            $0.exampleNode.animate(.scale(values: [1, 1.1, 0.9, 1.2, 0.8, 1.1, 0.9, 1]), duration: 1)
-        }
     }
 }
 
@@ -214,7 +81,7 @@ private class CornerRadiusAnimationExampleNode: VADisplayNode {
 
     override func configureTheme(_ theme: VATheme) {
         exampleNode.backgroundColor = theme.systemGray
-        buttonNode.configure(title: "Animate corner radius", theme: theme)
+        buttonNode.configure(title: "Toggle corner radius", theme: theme)
     }
 
     private func bind() {
@@ -259,7 +126,7 @@ private class RotationAnimationExampleNode: VADisplayNode {
 
     override func configureTheme(_ theme: VATheme) {
         exampleNode.backgroundColor = theme.systemPink
-        buttonNode.configure(title: "Animate rotation", theme: theme)
+        buttonNode.configure(title: "Toggle rotation", theme: theme)
     }
 
     private func bind() {
@@ -300,7 +167,7 @@ private class ScaleAnimationExampleNode: VADisplayNode {
 
     override func configureTheme(_ theme: VATheme) {
         exampleNode.backgroundColor = theme.systemGreen
-        buttonNode.configure(title: "Animate scale", theme: theme)
+        buttonNode.configure(title: "Toggle scale", theme: theme)
     }
 
     private func bind() {
@@ -341,7 +208,7 @@ private class ColorAnimationExampleNode: VADisplayNode {
 
     override func configureTheme(_ theme: VATheme) {
         exampleNode.backgroundColor = isToggled ? theme.systemIndigo : theme.systemRed
-        buttonNode.configure(title: "Animate color", theme: theme)
+        buttonNode.configure(title: "Toggle color", theme: theme)
     }
 
     private func bind() {
@@ -382,7 +249,7 @@ private class OpacityAnimationExampleNode: VADisplayNode {
 
     override func configureTheme(_ theme: VATheme) {
         exampleNode.backgroundColor = theme.systemOrange
-        buttonNode.configure(title: "Animate opacity", theme: theme)
+        buttonNode.configure(title: "Toggle opacity", theme: theme)
     }
 
     private func bind() {
@@ -443,7 +310,7 @@ private class BoundsAnimationExampleNode: VADisplayNode {
         heightNode.backgroundColor = theme.systemPurple
         widthNode.backgroundColor = theme.systemPurple
         boundsNode.backgroundColor = theme.systemPurple
-        buttonNode.configure(title: "Animate Bounds", theme: theme)
+        buttonNode.configure(title: "Toggle Bounds", theme: theme)
     }
 
     private func bind() {

@@ -34,14 +34,14 @@ final class ShapeLayerAnimationControllerNode: VASafeAreaDisplayNode {
 }
 
 private class FillColorExampleNode: VADisplayNode {
-    private lazy var exampleNode = VAShapeNode(data: .init(fillColor: .orange))
+    private lazy var exampleNode = VAShapeNode(data: .init(fillColor: theme.systemOrange))
         .sized(height: 64)
 
     override func didLoad() {
         super.didLoad()
 
         exampleNode.animate(
-            .fillColor(from: .orange, to: .cyan),
+            .fillColor(from: theme.systemOrange, to: theme.systemIndigo),
             duration: 2,
             repeatCount: .greatestFiniteMagnitude,
             autoreverses: true
@@ -61,7 +61,7 @@ private class FillColorExampleNode: VADisplayNode {
 }
 
 private class PathExampleNode: VADisplayNode {
-    private lazy var exampleNode = VAShapeNode(data: .init(fillColor: .orange))
+    private lazy var exampleNode = VAShapeNode(data: .init(fillColor: theme.systemOrange))
         .sized(height: 64)
 
     override func didLoad() {
@@ -69,7 +69,7 @@ private class PathExampleNode: VADisplayNode {
 
         exampleNode.animate(
             .path(
-                from: UIBezierPath(rect: CGRect(x: 0, y: 0, width: 100, height: 20)).cgPath,
+                from: UIBezierPath(rect: CGRect(x: 0, y: 0, width: 100, height: 20)),
                 to: {
                     let path = UIBezierPath()
                     path.move(to: .zero)
@@ -77,7 +77,7 @@ private class PathExampleNode: VADisplayNode {
                     path.addLine(to: CGPoint(x: 100, y: 0))
                     path.addLine(to: CGPoint(x: 150, y: 64))
                     path.close()
-                    return path.cgPath
+                    return path
                 }()
             ),
             duration: 2,
@@ -93,7 +93,7 @@ private class PathExampleNode: VADisplayNode {
 }
 
 private class StrokeColorExampleNode: VADisplayNode {
-    private lazy var exampleNode = VAShapeNode(data: .init(strokeColor: .orange))
+    private lazy var exampleNode = VAShapeNode(data: .init(strokeColor: theme.systemOrange))
         .apply {
             $0.setLineWidth(10)
         }
@@ -103,7 +103,7 @@ private class StrokeColorExampleNode: VADisplayNode {
         super.didLoad()
 
         exampleNode.animate(
-            .strokeColor(from: .orange, to: .cyan),
+            .strokeColor(from: theme.systemOrange, to: theme.systemIndigo),
             duration: 2,
             repeatCount: .greatestFiniteMagnitude,
             autoreverses: true
@@ -123,7 +123,7 @@ private class StrokeColorExampleNode: VADisplayNode {
 }
 
 private class StrokeEndExampleNode: VADisplayNode {
-    private lazy var exampleNode = VAShapeNode(data: .init(strokeColor: .orange))
+    private lazy var exampleNode = VAShapeNode(data: .init(strokeColor: theme.systemOrange))
         .apply {
             $0.setLineWidth(32)
         }
@@ -153,7 +153,7 @@ private class StrokeEndExampleNode: VADisplayNode {
 }
 
 private class LineDashExampleNode: VADisplayNode {
-    private lazy var exampleNode = VAShapeNode(data: .init(strokeColor: .orange))
+    private lazy var exampleNode = VAShapeNode(data: .init(strokeColor: theme.systemOrange))
         .apply {
             $0.setLineWidth(2)
             $0.setLineDashPattern([4, 4])
