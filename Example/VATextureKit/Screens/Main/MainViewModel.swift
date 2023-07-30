@@ -20,6 +20,7 @@ final class MainViewModel {
             MainListCellNodeViewModel(title: "Layer", description: "Layer animations", route: .layerAnimations),
             MainListCellNodeViewModel(title: "Gradient Layer", description: "Layer animations", route: .gradientLayerAnimations),
             MainListCellNodeViewModel(title: "Shape layer", description: "Layer animations", route: .shapeLayerAnimations),
+            MainListCellNodeViewModel(title: "Keyframe", description: "Layer animations", route: .keyframeLayerAnimations),
         ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "System"), items: [
             MainListCellNodeViewModel(title: "Appearance", description: "Select theme", route: .apearance),

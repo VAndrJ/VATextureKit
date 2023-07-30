@@ -81,6 +81,7 @@
 		A3B3F3FB29A3CDA10090E6E2 /* RadialGradientControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3FA29A3CDA10090E6E2 /* RadialGradientControllerNode.swift */; };
 		A3B7F23829F0632E00CAA52D /* ReadMoreTextControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B7F23729F0632E00CAA52D /* ReadMoreTextControllerNode.swift */; };
 		A3BCEC5729CFA6770077217F /* LoadingCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BCEC5629CFA6770077217F /* LoadingCellNode.swift */; };
+		A3CC9FAF2A75B82800A66DC0 /* KeyframeAnimationsControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CC9FAE2A75B82800A66DC0 /* KeyframeAnimationsControllerNode.swift */; };
 		A3D2488529CF860300EE1907 /* VAStateModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D2488429CF860300EE1907 /* VAStateModelTests.swift */; };
 		A3D2488A29CF869900EE1907 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D2488929CF869900EE1907 /* Support.swift */; };
 		A3D2FAC229D89E1300AA01CA /* MainListCellNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D2FAC029D89DD900AA01CA /* MainListCellNodeTests.swift */; };
@@ -195,6 +196,7 @@
 		A3B7F23729F0632E00CAA52D /* ReadMoreTextControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMoreTextControllerNode.swift; sourceTree = "<group>"; };
 		A3BCEC5629CFA6770077217F /* LoadingCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCellNode.swift; sourceTree = "<group>"; };
 		A3C617D329E47E7700CA75B5 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		A3CC9FAE2A75B82800A66DC0 /* KeyframeAnimationsControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyframeAnimationsControllerNode.swift; sourceTree = "<group>"; };
 		A3D2488429CF860300EE1907 /* VAStateModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAStateModelTests.swift; sourceTree = "<group>"; };
 		A3D2488929CF869900EE1907 /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
 		A3D2FAC029D89DD900AA01CA /* MainListCellNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListCellNodeTests.swift; sourceTree = "<group>"; };
@@ -368,10 +370,11 @@
 		A33CDF3129D9B85F005F77C6 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
-				A33CDF3229D9B875005F77C6 /* TransitionAnimationControllerNode.swift */,
-				A3A72F642A6A68A90008B2DC /* LayerAnimationControllerNode.swift */,
 				A356398F2A72D24300DE531F /* GradientLayerAnimationControllerNode.swift */,
+				A3CC9FAE2A75B82800A66DC0 /* KeyframeAnimationsControllerNode.swift */,
+				A3A72F642A6A68A90008B2DC /* LayerAnimationControllerNode.swift */,
 				A35639912A72E0D300DE531F /* ShapeLayerAnimationControllerNode.swift */,
+				A33CDF3229D9B875005F77C6 /* TransitionAnimationControllerNode.swift */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
@@ -877,6 +880,7 @@
 				A35639902A72D24300DE531F /* GradientLayerAnimationControllerNode.swift in Sources */,
 				A3F8890929CE37BD00C67187 /* ImageCellNode.swift in Sources */,
 				A3820D2A29E568BE00993406 /* VATextFieldNode.swift in Sources */,
+				A3CC9FAF2A75B82800A66DC0 /* KeyframeAnimationsControllerNode.swift in Sources */,
 				A31F445D29F6AD76003618C9 /* PagerControllerNodeViewModel.swift in Sources */,
 				A35639922A72E0D300DE531F /* ShapeLayerAnimationControllerNode.swift in Sources */,
 				A31F445F29F6ADC7003618C9 /* PagerIndicatorNode.swift in Sources */,

@@ -360,7 +360,7 @@ public extension CAShapeLayer.VALayerAnimation {
     }
 }
 
-public extension CALayer.VALayerKeyFrameAnimation {
+public extension CALayer.VALayerKeyframeAnimation {
 
     static func scale(values: [CGFloat]) -> Self {
         .init(values: values, keyPath: "transform.scale")
@@ -376,5 +376,143 @@ public extension CALayer.VALayerKeyFrameAnimation {
 
     static func opacity(values: [CGFloat]) -> Self {
         .init(values: values, keyPath: "opacity")
+    }
+
+    static func anchorPoint(values: [CGPoint]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "anchorPoint")
+    }
+
+    static func backgroundColor(values: [UIColor]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "backgroundColor")
+    }
+
+    static func borderColor(values: [UIColor]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "borderColor")
+    }
+
+    static func borderWidth(values: [CGFloat]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "borderWidth")
+    }
+
+    static func cornerRadius(values: [CGFloat]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "cornerRadius")
+    }
+
+    static func scaleX(values: [CGFloat]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "transform.scale.x")
+    }
+
+    static func scaleY(values: [CGFloat]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "transform.scale.y")
+    }
+
+    static func shadowColor(values: [UIColor]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "shadowColor")
+    }
+
+    static func shadowOpacity(values: [CGFloat]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "shadowOpacity")
+    }
+
+    static func shadowOffset(values: [CGSize]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "shadowOffset")
+    }
+
+    static func shadowRadius(values: [CGFloat]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "shadowRadius")
+    }
+
+    static func position(values: [CGPoint]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "position")
+    }
+
+    static func bounds(values: [CGRect]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "bounds")
+    }
+
+    static func originX(values: [CGFloat]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "bounds.origin.x")
+    }
+
+    static func originY(values: [CGFloat]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "bounds.origin.y")
+    }
+
+    static func width(values: [CGFloat]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "bounds.size.width")
+    }
+
+    static func height(values: [CGFloat]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "bounds.size.height")
+    }
+
+    static func rotation(values: [CGFloat]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "transform.rotation.z")
+    }
+
+    static func zPosition(values: [CGFloat]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "zPosition")
+    }
+
+    static func rasterizationScale(values: [CGFloat]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "rasterizationScale")
+    }
+
+    static func shadowPath(values: [UIBezierPath]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "shadowPath")
+    }
+}
+
+public extension CAGradientLayer.VALayerKeyframeAnimation {
+
+    static func locations(values: [[CGFloat]]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "locations")
+    }
+
+    static func colors(values: [[UIColor]]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "colors")
+    }
+
+    static func startPoint(values: [CGPoint]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "startPoint")
+    }
+
+    static func endPoint(values: [CGPoint]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "endPoint")
+    }
+}
+
+public extension CAShapeLayer.VALayerKeyframeAnimation {
+    
+    static func lineDashPhase(values: [CGFloat]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "lineDashPhase")
+    }
+    
+    static func miterLimit(values: [CGFloat]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "miterLimit")
+    }
+    
+    static func lineWidth(values: [CGFloat]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "lineWidth")
+    }
+    
+    static func strokeStart(values: [CGFloat]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "strokeStart")
+    }
+    
+    static func strokeEnd(values: [CGFloat]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "strokeEnd")
+    }
+    
+    static func strokeColor(values: [UIColor]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "strokeColor")
+    }
+    
+    static func fillColor(values: [UIColor]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "fillColor")
+    }
+    
+    static func path(values: [UIBezierPath]) -> Self {
+        .init(values: values.map(\.animationValue), keyPath: "path")
     }
 }

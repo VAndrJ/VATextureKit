@@ -11,10 +11,10 @@ import AsyncDisplayKit
 // swiftlint:disable all
 public extension CALayer {
     struct VASpring {
-        let initialVelocity: CGFloat
-        let damping: CGFloat
-        let mass: CGFloat
-        let swiftness: CGFloat
+        public let initialVelocity: CGFloat
+        public let damping: CGFloat
+        public let mass: CGFloat
+        public let swiftness: CGFloat
 
         public init(initialVelocity: CGFloat = 0, damping: CGFloat = 100, mass: CGFloat = 2, swiftness: CGFloat = 100) {
             self.initialVelocity = initialVelocity
@@ -25,12 +25,28 @@ public extension CALayer {
     }
 
     struct VALayerAnimation {
-        let from: Any?
-        let to: Any?
-        let fromOriginalValue: Any?
-        let toOriginalValue: Any?
-        let keyPath: String
-        let isToEqualsFrom: Bool
+        public let from: Any?
+        public let to: Any?
+        public let fromOriginalValue: Any?
+        public let toOriginalValue: Any?
+        public let keyPath: String
+        public let isToEqualsFrom: Bool
+
+        public init(
+            from: Any?,
+            to: Any?,
+            fromOriginalValue: Any?,
+            toOriginalValue: Any?,
+            keyPath: String,
+            isToEqualsFrom: Bool
+        ) {
+            self.from = from
+            self.to = to
+            self.fromOriginalValue = fromOriginalValue
+            self.toOriginalValue = toOriginalValue
+            self.keyPath = keyPath
+            self.isToEqualsFrom = isToEqualsFrom
+        }
 
         func getProgressMultiplier(current: Any?) -> Double {
             if let fromOriginalValue = fromOriginalValue as? VALayerAnimationValueConvertible {
@@ -123,14 +139,19 @@ public extension CALayer {
         )
     }
 
-    struct VALayerKeyFrameAnimation {
-        let values: [Any]
-        let keyPath: String
+    struct VALayerKeyframeAnimation {
+        public let values: [Any]
+        public let keyPath: String
+
+        public init(values: [Any], keyPath: String) {
+            self.values = values
+            self.keyPath = keyPath
+        }
     }
 
     @discardableResult
     func add(
-        animation: VALayerKeyFrameAnimation,
+        animation: VALayerKeyframeAnimation,
         duration: Double,
         delay: Double = 0.0,
         timeOffset: Double = 0.0,
@@ -160,7 +181,7 @@ public extension CALayer {
     }
 
     func getAnimation(
-        _ animation: VALayerKeyFrameAnimation,
+        _ animation: VALayerKeyframeAnimation,
         duration: Double,
         delay: Double = 0.0,
         timeOffset: Double = 0.0,

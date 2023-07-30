@@ -502,7 +502,7 @@ public extension ASDisplayNode {
 
     @discardableResult
     func animate(
-        _ animation: CALayer.VALayerKeyFrameAnimation,
+        _ animation: CALayer.VALayerKeyframeAnimation,
         duration: Double,
         delay: Double = 0.0,
         timeOffset: Double = 0.0,
