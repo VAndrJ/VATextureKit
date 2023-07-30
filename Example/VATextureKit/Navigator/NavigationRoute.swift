@@ -35,4 +35,5 @@ enum NavigationRoute {
     case shapeLayerAnimations
     case filter
     case keyframeLayerAnimations
+    case elementsScrollingAnimationList
 }

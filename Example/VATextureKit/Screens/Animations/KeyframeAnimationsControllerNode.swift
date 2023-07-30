@@ -9,10 +9,10 @@
 import VATextureKit
 
 final class KeyframeAnimationsControllerNode: VASafeAreaDisplayNode {
-    private lazy var scaleAnimationExampleNode = AnimationExampleNode(animation: .scale(values: [1, 1.1, 0.9, 1.2, 0.8, 1.1, 0.9, 1]))
     private lazy var shakeAnimationExampleNode = ShakeAnimationExampleNode()
     private lazy var shakeAnimationPauseResumeExampleNode = ShakeAnimationPauseResumeExampleNode()
     private lazy var animationExampleNodes = [
+        AnimationExampleNode(animation: .scale(values: [1, 1.1, 0.9, 1.2, 0.8, 1.1, 0.9, 1])),
         AnimationExampleNode(animation: .opacity(values: [1, 0.9, 0.8, 0.1, 0, 0.2, 0.9, 1, 0, 1])),
         AnimationExampleNode(animation: .backgroundColor(values: [theme.systemOrange, .green, .blue, .black, theme.systemOrange])),
         AnimationExampleNode(animation: .borderColor(values: [.black, theme.systemOrange, .green, .blue, .clear, theme.systemOrange, .black])),
@@ -72,7 +72,6 @@ final class KeyframeAnimationsControllerNode: VASafeAreaDisplayNode {
 
     private func scrollLayoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column(spacing: 16, cross: .stretch) {
-            scaleAnimationExampleNode
             shakeAnimationExampleNode
             shakeAnimationPauseResumeExampleNode
             animationExampleNodes
