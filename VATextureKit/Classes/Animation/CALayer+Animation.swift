@@ -294,7 +294,7 @@ public extension CALayer {
 
     private func getAnimation(
         from: Any?,
-        to: Any,
+        to: Any?,
         keyPath: String,
         duration: Double,
         delay: Double,
