@@ -15,6 +15,7 @@ final class MovieDetailsTitleCellNode: VACellNode {
     init(viewModel: MovieDetailsTitleCellNodeViewModel) {
         self.titleTextNode = VATextNode(text: viewModel.title, fontStyle: .headline)
             .withAnimatedTransition(id: "title_\(viewModel.transitionId)")
+            .flex(shrink: 0.1)
         self.yearTextNode = VATextNode(
             text: viewModel.year,
             maximumNumberOfLines: 1,
