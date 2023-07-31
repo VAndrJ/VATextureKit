@@ -187,7 +187,7 @@ public extension ASLayoutElement {
         }
         if let basisPercent {
             assert((0...100) ~= basisPercent, "ASDimension fraction percent must be between 0 and 100.")
-            style.flexBasis = ASDimensionMake(.fraction, basisPercent / 100)
+            style.flexBasis = .fraction(percent: basisPercent)
         }
         return self
     }
