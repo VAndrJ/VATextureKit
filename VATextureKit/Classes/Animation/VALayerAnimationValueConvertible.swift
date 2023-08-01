@@ -168,7 +168,7 @@ extension CGPath: VALayerAnimationValueConvertible {
     public var animationValue: Any { self }
 
     public func getIsEqual(to: Any?) -> Bool {
-        if let to, type(of: to) is CGPath.Type { // 'is' test is always true because 'CGPath' is a Core Foundation type
+        if let to, type(of: to) is CGPath.Type {
             return (to as! CGPath) == self
         } else {
             return false
