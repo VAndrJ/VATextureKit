@@ -87,6 +87,8 @@
 		A3B7F23829F0632E00CAA52D /* ReadMoreTextControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B7F23729F0632E00CAA52D /* ReadMoreTextControllerNode.swift */; };
 		A3BCEC5729CFA6770077217F /* LoadingCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BCEC5629CFA6770077217F /* LoadingCellNode.swift */; };
 		A3CC53782A78FBC200BC4B3A /* UIEdgeInsetsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CC53772A78FBC200BC4B3A /* UIEdgeInsetsTests.swift */; };
+		A3CC537A2A79062A00BC4B3A /* DispatchQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CC53792A79062A00BC4B3A /* DispatchQueueTests.swift */; };
+		A3CC537C2A79078B00BC4B3A /* ASLayoutElementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CC537B2A79078B00BC4B3A /* ASLayoutElementTests.swift */; };
 		A3CC9FAF2A75B82800A66DC0 /* KeyframeAnimationsControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CC9FAE2A75B82800A66DC0 /* KeyframeAnimationsControllerNode.swift */; };
 		A3D2488529CF860300EE1907 /* VAStateModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D2488429CF860300EE1907 /* VAStateModelTests.swift */; };
 		A3D2488A29CF869900EE1907 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D2488929CF869900EE1907 /* Support.swift */; };
@@ -208,6 +210,8 @@
 		A3BCEC5629CFA6770077217F /* LoadingCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCellNode.swift; sourceTree = "<group>"; };
 		A3C617D329E47E7700CA75B5 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		A3CC53772A78FBC200BC4B3A /* UIEdgeInsetsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEdgeInsetsTests.swift; sourceTree = "<group>"; };
+		A3CC53792A79062A00BC4B3A /* DispatchQueueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueTests.swift; sourceTree = "<group>"; };
+		A3CC537B2A79078B00BC4B3A /* ASLayoutElementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASLayoutElementTests.swift; sourceTree = "<group>"; };
 		A3CC9FAE2A75B82800A66DC0 /* KeyframeAnimationsControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyframeAnimationsControllerNode.swift; sourceTree = "<group>"; };
 		A3D2488429CF860300EE1907 /* VAStateModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAStateModelTests.swift; sourceTree = "<group>"; };
 		A3D2488929CF869900EE1907 /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
@@ -441,7 +445,9 @@
 				A36AAF4D2A78D0FD006168D7 /* ASDimensionTests.swift */,
 				A3AAE1842A78E0F000F6C7C1 /* ASScrollDirectionTests.swift */,
 				A3AAE1862A78E19700F6C7C1 /* ASSizeRangeTests.swift */,
+				A3CC53792A79062A00BC4B3A /* DispatchQueueTests.swift */,
 				A3CC53772A78FBC200BC4B3A /* UIEdgeInsetsTests.swift */,
+				A3CC537B2A79078B00BC4B3A /* ASLayoutElementTests.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -941,6 +947,7 @@
 				A3551A5529DD57F000B0B18F /* VALinearGradientNodeTests.swift in Sources */,
 				A3820D1529E53BD600993406 /* VARadialGradientNodeTests.swift in Sources */,
 				A364DA892A1F4973001355AE /* VATextNodeTests.swift in Sources */,
+				A3CC537C2A79078B00BC4B3A /* ASLayoutElementTests.swift in Sources */,
 				A384F0B629EDCB5A006BF197 /* StackTests.swift in Sources */,
 				A3AAE1892A78E4AC00F6C7C1 /* ArrayTests.swift in Sources */,
 				A359BE7A29D76C0D003BDE19 /* VADisplayNodeTests.swift in Sources */,
@@ -948,6 +955,7 @@
 				A34F8E7129F3F1B300EF4C42 /* VAReadMoreTextNodeTests.swift in Sources */,
 				A3D2488529CF860300EE1907 /* VAStateModelTests.swift in Sources */,
 				A3D2488A29CF869900EE1907 /* Support.swift in Sources */,
+				A3CC537A2A79062A00BC4B3A /* DispatchQueueTests.swift in Sources */,
 				A36AAF4F2A78D961006168D7 /* ASDimensionTests.swift in Sources */,
 				A3AAE1852A78E0F000F6C7C1 /* ASScrollDirectionTests.swift in Sources */,
 				A3CC53782A78FBC200BC4B3A /* UIEdgeInsetsTests.swift in Sources */,
