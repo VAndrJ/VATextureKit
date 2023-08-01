@@ -29,11 +29,11 @@ public extension CGSize {
         CGSize(width: width + insets.horizontal, height: height + insets.vertical)
     }
     
-    func aspectMaxBoundingMultiplier(for size: CGSize) -> CGFloat {
+    func aspectMinBoundingMultiplier(for size: CGSize) -> CGFloat {
         min(size.height / height, size.width / width)
     }
     
-    func aspectMinBoundingMultiplier(for size: CGSize) -> CGFloat {
+    func aspectMaxBoundingMultiplier(for size: CGSize) -> CGFloat {
         max(size.height / height, size.width / width)
     }
 }
