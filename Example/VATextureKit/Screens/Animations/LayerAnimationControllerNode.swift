@@ -51,7 +51,7 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
 private class CornerRadiusAnimationExampleNode: VADisplayNode {
     private lazy var exampleNode = VADisplayNode()
         .sized(width: 100, height: 40)
-    private lazy var buttonNode = HapticButtonNode()
+    private lazy var buttonNode = HapticButtonNode(title: "Toggle corner radius")
     private var isToggled = false {
         didSet {
             exampleNode.animate(
@@ -81,7 +81,6 @@ private class CornerRadiusAnimationExampleNode: VADisplayNode {
 
     override func configureTheme(_ theme: VATheme) {
         exampleNode.backgroundColor = theme.systemGray
-        buttonNode.configure(title: "Toggle corner radius", theme: theme)
     }
 
     private func bind() {
@@ -96,7 +95,7 @@ private class RotationAnimationExampleNode: VADisplayNode {
         size: CGSize(same: 50),
         contentMode: .center
     ))
-    private lazy var buttonNode = HapticButtonNode()
+    private lazy var buttonNode = HapticButtonNode(title: "Toggle rotation")
     private var isToggled = false {
         didSet {
             exampleNode.animate(
@@ -126,7 +125,6 @@ private class RotationAnimationExampleNode: VADisplayNode {
 
     override func configureTheme(_ theme: VATheme) {
         exampleNode.backgroundColor = theme.systemPink
-        buttonNode.configure(title: "Toggle rotation", theme: theme)
     }
 
     private func bind() {
@@ -137,7 +135,7 @@ private class RotationAnimationExampleNode: VADisplayNode {
 private class ScaleAnimationExampleNode: VADisplayNode {
     private lazy var exampleNode = VADisplayNode()
         .sized(height: 20)
-    private lazy var  buttonNode = HapticButtonNode()
+    private lazy var  buttonNode = HapticButtonNode(title: "Toggle scale")
     private var isToggled = false {
         didSet {
             exampleNode.animate(
@@ -167,7 +165,6 @@ private class ScaleAnimationExampleNode: VADisplayNode {
 
     override func configureTheme(_ theme: VATheme) {
         exampleNode.backgroundColor = theme.systemGreen
-        buttonNode.configure(title: "Toggle scale", theme: theme)
     }
 
     private func bind() {
@@ -178,7 +175,7 @@ private class ScaleAnimationExampleNode: VADisplayNode {
 private class ColorAnimationExampleNode: VADisplayNode {
     private lazy var exampleNode = VADisplayNode()
         .sized(height: 20)
-    private lazy var buttonNode = HapticButtonNode()
+    private lazy var buttonNode = HapticButtonNode(title: "Toggle color")
     private var isToggled = false {
         didSet {
             exampleNode.animate(
@@ -208,7 +205,6 @@ private class ColorAnimationExampleNode: VADisplayNode {
 
     override func configureTheme(_ theme: VATheme) {
         exampleNode.backgroundColor = isToggled ? theme.systemIndigo : theme.systemRed
-        buttonNode.configure(title: "Toggle color", theme: theme)
     }
 
     private func bind() {
@@ -219,7 +215,7 @@ private class ColorAnimationExampleNode: VADisplayNode {
 private class OpacityAnimationExampleNode: VADisplayNode {
     private lazy var exampleNode = VADisplayNode()
         .sized(height: 20)
-    private lazy var buttonNode = HapticButtonNode()
+    private lazy var buttonNode = HapticButtonNode(title: "Toggle opacity")
     private var isToggled = false {
         didSet {
             exampleNode.animate(
@@ -249,7 +245,6 @@ private class OpacityAnimationExampleNode: VADisplayNode {
 
     override func configureTheme(_ theme: VATheme) {
         exampleNode.backgroundColor = theme.systemOrange
-        buttonNode.configure(title: "Toggle opacity", theme: theme)
     }
 
     private func bind() {
@@ -267,7 +262,7 @@ private class BoundsAnimationExampleNode: VADisplayNode {
         .apply {
             $0.anchorPoint = .zero
         }
-    private lazy var buttonNode = HapticButtonNode()
+    private lazy var buttonNode = HapticButtonNode(title: "Toggle Bounds")
     private var isToggled = false {
         didSet {
             boundsNode.animate(
@@ -310,7 +305,6 @@ private class BoundsAnimationExampleNode: VADisplayNode {
         heightNode.backgroundColor = theme.systemPurple
         widthNode.backgroundColor = theme.systemPurple
         boundsNode.backgroundColor = theme.systemPurple
-        buttonNode.configure(title: "Toggle Bounds", theme: theme)
     }
 
     private func bind() {

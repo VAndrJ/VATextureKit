@@ -76,7 +76,7 @@ private class StackCenteringLayoutExampleNode: VADisplayNode {
         fontStyle: .headline
     )
     private lazy var pairNodes = [ASDisplayNode().sized(CGSize(same: 128)), ASDisplayNode().sized(CGSize(same: 64))]
-    private lazy var centeringButtonNode = VAButtonNode()
+    private lazy var centeringButtonNode = HapticButtonNode(title: "Change centering")
     private var centeringOptions: ASCenterLayoutSpecCenteringOptions = .XY {
         didSet {
             setNeedsLayoutAnimated()
@@ -111,7 +111,6 @@ private class StackCenteringLayoutExampleNode: VADisplayNode {
         zip(pairNodes, [theme.label, theme.systemOrange]).forEach {
             $0.0.backgroundColor = $0.1
         }
-        centeringButtonNode.configure(title: "Change centering", theme: theme)
     }
 
     private func bind() {
@@ -122,8 +121,8 @@ private class StackCenteringLayoutExampleNode: VADisplayNode {
 private class StackPositionsLayoutExampleNode: VADisplayNode {
     private lazy var titleTextNode = getTitleTextNode(string: "Stack with 2 elements, second is relatively", selection: "")
     private lazy var pairNodes = [ASDisplayNode().sized(CGSize(same: 128)), ASDisplayNode().sized(CGSize(same: 64))]
-    private lazy var relativeHorizontalPositionButtonNode = VAButtonNode()
-    private lazy var relativeVerticalPositionButtonNode = VAButtonNode()
+    private lazy var relativeHorizontalPositionButtonNode = HapticButtonNode(title: "Change horizontal")
+    private lazy var relativeVerticalPositionButtonNode = HapticButtonNode(title: "Change vertical")
     private lazy var relativePositionHorizontalInfoTextNode = VATextNode(
         text: relativeHorizontalPosition.horizontalDescription,
         fontStyle: .headline
@@ -174,8 +173,6 @@ private class StackPositionsLayoutExampleNode: VADisplayNode {
         zip(pairNodes, [theme.label, theme.systemOrange]).forEach {
             $0.0.backgroundColor = $0.1
         }
-        relativeHorizontalPositionButtonNode.configure(title: "Change horizontal", theme: theme)
-        relativeVerticalPositionButtonNode.configure(title: "Change vertical", theme: theme)
     }
 
     private func bind() {

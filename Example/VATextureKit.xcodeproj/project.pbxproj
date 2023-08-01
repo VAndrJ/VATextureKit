@@ -55,7 +55,6 @@
 		A384F0B429EDCA7A006BF197 /* RowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A384F0B329EDCA7A006BF197 /* RowTests.swift */; };
 		A384F0B629EDCB5A006BF197 /* StackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A384F0B529EDCB5A006BF197 /* StackTests.swift */; };
 		A384F0B929EE7215006BF197 /* TypingTextControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A384F0B829EE7215006BF197 /* TypingTextControllerNode.swift */; };
-		A384F0BB29EE752E006BF197 /* VAButtonNode+Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = A384F0BA29EE752E006BF197 /* VAButtonNode+Support.swift */; };
 		A38D5E932A6BBEF200A67BC7 /* CountingTextNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E922A6BBEF200A67BC7 /* CountingTextNodeController.swift */; };
 		A38D5E982A6C14F200A67BC7 /* DynamicHeightGridListControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E972A6C14F200A67BC7 /* DynamicHeightGridListControllerNode.swift */; };
 		A38D5E9C2A6D251E00A67BC7 /* ShimmersControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E9B2A6D251E00A67BC7 /* ShimmersControllerNode.swift */; };
@@ -183,7 +182,6 @@
 		A384F0B329EDCA7A006BF197 /* RowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowTests.swift; sourceTree = "<group>"; };
 		A384F0B529EDCB5A006BF197 /* StackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackTests.swift; sourceTree = "<group>"; };
 		A384F0B829EE7215006BF197 /* TypingTextControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingTextControllerNode.swift; sourceTree = "<group>"; };
-		A384F0BA29EE752E006BF197 /* VAButtonNode+Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VAButtonNode+Support.swift"; sourceTree = "<group>"; };
 		A38D5E922A6BBEF200A67BC7 /* CountingTextNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountingTextNodeController.swift; sourceTree = "<group>"; };
 		A38D5E972A6C14F200A67BC7 /* DynamicHeightGridListControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicHeightGridListControllerNode.swift; sourceTree = "<group>"; };
 		A38D5E9B2A6D251E00A67BC7 /* ShimmersControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmersControllerNode.swift; sourceTree = "<group>"; };
@@ -526,7 +524,6 @@
 			isa = PBXGroup;
 			children = (
 				A397A2C429AAAF6800A05B8F /* NSObject+Applyable.swift */,
-				A384F0BA29EE752E006BF197 /* VAButtonNode+Support.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -909,7 +906,6 @@
 				A38D5EAD2A6D654C00A67BC7 /* TagCellNode.swift in Sources */,
 				A34F8E7F29F46B4300EF4C42 /* CollectionListSectionFooterCellNode.swift in Sources */,
 				A3DDF2F229DD6CB2009460F1 /* CompositingFilterControllerNode.swift in Sources */,
-				A384F0BB29EE752E006BF197 /* VAButtonNode+Support.swift in Sources */,
 				A3B3F3DE29A37C9C0090E6E2 /* AppearanceViewModel.swift in Sources */,
 				A3B3F3D629A2C91A0090E6E2 /* AppearanceContollerNode.swift in Sources */,
 				A3B3F3C529A22F860090E6E2 /* Theme.swift in Sources */,

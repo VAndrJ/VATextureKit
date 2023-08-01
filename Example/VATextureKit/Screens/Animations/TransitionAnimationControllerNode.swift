@@ -15,7 +15,7 @@ final class TransitionAnimationControllerNode: VASafeAreaDisplayNode {
     private lazy var rightTextNode = VATextNode(text: "right", fontStyle: .body, alignment: .center)
         .withAnimatedTransition(id: "Test1")
         .flex(basisPercent: 40)
-    private lazy var exchangeButtonNode = HapticButtonNode()
+    private lazy var exchangeButtonNode = HapticButtonNode(title: "Exchange")
     private lazy var toggleNode = VATextNode(
         text: .loremText,
         fontStyle: .body,
@@ -23,8 +23,8 @@ final class TransitionAnimationControllerNode: VASafeAreaDisplayNode {
     ).apply {
         $0.transition = .slide
     }
-    private lazy var toggleButtonNode = HapticButtonNode()
-    private lazy var expandButtonNode = HapticButtonNode()
+    private lazy var toggleButtonNode = HapticButtonNode(title: "Toggle")
+    private lazy var expandButtonNode = HapticButtonNode(title: "Expand")
     private lazy var expandNode = VADisplayNode()
         .sized(width: 100, height: 50)
     private var isNodesExchanged = false {
@@ -36,9 +36,9 @@ final class TransitionAnimationControllerNode: VASafeAreaDisplayNode {
     private var isNodeExpanded = false {
         didSet { setNeedsLayoutAnimated() }
     }
-    private lazy var presentButtonNode = HapticButtonNode()
+    private lazy var presentButtonNode = HapticButtonNode(title: "Present")
         .withAnimatedTransition(id: "button")
-    private lazy var dismissButtonNode = HapticButtonNode()
+    private lazy var dismissButtonNode = HapticButtonNode(title: "Dismiss")
     private let isPresented: Bool
 
     init(isPresented: Bool) {
@@ -98,17 +98,8 @@ final class TransitionAnimationControllerNode: VASafeAreaDisplayNode {
         leftTextNode.backgroundColor = theme.systemOrange
         rightTextNode.backgroundColor = theme.systemTeal
         exchangeButtonNode.tintColor = theme.systemBlue
-        exchangeButtonNode.configure(title: "Exchange", theme: theme)
-
-        toggleButtonNode.configure(title: "Toggle", theme: theme)
 
         expandNode.backgroundColor = theme.systemPurple
-        expandButtonNode.configure(title: "Expand", theme: theme)
-
-        presentButtonNode.configure(title: "Present", theme: theme)
-        if isPresented {
-            dismissButtonNode.configure(title: "Dismiss", theme: theme)
-        }
     }
 
     private func bind() {

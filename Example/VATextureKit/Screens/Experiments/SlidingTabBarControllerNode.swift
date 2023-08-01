@@ -33,9 +33,9 @@ class SlidingTabBarControllerNode: VASafeAreaDisplayNode {
         indexObs: pagerNode.indexObs,
         onSelect: pagerNode ?> { $0.scroll(to: $1) }
     ))
-    private lazy var previousButtonNode = VAButtonNode()
+    private lazy var previousButtonNode = HapticButtonNode(title: "Previous")
         .minConstrained(size: CGSize(same: 44))
-    private lazy var nextButtonNode = VAButtonNode()
+    private lazy var nextButtonNode = HapticButtonNode(title: "Next")
         .minConstrained(size: CGSize(same: 44))
 
     private let bag = DisposeBag()
@@ -84,8 +84,6 @@ class SlidingTabBarControllerNode: VASafeAreaDisplayNode {
         backgroundColor = theme.systemBackground
         floatingTabBarNode.backgroundColor = theme.systemBackground
         floatingTabBarNode.borderColor = theme.quaternaryLabel.cgColor
-        previousButtonNode.configure(title: "Previous", theme: theme)
-        nextButtonNode.configure(title: "Next", theme: theme)
     }
 
     private func bind() {
