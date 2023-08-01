@@ -14,11 +14,11 @@ final class PagerControllerNode: VASafeAreaDisplayNode {
         cellGetter: mapToCell(viewModel:),
         isCircular: true
     ))
-    private lazy var previousButtonNode = VAButtonNode()
+    private lazy var previousButtonNode = HapticButtonNode(title: "Previous")
         .minConstrained(size: CGSize(same: 44))
-    private lazy var nextButtonNode = VAButtonNode()
+    private lazy var nextButtonNode = HapticButtonNode(title: "Next")
         .minConstrained(size: CGSize(same: 44))
-    private lazy var randomizeButtonNode = VAButtonNode()
+    private lazy var randomizeButtonNode = HapticButtonNode(title: "Randomize")
         .minConstrained(size: CGSize(same: 44))
     private lazy var pagerIndicatorNode = PagerIndicatorNode(pagerNode: pagerNode)
     private let viewModel: PagerControllerNodeViewModel
@@ -59,9 +59,6 @@ final class PagerControllerNode: VASafeAreaDisplayNode {
         super.configureTheme(theme)
 
         backgroundColor = theme.systemBackground
-        previousButtonNode.configure(title: "Previous", theme: theme)
-        nextButtonNode.configure(title: "Next", theme: theme)
-        randomizeButtonNode.configure(title: "Randomize", theme: theme)
     }
 
     private func bind() {

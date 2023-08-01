@@ -10,6 +10,6 @@ import Foundation
 public extension Array where Element: AdditiveArithmetic {
 
     static func + (lhs: Self, rhs: Element) -> Self {
-        return lhs.map { $0 + rhs }
+        lhs.map { $0 + rhs }
     }
 }

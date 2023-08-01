@@ -14,7 +14,7 @@ final class AlertNodeController: VANodeController {
 
     // MARK: - UI related code
 
-    let buttonNode = VAButtonNode()
+    let buttonNode = HapticButtonNode(title: "Show alert")
 
     override func layoutSpec(_ node: ASDisplayNode, _ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
@@ -28,7 +28,6 @@ final class AlertNodeController: VANodeController {
         super.configureTheme(theme)
 
         contentNode.backgroundColor = theme.systemBackground
-        buttonNode.configure(title: "Show alert", theme: theme)
     }
 
     // MARK: - Controller related code

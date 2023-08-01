@@ -77,6 +77,7 @@ public extension UIView {
             configure: { cTrailing = $0 }
         )
         configure(cTop, cLeading, cBottom, cTrailing)
+
         return self
     }
     
@@ -126,6 +127,7 @@ public extension UIView {
             configure: { cBottomOrTrailing = $0 }
         )
         configure(cTopOrLeading, cBottomOrTrailing)
+
         return self
     }
     
@@ -162,6 +164,7 @@ public extension UIView {
             configure: { cCenterY = $0 }
         )
         configure(cCenterX, cCenterY)
+
         return self
     }
     
@@ -187,6 +190,7 @@ public extension UIView {
                 configure: { _ in }
             )
         }
+
         return self
     }
     
@@ -201,7 +205,7 @@ public extension UIView {
         isActive: Bool = true,
         configure: (NSLayoutConstraint) -> Void = { _ in }
     ) -> UIView {
-        return self.anchor(
+        self.anchor(
             anchor,
             sameTo: superview!,
             relation: relation,
@@ -236,7 +240,8 @@ public extension UIView {
         case .right:    opposedAnchor = .left
         default: fatalError("Implement if needed")
         }
-        return anchor(
+
+        return self.anchor(
             selfAnchor,
             to: view,
             anchor: opposedAnchor,
@@ -262,7 +267,7 @@ public extension UIView {
         isActive: Bool = true,
         configure: (NSLayoutConstraint) -> Void = { _ in }
     ) -> UIView {
-        return anchor(
+        self.anchor(
             selfAnchor,
             to: view,
             anchor: selfAnchor,
@@ -302,6 +307,7 @@ public extension UIView {
         constraint.priority = UILayoutPriority(rawValue: priority)
         constraint.isActive = isActive
         configure(constraint)
+
         return self
     }
     
@@ -330,6 +336,7 @@ public extension UIView {
             configure: { hConstraint = $0 }
         )
         configure(wConstraint, hConstraint)
+
         return self
     }
     
@@ -358,6 +365,7 @@ public extension UIView {
             configure: { hConstraint = $0 }
         )
         configure(wConstraint, hConstraint)
+
         return self
     }
     
@@ -381,6 +389,7 @@ public extension UIView {
         constraint.priority = UILayoutPriority(rawValue: priority)
         constraint.isActive = isActive
         configure(constraint)
+
         return self
     }
     
@@ -404,6 +413,7 @@ public extension UIView {
         constraint.priority = UILayoutPriority(rawValue: priority)
         constraint.isActive = isActive
         configure(constraint)
+
         return self
     }
     
@@ -426,6 +436,7 @@ public extension UIView {
         constraint.priority = UILayoutPriority(rawValue: priority)
         constraint.isActive = true
         configure(constraint)
+
         return self
     }
     
@@ -448,6 +459,7 @@ public extension UIView {
         constraint.priority = UILayoutPriority(rawValue: priority)
         constraint.isActive = true
         configure(constraint)
+        
         return self
     }
 }

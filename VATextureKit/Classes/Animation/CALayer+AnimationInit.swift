@@ -363,19 +363,19 @@ public extension CAShapeLayer.VALayerAnimation {
 public extension CALayer.VALayerKeyframeAnimation {
 
     static func scale(values: [CGFloat]) -> Self {
-        .init(values: values, keyPath: "transform.scale")
+        .init(values: values.map(\.animationValue), keyPath: "transform.scale")
     }
 
     static func positionX(values: [CGFloat]) -> Self {
-        .init(values: values, keyPath: "position.x")
+        .init(values: values.map(\.animationValue), keyPath: "position.x")
     }
 
     static func positionY(values: [CGFloat]) -> Self {
-        .init(values: values, keyPath: "position.y")
+        .init(values: values.map(\.animationValue), keyPath: "position.y")
     }
 
     static func opacity(values: [CGFloat]) -> Self {
-        .init(values: values, keyPath: "opacity")
+        .init(values: values.map(\.animationValue), keyPath: "opacity")
     }
 
     static func anchorPoint(values: [CGPoint]) -> Self {

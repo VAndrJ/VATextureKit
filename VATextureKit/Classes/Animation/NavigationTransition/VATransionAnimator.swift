@@ -35,11 +35,13 @@ open class VADefaultTransionAnimator: VATransionAnimator {
         guard let sourceController = (source as? ASDKViewController) ?? ((source as? UINavigationController)?.topViewController as? ASDKViewController) ?? ((source as? UITabBarController)?.selectedViewController as? ASDKViewController) ?? (((source as? UITabBarController)?.selectedViewController as? UINavigationController)?.topViewController as? ASDKViewController), let destinationController = (destination as? ASDKViewController) ?? ((destination as? UINavigationController)?.topViewController as? ASDKViewController) ?? ((destination as? UITabBarController)?.selectedViewController as? ASDKViewController) ?? (((destination as? UITabBarController)?.selectedViewController as? UINavigationController)?.topViewController as? ASDKViewController) else {
             return
         }
+
         var fromLayersDict: [String: (CALayer, CGRect)] = [:]
         storeAnimationLayers(layer: sourceController.node.layer, isFrom: true, to: &fromLayersDict)
         guard !fromLayersDict.isEmpty else {
             return
         }
+
         destinationController.node.loadForPreview()
         destinationController.node.layer.isHidden = true
         // MARK: - Crutch to get proper target layout on push
@@ -60,6 +62,7 @@ open class VADefaultTransionAnimator: VATransionAnimator {
         let transitionOverlayView = VATouchesPassThroughView()
         controller?.view.window?.addSubview(transitionOverlayView)
         transitionOverlayView.frame = controller?.view.frame ?? .zero
+
         return transitionOverlayView
     }
 }
@@ -125,6 +128,7 @@ private func animate(from source: (layer: CALayer, bounds: CGRect), to destinati
             to.isHidden = false
             toLayerSnapshot.removeFromSuperlayer()
         }
+
         func addAnimations(to layer: CALayer, corner: CGFloat, isTarget: Bool, transitionAnimation: VATransitionAnimation) {
             switch transitionAnimation {
             case let .default(timings, additions):
@@ -144,6 +148,7 @@ private func animate(from source: (layer: CALayer, bounds: CGRect), to destinati
                 }
             }
         }
+        
         addAnimations(to: fromLayerSnapshot, corner: toLayerSnapshot.cornerRadius, isTarget: false, transitionAnimation: transitionAnimation)
         addAnimations(to: toLayerSnapshot, corner: fromLayerSnapshot.cornerRadius, isTarget: true, transitionAnimation: transitionAnimation)
         CATransaction.commit()

@@ -27,6 +27,7 @@ public class VADynamicHeightGridListLayoutDelegate: NSObject, ASCollectionLayout
         guard let elements = context.elements, !elements.itemIndexPaths.isEmpty, context.viewportSize != .zero else {
             return ASCollectionLayoutState(context: context)
         }
+
         let info = context.additionalInfo as! VADynamicHeightGridListLayoutInfo
         let layoutWidth = context.viewportSize.width
         let numberOfSections = elements.numberOfSections
@@ -84,6 +85,7 @@ public class VADynamicHeightGridListLayoutDelegate: NSObject, ASCollectionLayout
         }
         let contentHeight = columnHeights.last?.first ?? 0
         let contentSize = CGSize(width: layoutWidth, height: contentHeight)
+
         return ASCollectionLayoutState(
             context: context,
             contentSize: contentSize,
@@ -140,6 +142,7 @@ public class VADynamicHeightGridListLayoutDelegate: NSObject, ASCollectionLayout
         } else {
             columns = CGFloat(info.portraitColumns)
         }
+
         return (getWidth(section: section, viewportSize: viewportSize, info: info) - ((columns - 1) * info.columnSpacing)) / columns
     }
 

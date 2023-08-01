@@ -10,10 +10,10 @@ import VATextureKit
 
 final class TypingTextControllerNode: VASafeAreaDisplayNode {
     private lazy var typingTextNode = VATypingTextNode(text: .loremText)
-    private lazy var startTypingButtonNode = VAButtonNode()
-    private lazy var pauseTypingButtonNode = VAButtonNode()
-    private lazy var resetTypingButtonNode = VAButtonNode()
-    private lazy var eraseAndRetypeButtonNode = VAButtonNode()
+    private lazy var startTypingButtonNode = HapticButtonNode(title: "Start typing")
+    private lazy var pauseTypingButtonNode = HapticButtonNode(title: "Pause typing")
+    private lazy var resetTypingButtonNode = HapticButtonNode(title: "Reset typing")
+    private lazy var eraseAndRetypeButtonNode = HapticButtonNode(title: "Erase and retype")
 
     override func didLoad() {
         super.didLoad()
@@ -37,10 +37,6 @@ final class TypingTextControllerNode: VASafeAreaDisplayNode {
 
     override func configureTheme(_ theme: VATheme) {
         backgroundColor = theme.systemBackground
-        startTypingButtonNode.configure(title: "Start typing", theme: theme)
-        pauseTypingButtonNode.configure(title: "Pause typing", theme: theme)
-        resetTypingButtonNode.configure(title: "Reset typing", theme: theme)
-        eraseAndRetypeButtonNode.configure(title: "Erase and retype", theme: theme)
     }
 
     private func bind() {

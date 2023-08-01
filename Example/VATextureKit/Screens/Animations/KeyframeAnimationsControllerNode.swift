@@ -87,9 +87,9 @@ final class KeyframeAnimationsControllerNode: VASafeAreaDisplayNode {
 private class ShakeAnimationPauseResumeExampleNode: VADisplayNode {
     private lazy var shakeXNode = VADisplayNode()
         .sized(width: 100, height: 30)
-    private lazy var buttonNode = HapticButtonNode()
-    private lazy var pauseButtonNode = HapticButtonNode()
-    private lazy var resumeButtonNode = HapticButtonNode()
+    private lazy var buttonNode = HapticButtonNode(title: "Animate shake")
+    private lazy var pauseButtonNode = HapticButtonNode(title: "Pause")
+    private lazy var resumeButtonNode = HapticButtonNode(title: "Resume")
     private var isToggled = false {
         didSet {
             setNeedsLayout()
@@ -124,9 +124,6 @@ private class ShakeAnimationPauseResumeExampleNode: VADisplayNode {
 
     override func configureTheme(_ theme: VATheme) {
         shakeXNode.backgroundColor = theme.label
-        buttonNode.configure(title: "Animate shake", theme: theme)
-        pauseButtonNode.configure(title: "Pause", theme: theme)
-        resumeButtonNode.configure(title: "Resume", theme: theme)
     }
 
     private func bind() {
@@ -141,7 +138,7 @@ private class ShakeAnimationExampleNode: VADisplayNode {
         .sized(width: 100, height: 30)
     private lazy var shakeYNode = VADisplayNode()
         .sized(width: 100, height: 30)
-    private lazy var buttonNode = HapticButtonNode()
+    private lazy var buttonNode = HapticButtonNode(title: "Animate shake")
 
     override func didLoad() {
         super.didLoad()
@@ -162,7 +159,6 @@ private class ShakeAnimationExampleNode: VADisplayNode {
     override func configureTheme(_ theme: VATheme) {
         shakeXNode.backgroundColor = theme.systemIndigo
         shakeYNode.backgroundColor = theme.systemIndigo
-        buttonNode.configure(title: "Animate shake", theme: theme)
     }
 
     private func bind() {
@@ -188,7 +184,7 @@ private class AnimationExampleNode: VADisplayNode {
             $0.shadowOffset = .zero
             $0.shadowOpacity = 1
         }
-    private lazy var buttonNode = HapticButtonNode()
+    private lazy var buttonNode = HapticButtonNode(title: "Animate \(animation.keyPath)")
     private var animation: CALayer.VALayerKeyframeAnimation
 
     init(animation: CALayer.VALayerKeyframeAnimation) {
@@ -214,7 +210,6 @@ private class AnimationExampleNode: VADisplayNode {
 
     override func configureTheme(_ theme: VATheme) {
         exampleNode.backgroundColor = theme.systemOrange
-        buttonNode.configure(title: "Animate \(animation.keyPath)", theme: theme)
         exampleNode.shadowColor = theme.systemOrange.cgColor
     }
 
@@ -228,7 +223,7 @@ private class AnimationExampleNode: VADisplayNode {
 private class GradientAnimationExampleNode: VADisplayNode {
     private lazy var exampleNode = VALinearGradientNode(gradient: .horizontal)
         .sized(width: 300, height: 30)
-    private lazy var buttonNode = HapticButtonNode()
+    private lazy var buttonNode = HapticButtonNode(title: "Animate \(animation.keyPath)")
     private var animation: CALayer.VALayerKeyframeAnimation
 
     init(animation: CALayer.VALayerKeyframeAnimation) {
@@ -254,7 +249,6 @@ private class GradientAnimationExampleNode: VADisplayNode {
 
     override func configureTheme(_ theme: VATheme) {
         exampleNode.update(colors: (theme.systemOrange, 0), (theme.systemIndigo, 1))
-        buttonNode.configure(title: "Animate \(animation.keyPath)", theme: theme)
     }
 
     private func bind() {

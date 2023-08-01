@@ -66,12 +66,14 @@ public struct VAAnimation: ExpressibleByArrayLiteral {
     public func delay(_ delay: Double) -> VAAnimation {
         var result = self
         result.delay = delay
+
         return result
     }
 
     public func options(_ options: UIView.AnimationOptions...) -> VAAnimation {
         var result = self
         options.forEach { result.options.insert($0) }
+
         return result
     }
 }
@@ -188,7 +190,13 @@ extension UIView {
     ///   - animation: Animation parameters.
     ///   - completion: Block to be executed when transition finishes.
     public func removeFromSuperview(transition: UIViewTransition, animation: VAAnimation = .default(), completion: (() -> Void)? = nil) {
-        addOrRemove(to: superview, add: false, transition: transition, animation: animation, completion: completion)
+        addOrRemove(
+            to: superview,
+            add: false,
+            transition: transition,
+            animation: animation,
+            completion: completion
+        )
     }
 
     /// Animated add a subview with given transition.
@@ -199,7 +207,13 @@ extension UIView {
     ///   - animation: Animation parameters.
     ///   - completion: Block to be executed when transition finishes.
     public func add(subview: UIView, transition: UIViewTransition, animation: VAAnimation = .default(), completion: (() -> Void)? = nil) {
-        subview.addOrRemove(to: self, add: true, transition: transition, animation: animation, completion: completion)
+        subview.addOrRemove(
+            to: self,
+            add: true,
+            transition: transition,
+            animation: animation,
+            completion: completion
+        )
     }
 
     public func addOrRemove(
@@ -232,6 +246,7 @@ extension UIView {
             completion?()
             return
         }
+
         let direction: TransitionDirection = hidden ? .removal : .insertion
         var transition = transition
         UIView.performWithoutAnimation {
@@ -289,6 +304,7 @@ extension VATransition where Base: Transformable & AnyObject {
                 transformed: initial.targetRect.midY - initial.sourceRect.midY
             )
         )
+        
         return (scale, offset)
     }
 }

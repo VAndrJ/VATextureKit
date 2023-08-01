@@ -48,6 +48,7 @@ open class VANavigationController: ASDKNavigationController {
         guard let popController = super.popViewController(animated: animated) else {
             return nil
         }
+
         transitionAnimator.animateTransition(
             source: popController,
             destination: viewControllers.last,
@@ -64,6 +65,7 @@ open class VANavigationController: ASDKNavigationController {
             animated: animated,
             isPresenting: true
         )
+        
         super.pushViewController(viewController, animated: animated)
     }
     

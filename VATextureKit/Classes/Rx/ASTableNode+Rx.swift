@@ -70,26 +70,31 @@ extension Reactive where Base: ASTableNode {
         let bindingObserver = Binder(base) { tableNode, contentOffset in
             tableNode.contentOffset = contentOffset
         }
+
         return ControlProperty(values: proxy.contentOffsetBehaviorSubject, valueSink: bindingObserver)
     }
     
     public var didScroll: ControlEvent<Void> {
         let source = RxASTableDelegateProxy.proxy(for: base).contentOffsetPublishSubject
+
         return ControlEvent(events: source)
     }
     
     public var willBeginDecelerating: ControlEvent<Void> {
         let source = delegate.methodInvoked(#selector(ASTableDelegate.scrollViewWillBeginDecelerating(_:))).map { _ in }
+
         return ControlEvent(events: source)
     }
     
     public var didEndDecelerating: ControlEvent<Void> {
         let source = delegate.methodInvoked(#selector(ASTableDelegate.scrollViewDidEndDecelerating(_:))).map { _ in }
+
         return ControlEvent(events: source)
     }
     
     public var willBeginDragging: ControlEvent<Void> {
         let source = delegate.methodInvoked(#selector(ASTableDelegate.scrollViewWillBeginDragging(_:))).map { _ in }
+
         return ControlEvent(events: source)
     }
     
@@ -102,23 +107,27 @@ extension Reactive where Base: ASTableNode {
                 let typedPointer = rawPointer.bindMemory(to: CGPoint.self, capacity: MemoryLayout<CGPoint>.size)
                 return (velocity, typedPointer)
             }
+
         return ControlEvent(events: source)
     }
     
     public var didEndDragging: ControlEvent<Bool> {
         let source = delegate.methodInvoked(#selector(ASTableDelegate.scrollViewDidEndDragging(_:willDecelerate:))).map { try castOrThrow(Bool.self, $0[1]) }
+
         return ControlEvent(events: source)
     }
     
     public var itemSelected: ControlEvent<IndexPath> {
         let source = delegate.methodInvoked(#selector(ASTableDelegate.tableNode(_:didSelectRowAt:)))
             .map { try castOrThrow(IndexPath.self, $0[1]) }
+
         return ControlEvent(events: source)
     }
     
     public var itemDeselected: ControlEvent<IndexPath> {
         let source = delegate.methodInvoked(#selector(ASTableDelegate.tableNode(_:didDeselectRowAt:)))
             .map { try castOrThrow(IndexPath.self, $0[1]) }
+
         return ControlEvent(events: source)
     }
     
@@ -126,6 +135,7 @@ extension Reactive where Base: ASTableNode {
         let source = dataSource.methodInvoked(#selector(ASTableDataSource.tableView(_:commit:forRowAt:)))
             .filter { UITableViewCell.EditingStyle(rawValue: (try castOrThrow(NSNumber.self, $0[1])).intValue) == .insert }
             .map { try castOrThrow(IndexPath.self, $0[2]) }
+
         return ControlEvent(events: source)
     }
     
@@ -133,30 +143,35 @@ extension Reactive where Base: ASTableNode {
         let source = dataSource.methodInvoked(#selector(ASTableDataSource.tableView(_:commit:forRowAt:)))
             .filter { UITableViewCell.EditingStyle(rawValue: (try castOrThrow(NSNumber.self, $0[1])).intValue) == .delete }
             .map { try castOrThrow(IndexPath.self, $0[2]) }
+
         return ControlEvent(events: source)
     }
     
     public var itemMoved: ControlEvent<ItemMovedEvent> {
         let source: Observable<ItemMovedEvent> = dataSource.methodInvoked(#selector(ASTableDataSource.tableView(_:moveRowAt:to:)))
             .map { (try castOrThrow(IndexPath.self, $0[1]), try castOrThrow(IndexPath.self, $0[2])) }
+
         return ControlEvent(events: source)
     }
     
     public var willDisplayCell: ControlEvent<ASCellNode> {
         let source: Observable<ASCellNode> = delegate.methodInvoked(#selector(ASTableDelegate.tableNode(_:willDisplayRowWith:)))
             .map { try castOrThrow(ASCellNode.self, $0[1]) }
+
         return ControlEvent(events: source)
     }
     
     public var didEndDisplayingCell: ControlEvent<ASCellNode> {
         let source: Observable<ASCellNode> = delegate.methodInvoked(#selector(ASTableDelegate.tableNode(_:didEndDisplayingRowWith:)))
             .map { try castOrThrow(ASCellNode.self, $0[1]) }
+
         return ControlEvent(events: source)
     }
     
     public var willBeginBatchFetch: ControlEvent<ASBatchContext> {
         let source: Observable<ASBatchContext> = delegate.methodInvoked(#selector(ASTableDelegate.tableNode(_:willBeginBatchFetchWith:)))
             .map { try castOrThrow(ASBatchContext.self, $0[1]) }
+
         return ControlEvent(events: source)
     }
     
@@ -174,8 +189,10 @@ extension Reactive where Base: ASTableNode {
             guard let view else {
                 return Observable.empty()
             }
+
             return Observable.just(try view.rx.model(at: indexPath))
         }
+
         return ControlEvent(events: source)
     }
     
@@ -193,8 +210,10 @@ extension Reactive where Base: ASTableNode {
             guard let view else {
                 return Observable.empty()
             }
+
             return Observable.just(try view.rx.model(at: indexPath))
         }
+
         return ControlEvent(events: source)
     }
     
@@ -212,8 +231,10 @@ extension Reactive where Base: ASTableNode {
             guard let view else {
                 return Observable.empty()
             }
+
             return Observable.just(try view.rx.model(at: indexPath))
         }
+
         return ControlEvent(events: source)
     }
     
@@ -221,6 +242,7 @@ extension Reactive where Base: ASTableNode {
     public func model<T>(at indexPath: IndexPath) throws -> T {
         let dataSource: SectionedViewDataSourceType = castOrFatalError(dataSource.forwardToDelegate(), message: "This method only works in case one of the `rx.items*` methods was used.")
         let element = try dataSource.model(at: indexPath)
+
         return castOrFatalError(element)
     }
 }
@@ -301,6 +323,7 @@ open class ASTableSectionedDataSource<S: SectionModelType>: NSObject, ASTableDat
     
     open subscript(section: Int) -> S {
         let sectionModel = _sectionModels[section]
+
         return S(original: sectionModel.model, items: sectionModel.items)
     }
 
@@ -308,7 +331,9 @@ open class ASTableSectionedDataSource<S: SectionModelType>: NSObject, ASTableDat
         guard _sectionModels.indices ~= section else {
             return nil
         }
+
         let sectionModel = _sectionModels[section]
+
         return S(original: sectionModel.model, items: sectionModel.items)
     }
     
@@ -325,6 +350,7 @@ open class ASTableSectionedDataSource<S: SectionModelType>: NSObject, ASTableDat
         guard indexPath.section < _sectionModels.count, indexPath.row < _sectionModels[indexPath.section].items.count else {
             throw RxDataSourceTextureError.outOfBounds(indexPath: indexPath)
         }
+
         return self[indexPath]
     }
     
@@ -394,12 +420,16 @@ open class ASTableSectionedDataSource<S: SectionModelType>: NSObject, ASTableDat
     }
     
     open func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        guard _sectionModels.count > section else { return 0 }
+        guard _sectionModels.count > section else {
+            return 0
+        }
+
         return _sectionModels[section].items.count
     }
     
     public func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         precondition(indexPath.row < _sectionModels[indexPath.section].items.count)
+
         return configureCellBlock(self, tableNode, indexPath, self[indexPath])
     }
     
@@ -528,6 +558,7 @@ open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>: 
                         case .reload:
                             dataSource.setSections(newSections)
                             tableNode.reloadDataWithoutAnimations()
+
                             return
                         }
                     } catch {
@@ -569,8 +600,10 @@ open class RxASTableDelegateProxy: DelegateProxy<ASTableNode, ASTableDelegate>, 
         if let subject = _contentOffsetBehaviorSubject {
             return subject
         }
+
         let subject = BehaviorSubject<CGPoint>(value: tableNode?.contentOffset ?? CGPoint.zero)
         _contentOffsetBehaviorSubject = subject
+
         return subject
     }
     
@@ -578,8 +611,10 @@ open class RxASTableDelegateProxy: DelegateProxy<ASTableNode, ASTableDelegate>, 
         if let subject = _contentOffsetPublishSubject {
             return subject
         }
+
         let subject = PublishSubject<Void>()
         _contentOffsetPublishSubject = subject
+
         return subject
     }
     
@@ -658,6 +693,7 @@ final class RxASTableDataSourceProxy: DelegateProxy<ASTableNode, ASTableDataSour
     
     public override func setForwardToDelegate(_ forwardToDelegate: ASTableDataSource?, retainDelegate: Bool) {
         _requiredMethodsDataSource = forwardToDelegate ?? tableDataSourceNotSet
+
         super.setForwardToDelegate(forwardToDelegate, retainDelegate: retainDelegate)
     }
 }

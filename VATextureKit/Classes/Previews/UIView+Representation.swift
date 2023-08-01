@@ -22,6 +22,7 @@ public extension UIView {
                 .anyView
         case .auto:
             let size = systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+
             return VAUIViewRepresentable(view: self)
                 .frame(width: ceil(size.width), height: ceil(size.height), alignment: .topLeading)
                 .previewLayout(.sizeThatFits)
@@ -31,6 +32,7 @@ public extension UIView {
             setNeedsLayout()
             layoutIfNeeded()
             let size = systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+
             return VAUIViewRepresentable(view: self)
                 .frame(width: ceil(size.width), height: height, alignment: .topLeading)
                 .previewLayout(.sizeThatFits)
@@ -40,6 +42,7 @@ public extension UIView {
             setNeedsLayout()
             layoutIfNeeded()
             let size = systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+
             return VAUIViewRepresentable(view: self)
                 .frame(width: width, height: ceil(size.height), alignment: .topLeading)
                 .previewLayout(.sizeThatFits)

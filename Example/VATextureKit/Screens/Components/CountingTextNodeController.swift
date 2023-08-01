@@ -12,7 +12,7 @@ final class CountingTextNodeController: VASafeAreaDisplayNode {
     private lazy var countingTextNode = VACountingTextNode(string: "", color: { $0.label }, descriptor: .monospacedDigits).apply {
         $0.updateCount(to: 0)
     }
-    private lazy var randomButtonNode = VAButtonNode()
+    private lazy var randomButtonNode = HapticButtonNode(title: "Random")
 
     override func didLoad() {
         super.didLoad()
@@ -32,7 +32,6 @@ final class CountingTextNodeController: VASafeAreaDisplayNode {
 
     override func configureTheme(_ theme: VATheme) {
         backgroundColor = theme.systemBackground
-        randomButtonNode.configure(title: "Random", theme: theme)
     }
 
     private func bind() {

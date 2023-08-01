@@ -84,6 +84,7 @@ public extension VANetworkImageNode {
                 return .image(image)
             }
         }
+
         return .url(nil)
     }
 }

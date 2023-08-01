@@ -16,7 +16,12 @@ public extension CALayer {
         public let mass: CGFloat
         public let swiftness: CGFloat
 
-        public init(initialVelocity: CGFloat = 0, damping: CGFloat = 100, mass: CGFloat = 2, swiftness: CGFloat = 100) {
+        public init(
+            initialVelocity: CGFloat = 0,
+            damping: CGFloat = 100,
+            mass: CGFloat = 2,
+            swiftness: CGFloat = 100
+        ) {
             self.initialVelocity = initialVelocity
             self.damping = damping
             self.mass = mass
@@ -76,6 +81,7 @@ public extension CALayer {
     ) -> Self {
         if animation.isToEqualsFrom && !force {
             completion?(true)
+
             return self
         }
         let basicAnimation = getAnimation(
@@ -95,6 +101,7 @@ public extension CALayer {
             completion: completion
         )
         add(basicAnimation, forKey: additive ? nil : animation.keyPath)
+
         return self
     }
 
@@ -177,6 +184,7 @@ public extension CALayer {
             completion: completion
         )
         add(kfAnimation, forKey: additive ? nil : animation.keyPath)
+
         return self
     }
 
@@ -254,6 +262,7 @@ public extension CALayer {
         if let completion {
             animation.delegate = _AnimationDelegate(animation: animation, completion: completion)
         }
+
         return animation
     }
 
@@ -344,6 +353,7 @@ public extension CALayer {
         if let completion {
             animation.delegate = _AnimationDelegate(animation: animation, completion: completion)
         }
+
         return animation
     }
 
@@ -361,6 +371,7 @@ public extension CALayer {
             animationGroup.delegate = _AnimationDelegate(animation: animationGroup, completion: completion)
         }
         add(animationGroup, forKey: key)
+
         return self
     }
 
@@ -375,6 +386,7 @@ public extension CALayer {
             animationGroup.delegate = _AnimationDelegate(animation: animationGroup, completion: completion)
         }
         add(animationGroup, forKey: key)
+
         return self
     }
 

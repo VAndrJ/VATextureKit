@@ -30,9 +30,9 @@ open class VAViewWrapperNode<T: UIView>: VADisplayNode {
         
         switch sizing {
         case let .fixedWidth(width):
-            style.width = ASDimension(unit: .points, value: width)
+            style.width = .points(width)
         case let .fixedHeight(height):
-            style.height = ASDimension(unit: .points, value: height)
+            style.height = .points(height)
         case let .fixedSize(size):
             style.preferredSize = size
         default:
@@ -45,9 +45,9 @@ open class VAViewWrapperNode<T: UIView>: VADisplayNode {
         
         switch sizing {
         case .inheritedHeight:
-            style.height = ASDimension(unit: .points, value: child.frame.height)
+            style.height = .points(child.frame.height)
         case .inheritedWidth:
-            style.width = ASDimension(unit: .points, value: child.frame.width)
+            style.width = .points(child.frame.width)
         case .inheritedSize:
             style.preferredSize = child.frame.size
         default:

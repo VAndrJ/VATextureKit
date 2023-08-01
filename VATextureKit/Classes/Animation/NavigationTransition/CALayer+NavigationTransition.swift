@@ -120,6 +120,7 @@ private func getSubtreeSnapshot(layer: CALayer) -> CALayer? {
                 return nil
             }
         }
+        
         return snapshot
     } else {
         let snapshot = CALayer()
@@ -144,6 +145,7 @@ private func getSubtreeSnapshot(layer: CALayer) -> CALayer? {
                 return nil
             }
         }
+
         return snapshot
     }
 }

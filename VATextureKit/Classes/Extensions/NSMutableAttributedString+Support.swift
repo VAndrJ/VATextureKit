@@ -34,6 +34,7 @@ public extension NSMutableAttributedString {
         self.init(string: string, attributes: attributes)
 
         guard !secondary.isEmpty else { return }
+        
         secondary.forEach { secondary in
             let allSecondaryAttributes = [NSAttributedString.Key.foregroundColor: secondary.color]
                 .merging(

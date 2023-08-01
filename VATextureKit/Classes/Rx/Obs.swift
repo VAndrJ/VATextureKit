@@ -166,6 +166,7 @@ public struct Obs {
         
         public func succeed(_ value: Input) {
             guard let observer = rx as? AnyObserver<Input> else { return }
+
             observer.onNext(value)
             observer.onCompleted()
         }

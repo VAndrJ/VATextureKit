@@ -21,6 +21,7 @@ extension ASDisplayNode {
             context.completeTransition(true)
             return
         }
+
         var insertions: [ASDisplayNode: NodeTransitionAnimation] = [:]
         context.insertedSubnodes().forEach {
             $0.frame = context.finalFrame(for: $0)
@@ -146,7 +147,13 @@ extension ASDisplayNode {
     ///   - animation: Animation parameters.
     ///   - completion: Block to be executed when transition finishes.
     public func removeFromSupernode(transition: NodeTransitionAnimation, animation: VAAnimation = .default(), completion: (() -> Void)? = nil) {
-        addOrRemove(to: supernode, add: false, transition: transition, animation: animation, completion: completion)
+        addOrRemove(
+            to: supernode,
+            add: false,
+            transition: transition,
+            animation: animation,
+            completion: completion
+        )
     }
 
     /// Animated add a subview with given transition.
@@ -157,7 +164,13 @@ extension ASDisplayNode {
     ///   - animation: Animation parameters.
     ///   - completion: Block to be executed when transition finishes.
     public func add(subnode: ASDisplayNode, transition: NodeTransitionAnimation, animation: VAAnimation = .default(), completion: (() -> Void)? = nil) {
-        subnode.addOrRemove(to: self, add: true, transition: transition, animation: animation, completion: completion)
+        subnode.addOrRemove(
+            to: self,
+            add: true,
+            transition: transition,
+            animation: animation,
+            completion: completion
+        )
     }
 
     public func addOrRemove(
@@ -196,6 +209,7 @@ extension ASDisplayNode {
             completion?()
             return
         }
+        
         let direction: TransitionDirection = hidden ? .removal : .insertion
         var transition = transition
         UIView.performWithoutAnimation {
@@ -229,6 +243,7 @@ public enum RelationValue<Value> {
         if case let .absolute(value) = self {
             return value
         }
+
         return nil
     }
 
@@ -236,6 +251,7 @@ public enum RelationValue<Value> {
         if case let .relative(value) = self {
             return value
         }
+
         return nil
     }
 
@@ -398,6 +414,7 @@ public struct AnyTransitionModifier<Root>: TransitionModifier {
         }
         setter = {
             guard let value = $0 as? T.Value else { return }
+
             modifier.set(value: value, to: $1)
         }
         getter = {
@@ -445,7 +462,11 @@ public struct MapTransitionModifier<Base: TransitionModifier, Root>: TransitionM
 public extension ASDisplayNode {
 
     func setNeedsLayoutAnimated(shouldMeasureAsync: Bool = false, isWithSupernodes: Bool = false, completion: (() -> Void)? = nil) {
-        transitionLayout(withAnimation: true, shouldMeasureAsync: shouldMeasureAsync, measurementCompletion: completion)
+        transitionLayout(
+            withAnimation: true,
+            shouldMeasureAsync: shouldMeasureAsync,
+            measurementCompletion: completion
+        )
         if isWithSupernodes {
             var supernode = supernode
             while supernode != nil {
@@ -497,6 +518,7 @@ public extension ASDisplayNode {
                 layer.setValue(animation.to, forKeyPath: animation.keyPath)
             }
         }
+
         return self
     }
 
@@ -529,6 +551,7 @@ public extension ASDisplayNode {
                 completion: completion
             )
         }
+
         return self
     }
 

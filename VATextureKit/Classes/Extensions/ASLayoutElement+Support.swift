@@ -7,126 +7,6 @@
 
 import AsyncDisplayKit
 
-public extension Array where Element: ASLayoutElement {
-
-    /// Sets the preferred size for the layout elements contained within the container.
-    ///
-    /// - Parameters:
-    ///   -  size: The preferred size to be set for the layout elements.
-    /// - Returns: Container with the preferred size set for its layout elements.
-    @discardableResult
-    func sized(_ size: CGSize) -> Self {
-        forEach { $0.sized(size) }
-        return self
-    }
-
-    /// Sets the preferred width and/or height for the layout elements contained within the container.
-    ///
-    /// - Parameters:
-    ///   - width: The preferred width in `points` to be set for the layout elements. If `nil`, the width will not be modified. Defaults to `nil`
-    ///   - height: The preferred height in `points` to be set for the layout elements. If `nil`, the height will not be modified.
-    /// - Returns: Container with the preferred width and/or height set for its layout elements.
-    @discardableResult
-    func sized(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
-        sized(width: width.map { .points($0) }, height: height.map { .points($0) })
-    }
-
-    /// Sets the preferred width and/or height for the layout elements contained within the container.
-    ///
-    /// - Parameters:
-    ///   - width: The preferred width to be set for the layout elements. If `nil`, the width will not be modified. Defaults to `nil`
-    ///   - height: The preferred height to be set for the layout elements. If `nil`, the height will not be modified.
-    /// - Returns: Container with the preferred width and/or height set for its layout elements.
-    @discardableResult
-    func sized(width: ASDimension? = nil, height: ASDimension? = nil) -> Self {
-        assert(width != nil || height != nil)
-        forEach { $0.sized(width: width, height: height) }
-        return self
-    }
-
-    /// Sets the flex properties for the layout elements contained within the container.
-    ///
-    /// - Parameters:
-    ///   - shrink: The flex shrink factor to be set for the layout elements. If `nil`, the `shrink` will not be modified. Defaults to `nil`
-    ///   - grow: The flex grow factor to be set for the layout elements. If `nil`, the `grow` will not be modified. Defaults to `nil`
-    ///   - basisPercent: The flex basis as a fraction percent to be set for the layout elements. If `nil`, the `basisPercent` will not be modified. Defaults to `nil`
-    /// - Returns: Container with the flex properties set for its layout elements.
-    @discardableResult
-    func flex(shrink: CGFloat? = nil, grow: CGFloat? = nil, basisPercent: CGFloat? = nil) -> Self {
-        assert(shrink != nil || grow != nil || basisPercent != nil)
-        forEach { $0.flex(shrink: shrink, grow: grow, basisPercent: basisPercent) }
-        return self
-    }
-
-    /// Sets the maximum size constraint for the layout elements contained within the container.
-    ///
-    /// - Parameter size: The maximum size constraint to be set for the layout elements.
-    /// - Returns: Container with the maximum size constraint set for its layout elements.
-    @discardableResult
-    func maxConstrained(size: CGSize) -> Self {
-        forEach { $0.maxConstrained(size: size) }
-        return self
-    }
-
-    /// Sets the maximum width and/or height constraint for the layout elements contained within the container.
-    ///
-    /// - Parameters:
-    ///   - width: The maximum width constraint in `points` to be set for the layout elements. If `nil`, the maximum width will not be modified. Defaults to `nil`
-    ///   - height: The maximum height in `points` constraint to be set for the layout elements. If `nil`, the maximum height will not be modified. Defaults to `nil`
-    /// - Returns: Container with the maximum width and/or height constraint set for its layout elements.
-    @discardableResult
-    func maxConstrained(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
-        maxConstrained(width: width.map { .points($0) }, height: height.map { .points($0) })
-    }
-
-    /// Sets the maximum width and/or height constraint for the layout elements contained within the container.
-    ///
-    /// - Parameters:
-    ///   - width: The maximum width constraint to be set for the layout elements. If `nil`, the maximum width will not be modified. Defaults to `nil`
-    ///   - height: The maximum height constraint to be set for the layout elements. If `nil`, the maximum height will not be modified. Defaults to `nil`
-    /// - Returns: Container with the maximum width and/or height constraint set for its layout elements.
-    @discardableResult
-    func maxConstrained(width: ASDimension? = nil, height: ASDimension? = nil) -> Self {
-        assert(width != nil || height != nil)
-        forEach { $0.maxConstrained(width: width, height: height) }
-        return self
-    }
-
-    /// Sets the minimum size constraint for the layout elements contained within the container.
-    ///
-    /// - Parameter size: The minimum size constraint to be set for the layout elements.
-    /// - Returns: Container with the minimum size constraint set for its layout elements.
-    @discardableResult
-    func minConstrained(size: CGSize) -> Self {
-        forEach { $0.minConstrained(size: size) }
-        return self
-    }
-
-    /// Sets the minimum width and/or height constraint for the layout elements contained within the container.
-    ///
-    /// - Parameters:
-    ///   - width: The minimum width constraint in `points` to be set for the layout elements. If `nil`, the minimum width will not be modified. Defaults to `nil`
-    ///   - height: The minimum height in `points` constraint to be set for the layout elements. If `nil`, the minimum height will not be modified. Defaults to `nil`
-    /// - Returns: Container with the minimum width and/or height constraint set for its layout elements.
-    @discardableResult
-    func minConstrained(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
-        minConstrained(width: width.map { .points($0) }, height: height.map { .points($0) })
-    }
-
-    /// Sets the minimum width and/or height constraint for the layout elements contained within the container.
-    ///
-    /// - Parameters:
-    ///   - width: The minimum width constraint to be set for the layout elements. If `nil`, the minimum width will not be modified. Defaults to `nil`
-    ///   - height: The minimum height constraint to be set for the layout elements. If `nil`, the minimum height will not be modified. Defaults to `nil`
-    /// - Returns: Container with the minimum width and/or height constraint set for its layout elements.
-    @discardableResult
-    func minConstrained(width: ASDimension? = nil, height: ASDimension? = nil) -> Self {
-        assert(width != nil || height != nil)
-        forEach { $0.minConstrained(width: width, height: height) }
-        return self
-    }
-}
-
 public extension ASLayoutElement {
 
     /// Sets the preferred size of the layout element.
@@ -137,6 +17,7 @@ public extension ASLayoutElement {
     @discardableResult
     func sized(_ size: CGSize) -> Self {
         style.preferredSize = size
+
         return self
     }
 
@@ -166,6 +47,7 @@ public extension ASLayoutElement {
         if let height {
             style.height = height
         }
+
         return self
     }
 
@@ -187,8 +69,9 @@ public extension ASLayoutElement {
         }
         if let basisPercent {
             assert((0...100) ~= basisPercent, "ASDimension fraction percent must be between 0 and 100.")
-            style.flexBasis = ASDimensionMake(.fraction, basisPercent / 100)
+            style.flexBasis = .fraction(percent: basisPercent)
         }
+
         return self
     }
 
@@ -199,6 +82,7 @@ public extension ASLayoutElement {
     @discardableResult
     func maxConstrained(size: CGSize) -> Self {
         style.maxSize = size
+
         return self
     }
 
@@ -228,6 +112,7 @@ public extension ASLayoutElement {
         if let height {
             style.maxHeight = height
         }
+
         return self
     }
 
@@ -238,6 +123,7 @@ public extension ASLayoutElement {
     @discardableResult
     func minConstrained(size: CGSize) -> Self {
         style.minSize = size
+
         return self
     }
 
@@ -267,6 +153,7 @@ public extension ASLayoutElement {
         if let height {
             style.minHeight = height
         }
+
         return self
     }
 
@@ -302,6 +189,7 @@ public extension ASLayoutElement {
     ) -> ASAbsoluteLayoutSpec {
         style.preferredSize = frame.size
         style.layoutPosition = frame.origin
+
         return ASAbsoluteLayoutSpec(
             sizing: sizing,
             children: [self]
@@ -397,6 +285,7 @@ public extension ASLayoutElement {
         )
         spec.offset = offset
         spec.wrapsCorner = wrapsCorner
+
         return spec
     }
 
@@ -406,7 +295,7 @@ public extension ASLayoutElement {
     ///   - edges: The safe area edges for which the layout element should be inset.
     ///   - node: The `ASDisplayNode` representing the container node that provides safe area information.
     /// - Returns: An `ASInsetLayoutSpec` with the layout element safely inset based on the specified safe area edges.
-    func `safe`(edges: VASafeAreaEdge, in node: ASDisplayNode) -> ASLayoutSpec {
+    func `safe`(edges: VASafeAreaEdge, in node: ASDisplayNode) -> ASInsetLayoutSpec {
         ASInsetLayoutSpec(
             insets: UIEdgeInsets(paddings: mapToPaddings(edges: edges, in: node)),
             child: self
@@ -433,7 +322,135 @@ public extension ASLayoutElement {
         if edges.contains(.right) {
             paddings.append(.right(node.safeAreaInsets.right))
         }
+
         return paddings
+    }
+}
+
+public extension Array where Element: ASLayoutElement {
+
+    /// Sets the preferred size for the layout elements contained within the container.
+    ///
+    /// - Parameters:
+    ///   -  size: The preferred size to be set for the layout elements.
+    /// - Returns: Container with the preferred size set for its layout elements.
+    @discardableResult
+    func sized(_ size: CGSize) -> Self {
+        forEach { $0.sized(size) }
+
+        return self
+    }
+
+    /// Sets the preferred width and/or height for the layout elements contained within the container.
+    ///
+    /// - Parameters:
+    ///   - width: The preferred width in `points` to be set for the layout elements. If `nil`, the width will not be modified. Defaults to `nil`
+    ///   - height: The preferred height in `points` to be set for the layout elements. If `nil`, the height will not be modified.
+    /// - Returns: Container with the preferred width and/or height set for its layout elements.
+    @discardableResult
+    func sized(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
+        sized(width: width.map { .points($0) }, height: height.map { .points($0) })
+    }
+
+    /// Sets the preferred width and/or height for the layout elements contained within the container.
+    ///
+    /// - Parameters:
+    ///   - width: The preferred width to be set for the layout elements. If `nil`, the width will not be modified. Defaults to `nil`
+    ///   - height: The preferred height to be set for the layout elements. If `nil`, the height will not be modified.
+    /// - Returns: Container with the preferred width and/or height set for its layout elements.
+    @discardableResult
+    func sized(width: ASDimension? = nil, height: ASDimension? = nil) -> Self {
+        assert(width != nil || height != nil)
+        forEach { $0.sized(width: width, height: height) }
+
+        return self
+    }
+
+    /// Sets the flex properties for the layout elements contained within the container.
+    ///
+    /// - Parameters:
+    ///   - shrink: The flex shrink factor to be set for the layout elements. If `nil`, the `shrink` will not be modified. Defaults to `nil`
+    ///   - grow: The flex grow factor to be set for the layout elements. If `nil`, the `grow` will not be modified. Defaults to `nil`
+    ///   - basisPercent: The flex basis as a fraction percent to be set for the layout elements. If `nil`, the `basisPercent` will not be modified. Defaults to `nil`
+    /// - Returns: Container with the flex properties set for its layout elements.
+    @discardableResult
+    func flex(shrink: CGFloat? = nil, grow: CGFloat? = nil, basisPercent: CGFloat? = nil) -> Self {
+        assert(shrink != nil || grow != nil || basisPercent != nil)
+        forEach { $0.flex(shrink: shrink, grow: grow, basisPercent: basisPercent) }
+
+        return self
+    }
+
+    /// Sets the maximum size constraint for the layout elements contained within the container.
+    ///
+    /// - Parameter size: The maximum size constraint to be set for the layout elements.
+    /// - Returns: Container with the maximum size constraint set for its layout elements.
+    @discardableResult
+    func maxConstrained(size: CGSize) -> Self {
+        forEach { $0.maxConstrained(size: size) }
+
+        return self
+    }
+
+    /// Sets the maximum width and/or height constraint for the layout elements contained within the container.
+    ///
+    /// - Parameters:
+    ///   - width: The maximum width constraint in `points` to be set for the layout elements. If `nil`, the maximum width will not be modified. Defaults to `nil`
+    ///   - height: The maximum height in `points` constraint to be set for the layout elements. If `nil`, the maximum height will not be modified. Defaults to `nil`
+    /// - Returns: Container with the maximum width and/or height constraint set for its layout elements.
+    @discardableResult
+    func maxConstrained(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
+        maxConstrained(width: width.map { .points($0) }, height: height.map { .points($0) })
+    }
+
+    /// Sets the maximum width and/or height constraint for the layout elements contained within the container.
+    ///
+    /// - Parameters:
+    ///   - width: The maximum width constraint to be set for the layout elements. If `nil`, the maximum width will not be modified. Defaults to `nil`
+    ///   - height: The maximum height constraint to be set for the layout elements. If `nil`, the maximum height will not be modified. Defaults to `nil`
+    /// - Returns: Container with the maximum width and/or height constraint set for its layout elements.
+    @discardableResult
+    func maxConstrained(width: ASDimension? = nil, height: ASDimension? = nil) -> Self {
+        assert(width != nil || height != nil)
+        forEach { $0.maxConstrained(width: width, height: height) }
+
+        return self
+    }
+
+    /// Sets the minimum size constraint for the layout elements contained within the container.
+    ///
+    /// - Parameter size: The minimum size constraint to be set for the layout elements.
+    /// - Returns: Container with the minimum size constraint set for its layout elements.
+    @discardableResult
+    func minConstrained(size: CGSize) -> Self {
+        forEach { $0.minConstrained(size: size) }
+
+        return self
+    }
+
+    /// Sets the minimum width and/or height constraint for the layout elements contained within the container.
+    ///
+    /// - Parameters:
+    ///   - width: The minimum width constraint in `points` to be set for the layout elements. If `nil`, the minimum width will not be modified. Defaults to `nil`
+    ///   - height: The minimum height in `points` constraint to be set for the layout elements. If `nil`, the minimum height will not be modified. Defaults to `nil`
+    /// - Returns: Container with the minimum width and/or height constraint set for its layout elements.
+    @discardableResult
+    func minConstrained(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
+        minConstrained(width: width.map { .points($0) }, height: height.map { .points($0) })
+    }
+
+    /// Sets the minimum width and/or height constraint for the layout elements contained within the container.
+    ///
+    /// - Parameters:
+    ///   - width: The minimum width constraint to be set for the layout elements. If `nil`, the minimum width will not be modified. Defaults to `nil`
+    ///   - height: The minimum height constraint to be set for the layout elements. If `nil`, the minimum height will not be modified. Defaults to `nil`
+    /// - Returns: Container with the minimum width and/or height constraint set for its layout elements.
+    @discardableResult
+    func minConstrained(width: ASDimension? = nil, height: ASDimension? = nil) -> Self {
+        assert(width != nil || height != nil)
+        forEach { $0.minConstrained(width: width, height: height) }
+
+        return self
     }
 }
 

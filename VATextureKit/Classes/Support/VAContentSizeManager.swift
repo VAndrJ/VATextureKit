@@ -8,7 +8,7 @@
 import UIKit
 
 open class VAContentSizeManager {
-    public static let contentSizeDidChangedNotification = Notification.Name("VAThemeManager.themeDidChangedNotification")
+    public static let contentSizeDidChangedNotification = Notification.Name("VAContentSizeManager.contentSizeDidChangedNotification")
     
     public private(set) var contentSize: UIContentSizeCategory
     

@@ -436,6 +436,7 @@ public extension ASCollectionNode {
         case let .horizontal(columns, ratio):
             let spacing = ((collectionViewLayout as? UICollectionViewFlowLayout)?.minimumInteritemSpacing ?? 0)
             let height = ((frame.height - contentInset.vertical - spacing * CGFloat(columns - 1)) / CGFloat(columns)).rounded(.down)
+
             return ASSizeRange(
                 width: height * ratio,
                 height: height
@@ -443,6 +444,7 @@ public extension ASCollectionNode {
         case let .vertical(columns, ratio):
             let spacing = ((collectionViewLayout as? UICollectionViewFlowLayout)?.minimumInteritemSpacing ?? 0)
             let width = ((frame.width - contentInset.horizontal - spacing * CGFloat(columns - 1)) / CGFloat(columns)).rounded(.down)
+
             return ASSizeRange(
                 width: width,
                 height: width * ratio

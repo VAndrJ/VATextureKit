@@ -87,6 +87,7 @@ public extension ASDisplayNode {
         )).size
         node.bounds = CGRect(origin: .zero, size: sizeThatFits)
         node.loadForPreview()
+
         return node.view.sRepresentation(layout: .inherited)
     }
 }

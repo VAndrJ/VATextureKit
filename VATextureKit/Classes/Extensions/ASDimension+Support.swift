@@ -25,7 +25,8 @@ public extension ASDimension {
     /// - Returns: An `ASDimension` instance with the specified percentage fraction of the available size.
     static func fraction(percent: CGFloat) -> ASDimension {
         assert(0...100 ~= percent, "ASDimension fraction percent \(percent) must be between 0 and 100.")
-        return fraction(percent / 100)
+
+        return fraction(max(0, min(100, percent)) / 100)
     }
 
     /// Creates an `ASDimension` instance with a fraction value and unit.
@@ -34,5 +35,12 @@ public extension ASDimension {
     /// - Returns: An `ASDimension` instance with the specified `fraction` unit value.
     static func fraction(_ value: CGFloat) -> ASDimension {
         ASDimension(unit: .fraction, value: value)
+    }
+}
+
+extension ASDimension: Equatable {
+    
+    public static func == (lhs: ASDimension, rhs: ASDimension) -> Bool {
+        lhs.unit == rhs.unit && lhs.value == rhs.value
     }
 }
