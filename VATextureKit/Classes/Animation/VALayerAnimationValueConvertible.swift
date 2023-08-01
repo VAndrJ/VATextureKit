@@ -168,11 +168,16 @@ extension CGPath: VALayerAnimationValueConvertible {
     public var animationValue: Any { self }
 
     public func getIsEqual(to: Any?) -> Bool {
-        if let to, to is CGPath {
+        if let to, type(of: to) is CGPath.Type { // 'is' test is always true because 'CGPath' is a Core Foundation type
             return (to as! CGPath) == self
         } else {
             return false
         }
+//        if let to, to is CGPath { // 'is' test is always true because 'CGPath' is a Core Foundation type
+//            return (to as! CGPath) == self
+//        } else {
+//            return false
+//        }
 //        guard let to = to as? CGPath else { // Error: Conditional downcast to CoreFoundation type 'CGPath' will always succeed
 //            return false
 //        }
