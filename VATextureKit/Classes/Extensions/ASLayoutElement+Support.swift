@@ -295,7 +295,7 @@ public extension ASLayoutElement {
     ///   - edges: The safe area edges for which the layout element should be inset.
     ///   - node: The `ASDisplayNode` representing the container node that provides safe area information.
     /// - Returns: An `ASInsetLayoutSpec` with the layout element safely inset based on the specified safe area edges.
-    func `safe`(edges: VASafeAreaEdge, in node: ASDisplayNode) -> ASLayoutSpec {
+    func `safe`(edges: VASafeAreaEdge, in node: ASDisplayNode) -> ASInsetLayoutSpec {
         ASInsetLayoutSpec(
             insets: UIEdgeInsets(paddings: mapToPaddings(edges: edges, in: node)),
             child: self
