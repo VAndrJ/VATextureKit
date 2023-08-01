@@ -83,6 +83,7 @@ extension Reactive where Base: ASCollectionNode {
                 let typedPointer = rawPointer.bindMemory(to: CGPoint.self, capacity: MemoryLayout<CGPoint>.size)
                 return (velocity, typedPointer)
             }
+
         return ControlEvent(events: source)
     }
     
@@ -90,60 +91,70 @@ extension Reactive where Base: ASCollectionNode {
         let source = delegate.methodInvoked(#selector(ASCollectionDelegate.scrollViewDidEndDragging(_:willDecelerate:))).map { value -> Bool in
             return try castOrThrow(Bool.self, value[1])
         }
+
         return ControlEvent(events: source)
     }
     
     public var itemSelected: ControlEvent<IndexPath> {
         let source = delegate.methodInvoked(#selector(ASCollectionDelegate.collectionNode(_:didSelectItemAt:)))
             .map { try castOrThrow(IndexPath.self, $0[1]) }
+
         return ControlEvent(events: source)
     }
     
     public var itemDeselected: ControlEvent<IndexPath> {
         let source = delegate.methodInvoked(#selector(ASCollectionDelegate.collectionNode(_:didDeselectItemAt:)))
             .map { try castOrThrow(IndexPath.self, $0[1]) }
+
         return ControlEvent(events: source)
     }
     
     public var itemHighlighted: ControlEvent<IndexPath> {
         let source = delegate.methodInvoked(#selector(ASCollectionDelegate.collectionNode(_:didHighlightItemAt:)))
             .map { try castOrThrow(IndexPath.self, $0[1]) }
+
         return ControlEvent(events: source)
     }
     
     public var itemUnhighlighted: ControlEvent<IndexPath> {
         let source = delegate.methodInvoked(#selector(ASCollectionDelegate.collectionNode(_:didUnhighlightItemAt:)))
             .map { try castOrThrow(IndexPath.self, $0[1]) }
+
         return ControlEvent(events: source)
     }
     
     public var willDisplayItem: ControlEvent<ASCellNode> {
         let source: Observable<ASCellNode> = delegate.methodInvoked(#selector(ASCollectionDelegate.collectionNode(_:willDisplayItemWith:)))
             .map { try castOrThrow(ASCellNode.self, $0[1]) }
+
         return ControlEvent(events: source)
     }
     
     public var willDisplaySupplementaryElement: ControlEvent<ASCellNode> {
         let source: Observable<ASCellNode> = delegate.methodInvoked(#selector(ASCollectionDelegate.collectionNode(_:willDisplaySupplementaryElementWith:)))
             .map { try castOrThrow(ASCellNode.self, $0[1]) }
+
         return ControlEvent(events: source)
     }
     
     public var didEndDisplayingItem: ControlEvent<ASCellNode> {
         let source: Observable<ASCellNode> = delegate.methodInvoked(#selector(ASCollectionDelegate.collectionNode(_:didEndDisplayingItemWith:)))
             .map { try castOrThrow(ASCellNode.self, $0[1]) }
+
         return ControlEvent(events: source)
     }
     
     public var didEndDisplayingSupplementaryElement: ControlEvent<ASCellNode> {
         let source: Observable<ASCellNode> = delegate.methodInvoked(#selector(ASCollectionDelegate.collectionNode(_:didEndDisplayingSupplementaryElementWith:)))
             .map { try castOrThrow(ASCellNode.self, $0[1]) }
+
         return ControlEvent(events: source)
     }
     
     public var willBeginBatchFetch: ControlEvent<ASBatchContext> {
         let source: Observable<ASBatchContext> = delegate.methodInvoked(#selector(ASCollectionDelegate.collectionNode(_:willBeginBatchFetchWith:)))
             .map { try castOrThrow(ASBatchContext.self, $0[1]) }
+
         return ControlEvent(events: source)
     }
     
@@ -161,8 +172,10 @@ extension Reactive where Base: ASCollectionNode {
             guard let node else {
                 return Observable.empty()
             }
+
             return Observable.just(try node.rx.model(at: indexPath))
         }
+
         return ControlEvent(events: source)
     }
     
@@ -182,6 +195,7 @@ extension Reactive where Base: ASCollectionNode {
             }
             return Observable.just(try node.rx.model(at: indexPath))
         }
+
         return ControlEvent(events: source)
     }
     
@@ -189,6 +203,7 @@ extension Reactive where Base: ASCollectionNode {
     public func model<T>(at indexPath: IndexPath) throws -> T {
         let dataSource: SectionedViewDataSourceType = castOrFatalError(dataSource.forwardToDelegate(), message: "This method only works in case one of the `rx.itemsWith*` methods was used.")
         let element = try dataSource.model(at: indexPath)
+
         return try castOrThrow(T.self, element)
     }
 }
@@ -266,6 +281,7 @@ open class RxASCollectionSectionedAnimatedDataSource<S: AnimatableSectionModelTy
                         case .reload:
                             dataSource.setSections(newSections)
                             collectionNode.reloadDataWithoutAnimations()
+
                             return
                         }
                     } catch {
@@ -326,8 +342,10 @@ open class RxASCollectionDelegateProxy: DelegateProxy<ASCollectionNode, ASCollec
         if let subject = _contentOffsetBehaviorSubject {
             return subject
         }
+
         let subject = BehaviorSubject<CGPoint>(value: collectionNode?.contentOffset ?? .zero)
         _contentOffsetBehaviorSubject = subject
+
         return subject
     }
     
@@ -336,8 +354,10 @@ open class RxASCollectionDelegateProxy: DelegateProxy<ASCollectionNode, ASCollec
         if let subject = _contentOffsetPublishSubject {
             return subject
         }
+
         let subject = PublishSubject<Void>()
         _contentOffsetPublishSubject = subject
+
         return subject
     }
     
@@ -409,7 +429,9 @@ open class ASCollectionSectionedDataSource<S: SectionModelType>: NSObject, ASCol
         guard _sectionModels.indices ~= section else {
             return nil
         }
+
         let sectionModel = _sectionModels[section]
+
         return S(original: sectionModel.model, items: sectionModel.items)
     }
     
@@ -426,6 +448,7 @@ open class ASCollectionSectionedDataSource<S: SectionModelType>: NSObject, ASCol
         guard indexPath.section < _sectionModels.count, indexPath.item < _sectionModels[indexPath.section].items.count else {
             throw RxDataSourceTextureError.outOfBounds(indexPath: indexPath)
         }
+
         return self[indexPath]
     }
     
@@ -488,6 +511,7 @@ open class ASCollectionSectionedDataSource<S: SectionModelType>: NSObject, ASCol
         guard let canMoveItem = canMoveItemWith?(self, node) else {
             return false
         }
+        
         return canMoveItem
     }
     

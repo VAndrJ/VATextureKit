@@ -68,6 +68,7 @@ public struct VATransition<Base>: ExpressibleByArrayLiteral {
 
     public mutating func beforeTransitionIfNeeded(view: Base) {
         guard initialStates.isEmpty else { return }
+
         beforeTransition(view: view)
     }
 
@@ -139,7 +140,9 @@ extension VATransition {
     /// - Parameter transitions: Transitions to be combined.
     /// - Returns: New transition.
     public static func combined(_ transitions: [VATransition]) -> VATransition {
-        guard !transitions.isEmpty else { return .identity }
+        guard !transitions.isEmpty else {
+            return .identity
+        }
 
         var result = VATransition.identity
 
@@ -195,7 +198,13 @@ extension VATransition {
 }
 
 extension VATransition {
-    public static var identity: VATransition { VATransition(transitions: [], modifiers: [], initialStates: []) }
+    public static var identity: VATransition {
+        VATransition(
+            transitions: [],
+            modifiers: [],
+            initialStates: []
+        )
+    }
 
     /// Combines all transition, returning a new transition that is the result of all transitions being applied.
     ///
@@ -410,6 +419,7 @@ public enum Progress: Hashable, Codable {
             if case .removal = self {
                 return true
             }
+            
             return false
         }
         set { direction = newValue ? .removal : .insertion }
@@ -419,6 +429,7 @@ public enum Progress: Hashable, Codable {
             if case .insertion = self {
                 return true
             }
+
             return false
         }
         set { direction = newValue ? .insertion : .removal }

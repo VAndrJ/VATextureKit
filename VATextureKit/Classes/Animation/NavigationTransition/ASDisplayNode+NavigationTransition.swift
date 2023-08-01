@@ -31,6 +31,7 @@ public extension ASDisplayNode {
         if let animation {
             transitionAnimation = animation
         }
+        
         return self
     }
 }

@@ -75,6 +75,7 @@ extension UIEdgeInsets {
                 right = padding
             }
         }
+        
         self.init(top: top, left: left, bottom: bottom, right: right)
     }
 }

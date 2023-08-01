@@ -44,11 +44,13 @@ open class VAViewController<Node: ASDisplayNode>: ASDKViewController<ASDisplayNo
             animated: flag,
             isPresenting: true
         )
+
         super.present(viewControllerToPresent, animated: flag, completion: completion)
     }
 
     open override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         super.dismiss(animated: flag, completion: completion)
+
         transitionAnimator.animateTransition(
             source: self,
             destination: presentingViewController,

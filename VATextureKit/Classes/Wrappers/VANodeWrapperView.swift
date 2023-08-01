@@ -161,6 +161,7 @@ private final class _ContentNodeView<Node: ASDisplayNode>: UILabel { // To use `
             guard ASPointsValidForSize(value) else { // To guard crash
                 return fallback
             }
+
             return value
         }
         var range = ASSizeRange.unconstrained
@@ -169,6 +170,7 @@ private final class _ContentNodeView<Node: ASDisplayNode>: UILabel { // To use `
             range.min.width = validateWidth(bounds.width, 0)
         }
         let calculatedlayout = wrapperNode.calculateLayoutThatFits(range)
+        
         return CGRect(origin: .zero, size: calculatedlayout.size)
     }
 

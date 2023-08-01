@@ -24,6 +24,7 @@ public final class Stack: ASWrapperLayoutSpec {
         guard let children, !children.isEmpty else {
             return ASLayout(layoutElement: self, size: size, sublayouts: rawSubLayouts)
         }
+
         for child in children {
             let sublayout = child.layoutThatFits(constrainedSize, parentSize: constrainedSize.max)
             sublayout.position = .zero
@@ -54,6 +55,7 @@ public final class Stack: ASWrapperLayoutSpec {
                 rawSubLayouts[i].position = CGPoint(x: x, y: y)
             }
         }
+        
         return ASLayout(layoutElement: self, size: size, sublayouts: rawSubLayouts)
     }
 

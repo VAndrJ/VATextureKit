@@ -19,6 +19,7 @@ extension RelationValue where Value: VectorArithmetic {
         case let .relative(koeficient):
             var result = full
             result.scale(by: koeficient)
+
             return result
         }
     }
@@ -30,6 +31,7 @@ extension Progress {
     public func value<T: VectorArithmetic>(identity: T, transformed: T) -> T {
         var result = identity - transformed
         result.scale(by: progress)
+
         return transformed + result
     }
 
@@ -47,6 +49,7 @@ extension Progress {
         var result = identityAnimatable - transformedAnimatable
         result.scale(by: progress)
         result += transformedAnimatable
+        
         return UIColor(
             red: result.first.first,
             green: result.first.second,

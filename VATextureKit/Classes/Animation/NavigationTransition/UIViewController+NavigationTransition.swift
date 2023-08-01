@@ -16,6 +16,7 @@ public extension UIViewController {
     @discardableResult
     func withAnimatedTransitionEnabled() -> Self {
         isTransitionAnimationEnabled = true
+        
         return self
     }
 }

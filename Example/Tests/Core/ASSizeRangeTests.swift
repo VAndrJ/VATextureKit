@@ -23,6 +23,7 @@ class ASSizeRangeTests: XCTestCase {
     func test_init_widthHeightRange() {
         let widthRange: ClosedRange<CGFloat> = 0.0...100.0
         let heightRange: ClosedRange<CGFloat> = 0.0...100.0
+
         XCTAssertEqual(
             ASSizeRange(width: widthRange, height: heightRange),
             ASSizeRange(
@@ -35,6 +36,7 @@ class ASSizeRangeTests: XCTestCase {
     func test_init_widthRange() {
         let widthRange: ClosedRange<CGFloat> = 0.0...100.0
         let height = 100.0
+
         XCTAssertEqual(
             ASSizeRange(width: widthRange, height: height),
             ASSizeRange(
@@ -47,6 +49,7 @@ class ASSizeRangeTests: XCTestCase {
     func test_init_heightRange() {
         let width = 100.0
         let heightRange: ClosedRange<CGFloat> = 0.0...100.0
+
         XCTAssertEqual(
             ASSizeRange(width: width, height: heightRange),
             ASSizeRange(
@@ -59,6 +62,7 @@ class ASSizeRangeTests: XCTestCase {
     func test_init_widthHeight() {
         let width = 100.0
         let height = 100.0
+
         XCTAssertEqual(
             ASSizeRange(width: width, height: height),
             ASSizeRange(

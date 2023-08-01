@@ -43,6 +43,7 @@ open class VACountingTextNode: VATextNode {
         if progressTime >= totalTime {
             return targetValue
         }
+        
         return beginValue + Int(configuration.timingFunction.getValue(for: progressTime / totalTime, rate: configuration.rate) * Double(targetValue - beginValue))
     }
 

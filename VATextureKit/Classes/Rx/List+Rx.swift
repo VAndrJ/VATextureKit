@@ -70,6 +70,7 @@ extension ObservableType {
             .observe(on: MainScheduler())
             .catch { error in
                 bindingError(error)
+
                 return Observable.empty()
             }
         // source can never end, otherwise it would release the subscriber, and deallocate the data source
@@ -151,6 +152,7 @@ func castOptionalOrFatalError<T>(_ value: Any?) -> T? {
     if value == nil {
         return nil
     }
+
     return castOrFatalError(value)
 }
 
@@ -158,6 +160,7 @@ func castOrThrow<T>(_ resultType: T.Type, _ object: Any) throws -> T {
     guard let returnValue = object as? T else {
         throw RxCocoaError.castingError(object: object, targetType: resultType)
     }
+
     return returnValue
 }
 
@@ -168,6 +171,7 @@ func castOptionalOrThrow<T>(_ resultType: T.Type, _ object: AnyObject) throws ->
     guard let returnValue = object as? T else {
         throw RxCocoaError.castingError(object: object, targetType: resultType)
     }
+
     return returnValue
 }
 
@@ -175,6 +179,7 @@ func castOrFatalError<T>(_ value: AnyObject?, message: String) -> T {
     guard let result = value as? T else {
         rxFatalError(message)
     }
+
     return result
 }
 
@@ -182,6 +187,7 @@ func castOrFatalError<T>(_ value: Any?) -> T {
     guard let result = value as? T else {
         rxFatalError("Failure converting from \(String(describing: value)) to \(T.self)")
     }
+
     return result
 }
 
@@ -193,6 +199,7 @@ func indexSet(_ values: [Int]) -> IndexSet {
     for i in values {
         indexSet.add(i)
     }
+    
     return indexSet as IndexSet
 }
 

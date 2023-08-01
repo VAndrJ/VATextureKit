@@ -242,12 +242,14 @@ open class VAStateModel<Action, Event, State>: NSObject {
             .skip(1)
             .do(onSubscribe: { [weak self] in
                 guard let self else { return }
+
                 self.log(state: ("Initial state", self.state))
             })
             .subscribe(onNext: { [weak self] in self?.log(state: $0) })
             .disposed(by: bag)
     }
-    
+
+    // TODO: - OS
     func log(state: (Any, Any)) {
         debugPrint("""
             [StateModel 🟢 update state] \

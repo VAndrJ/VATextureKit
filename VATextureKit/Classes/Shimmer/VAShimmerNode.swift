@@ -30,6 +30,7 @@ open class VAShimmerNode: VADisplayNode {
                     .black,
                 ]
                 gradient.colors = colors.map(\.cgColor)
+
                 return gradient
             },
             animation: @escaping (_ layer: CALayer, _ duration: CFTimeInterval, _ timeOffset: CFTimeInterval) -> CABasicAnimation = { layer, duration, timeOffset in

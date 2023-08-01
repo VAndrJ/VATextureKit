@@ -33,6 +33,7 @@ open class VAReadMoreTextNode: VATextNode {
         guard let self else {
             return nil
         }
+        
         return NSAttributedString(
             string: readMore.text,
             attributes: [
