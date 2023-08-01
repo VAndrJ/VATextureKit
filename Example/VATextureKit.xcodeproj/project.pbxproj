@@ -12,7 +12,6 @@
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
-		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		A310A43229CF471400632416 /* CellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A310A43129CF471400632416 /* CellViewModel.swift */; };
 		A311B22E2A7668240025B060 /* ElementsScrollingAnimationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A311B22D2A7668240025B060 /* ElementsScrollingAnimationListViewController.swift */; };
 		A311B2302A768C490025B060 /* VAScrollRespondingEdgeCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A311B22F2A768C490025B060 /* VAScrollRespondingEdgeCellNode.swift */; };
@@ -47,6 +46,7 @@
 		A359BE7A29D76C0D003BDE19 /* VADisplayNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */; };
 		A359BE7E29D76E1B003BDE19 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A359BE7D29D76E1B003BDE19 /* Environment.swift */; };
 		A364DA892A1F4973001355AE /* VATextNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A364DA882A1F4973001355AE /* VATextNodeTests.swift */; };
+		A36AAF4F2A78D961006168D7 /* ASDimensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36AAF4D2A78D0FD006168D7 /* ASDimensionTests.swift */; };
 		A3820D1529E53BD600993406 /* VARadialGradientNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3820D1429E53BD600993406 /* VARadialGradientNodeTests.swift */; };
 		A3820D2A29E568BE00993406 /* VATextFieldNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3820D2929E568BE00993406 /* VATextFieldNode.swift */; };
 		A384F0B429EDCA7A006BF197 /* RowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A384F0B329EDCA7A006BF197 /* RowTests.swift */; };
@@ -126,7 +126,6 @@
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* VATextureKit_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VATextureKit_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		6D876C31217CA656A4FE2F15 /* Pods-VATextureKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VATextureKit_Example.debug.xcconfig"; path = "Target Support Files/Pods-VATextureKit_Example/Pods-VATextureKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		7E7793BF92D39325720321EF /* Pods-VATextureKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VATextureKit_Example.release.xcconfig"; path = "Target Support Files/Pods-VATextureKit_Example/Pods-VATextureKit_Example.release.xcconfig"; sourceTree = "<group>"; };
 		A310A43129CF471400632416 /* CellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellViewModel.swift; sourceTree = "<group>"; };
@@ -163,6 +162,7 @@
 		A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VADisplayNodeTests.swift; sourceTree = "<group>"; };
 		A359BE7D29D76E1B003BDE19 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		A364DA882A1F4973001355AE /* VATextNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VATextNodeTests.swift; sourceTree = "<group>"; };
+		A36AAF4D2A78D0FD006168D7 /* ASDimensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASDimensionTests.swift; sourceTree = "<group>"; };
 		A3820D1429E53BD600993406 /* VARadialGradientNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VARadialGradientNodeTests.swift; sourceTree = "<group>"; };
 		A3820D2929E568BE00993406 /* VATextFieldNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VATextFieldNode.swift; sourceTree = "<group>"; };
 		A384F0B329EDCA7A006BF197 /* RowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowTests.swift; sourceTree = "<group>"; };
@@ -317,7 +317,7 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				607FACEB1AFB9204008FA782 /* Tests.swift */,
+				A36AAF4C2A78D0F1006168D7 /* Core */,
 				A31F88AA29EA9CAF0077296B /* VANetworkImageNodeTests.swift */,
 				A3D2488429CF860300EE1907 /* VAStateModelTests.swift */,
 				A328F9A329D757B300FEB663 /* Snapshots */,
@@ -424,6 +424,14 @@
 				A357B8032A02490E004835C5 /* VASlidingIndicatorContainerNode.swift */,
 			);
 			path = SlidingTabBar;
+			sourceTree = "<group>";
+		};
+		A36AAF4C2A78D0F1006168D7 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				A36AAF4D2A78D0FD006168D7 /* ASDimensionTests.swift */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 		A3820D2B29E56F3D00993406 /* Experiments */ = {
@@ -914,7 +922,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A384F0B429EDCA7A006BF197 /* RowTests.swift in Sources */,
-				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
 				A3551A5929DD5FCF00B0B18F /* VABaseGradientNodeTests.swift in Sources */,
 				A3D2FAC229D89E1300AA01CA /* MainListCellNodeTests.swift in Sources */,
 				A31F88AB29EA9CAF0077296B /* VANetworkImageNodeTests.swift in Sources */,
@@ -927,6 +934,7 @@
 				A34F8E7129F3F1B300EF4C42 /* VAReadMoreTextNodeTests.swift in Sources */,
 				A3D2488529CF860300EE1907 /* VAStateModelTests.swift in Sources */,
 				A3D2488A29CF869900EE1907 /* Support.swift in Sources */,
+				A36AAF4F2A78D961006168D7 /* ASDimensionTests.swift in Sources */,
 				A3A0BEEA29EDC41C00253AAD /* ColumnTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1002,7 +1010,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1052,7 +1060,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -1074,7 +1082,7 @@
 					"@executable_path/Frameworks",
 				);
 				MODULE_NAME = ExampleApp;
-				MTLLINKER_FLAGS = "-cikernel";
+				MTLLINKER_FLAGS = "-fcikernel";
 				MTL_COMPILER_FLAGS = "-fcikernel";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1097,7 +1105,7 @@
 					"@executable_path/Frameworks",
 				);
 				MODULE_NAME = ExampleApp;
-				MTLLINKER_FLAGS = "-cikernel";
+				MTLLINKER_FLAGS = "-fcikernel";
 				MTL_COMPILER_FLAGS = "-fcikernel";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
