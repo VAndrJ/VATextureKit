@@ -27,7 +27,7 @@ extension CGFloat: VALayerAnimationValueConvertible {
 
     public func getProgressMultiplier(to: Any?, current: Any?) -> Double {
         guard let to = to as? CGFloat else {
-            return 0
+            return 0.0
         }
 
         return getProgress(toComponent: to, currentComponent: (current as? CGFloat) ?? self)
@@ -36,7 +36,7 @@ extension CGFloat: VALayerAnimationValueConvertible {
     func getProgress(toComponent: CGFloat, currentComponent: CGFloat) -> Double {
         let fullPath = toComponent - self
         guard !fullPath.isZero else {
-            return 0
+            return 0.0
         }
 
         let currentPath = toComponent - currentComponent
@@ -47,7 +47,7 @@ extension CGFloat: VALayerAnimationValueConvertible {
     private func getProgress(total: CGFloat) -> Double {
         let progress = self / total
         if progress.isNaN || progress.isInfinite {
-            return 0
+            return 0.0
         } else {
             return Swift.max(0, Swift.min(1, abs(progress)))
         }
@@ -67,7 +67,7 @@ extension CGPoint: VALayerAnimationValueConvertible {
 
     public func getProgressMultiplier(to: Any?, current: Any?) -> Double {
         guard let to = to as? CGPoint else {
-            return 0
+            return 0.0
         }
 
         let from = self
@@ -94,7 +94,7 @@ extension CGRect: VALayerAnimationValueConvertible {
 
     public func getProgressMultiplier(to: Any?, current: Any?) -> Double {
         guard let to = to as? CGRect else {
-            return 0
+            return 0.0
         }
 
         let from = self
@@ -121,7 +121,7 @@ extension CGSize: VALayerAnimationValueConvertible {
 
     public func getProgressMultiplier(to: Any?, current: Any?) -> Double {
         guard let to = to as? CGSize else {
-            return 0
+            return 0.0
         }
 
         let from = self
@@ -148,7 +148,7 @@ extension UIColor: VALayerAnimationValueConvertible {
 
     public func getProgressMultiplier(to: Any?, current: Any?) -> Double {
         guard let to = (to as? UIColor)?.rgba else {
-            return 0
+            return 0.0
         }
 
         let from = rgba
@@ -168,7 +168,7 @@ extension CGPath: VALayerAnimationValueConvertible {
     public var animationValue: Any { self }
 
     public func getIsEqual(to: Any?) -> Bool {
-        if let to, type(of: to) == CGPath.self {
+        if let to, to is CGPath {
             return (to as! CGPath) == self
         } else {
             return false
@@ -179,7 +179,7 @@ extension CGPath: VALayerAnimationValueConvertible {
     }
 
     public func getProgressMultiplier(to: Any?, current: Any?) -> Double {
-        return 0
+        return 0.0
     }
 }
 
@@ -195,7 +195,7 @@ extension UIBezierPath: VALayerAnimationValueConvertible {
     }
 
     public func getProgressMultiplier(to: Any?, current: Any?) -> Double {
-        return 0
+        return 0.0
     }
 }
 
@@ -212,15 +212,18 @@ extension Array: VALayerAnimationValueConvertible where Element: VALayerAnimatio
 
     public func getProgressMultiplier(to: Any?, current: Any?) -> Double {
         guard let to = to as? [VALayerAnimationValueConvertible] else {
-            return 0
+            return 0.0
         }
 
         let current = (current as? [VALayerAnimationValueConvertible]) ?? self
         var progressArr: [Double] = []
-        for (i, color) in self.enumerated() {
+        for (i, value) in self.enumerated() {
             if to.indices ~= i && current.indices ~= i {
-                progressArr.append(color.getProgressMultiplier(to: to[i], current: current[i]))
+                progressArr.append(value.getProgressMultiplier(to: to[i], current: current[i]))
             }
+        }
+        guard !progressArr.isEmpty else {
+            return 0.0
         }
 
         return progressArr.reduce(0.0, +) / Double(progressArr.count)
