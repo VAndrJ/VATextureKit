@@ -10,7 +10,7 @@ import AsyncDisplayKit
 open class VAContainerCellNode<Node: ASDisplayNode>: VACellNode {
     public let childNode: Node
 
-    init(childNode: Node) {
+    public init(childNode: Node) {
         self.childNode = childNode
     }
 

@@ -8,67 +8,215 @@
 import AsyncDisplayKit
 
 open class VAEmitterNode: VADisplayNode {
-    open override var layer: CAEmitterLayer { super.layer as! CAEmitterLayer } // swiftlint:disable:this force_cast
     public var onAnimationsEnded: (() -> Void)?
-
-    private var observation: NSKeyValueObservation?
-
-    public override init() {
-        super.init()
-
-        setLayerBlock {
-            let layer = CAEmitterLayer()
+    public var isStarted: Bool { token != nil }
+    public private(set) var emitterPosition: CGPoint = .zero
+    public var emitterLayer: VAEmitterLayer {
+        if let _emitterLayer {
+            return _emitterLayer
+        } else {
+            let layer = VAEmitterLayer()
             layer.stop()
             layer.masksToBounds = true
+            self.layer.addSublayer(layer)
+            layer.frame = self.layer.bounds
+            layer.emitterPosition = emitterPosition
+            _emitterLayer = layer
             return layer
         }
     }
 
+    private var _emitterLayer: VAEmitterLayer?
+    private var token: String?
+
+    open override func layout() {
+        super.layout()
+
+        _emitterLayer?.frame = layer.bounds
+    }
+
     open func start() {
-        layer.start()
+        start(birthRate: 1)
+    }
+
+    public func setEmitterPosition(_ value: CGPoint) {
+        emitterPosition = value
+        _emitterLayer?.emitterPosition = value
+    }
+
+    open func start(birthRate: Float) {
+        guard !isStarted else { return }
+
+        emitterLayer.start(birthRate: birthRate)
+        token = UUID().uuidString
+    }
+
+    open func forceStart() {
+        forceStart(birthRate: 1)
+    }
+
+    open func forceStart(birthRate: Float) {
+        forceStop()
+
+        emitterLayer.start(birthRate: birthRate)
+        token = UUID().uuidString
     }
 
     open func stop() {
+        guard isStarted else { return }
+
+        let token = self.token
         let lifetime: TimeInterval
-        if let emitterCellWithMaxLifetime = layer.emitterCells?.max(by: { $0.lifetime / $0.speed < $1.lifetime / $1.speed }) {
+        if let emitterCellWithMaxLifetime = emitterLayer.emitterCells?.max(by: { $0.lifetime / $0.speed < $1.lifetime / $1.speed }) {
             lifetime = TimeInterval(emitterCellWithMaxLifetime.lifetime)
         } else {
-            lifetime = TimeInterval(layer.lifetime)
+            lifetime = TimeInterval(emitterLayer.lifetime)
         }
-        mainAsync(after: lifetime + 0.1) { [weak self] in
-            self?.onAnimationsEnded?()
+        _emitterLayer?.stop()
+        mainAsync(after: lifetime) { [weak self] in
+            guard let self, isStarted, self.token == token else { return }
+
+            _emitterLayer?.removeFromSuperlayer()
+            _emitterLayer = nil
+            self.token = nil
+            mainAsync {
+                self.onAnimationsEnded?()
+            }
         }
-        
-        layer.stop()
     }
 
-    @objc open func layerBoundsDidChanged(to rect: CGRect) {}
-
-    open override func didLoad() {
-        super.didLoad()
-
-        if overrides(#selector(layerBoundsDidChanged(to:))) {
-            observation = layer.observe(\.bounds, options: [.new], changeHandler: { [weak self] _, change in
-                guard let newValue = change.newValue else { return }
-
-                ensureOnMain {
-                    self?.layerBoundsDidChanged(to: newValue)
-                }
-            })
-        }
+    public func forceStop() {
+        _emitterLayer?.stop()
+        _emitterLayer?.removeFromSuperlayer()
+        _emitterLayer = nil
+        token = nil
     }
 }
 
-public extension CAEmitterLayer {
-    var isStarted: Bool { !(birthRate.isZero || lifetime.isZero) }
+open class VAEmitterLayer: CAEmitterLayer {
 
-    func start(birthRate: Float = 1, lifetime: Float = 1) {
-        self.birthRate = birthRate
-        self.lifetime = lifetime
+    public func addBehaviors(_ array: [Any]) {
+        setValue(array, forKey: "emitterBehaviors")
     }
 
-    func stop() {
+
+    public func addGravityAnimation(
+        keys: [String],
+        duration: TimeInterval = 10,
+        keyTimes: [NSNumber] = [0.05, 0.1, 0.2, 0.4, 0.8, 1],
+        values: [CGFloat] = [0, 200, 400, 800, 1600, 3200],
+        timingFunction: CAMediaTimingFunctionName = .easeOut
+    ) {
+        let animation = CAKeyframeAnimation()
+        animation.duration = duration
+        animation.keyTimes = keyTimes
+        animation.values = values
+        animation.timingFunction = CAMediaTimingFunction(name: timingFunction)
+        for key in keys {
+            add(animation, forKey: "emitterCells.\(key).yAcceleration")
+        }
+    }
+
+    public func addBirthrateAnimation(
+        duration: TimeInterval = 0.75,
+        fromValue: CGFloat = 1,
+        toValue: CGFloat = 0,
+        timingFunction: CAMediaTimingFunctionName = .easeOut
+    ) {
+        let animation = CABasicAnimation()
+        animation.duration = duration
+        animation.fromValue = fromValue
+        animation.toValue = toValue
+        animation.timingFunction = CAMediaTimingFunction(name: timingFunction)
+        add(animation, forKey: "birthRate")
+    }
+
+    public func addDragAnimation(
+        duration: TimeInterval = 1,
+        fromValue: CGFloat = 0,
+        toValue: CGFloat = 2,
+        timingFunction: CAMediaTimingFunctionName = .easeOut
+    ) {
+        let animation = CABasicAnimation()
+        animation.duration = duration
+        animation.fromValue = fromValue
+        animation.toValue = toValue
+        animation.timingFunction = CAMediaTimingFunction(name: timingFunction)
+        add(animation, forKey: "emitterBehaviors.drag.drag")
+    }
+
+    public func addAttractorStiffnessAnimation(
+        values: [CGFloat],
+        duration: CFTimeInterval = 1,
+        keyTimes: [NSNumber] = [0, 1],
+        timingFunction: CAMediaTimingFunctionName = .easeOut
+    ) {
+        let animation = CAKeyframeAnimation()
+        animation.duration = duration
+        animation.keyTimes = keyTimes
+        animation.values = values
+        animation.timingFunction = CAMediaTimingFunction(name: timingFunction)
+        add(animation, forKey: "emitterBehaviors.attractor.stiffness")
+    }
+
+    public func getAttractorBehavior(
+        positionPoint: CGPoint,
+        stiffness: CGFloat,
+        zPosition: CGFloat = -70,
+        falloff: CGFloat = -290,
+        radius: CGFloat = 290
+    ) -> Any {
+        let behavior = createBehavior(type: "attractor")
+        behavior.setValue("attractor", forKeyPath: "name")
+        behavior.setValue(stiffness, forKeyPath: "stiffness")
+        behavior.setValue(positionPoint, forKeyPath: "position")
+        behavior.setValue(zPosition, forKeyPath: "zPosition")
+        behavior.setValue(falloff, forKeyPath: "falloff")
+        behavior.setValue(radius, forKeyPath: "radius")
+
+        return behavior
+    }
+
+    public func getHorizontalWaveBehavior(force: [CGFloat] = [100, 0, 0], frequency: CGFloat = 0.5) -> Any {
+        let behavior = createBehavior(type: "wave")
+        behavior.setValue(force, forKeyPath: "force")
+        behavior.setValue(frequency, forKeyPath: "frequency")
+
+        return behavior
+    }
+
+    public func getVerticalWaveBehavior(force: [CGFloat] = [0, 500, 0], frequency: CGFloat = 3) -> Any {
+        let behavior = createBehavior(type: "wave")
+        behavior.setValue(force, forKeyPath: "force")
+        behavior.setValue(frequency, forKeyPath: "frequency")
+
+        return behavior
+    }
+
+    public func getDragBehavior(value: CGFloat = 1) -> Any {
+        let behavior = createBehavior(type: "drag")
+        behavior.setValue("drag", forKey: "name")
+        behavior.setValue(value, forKey: "drag")
+
+        return behavior
+    }
+
+    public func start(birthRate: Float = 1) {
+        self.birthRate = birthRate
+    }
+
+    public func stop() {
         birthRate = 0
-        lifetime = 0
+    }
+
+    public func createBehavior(type: String) -> NSObject {
+        guard let behaviorClass = NSClassFromString("CAEmitterBehavior") as? NSObject.Type else {
+            return NSObject()
+        }
+        guard let behaviorWithType = behaviorClass.method(for: NSSelectorFromString("behaviorWithType:")) else {
+            return NSObject()
+        }
+        let castedBehaviorWithType = unsafeBitCast(behaviorWithType, to: (@convention(c)(Any?, Selector, Any?) -> NSObject).self)
+        return castedBehaviorWithType(behaviorClass, NSSelectorFromString("behaviorWithType:"), type)
     }
 }

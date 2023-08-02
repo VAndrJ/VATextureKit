@@ -25,21 +25,29 @@ class VAFireworksEmitterNode: VAEmitterNode {
         super.init()
     }
 
-    override func didLoad() {
-        super.didLoad()
+    override func didEnterVisibleState() {
+        super.didEnterVisibleState()
 
         start()
     }
 
-    override func layerBoundsDidChanged(to rect: CGRect) {
-        layer.emitterPosition = rect.position
+    override func didExitVisibleState() {
+        super.didExitVisibleState()
+
+        forceStop()
+    }
+
+    override func layout() {
+        super.layout()
+
+        emitterLayer.emitterPosition = emitterLayer.bounds.position
     }
 
     override func start() {
-        guard !layer.isStarted else { return }
+        guard !isStarted else { return }
 
-        layer.beginTime = CACurrentMediaTime()
-        layer.emitterCells = (0..<data.number).map { index in
+        emitterLayer.beginTime = CACurrentMediaTime()
+        emitterLayer.emitterCells = (0..<data.number).map { index in
             let birthRate = (Float(index + 1) / Float(data.number)) + 0.5
             let lifetime = Float.random(in: 0.75...1.25)
             let fireworkCell = CAEmitterCell()
