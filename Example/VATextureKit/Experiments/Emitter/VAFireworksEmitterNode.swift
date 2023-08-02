@@ -1,5 +1,5 @@
 //
-//  VAEmitterNode.swift
+//  VAFireworksEmitterNode.swift
 //  VATextureKit_Example
 //
 //  Created by Volodymyr Andriienko on 01.08.2023.
@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-class VAFireworksNode: VAEmitterNode {
+class VAFireworksEmitterNode: VAEmitterNode {
     struct DTO {
         var number = 2
         var dotColor: UIColor = .lightGray
@@ -76,7 +76,7 @@ class VAFireworksNode: VAEmitterNode {
 
     private func createImage(color: UIColor, size: CGSize) -> UIImage? {
         UIGraphicsImageRenderer(size: size).image { context in
-            color.setFill()
+            context.cgContext.setFillColor(color.cgColor)
             context.fill(CGRect(origin: .zero, size: size))
         }
     }

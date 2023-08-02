@@ -29,13 +29,17 @@ open class VAEmitterNode: VADisplayNode {
     }
 
     open func stop() {
-        layer.stop()
-
-        if let emitterCellWithMaxLifetime = layer.emitterCells?.max(by: { $0.lifetime < $1.lifetime }) {
-            mainAsync(after: TimeInterval(emitterCellWithMaxLifetime.lifetime)) { [weak self] in
-                self?.onAnimationsEnded?()
-            }
+        let lifetime: TimeInterval
+        if let emitterCellWithMaxLifetime = layer.emitterCells?.max(by: { $0.lifetime / $0.speed < $1.lifetime / $1.speed }) {
+            lifetime = TimeInterval(emitterCellWithMaxLifetime.lifetime)
+        } else {
+            lifetime = TimeInterval(layer.lifetime)
         }
+        mainAsync(after: lifetime + 0.1) { [weak self] in
+            self?.onAnimationsEnded?()
+        }
+        
+        layer.stop()
     }
 
     @objc open func layerBoundsDidChanged(to newFrame: CGRect) {}

@@ -23,9 +23,10 @@
 		A33729452A7936BA009425D8 /* ObsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33729442A7936BA009425D8 /* ObsTests.swift */; };
 		A33729472A793A31009425D8 /* CALayerAnimationInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33729462A793A31009425D8 /* CALayerAnimationInitTests.swift */; };
 		A33729492A79444B009425D8 /* VALayerAnimationValueConvertibleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33729482A79444B009425D8 /* VALayerAnimationValueConvertibleTests.swift */; };
-		A338712A2A79877900F9D329 /* VAEmitterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33871292A79877900F9D329 /* VAEmitterNode.swift */; };
+		A338712A2A79877900F9D329 /* VAFireworksEmitterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33871292A79877900F9D329 /* VAFireworksEmitterNode.swift */; };
 		A338712C2A79885D00F9D329 /* EmitterLayerAnimationControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338712B2A79885D00F9D329 /* EmitterLayerAnimationControllerNode.swift */; };
 		A33871332A7A1B8300F9D329 /* NSObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33871312A7A1B6E00F9D329 /* NSObjectTests.swift */; };
+		A33871362A7A24B300F9D329 /* VAConfettiEmitterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33871352A7A24B300F9D329 /* VAConfettiEmitterNode.swift */; };
 		A33CDF3329D9B875005F77C6 /* TransitionAnimationControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CDF3229D9B875005F77C6 /* TransitionAnimationControllerNode.swift */; };
 		A33CDF4529D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CDF4429D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift */; };
 		A3483AD029E937B500948574 /* HapticButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3483ACF29E937B500948574 /* HapticButtonNode.swift */; };
@@ -153,9 +154,10 @@
 		A33729442A7936BA009425D8 /* ObsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObsTests.swift; sourceTree = "<group>"; };
 		A33729462A793A31009425D8 /* CALayerAnimationInitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerAnimationInitTests.swift; sourceTree = "<group>"; };
 		A33729482A79444B009425D8 /* VALayerAnimationValueConvertibleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VALayerAnimationValueConvertibleTests.swift; sourceTree = "<group>"; };
-		A33871292A79877900F9D329 /* VAEmitterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAEmitterNode.swift; sourceTree = "<group>"; };
+		A33871292A79877900F9D329 /* VAFireworksEmitterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAFireworksEmitterNode.swift; sourceTree = "<group>"; };
 		A338712B2A79885D00F9D329 /* EmitterLayerAnimationControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterLayerAnimationControllerNode.swift; sourceTree = "<group>"; };
 		A33871312A7A1B6E00F9D329 /* NSObjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectTests.swift; sourceTree = "<group>"; };
+		A33871352A7A24B300F9D329 /* VAConfettiEmitterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAConfettiEmitterNode.swift; sourceTree = "<group>"; };
 		A33CDF3229D9B875005F77C6 /* TransitionAnimationControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAnimationControllerNode.swift; sourceTree = "<group>"; };
 		A33CDF4429D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListSectionHeaderNodeTests.swift; sourceTree = "<group>"; };
 		A3483ACF29E937B500948574 /* HapticButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticButtonNode.swift; sourceTree = "<group>"; };
@@ -402,7 +404,8 @@
 		A33871342A7A1CCC00F9D329 /* Emitter */ = {
 			isa = PBXGroup;
 			children = (
-				A33871292A79877900F9D329 /* VAEmitterNode.swift */,
+				A33871292A79877900F9D329 /* VAFireworksEmitterNode.swift */,
+				A33871352A7A24B300F9D329 /* VAConfettiEmitterNode.swift */,
 			);
 			path = Emitter;
 			sourceTree = "<group>";
@@ -907,7 +910,7 @@
 				A397A2C229AAA68800A05B8F /* AlertNodeController.swift in Sources */,
 				A34F8E8529F576C000EF4C42 /* PagerCardCellNode.swift in Sources */,
 				A357B8002A02483C004835C5 /* VASlidingTab.swift in Sources */,
-				A338712A2A79877900F9D329 /* VAEmitterNode.swift in Sources */,
+				A338712A2A79877900F9D329 /* VAFireworksEmitterNode.swift in Sources */,
 				A3B3F3CD29A2B4FC0090E6E2 /* MainListCellNode.swift in Sources */,
 				A3A0BEE429ED68B900253AAD /* StackLayoutControllerNode.swift in Sources */,
 				A35639992A740A5E00DE531F /* MetalCoreImageFilters.swift in Sources */,
@@ -953,6 +956,7 @@
 				A311B2302A768C490025B060 /* VAScrollRespondingEdgeCellNode.swift in Sources */,
 				A356399B2A740C0E00DE531F /* FilterControllerNode.swift in Sources */,
 				A34F8E7929F43AF700EF4C42 /* CollectionListHeaderFooterViewModel.swift in Sources */,
+				A33871362A7A24B300F9D329 /* VAConfettiEmitterNode.swift in Sources */,
 				A31F446129F70A7A003618C9 /* VALinkTextNode.swift in Sources */,
 				A3F8890029CE2D0000C67187 /* Support.swift in Sources */,
 				A3B7F23829F0632E00CAA52D /* ReadMoreTextControllerNode.swift in Sources */,

@@ -9,7 +9,8 @@
 import VATextureKit
 
 final class EmitterLayerAnimationControllerNode: VASafeAreaDisplayNode {
-    private lazy var emitterNode = VAFireworksNode(data: .init())
+    private lazy var fireworksEmitterNode = VAFireworksEmitterNode(data: .init())
+    private lazy var confettiEmitterNode = VAConfettiEmitterNode(data: .init())
     private lazy var scrollNode = VAScrollNode(data: .init())
 
     override init() {
@@ -28,7 +29,9 @@ final class EmitterLayerAnimationControllerNode: VASafeAreaDisplayNode {
 
     func scrollLayoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column(cross: .stretch) {
-            emitterNode
+            confettiEmitterNode
+                .ratio(1)
+            fireworksEmitterNode
                 .ratio(1)
         }
     }
