@@ -42,7 +42,7 @@ open class VAEmitterNode: VADisplayNode {
         layer.stop()
     }
 
-    @objc open func layerBoundsDidChanged(to newFrame: CGRect) {}
+    @objc open func layerBoundsDidChanged(to rect: CGRect) {}
 
     open override func didLoad() {
         super.didLoad()

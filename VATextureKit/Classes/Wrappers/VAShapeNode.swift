@@ -61,7 +61,7 @@ open class VAShapeNode: ASDisplayNode {
         }
     }
 
-    @objc open func layerBoundsDidChanged(to newFrame: CGRect) {}
+    @objc open func layerBoundsDidChanged(to rect: CGRect) {}
 
     public func setLineWidth(_ value: CGFloat) {
         ensureOnMain { [self] in

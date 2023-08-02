@@ -31,8 +31,8 @@ class VAFireworksEmitterNode: VAEmitterNode {
         start()
     }
 
-    override func layerBoundsDidChanged(to newFrame: CGRect) {
-        layer.emitterPosition = newFrame.position
+    override func layerBoundsDidChanged(to rect: CGRect) {
+        layer.emitterPosition = rect.position
     }
 
     override func start() {
