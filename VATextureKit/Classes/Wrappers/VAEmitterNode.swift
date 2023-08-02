@@ -159,25 +159,38 @@ open class VAEmitterLayer: CAEmitterLayer {
         add(animation, forKey: "emitterBehaviors.attractor.stiffness")
     }
 
+    // axial, planar
     public func getAttractorBehavior(
-        positionPoint: CGPoint,
-        stiffness: CGFloat,
-        zPosition: CGFloat = -70,
+        attractorType: String = "radial",
+        position: CGPoint,
+        stiffness: NSNumber,
+        zPosition: CGFloat = 70,
         falloff: CGFloat = -290,
-        radius: CGFloat = 290
+        radius: NSNumber = 300,
+        orientationLatitude: NSNumber = 0
     ) -> Any {
         let behavior = createBehavior(type: "attractor")
         behavior.setValue("attractor", forKeyPath: "name")
         behavior.setValue(stiffness, forKeyPath: "stiffness")
-        behavior.setValue(positionPoint, forKeyPath: "position")
+        behavior.setValue(position, forKeyPath: "position")
         behavior.setValue(zPosition, forKeyPath: "zPosition")
         behavior.setValue(falloff, forKeyPath: "falloff")
         behavior.setValue(radius, forKeyPath: "radius")
+        behavior.setValue(attractorType, forKeyPath: "attractorType")
+        behavior.setValue(orientationLatitude, forKeyPath: "orientationLatitude")
 
         return behavior
     }
 
-    public func getHorizontalWaveBehavior(force: [CGFloat] = [100, 0, 0], frequency: CGFloat = 0.5) -> Any {
+    public func getHorizontalWaveBehavior(xForce: CGFloat = 100, frequency: CGFloat = 0.5) -> Any {
+        getWaveBehavior(force: [xForce, 0, 0], frequency: frequency)
+    }
+
+    public func getVerticalWaveBehavior(yForce: CGFloat = 400, frequency: CGFloat = 4) -> Any {
+        getWaveBehavior(force: [0, yForce, 0], frequency: frequency)
+    }
+
+    public func getWaveBehavior(force: [CGFloat], frequency: CGFloat) -> Any {
         let behavior = createBehavior(type: "wave")
         behavior.setValue(force, forKeyPath: "force")
         behavior.setValue(frequency, forKeyPath: "frequency")
@@ -185,18 +198,57 @@ open class VAEmitterLayer: CAEmitterLayer {
         return behavior
     }
 
-    public func getVerticalWaveBehavior(force: [CGFloat] = [0, 500, 0], frequency: CGFloat = 3) -> Any {
-        let behavior = createBehavior(type: "wave")
-        behavior.setValue(force, forKeyPath: "force")
-        behavior.setValue(frequency, forKeyPath: "frequency")
+    public func getAlignToMotionBehavior(rotation: CGFloat, preservesDepth: Bool) -> Any {
+        let behavior = createBehavior(type: "alignToMotion")
+        behavior.setValue(rotation, forKeyPath: "rotation")
+        behavior.setValue(preservesDepth, forKeyPath: "preservesDepth")
 
         return behavior
     }
 
-    public func getDragBehavior(value: CGFloat = 1) -> Any {
+    public func getValueOverLifeBehavior(keyPath: String, values: [Any]) -> Any {
+        let behavior = createBehavior(type: "valueOverLife")
+        behavior.setValue(keyPath, forKeyPath: "keyPath")
+        behavior.setValue(values, forKeyPath: "values")
+
+        return behavior
+    }
+
+    public func getColorOverLifeBehavior(colors: [CGColor], locations: [NSNumber]? = nil) -> Any {
+        let behavior = createBehavior(type: "colorOverLife")
+        behavior.setValue(colors, forKeyPath: "colors")
+        behavior.setValue(locations, forKeyPath: "locations")
+
+        return behavior
+    }
+
+    public func getLightBehavior(
+        color: CGColor,
+        position: CGPoint,
+        zPosition: CGFloat,
+        falloff: NSNumber,
+        spot: Bool,
+        appliesAlpha: Bool,
+        directionLatitude: NSNumber,
+        coneAngle: NSNumber
+    ) -> Any {
+        let behavior = createBehavior(type: "light")
+        behavior.setValue(color, forKeyPath: "color")
+        behavior.setValue(position, forKeyPath: "position")
+        behavior.setValue(falloff, forKeyPath: "falloff")
+        behavior.setValue(zPosition, forKeyPath: "zPosition")
+        behavior.setValue(spot, forKeyPath: "spot")
+        behavior.setValue(appliesAlpha, forKeyPath: "appliesAlpha")
+        behavior.setValue(directionLatitude, forKeyPath: "directionLatitude")
+        behavior.setValue(coneAngle, forKeyPath: "coneAngle")
+
+        return behavior
+    }
+
+    public func getDragBehavior(drag: CGFloat = 1) -> Any {
         let behavior = createBehavior(type: "drag")
         behavior.setValue("drag", forKey: "name")
-        behavior.setValue(value, forKey: "drag")
+        behavior.setValue(drag, forKey: "drag")
 
         return behavior
     }

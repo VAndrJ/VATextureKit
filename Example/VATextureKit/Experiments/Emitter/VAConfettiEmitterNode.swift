@@ -73,7 +73,12 @@ class VAConfettiEmitterNode: VAEmitterNode {
     func begin() {
         guard bounds != .zero && !isStarted else { return }
 
-        emitterLayer.emitterSize = CGSize(same: 100)
+        switch data.startPoint {
+        case .center, .topCenter:
+            emitterLayer.emitterSize = CGSize(same: 100)
+        case .bottomRight, .bottomLeft:
+            emitterLayer.emitterSize = CGSize(same: 50)
+        }
         emitterLayer.emitterShape = .sphere
         emitterLayer.emitterMode = .volume
         emitterLayer.beginTime = CACurrentMediaTime()
@@ -126,11 +131,19 @@ class VAConfettiEmitterNode: VAEmitterNode {
                 y: emitterPosition.y + 90
             )
         }
-        layer.addBehaviors([
-            layer.getHorizontalWaveBehavior(),
-            layer.getVerticalWaveBehavior(),
-            layer.getAttractorBehavior(positionPoint: positionPoint, stiffness: data.startPoint == .topCenter ? 10 : 40)
-        ])
+        switch data.startPoint {
+        case .bottomLeft, .bottomRight:
+            layer.addBehaviors([
+                layer.getHorizontalWaveBehavior(),
+                layer.getAttractorBehavior(position: positionPoint, stiffness: 40),
+            ])
+        case .center, .topCenter:
+            layer.addBehaviors([
+                layer.getHorizontalWaveBehavior(),
+                layer.getVerticalWaveBehavior(),
+                layer.getAttractorBehavior(position: positionPoint, stiffness: 10),
+            ])
+        }
     }
 
     func addAnimations(to layer: VAEmitterLayer) {
