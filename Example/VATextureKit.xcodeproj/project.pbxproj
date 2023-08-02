@@ -23,6 +23,8 @@
 		A33729452A7936BA009425D8 /* ObsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33729442A7936BA009425D8 /* ObsTests.swift */; };
 		A33729472A793A31009425D8 /* CALayerAnimationInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33729462A793A31009425D8 /* CALayerAnimationInitTests.swift */; };
 		A33729492A79444B009425D8 /* VALayerAnimationValueConvertibleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33729482A79444B009425D8 /* VALayerAnimationValueConvertibleTests.swift */; };
+		A338712A2A79877900F9D329 /* VAEmitterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33871292A79877900F9D329 /* VAEmitterNode.swift */; };
+		A338712C2A79885D00F9D329 /* EmitterLayerAnimationControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A338712B2A79885D00F9D329 /* EmitterLayerAnimationControllerNode.swift */; };
 		A33CDF3329D9B875005F77C6 /* TransitionAnimationControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CDF3229D9B875005F77C6 /* TransitionAnimationControllerNode.swift */; };
 		A33CDF4529D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CDF4429D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift */; };
 		A3483AD029E937B500948574 /* HapticButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3483ACF29E937B500948574 /* HapticButtonNode.swift */; };
@@ -150,6 +152,8 @@
 		A33729442A7936BA009425D8 /* ObsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObsTests.swift; sourceTree = "<group>"; };
 		A33729462A793A31009425D8 /* CALayerAnimationInitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerAnimationInitTests.swift; sourceTree = "<group>"; };
 		A33729482A79444B009425D8 /* VALayerAnimationValueConvertibleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VALayerAnimationValueConvertibleTests.swift; sourceTree = "<group>"; };
+		A33871292A79877900F9D329 /* VAEmitterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAEmitterNode.swift; sourceTree = "<group>"; };
+		A338712B2A79885D00F9D329 /* EmitterLayerAnimationControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterLayerAnimationControllerNode.swift; sourceTree = "<group>"; };
 		A33CDF3229D9B875005F77C6 /* TransitionAnimationControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAnimationControllerNode.swift; sourceTree = "<group>"; };
 		A33CDF4429D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListSectionHeaderNodeTests.swift; sourceTree = "<group>"; };
 		A3483ACF29E937B500948574 /* HapticButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticButtonNode.swift; sourceTree = "<group>"; };
@@ -476,6 +480,7 @@
 				A3A0BEDF29ED5AE700253AAD /* VATextNode+Support.swift */,
 				A35639952A7408B900DE531F /* MetalCoreImage */,
 				A357B7FC2A016405004835C5 /* SlidingTabBar */,
+				A33871292A79877900F9D329 /* VAEmitterNode.swift */,
 			);
 			path = Experiments;
 			sourceTree = "<group>";
@@ -498,6 +503,7 @@
 				A356399A2A740C0E00DE531F /* FilterControllerNode.swift */,
 				A357B8052A025116004835C5 /* LinkTextControllerNode.swift */,
 				A357B7F829FFF290004835C5 /* SlidingTabBarControllerNode.swift */,
+				A338712B2A79885D00F9D329 /* EmitterLayerAnimationControllerNode.swift */,
 			);
 			path = Experiments;
 			sourceTree = "<group>";
@@ -890,6 +896,7 @@
 				A397A2C229AAA68800A05B8F /* AlertNodeController.swift in Sources */,
 				A34F8E8529F576C000EF4C42 /* PagerCardCellNode.swift in Sources */,
 				A357B8002A02483C004835C5 /* VASlidingTab.swift in Sources */,
+				A338712A2A79877900F9D329 /* VAEmitterNode.swift in Sources */,
 				A3B3F3CD29A2B4FC0090E6E2 /* MainListCellNode.swift in Sources */,
 				A3A0BEE429ED68B900253AAD /* StackLayoutControllerNode.swift in Sources */,
 				A35639992A740A5E00DE531F /* MetalCoreImageFilters.swift in Sources */,
@@ -912,6 +919,7 @@
 				A3B3F3D129A2C1190090E6E2 /* Navigator.swift in Sources */,
 				A3F8890529CE316C00C67187 /* CollectionListDifferentCellsViewModel.swift in Sources */,
 				A3B3F3AF29A17A5B0090E6E2 /* ExampleNavigationController.swift in Sources */,
+				A338712C2A79885D00F9D329 /* EmitterLayerAnimationControllerNode.swift in Sources */,
 				A3B3F3D829A2C9340090E6E2 /* AppearanceViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				A310A43229CF471400632416 /* CellViewModel.swift in Sources */,

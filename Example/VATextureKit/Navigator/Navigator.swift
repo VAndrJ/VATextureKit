@@ -118,6 +118,8 @@ class ScreenFactory {
             return VAViewController(node: KeyframeAnimationsControllerNode())
         case .elementsScrollingAnimationList:
             return ElementsScrollingAnimationListViewController()
+        case .emitter:
+            return VAViewController(node: EmitterLayerAnimationControllerNode())
         }
     }
 }
