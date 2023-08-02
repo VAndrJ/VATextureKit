@@ -399,6 +399,14 @@
 			path = Snapshots;
 			sourceTree = "<group>";
 		};
+		A33871342A7A1CCC00F9D329 /* Emitter */ = {
+			isa = PBXGroup;
+			children = (
+				A33871292A79877900F9D329 /* VAEmitterNode.swift */,
+			);
+			path = Emitter;
+			sourceTree = "<group>";
+		};
 		A33CDF3129D9B85F005F77C6 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
@@ -481,9 +489,9 @@
 				A31F446029F70A7A003618C9 /* VALinkTextNode.swift */,
 				A3820D2929E568BE00993406 /* VATextFieldNode.swift */,
 				A3A0BEDF29ED5AE700253AAD /* VATextNode+Support.swift */,
+				A33871342A7A1CCC00F9D329 /* Emitter */,
 				A35639952A7408B900DE531F /* MetalCoreImage */,
 				A357B7FC2A016405004835C5 /* SlidingTabBar */,
-				A33871292A79877900F9D329 /* VAEmitterNode.swift */,
 			);
 			path = Experiments;
 			sourceTree = "<group>";

@@ -9,7 +9,7 @@
 import VATextureKit
 
 final class EmitterLayerAnimationControllerNode: VASafeAreaDisplayNode {
-    private lazy var emitterNode = VAFireworksNode()
+    private lazy var emitterNode = VAFireworksNode(data: .init())
     private lazy var scrollNode = VAScrollNode(data: .init())
 
     override init() {

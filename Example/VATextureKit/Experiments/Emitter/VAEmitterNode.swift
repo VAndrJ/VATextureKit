@@ -9,9 +9,21 @@
 import VATextureKit
 
 class VAFireworksNode: VAEmitterNode {
-    var numberOfFireworks = 2
+    struct DTO {
+        var number = 2
+        var dotColor: UIColor = .lightGray
+        var dotSize = CGSize(same: 12)
+    }
 
-    private lazy var image: CGImage? = createImage(color: .lightGray, size: CGSize(same: 12))?.cgImage
+    let data: DTO
+
+    private lazy var image: CGImage? = createImage(color: data.dotColor, size: data.dotSize)?.cgImage
+
+    init(data: DTO) {
+        self.data = data
+
+        super.init()
+    }
 
     override func didLoad() {
         super.didLoad()
@@ -27,8 +39,8 @@ class VAFireworksNode: VAEmitterNode {
         guard !layer.isStarted else { return }
 
         layer.beginTime = CACurrentMediaTime()
-        layer.emitterCells = (0..<numberOfFireworks).map { index in
-            let birthRate = (Float(index + 1) / Float(numberOfFireworks)) + 0.5
+        layer.emitterCells = (0..<data.number).map { index in
+            let birthRate = (Float(index + 1) / Float(data.number)) + 0.5
             let lifetime = Float.random(in: 0.75...1.25)
             let fireworkCell = CAEmitterCell()
             fireworkCell.contents = image
