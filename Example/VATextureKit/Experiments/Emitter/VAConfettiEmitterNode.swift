@@ -37,10 +37,10 @@ class VAConfettiEmitterNode: VAEmitterNode {
         layer.emitterSize = CGSize(same: 100)
         layer.emitterShape = .sphere
         layer.emitterMode = .volume
+        onAnimationsEnded = self ?>> { $0.start }
         mainAsync(after: 1) { [self] in
             start()
         }
-        onAnimationsEnded = self ?>> { $0.start }
     }
 
     override func layerBoundsDidChanged(to newFrame: CGRect) {

@@ -18,4 +18,11 @@ class CGRectTests: XCTestCase {
 
         XCTAssertEqual(CGPoint(x: rect.origin.x + rect.width / 2, y: rect.origin.y + rect.height / 2), rect.position)
     }
+
+    func test_init_size() {
+        let value = 10.0
+        let expected = CGRect(x: 0, y: 0, width: value, height: value * 2)
+
+        XCTAssertEqual(expected, CGRect(width: value, height: value * 2))
+    }
 }
