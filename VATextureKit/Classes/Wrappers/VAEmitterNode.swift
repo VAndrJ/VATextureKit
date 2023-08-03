@@ -99,10 +99,9 @@ open class VAEmitterLayer: CAEmitterLayer {
         setValue(array, forKey: "emitterBehaviors")
     }
 
-
     public func addGravityAnimation(
         keys: [String],
-        duration: TimeInterval = 10,
+        duration: TimeInterval,
         keyTimes: [NSNumber] = [0.05, 0.1, 0.2, 0.4, 0.8, 1],
         values: [CGFloat] = [0, 200, 400, 800, 1600, 3200],
         timingFunction: CAMediaTimingFunctionName = .easeOut
@@ -118,7 +117,7 @@ open class VAEmitterLayer: CAEmitterLayer {
     }
 
     public func addBirthrateAnimation(
-        duration: TimeInterval = 0.75,
+        duration: TimeInterval,
         fromValue: CGFloat = 1,
         toValue: CGFloat = 0,
         timingFunction: CAMediaTimingFunctionName = .easeOut
@@ -132,7 +131,7 @@ open class VAEmitterLayer: CAEmitterLayer {
     }
 
     public func addDragAnimation(
-        duration: TimeInterval = 1,
+        duration: TimeInterval,
         fromValue: CGFloat = 0,
         toValue: CGFloat = 2,
         timingFunction: CAMediaTimingFunctionName = .easeOut
@@ -147,8 +146,8 @@ open class VAEmitterLayer: CAEmitterLayer {
 
     public func addAttractorStiffnessAnimation(
         values: [CGFloat],
-        duration: CFTimeInterval = 1,
         keyTimes: [NSNumber] = [0, 1],
+        duration: CFTimeInterval,
         timingFunction: CAMediaTimingFunctionName = .easeOut
     ) {
         let animation = CAKeyframeAnimation()

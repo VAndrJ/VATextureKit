@@ -87,9 +87,9 @@ class VAConfettiEmitterNode: VAEmitterNode {
             cell.name = confettiType.name
             cell.contents = confettiType.image.cgImage
             cell.beginTime = 0.1
-            cell.birthRate = 100
+            cell.birthRate = 50
             cell.emissionRange = .pi
-            cell.lifetime = 10
+            cell.lifetime = 5
             cell.spin = 4
             cell.spinRange = 8
             cell.velocityRange = 0
@@ -151,40 +151,32 @@ class VAConfettiEmitterNode: VAEmitterNode {
         mainAsync(after: 0.75) { [self] in
             stop()
         }
-        layer.addAttractorStiffnessAnimation(values: [data.startPoint == .topCenter ? 10 : 40, 3])
-        layer.addBirthrateAnimation()
-        layer.addGravityAnimation(keys: data.confettiTypes.map(\.name))
+        layer.addAttractorStiffnessAnimation(
+            values: [data.startPoint == .topCenter ? 10 : 40, 3],
+            duration: 1
+        )
+        layer.addBirthrateAnimation(duration: 0.75)
+        layer.addGravityAnimation(keys: data.confettiTypes.map(\.name), duration: 5)
     }
 }
 
 class ConfettiType {
     let color: UIColor
-    let rect: CGRect
-    private(set) lazy var name = UUID().uuidString
+    let size: CGSize
+    let name = UUID().uuidString
+    private(set) lazy var image = UIImage.render(color: color, size: size, isEllipse: Bool.random())
 
     init(color: UIColor) {
         self.color = color
-        self.rect = {
+        self.size = {
             switch Int.random(in: 0...4) {
             case 1, 2:
-                return CGRect(width: 3, height: 3)
+                return CGSize(width: 3, height: 3)
             case 3, 4:
-                return CGRect(width: 4, height: 2)
+                return CGSize(width: 4, height: 2)
             default:
-                return CGRect(width: 3, height: 1)
+                return CGSize(width: 3, height: 1)
             }
         }()
     }
-
-    lazy var image: UIImage = {
-        UIGraphicsImageRenderer(bounds: rect).image { context in
-            context.cgContext.setFillColor(color.cgColor)
-            if Bool.random() {
-                context.cgContext.addRect(rect)
-            } else {
-                context.cgContext.addEllipse(in: rect)
-            }
-            context.cgContext.drawPath(using: .fill)
-        }
-    }()
 }

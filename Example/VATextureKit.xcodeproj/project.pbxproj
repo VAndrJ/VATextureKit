@@ -517,10 +517,10 @@
 		A38D5E912A6BBECB00A67BC7 /* Experiments */ = {
 			isa = PBXGroup;
 			children = (
+				A338712B2A79885D00F9D329 /* EmitterLayerAnimationControllerNode.swift */,
 				A356399A2A740C0E00DE531F /* FilterControllerNode.swift */,
 				A357B8052A025116004835C5 /* LinkTextControllerNode.swift */,
 				A357B7F829FFF290004835C5 /* SlidingTabBarControllerNode.swift */,
-				A338712B2A79885D00F9D329 /* EmitterLayerAnimationControllerNode.swift */,
 			);
 			path = Experiments;
 			sourceTree = "<group>";

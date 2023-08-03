@@ -17,7 +17,7 @@ class VAFireworksEmitterNode: VAEmitterNode {
 
     let data: DTO
 
-    private lazy var image: CGImage? = createImage(color: data.dotColor, size: data.dotSize)?.cgImage
+    private lazy var image = UIImage.render(color: data.dotColor, size: data.dotSize).cgImage
 
     init(data: DTO) {
         self.data = data
@@ -40,7 +40,7 @@ class VAFireworksEmitterNode: VAEmitterNode {
     override func layout() {
         super.layout()
 
-        emitterLayer.emitterPosition = emitterLayer.bounds.position
+        setEmitterPosition(bounds.position)
     }
 
     override func start() {
@@ -81,11 +81,20 @@ class VAFireworksEmitterNode: VAEmitterNode {
 
         super.start()
     }
+}
 
-    private func createImage(color: UIColor, size: CGSize) -> UIImage? {
-        UIGraphicsImageRenderer(size: size).image { context in
+public extension UIImage {
+
+    static func render(color: UIColor, size: CGSize, isEllipse: Bool = false) -> UIImage {
+        let rect = CGRect(origin: .zero, size: size)
+        return UIGraphicsImageRenderer(bounds: rect).image { context in
             context.cgContext.setFillColor(color.cgColor)
-            context.fill(CGRect(origin: .zero, size: size))
+            if isEllipse {
+                context.cgContext.addEllipse(in: rect)
+            } else {
+                context.cgContext.addRect(rect)
+            }
+            context.cgContext.drawPath(using: .fill)
         }
     }
 }
