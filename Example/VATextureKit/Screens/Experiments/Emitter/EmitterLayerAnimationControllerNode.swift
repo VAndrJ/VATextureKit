@@ -16,6 +16,7 @@ final class EmitterLayerAnimationControllerNode: VASafeAreaDisplayNode {
     private lazy var confettiCenterEmitterNode = VAConfettiEmitterNode(data: .init(startPoint: .center))
     private lazy var multipleConfettiNode = VAMultipleConfettiNode()
     private lazy var textEmitterNode = VATextEmitterNode(data: .init())
+    private lazy var rainEmitterNode = VARainEmitterNode(data: .init())
     private lazy var scrollNode = VAScrollNode(data: .init())
 
     override init() {
@@ -37,6 +38,8 @@ final class EmitterLayerAnimationControllerNode: VASafeAreaDisplayNode {
             textEmitterNode
                 .ratio(1)
             fireworksEmitterNode
+                .ratio(1)
+            rainEmitterNode
                 .ratio(1)
             confettiTopCenterEmitterNode
                 .ratio(1)
