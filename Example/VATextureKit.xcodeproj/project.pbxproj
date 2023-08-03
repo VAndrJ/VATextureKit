@@ -496,10 +496,10 @@
 				A3CC53992A7931AB00BC4B3A /* CGRectTests.swift */,
 				A3CC539B2A79326E00BC4B3A /* CGSizeTests.swift */,
 				A3CC53792A79062A00BC4B3A /* DispatchQueueTests.swift */,
+				A33871312A7A1B6E00F9D329 /* NSObjectTests.swift */,
 				A33729442A7936BA009425D8 /* ObsTests.swift */,
 				A3CC53772A78FBC200BC4B3A /* UIEdgeInsetsTests.swift */,
 				A33729482A79444B009425D8 /* VALayerAnimationValueConvertibleTests.swift */,
-				A33871312A7A1B6E00F9D329 /* NSObjectTests.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";

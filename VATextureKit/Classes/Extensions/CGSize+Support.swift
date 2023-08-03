@@ -12,9 +12,25 @@ public extension CGSize {
     static func * (_ lhs: CGSize, _ rhs: CGFloat) -> CGSize {
         CGSize(width: lhs.width * rhs, height: lhs.height * rhs)
     }
+
+    static func / (_ lhs: CGSize, _ rhs: CGFloat) -> CGSize {
+        CGSize(width: lhs.width / rhs, height: lhs.height / rhs)
+    }
+
+    static func + (_ lhs: CGSize, _ rhs: CGSize) -> CGSize {
+        CGSize(width: lhs.width + rhs.width, height: lhs.height + rhs.height)
+    }
+
+    static func - (_ lhs: CGSize, _ rhs: CGSize) -> CGSize {
+        CGSize(width: lhs.width - rhs.width, height: lhs.height - rhs.height)
+    }
     
     static func + (_ lhs: CGSize, _ rhs: CGFloat) -> CGSize {
         CGSize(width: lhs.width + rhs, height: lhs.height + rhs)
+    }
+
+    static func - (_ lhs: CGSize, _ rhs: CGFloat) -> CGSize {
+        CGSize(width: lhs.width - rhs, height: lhs.height - rhs)
     }
 
     init(same: CGFloat) {
