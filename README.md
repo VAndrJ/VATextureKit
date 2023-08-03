@@ -847,6 +847,26 @@ A subclass of `VABaseGradientNode` with parametrized initializer to simplify rad
 
 
 <details>
+<summary>VAShapeNode</summary>
+
+
+A subclass of `ASDisplayNode` with `CAShapeLayer` root layer.
+
+
+</details>
+
+
+<details>
+<summary>VAEmitterNode</summary>
+
+
+A subclass of `ASDisplayNode` with `CAEmitterLayer` support.
+
+
+</details>
+
+
+<details>
 <summary>VATypingTextNode</summary>
 
 

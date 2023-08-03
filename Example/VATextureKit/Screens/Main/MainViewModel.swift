@@ -24,8 +24,8 @@ final class MainViewModel {
         ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "System"), items: [
             MainListCellNodeViewModel(title: "Appearance", description: "Select theme", route: .apearance),
-            MainListCellNodeViewModel(title: "Content size", description: "Alert controller", route: .contentSize),
-            MainListCellNodeViewModel(title: "Alert", description: "Content size category name", route: .alert),
+            MainListCellNodeViewModel(title: "Content size", description: "Content size category name", route: .contentSize),
+            MainListCellNodeViewModel(title: "Alert", description: "Alert controller", route: .alert),
         ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Gradient"), items: [
             MainListCellNodeViewModel(title: "Linear Gradient", description: "Gradient node examples", route: .linearGradient),
