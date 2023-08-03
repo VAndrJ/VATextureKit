@@ -97,4 +97,10 @@ public extension UIImage {
             context.cgContext.drawPath(using: .fill)
         }
     }
+
+    static func render(layer: CALayer) -> UIImage {
+        UIGraphicsImageRenderer(size: layer.bounds.size).image { context in
+            layer.render(in: context.cgContext)
+        }
+    }
 }

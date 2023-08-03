@@ -155,7 +155,7 @@ class VAConfettiEmitterNode: VAEmitterNode {
             values: [data.startPoint == .topCenter ? 10 : 40, 3],
             duration: 1
         )
-        layer.addBirthrateAnimation(duration: 0.75)
+        layer.addBirthRateAnimation(duration: 0.75)
         layer.addGravityAnimation(keys: data.confettiTypes.map(\.name), duration: 5)
     }
 }

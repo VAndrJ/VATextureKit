@@ -15,6 +15,7 @@ final class EmitterLayerAnimationControllerNode: VASafeAreaDisplayNode {
     private lazy var confettiBottomRightEmitterNode = VAConfettiEmitterNode(data: .init(startPoint: .bottomRight))
     private lazy var confettiCenterEmitterNode = VAConfettiEmitterNode(data: .init(startPoint: .center))
     private lazy var multipleConfettiNode = VAMultipleConfettiNode()
+    private lazy var textEmitterNode = VATextEmitterNode(data: .init())
     private lazy var scrollNode = VAScrollNode(data: .init())
 
     override init() {
@@ -33,6 +34,8 @@ final class EmitterLayerAnimationControllerNode: VASafeAreaDisplayNode {
 
     func scrollLayoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column(cross: .stretch) {
+            textEmitterNode
+                .ratio(1)
             fireworksEmitterNode
                 .ratio(1)
             confettiTopCenterEmitterNode

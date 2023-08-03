@@ -11,6 +11,7 @@ open class VAEmitterNode: VADisplayNode {
     public var onAnimationsEnded: (() -> Void)?
     public var isStarted: Bool { token != nil }
     public private(set) var emitterPosition: CGPoint = .zero
+    public private(set) var emitterSize: CGSize = .zero
     public var emitterLayer: VAEmitterLayer {
         if let _emitterLayer {
             return _emitterLayer
@@ -21,6 +22,7 @@ open class VAEmitterNode: VADisplayNode {
             self.layer.addSublayer(layer)
             layer.frame = self.layer.bounds
             layer.emitterPosition = emitterPosition
+            layer.emitterSize = emitterSize
             _emitterLayer = layer
             return layer
         }
@@ -37,6 +39,11 @@ open class VAEmitterNode: VADisplayNode {
 
     open func start() {
         start(birthRate: 1)
+    }
+
+    public func setEmitterSize(_ value: CGSize) {
+        emitterSize = value
+        _emitterLayer?.emitterSize = value
     }
 
     public func setEmitterPosition(_ value: CGPoint) {
@@ -94,9 +101,10 @@ open class VAEmitterNode: VADisplayNode {
 }
 
 open class VAEmitterLayer: CAEmitterLayer {
-
-    public func addBehaviors(_ array: [Any]) {
-        setValue(array, forKey: "emitterBehaviors")
+    public enum AttractorType: String {
+        case radial
+        case axial
+        case planar
     }
 
     public func addGravityAnimation(
@@ -116,7 +124,7 @@ open class VAEmitterLayer: CAEmitterLayer {
         }
     }
 
-    public func addBirthrateAnimation(
+    public func addBirthRateAnimation(
         duration: TimeInterval,
         fromValue: CGFloat = 1,
         toValue: CGFloat = 0,
@@ -158,9 +166,12 @@ open class VAEmitterLayer: CAEmitterLayer {
         add(animation, forKey: "emitterBehaviors.attractor.stiffness")
     }
 
-    // axial, planar
+    public func addBehaviors(_ array: [Any]) {
+        setValue(array, forKey: "emitterBehaviors")
+    }
+
     public func getAttractorBehavior(
-        attractorType: String = "radial",
+        attractorType: AttractorType = .radial,
         position: CGPoint,
         stiffness: NSNumber,
         zPosition: CGFloat = 70,
@@ -175,7 +186,7 @@ open class VAEmitterLayer: CAEmitterLayer {
         behavior.setValue(zPosition, forKeyPath: "zPosition")
         behavior.setValue(falloff, forKeyPath: "falloff")
         behavior.setValue(radius, forKeyPath: "radius")
-        behavior.setValue(attractorType, forKeyPath: "attractorType")
+        behavior.setValue(attractorType.rawValue, forKeyPath: "attractorType")
         behavior.setValue(orientationLatitude, forKeyPath: "orientationLatitude")
 
         return behavior
