@@ -57,7 +57,7 @@ class VATextEmitterNode: VAEmitterNode {
             textLayer.fontSize = fontSize
             let cell = CAEmitterCell()
             cell.contents = UIImage.render(layer: textLayer).cgImage
-            cell.color = UIColor.black.cgColor
+            cell.color = UIColor.gray.cgColor
             cell.alphaSpeed = -0.25
             cell.scale = 0.3
             cell.scaleRange = -0.2

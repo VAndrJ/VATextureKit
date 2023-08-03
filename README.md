@@ -1302,6 +1302,17 @@ sRepresentation(layout:)
 
 
 <details open>
+<summary>VAEmitterNode</summary>
+
+
+![Confetti emitter](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/confetti_emitter_example.gif)
+ ![Text emitter](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/text_emitter_example.gif)
+
+
+</details>
+
+
+<details open>
 <summary>VALinkTextNode</summary>
 
 
