@@ -19,10 +19,14 @@ class VAConfettiEmitterNode: VAEmitterNode {
     struct DTO {
         var startPoint: StartPoint
         var confettiTypes: [ConfettiType] = {
-            let colors: [UIColor] = [.orange, .red, .green, .blue, .yellow, .cyan, .purple, .gray, .magenta, .orange]
-            return (colors + colors.map { $0.withAlphaComponent(0.8) } + colors.map { $0.withAlphaComponent(0.6) } + colors.map { $0.withAlphaComponent(0.4) }).map {
-                ConfettiType(color: $0)
+            var confettiArray: [ConfettiType] = []
+            for color in [UIColor.orange, .red, .green, .blue, .yellow, .cyan, .purple, .gray, .magenta, .orange] {
+                confettiArray.append(ConfettiType(color: .fromAlpha(foreground: color)))
+                for alpha in [0.8, 0.6, 0.4] {
+                    confettiArray.append(ConfettiType(color: .fromAlpha(foreground: color.withAlphaComponent(alpha))))
+                }
             }
+            return confettiArray
         }()
     }
 
@@ -111,10 +115,7 @@ class VAConfettiEmitterNode: VAEmitterNode {
         let positionPoint: CGPoint
         switch data.startPoint {
         case .center:
-            positionPoint = CGPoint(
-                x: emitterPosition.x,
-                y: emitterPosition.y
-            )
+            positionPoint = emitterPosition
         case .topCenter:
             positionPoint = CGPoint(
                 x: emitterPosition.x,

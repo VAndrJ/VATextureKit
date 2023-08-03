@@ -81,10 +81,10 @@ open class VAEmitterNode: VADisplayNode {
         }
         _emitterLayer?.stop()
         mainAsync(after: lifetime) { [weak self] in
-            guard let self, isStarted, self.token == token else { return }
+            guard let self, self.isStarted, self.token == token else { return }
 
-            _emitterLayer?.removeFromSuperlayer()
-            _emitterLayer = nil
+            self._emitterLayer?.removeFromSuperlayer()
+            self._emitterLayer = nil
             self.token = nil
             mainAsync {
                 self.onAnimationsEnded?()

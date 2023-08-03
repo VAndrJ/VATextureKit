@@ -223,7 +223,7 @@ class ASLayoutElementTests: XCTestCase {
     func test_spec_corner() {
         let node = ASDisplayNode()
         let location: ASCornerLayoutLocation = .bottomRight
-        let offset = CGPoint(x: 10, y: 10)
+        let offset = CGPoint(xy: 10)
         let wrapsCorner = false
         let element = ASDisplayNode()
             .corner(node, location: location, offset: offset, wrapsCorner: wrapsCorner)

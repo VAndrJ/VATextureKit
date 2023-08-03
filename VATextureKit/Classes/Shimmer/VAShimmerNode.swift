@@ -21,8 +21,8 @@ open class VAShimmerNode: VADisplayNode {
             animationDuration: CFTimeInterval = 1.5,
             maskLayer: @escaping () -> CAGradientLayer = {
                 let gradient = CAGradientLayer()
-                gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
-                gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
+                gradient.startPoint = CGPoint(x: 0, y: 0.5)
+                gradient.endPoint = CGPoint(x: 1, y: 0.5)
                 gradient.locations = [0.4, 0.5, 0.6]
                 let colors: [UIColor] = [
                     .black,

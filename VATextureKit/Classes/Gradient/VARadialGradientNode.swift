@@ -32,11 +32,11 @@ open class VARadialGradientNode: VABaseGradientNode {
 
         switch gradient {
         case .centered:
-            layer.startPoint = CGPoint(x: 0.5, y: 0.5)
-            layer.endPoint = CGPoint(x: 1, y: 1)
+            layer.startPoint = CGPoint(xy: 0.5)
+            layer.endPoint = CGPoint(xy: 1)
         case .topLeft:
-            layer.startPoint = CGPoint(x: 0, y: 0)
-            layer.endPoint = CGPoint(x: 1, y: 1)
+            layer.startPoint = CGPoint(xy: 0)
+            layer.endPoint = CGPoint(xy: 1)
         case .topRight:
             layer.startPoint = CGPoint(x: 1, y: 0)
             layer.endPoint = CGPoint(x: 0, y: 1)
@@ -44,8 +44,8 @@ open class VARadialGradientNode: VABaseGradientNode {
             layer.startPoint = CGPoint(x: 0, y: 1)
             layer.endPoint = CGPoint(x: 1, y: 0)
         case .bottomRight:
-            layer.startPoint = CGPoint(x: 1, y: 1)
-            layer.endPoint = CGPoint(x: 0, y: 0)
+            layer.startPoint = CGPoint(xy: 1)
+            layer.endPoint = CGPoint(xy: 0)
         case let .custom(startPoint, endPoint):
             layer.startPoint = startPoint
             layer.endPoint = endPoint

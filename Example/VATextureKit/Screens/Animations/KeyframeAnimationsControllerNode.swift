@@ -43,14 +43,14 @@ final class KeyframeAnimationsControllerNode: VASafeAreaDisplayNode {
             CGPoint(x: 0, y: 0.5),
             CGPoint(x: 0, y: 1),
             CGPoint(x: 0.5, y: 1),
-            CGPoint(x: 0.5, y: 0.5),
+            CGPoint(xy: 0.5),
             CGPoint(x: 0, y: 0.5),
         ])),
         GradientAnimationExampleNode(animation: .endPoint(values: [
             CGPoint(x: 1, y: 0.5),
             CGPoint(x: 1, y: 1),
             CGPoint(x: 0.5, y: 1),
-            CGPoint(x: 0.5, y: 0.5),
+            CGPoint(xy: 0.5),
             CGPoint(x: 1, y: 0.5),
         ])),
     ]
