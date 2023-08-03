@@ -403,14 +403,46 @@
 			path = Snapshots;
 			sourceTree = "<group>";
 		};
-		A33871342A7A1CCC00F9D329 /* Emitter */ = {
+		A33871392A7B80D900F9D329 /* Emitter */ = {
 			isa = PBXGroup;
 			children = (
+				A338712B2A79885D00F9D329 /* EmitterLayerAnimationControllerNode.swift */,
 				A33871352A7A24B300F9D329 /* VAConfettiEmitterNode.swift */,
 				A33871292A79877900F9D329 /* VAFireworksEmitterNode.swift */,
 				A33871372A7A5ECA00F9D329 /* VAMultipleConfettiNode.swift */,
 			);
 			path = Emitter;
+			sourceTree = "<group>";
+		};
+		A338713A2A7B810400F9D329 /* LinkTextNode */ = {
+			isa = PBXGroup;
+			children = (
+				A357B8052A025116004835C5 /* LinkTextControllerNode.swift */,
+				A31F446029F70A7A003618C9 /* VALinkTextNode.swift */,
+			);
+			path = LinkTextNode;
+			sourceTree = "<group>";
+		};
+		A338713B2A7B812800F9D329 /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				A356399A2A740C0E00DE531F /* FilterControllerNode.swift */,
+				A35639982A740A5E00DE531F /* MetalCoreImageFilters.swift */,
+				A35639962A7408F500DE531F /* MetalCoreImageKernel.metal */,
+			);
+			path = Filter;
+			sourceTree = "<group>";
+		};
+		A338713C2A7B815300F9D329 /* SlidingTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				A357B7F829FFF290004835C5 /* SlidingTabBarControllerNode.swift */,
+				A357B8032A02490E004835C5 /* VASlidingIndicatorContainerNode.swift */,
+				A357B7FF2A02483C004835C5 /* VASlidingTab.swift */,
+				A357B7FD2A01644C004835C5 /* VASlidingTabBarNode.swift */,
+				A357B8012A0248B9004835C5 /* VASlidingTabTextNode.swift */,
+			);
+			path = SlidingTabBar;
 			sourceTree = "<group>";
 		};
 		A33CDF3129D9B85F005F77C6 /* Animations */ = {
@@ -448,26 +480,6 @@
 			path = CollectionListHeaderFooter;
 			sourceTree = "<group>";
 		};
-		A35639952A7408B900DE531F /* MetalCoreImage */ = {
-			isa = PBXGroup;
-			children = (
-				A35639982A740A5E00DE531F /* MetalCoreImageFilters.swift */,
-				A35639962A7408F500DE531F /* MetalCoreImageKernel.metal */,
-			);
-			path = MetalCoreImage;
-			sourceTree = "<group>";
-		};
-		A357B7FC2A016405004835C5 /* SlidingTabBar */ = {
-			isa = PBXGroup;
-			children = (
-				A357B7FF2A02483C004835C5 /* VASlidingTab.swift */,
-				A357B7FD2A01644C004835C5 /* VASlidingTabBarNode.swift */,
-				A357B8012A0248B9004835C5 /* VASlidingTabTextNode.swift */,
-				A357B8032A02490E004835C5 /* VASlidingIndicatorContainerNode.swift */,
-			);
-			path = SlidingTabBar;
-			sourceTree = "<group>";
-		};
 		A36AAF4C2A78D0F1006168D7 /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -492,12 +504,8 @@
 		A3820D2B29E56F3D00993406 /* Experiments */ = {
 			isa = PBXGroup;
 			children = (
-				A31F446029F70A7A003618C9 /* VALinkTextNode.swift */,
 				A3820D2929E568BE00993406 /* VATextFieldNode.swift */,
 				A3A0BEDF29ED5AE700253AAD /* VATextNode+Support.swift */,
-				A33871342A7A1CCC00F9D329 /* Emitter */,
-				A35639952A7408B900DE531F /* MetalCoreImage */,
-				A357B7FC2A016405004835C5 /* SlidingTabBar */,
 			);
 			path = Experiments;
 			sourceTree = "<group>";
@@ -517,10 +525,10 @@
 		A38D5E912A6BBECB00A67BC7 /* Experiments */ = {
 			isa = PBXGroup;
 			children = (
-				A338712B2A79885D00F9D329 /* EmitterLayerAnimationControllerNode.swift */,
-				A356399A2A740C0E00DE531F /* FilterControllerNode.swift */,
-				A357B8052A025116004835C5 /* LinkTextControllerNode.swift */,
-				A357B7F829FFF290004835C5 /* SlidingTabBarControllerNode.swift */,
+				A33871392A7B80D900F9D329 /* Emitter */,
+				A338713B2A7B812800F9D329 /* Filter */,
+				A338713A2A7B810400F9D329 /* LinkTextNode */,
+				A338713C2A7B815300F9D329 /* SlidingTabBar */,
 			);
 			path = Experiments;
 			sourceTree = "<group>";
