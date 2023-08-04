@@ -64,6 +64,7 @@
 		A3884CC12A7C108800DFB4A4 /* UIColorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3884CC02A7C108800DFB4A4 /* UIColorTests.swift */; };
 		A3884CC32A7C134600DFB4A4 /* CGPointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3884CC22A7C134600DFB4A4 /* CGPointTests.swift */; };
 		A3884CC82A7C303300DFB4A4 /* VARainEmitterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3884CC62A7C2F0800DFB4A4 /* VARainEmitterNode.swift */; };
+		A3884CCB2A7CC6DD00DFB4A4 /* VASnowEmitterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3884CC92A7CC6B900DFB4A4 /* VASnowEmitterNode.swift */; };
 		A38D5E932A6BBEF200A67BC7 /* CountingTextNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E922A6BBEF200A67BC7 /* CountingTextNodeController.swift */; };
 		A38D5E982A6C14F200A67BC7 /* DynamicHeightGridListControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E972A6C14F200A67BC7 /* DynamicHeightGridListControllerNode.swift */; };
 		A38D5E9C2A6D251E00A67BC7 /* ShimmersControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E9B2A6D251E00A67BC7 /* ShimmersControllerNode.swift */; };
@@ -200,6 +201,7 @@
 		A3884CC02A7C108800DFB4A4 /* UIColorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorTests.swift; sourceTree = "<group>"; };
 		A3884CC22A7C134600DFB4A4 /* CGPointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPointTests.swift; sourceTree = "<group>"; };
 		A3884CC62A7C2F0800DFB4A4 /* VARainEmitterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VARainEmitterNode.swift; sourceTree = "<group>"; };
+		A3884CC92A7CC6B900DFB4A4 /* VASnowEmitterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASnowEmitterNode.swift; sourceTree = "<group>"; };
 		A38D5E922A6BBEF200A67BC7 /* CountingTextNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountingTextNodeController.swift; sourceTree = "<group>"; };
 		A38D5E972A6C14F200A67BC7 /* DynamicHeightGridListControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicHeightGridListControllerNode.swift; sourceTree = "<group>"; };
 		A38D5E9B2A6D251E00A67BC7 /* ShimmersControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmersControllerNode.swift; sourceTree = "<group>"; };
@@ -419,6 +421,7 @@
 				A33871292A79877900F9D329 /* VAFireworksEmitterNode.swift */,
 				A33871372A7A5ECA00F9D329 /* VAMultipleConfettiNode.swift */,
 				A3884CC62A7C2F0800DFB4A4 /* VARainEmitterNode.swift */,
+				A3884CC92A7CC6B900DFB4A4 /* VASnowEmitterNode.swift */,
 				A386395B2A7B8FFA00AAB22B /* VATextEmitterNode.swift */,
 			);
 			path = Emitter;
@@ -954,6 +957,7 @@
 				A3B3F3DE29A37C9C0090E6E2 /* AppearanceViewModel.swift in Sources */,
 				A3B3F3D629A2C91A0090E6E2 /* AppearanceContollerNode.swift in Sources */,
 				A3B3F3C529A22F860090E6E2 /* Theme.swift in Sources */,
+				A3884CCB2A7CC6DD00DFB4A4 /* VASnowEmitterNode.swift in Sources */,
 				A3B3F3D129A2C1190090E6E2 /* Navigator.swift in Sources */,
 				A3F8890529CE316C00C67187 /* CollectionListDifferentCellsViewModel.swift in Sources */,
 				A3B3F3AF29A17A5B0090E6E2 /* ExampleNavigationController.swift in Sources */,

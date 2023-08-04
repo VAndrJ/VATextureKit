@@ -21,6 +21,31 @@ class VARainEmitterNode: VAEmitterNode {
 
     let data: DTO
 
+    private lazy var images: [CGImage] = {
+        let images: [CGImage?]
+        switch data.strength {
+        case .small:
+            images = [
+                UIImage.render(color: .white, size: CGSize(width: 1, height: 3), isEllipse: true).cgImage,
+            ]
+        case .medium:
+            images = [
+                UIImage.render(color: .white, size: CGSize(width: 1, height: 3), isEllipse: true).cgImage,
+                UIImage.render(color: .white, size: CGSize(width: 1, height: 6), isEllipse: true).cgImage,
+                UIImage.render(color: .white, size: CGSize(width: 1, height: 9), isEllipse: true).cgImage,
+            ]
+        case .heavy:
+            images = [
+                UIImage.render(color: .white, size: CGSize(width: 1, height: 3), isEllipse: true).cgImage,
+                UIImage.render(color: .white, size: CGSize(width: 1, height: 6), isEllipse: true).cgImage,
+                UIImage.render(color: .white, size: CGSize(width: 1, height: 9), isEllipse: true).cgImage,
+                UIImage.render(color: .white, size: CGSize(width: 2, height: 2), isEllipse: true).cgImage,
+                UIImage.render(color: .white, size: CGSize(width: 2, height: 2), isEllipse: true).cgImage,
+            ]
+        }
+        return images.compactMap { $0 }
+    }()
+
     init(data: DTO) {
         self.data = data
 
@@ -42,7 +67,7 @@ class VARainEmitterNode: VAEmitterNode {
     override func layout() {
         super.layout()
 
-        setEmitterPosition(CGPoint(x: bounds.midX, y: bounds.minY))
+        setEmitterPosition(CGPoint(x: bounds.midX, y: bounds.minY - 10))
         setEmitterSize(bounds.size)
     }
 
@@ -52,30 +77,9 @@ class VARainEmitterNode: VAEmitterNode {
         emitterLayer.emitterShape = .line
         emitterLayer.emitterMode = .surface
         emitterLayer.renderMode = .unordered
-        let images: [UIImage]
-        switch data.strength {
-        case .small:
-            images = [
-                UIImage.render(color: .white, size: CGSize(width: 1, height: 3), isEllipse: true),
-            ]
-        case .medium:
-            images = [
-                UIImage.render(color: .white, size: CGSize(width: 1, height: 3), isEllipse: true),
-                UIImage.render(color: .white, size: CGSize(width: 1, height: 6), isEllipse: true),
-                UIImage.render(color: .white, size: CGSize(width: 1, height: 9), isEllipse: true),
-            ]
-        case .heavy:
-            images = [
-                UIImage.render(color: .white, size: CGSize(width: 1, height: 3), isEllipse: true),
-                UIImage.render(color: .white, size: CGSize(width: 1, height: 6), isEllipse: true),
-                UIImage.render(color: .white, size: CGSize(width: 1, height: 9), isEllipse: true),
-                UIImage.render(color: .white, size: CGSize(width: 2, height: 2), isEllipse: true),
-                UIImage.render(color: .white, size: CGSize(width: 2, height: 2), isEllipse: true),
-            ]
-        }
         emitterLayer.emitterCells = images.map { image in
             let cell = CAEmitterCell()
-            cell.contents = image.cgImage
+            cell.contents = image
             cell.birthRate = 100
             cell.lifetime = 10
             cell.lifetimeRange = 2
@@ -90,6 +94,7 @@ class VARainEmitterNode: VAEmitterNode {
             cell.alphaRange = 0.8
             cell.alphaSpeed = -0.7
             cell.contentsRect = CGRect(origin: .zero, size: CGSize(same: 1))
+
             return cell
         }
 

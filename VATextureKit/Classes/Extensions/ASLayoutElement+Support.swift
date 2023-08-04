@@ -329,6 +329,15 @@ public extension ASLayoutElement {
 
 public extension Array where Element: ASLayoutElement {
 
+    /// Creates an `ASRatioLayoutSpec` array with a specified aspect ratio.
+    ///
+    ///   - Parameter multiplier: The aspect ratio multiplier to be set for the `ASRatioLayoutSpec`.
+    /// - Returns: Container with the `ASRatioLayoutSpec`s.
+    @discardableResult
+    func ratio(_ multiplier: CGFloat) -> [ASRatioLayoutSpec] {
+        map { $0.ratio(multiplier) }
+    }
+
     /// Sets the preferred size for the layout elements contained within the container.
     ///
     /// - Parameters:

@@ -17,7 +17,19 @@ final class EmitterLayerAnimationControllerNode: VASafeAreaDisplayNode {
     private lazy var multipleConfettiNode = VAMultipleConfettiNode()
     private lazy var textEmitterNode = VATextEmitterNode(data: .init())
     private lazy var rainEmitterNode = VARainEmitterNode(data: .init())
+    private lazy var snowEmitterNode = VASnowEmitterNode(data: .init())
     private lazy var scrollNode = VAScrollNode(data: .init())
+    private lazy var demoNodes = [
+        textEmitterNode,
+        fireworksEmitterNode,
+        rainEmitterNode,
+        snowEmitterNode,
+        confettiTopCenterEmitterNode,
+        confettiBottomLeftEmitterNode,
+        confettiBottomRightEmitterNode,
+        confettiCenterEmitterNode,
+        multipleConfettiNode,
+    ].ratio(1)
 
     override init() {
         super.init()
@@ -35,22 +47,7 @@ final class EmitterLayerAnimationControllerNode: VASafeAreaDisplayNode {
 
     func scrollLayoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column(cross: .stretch) {
-            textEmitterNode
-                .ratio(1)
-            fireworksEmitterNode
-                .ratio(1)
-            rainEmitterNode
-                .ratio(1)
-            confettiTopCenterEmitterNode
-                .ratio(1)
-            confettiBottomLeftEmitterNode
-                .ratio(1)
-            confettiBottomRightEmitterNode
-                .ratio(1)
-            confettiCenterEmitterNode
-                .ratio(1)
-            multipleConfettiNode
-                .ratio(1)
+            demoNodes
         }
     }
 
