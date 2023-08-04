@@ -20,12 +20,44 @@ class CGSizeTests: XCTestCase {
         XCTAssertEqual(expectedSize, size * value)
     }
 
+    func test_division() {
+        let value = 10.0
+        let size = CGSize(same: 10)
+        let expectedSize = CGSize(width: size.width / value, height: size.height / value)
+
+        XCTAssertEqual(expectedSize, size / value)
+    }
+
     func test_sum() {
         let value = 10.0
         let size = CGSize(same: 10)
         let expectedSize = CGSize(width: value + size.width, height: value + size.height)
 
         XCTAssertEqual(expectedSize, size + value)
+    }
+
+    func test_sum_sizes() {
+        let value = CGSize(same: 10)
+        let size = CGSize(same: 10)
+        let expectedSize = CGSize(width: value.width + size.width, height: value.height + size.height)
+
+        XCTAssertEqual(expectedSize, size + value)
+    }
+
+    func test_substraction() {
+        let value = 5.0
+        let size = CGSize(same: 10)
+        let expectedSize = CGSize(width: size.width - value, height: size.height - value)
+
+        XCTAssertEqual(expectedSize, size - value)
+    }
+
+    func test_substraction_sizes() {
+        let value = CGSize(same: 5)
+        let size = CGSize(same: 10)
+        let expectedSize = CGSize(width: size.width - value.width, height: size.height - value.height)
+
+        XCTAssertEqual(expectedSize, size - value)
     }
 
     func test_insets() {

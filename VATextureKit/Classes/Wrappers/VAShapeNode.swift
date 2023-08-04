@@ -33,6 +33,7 @@ open class VAShapeNode: ASDisplayNode {
     public override var layer: CAShapeLayer { super.layer as! CAShapeLayer }
 
     private var data: DTO!
+    private var observation: NSKeyValueObservation?
 
     public convenience init(data: DTO) {
         self.init { CAShapeLayer() }
@@ -48,7 +49,19 @@ open class VAShapeNode: ASDisplayNode {
         layer.backgroundColor = data.backgroundColor.cgColor
         layer.borderColor = data.borderColor.cgColor
         layer.shadowColor = data.shadowColor.cgColor
+
+        if overrides(#selector(layerBoundsDidChanged(to:))) {
+            observation = layer.observe(\.bounds, options: [.new], changeHandler: { [weak self] _, change in
+                guard let newValue = change.newValue else { return }
+
+                ensureOnMain {
+                    self?.layerBoundsDidChanged(to: newValue)
+                }
+            })
+        }
     }
+
+    @objc open func layerBoundsDidChanged(to rect: CGRect) {}
 
     public func setLineWidth(_ value: CGFloat) {
         ensureOnMain { [self] in

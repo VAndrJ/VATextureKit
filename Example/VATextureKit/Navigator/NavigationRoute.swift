@@ -36,4 +36,5 @@ enum NavigationRoute {
     case filter
     case keyframeLayerAnimations
     case elementsScrollingAnimationList
+    case emitter
 }

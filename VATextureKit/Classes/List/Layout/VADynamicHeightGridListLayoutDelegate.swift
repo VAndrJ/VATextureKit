@@ -1,6 +1,6 @@
 //
 //  VADynamicHeightGridListLayoutDelegate.swift
-//  Differentiator
+//  VATextureKit
 //
 //  Created by Volodymyr Andriienko on 23.07.2023.
 //

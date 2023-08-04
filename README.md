@@ -847,6 +847,26 @@ A subclass of `VABaseGradientNode` with parametrized initializer to simplify rad
 
 
 <details>
+<summary>VAShapeNode</summary>
+
+
+A subclass of `ASDisplayNode` with `CAShapeLayer` root layer.
+
+
+</details>
+
+
+<details>
+<summary>VAEmitterNode</summary>
+
+
+A subclass of `ASDisplayNode` with `CAEmitterLayer` support.
+
+
+</details>
+
+
+<details>
 <summary>VATypingTextNode</summary>
 
 
@@ -1296,6 +1316,17 @@ sRepresentation(layout:)
 
 
 ![Sliding tab bar](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/sliding_tab_bar_example.gif)
+
+
+</details>
+
+
+<details open>
+<summary>VAEmitterNode</summary>
+
+
+![Confetti emitter](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/confetti_emitter_example.gif)
+ ![Text emitter](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/text_emitter_example.gif)
 
 
 </details>

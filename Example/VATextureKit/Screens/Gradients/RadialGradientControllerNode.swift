@@ -15,7 +15,7 @@ final class RadialGradientControllerNode: VASafeAreaDisplayNode {
     private lazy var topRightGradientNode = VARadialGradientNode(gradient: .topRight)
     private lazy var bottomLeftGradientNode = VARadialGradientNode(gradient: .bottomLeft)
     private lazy var bottomRightGradientNode = VARadialGradientNode(gradient: .bottomRight)
-    private lazy var customGradientNode = VARadialGradientNode(gradient: .custom(startPoint: CGPoint(x: 0.4, y: 0.4), endPoint: CGPoint(x: 0.6, y: 0.6)))
+    private lazy var customGradientNode = VARadialGradientNode(gradient: .custom(startPoint: CGPoint(xy: 0.4), endPoint: CGPoint(xy: 0.6)))
     private lazy var contentNodes = [
         centeredGradientNode,
         topLeftGradientNode,

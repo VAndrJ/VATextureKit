@@ -223,7 +223,7 @@ class ASLayoutElementTests: XCTestCase {
     func test_spec_corner() {
         let node = ASDisplayNode()
         let location: ASCornerLayoutLocation = .bottomRight
-        let offset = CGPoint(x: 10, y: 10)
+        let offset = CGPoint(xy: 10)
         let wrapsCorner = false
         let element = ASDisplayNode()
             .corner(node, location: location, offset: offset, wrapsCorner: wrapsCorner)
@@ -421,6 +421,16 @@ class ASLayoutElementTests: XCTestCase {
 
         elements.forEach {
             XCTAssertEqual(expected, $0.style.minHeight)
+        }
+    }
+
+    func test_ratio_array() {
+        let expected = 2.0
+        let nodes = [ASDisplayNode(), ASDisplayNode()]
+        let elements = nodes.ratio(expected)
+
+        elements.forEach {
+            XCTAssertEqual(expected, $0.ratio)
         }
     }
 }

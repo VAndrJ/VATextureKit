@@ -1,6 +1,6 @@
 //
 //  UIViewController+NavigationTransition.swift
-//  Differentiator
+//  VATextureKit
 //
 //  Created by Volodymyr Andriienko on 24.07.2023.
 //

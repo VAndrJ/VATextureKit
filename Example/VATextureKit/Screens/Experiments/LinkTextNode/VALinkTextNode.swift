@@ -65,6 +65,7 @@ extension VALinkTextNode: ASTextNodeDelegate {
 
     public func textNode(_ textNode: ASTextNode, tappedLinkAttribute attribute: String, value: Any, at point: CGPoint, textRange: NSRange) {
         guard let url = value as? URL else { return }
+        
         linkRelay?.accept(url)
         onLinkTap?(url)
     }

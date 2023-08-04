@@ -24,8 +24,8 @@ final class MainViewModel {
         ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "System"), items: [
             MainListCellNodeViewModel(title: "Appearance", description: "Select theme", route: .apearance),
-            MainListCellNodeViewModel(title: "Content size", description: "Alert controller", route: .contentSize),
-            MainListCellNodeViewModel(title: "Alert", description: "Content size category name", route: .alert),
+            MainListCellNodeViewModel(title: "Content size", description: "Content size category name", route: .contentSize),
+            MainListCellNodeViewModel(title: "Alert", description: "Alert controller", route: .alert),
         ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Gradient"), items: [
             MainListCellNodeViewModel(title: "Linear Gradient", description: "Gradient node examples", route: .linearGradient),
@@ -50,8 +50,9 @@ final class MainViewModel {
             MainListCellNodeViewModel(title: "VAPagerNode", description: "ASPagerNode with improvements", route: .pager),
         ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Experiments"), items: [
-            MainListCellNodeViewModel(title: "VASlidingTabBarNode", description: "ASScrollNode based", route: .slidingTabBar),
+            MainListCellNodeViewModel(title: "Emitter", description: "CAEmitterLayer based node", route: .emitter),
             MainListCellNodeViewModel(title: "VALinkTextNode", description: "ASTextNode based", route: .linkTextNode),
+            MainListCellNodeViewModel(title: "VASlidingTabBarNode", description: "ASScrollNode based", route: .slidingTabBar),
             MainListCellNodeViewModel(title: "Filter", description: "Experiments", route: .filter),
         ]),
     ])

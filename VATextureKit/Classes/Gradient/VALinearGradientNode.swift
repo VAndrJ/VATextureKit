@@ -48,11 +48,11 @@ open class VALinearGradientNode: VABaseGradientNode {
                 layer.startPoint = CGPoint(x: 0, y: 1)
                 layer.endPoint = CGPoint(x: 1, y: 0)
             case .bottomRightToTopLeft:
-                layer.startPoint = CGPoint(x: 1, y: 1)
-                layer.endPoint = CGPoint(x: 0, y: 0)
+                layer.startPoint = CGPoint(xy: 1)
+                layer.endPoint = CGPoint(xy: 0)
             case .topLeftToBottomRight:
-                layer.startPoint = CGPoint(x: 0, y: 0)
-                layer.endPoint = CGPoint(x: 1, y: 1)
+                layer.startPoint = CGPoint(xy: 0)
+                layer.endPoint = CGPoint(xy: 1)
             case .topRightToBottomLeft:
                 layer.startPoint = CGPoint(x: 1, y: 0)
                 layer.endPoint = CGPoint(x: 0, y: 1)
