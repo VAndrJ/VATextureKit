@@ -423,4 +423,14 @@ class ASLayoutElementTests: XCTestCase {
             XCTAssertEqual(expected, $0.style.minHeight)
         }
     }
+
+    func test_ratio_array() {
+        let expected = 2.0
+        let nodes = [ASDisplayNode(), ASDisplayNode()]
+        let elements = nodes.ratio(expected)
+
+        elements.forEach {
+            XCTAssertEqual(expected, $0.ratio)
+        }
+    }
 }
