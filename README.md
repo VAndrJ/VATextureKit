@@ -253,7 +253,8 @@ ASWrapperLayoutSpec(layoutElement: imageNode)
 With `.wrapped`:
 
 ```swift
-imageNode.wrapped()
+imageNode
+    .wrapped()
 ```
 
 

@@ -37,10 +37,6 @@ open class VAEmitterNode: VADisplayNode {
         _emitterLayer?.frame = layer.bounds
     }
 
-    open func start() {
-        start(birthRate: 1)
-    }
-
     public func setEmitterSize(_ value: CGSize) {
         emitterSize = value
         _emitterLayer?.emitterSize = value
@@ -49,6 +45,10 @@ open class VAEmitterNode: VADisplayNode {
     public func setEmitterPosition(_ value: CGPoint) {
         emitterPosition = value
         _emitterLayer?.emitterPosition = value
+    }
+
+    open func start() {
+        start(birthRate: 1)
     }
 
     open func start(birthRate: Float) {
