@@ -19,14 +19,32 @@ public final class Stack: ASWrapperLayoutSpec {
     }
 
     public override func calculateLayoutThatFits(_ constrainedSize: ASSizeRange) -> ASLayout {
-        var rawSubLayouts: [ASLayout] = []
         var size = constrainedSize.min
         guard let children, !children.isEmpty else {
-            return ASLayout(layoutElement: self, size: size, sublayouts: rawSubLayouts)
+            return ASLayout(layoutElement: self, size: size)
         }
 
+        var rawSubLayouts: [ASLayout] = []
+        let parentSize = CGSize(
+            width: constrainedSize.min.width == constrainedSize.max.width ? constrainedSize.min.width : ASLayoutElementParentDimensionUndefined,
+            height: constrainedSize.min.height == constrainedSize.max.height ? constrainedSize.min.height : ASLayoutElementParentDimensionUndefined
+        )
+        // ASStackUnpositionedLayout is not public, so crutches.
         for child in children {
-            let sublayout = child.layoutThatFits(constrainedSize, parentSize: constrainedSize.max)
+            var constrainingSize = parentSize
+            if parentSize.width.isNaN, child.style.width.unit == .points && child.style.width.value > 0 {
+                constrainingSize.width = child.style.width.value
+            }
+            if parentSize.width.isNaN, child.style.height.unit == .points && child.style.height.value > 0 {
+                constrainingSize.height = child.style.height.value
+            }
+            let sublayout = child.layoutThatFits(constrainedSize, parentSize: constrainingSize)
+            sublayout.position = .zero
+            size.width = max(size.width, sublayout.size.width)
+            size.height = max(size.height, sublayout.size.height)
+        }
+        for child in children {
+            let sublayout = child.layoutThatFits(ASSizeRange(min: .zero, max: size))
             sublayout.position = .zero
             size.width = max(size.width, sublayout.size.width)
             size.height = max(size.height, sublayout.size.height)
