@@ -32,11 +32,19 @@ public final class Stack: ASWrapperLayoutSpec {
         // ASStackUnpositionedLayout is not public, so crutches.
         for child in children {
             var constrainingSize = parentSize
-            if parentSize.width.isNaN, child.style.width.unit == .points && child.style.width.value > 0 {
-                constrainingSize.width = child.style.width.value
+            if parentSize.width.isNaN {
+                if child.style.width.unit == .points && child.style.width.value > 0 {
+                    constrainingSize.width = child.style.width.value
+                } else if child.style.minWidth.unit == .points && child.style.minWidth.value > 0 {
+                    constrainingSize.width = child.style.minWidth.value
+                }
             }
-            if parentSize.width.isNaN, child.style.height.unit == .points && child.style.height.value > 0 {
-                constrainingSize.height = child.style.height.value
+            if parentSize.width.isNaN {
+                if child.style.height.unit == .points && child.style.height.value > 0 {
+                    constrainingSize.height = child.style.height.value
+                } else if child.style.minHeight.unit == .points && child.style.minHeight.value > 0 {
+                    constrainingSize.height = child.style.minHeight.value
+                }
             }
             let sublayout = child.layoutThatFits(constrainedSize, parentSize: constrainingSize)
             sublayout.position = .zero
