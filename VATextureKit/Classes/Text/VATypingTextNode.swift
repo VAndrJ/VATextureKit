@@ -6,7 +6,6 @@
 //
 
 import AsyncDisplayKit
-import RxSwift
 
 open class VATypingTextNode: VATextNode {
     /// Time in milliseconds
@@ -19,10 +18,10 @@ open class VATypingTextNode: VATextNode {
     public private(set) var typingText: NSAttributedString?
     public private(set) var isRetyping = false
     public private(set) var isRandomizedTypingTime = true
-    public var isTyping: Bool { timerDisposable != nil }
+    public var isTyping: Bool { timer != nil }
 
     private var newText: String?
-    private var timerDisposable: Disposable?
+    private var timer: Timer?
 
     /// Typing configuration
     ///
@@ -77,7 +76,7 @@ open class VATypingTextNode: VATextNode {
 
     public func resetTyping() {
         resetTimer()
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(typingTime * 2)) { [self] in
+        mainAsync(after: (typingTime * 2).interval) { [self] in
             offset = 0
             updateTyping()
         }
@@ -92,21 +91,19 @@ open class VATypingTextNode: VATextNode {
         resetTimer()
         let isRandomized = isRandomizedTypingTime
         let time = isRetyping ? erasingTime : typingTime
-        timerDisposable = Observable<Int>
-            .timer(
-                .milliseconds(isRandomized ? Int.random(in: 0...time) : time),
-                period: .milliseconds(time),
-                scheduler: MainScheduler.asyncInstance
-            )
-            .subscribe(onNext: { [weak self] _ in
+        timer = Timer.scheduledTimer(
+            withTimeInterval: time.interval,
+            repeats: true,
+            block: { [weak self] _ in
                 if isRandomized {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(Int.random(in: 0...time))) {
+                    mainAsync(after: Int.random(in: 0...time).interval) {
                         self?.updateTimerTyping()
                     }
                 } else {
                     self?.updateTimerTyping()
                 }
-            })
+            }
+        )
     }
 
     private func updateTimerTyping() {
@@ -145,11 +142,15 @@ open class VATypingTextNode: VATextNode {
     }
 
     private func resetTimer() {
-        timerDisposable?.dispose()
-        timerDisposable = nil
+        timer?.invalidate()
+        timer = nil
     }
 
     deinit {
         resetTimer()
     }
+}
+
+private extension Int {
+    var interval: TimeInterval { TimeInterval(self) / 1000 }
 }
