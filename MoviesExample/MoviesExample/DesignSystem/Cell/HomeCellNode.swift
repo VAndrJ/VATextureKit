@@ -5,7 +5,7 @@
 //  Created by VAndrJ on 05.05.2023.
 //
 
-import VATextureKit
+import VATextureKitRx
 
 class HomeCellNode: VACellNode {
     let viewModel: HomeCellNodeViewModel

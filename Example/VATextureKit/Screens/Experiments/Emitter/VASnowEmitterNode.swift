@@ -2,8 +2,8 @@
 //  VASnowEmitterNode.swift
 //  VATextureKit_Example
 //
-//  Created by VAndrJ on 04.08.2023.
-//  Copyright © 2023 CocoaPods. All rights reserved.
+//  Created by Volodymyr Andriienko on 04.08.2023.
+//  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
 //
 
 import VATextureKit

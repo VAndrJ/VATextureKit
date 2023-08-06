@@ -7,7 +7,7 @@
 
 import AsyncDisplayKit
 
-extension ASTableNode {
+public extension ASTableNode {
 
     func reloadDataWithoutAnimations() {
         reloadData { [weak self] in

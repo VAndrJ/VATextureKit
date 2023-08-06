@@ -6,7 +6,7 @@
 //  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
 //
 
-import VATextureKit
+import VATextureKitRx
 
 final class PagerControllerNodeViewModel {
     @Obs.Relay(value: (0...2).map { PagerCardCellNodeViewModel(title: "Title \($0)", description: "Description \($0)") })

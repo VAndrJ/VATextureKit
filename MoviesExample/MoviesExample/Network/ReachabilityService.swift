@@ -5,8 +5,7 @@
 //  Created by VAndrJ on 12.04.2023.
 //
 
-import UIKit
-import VATextureKit
+import VATextureKitRx
 
 // MARK: - Copied from Alamofire
 

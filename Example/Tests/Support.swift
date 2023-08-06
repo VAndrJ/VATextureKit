@@ -8,7 +8,7 @@
 
 import XCTest
 import SnapshotTesting
-import VATextureKit
+import VATextureKitRx
 
 extension XCTestCase {
     var theme: VATheme { appContext.themeManager.theme }

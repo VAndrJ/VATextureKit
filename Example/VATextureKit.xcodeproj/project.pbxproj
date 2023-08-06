@@ -262,6 +262,7 @@
 		A3DDF2FF29DD84B1009460F1 /* CompositingCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositingCellNode.swift; sourceTree = "<group>"; };
 		A3DDF30129DD856F009460F1 /* CompositingFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositingFilterViewModel.swift; sourceTree = "<group>"; };
 		A3E47BC029D75AB300D51E08 /* VATextureKit_Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VATextureKit_Tests-Bridging-Header.h"; sourceTree = "<group>"; };
+		A3E6F40B2A801F57000BD477 /* VATextureKitRx.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = VATextureKitRx.podspec; path = ../VATextureKitRx.podspec; sourceTree = "<group>"; };
 		A3F888C629CB67F100C67187 /* Umbrella.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Umbrella.swift; sourceTree = "<group>"; };
 		A3F888DC29CC602900C67187 /* CollectionExampleCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExampleCellNode.swift; sourceTree = "<group>"; };
 		A3F888FF29CE2D0000C67187 /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
@@ -392,6 +393,7 @@
 		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
+				A3E6F40B2A801F57000BD477 /* VATextureKitRx.podspec */,
 				278E0C59813DD6F897AC8756 /* VATextureKit.podspec */,
 				C09CD1909CE6DD4E1F0B3BCA /* README.md */,
 				282F60A4B43FD260D631A2BF /* LICENSE */,
