@@ -12,6 +12,10 @@ import VATextureKit
 
 class VAReadMoreTextNodeTests: XCTestCase {
 
+    override func setUp() {
+        appContext.themeManager.setLightAsCustomTheme()
+    }
+
     func test_node_color() {
         let sut = VAReadMoreTextNode(
             text: "Text".dummyLong(separator: " ", range: 0...30),
