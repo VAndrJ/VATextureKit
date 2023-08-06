@@ -98,7 +98,8 @@ extension XCTestCase {
         additions: String? = nil,
         line: UInt = #line,
         precision: Float = 0.995,
-        perceptualPrecision: Float = 0.99
+        perceptualPrecision: Float = 0.99,
+        drawHierarchyInKeyWindow: Bool = false
     ) {
         assertNodeSnapshot(
             matching: value,
@@ -112,7 +113,8 @@ extension XCTestCase {
             additions: additions,
             line: line,
             precision: precision,
-            perceptualPrecision: perceptualPrecision
+            perceptualPrecision: perceptualPrecision,
+            drawHierarchyInKeyWindow: drawHierarchyInKeyWindow
         )
     }
 
@@ -128,7 +130,8 @@ extension XCTestCase {
         additions: String? = nil,
         line: UInt = #line,
         precision: Float = 0.995,
-        perceptualPrecision: Float = 0.99
+        perceptualPrecision: Float = 0.99,
+        drawHierarchyInKeyWindow: Bool = false
     ) {
         let sut: ASDisplayNode
         if value.isLayerBacked {
@@ -148,6 +151,7 @@ extension XCTestCase {
         assertSnapshot(
             matching: sut.view,
             as: .image(
+                drawHierarchyInKeyWindow: drawHierarchyInKeyWindow,
                 precision: precision,
                 perceptualPrecision: perceptualPrecision
             ),

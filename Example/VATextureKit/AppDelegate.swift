@@ -41,6 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else {
                 window = VAWindow(legacyLightTheme: .vaLight, legacyDarkTheme: .vaDark)
             }
+            window?.rootViewController = UIViewController()
+            window?.makeKeyAndVisible()
             return true
         } else {
             launch()

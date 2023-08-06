@@ -12,6 +12,10 @@ import VATextureKit
 
 class VATextNodeTests: XCTestCase {
 
+    override func setUp() {
+        appContext.themeManager.setLightAsCustomTheme()
+    }
+
     func test_node_short() {
         let sut = generateSUT(text: "Text")
 
