@@ -112,29 +112,25 @@ Example:
 With `ASStackLayoutSpec`: 
 
 ```swift
-override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-    ASStackLayoutSpec(
-        direction: .horizontal,
-        spacing: 4,
-        justifyContent: .spaceBetween,
-        alignItems: .start,
-        children: [
-            firstRectangleNode,
-            secondRectangleNode,
-        ]
-    )
-}
+ASStackLayoutSpec(
+    direction: .horizontal,
+    spacing: 4,
+    justifyContent: .spaceBetween,
+    alignItems: .start,
+    children: [
+        firstRectangleNode,
+        secondRectangleNode,
+    ]
+)
 ```
 
 
 With `Row`:
 
 ```swift
-override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-    Row(spacing: 4, main: .spaceBetween) {
-        firstRectangleNode
-        secondRectangleNode
-    }
+Row(spacing: 4, main: .spaceBetween) {
+    firstRectangleNode
+    secondRectangleNode
 }
 ```
 
@@ -156,11 +152,9 @@ Example:
 
 
 ```swift
-override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-    Stack {
-        firstRectangleNode
-        secondRectangleNode
-    }
+Stack {
+    firstRectangleNode
+    secondRectangleNode
 }
 ```
 
@@ -181,27 +175,23 @@ Example:
 With `ASStackLayoutSpec` in `ASDisplayNode` that `automaticallyRelayoutOnSafeAreaChanges = true`: 
 
 ```swift
-override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-    ASInsetLayoutSpec(
-        insets: UIEdgeInsets(
-            top: safeAreaInsets.top,
-            left: safeAreaInsets.left,
-            bottom: safeAreaInsets.bottom,
-            right: safeAreaInsets.right
-        ),
-        child: ...
-    )
-}
+ASInsetLayoutSpec(
+    insets: UIEdgeInsets(
+        top: safeAreaInsets.top,
+        left: safeAreaInsets.left,
+        bottom: safeAreaInsets.bottom,
+        right: safeAreaInsets.right
+    ),
+    child: ...
+)
 ```
 
 
 With `SafeArea`:
 
 ```swift
-override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-    SafeArea {
-        ...
-    }
+SafeArea {
+    ...
 }
 ```
 
@@ -316,10 +306,8 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 With `.safe`:
 
 ```swift
-override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-    listNode
-        .safe(in: self)
-}
+listNode
+    .safe(in: self)
 ```
 
 
