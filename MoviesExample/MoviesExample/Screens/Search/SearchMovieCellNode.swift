@@ -28,6 +28,12 @@ final class SearchMovieCellNode: VACellNode {
         super.init()
     }
 
+    override func didLoad() {
+        super.didLoad()
+
+        imageNode.layer.cornerCurve = .continuous
+    }
+
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column {
             Row(spacing: 16, cross: .center) {

@@ -11,7 +11,7 @@ import Swiftional
 final class MoviesSliderCellNode: VACellNode {
     private let titleTextNode: VATextNode
     private lazy var listNode = VAScrollNode(data: .init(
-        scrollableDirections: ASScrollDirectionHorizontalDirections,
+        scrollableDirections: .horizontal,
         alwaysBounceVertical: false,
         contentInset: UIEdgeInsets(horizontal: 16)
     ))

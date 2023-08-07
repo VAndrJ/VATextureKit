@@ -33,6 +33,12 @@ final class MovieCardNode: VADisplayNode {
         super.init()
     }
 
+    override func didLoad() {
+        super.didLoad()
+
+        coverImageNode.layer.cornerCurve = .continuous
+    }
+
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column(spacing: 4, cross: .stretch) {
             coverImageNode
