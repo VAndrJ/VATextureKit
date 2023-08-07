@@ -14,25 +14,32 @@ open class VANetworkImageNode: ASNetworkImageNode {
         let size: CGSize?
         let cornerRadius: CGFloat?
         let cornerRoundingType: ASCornerRoundingType
+        let cornerCurve: VACornerCurve?
 
         public init(
             image: String? = nil,
             contentMode: UIView.ContentMode? = nil,
             size: CGSize? = nil,
             cornerRadius: CGFloat? = nil,
-            cornerRoundingType: ASCornerRoundingType = .defaultSlowCALayer
+            cornerRoundingType: ASCornerRoundingType = .defaultSlowCALayer,
+            cornerCurve: VACornerCurve? = nil
         ) {
             self.image = image
             self.contentMode = contentMode
             self.size = size
             self.cornerRadius = cornerRadius
             self.cornerRoundingType = cornerRoundingType
+            self.cornerCurve = cornerCurve
         }
     }
 
+    private(set) var data: DTO!
+
     public convenience init(data: DTO) {
+
         self.init()
 
+        self.data = data
         if let image = data.image {
             switch Self.parseImage(string: image) {
             case let .image(image):
@@ -50,6 +57,14 @@ open class VANetworkImageNode: ASNetworkImageNode {
         if let cornerRadius = data.cornerRadius {
             self.cornerRadius = cornerRadius
             self.cornerRoundingType = data.cornerRoundingType
+        }
+    }
+
+    open override func didLoad() {
+        super.didLoad()
+
+        if let cornerCurve = data?.cornerCurve {
+            self.cornerCurve = cornerCurve
         }
     }
 }

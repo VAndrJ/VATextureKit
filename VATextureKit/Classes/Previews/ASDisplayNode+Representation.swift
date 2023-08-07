@@ -27,6 +27,28 @@ public extension ASDisplayNode {
             }
         }
     }
+
+    func loadForSnapshot() {
+        if #available(iOS 13.0, *) {
+            ASTraitCollectionPropagateDown(self, ASPrimitiveTraitCollectionFromUITraitCollection(UITraitCollection.current))
+        }
+        displaysAsynchronously = false
+        setNeedsDisplay()
+        recursivelyEnsureDisplaySynchronously(true)
+        ASDisplayNodePerformBlockOnEveryNode(nil, self, true) {
+            if let node = $0 as? ASCollectionNode {
+                node.displaysAsynchronously = false
+                node.loadCollectionForPreview()
+            } else if let node = $0 as? ASTableNode {
+                node.displaysAsynchronously = false
+                node.loadTableForPreview()
+            } else {
+                $0.displaysAsynchronously = false
+                $0.setNeedsDisplay()
+                $0.recursivelyEnsureDisplaySynchronously(true)
+            }
+        }
+    }
 }
 
 public extension ASCollectionNode {

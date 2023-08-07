@@ -8,7 +8,7 @@
 
 import XCTest
 @testable import VATextureKit_Example
-import VATextureKit
+import VATextureKitRx
 
 class ObsTests: XCTestCase {
     @Obs.Relay()

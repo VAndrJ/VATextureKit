@@ -1,11 +1,11 @@
 //
 //  VAStateModel.swift
-//  VATextureKit
+//  VATextureKitRx
 //
 //  Created by Volodymyr Andriienko on 25.03.2023.
 //
 
-import Foundation
+import VATextureKit
 import RxSwift
 import RxCocoa
 

@@ -6,7 +6,7 @@
 //  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
 //
 
-import VATextureKit
+import VATextureKitRx
 
 class SlidingTabBarControllerNode: VASafeAreaDisplayNode {
     private lazy var pagerNode = VAPagerNode(data: .init(
@@ -43,9 +43,7 @@ class SlidingTabBarControllerNode: VASafeAreaDisplayNode {
     override func didLoad() {
         super.didLoad()
 
-        if #available(iOS 13.0, *) {
-            floatingTabBarNode.layer.cornerCurve = .continuous
-        }
+        floatingTabBarNode.cornerCurve = .continuous
         floatingTabBarNode.borderWidth = 1
         bind()
     }

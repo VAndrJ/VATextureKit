@@ -9,6 +9,48 @@
 
 // MARK: - Filters
 
+/// Does nothing on iOS 11, 12
+public enum VACornerCurve {
+    case circular
+    case continuous
+
+    @available (iOS 13.0, *)
+    init(layerCornerCurve: CALayerCornerCurve) {
+        switch layerCornerCurve {
+        case .continuous: self = .continuous
+        default: self = .circular
+        }
+    }
+
+    @available (iOS 13.0, *)
+    var layerCornerCurve: CALayerCornerCurve {
+        switch self {
+        case .continuous: return .continuous
+        case .circular: return .circular
+        }
+    }
+}
+
+public extension ASDisplayNode {
+    /// Does nothing on iOS 11, 12
+    var cornerCurve: VACornerCurve {
+        get {
+            if #available(iOS 13.0, *) {
+                return VACornerCurve(layerCornerCurve: layer.cornerCurve)
+            } else {
+                return .circular
+            }
+        }
+        set {
+            if #available(iOS 13.0, *) {
+                ensureOnMain {
+                    self.layer.cornerCurve = newValue.layerCornerCurve
+                }
+            }
+        }
+    }
+}
+
 public extension ASDisplayNode {
 
     enum BlendMode: String, CaseIterable {

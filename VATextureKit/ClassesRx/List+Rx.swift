@@ -1,12 +1,11 @@
 //
 //  List+Rx.swift
-//  VATextureKit
+//  VATextureKitRx
 //
 //  Created by Volodymyr Andriienko on 25.03.2023.
 //
 
-import UIKit
-import AsyncDisplayKit
+import VATextureKit
 import RxSwift
 import RxCocoa
 @_exported import Differentiator

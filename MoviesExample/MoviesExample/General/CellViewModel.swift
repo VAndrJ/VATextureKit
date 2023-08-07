@@ -5,7 +5,7 @@
 //  Created by VAndrJ on 12.04.2023.
 //
 
-import VATextureKit
+import VATextureKitRx
 
 class CellViewModel: Equatable, IdentifiableType {
     static func == (lhs: CellViewModel, rhs: CellViewModel) -> Bool {

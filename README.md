@@ -11,9 +11,9 @@
 * [Wrappers](#wrappers)
 * [Animations](#animations)
 * [Themes](#themes)
-* [Property wrappers](#property-wrappers)
 * [Extensions](#extensions)
 * [Previews](#previews)
+* [Property wrappers](#property-wrappers)
 * [Experiments](#experiments)
 
 
@@ -23,6 +23,8 @@
 Add the following to your Podfile:
 ```
 pod 'VATextureKit'
+or
+pod 'VATextureKitRx' // includes RxSwift and additinal wrappers.
 ```
 In the project directory in the Terminal:
 ```
@@ -112,29 +114,25 @@ Example:
 With `ASStackLayoutSpec`: 
 
 ```swift
-override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-    ASStackLayoutSpec(
-        direction: .horizontal,
-        spacing: 4,
-        justifyContent: .spaceBetween,
-        alignItems: .start,
-        children: [
-            firstRectangleNode,
-            secondRectangleNode,
-        ]
-    )
-}
+ASStackLayoutSpec(
+    direction: .horizontal,
+    spacing: 4,
+    justifyContent: .spaceBetween,
+    alignItems: .start,
+    children: [
+        firstRectangleNode,
+        secondRectangleNode,
+    ]
+)
 ```
 
 
 With `Row`:
 
 ```swift
-override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-    Row(spacing: 4, main: .spaceBetween) {
-        firstRectangleNode
-        secondRectangleNode
-    }
+Row(spacing: 4, main: .spaceBetween) {
+    firstRectangleNode
+    secondRectangleNode
 }
 ```
 
@@ -156,11 +154,9 @@ Example:
 
 
 ```swift
-override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-    Stack {
-        firstRectangleNode
-        secondRectangleNode
-    }
+Stack {
+    firstRectangleNode
+    secondRectangleNode
 }
 ```
 
@@ -181,27 +177,23 @@ Example:
 With `ASStackLayoutSpec` in `ASDisplayNode` that `automaticallyRelayoutOnSafeAreaChanges = true`: 
 
 ```swift
-override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-    ASInsetLayoutSpec(
-        insets: UIEdgeInsets(
-            top: safeAreaInsets.top,
-            left: safeAreaInsets.left,
-            bottom: safeAreaInsets.bottom,
-            right: safeAreaInsets.right
-        ),
-        child: ...
-    )
-}
+ASInsetLayoutSpec(
+    insets: UIEdgeInsets(
+        top: safeAreaInsets.top,
+        left: safeAreaInsets.left,
+        bottom: safeAreaInsets.bottom,
+        right: safeAreaInsets.right
+    ),
+    child: ...
+)
 ```
 
 
 With `SafeArea`:
 
 ```swift
-override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-    SafeArea {
-        ...
-    }
+SafeArea {
+    ...
 }
 ```
 
@@ -316,10 +308,8 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 With `.safe`:
 
 ```swift
-override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-    listNode
-        .safe(in: self)
-}
+listNode
+    .safe(in: self)
 ```
 
 
@@ -961,6 +951,9 @@ Example:
 <summary>VAListNode</summary>
 
 
+*Part of `VATextureKitRx`
+
+
 A subclass of `ASCollectionNode` to use it in declarative way.
 
 
@@ -983,6 +976,9 @@ Example:
 <summary>VATableListNode</summary>
 
 
+*Part of `VATextureKitRx`
+
+
 A subclass of `ASTableNode` to use it in declarative way.
 
 
@@ -991,6 +987,9 @@ A subclass of `ASTableNode` to use it in declarative way.
 
 <details>
 <summary>VAPagerNode</summary>
+
+
+*Part of `VATextureKitRx`
 
 
 A subclass of `ASPagerNode` to use it in declarative way. 
@@ -1149,67 +1148,6 @@ More examples:
 Themes support in easy way. Default light / dark or custom init.
 
 
-## Property wrappers
-
-
-* Obs
-  * Relay(value:) (BehaviorRelay)
-  * Relay() (PublishRelay)
-
-
-With these wrappers, the code becomes more concise.
-
-
-<details open>
-<summary>BehaviorRelay</summary>
-
-
-```
-var someObs: Observable<String> { someRelay.asObservable() }
-
-private let someRelay = BehaviorRelay<String>(value: "value")
-...
-someRelay.accept("value1")
-```
-
-
-becomes
-
-
-```
-@Obs.Relay(value: "value")
-var someObs: Observable<String>
-...
-_someObs.rx.accept("value1")
-```
-
-
-</details>
-
-
-<details>
-<summary>PublishRelay</summary>
-
-
-```
-var someObs: Observable<String> { someRelay.asObservable() }
-
-private let someRelay = PublishRelay<String>()
-```
-
-
-becomes
-
-
-```
-@Obs.Relay()
-var someObs: Observable<String>
-```
-
-
-</details>
-
-
 ## Extensions
 
 
@@ -1307,6 +1245,70 @@ sRepresentation(layout:)
 ```
 
 ![Preview example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/preview_example.png)
+
+
+## Property wrappers
+
+
+*Part of `VATextureKitRx`
+
+
+* Obs
+  * Relay(value:) (BehaviorRelay)
+  * Relay() (PublishRelay)
+
+
+With these wrappers, the code becomes more concise.
+
+
+<details open>
+<summary>BehaviorRelay</summary>
+
+
+```
+var someObs: Observable<String> { someRelay.asObservable() }
+
+private let someRelay = BehaviorRelay<String>(value: "value")
+...
+someRelay.accept("value1")
+```
+
+
+becomes
+
+
+```
+@Obs.Relay(value: "value")
+var someObs: Observable<String>
+...
+_someObs.rx.accept("value1")
+```
+
+
+</details>
+
+
+<details>
+<summary>PublishRelay</summary>
+
+
+```
+var someObs: Observable<String> { someRelay.asObservable() }
+
+private let someRelay = PublishRelay<String>()
+```
+
+
+becomes
+
+
+```
+@Obs.Relay()
+var someObs: Observable<String>
+```
+
+
+</details>
 
 
 ## Experiments

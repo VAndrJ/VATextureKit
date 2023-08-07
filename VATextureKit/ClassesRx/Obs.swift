@@ -1,6 +1,6 @@
 //
 //  Obs.swift
-//  VATextureKit
+//  VATextureKitRx
 //
 //  Created by Volodymyr Andriienko on 22.03.2023.
 //

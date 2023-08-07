@@ -59,7 +59,8 @@ extension XCTestCase {
         line: UInt = #line,
         precision: Float = 0.995,
         perceptualPrecision: Float = 0.99,
-        delay: TimeInterval = 1 / 30
+        delay: TimeInterval = 1 / 20,
+        drawHierarchyInKeyWindow: Bool = false
     ) {
         assertNodeSnapshot(
             matching: value,
@@ -75,7 +76,8 @@ extension XCTestCase {
             line: line,
             precision: precision,
             perceptualPrecision: perceptualPrecision,
-            delay: delay
+            delay: delay,
+            drawHierarchyInKeyWindow: drawHierarchyInKeyWindow
         )
     }
 
@@ -93,7 +95,8 @@ extension XCTestCase {
         line: UInt = #line,
         precision: Float = 0.995,
         perceptualPrecision: Float = 0.99,
-        delay: TimeInterval = 1 / 30
+        delay: TimeInterval = 1 / 20,
+        drawHierarchyInKeyWindow: Bool = false
     ) {
         let sut: ASDisplayNode
         if value.isLayerBacked {
@@ -109,7 +112,7 @@ extension XCTestCase {
                 max: CGSize(width: widthRange.upperBound, height: heightRange.upperBound)
             )).size
             sut.bounds = CGRect(origin: .zero, size: sizeThatFits)
-            sut.loadForPreview()
+            sut.loadForSnapshot()
         }
         refreshLayout()
         let expect = expectation(description: "snapshot")
@@ -140,7 +143,7 @@ extension XCTestCase {
                     assertSnapshot(
                         matching: sut.view,
                         as: .image(
-                            drawHierarchyInKeyWindow: true,
+                            drawHierarchyInKeyWindow: drawHierarchyInKeyWindow,
                             precision: precision,
                             perceptualPrecision: perceptualPrecision
                         ),
@@ -169,7 +172,7 @@ extension XCTestCase {
         line: UInt = #line,
         precision: Float = 0.995,
         perceptualPrecision: Float = 0.99,
-        delay: TimeInterval = 0.1
+        delay: TimeInterval = 1 / 20
     ) {
         sut.loadViewIfNeeded()
         sut.view.frame = CGRect(origin: .zero, size: size)
@@ -188,7 +191,7 @@ extension XCTestCase {
             line: line,
             precision: precision,
             perceptualPrecision: perceptualPrecision,
-            delay: delay
+            drawHierarchyInKeyWindow: false
         )
     }
 }

@@ -45,11 +45,13 @@ PODS:
     - Texture/Core
   - Texture/Video (3.1.0):
     - Texture/Core
-  - VATextureKit (0.6.6):
+  - VATextureKit (0.6.7):
+    - Texture (~> 3.1.0)
+  - VATextureKitRx (0.6.7):
     - Differentiator (~> 5.0.0)
     - RxCocoa (~> 6.5.0)
     - RxSwift (~> 6.5.0)
-    - Texture (~> 3.1.0)
+    - VATextureKit (= 0.6.7)
 
 DEPENDENCIES:
   - Nimble (~> 10.0.0)
@@ -57,6 +59,7 @@ DEPENDENCIES:
   - R.swift
   - Swiftional (= 0.3.3)
   - VATextureKit (from `../`)
+  - VATextureKitRx (from `../`)
 
 SPEC REPOS:
   trunk:
@@ -76,6 +79,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   VATextureKit:
     :path: "../"
+  VATextureKitRx:
+    :path: "../"
 
 SPEC CHECKSUMS:
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
@@ -90,8 +95,9 @@ SPEC CHECKSUMS:
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   Swiftional: 25ee70c9a008d587e1352b799859d78cec520127
   Texture: 2e8ab2519452515f7f5a520f5a8f7e0a413abfa3
-  VATextureKit: e39acc22bce36553d80e60cd9224de4fc3daa3fa
+  VATextureKit: 803b341013876b0ac47c29d2ce07db8c70b63cf1
+  VATextureKitRx: 759dc9beea698967a0e161f0a658c07621b09b77
 
-PODFILE CHECKSUM: 157f6cf17e39eacb241de874c5496275ca52c30f
+PODFILE CHECKSUM: e2952e1486e5c4dea807879e00c909f7ebc84488
 
 COCOAPODS: 1.12.1

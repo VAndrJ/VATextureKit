@@ -8,13 +8,13 @@
 
 import XCTest
 @testable import VATextureKit_Example
-import VATextureKit
+import VATextureKitRx
 
 class ASCollectionNodeTests: XCTestCase {
 
     func test_direction() {
         let node = VAListNode(
-            data: .init(listDataObs: Observable<[String]>.never(), cellGetter: { _ in ASCellNode () }),
+            data: .init(listDataObs: Observable<[String]>.never(), cellGetter: { _ in ASCellNode() }),
             layoutData: .init(layout: .default(parameters: .init(scrollDirection: .horizontal)))
         )
 

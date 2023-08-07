@@ -30,7 +30,8 @@ extension ListMovieEntity {
             backdropPath: .coverFilePath,
             posterPath: .posterFilePath,
             overview: "Overview".dummyLong(range: 0...repeatingString),
-            rating: 80
+            rating: 80,
+            year: "2020"
         )
     }
 }

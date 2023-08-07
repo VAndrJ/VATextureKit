@@ -24,6 +24,12 @@ final class GenreTagNode: VADisplayNode {
         borderWidth = 1
     }
 
+    override func didLoad() {
+        super.didLoad()
+
+        cornerCurve = .continuous
+    }
+
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         titleTextNode
             .padding(.all(8))
