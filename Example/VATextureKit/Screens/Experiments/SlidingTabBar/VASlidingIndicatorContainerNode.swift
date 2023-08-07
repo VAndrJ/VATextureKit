@@ -42,8 +42,6 @@ class VASlidingIndicatorContainerNode: VADisplayNode {
     }
 
     private func configure() {
-        if #available(iOS 13.0, *) {
-            indicatorNode.layer.cornerCurve = .continuous
-        }
+        indicatorNode.cornerCurve = .continuous
     }
 }

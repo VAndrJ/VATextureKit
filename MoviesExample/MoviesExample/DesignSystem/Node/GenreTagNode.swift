@@ -27,7 +27,7 @@ final class GenreTagNode: VADisplayNode {
     override func didLoad() {
         super.didLoad()
 
-        layer.cornerCurve = .continuous
+        cornerCurve = .continuous
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {

@@ -24,16 +24,11 @@ final class SearchTrendingMovieCellNode: VACellNode {
             image: viewModel.image?.getImagePath(width: 500),
             contentMode: .scaleAspectFill,
             size: CGSize(width: 126, height: 78),
-            cornerRadius: 16
+            cornerRadius: 16,
+            cornerCurve: .continuous
         )).withAnimatedTransition(id: "image_\(viewModel.transitionId)", animation: .default(additions: .init(opacity: .skip)))
 
         super.init()
-    }
-
-    override func didLoad() {
-        super.didLoad()
-
-        imageNode.layer.cornerCurve = .continuous
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
