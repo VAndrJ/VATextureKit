@@ -38,17 +38,15 @@ Cell layout code.
 
 
 ```swift
-override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-    Row(spacing: 16) {
-        imageNode
-        Column(spacing: 4, cross: .stretch) {
-            titleTextNode
-            descriptionTextNode
-        }
-        .flex(shrink: 0.1, grow: 1)
+Row(spacing: 16) {
+    imageNode
+    Column(spacing: 4, cross: .stretch) {
+        titleTextNode
+        descriptionTextNode
     }
-    .padding(.all(16))
+    .flex(shrink: 0.1, grow: 1)
 }
+.padding(.all(16))
 ```
 
 Result:
@@ -61,16 +59,14 @@ Result:
 
 
 ```swift
-override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-    Column {
-        Row(spacing: 16, cross: .center) {
-            imageNode
-            titleTextNode
-        }
-        .padding(.vertical(6), .horizontal(16))
-        separatorNode
-            .padding(.left(60), .right(16))
+Column {
+    Row(spacing: 16, cross: .center) {
+        imageNode
+        titleTextNode
     }
+    .padding(.vertical(6), .horizontal(16))
+    separatorNode
+        .padding(.left(60), .right(16))
 }
 ```
 
