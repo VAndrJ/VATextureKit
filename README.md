@@ -11,9 +11,9 @@
 * [Wrappers](#wrappers)
 * [Animations](#animations)
 * [Themes](#themes)
-* [Property wrappers](#property-wrappers)
 * [Extensions](#extensions)
 * [Previews](#previews)
+* [Property wrappers](#property-wrappers)
 * [Experiments](#experiments)
 
 
@@ -23,6 +23,8 @@
 Add the following to your Podfile:
 ```
 pod 'VATextureKit'
+or
+pod 'VATextureKitRx' // includes RxSwift and additinal wrappers.
 ```
 In the project directory in the Terminal:
 ```
@@ -949,6 +951,9 @@ Example:
 <summary>VAListNode</summary>
 
 
+*Part of `VATextureKitRx`
+
+
 A subclass of `ASCollectionNode` to use it in declarative way.
 
 
@@ -971,6 +976,9 @@ Example:
 <summary>VATableListNode</summary>
 
 
+*Part of `VATextureKitRx`
+
+
 A subclass of `ASTableNode` to use it in declarative way.
 
 
@@ -979,6 +987,9 @@ A subclass of `ASTableNode` to use it in declarative way.
 
 <details>
 <summary>VAPagerNode</summary>
+
+
+*Part of `VATextureKitRx`
 
 
 A subclass of `ASPagerNode` to use it in declarative way. 
@@ -1137,67 +1148,6 @@ More examples:
 Themes support in easy way. Default light / dark or custom init.
 
 
-## Property wrappers
-
-
-* Obs
-  * Relay(value:) (BehaviorRelay)
-  * Relay() (PublishRelay)
-
-
-With these wrappers, the code becomes more concise.
-
-
-<details open>
-<summary>BehaviorRelay</summary>
-
-
-```
-var someObs: Observable<String> { someRelay.asObservable() }
-
-private let someRelay = BehaviorRelay<String>(value: "value")
-...
-someRelay.accept("value1")
-```
-
-
-becomes
-
-
-```
-@Obs.Relay(value: "value")
-var someObs: Observable<String>
-...
-_someObs.rx.accept("value1")
-```
-
-
-</details>
-
-
-<details>
-<summary>PublishRelay</summary>
-
-
-```
-var someObs: Observable<String> { someRelay.asObservable() }
-
-private let someRelay = PublishRelay<String>()
-```
-
-
-becomes
-
-
-```
-@Obs.Relay()
-var someObs: Observable<String>
-```
-
-
-</details>
-
-
 ## Extensions
 
 
@@ -1295,6 +1245,70 @@ sRepresentation(layout:)
 ```
 
 ![Preview example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/preview_example.png)
+
+
+## Property wrappers
+
+
+*Part of `VATextureKitRx`
+
+
+* Obs
+  * Relay(value:) (BehaviorRelay)
+  * Relay() (PublishRelay)
+
+
+With these wrappers, the code becomes more concise.
+
+
+<details open>
+<summary>BehaviorRelay</summary>
+
+
+```
+var someObs: Observable<String> { someRelay.asObservable() }
+
+private let someRelay = BehaviorRelay<String>(value: "value")
+...
+someRelay.accept("value1")
+```
+
+
+becomes
+
+
+```
+@Obs.Relay(value: "value")
+var someObs: Observable<String>
+...
+_someObs.rx.accept("value1")
+```
+
+
+</details>
+
+
+<details>
+<summary>PublishRelay</summary>
+
+
+```
+var someObs: Observable<String> { someRelay.asObservable() }
+
+private let someRelay = PublishRelay<String>()
+```
+
+
+becomes
+
+
+```
+@Obs.Relay()
+var someObs: Observable<String>
+```
+
+
+</details>
 
 
 ## Experiments
