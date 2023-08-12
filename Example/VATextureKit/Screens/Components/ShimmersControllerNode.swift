@@ -87,6 +87,9 @@ final class ShimmersControllerNode: VASafeAreaDisplayNode {
 private class _ShimmerExampleNode: VAShimmerNode {
     private lazy var tileNode = VAShimmerTileNode(data: .init(cornerRadius: 8))
         .minConstrained(height: 50)
+        .apply {
+            $0.cornerCurve = .continuous
+        }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         tileNode

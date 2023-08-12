@@ -23,6 +23,7 @@ class ImageCellNode: VAScrollRespondingEdgeCellNode {
 
         if let cornerRadius = viewModel.cornerRadius {
             self.cornerRadius = cornerRadius
+            cornerCurve = .continuous
         }
     }
     
