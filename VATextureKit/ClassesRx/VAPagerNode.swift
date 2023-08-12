@@ -45,6 +45,7 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
         }
     }
 
+    public var theme: VATheme { appContext.themeManager.theme }
     public var itemsCountObs: Observable<Int> { itemsCountRelay.asObservable() }
     public var itemsCount: Int { itemsCountRelay.value }
     public var indexObs: Observable<CGFloat> { indexRelay.asObservable() }
@@ -134,14 +135,6 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
         checkPosition()
     }
 
-    open func configureTheme() {
-        reloadDataWithoutAnimations()
-    }
-
-    open func themeDidChanged() {
-        configureTheme()
-    }
-
     private func checkPosition() {
         if data.isCircular && !data.items.isEmpty {
             DispatchQueue.main.async {
@@ -154,6 +147,7 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
         setDataSource(self)
         setDelegate(self)
         checkPosition()
+        themeDidChanged()
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(themeDidChanged(_:)),
@@ -162,14 +156,32 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
         )
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(themeDidChanged(_:)),
+            selector: #selector(contentSizeDidChanged(_:)),
             name: VAContentSizeManager.contentSizeDidChangedNotification,
             object: appContext.contentSizeManager
         )
     }
 
+    open func configureTheme(_ theme: VATheme) {
+        reloadDataWithoutAnimations()
+    }
+
+    open func themeDidChanged() {
+        configureTheme(theme)
+    }
+
     @objc private func themeDidChanged(_ notification: Notification) {
         themeDidChanged()
+    }
+
+    open func configureContentSize(_ contentSize: UIContentSizeCategory) {}
+
+    open func contentSizeDidChanged() {
+        configureContentSize(appContext.contentSizeManager.contentSize)
+    }
+
+    @objc private func contentSizeDidChanged(_ notification: Notification) {
+        contentSizeDidChanged()
     }
 
     private func configure() {

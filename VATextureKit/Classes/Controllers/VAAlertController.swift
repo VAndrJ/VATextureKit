@@ -8,8 +8,10 @@
 import UIKit
 
 open class VAAlertController: UIAlertController {
-    open override var preferredStatusBarStyle: UIStatusBarStyle { appContext.themeManager.theme.statusBarStyle }
+    open override var preferredStatusBarStyle: UIStatusBarStyle { theme.statusBarStyle }
 
+    public var theme: VATheme { appContext.themeManager.theme }
+    
     public convenience init(
         title: String? = nil,
         message: String? = nil,
@@ -33,7 +35,7 @@ open class VAAlertController: UIAlertController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureTheme(appContext.themeManager.theme)
+        themeDidChanged()
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(themeDidChanged(_:)),
@@ -45,11 +47,15 @@ open class VAAlertController: UIAlertController {
     open func configureTheme(_ theme: VATheme) {
         if #available(iOS 13.0, *) {
             overrideUserInterfaceStyle = theme.userInterfaceStyle.uiUserInterfaceStyle
+            setNeedsStatusBarAppearanceUpdate()
         }
+    }
+
+    open func themeDidChanged() {
+        configureTheme(theme)
     }
     
     @objc private func themeDidChanged(_ notification: Notification) {
-        configureTheme(appContext.themeManager.theme)
-        setNeedsStatusBarAppearanceUpdate()
+        themeDidChanged()
     }
 }

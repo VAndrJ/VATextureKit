@@ -8,7 +8,7 @@
 import AsyncDisplayKit
 
 open class VAViewController<Node: ASDisplayNode>: ASDKViewController<ASDisplayNode>, UIAdaptivePresentationControllerDelegate {
-    open override var preferredStatusBarStyle: UIStatusBarStyle { appContext.themeManager.theme.statusBarStyle }
+    open override var preferredStatusBarStyle: UIStatusBarStyle { theme.statusBarStyle }
     
     public var contentNode: Node { node as! Node }
     public var theme: VATheme { appContext.themeManager.theme }
@@ -28,13 +28,44 @@ open class VAViewController<Node: ASDisplayNode>: ASDKViewController<ASDisplayNo
     open override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureTheme(appContext.themeManager.theme)
+        themeDidChanged()
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(themeDidChanged(_:)),
             name: VAThemeManager.themeDidChangedNotification,
             object: appContext.themeManager
         )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(contentSizeDidChanged(_:)),
+            name: VAContentSizeManager.contentSizeDidChangedNotification,
+            object: appContext.contentSizeManager
+        )
+    }
+
+    open func configureTheme(_ theme: VATheme) {
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = theme.userInterfaceStyle.uiUserInterfaceStyle
+            setNeedsStatusBarAppearanceUpdate()
+        }
+    }
+
+    open func themeDidChanged() {
+        configureTheme(theme)
+    }
+
+    @objc private func themeDidChanged(_ notification: Notification) {
+        themeDidChanged()
+    }
+
+    open func configureContentSize(_ contentSize: UIContentSizeCategory) {}
+
+    open func contentSizeDidChanged() {
+        configureContentSize(appContext.contentSizeManager.contentSize)
+    }
+
+    @objc private func contentSizeDidChanged(_ notification: Notification) {
+        contentSizeDidChanged()
     }
 
     open override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
@@ -57,17 +88,6 @@ open class VAViewController<Node: ASDisplayNode>: ASDKViewController<ASDisplayNo
             animated: flag,
             isPresenting: false
         )
-    }
-    
-    open func configureTheme(_ theme: VATheme) {
-        if #available(iOS 13.0, *) {
-            overrideUserInterfaceStyle = theme.userInterfaceStyle.uiUserInterfaceStyle
-        }
-    }
-    
-    @objc private func themeDidChanged(_ notification: Notification) {
-        configureTheme(appContext.themeManager.theme)
-        setNeedsStatusBarAppearanceUpdate()
     }
 
     // MARK: - UIAdaptivePresentationControllerDelegate

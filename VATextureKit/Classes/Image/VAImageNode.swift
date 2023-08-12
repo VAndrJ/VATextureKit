@@ -38,6 +38,8 @@ open class VAImageNode: ASImageNode {
             updateTintColorIfNeeded(theme)
         }
     }
+    
+    var shouldConfigureTheme = true
 
     private var data: DTO
 
@@ -60,13 +62,24 @@ open class VAImageNode: ASImageNode {
     open override func didLoad() {
         super.didLoad()
 
-        configureTheme(theme)
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(themeDidChanged(_:)),
             name: VAThemeManager.themeDidChangedNotification,
             object: appContext.themeManager
         )
+#if DEBUG || targetEnvironment(simulator)
+        addDebugLabel()
+#endif
+    }
+
+    open override func didEnterDisplayState() {
+        super.didEnterDisplayState()
+
+        if shouldConfigureTheme {
+            themeDidChanged()
+            shouldConfigureTheme = false
+        }
     }
 
     open func configureTheme(_ theme: VATheme) {
@@ -75,7 +88,11 @@ open class VAImageNode: ASImageNode {
     }
 
     open func themeDidChanged() {
-        configureTheme(appContext.themeManager.theme)
+        if isInDisplayState {
+            configureTheme(theme)
+        } else {
+            shouldConfigureTheme = true
+        }
     }
 
     @objc private func themeDidChanged(_ notification: Notification) {
