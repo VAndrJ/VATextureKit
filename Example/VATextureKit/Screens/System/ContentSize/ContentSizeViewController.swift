@@ -14,24 +14,14 @@ final class ContentSizeViewController: VAViewController<ContentSizeControllerNod
         super.viewDidLoad()
         
         configure()
-        bind()
     }
     
     private func configure() {
         title = "Content size"
         updateContentSizeLabel()
     }
-    
-    private func bind() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(contentSizeDidChanged(_:)),
-            name: VAContentSizeManager.contentSizeDidChangedNotification,
-            object: appContext.contentSizeManager
-        )
-    }
-    
-    @objc private func contentSizeDidChanged(_ notification: Notification) {
+
+    override func configureContentSize(_ contentSize: UIContentSizeCategory) {
         updateContentSizeLabel()
     }
     
