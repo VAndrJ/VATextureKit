@@ -12,6 +12,7 @@
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
+		A31054D32A87AA670076E079 /* TagCellNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31054D22A87AA670076E079 /* TagCellNodeTests.swift */; };
 		A310A43229CF471400632416 /* CellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A310A43129CF471400632416 /* CellViewModel.swift */; };
 		A311B22E2A7668240025B060 /* ElementsScrollingAnimationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A311B22D2A7668240025B060 /* ElementsScrollingAnimationListViewController.swift */; };
 		A311B2302A768C490025B060 /* VAScrollRespondingEdgeCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A311B22F2A768C490025B060 /* VAScrollRespondingEdgeCellNode.swift */; };
@@ -154,6 +155,7 @@
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6D876C31217CA656A4FE2F15 /* Pods-VATextureKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VATextureKit_Example.debug.xcconfig"; path = "Target Support Files/Pods-VATextureKit_Example/Pods-VATextureKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		7E7793BF92D39325720321EF /* Pods-VATextureKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VATextureKit_Example.release.xcconfig"; path = "Target Support Files/Pods-VATextureKit_Example/Pods-VATextureKit_Example.release.xcconfig"; sourceTree = "<group>"; };
+		A31054D22A87AA670076E079 /* TagCellNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCellNodeTests.swift; sourceTree = "<group>"; };
 		A310A43129CF471400632416 /* CellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellViewModel.swift; sourceTree = "<group>"; };
 		A311B22D2A7668240025B060 /* ElementsScrollingAnimationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementsScrollingAnimationListViewController.swift; sourceTree = "<group>"; };
 		A311B22F2A768C490025B060 /* VAScrollRespondingEdgeCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAScrollRespondingEdgeCellNode.swift; sourceTree = "<group>"; };
@@ -714,6 +716,7 @@
 				A359CB842A7F7DD4002C60CA /* RowLayoutControllerNodeTests.swift */,
 				A359CB862A7F7E22002C60CA /* StackLayoutControllerNodeTests.swift */,
 				A39301E92A7FFC5C007F8001 /* RadialGradientControllerNodeTests.swift */,
+				A31054D22A87AA670076E079 /* TagCellNodeTests.swift */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -1049,6 +1052,7 @@
 				A34F8E7129F3F1B300EF4C42 /* VAReadMoreTextNodeTests.swift in Sources */,
 				A3D2488529CF860300EE1907 /* VAStateModelTests.swift in Sources */,
 				A3D2488A29CF869900EE1907 /* Support.swift in Sources */,
+				A31054D32A87AA670076E079 /* TagCellNodeTests.swift in Sources */,
 				A3884CC12A7C108800DFB4A4 /* UIColorTests.swift in Sources */,
 				A39301EA2A7FFC5C007F8001 /* RadialGradientControllerNodeTests.swift in Sources */,
 				A33871332A7A1B8300F9D329 /* NSObjectTests.swift in Sources */,
