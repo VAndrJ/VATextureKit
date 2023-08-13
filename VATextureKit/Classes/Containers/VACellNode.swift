@@ -42,6 +42,8 @@ open class VACellNode: ASCellNode {
         }
     }
 
+    /// Method for layout parameters that need to be defined only once
+    /// and are used throughout the layout calculations within the `layoutSpecThatFits`.
     open func configureLayoutElements() {}
     
     open func configureTheme(_ theme: VATheme) {}

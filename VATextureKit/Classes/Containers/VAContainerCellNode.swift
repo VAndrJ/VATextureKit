@@ -12,6 +12,8 @@ open class VAContainerCellNode<Node: ASDisplayNode>: VACellNode {
 
     public init(childNode: Node) {
         self.childNode = childNode
+
+        super.init()
     }
 
     open override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
