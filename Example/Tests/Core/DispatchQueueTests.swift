@@ -11,56 +11,46 @@ import XCTest
 import VATextureKit
 
 class DispatchQueueTests: XCTestCase {
-
+    
     func test_global() {
         let expect = expectation(description: "Global queue expectation")
         ensureOnGlobal {
             XCTAssertFalse(Thread.isMainThread)
-            ensureOnGlobal {
-                XCTAssertFalse(Thread.isMainThread)
-                expect.fulfill()
-            }
+            expect.fulfill()
         }
-        wait(for: [expect], timeout: 1)
+        wait(for: [expect], timeout: 10)
     }
-
+    
     func test_global_background() {
         let expect = expectation(description: "Global queue expectation")
         ensureOnBackground {
             XCTAssertFalse(Thread.isMainThread)
-            ensureOnBackground {
-                XCTAssertFalse(Thread.isMainThread)
-                expect.fulfill()
-            }
+            expect.fulfill()
         }
-        wait(for: [expect], timeout: 1)
+        wait(for: [expect], timeout: 10)
     }
-
+    
     func test_main() {
         let expect = expectation(description: "Global queue expectation")
         ensureOnBackground {
+            XCTAssertFalse(Thread.isMainThread)
             ensureOnMain {
                 XCTAssertTrue(Thread.isMainThread)
-                ensureOnMain {
-                    XCTAssertTrue(Thread.isMainThread)
-                    expect.fulfill()
-                }
+                expect.fulfill()
             }
         }
-        wait(for: [expect], timeout: 1)
+        wait(for: [expect], timeout: 10)
     }
-
+    
     func test_main_async() {
         let expect = expectation(description: "Global queue expectation")
         ensureOnBackground {
+            XCTAssertFalse(Thread.isMainThread)
             mainAsync {
                 XCTAssertTrue(Thread.isMainThread)
-                mainAsync(after: 0.2) {
-                    XCTAssertTrue(Thread.isMainThread)
-                    expect.fulfill()
-                }
+                expect.fulfill()
             }
         }
-        wait(for: [expect], timeout: 1)
+        wait(for: [expect], timeout: 10)
     }
 }

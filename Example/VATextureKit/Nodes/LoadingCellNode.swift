@@ -9,7 +9,7 @@
 import VATextureKit
 
 class LoadingCellNode: VACellNode {
-    private let loaderNode = _LoadingCellShimmerNode(data: .init())
+    private let shimmerNode = _LoadingCellShimmerNode(data: .init())
     
     init(viewModel: LoadingCellNodeViewModel) {
         super.init()
@@ -18,7 +18,7 @@ class LoadingCellNode: VACellNode {
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        loaderNode
+        shimmerNode
             .wrapped()
     }
 }
@@ -40,7 +40,7 @@ private class _LoadingCellShimmerNode: VAShimmerNode {
     }
 }
 
-#if canImport(SwiftUI)
+#if DEBUG && canImport(SwiftUI)
 import SwiftUI
 
 @available (iOS 13.0, *)

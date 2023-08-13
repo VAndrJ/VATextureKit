@@ -32,7 +32,10 @@ class SlidingTabBarControllerNode: VASafeAreaDisplayNode {
         item: { data, onSelect in VASlidingTabTextNode(data: data, onSelect: onSelect) },
         indexObs: pagerNode.indexObs,
         onSelect: pagerNode ?> { $0.scroll(to: $1) }
-    ))
+    )).apply {
+        $0.cornerCurve = .continuous
+        $0.borderWidth = 1
+    }
     private lazy var previousButtonNode = HapticButtonNode(title: "Previous")
         .minConstrained(size: CGSize(same: 44))
     private lazy var nextButtonNode = HapticButtonNode(title: "Next")
@@ -43,8 +46,6 @@ class SlidingTabBarControllerNode: VASafeAreaDisplayNode {
     override func didLoad() {
         super.didLoad()
 
-        floatingTabBarNode.cornerCurve = .continuous
-        floatingTabBarNode.borderWidth = 1
         bind()
     }
 
@@ -71,7 +72,7 @@ class SlidingTabBarControllerNode: VASafeAreaDisplayNode {
                             .wrapped()
                     }
                     .padding(.horizontal(16), .bottom(48))
-                    .relatively(horizontal: .start, vertical: .end, sizing: .minimumHeight)
+                    .relatively(vertical: .end, sizing: .minimumHeight)
                 }
                 .flex(grow: 1)
             }

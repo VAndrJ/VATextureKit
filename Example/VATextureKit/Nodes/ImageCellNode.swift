@@ -23,6 +23,7 @@ class ImageCellNode: VAScrollRespondingEdgeCellNode {
 
         if let cornerRadius = viewModel.cornerRadius {
             self.cornerRadius = cornerRadius
+            cornerCurve = .continuous
         }
     }
     
@@ -55,7 +56,7 @@ class ImageCellNodeViewModel: CellViewModel {
     }
 }
 
-#if canImport(SwiftUI)
+#if DEBUG && canImport(SwiftUI)
 import SwiftUI
 
 @available (iOS 13.0, *)

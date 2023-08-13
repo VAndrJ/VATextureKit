@@ -20,12 +20,11 @@ final class MainListCellNode: VACellNode {
     
     init(viewModel: MainListCellNodeViewModel) {
         self.titleNode = VATextNode(text: viewModel.title)
-            .flex(shrink: 0.1)
         self.descriptionNode = VATextNode(
             text: viewModel.description,
             fontStyle: .footnote,
             colorGetter: { $0.secondaryLabel }
-        ).flex(shrink: 0.1)
+        )
         
         super.init()
 
@@ -35,6 +34,13 @@ final class MainListCellNode: VACellNode {
         if let descriptionTransitionAnimationId = viewModel.descriptionTransitionAnimationId {
             descriptionNode.transitionAnimationId = descriptionTransitionAnimationId
         }
+    }
+
+    // A different approach to organization: we set the layout parameters that are enough to set once
+    // in one place, near the `layoutSpecThatFits`.
+    override func configureLayoutElements() {
+        titleNode.flex(shrink: 0.1)
+        descriptionNode.flex(shrink: 0.1)
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -74,7 +80,7 @@ class MainListCellNodeViewModel: CellViewModel {
     }
 }
 
-#if canImport(SwiftUI)
+#if DEBUG && canImport(SwiftUI)
 import SwiftUI
 
 @available (iOS 13.0, *)

@@ -11,6 +11,7 @@ open class VANavigationController: ASDKNavigationController {
     open override var childForStatusBarStyle: UIViewController? { topViewController }
     open override var childForStatusBarHidden: UIViewController? { topViewController }
 
+    public var theme: VATheme { appContext.themeManager.theme }
     public lazy var transitionAnimator: VATransionAnimator = VADefaultTransionAnimator(controller: self)
 
     public init() {
@@ -29,7 +30,7 @@ open class VANavigationController: ASDKNavigationController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureTheme(appContext.themeManager.theme)
+        themeDidChanged()
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(themeDidChanged(_:)),
@@ -42,6 +43,28 @@ open class VANavigationController: ASDKNavigationController {
             name: VAContentSizeManager.contentSizeDidChangedNotification,
             object: appContext.contentSizeManager
         )
+    }
+
+    open func configureTheme(_ theme: VATheme) {
+        navigationBar.barStyle = theme.barStyle
+    }
+
+    open func themeDidChanged() {
+        configureTheme(theme)
+    }
+
+    @objc private func themeDidChanged(_ notification: Notification) {
+        themeDidChanged()
+    }
+
+    open func configureContentSize(_ contentSize: UIContentSizeCategory) {}
+
+    open func contentSizeDidChanged() {
+        configureContentSize(appContext.contentSizeManager.contentSize)
+    }
+
+    @objc private func contentSizeDidChanged(_ notification: Notification) {
+        contentSizeDidChanged()
     }
 
     open override func popViewController(animated: Bool) -> UIViewController? {
@@ -67,19 +90,5 @@ open class VANavigationController: ASDKNavigationController {
         )
         
         super.pushViewController(viewController, animated: animated)
-    }
-    
-    open func configureTheme(_ theme: VATheme) {
-        navigationBar.barStyle = theme.barStyle
-    }
-    
-    open func configureContentSize(_ contenSize: UIContentSizeCategory) {}
-    
-    @objc private func themeDidChanged(_ notification: Notification) {
-        configureTheme(appContext.themeManager.theme)
-    }
-    
-    @objc private func contentSizeDidChanged(_ notification: Notification) {
-        configureContentSize(appContext.contentSizeManager.contentSize)
     }
 }

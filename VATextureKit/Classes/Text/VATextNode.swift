@@ -89,11 +89,12 @@ open class VATextNode: _VATextNode {
     }
     
     public var text: String? {
-        didSet { configureTheme(theme: theme) }
+        didSet { configureTheme(theme) }
     }
     public var theme: VATheme { appContext.themeManager.theme }
-    
     public let stringGetter: (String?, VATheme) -> NSAttributedString?
+
+    var shouldConfigureTheme = true
     
     public convenience init(
         text: String? = nil,
@@ -228,7 +229,7 @@ open class VATextNode: _VATextNode {
 
         if let text {
             self.text = text
-            configureTheme(theme: theme)
+            configureTheme(theme)
         }
     }
     
@@ -247,15 +248,27 @@ open class VATextNode: _VATextNode {
             name: VAContentSizeManager.contentSizeDidChangedNotification,
             object: appContext.contentSizeManager
         )
-        configureTheme(theme: theme)
+    }
+
+    open override func didEnterDisplayState() {
+        super.didEnterDisplayState()
+
+        if shouldConfigureTheme {
+            themeDidChanged()
+            shouldConfigureTheme = false
+        }
     }
     
-    open func configureTheme(theme: VATheme) {
+    open func configureTheme(_ theme: VATheme) {
         attributedText = stringGetter(text, theme)
     }
-    
+
     open func themeDidChanged() {
-        configureTheme(theme: theme)
+        if isInDisplayState {
+            configureTheme(theme)
+        } else {
+            shouldConfigureTheme = true
+        }
     }
     
     @objc private func themeDidChanged(_ notification: Notification) {

@@ -35,7 +35,7 @@ open class VALinkTextNode: VATextNode {
         supernode?.layer.as_allowsHighlightDrawing = true
     }
 
-    open override func configureTheme(theme: VATheme) {
+    open override func configureTheme(_ theme: VATheme) {
         if let attributedText = stringGetter(text, theme).flatMap(NSMutableAttributedString.init(attributedString:)) {
             let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
             let matches = detector?.matches(

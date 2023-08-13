@@ -8,9 +8,10 @@
 import AsyncDisplayKit
 
 open class VATabBarController: ASTabBarController {
-    public var theme: VATheme { appContext.themeManager.theme }
     open override var childForStatusBarStyle: UIViewController? { selectedViewController }
     open override var childForStatusBarHidden: UIViewController? { selectedViewController }
+
+    public var theme: VATheme { appContext.themeManager.theme }
 
     public init() {
         super.init(nibName: nil, bundle: nil)
@@ -28,20 +29,40 @@ open class VATabBarController: ASTabBarController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureTheme(appContext.themeManager.theme)
+        themeDidChanged()
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(themeDidChanged(_:)),
             name: VAThemeManager.themeDidChangedNotification,
             object: appContext.themeManager
         )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(contentSizeDidChanged(_:)),
+            name: VAContentSizeManager.contentSizeDidChangedNotification,
+            object: appContext.contentSizeManager
+        )
     }
     
     open func configureTheme(_ theme: VATheme) {
         tabBar.barStyle = theme.barStyle
     }
+
+    open func themeDidChanged() {
+        configureTheme(theme)
+    }
     
     @objc private func themeDidChanged(_ notification: Notification) {
-        configureTheme(appContext.themeManager.theme)
+        themeDidChanged()
+    }
+
+    open func configureContentSize(_ contentSize: UIContentSizeCategory) {}
+
+    open func contentSizeDidChanged() {
+        configureContentSize(appContext.contentSizeManager.contentSize)
+    }
+
+    @objc private func contentSizeDidChanged(_ notification: Notification) {
+        contentSizeDidChanged()
     }
 }

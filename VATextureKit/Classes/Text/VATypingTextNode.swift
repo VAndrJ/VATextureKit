@@ -82,7 +82,7 @@ open class VATypingTextNode: VATextNode {
         }
     }
 
-    open override func configureTheme(theme: VATheme) {
+    open override func configureTheme(_ theme: VATheme) {
         typingText = stringGetter(text, theme)
         updateTyping()
     }

@@ -23,7 +23,9 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode {
     private var data: DTO
     private var items: [(any ASDisplayNode & VASlidingTab)]
     private let bag = DisposeBag()
-    private lazy var indicatorContainerNode = VASlidingIndicatorContainerNode(color: data.color)
+    private lazy var indicatorContainerNode = VASlidingIndicatorContainerNode(color: data.color).apply {
+        $0.cornerCurve = .continuous
+    }
 
     public init(data: DTO) {
         self.data = data

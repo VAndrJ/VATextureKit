@@ -9,17 +9,19 @@ import AsyncDisplayKit
 
 open class VADisplayNode: ASDisplayNode {
     public var theme: VATheme { appContext.themeManager.theme }
+
+    var shouldConfigureTheme = true
     
     public override init() {
         super.init()
         
         automaticallyManagesSubnodes = true
+        configureLayoutElements()
     }
     
     open override func didLoad() {
         super.didLoad()
-        
-        configureTheme(appContext.themeManager.theme)
+
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(themeDidChanged(_:)),
@@ -30,11 +32,28 @@ open class VADisplayNode: ASDisplayNode {
         addDebugLabel()
 #endif
     }
+
+    open override func didEnterDisplayState() {
+        super.didEnterDisplayState()
+
+        if shouldConfigureTheme {
+            themeDidChanged()
+            shouldConfigureTheme = false
+        }
+    }
+
+    /// Method for layout parameters that need to be defined only once
+    /// and are used throughout the layout calculations within the `layoutSpecThatFits`.
+    open func configureLayoutElements() {}
     
     open func configureTheme(_ theme: VATheme) {}
-    
+
     open func themeDidChanged() {
-        configureTheme(theme)
+        if isInDisplayState {
+            configureTheme(theme)
+        } else {
+            shouldConfigureTheme = true
+        }
     }
     
     @objc private func themeDidChanged(_ notification: Notification) {

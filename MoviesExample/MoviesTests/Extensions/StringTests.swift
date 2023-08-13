@@ -10,6 +10,13 @@ import XCTest
 
 final class StringTests: XCTestCase {
 
+    func test_ns() {
+        let string = "123asdf"
+        let expected = string as NSString
+
+        XCTAssertEqual(expected, string.ns)
+    }
+
     func test_image_path() {
         let expected = "https://image.tmdb.org/t/p/w500/path"
 

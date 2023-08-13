@@ -160,13 +160,13 @@ public extension ASLayoutElement {
     /// Creates an `ASRelativeLayoutSpec` with the layout element relatively positioned.
     ///
     /// - Parameters:
-    ///   - horizontal: The horizontal position option for the layout element in the `ASRelativeLayoutSpec`.
-    ///   - vertical: The vertical position option for the layout element in the `ASRelativeLayoutSpec`.
+    ///   - horizontal: The horizontal position option for the layout element in the `ASRelativeLayoutSpec`. Defaults to `.start`.
+    ///   - vertical: The vertical position option for the layout element in the `ASRelativeLayoutSpec`. Defaults to `.start`.
     ///   - sizing: The sizing option for the `ASRelativeLayoutSpec`. Defaults to `.minimumSize`.
     /// - Returns: An `ASRelativeLayoutSpec` with the layout element relatively positioned.
     func relatively(
-        horizontal: ASRelativeLayoutSpecPosition,
-        vertical: ASRelativeLayoutSpecPosition,
+        horizontal: ASRelativeLayoutSpecPosition = .start,
+        vertical: ASRelativeLayoutSpecPosition = .start,
         sizing: ASRelativeLayoutSpecSizingOption = .minimumSize
     ) -> ASRelativeLayoutSpec {
         ASRelativeLayoutSpec(

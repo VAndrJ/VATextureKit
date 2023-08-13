@@ -56,7 +56,7 @@ class ImageNumberCellNodeViewModel: CellViewModel {
     }
 }
 
-#if canImport(SwiftUI)
+#if DEBUG && canImport(SwiftUI)
 import SwiftUI
 
 @available (iOS 13.0, *)

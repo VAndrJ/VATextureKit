@@ -13,6 +13,7 @@ class PagerCardCellNode: VACellNode {
     let descriptionTextNode: VATextNode
     let cardNode = ASDisplayNode().apply {
         $0.cornerRadius = 16
+        $0.cornerCurve = .continuous
     }
 
     private let viewModel: PagerCardCellNodeViewModel
