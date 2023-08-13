@@ -16,6 +16,7 @@ open class VADisplayNode: ASDisplayNode {
         super.init()
         
         automaticallyManagesSubnodes = true
+        configureLayoutElements()
     }
     
     open override func didLoad() {
@@ -40,6 +41,8 @@ open class VADisplayNode: ASDisplayNode {
             shouldConfigureTheme = false
         }
     }
+
+    open func configureLayoutElements() {}
     
     open func configureTheme(_ theme: VATheme) {}
 

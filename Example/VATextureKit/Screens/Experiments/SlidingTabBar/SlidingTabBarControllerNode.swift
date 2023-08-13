@@ -72,7 +72,7 @@ class SlidingTabBarControllerNode: VASafeAreaDisplayNode {
                             .wrapped()
                     }
                     .padding(.horizontal(16), .bottom(48))
-                    .relatively(horizontal: .start, vertical: .end, sizing: .minimumHeight)
+                    .relatively(vertical: .end, sizing: .minimumHeight)
                 }
                 .flex(grow: 1)
             }

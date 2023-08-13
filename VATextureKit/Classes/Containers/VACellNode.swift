@@ -16,6 +16,7 @@ open class VACellNode: ASCellNode {
         super.init()
         
         automaticallyManagesSubnodes = true
+        configureLayoutElements()
     }
     
     open override func didLoad() {
@@ -40,6 +41,8 @@ open class VACellNode: ASCellNode {
             shouldConfigureTheme = false
         }
     }
+
+    open func configureLayoutElements() {}
     
     open func configureTheme(_ theme: VATheme) {}
     
