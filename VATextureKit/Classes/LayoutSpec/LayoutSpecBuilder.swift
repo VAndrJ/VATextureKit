@@ -27,30 +27,52 @@ public struct LayoutSpecBuilder {
         components
     }
 
-    public static func buildBlock(_ components: Any...) -> [ASLayoutElement] {
-        var data: [ASLayoutElement] = []
-        func append(element: Any) {
-            switch element {
-            case let element as ASLayoutElement:
-                data.append(element)
-            case let elements as [ASLayoutElement]:
-                data.append(contentsOf: elements)
-            case let elements as [[ASLayoutElement]]:
-                data.append(contentsOf: elements.flatMap { $0 })
-            default:
-                assertionFailure("Failed element: \(String(describing: element)). Use only ASLayoutElements")
-            }
-        }
-        components.forEach(append(element:))
-        return data
+    public static func buildBlock(_ components: [ASLayoutElement]...) -> [ASLayoutElement] {
+        components.flatMap { $0 }
+    }
+
+    public static func buildExpression(_ expression: ASLayoutElement) -> [ASLayoutElement] {
+        [expression]
+    }
+
+    public static func buildExpression(_ expression: [ASLayoutElement]) -> [ASLayoutElement] {
+        expression
+    }
+
+    public static func buildExpression(_ expression: ASLayoutElement...) -> [ASLayoutElement] {
+        expression
+    }
+
+    public static func buildExpression(_ expression: [ASLayoutElement]...) -> [ASLayoutElement] {
+        expression.flatMap { $0 }
+    }
+
+    public static func buildIf(_ content: ASLayoutElement) -> [ASLayoutElement] {
+        [content]
     }
 
     public static func buildIf(_ content: [ASLayoutElement]) -> [ASLayoutElement] {
         content
     }
 
+    public static func buildIf(_ content: ASLayoutElement...) -> [ASLayoutElement] {
+        content
+    }
+
+    public static func buildIf(_ content: [ASLayoutElement]...) -> [ASLayoutElement] {
+        content.flatMap { $0 }
+    }
+
     public static func buildOptional(_ component: [ASLayoutElement]?) -> [ASLayoutElement] {
         component ?? []
+    }
+
+    public static func buildOptional(_ component: [ASLayoutElement]?...) -> [ASLayoutElement] {
+        component.compactMap { $0 }.flatMap { $0 }
+    }
+
+    public static func buildOptional(_ component: ASLayoutElement?...) -> [ASLayoutElement] {
+        component.compactMap { $0 }
     }
 
     public static func buildEither(first component: [ASLayoutElement]) -> [ASLayoutElement] {
@@ -58,6 +80,30 @@ public struct LayoutSpecBuilder {
     }
 
     public static func buildEither(second component: [ASLayoutElement]) -> [ASLayoutElement] {
+        component
+    }
+
+    public static func buildEither(first component: [ASLayoutElement]...) -> [ASLayoutElement] {
+        component.flatMap { $0 }
+    }
+
+    public static func buildEither(second component: [ASLayoutElement]...) -> [ASLayoutElement] {
+        component.flatMap { $0 }
+    }
+
+    public static func buildEither(first component: ASLayoutElement) -> [ASLayoutElement] {
+        [component]
+    }
+
+    public static func buildEither(second component: ASLayoutElement) -> [ASLayoutElement] {
+        [component]
+    }
+
+    public static func buildEither(first component: ASLayoutElement...) -> [ASLayoutElement] {
+        component
+    }
+
+    public static func buildEither(second component: ASLayoutElement...) -> [ASLayoutElement] {
         component
     }
 }
