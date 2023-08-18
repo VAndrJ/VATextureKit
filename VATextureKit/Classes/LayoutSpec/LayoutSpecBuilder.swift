@@ -11,19 +11,7 @@ import AsyncDisplayKit
 @resultBuilder
 public struct LayoutSpecBuilder {
 
-    public static func buildBlock() -> [ASLayoutElement] {
-        [ASLayoutSpec()]
-    }
-
-    public static func buildBlock(_ components: ASLayoutElement) -> [ASLayoutElement] {
-        [components]
-    }
-
     public static func buildBlock(_ components: [ASLayoutElement]) -> [ASLayoutElement] {
-        components
-    }
-
-    public static func buildBlock(_ components: ASLayoutElement...) -> [ASLayoutElement] {
         components
     }
 
@@ -39,40 +27,8 @@ public struct LayoutSpecBuilder {
         expression
     }
 
-    public static func buildExpression(_ expression: ASLayoutElement...) -> [ASLayoutElement] {
-        expression
-    }
-
-    public static func buildExpression(_ expression: [ASLayoutElement]...) -> [ASLayoutElement] {
-        expression.flatMap { $0 }
-    }
-
-    public static func buildIf(_ content: ASLayoutElement) -> [ASLayoutElement] {
-        [content]
-    }
-
-    public static func buildIf(_ content: [ASLayoutElement]) -> [ASLayoutElement] {
-        content
-    }
-
-    public static func buildIf(_ content: ASLayoutElement...) -> [ASLayoutElement] {
-        content
-    }
-
-    public static func buildIf(_ content: [ASLayoutElement]...) -> [ASLayoutElement] {
-        content.flatMap { $0 }
-    }
-
     public static func buildOptional(_ component: [ASLayoutElement]?) -> [ASLayoutElement] {
         component ?? []
-    }
-
-    public static func buildOptional(_ component: [ASLayoutElement]?...) -> [ASLayoutElement] {
-        component.compactMap { $0 }.flatMap { $0 }
-    }
-
-    public static func buildOptional(_ component: ASLayoutElement?...) -> [ASLayoutElement] {
-        component.compactMap { $0 }
     }
 
     public static func buildEither(first component: [ASLayoutElement]) -> [ASLayoutElement] {
@@ -80,30 +36,6 @@ public struct LayoutSpecBuilder {
     }
 
     public static func buildEither(second component: [ASLayoutElement]) -> [ASLayoutElement] {
-        component
-    }
-
-    public static func buildEither(first component: [ASLayoutElement]...) -> [ASLayoutElement] {
-        component.flatMap { $0 }
-    }
-
-    public static func buildEither(second component: [ASLayoutElement]...) -> [ASLayoutElement] {
-        component.flatMap { $0 }
-    }
-
-    public static func buildEither(first component: ASLayoutElement) -> [ASLayoutElement] {
-        [component]
-    }
-
-    public static func buildEither(second component: ASLayoutElement) -> [ASLayoutElement] {
-        [component]
-    }
-
-    public static func buildEither(first component: ASLayoutElement...) -> [ASLayoutElement] {
-        component
-    }
-
-    public static func buildEither(second component: ASLayoutElement...) -> [ASLayoutElement] {
         component
     }
 }
