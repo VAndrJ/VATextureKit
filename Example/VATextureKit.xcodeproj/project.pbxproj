@@ -16,6 +16,7 @@
 		A310A43229CF471400632416 /* CellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A310A43129CF471400632416 /* CellViewModel.swift */; };
 		A311B22E2A7668240025B060 /* ElementsScrollingAnimationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A311B22D2A7668240025B060 /* ElementsScrollingAnimationListViewController.swift */; };
 		A311B2302A768C490025B060 /* VAScrollRespondingEdgeCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A311B22F2A768C490025B060 /* VAScrollRespondingEdgeCellNode.swift */; };
+		A316C74F2A90095C008329A0 /* LayoutSpecBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A316C74E2A90095C008329A0 /* LayoutSpecBuilderTests.swift */; };
 		A31F445D29F6AD76003618C9 /* PagerControllerNodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F445C29F6AD76003618C9 /* PagerControllerNodeViewModel.swift */; };
 		A31F445F29F6ADC7003618C9 /* PagerIndicatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F445E29F6ADC7003618C9 /* PagerIndicatorNode.swift */; };
 		A31F446129F70A7A003618C9 /* VALinkTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F446029F70A7A003618C9 /* VALinkTextNode.swift */; };
@@ -167,6 +168,7 @@
 		A310A43129CF471400632416 /* CellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellViewModel.swift; sourceTree = "<group>"; };
 		A311B22D2A7668240025B060 /* ElementsScrollingAnimationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementsScrollingAnimationListViewController.swift; sourceTree = "<group>"; };
 		A311B22F2A768C490025B060 /* VAScrollRespondingEdgeCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAScrollRespondingEdgeCellNode.swift; sourceTree = "<group>"; };
+		A316C74E2A90095C008329A0 /* LayoutSpecBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutSpecBuilderTests.swift; sourceTree = "<group>"; };
 		A31F445C29F6AD76003618C9 /* PagerControllerNodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerControllerNodeViewModel.swift; sourceTree = "<group>"; };
 		A31F445E29F6ADC7003618C9 /* PagerIndicatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerIndicatorNode.swift; sourceTree = "<group>"; };
 		A31F446029F70A7A003618C9 /* VALinkTextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VALinkTextNode.swift; sourceTree = "<group>"; };
@@ -388,9 +390,9 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				A36AAF4C2A78D0F1006168D7 /* Core */,
 				A31F88AA29EA9CAF0077296B /* VANetworkImageNodeTests.swift */,
 				A3D2488429CF860300EE1907 /* VAStateModelTests.swift */,
+				A36AAF4C2A78D0F1006168D7 /* Core */,
 				A328F9A329D757B300FEB663 /* Snapshots */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
@@ -537,6 +539,7 @@
 				A3CC53992A7931AB00BC4B3A /* CGRectTests.swift */,
 				A3CC539B2A79326E00BC4B3A /* CGSizeTests.swift */,
 				A3CC53792A79062A00BC4B3A /* DispatchQueueTests.swift */,
+				A316C74E2A90095C008329A0 /* LayoutSpecBuilderTests.swift */,
 				A33871312A7A1B6E00F9D329 /* NSObjectTests.swift */,
 				A33729442A7936BA009425D8 /* ObsTests.swift */,
 				A3884CC02A7C108800DFB4A4 /* UIColorTests.swift */,
@@ -1052,6 +1055,7 @@
 			files = (
 				A33729472A793A31009425D8 /* CALayerAnimationInitTests.swift in Sources */,
 				A33729452A7936BA009425D8 /* ObsTests.swift in Sources */,
+				A316C74F2A90095C008329A0 /* LayoutSpecBuilderTests.swift in Sources */,
 				A384F0B429EDCA7A006BF197 /* RowTests.swift in Sources */,
 				A3551A5929DD5FCF00B0B18F /* VABaseGradientNodeTests.swift in Sources */,
 				A3884CC32A7C134600DFB4A4 /* CGPointTests.swift in Sources */,
