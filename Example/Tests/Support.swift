@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import VATextureKit_Example
 import SnapshotTesting
 import VATextureKitRx
 
@@ -169,4 +170,11 @@ extension String {
     func dummyLong(separator: String = " ", range: ClosedRange<Int> = 0...10) -> String {
         range.map { _ in self }.joined(separator: separator)
     }
+}
+
+extension Navigator {
+    static let dummy = Navigator(
+        screenFactory: ScreenFactory(themeManager: ThemeManager()),
+        navigationController: VANavigationController()
+    )
 }
