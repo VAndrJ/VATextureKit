@@ -533,7 +533,12 @@
 		A3657F462A90EC2900B0E70B /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				A359CB822A7F7CF3002C60CA /* ColumnLayoutControllerNodeTests.swift */,
+				A39301E72A7FFB85007F8001 /* LinearGradientControllerNodeTests.swift */,
 				A3657F472A90EC3600B0E70B /* MainNodeControllerTests.swift */,
+				A39301E92A7FFC5C007F8001 /* RadialGradientControllerNodeTests.swift */,
+				A359CB842A7F7DD4002C60CA /* RowLayoutControllerNodeTests.swift */,
+				A359CB862A7F7E22002C60CA /* StackLayoutControllerNodeTests.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -741,23 +746,18 @@
 		A3D2FABF29D896B300AA01CA /* Example */ = {
 			isa = PBXGroup;
 			children = (
-				A3657F462A90EC2900B0E70B /* Screens */,
+				A35219C72A8941AA00DD17A9 /* CollectionExampleCellNodeTests.swift */,
 				A35219C52A89415400DD17A9 /* CollectionListSectionFooterCellNodeTests.swift */,
-				A359CB822A7F7CF3002C60CA /* ColumnLayoutControllerNodeTests.swift */,
+				A35219CD2A8942CF00DD17A9 /* CollectionListSectionHeaderCellNodeTests.swift */,
+				A35219C92A8941FC00DD17A9 /* CompositingCellNodeTests.swift */,
 				A35219C12A893F6F00DD17A9 /* ImageNumberCellNodeTests.swift */,
-				A39301E72A7FFB85007F8001 /* LinearGradientControllerNodeTests.swift */,
+				A35219CB2A89428200DD17A9 /* LoadingCellNodeTests.swift */,
 				A3D2FAC029D89DD900AA01CA /* MainListCellNodeTests.swift */,
 				A33CDF4429D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift */,
-				A39301E92A7FFC5C007F8001 /* RadialGradientControllerNodeTests.swift */,
-				A359CB842A7F7DD4002C60CA /* RowLayoutControllerNodeTests.swift */,
-				A359CB862A7F7E22002C60CA /* StackLayoutControllerNodeTests.swift */,
+				A35219CF2A89504600DD17A9 /* PagerCardCellNodeTests.swift */,
 				A31054D22A87AA670076E079 /* TagCellNodeTests.swift */,
 				A35219C32A89403C00DD17A9 /* VALinkTextNodeTests.swift */,
-				A35219C72A8941AA00DD17A9 /* CollectionExampleCellNodeTests.swift */,
-				A35219C92A8941FC00DD17A9 /* CompositingCellNodeTests.swift */,
-				A35219CB2A89428200DD17A9 /* LoadingCellNodeTests.swift */,
-				A35219CD2A8942CF00DD17A9 /* CollectionListSectionHeaderCellNodeTests.swift */,
-				A35219CF2A89504600DD17A9 /* PagerCardCellNodeTests.swift */,
+				A3657F462A90EC2900B0E70B /* Screens */,
 			);
 			path = Example;
 			sourceTree = "<group>";
