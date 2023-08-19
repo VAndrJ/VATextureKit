@@ -2,8 +2,8 @@
 //  TagCellNodeTests.swift
 //  VATextureKit_Tests
 //
-//  Created by VAndrJ on 12.08.2023.
-//  Copyright © 2023 CocoaPods. All rights reserved.
+//  Created by Volodymyr Andriienko on 12.08.2023.
+//  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
 //
 
 import XCTest
