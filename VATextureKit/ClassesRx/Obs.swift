@@ -8,7 +8,7 @@
 @_exported import RxSwift
 @_exported import RxCocoa
 
-public struct Obs {
+public enum Obs {
     
     @propertyWrapper
     public class Stream<Input, Output, InputSequence: ObservableConvertibleType, OutputSequence: ObservableConvertibleType> where InputSequence.Element == Input, OutputSequence.Element == Output {
@@ -151,43 +151,6 @@ public struct Obs {
     }
 
     @propertyWrapper
-    public class Single<
-        Input, Output, InputSequence: ObservableConvertibleType
-    >: Stream<Input, Output, InputSequence, RxSwift.Single<Output>> where InputSequence.Element == Input {
-        public override var wrappedValue: RxSwift.Single<Output> { sequence }
-        
-        public init() where Input == Output, InputSequence == PublishSubject<Input> {
-            super.init(map: { $0.asSingle() })
-        }
-        
-        public init(map: @escaping (Input) -> Output) where InputSequence == PublishSubject<Input> {
-            super.init(map: { $0.map(map).asSingle() })
-        }
-        
-        public func succeed(_ value: Input) {
-            guard let observer = rx as? AnyObserver<Input> else { return }
-
-            observer.onNext(value)
-            observer.onCompleted()
-        }
-    }
-    
-    @propertyWrapper
-    public class Completable: Stream<Never, Never, PublishSubject<Never>, RxSwift.Completable> {
-        public override var wrappedValue: RxSwift.Completable { sequence }
-        
-        public init() {
-            super.init(map: { $0.asCompletable() })
-        }
-        
-        public func complete<Element>() -> AnyObserver<Element> {
-            AnyObserver { [weak rx] _ in
-                rx?.onCompleted()
-            }
-        }
-    }
-
-    @propertyWrapper
     public struct State<Value> {
         public var wrappedValue: Value {
             get { relay.value }
@@ -201,8 +164,6 @@ public struct Obs {
             self.relay = BehaviorRelay(value: wrappedValue)
         }
     }
-    
-    private init() {}
 }
 
 public extension Obs.Relay where InputSequence == BehaviorRelay<Input>, Input == Output {

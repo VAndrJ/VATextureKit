@@ -73,6 +73,13 @@
             BlueprintName = "VATextureKit"
             ReferencedContainer = "container:Pods/Pods.xcodeproj">
          </BuildableReference>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "9BF56BC5882E759A6D6D4E675C0AEF81"
+            BuildableName = "libVATextureKitRx.a"
+            BlueprintName = "VATextureKitRx"
+            ReferencedContainer = "container:Pods/Pods.xcodeproj">
+         </BuildableReference>
       </CodeCoverageTargets>
       <Testables>
          <TestableReference
