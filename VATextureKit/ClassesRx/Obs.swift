@@ -98,20 +98,12 @@ public enum Obs {
             super.init(value: value)
         }
         
-        public init(value: Input, map: (InputSequence) -> OutputSequence) where InputSequence == BehaviorRelay<Input>, OutputSequence == Observable<Output> {
-            super.init(value: value, map: map)
-        }
-        
         public init(value: Input, map: @escaping (Input) -> Output) where InputSequence == BehaviorRelay<Input>, OutputSequence == Observable<Output> {
             super.init(value: value, map: { $0.map(map) })
         }
         
         public init() where InputSequence == PublishRelay<Input>, OutputSequence == Observable<InputSequence.Element>, Input == Output {
             super.init()
-        }
-        
-        public init(map: (InputSequence) -> OutputSequence) where InputSequence == PublishRelay<Input>, OutputSequence == Observable<Output> {
-            super.init(map: map)
         }
         
         public init(map: @escaping (Input) -> Output) where InputSequence == PublishRelay<Input>, OutputSequence == Observable<Output> {
@@ -128,25 +120,25 @@ public enum Obs {
         public init(value: Input) where InputSequence == BehaviorSubject<Input>, OutputSequence == Observable<InputSequence.Element>, Input == Output {
             super.init(value: value)
         }
-        
-        public init(value: Input, map: (InputSequence) -> OutputSequence) where InputSequence == BehaviorSubject<Input>, OutputSequence == Observable<Output> {
-            super.init(value: value, map: map)
+
+        public init(value: Input, map: @escaping (Input) -> Output) where InputSequence == BehaviorSubject<Input>, OutputSequence == Observable<Output> {
+            super.init(value: value, map: { $0.map(map) })
         }
         
         public init() where InputSequence == PublishSubject<Input>, OutputSequence == Observable<InputSequence.Element>, Input == Output {
             super.init()
         }
-        
-        public init(map: (InputSequence) -> OutputSequence) where InputSequence == PublishSubject<Input>, OutputSequence == Observable<Output> {
-            super.init(map: map)
+
+        public init(map: @escaping (Input) -> Output) where InputSequence == PublishSubject<Input>, OutputSequence == Observable<Output> {
+            super.init(map: { $0.map(map) })
         }
         
         public init(replay: ReplayStrategy) where Input == Output, InputSequence == ReplaySubject<Input>, OutputSequence == Observable<Output> {
             super.init(replay: replay)
         }
-        
-        public init(replay: ReplayStrategy, map: (InputSequence) -> OutputSequence) where InputSequence == ReplaySubject<Input>, OutputSequence == Observable<Output> {
-            super.init(replay: replay, map: map)
+
+        public init(replay: ReplayStrategy, map: @escaping (Input) -> Output) where InputSequence == ReplaySubject<Input>, OutputSequence == Observable<Output> {
+            super.init(replay: replay, map: { $0.map(map) })
         }
     }
 
@@ -189,13 +181,4 @@ public enum ReplayStrategy {
     case all
     case custom(Int)
     case none
-    
-    public var count: Int? {
-        switch self {
-        case .none: return 0
-        case .once: return 1
-        case let .custom(bufferSize): return bufferSize
-        default: return nil
-        }
-    }
 }
