@@ -8,7 +8,7 @@
 @_exported import RxSwift
 @_exported import RxCocoa
 
-public struct Obs {
+public enum Obs {
     
     @propertyWrapper
     public class Stream<Input, Output, InputSequence: ObservableConvertibleType, OutputSequence: ObservableConvertibleType> where InputSequence.Element == Input, OutputSequence.Element == Output {
@@ -98,20 +98,12 @@ public struct Obs {
             super.init(value: value)
         }
         
-        public init(value: Input, map: (InputSequence) -> OutputSequence) where InputSequence == BehaviorRelay<Input>, OutputSequence == Observable<Output> {
-            super.init(value: value, map: map)
-        }
-        
         public init(value: Input, map: @escaping (Input) -> Output) where InputSequence == BehaviorRelay<Input>, OutputSequence == Observable<Output> {
             super.init(value: value, map: { $0.map(map) })
         }
         
         public init() where InputSequence == PublishRelay<Input>, OutputSequence == Observable<InputSequence.Element>, Input == Output {
             super.init()
-        }
-        
-        public init(map: (InputSequence) -> OutputSequence) where InputSequence == PublishRelay<Input>, OutputSequence == Observable<Output> {
-            super.init(map: map)
         }
         
         public init(map: @escaping (Input) -> Output) where InputSequence == PublishRelay<Input>, OutputSequence == Observable<Output> {
@@ -128,62 +120,25 @@ public struct Obs {
         public init(value: Input) where InputSequence == BehaviorSubject<Input>, OutputSequence == Observable<InputSequence.Element>, Input == Output {
             super.init(value: value)
         }
-        
-        public init(value: Input, map: (InputSequence) -> OutputSequence) where InputSequence == BehaviorSubject<Input>, OutputSequence == Observable<Output> {
-            super.init(value: value, map: map)
+
+        public init(value: Input, map: @escaping (Input) -> Output) where InputSequence == BehaviorSubject<Input>, OutputSequence == Observable<Output> {
+            super.init(value: value, map: { $0.map(map) })
         }
         
         public init() where InputSequence == PublishSubject<Input>, OutputSequence == Observable<InputSequence.Element>, Input == Output {
             super.init()
         }
-        
-        public init(map: (InputSequence) -> OutputSequence) where InputSequence == PublishSubject<Input>, OutputSequence == Observable<Output> {
-            super.init(map: map)
+
+        public init(map: @escaping (Input) -> Output) where InputSequence == PublishSubject<Input>, OutputSequence == Observable<Output> {
+            super.init(map: { $0.map(map) })
         }
         
         public init(replay: ReplayStrategy) where Input == Output, InputSequence == ReplaySubject<Input>, OutputSequence == Observable<Output> {
             super.init(replay: replay)
         }
-        
-        public init(replay: ReplayStrategy, map: (InputSequence) -> OutputSequence) where InputSequence == ReplaySubject<Input>, OutputSequence == Observable<Output> {
-            super.init(replay: replay, map: map)
-        }
-    }
 
-    @propertyWrapper
-    public class Single<
-        Input, Output, InputSequence: ObservableConvertibleType
-    >: Stream<Input, Output, InputSequence, RxSwift.Single<Output>> where InputSequence.Element == Input {
-        public override var wrappedValue: RxSwift.Single<Output> { sequence }
-        
-        public init() where Input == Output, InputSequence == PublishSubject<Input> {
-            super.init(map: { $0.asSingle() })
-        }
-        
-        public init(map: @escaping (Input) -> Output) where InputSequence == PublishSubject<Input> {
-            super.init(map: { $0.map(map).asSingle() })
-        }
-        
-        public func succeed(_ value: Input) {
-            guard let observer = rx as? AnyObserver<Input> else { return }
-
-            observer.onNext(value)
-            observer.onCompleted()
-        }
-    }
-    
-    @propertyWrapper
-    public class Completable: Stream<Never, Never, PublishSubject<Never>, RxSwift.Completable> {
-        public override var wrappedValue: RxSwift.Completable { sequence }
-        
-        public init() {
-            super.init(map: { $0.asCompletable() })
-        }
-        
-        public func complete<Element>() -> AnyObserver<Element> {
-            AnyObserver { [weak rx] _ in
-                rx?.onCompleted()
-            }
+        public init(replay: ReplayStrategy, map: @escaping (Input) -> Output) where InputSequence == ReplaySubject<Input>, OutputSequence == Observable<Output> {
+            super.init(replay: replay, map: { $0.map(map) })
         }
     }
 
@@ -201,8 +156,6 @@ public struct Obs {
             self.relay = BehaviorRelay(value: wrappedValue)
         }
     }
-    
-    private init() {}
 }
 
 public extension Obs.Relay where InputSequence == BehaviorRelay<Input>, Input == Output {
@@ -228,13 +181,4 @@ public enum ReplayStrategy {
     case all
     case custom(Int)
     case none
-    
-    public var count: Int? {
-        switch self {
-        case .none: return 0
-        case .once: return 1
-        case let .custom(bufferSize): return bufferSize
-        default: return nil
-        }
-    }
 }
