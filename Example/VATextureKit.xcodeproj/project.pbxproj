@@ -67,6 +67,7 @@
 		A359CB852A7F7DD4002C60CA /* RowLayoutControllerNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A359CB842A7F7DD4002C60CA /* RowLayoutControllerNodeTests.swift */; };
 		A359CB872A7F7E22002C60CA /* StackLayoutControllerNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A359CB862A7F7E22002C60CA /* StackLayoutControllerNodeTests.swift */; };
 		A364DA892A1F4973001355AE /* VATextNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A364DA882A1F4973001355AE /* VATextNodeTests.swift */; };
+		A3657F452A90E75F00B0E70B /* VASpacerNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3657F442A90E75F00B0E70B /* VASpacerNodeTests.swift */; };
 		A36AAF4F2A78D961006168D7 /* ASDimensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36AAF4D2A78D0FD006168D7 /* ASDimensionTests.swift */; };
 		A3820D1529E53BD600993406 /* VARadialGradientNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3820D1429E53BD600993406 /* VARadialGradientNodeTests.swift */; };
 		A3820D2A29E568BE00993406 /* VATextFieldNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3820D2929E568BE00993406 /* VATextFieldNode.swift */; };
@@ -219,6 +220,7 @@
 		A359CB842A7F7DD4002C60CA /* RowLayoutControllerNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowLayoutControllerNodeTests.swift; sourceTree = "<group>"; };
 		A359CB862A7F7E22002C60CA /* StackLayoutControllerNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackLayoutControllerNodeTests.swift; sourceTree = "<group>"; };
 		A364DA882A1F4973001355AE /* VATextNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VATextNodeTests.swift; sourceTree = "<group>"; };
+		A3657F442A90E75F00B0E70B /* VASpacerNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASpacerNodeTests.swift; sourceTree = "<group>"; };
 		A36AAF4D2A78D0FD006168D7 /* ASDimensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASDimensionTests.swift; sourceTree = "<group>"; };
 		A3820D1429E53BD600993406 /* VARadialGradientNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VARadialGradientNodeTests.swift; sourceTree = "<group>"; };
 		A3820D2929E568BE00993406 /* VATextFieldNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VATextFieldNode.swift; sourceTree = "<group>"; };
@@ -438,6 +440,7 @@
 				A3551A5429DD57F000B0B18F /* VALinearGradientNodeTests.swift */,
 				A3820D1429E53BD600993406 /* VARadialGradientNodeTests.swift */,
 				A34F8E7029F3F1B300EF4C42 /* VAReadMoreTextNodeTests.swift */,
+				A3657F442A90E75F00B0E70B /* VASpacerNodeTests.swift */,
 				A364DA882A1F4973001355AE /* VATextNodeTests.swift */,
 				A3D2FABF29D896B300AA01CA /* Example */,
 				A3A0BEE729EDC3FE00253AAD /* Layouts */,
@@ -1079,6 +1082,7 @@
 				A35219C42A89403C00DD17A9 /* VALinkTextNodeTests.swift in Sources */,
 				A3AAE1892A78E4AC00F6C7C1 /* ArrayTests.swift in Sources */,
 				A35219CC2A89428200DD17A9 /* LoadingCellNodeTests.swift in Sources */,
+				A3657F452A90E75F00B0E70B /* VASpacerNodeTests.swift in Sources */,
 				A359BE7A29D76C0D003BDE19 /* VADisplayNodeTests.swift in Sources */,
 				A33729492A79444B009425D8 /* VALayerAnimationValueConvertibleTests.swift in Sources */,
 				A33CDF4529D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift in Sources */,
