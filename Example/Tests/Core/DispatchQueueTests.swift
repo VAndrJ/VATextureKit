@@ -13,25 +13,31 @@ import VATextureKit
 class DispatchQueueTests: XCTestCase {
     
     func test_global() {
-        let expect = expectation(description: "Global queue expectation")
+        let expect = expectation(description: "Queue expectation")
         ensureOnGlobal {
             XCTAssertFalse(Thread.isMainThread)
-            expect.fulfill()
+            ensureOnGlobal {
+                XCTAssertFalse(Thread.isMainThread)
+                expect.fulfill()
+            }
         }
         wait(for: [expect], timeout: 10)
     }
     
     func test_global_background() {
-        let expect = expectation(description: "Global queue expectation")
+        let expect = expectation(description: "Queue expectation")
         ensureOnBackground {
             XCTAssertFalse(Thread.isMainThread)
-            expect.fulfill()
+            ensureOnBackground {
+                XCTAssertFalse(Thread.isMainThread)
+                expect.fulfill()
+            }
         }
         wait(for: [expect], timeout: 10)
     }
     
     func test_main() {
-        let expect = expectation(description: "Global queue expectation")
+        let expect = expectation(description: "Queue expectation")
         ensureOnBackground {
             XCTAssertFalse(Thread.isMainThread)
             ensureOnMain {
@@ -43,10 +49,22 @@ class DispatchQueueTests: XCTestCase {
     }
     
     func test_main_async() {
-        let expect = expectation(description: "Global queue expectation")
+        let expect = expectation(description: "Queue expectation")
         ensureOnBackground {
             XCTAssertFalse(Thread.isMainThread)
             mainAsync {
+                XCTAssertTrue(Thread.isMainThread)
+                expect.fulfill()
+            }
+        }
+        wait(for: [expect], timeout: 10)
+    }
+
+    func test_main_asyncAfter() {
+        let expect = expectation(description: "Queue expectation")
+        ensureOnBackground {
+            XCTAssertFalse(Thread.isMainThread)
+            mainAsync(after: 0.1) {
                 XCTAssertTrue(Thread.isMainThread)
                 expect.fulfill()
             }
