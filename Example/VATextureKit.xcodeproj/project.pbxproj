@@ -32,6 +32,7 @@
 		A33871382A7A5ECA00F9D329 /* VAMultipleConfettiNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33871372A7A5ECA00F9D329 /* VAMultipleConfettiNode.swift */; };
 		A33CDF3329D9B875005F77C6 /* TransitionAnimationControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CDF3229D9B875005F77C6 /* TransitionAnimationControllerNode.swift */; };
 		A33CDF4529D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CDF4429D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift */; };
+		A33DA4052A96244B00CDEA15 /* VAButtonNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33DA4042A96244B00CDEA15 /* VAButtonNodeTests.swift */; };
 		A3483AD029E937B500948574 /* HapticButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3483ACF29E937B500948574 /* HapticButtonNode.swift */; };
 		A34F8E7129F3F1B300EF4C42 /* VAReadMoreTextNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34F8E7029F3F1B300EF4C42 /* VAReadMoreTextNodeTests.swift */; };
 		A34F8E7829F43AF100EF4C42 /* CollectionListHeaderFooterControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34F8E7429F43A9B00EF4C42 /* CollectionListHeaderFooterControllerNode.swift */; };
@@ -186,6 +187,7 @@
 		A33871372A7A5ECA00F9D329 /* VAMultipleConfettiNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAMultipleConfettiNode.swift; sourceTree = "<group>"; };
 		A33CDF3229D9B875005F77C6 /* TransitionAnimationControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAnimationControllerNode.swift; sourceTree = "<group>"; };
 		A33CDF4429D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListSectionHeaderNodeTests.swift; sourceTree = "<group>"; };
+		A33DA4042A96244B00CDEA15 /* VAButtonNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAButtonNodeTests.swift; sourceTree = "<group>"; };
 		A3483ACF29E937B500948574 /* HapticButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticButtonNode.swift; sourceTree = "<group>"; };
 		A34F8E7029F3F1B300EF4C42 /* VAReadMoreTextNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAReadMoreTextNodeTests.swift; sourceTree = "<group>"; };
 		A34F8E7429F43A9B00EF4C42 /* CollectionListHeaderFooterControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionListHeaderFooterControllerNode.swift; sourceTree = "<group>"; };
@@ -562,6 +564,7 @@
 				A33729442A7936BA009425D8 /* ObsTests.swift */,
 				A3884CC02A7C108800DFB4A4 /* UIColorTests.swift */,
 				A3CC53772A78FBC200BC4B3A /* UIEdgeInsetsTests.swift */,
+				A33DA4042A96244B00CDEA15 /* VAButtonNodeTests.swift */,
 				A33729482A79444B009425D8 /* VALayerAnimationValueConvertibleTests.swift */,
 			);
 			path = Core;
@@ -1097,6 +1100,7 @@
 				A359BE7A29D76C0D003BDE19 /* VADisplayNodeTests.swift in Sources */,
 				A33729492A79444B009425D8 /* VALayerAnimationValueConvertibleTests.swift in Sources */,
 				A33CDF4529D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift in Sources */,
+				A33DA4052A96244B00CDEA15 /* VAButtonNodeTests.swift in Sources */,
 				A34F8E7129F3F1B300EF4C42 /* VAReadMoreTextNodeTests.swift in Sources */,
 				A3D2488529CF860300EE1907 /* VAStateModelTests.swift in Sources */,
 				A3D2488A29CF869900EE1907 /* Support.swift in Sources */,
