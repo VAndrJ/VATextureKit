@@ -7,7 +7,9 @@
 
 import AsyncDisplayKit
 
+/// `VAButtonNode` is a subclass of `ASButtonNode` that provides additional functionality for handling button taps.
 open class VAButtonNode: ASButtonNode {
+    /// A closure that gets executed when the button is tapped. Use either `onTap` closure or `func onTap` function, but not both.
     public var onTap: (() -> Void)?
     
     open override func didLoad() {
@@ -16,6 +18,11 @@ open class VAButtonNode: ASButtonNode {
         bind()
     }
 
+    /// Sets up a closure to handle the button tap event using weak references to avoid strong reference cycles. Use either `onTap` closure or `func onTap` function, but not both.
+    ///
+    /// - Parameters:
+    ///   - object: The object to be weakly captured in the closure.
+    ///   - block: The closure to be executed when the button is tapped.
     public func onTap<T: AnyObject>(weakify object: T, block: @escaping (T) -> Void) {
         onTap = { [weak object] in
             guard let object else { return }
@@ -24,6 +31,11 @@ open class VAButtonNode: ASButtonNode {
         }
     }
 
+    /// Sets up a closure to handle the button tap event using weak references to avoid strong reference cycles. Use either `onTap` closure or `func onTap` function, but not both.
+    ///
+    /// - Parameters:
+    ///   - objects: A tuple of objects to be weakly captured in the closure.
+    ///   - block: The closure to be executed when the button is tapped.
     public func onTap<T: AnyObject, U: AnyObject>(weakify objects: (T, U), block: @escaping (T, U) -> Void) {
         onTap = { [weak object0 = objects.0, weak object1 = objects.1] in
             guard let object0, let object1 else { return }
