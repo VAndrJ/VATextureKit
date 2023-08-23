@@ -24,7 +24,7 @@ Add the following to your Podfile:
 ```
 pod 'VATextureKit'
 or
-pod 'VATextureKitRx' // includes RxSwift and additinal wrappers.
+pod 'VATextureKitRx' // includes RxSwift and additional wrappers.
 ```
 In the project directory in the Terminal:
 ```
