@@ -13,7 +13,7 @@ import VATextureKit
 class VATextFieldNode: VASizedViewWrapperNode<VATextField> {
 
     init() {
-        super.init(childGetter: { VATextField() }, sizing: .viewHeihgt)
+        super.init(childGetter: { VATextField() }, sizing: .viewHeight)
     }
 }
 

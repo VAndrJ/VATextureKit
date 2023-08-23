@@ -10,6 +10,7 @@ import AsyncDisplayKit
 open class VAShimmerTileNode: VADisplayNode {
     public struct DTO {
         let backgroundColor: (VATheme) -> UIColor
+        // TODO: - parameters
         // Rounded on nil
         let cornerRadius: CGFloat?
 
