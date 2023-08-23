@@ -33,7 +33,7 @@ class VAButtonNodeTests: XCTestCase {
     }
 
     func test_onTap_funcWeakify() {
-        var receiver: MockTapReceiver! = MockTapReceiver()
+        let receiver = MockTapReceiver()
         sut.onTap(weakify: receiver) {
             $0.isTapped = true
         }
@@ -43,8 +43,8 @@ class VAButtonNodeTests: XCTestCase {
     }
 
     func test_onTap_funcWeakifyTwoParameters() {
-        var receiver: MockTapReceiver! = MockTapReceiver()
-        var receiver1: MockTapReceiver! = MockTapReceiver()
+        let receiver = MockTapReceiver()
+        let receiver1 = MockTapReceiver()
         sut.onTap(weakify: (receiver, receiver1)) {
             $0.isTapped = true
             $1.isTapped = true
