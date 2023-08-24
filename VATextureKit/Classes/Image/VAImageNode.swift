@@ -7,21 +7,33 @@
 
 import AsyncDisplayKit
 
+/// `VAImageNode` is a subclass of `ASImageNode` that provides additional theming capabilities. It allows customization of the image `tintColor` and `backgroundColor` based on the current theme.
 open class VAImageNode: ASImageNode {
+    /// The currently active theme obtained from the app's context.
     public var theme: VATheme { appContext.themeManager.theme }
+    /// A closure that provides the tint color based on the current theme.
     public var tintColorGetter: ((VATheme) -> UIColor)?
+    /// A closure that provides the background color based on the current theme.
     public var backgroundColorGetter: ((VATheme) -> UIColor)?
 
     open override var tintColor: UIColor! {
         get { tintColorGetter?(theme) ?? .clear }
         set {
             tintColorGetter = { _ in newValue ?? .clear }
-            updateTintColorIfNeeded(theme)
+            updateTintColorIfAvailable(theme)
         }
     }
     
     var shouldConfigureTheme = true
 
+    /// Initializes the instance with optional parameters.
+    ///
+    /// - Parameters:
+    ///   - image: The image to display in the node.
+    ///   - size: The preferred size of the image node.
+    ///   - contentMode: The content mode for displaying the image.
+    ///   - tintColor: A closure that determines the tint color based on the theme.
+    ///   - backgroundColor: A closure that determines the background color based on the theme.
     public init(
         image: UIImage? = nil,
         size: CGSize? = nil,
@@ -68,11 +80,15 @@ open class VAImageNode: ASImageNode {
         }
     }
 
+    /// Configures the node's theme elements based on the given theme.
+    ///
+    /// - Parameter theme: The theme to apply to the node.
     open func configureTheme(_ theme: VATheme) {
-        updateTintColorIfNeeded(theme)
-        updateBackgroundColorIfNeeded(theme)
+        updateTintColorIfAvailable(theme)
+        updateBackgroundColorIfAvailable(theme)
     }
 
+    /// Called when the app's theme changes. Configures the theme if the node is in the display state, otherwise sets `shouldConfigureTheme` to true.
     open func themeDidChanged() {
         if isInDisplayState {
             configureTheme(theme)
@@ -81,14 +97,20 @@ open class VAImageNode: ASImageNode {
         }
     }
 
-    open func updateTintColorIfNeeded(_ theme: VATheme) {
+    /// Updates the node's tint color if a valid tint color is provided by the `tintColorGetter`.
+    ///
+    /// - Parameter theme: The theme to use for determining the tint color.
+    open func updateTintColorIfAvailable(_ theme: VATheme) {
         if let color = tintColorGetter?(theme) {
             imageModificationBlock = ASImageNodeTintColorModificationBlock(color)
             setNeedsDisplay()
         }
     }
 
-    open func updateBackgroundColorIfNeeded(_ theme: VATheme) {
+    /// Updates the node's background color if a valid background color is provided by the `backgroundColorGetter`.
+    ///
+    /// - Parameter theme: The theme to use for determining the background color.
+    open func updateBackgroundColorIfAvailable(_ theme: VATheme) {
         if let color = backgroundColorGetter?(theme) {
             backgroundColor = color
         }
