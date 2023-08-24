@@ -7,15 +7,20 @@
 
 import AsyncDisplayKit
 
+/// A UIView subclass for wrapping `Texture` nodes within a `UIKit`-based view hierarchy.
+/// You can use this view to seamlessly integrate `ASDisplayNodes` with `UIKit` components.
 open class VANodeWrapperView<Node: ASDisplayNode>: UIView {
+    /// The content node embedded within the wrapper view.
     public var contentNode: Node { contentNodeView.node }
 
+    /// The internal view responsible for displaying the content node.
     private let contentNodeView: _ContentNodeView<Node>
 
-    /// Creates an instance
+    /// Creates an instance.
+    ///
     /// - Parameters:
-    ///   - contentNode: a node that embedded
-    ///   - shouldExpandToMaximumWidth: Boolean value that indicates whether the node always expands to maximum width in bounding rect.
+    ///   - contentNode: The ASDisplayNode to be wrapped and displayed within the wrapper view.
+    ///   - shouldExpandToMaximumWidth: A boolean value that determines whether the content node should expand to the maximum available width within its bounding rectangle.
     public init(contentNode: Node, shouldExpandToMaximumWidth: Bool = false) {
         self.contentNodeView = _ContentNodeView(
             node: contentNode,
@@ -142,13 +147,19 @@ private final class _ContentNodeView<Node: ASDisplayNode>: UILabel { // To use `
         delegateProxy.didLayoutBlock = { [weak self] in
             self?.invalidateIntrinsicContentSize()
         }
-        ASTraitCollectionPropagateDown(wrapperNode, ASPrimitiveTraitCollectionFromUITraitCollection(traitCollection))
+        ASTraitCollectionPropagateDown(
+            wrapperNode,
+            ASPrimitiveTraitCollectionFromUITraitCollection(traitCollection)
+        )
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
 
-        ASTraitCollectionPropagateDown(wrapperNode, ASPrimitiveTraitCollectionFromUITraitCollection(traitCollection))
+        ASTraitCollectionPropagateDown(
+            wrapperNode,
+            ASPrimitiveTraitCollectionFromUITraitCollection(traitCollection)
+        )
     }
 
     @available(*, unavailable)
@@ -164,6 +175,7 @@ private final class _ContentNodeView<Node: ASDisplayNode>: UILabel { // To use `
 
             return value
         }
+
         var range = ASSizeRange.unconstrained
         range.max.width = validateWidth(bounds.width, 10000)
         if shouldExpandToMaximumWidth {

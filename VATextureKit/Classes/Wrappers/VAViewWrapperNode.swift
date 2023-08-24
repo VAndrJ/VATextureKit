@@ -7,6 +7,7 @@
 
 import AsyncDisplayKit
 
+/// A custom ASDisplayNode subclass for wrapping UIViews with various sizing options.
 open class VAViewWrapperNode<T: UIView>: VADisplayNode {
     public enum Sizing {
         case inheritedHeight
@@ -16,12 +17,18 @@ open class VAViewWrapperNode<T: UIView>: VADisplayNode {
         case fixedWidth(CGFloat)
         case fixedSize(CGSize)
     }
-    
+
+    /// The wrapped UIView instance.
     public private(set) lazy var child: T = childGetter()
     
     private let childGetter: () -> T
     private let sizing: Sizing?
     
+    /// Creates an instance.
+    ///
+    /// - Parameters:
+    ///   - childGetter: A closure returning the UIView instance to be wrapped.
+    ///   - sizing: The sizing option to apply to the wrapped view.
     public init(childGetter: @escaping () -> T, sizing: Sizing? = nil) {
         self.sizing = sizing
         self.childGetter = childGetter

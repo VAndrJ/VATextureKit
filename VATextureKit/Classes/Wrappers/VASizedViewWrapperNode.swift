@@ -8,18 +8,25 @@
 import UIKit
 import AsyncDisplayKit
 
+/// A custom `ASDisplayNode` subclass for wrapping autolayout `UIView` with various sizing options.
 open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
     public enum Sizing {
-        case viewHeihgt
+        case viewHeight
         case viewWidth
         case viewSize
     }
 
+    /// The wrapped UIView instance.
     public private(set) lazy var child: T = childGetter()
 
     private let childGetter: () -> T
     private let sizing: Sizing
 
+    /// Creates an instance of `VASizedViewWrapperNode`.
+    ///
+    /// - Parameters:
+    ///   - childGetter: A closure returning the UIView instance to be wrapped.
+    ///   - sizing: The sizing option to apply to the wrapped view.
     public init(childGetter: @escaping () -> T, sizing: Sizing) {
         self.sizing = sizing
         self.childGetter = childGetter
@@ -38,7 +45,7 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
 
         child.sizeToFit()
         switch sizing {
-        case .viewHeihgt:
+        case .viewHeight:
             if child.frame.height.rounded(.up) != bounds.height.rounded(.up) || child.frame.height.isZero {
                 child.frame.size = CGSize(width: bounds.width, height: UIView.layoutFittingExpandedSize.height)
                 child.setNeedsLayout()

@@ -16,6 +16,9 @@
 		A310A43229CF471400632416 /* CellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A310A43129CF471400632416 /* CellViewModel.swift */; };
 		A311B22E2A7668240025B060 /* ElementsScrollingAnimationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A311B22D2A7668240025B060 /* ElementsScrollingAnimationListViewController.swift */; };
 		A311B2302A768C490025B060 /* VAScrollRespondingEdgeCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A311B22F2A768C490025B060 /* VAScrollRespondingEdgeCellNode.swift */; };
+		A316144B2A962CB100ED8561 /* VAContainerButtonNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A316144A2A962CB100ED8561 /* VAContainerButtonNodeTests.swift */; };
+		A316144D2A96321A00ED8561 /* VAContainerButtonNodeSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A316144C2A96321A00ED8561 /* VAContainerButtonNodeSnapshotTests.swift */; };
+		A316144F2A9738D000ED8561 /* VAViewWrapperNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A316144E2A9738D000ED8561 /* VAViewWrapperNodeTests.swift */; };
 		A316C74F2A90095C008329A0 /* LayoutSpecBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A316C74E2A90095C008329A0 /* LayoutSpecBuilderTests.swift */; };
 		A31F445D29F6AD76003618C9 /* PagerControllerNodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F445C29F6AD76003618C9 /* PagerControllerNodeViewModel.swift */; };
 		A31F445F29F6ADC7003618C9 /* PagerIndicatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F445E29F6ADC7003618C9 /* PagerIndicatorNode.swift */; };
@@ -32,6 +35,7 @@
 		A33871382A7A5ECA00F9D329 /* VAMultipleConfettiNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33871372A7A5ECA00F9D329 /* VAMultipleConfettiNode.swift */; };
 		A33CDF3329D9B875005F77C6 /* TransitionAnimationControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CDF3229D9B875005F77C6 /* TransitionAnimationControllerNode.swift */; };
 		A33CDF4529D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CDF4429D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift */; };
+		A33DA4052A96244B00CDEA15 /* VAButtonNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33DA4042A96244B00CDEA15 /* VAButtonNodeTests.swift */; };
 		A3483AD029E937B500948574 /* HapticButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3483ACF29E937B500948574 /* HapticButtonNode.swift */; };
 		A34F8E7129F3F1B300EF4C42 /* VAReadMoreTextNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34F8E7029F3F1B300EF4C42 /* VAReadMoreTextNodeTests.swift */; };
 		A34F8E7829F43AF100EF4C42 /* CollectionListHeaderFooterControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34F8E7429F43A9B00EF4C42 /* CollectionListHeaderFooterControllerNode.swift */; };
@@ -170,6 +174,9 @@
 		A310A43129CF471400632416 /* CellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellViewModel.swift; sourceTree = "<group>"; };
 		A311B22D2A7668240025B060 /* ElementsScrollingAnimationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementsScrollingAnimationListViewController.swift; sourceTree = "<group>"; };
 		A311B22F2A768C490025B060 /* VAScrollRespondingEdgeCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAScrollRespondingEdgeCellNode.swift; sourceTree = "<group>"; };
+		A316144A2A962CB100ED8561 /* VAContainerButtonNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAContainerButtonNodeTests.swift; sourceTree = "<group>"; };
+		A316144C2A96321A00ED8561 /* VAContainerButtonNodeSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAContainerButtonNodeSnapshotTests.swift; sourceTree = "<group>"; };
+		A316144E2A9738D000ED8561 /* VAViewWrapperNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAViewWrapperNodeTests.swift; sourceTree = "<group>"; };
 		A316C74E2A90095C008329A0 /* LayoutSpecBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutSpecBuilderTests.swift; sourceTree = "<group>"; };
 		A31F445C29F6AD76003618C9 /* PagerControllerNodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerControllerNodeViewModel.swift; sourceTree = "<group>"; };
 		A31F445E29F6ADC7003618C9 /* PagerIndicatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerIndicatorNode.swift; sourceTree = "<group>"; };
@@ -186,6 +193,7 @@
 		A33871372A7A5ECA00F9D329 /* VAMultipleConfettiNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAMultipleConfettiNode.swift; sourceTree = "<group>"; };
 		A33CDF3229D9B875005F77C6 /* TransitionAnimationControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAnimationControllerNode.swift; sourceTree = "<group>"; };
 		A33CDF4429D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListSectionHeaderNodeTests.swift; sourceTree = "<group>"; };
+		A33DA4042A96244B00CDEA15 /* VAButtonNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAButtonNodeTests.swift; sourceTree = "<group>"; };
 		A3483ACF29E937B500948574 /* HapticButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticButtonNode.swift; sourceTree = "<group>"; };
 		A34F8E7029F3F1B300EF4C42 /* VAReadMoreTextNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAReadMoreTextNodeTests.swift; sourceTree = "<group>"; };
 		A34F8E7429F43A9B00EF4C42 /* CollectionListHeaderFooterControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionListHeaderFooterControllerNode.swift; sourceTree = "<group>"; };
@@ -438,6 +446,7 @@
 			isa = PBXGroup;
 			children = (
 				A3551A5829DD5FCF00B0B18F /* VABaseGradientNodeTests.swift */,
+				A316144C2A96321A00ED8561 /* VAContainerButtonNodeSnapshotTests.swift */,
 				A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */,
 				A3551A5429DD57F000B0B18F /* VALinearGradientNodeTests.swift */,
 				A3820D1429E53BD600993406 /* VARadialGradientNodeTests.swift */,
@@ -562,7 +571,10 @@
 				A33729442A7936BA009425D8 /* ObsTests.swift */,
 				A3884CC02A7C108800DFB4A4 /* UIColorTests.swift */,
 				A3CC53772A78FBC200BC4B3A /* UIEdgeInsetsTests.swift */,
+				A33DA4042A96244B00CDEA15 /* VAButtonNodeTests.swift */,
+				A316144A2A962CB100ED8561 /* VAContainerButtonNodeTests.swift */,
 				A33729482A79444B009425D8 /* VALayerAnimationValueConvertibleTests.swift */,
+				A316144E2A9738D000ED8561 /* VAViewWrapperNodeTests.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -1076,6 +1088,7 @@
 				A35219D02A89504600DD17A9 /* PagerCardCellNodeTests.swift in Sources */,
 				A3D2FAC229D89E1300AA01CA /* MainListCellNodeTests.swift in Sources */,
 				A359CB872A7F7E22002C60CA /* StackLayoutControllerNodeTests.swift in Sources */,
+				A316144F2A9738D000ED8561 /* VAViewWrapperNodeTests.swift in Sources */,
 				A3AAE1872A78E19700F6C7C1 /* ASSizeRangeTests.swift in Sources */,
 				A35219C82A8941AA00DD17A9 /* CollectionExampleCellNodeTests.swift in Sources */,
 				A3CC539C2A79326E00BC4B3A /* CGSizeTests.swift in Sources */,
@@ -1097,6 +1110,7 @@
 				A359BE7A29D76C0D003BDE19 /* VADisplayNodeTests.swift in Sources */,
 				A33729492A79444B009425D8 /* VALayerAnimationValueConvertibleTests.swift in Sources */,
 				A33CDF4529D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift in Sources */,
+				A33DA4052A96244B00CDEA15 /* VAButtonNodeTests.swift in Sources */,
 				A34F8E7129F3F1B300EF4C42 /* VAReadMoreTextNodeTests.swift in Sources */,
 				A3D2488529CF860300EE1907 /* VAStateModelTests.swift in Sources */,
 				A3D2488A29CF869900EE1907 /* Support.swift in Sources */,
@@ -1108,9 +1122,11 @@
 				A3657F482A90EC3600B0E70B /* MainNodeControllerTests.swift in Sources */,
 				A3CC537A2A79062A00BC4B3A /* DispatchQueueTests.swift in Sources */,
 				A36AAF4F2A78D961006168D7 /* ASDimensionTests.swift in Sources */,
+				A316144D2A96321A00ED8561 /* VAContainerButtonNodeSnapshotTests.swift in Sources */,
 				A3CC539A2A7931AB00BC4B3A /* CGRectTests.swift in Sources */,
 				A35219C62A89415400DD17A9 /* CollectionListSectionFooterCellNodeTests.swift in Sources */,
 				A35219CA2A8941FC00DD17A9 /* CompositingCellNodeTests.swift in Sources */,
+				A316144B2A962CB100ED8561 /* VAContainerButtonNodeTests.swift in Sources */,
 				A3AAE1852A78E0F000F6C7C1 /* ASScrollDirectionTests.swift in Sources */,
 				A3CC53782A78FBC200BC4B3A /* UIEdgeInsetsTests.swift in Sources */,
 				A3A0BEEA29EDC41C00253AAD /* ColumnTests.swift in Sources */,
