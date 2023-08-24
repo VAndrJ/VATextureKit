@@ -30,16 +30,14 @@ class VAContainerButtonNodeSnapshotTests: XCTestCase {
     }
 
     func test_node_childCentering() {
-        let sut = VAContainerButtonNode(child: childNode)
+        let sut = VAContainerButtonNode(child: childNode, onStateChange: updateButton(node:state:))
         sut.backgroundColor = .orange
 
         assertNodeSnapshot(matching: sut, size: .fixed(CGSize(same: 48)))
     }
 
     func test_node_highlighting() {
-        let sut = VAContainerButtonNode(child: childNode, onStateChange: {
-            $0.child.alpha = $1 == .highlighted ? 0.4 : 1
-        })
+        let sut = VAContainerButtonNode(child: childNode, onStateChange: updateButton(node:state:))
         sut.backgroundColor = .orange
         sut.isHighlighted = true
 
@@ -47,9 +45,7 @@ class VAContainerButtonNodeSnapshotTests: XCTestCase {
     }
 
     func test_node_disabled() {
-        let sut = VAContainerButtonNode(child: childNode, onStateChange: {
-            $0.alpha = $1 == .disabled ? 0.1 : 1
-        })
+        let sut = VAContainerButtonNode(child: childNode, onStateChange: updateButton(node:state:))
         sut.backgroundColor = .orange
         sut.isEnabled = false
 
@@ -57,9 +53,7 @@ class VAContainerButtonNodeSnapshotTests: XCTestCase {
     }
 
     func test_node_selected() {
-        let sut = VAContainerButtonNode(child: childNode, onStateChange: {
-            $0.alpha = $1 == .selected ? 0.6 : 1
-        })
+        let sut = VAContainerButtonNode(child: childNode, onStateChange: updateButton(node:state:))
         sut.backgroundColor = .orange
         sut.isSelected = true
 
@@ -67,10 +61,7 @@ class VAContainerButtonNodeSnapshotTests: XCTestCase {
     }
 
     func test_node_selectedHighlighted() {
-        let sut = VAContainerButtonNode(child: childNode, onStateChange: {
-            $0.alpha = $1 == [.selected, .highlighted] ? 0.6 : 1
-            $0.child.alpha = $1 == [.selected, .highlighted] ? 0.4 : 1
-        })
+        let sut = VAContainerButtonNode(child: childNode, onStateChange: updateButton(node:state:))
         sut.backgroundColor = .orange
         sut.isSelected = true
         sut.isHighlighted = true
@@ -84,5 +75,22 @@ class VAContainerButtonNodeSnapshotTests: XCTestCase {
         sut.insets = UIEdgeInsets(all: 8)
 
         assertNodeSnapshot(matching: sut, size: .auto)
+    }
+}
+
+private func updateButton(node: VAContainerButtonNode<ASDisplayNode>, state: UIControl.State) {
+    switch state {
+    case .highlighted:
+        node.child.alpha = 0.4
+    case .selected:
+        node.alpha = 0.6
+    case [.highlighted, .selected]:
+        node.child.alpha = 0.4
+        node.alpha = 0.6
+    case .disabled:
+        node.alpha = 0.1
+    default:
+        node.alpha = 1
+        node.child.alpha = 1
     }
 }

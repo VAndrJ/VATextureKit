@@ -7,24 +7,24 @@
 
 import AsyncDisplayKit
 
-/// `VAContainerButtonNode` is a subclass of `VAButtonNode` that includes a child node and handles button taps.
-public final class VAContainerButtonNode<Node: ASDisplayNode>: VAButtonNode {
+/// `VAContainerButtonNode` is a subclass of `VAButtonNode` that includes a child node and handles button state changes.
+open class VAContainerButtonNode<Node: ASDisplayNode>: VAButtonNode {
     /// The child node to be displayed within the container button.
     public let child: Node
     /// The insets to apply around the child node.
     public var insets: UIEdgeInsets {
         didSet { setNeedsLayout() }
     }
-    /// A closure to be executed when the state of the button changes.
+    /// A closure to be executed when the state of the button changes. Also called in `didLoad`.
     public var onStateChange: ((_ node: VAContainerButtonNode<Node>, _ state: UIControl.State) -> Void)?
 
-    public override var isHighlighted: Bool {
+    open override var isHighlighted: Bool {
         didSet { updateButtonState() }
     }
-    public override var isEnabled: Bool {
+    open override var isEnabled: Bool {
         didSet { updateButtonState() }
     }
-    public override var isSelected: Bool {
+    open override var isSelected: Bool {
         didSet { updateButtonState() }
     }
 
@@ -55,29 +55,30 @@ public final class VAContainerButtonNode<Node: ASDisplayNode>: VAButtonNode {
         automaticallyManagesSubnodes = true
     }
 
-    public override func didLoad() {
+    open override func didLoad() {
         super.didLoad()
 
         updateButtonState()
     }
 
-    private func updateButtonState() {
+    open func updateButtonState() {
         guard let onStateChange else { return }
 
-        if !isEnabled {
-            onStateChange(self, .disabled)
-        } else if isHighlighted && isSelected {
-            onStateChange(self, [.highlighted, .selected])
-        } else if isHighlighted {
-            onStateChange(self, .highlighted)
-        } else if isSelected {
-            onStateChange(self, .selected)
-        } else {
+        switch (isEnabled, isHighlighted, isSelected) {
+        case (true, false, false):
             onStateChange(self, .normal)
+        case (true, true, false):
+            onStateChange(self, .highlighted)
+        case (true, false, true):
+            onStateChange(self, .selected)
+        case (true, true, true):
+            onStateChange(self, [.highlighted, .selected])
+        case (false, _, _):
+            onStateChange(self, .disabled)
         }
     }
 
-    public override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    open override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         child
             .padding(.insets(insets))
             .centered()
