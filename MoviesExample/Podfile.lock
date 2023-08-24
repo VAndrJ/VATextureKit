@@ -58,14 +58,14 @@ PODS:
     - Texture/Core
   - Texture/Video (3.1.0):
     - Texture/Core
-  - VATextureKit (1.0.1):
+  - VATextureKit (1.0.2):
     - Texture (~> 3.1.0)
-  - VATextureKitRx (1.0.1):
+  - VATextureKitRx (1.0.2):
     - Differentiator (~> 5.0.0)
     - RxCocoa (~> 6.5.0)
     - RxSwift (~> 6.5.0)
     - Texture (~> 3.1.0)
-    - VATextureKit (= 1.0.1)
+    - VATextureKit (= 1.0.2)
 
 DEPENDENCIES:
   - R.swift
@@ -115,8 +115,8 @@ SPEC CHECKSUMS:
   RxTest: eb2d23adefc5a5ebf5779c7792fa3edfe6ebcc17
   Swiftional: c8b6746865543ab4b696aecaa94a487ad60a4c3d
   Texture: 2e8ab2519452515f7f5a520f5a8f7e0a413abfa3
-  VATextureKit: cb83d899cdb7f638ed198d74def1cfd19c86ab20
-  VATextureKitRx: 3bd5e4969bc5d6e000f0873ca8fc67106e85f7f6
+  VATextureKit: 6f37ac08f35119de1407607db1a625669599f24c
+  VATextureKitRx: 4b7eb3c25cd8d4bcdd8ac242e39063f48fdfb16b
 
 PODFILE CHECKSUM: d5cab77c1f4bdf8044a9dadc146e3a5fdce9718a
 
