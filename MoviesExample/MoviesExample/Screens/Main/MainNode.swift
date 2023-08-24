@@ -9,7 +9,7 @@ import VATextureKitRx
 import Swiftional
 
 final class MainNode: DisplayNode<MainViewModel> {
-    private lazy var backgoundNode = VAImageNode(data: .init(image: R.image.main_background()))
+    private lazy var backgoundNode = VAImageNode(image: R.image.main_background())
     private lazy var listNode = VAListNode(
         data: .init(
             listDataObs: viewModel.listDataObs,

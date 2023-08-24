@@ -19,10 +19,10 @@ final class ActorCardNode: VADisplayNode {
     private let roleTextNode: VATextNode
 
     init(data: DTO) {
-        self.avatarImageNode = VANetworkImageNode(data: .init(
+        self.avatarImageNode = VANetworkImageNode(
             image: data.avatar?.getImagePath(width: 500),
             contentMode: .scaleAspectFill
-        )).flex(grow: 1)
+        ).flex(grow: 1)
         self.nameTextNode = VATextNode(
             text: data.name,
             fontStyle: .caption1,

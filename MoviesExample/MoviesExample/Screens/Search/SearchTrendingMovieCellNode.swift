@@ -20,13 +20,12 @@ final class SearchTrendingMovieCellNode: VACellNode {
             fontStyle: .footnote,
             colorGetter: { $0.secondaryLabel }
         )
-        self.imageNode = VANetworkImageNode(data: .init(
+        self.imageNode = VANetworkImageNode(
             image: viewModel.image?.getImagePath(width: 500),
-            contentMode: .scaleAspectFill,
             size: CGSize(width: 126, height: 78),
-            cornerRadius: 16,
-            cornerCurve: .continuous
-        )).withAnimatedTransition(id: "image_\(viewModel.transitionId)", animation: .default(additions: .init(opacity: .skip)))
+            contentMode: .scaleAspectFill,
+            corner: .init(radius: .fixed(16))
+        ).withAnimatedTransition(id: "image_\(viewModel.transitionId)", animation: .default(additions: .init(opacity: .skip)))
 
         super.init()
     }
