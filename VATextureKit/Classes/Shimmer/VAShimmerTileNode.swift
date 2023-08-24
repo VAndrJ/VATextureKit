@@ -8,9 +8,10 @@
 import AsyncDisplayKit
 
 // TODO: - Documentation, tests
-open class VAShimmerTileNode: VADisplayNode {
+open class VAShimmerTileNode: VADisplayNode, VACornerable {
+    public let corner: VACornerRoundingParameters
+
     let backgroundColorGetter: (VATheme) -> UIColor
-    let corner: VACornerRoundingParameters
 
     public init(
         backgroundColor: @escaping (VATheme) -> UIColor = { $0.systemGray6 },
@@ -31,22 +32,10 @@ open class VAShimmerTileNode: VADisplayNode {
     public override func layout() {
         super.layout()
 
-        if case let .proportional(percent) = corner.radius {
-            cornerRadius = min(bounds.width, bounds.height) * percent / 200
-        }
+        updateCornerProportionalIfNeeded()
     }
 
     open override func configureTheme(_ theme: VATheme) {
         backgroundColor = backgroundColorGetter(theme)
-    }
-
-    private func updateCornerParameters() {
-        cornerCurve = corner.curve
-        cornerRoundingType = corner.roundingType
-        if case let .fixed(value) = corner.radius {
-            cornerRadius = value
-        } else {
-            setNeedsLayout()
-        }
     }
 }

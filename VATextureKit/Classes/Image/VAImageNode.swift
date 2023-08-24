@@ -8,7 +8,7 @@
 import AsyncDisplayKit
 
 /// `VAImageNode` is a subclass of `ASImageNode` that provides additional theming capabilities. It allows customization of the image `tintColor` and `backgroundColor` based on the current theme.
-open class VAImageNode: ASImageNode {
+open class VAImageNode: ASImageNode, VACornerable {
     /// The currently active theme obtained from the app's context.
     public var theme: VATheme { appContext.themeManager.theme }
     /// A closure that provides the tint color based on the current theme.
@@ -17,11 +17,7 @@ open class VAImageNode: ASImageNode {
     public var backgroundColorGetter: ((VATheme) -> UIColor)?
     /// The corner rounding configuration for the image node.
     public var corner: VACornerRoundingParameters {
-        get { _corner }
-        set {
-            _corner = newValue
-            updateCornerParameters()
-        }
+        didSet { updateCornerParameters() }
     }
 
     open override var tintColor: UIColor! {
@@ -33,8 +29,6 @@ open class VAImageNode: ASImageNode {
     }
     
     var shouldConfigureTheme = true
-
-    private var _corner: VACornerRoundingParameters
 
     /// Initializes the instance with optional parameters.
     ///
@@ -55,7 +49,7 @@ open class VAImageNode: ASImageNode {
     ) {
         self.tintColorGetter = tintColor
         self.backgroundColorGetter = backgroundColor
-        self._corner = corner
+        self.corner = corner
 
         super.init()
 
@@ -97,9 +91,7 @@ open class VAImageNode: ASImageNode {
     open override func layout() {
         super.layout()
 
-        if case let .proportional(percent) = corner.radius {
-            cornerRadius = min(bounds.width, bounds.height) * percent / 200
-        }
+        updateCornerProportionalIfNeeded()
     }
 
     /// Configures the node's theme elements based on the given theme.
@@ -140,15 +132,5 @@ open class VAImageNode: ASImageNode {
 
     @objc private func themeDidChanged(_ notification: Notification) {
         themeDidChanged()
-    }
-
-    private func updateCornerParameters() {
-        cornerCurve = corner.curve
-        cornerRoundingType = corner.roundingType
-        if case let .fixed(value) = corner.radius {
-            cornerRadius = value
-        } else {
-            setNeedsLayout()
-        }
     }
 }

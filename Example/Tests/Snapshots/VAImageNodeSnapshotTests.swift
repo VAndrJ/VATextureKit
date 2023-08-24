@@ -64,11 +64,11 @@ class VAImageNodeSnapshotTests: XCTestCase {
             contentMode: .scaleAspectFill,
             tintColor: { $0.systemOrange },
             backgroundColor: { $0.secondarySystemBackground },
-            corner: .init(radius: .fixed(8))
+            corner: .init(radius: .fixed(8), maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
         )
         sut.displaysAsynchronously = false
 
-        assertNodeSnapshot(matching: sut, size: .auto)
+        assertNodeSnapshot(matching: sut, size: .auto, drawHierarchyInKeyWindow: true)
     }
 
     func test_node_corner_proportional() {
