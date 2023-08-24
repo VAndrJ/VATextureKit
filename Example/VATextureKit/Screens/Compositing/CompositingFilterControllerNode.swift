@@ -14,14 +14,14 @@ final class CompositingFilterControllerNode: VASafeAreaDisplayNode {
 
     // MARK: - UI related code
 
-    private(set) lazy var backgroundImageNode = VAImageNode(data: .init(
+    private(set) lazy var backgroundImageNode = VAImageNode(
         image: R.image.moon(),
         contentMode: .scaleAspectFill
-    ))
-    private(set) lazy var composingImageNode = VAImageNode(data: .init(
+    )
+    private(set) lazy var composingImageNode = VAImageNode(
         image: R.image.colibri(),
         contentMode: .scaleAspectFill
-    ))
+    )
     private(set) lazy var listNode = VATableListNode(data: .init(
         configuration: .init(shouldDeselect: (false, true)),
         listDataObs: viewModel.filtersObs,

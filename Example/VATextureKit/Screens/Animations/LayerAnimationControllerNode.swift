@@ -92,12 +92,12 @@ private class CornerRadiusAnimationExampleNode: VADisplayNode {
 }
 
 private class RotationAnimationExampleNode: VADisplayNode {
-    private lazy var exampleNode = VAImageNode(data: .init(
+    private lazy var exampleNode = VAImageNode(
         image: R.image.chevron_right(),
-        tintColor: { $0.darkText },
         size: CGSize(same: 50),
-        contentMode: .center
-    ))
+        contentMode: .center,
+        tintColor: { $0.darkText }
+    )
     private lazy var buttonNode = HapticButtonNode(title: "Toggle rotation")
     private var isToggled = false {
         didSet {

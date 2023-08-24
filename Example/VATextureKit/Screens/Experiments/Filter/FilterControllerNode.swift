@@ -9,11 +9,11 @@
 import VATextureKit
 
 final class FilterControllerNode: VASafeAreaDisplayNode {
-    private lazy var imageNode = VAImageNode(data: .init(
+    private lazy var imageNode = VAImageNode(
         image: filter.outputImage(image: R.image.colibri()),
         size: CGSize(same: 300),
         contentMode: .scaleAspectFit
-    ))
+    )
 
     private let filter = MetalDropPixelsFilter()
 

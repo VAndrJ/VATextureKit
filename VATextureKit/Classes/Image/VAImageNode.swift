@@ -8,53 +8,39 @@
 import AsyncDisplayKit
 
 open class VAImageNode: ASImageNode {
-    public struct DTO {
-        var image: UIImage?
-        var tintColor: ((VATheme) -> UIColor)?
-        var size: CGSize?
-        var contentMode: UIView.ContentMode?
-        var backgroundColor: ((VATheme) -> UIColor)?
-
-        public init(
-            image: UIImage? = nil,
-            tintColor: ((VATheme) -> UIColor)? = nil,
-            size: CGSize? = nil,
-            contentMode: UIView.ContentMode? = nil,
-            backgroundColor: ((VATheme) -> UIColor)? = nil
-        ) {
-            self.image = image
-            self.tintColor = tintColor
-            self.size = size
-            self.contentMode = contentMode
-            self.backgroundColor = backgroundColor
-        }
-    }
-
     public var theme: VATheme { appContext.themeManager.theme }
+    public var tintColorGetter: ((VATheme) -> UIColor)?
+    public var backgroundColorGetter: ((VATheme) -> UIColor)?
+
     open override var tintColor: UIColor! {
-        get { data.tintColor?(theme) ?? .clear }
+        get { tintColorGetter?(theme) ?? .clear }
         set {
-            data.tintColor = { _ in newValue ?? .clear }
+            tintColorGetter = { _ in newValue ?? .clear }
             updateTintColorIfNeeded(theme)
         }
     }
     
     var shouldConfigureTheme = true
 
-    private var data: DTO
-
-    public init(data: DTO) {
-        self.data = data
+    public init(
+        image: UIImage? = nil,
+        size: CGSize? = nil,
+        contentMode: UIView.ContentMode? = nil,
+        tintColor: ((VATheme) -> UIColor)? = nil,
+        backgroundColor: ((VATheme) -> UIColor)? = nil
+    ) {
+        self.tintColorGetter = tintColor
+        self.backgroundColorGetter = backgroundColor
 
         super.init()
 
-        if let contentMode = data.contentMode {
+        if let contentMode {
             self.contentMode = contentMode
         }
-        if let image = data.image {
+        if let image {
             self.image = image
         }
-        if let size = data.size {
+        if let size {
             self.style.preferredSize = size
         }
     }
@@ -95,20 +81,20 @@ open class VAImageNode: ASImageNode {
         }
     }
 
-    @objc private func themeDidChanged(_ notification: Notification) {
-        themeDidChanged()
-    }
-
-    private func updateTintColorIfNeeded(_ theme: VATheme) {
-        if let color = data.tintColor?(theme) {
+    open func updateTintColorIfNeeded(_ theme: VATheme) {
+        if let color = tintColorGetter?(theme) {
             imageModificationBlock = ASImageNodeTintColorModificationBlock(color)
             setNeedsDisplay()
         }
     }
 
-    private func updateBackgroundColorIfNeeded(_ theme: VATheme) {
-        if let color = data.backgroundColor?(theme) {
+    open func updateBackgroundColorIfNeeded(_ theme: VATheme) {
+        if let color = backgroundColorGetter?(theme) {
             backgroundColor = color
         }
+    }
+
+    @objc private func themeDidChanged(_ notification: Notification) {
+        themeDidChanged()
     }
 }
