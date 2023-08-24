@@ -19,6 +19,7 @@
 		A316144B2A962CB100ED8561 /* VAContainerButtonNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A316144A2A962CB100ED8561 /* VAContainerButtonNodeTests.swift */; };
 		A316144D2A96321A00ED8561 /* VAContainerButtonNodeSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A316144C2A96321A00ED8561 /* VAContainerButtonNodeSnapshotTests.swift */; };
 		A316144F2A9738D000ED8561 /* VAViewWrapperNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A316144E2A9738D000ED8561 /* VAViewWrapperNodeTests.swift */; };
+		A31614512A979ABD00ED8561 /* VAImageNodeSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31614502A979ABD00ED8561 /* VAImageNodeSnapshotTests.swift */; };
 		A316C74F2A90095C008329A0 /* LayoutSpecBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A316C74E2A90095C008329A0 /* LayoutSpecBuilderTests.swift */; };
 		A31F445D29F6AD76003618C9 /* PagerControllerNodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F445C29F6AD76003618C9 /* PagerControllerNodeViewModel.swift */; };
 		A31F445F29F6ADC7003618C9 /* PagerIndicatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F445E29F6ADC7003618C9 /* PagerIndicatorNode.swift */; };
@@ -177,6 +178,7 @@
 		A316144A2A962CB100ED8561 /* VAContainerButtonNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAContainerButtonNodeTests.swift; sourceTree = "<group>"; };
 		A316144C2A96321A00ED8561 /* VAContainerButtonNodeSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAContainerButtonNodeSnapshotTests.swift; sourceTree = "<group>"; };
 		A316144E2A9738D000ED8561 /* VAViewWrapperNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAViewWrapperNodeTests.swift; sourceTree = "<group>"; };
+		A31614502A979ABD00ED8561 /* VAImageNodeSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAImageNodeSnapshotTests.swift; sourceTree = "<group>"; };
 		A316C74E2A90095C008329A0 /* LayoutSpecBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutSpecBuilderTests.swift; sourceTree = "<group>"; };
 		A31F445C29F6AD76003618C9 /* PagerControllerNodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerControllerNodeViewModel.swift; sourceTree = "<group>"; };
 		A31F445E29F6ADC7003618C9 /* PagerIndicatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerIndicatorNode.swift; sourceTree = "<group>"; };
@@ -448,6 +450,7 @@
 				A3551A5829DD5FCF00B0B18F /* VABaseGradientNodeTests.swift */,
 				A316144C2A96321A00ED8561 /* VAContainerButtonNodeSnapshotTests.swift */,
 				A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */,
+				A31614502A979ABD00ED8561 /* VAImageNodeSnapshotTests.swift */,
 				A3551A5429DD57F000B0B18F /* VALinearGradientNodeTests.swift */,
 				A3820D1429E53BD600993406 /* VARadialGradientNodeTests.swift */,
 				A34F8E7029F3F1B300EF4C42 /* VAReadMoreTextNodeTests.swift */,
@@ -1099,6 +1102,7 @@
 				A3820D1529E53BD600993406 /* VARadialGradientNodeTests.swift in Sources */,
 				A3CC53982A792FD700BC4B3A /* ASCollectionNodeTests.swift in Sources */,
 				A39301E82A7FFB85007F8001 /* LinearGradientControllerNodeTests.swift in Sources */,
+				A31614512A979ABD00ED8561 /* VAImageNodeSnapshotTests.swift in Sources */,
 				A364DA892A1F4973001355AE /* VATextNodeTests.swift in Sources */,
 				A3CC537C2A79078B00BC4B3A /* ASLayoutElementTests.swift in Sources */,
 				A384F0B629EDCB5A006BF197 /* StackTests.swift in Sources */,
