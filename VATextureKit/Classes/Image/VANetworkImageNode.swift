@@ -71,6 +71,8 @@ open class VANetworkImageNode: ASNetworkImageNode {
         cornerRoundingType = corner.roundingType
         if case let .fixed(value) = corner.radius {
             cornerRadius = value
+        } else {
+            setNeedsLayout()
         }
     }
 }

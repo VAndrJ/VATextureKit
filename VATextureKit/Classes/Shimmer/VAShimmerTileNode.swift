@@ -7,43 +7,46 @@
 
 import AsyncDisplayKit
 
+// TODO: - Documentation, tests
 open class VAShimmerTileNode: VADisplayNode {
-    public struct DTO {
-        let backgroundColor: (VATheme) -> UIColor
-        // TODO: - parameters
-        // Rounded on nil
-        let cornerRadius: CGFloat?
+    let backgroundColorGetter: (VATheme) -> UIColor
+    let corner: VACornerRoundingParameters
 
-        public init(
-            backgroundColor: @escaping (VATheme) -> UIColor = { $0.systemGray6 },
-            cornerRadius: CGFloat? = 0.0
-        ) {
-            self.backgroundColor = backgroundColor
-            self.cornerRadius = cornerRadius
-        }
-    }
-
-    let data: DTO
-
-    public init(data: DTO) {
-        self.data = data
+    public init(
+        backgroundColor: @escaping (VATheme) -> UIColor = { $0.systemGray6 },
+        corner: VACornerRoundingParameters = .init()
+    ) {
+        self.backgroundColorGetter = backgroundColor
+        self.corner = corner
 
         super.init()
+    }
 
-        if let cornerRadius = data.cornerRadius {
-            self.cornerRadius = cornerRadius
-        }
+    open override func didLoad() {
+        super.didLoad()
+
+        updateCornerParameters()
     }
 
     public override func layout() {
         super.layout()
 
-        if data.cornerRadius == nil {
-            self.cornerRadius = min(bounds.width, bounds.height) / 2
+        if case let .proportional(percent) = corner.radius {
+            cornerRadius = min(bounds.width, bounds.height) * percent / 200
         }
     }
 
     open override func configureTheme(_ theme: VATheme) {
-        backgroundColor = data.backgroundColor(theme)
+        backgroundColor = backgroundColorGetter(theme)
+    }
+
+    private func updateCornerParameters() {
+        cornerCurve = corner.curve
+        cornerRoundingType = corner.roundingType
+        if case let .fixed(value) = corner.radius {
+            cornerRadius = value
+        } else {
+            setNeedsLayout()
+        }
     }
 }

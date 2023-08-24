@@ -147,6 +147,8 @@ open class VAImageNode: ASImageNode {
         cornerRoundingType = corner.roundingType
         if case let .fixed(value) = corner.radius {
             cornerRadius = value
+        } else {
+            setNeedsLayout()
         }
     }
 }
