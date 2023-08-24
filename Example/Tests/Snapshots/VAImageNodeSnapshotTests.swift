@@ -55,4 +55,49 @@ class VAImageNodeSnapshotTests: XCTestCase {
 
         assertNodeSnapshot(matching: sut, size: .auto)
     }
+
+    func test_node_corner_fixed() {
+        appContext.themeManager.setLightAsCustomTheme()
+        let sut = VAImageNode(
+            image: R.image.chevron_right(),
+            size: CGSize(same: 24),
+            contentMode: .scaleAspectFill,
+            tintColor: { $0.systemOrange },
+            backgroundColor: { $0.secondarySystemBackground },
+            corner: .init(radius: .fixed(8))
+        )
+        sut.displaysAsynchronously = false
+
+        assertNodeSnapshot(matching: sut, size: .auto)
+    }
+
+    func test_node_corner_proportional() {
+        appContext.themeManager.setLightAsCustomTheme()
+        let sut = VAImageNode(
+            image: R.image.chevron_right(),
+            size: CGSize(same: 24),
+            contentMode: .scaleAspectFill,
+            tintColor: { $0.systemOrange },
+            backgroundColor: { $0.secondarySystemBackground },
+            corner: .init(radius: .proportional(percent: 25), curve: .circular)
+        )
+        sut.displaysAsynchronously = false
+
+        assertNodeSnapshot(matching: sut, size: .auto)
+    }
+
+    func test_node_corner_proportionalFull() {
+        appContext.themeManager.setLightAsCustomTheme()
+        let sut = VAImageNode(
+            image: R.image.chevron_right(),
+            size: CGSize(same: 24),
+            contentMode: .scaleAspectFill,
+            tintColor: { $0.systemOrange },
+            backgroundColor: { $0.secondarySystemBackground },
+            corner: .init(radius: .proportional(percent: 100), curve: .circular)
+        )
+        sut.displaysAsynchronously = false
+
+        assertNodeSnapshot(matching: sut, size: .auto)
+    }
 }

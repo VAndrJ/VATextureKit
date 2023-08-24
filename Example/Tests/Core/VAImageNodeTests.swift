@@ -21,4 +21,19 @@ class VAImageNodeTests: XCTestCase {
 
         XCTAssertEqual(UIColor.clear, sut.tintColor)
     }
+
+    func test_corner() {
+        let sut = VAImageNode()
+
+        XCTAssertEqual(VACornerRoundingParameters(), sut.corner)
+
+        let corner = VACornerRoundingParameters(
+            radius: .proportional(percent: 100),
+            curve: .circular,
+            roundingType: .clipping
+        )
+        sut.corner = corner
+
+        XCTAssertEqual(corner, sut.corner)
+    }
 }

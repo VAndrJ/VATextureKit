@@ -24,10 +24,10 @@ class ImageNumberCellNode: VACellNode {
             fontStyle: .largeTitle,
             colorGetter: { _ in .white }
         )
-        self.imageNode = VANetworkImageNode(data: .init(
+        self.imageNode = VANetworkImageNode(
             image: viewModel.image,
             contentMode: .scaleAspectFill
-        ))
+        )
         
         super.init()
     }

@@ -15,6 +15,14 @@ open class VAImageNode: ASImageNode {
     public var tintColorGetter: ((VATheme) -> UIColor)?
     /// A closure that provides the background color based on the current theme.
     public var backgroundColorGetter: ((VATheme) -> UIColor)?
+    /// The corner rounding configuration for the image node.
+    public var corner: VACornerRoundingParameters {
+        get { _corner }
+        set {
+            _corner = newValue
+            updateCornerParameters()
+        }
+    }
 
     open override var tintColor: UIColor! {
         get { tintColorGetter?(theme) ?? .clear }
@@ -26,6 +34,8 @@ open class VAImageNode: ASImageNode {
     
     var shouldConfigureTheme = true
 
+    private var _corner: VACornerRoundingParameters
+
     /// Initializes the instance with optional parameters.
     ///
     /// - Parameters:
@@ -34,32 +44,36 @@ open class VAImageNode: ASImageNode {
     ///   - contentMode: The content mode for displaying the image.
     ///   - tintColor: A closure that determines the tint color based on the theme.
     ///   - backgroundColor: A closure that determines the background color based on the theme.
+    ///   - corner: The corner rounding configuration for the image node.   
     public init(
         image: UIImage? = nil,
         size: CGSize? = nil,
         contentMode: UIView.ContentMode? = nil,
         tintColor: ((VATheme) -> UIColor)? = nil,
-        backgroundColor: ((VATheme) -> UIColor)? = nil
+        backgroundColor: ((VATheme) -> UIColor)? = nil,
+        corner: VACornerRoundingParameters = .init()
     ) {
         self.tintColorGetter = tintColor
         self.backgroundColorGetter = backgroundColor
+        self._corner = corner
 
         super.init()
 
-        if let contentMode {
-            self.contentMode = contentMode
-        }
         if let image {
             self.image = image
         }
         if let size {
             self.style.preferredSize = size
         }
+        if let contentMode {
+            self.contentMode = contentMode
+        }
     }
 
     open override func didLoad() {
         super.didLoad()
 
+        updateCornerParameters()
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(themeDidChanged(_:)),
@@ -77,6 +91,14 @@ open class VAImageNode: ASImageNode {
         if shouldConfigureTheme {
             themeDidChanged()
             shouldConfigureTheme = false
+        }
+    }
+
+    open override func layout() {
+        super.layout()
+
+        if case let .proportional(percent) = corner.radius {
+            cornerRadius = min(bounds.width, bounds.height) * percent / 200
         }
     }
 
@@ -118,5 +140,13 @@ open class VAImageNode: ASImageNode {
 
     @objc private func themeDidChanged(_ notification: Notification) {
         themeDidChanged()
+    }
+
+    private func updateCornerParameters() {
+        cornerCurve = corner.curve
+        cornerRoundingType = corner.roundingType
+        if case let .fixed(value) = corner.radius {
+            cornerRadius = value
+        }
     }
 }
