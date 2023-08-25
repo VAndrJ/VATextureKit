@@ -7,12 +7,26 @@
 
 import AsyncDisplayKit
 
-open class VACellNode: ASCellNode {
+open class VACellNode: ASCellNode, VACornerable {
     public var theme: VATheme { appContext.themeManager.theme }
+    public var corner: VACornerRoundingParameters {
+        didSet { updateCornerParameters() }
+    }
 
     var shouldConfigureTheme = true
-    
+
+    public init(corner: VACornerRoundingParameters) {
+        self.corner = corner
+
+        super.init()
+
+        automaticallyManagesSubnodes = true
+        configureLayoutElements()
+    }
+
     public override init() {
+        self.corner = .init()
+
         super.init()
         
         automaticallyManagesSubnodes = true
@@ -22,6 +36,7 @@ open class VACellNode: ASCellNode {
     open override func didLoad() {
         super.didLoad()
 
+        updateCornerParameters()
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(themeDidChanged(_:)),
@@ -40,6 +55,12 @@ open class VACellNode: ASCellNode {
             themeDidChanged()
             shouldConfigureTheme = false
         }
+    }
+
+    open override func layout() {
+        super.layout()
+
+        updateCornerProportionalIfNeeded()
     }
 
     /// Method for layout parameters that need to be defined only once
