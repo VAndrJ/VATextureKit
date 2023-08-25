@@ -16,7 +16,7 @@ class VASlidingIndicatorContainerNode: VADisplayNode {
         }
     }
 
-    let indicatorNode = ASDisplayNode()
+    let indicatorNode = VADisplayNode()
 
     private let color: (VATheme) -> UIColor
 
@@ -31,17 +31,7 @@ class VASlidingIndicatorContainerNode: VADisplayNode {
             .absolutely(frame: targetIndicatorFrame)
     }
 
-    override func didLoad() {
-        super.didLoad()
-
-        configure()
-    }
-
     override func configureTheme(_ theme: VATheme) {
         indicatorNode.backgroundColor = color(theme)
-    }
-
-    private func configure() {
-        indicatorNode.cornerCurve = .continuous
     }
 }

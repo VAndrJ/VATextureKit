@@ -79,7 +79,7 @@ class VAImageNodeSnapshotTests: XCTestCase {
             contentMode: .scaleAspectFill,
             tintColor: { $0.systemOrange },
             backgroundColor: { $0.secondarySystemBackground },
-            corner: .init(radius: .proportional(percent: 25), curve: .circular)
+            corner: .init(radius: .proportional(percent: 25), curve: .continuous)
         )
         sut.displaysAsynchronously = false
 

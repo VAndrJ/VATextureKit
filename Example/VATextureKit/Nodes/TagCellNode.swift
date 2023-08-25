@@ -14,19 +14,7 @@ class TagCellNode: VACellNode {
     init(viewModel: TagCellNodeViewModel) {
         self.titleTextNode = VATextNode(text: viewModel.title, fontStyle: .headline)
 
-        super.init()
-    }
-
-    override func didLoad() {
-        super.didLoad()
-
-        cornerCurve = .continuous
-    }
-
-    override func layout() {
-        super.layout()
-
-        cornerRadius = min(bounds.height, bounds.width) / 2
+        super.init(corner: .init(radius: .proportional(percent: 100)))
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {

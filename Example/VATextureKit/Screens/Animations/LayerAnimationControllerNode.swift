@@ -51,9 +51,6 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
 private class CornerRadiusAnimationExampleNode: VADisplayNode {
     private lazy var exampleNode = VADisplayNode()
         .sized(width: 100, height: 40)
-        .apply {
-            $0.cornerCurve = .continuous
-        }
     private lazy var buttonNode = HapticButtonNode(title: "Toggle corner radius")
     private var isToggled = false {
         didSet {

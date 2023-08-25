@@ -11,10 +11,7 @@ import VATextureKit
 class PagerCardCellNode: VACellNode {
     let titleTextNode: VATextNode
     let descriptionTextNode: VATextNode
-    let cardNode = ASDisplayNode().apply {
-        $0.cornerRadius = 16
-        $0.cornerCurve = .continuous
-    }
+    let cardNode = VADisplayNode(corner: .init(radius: .fixed(16)))
 
     private let viewModel: PagerCardCellNodeViewModel
 

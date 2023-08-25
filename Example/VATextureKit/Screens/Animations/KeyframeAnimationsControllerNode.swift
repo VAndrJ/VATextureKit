@@ -183,7 +183,6 @@ private class AnimationExampleNode: VADisplayNode {
             $0.shadowRadius = 4
             $0.shadowOffset = .zero
             $0.shadowOpacity = 1
-            $0.cornerCurve = .continuous
         }
     private lazy var buttonNode = HapticButtonNode(title: "Animate \(animation.keyPath)")
     private var animation: CALayer.VALayerKeyframeAnimation
