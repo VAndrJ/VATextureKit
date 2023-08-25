@@ -8,14 +8,36 @@
 import AsyncDisplayKit
 
 /// `VAButtonNode` is a subclass of `ASButtonNode` that provides additional functionality for handling button taps.
-open class VAButtonNode: ASButtonNode {
+open class VAButtonNode: ASButtonNode, VACornerable {
     /// A closure that gets executed when the button is tapped. Use either `onTap` closure or `func onTap` function, but not both.
     public var onTap: (() -> Void)?
+    public var corner: VACornerRoundingParameters {
+        didSet { updateCornerParameters() }
+    }
+
+    public init(corner: VACornerRoundingParameters) {
+        self.corner = corner
+
+        super.init()
+    }
+
+    public override init() {
+        self.corner = .init()
+
+        super.init()
+    }
     
     open override func didLoad() {
         super.didLoad()
-        
+
+        updateCornerParameters()
         bind()
+    }
+
+    open override func layout() {
+        super.layout()
+
+        updateCornerProportionalIfNeeded()
     }
 
     /// Sets up a closure to handle the button tap event using weak references to avoid strong reference cycles. Use either `onTap` closure or `func onTap` function, but not both.
