@@ -10,6 +10,7 @@ import UIKit
 open class VAAlertController: UIAlertController {
     open override var preferredStatusBarStyle: UIStatusBarStyle { theme.statusBarStyle }
 
+    /// The currently active theme obtained from the app's context.
     public var theme: VATheme { appContext.themeManager.theme }
     
     public convenience init(

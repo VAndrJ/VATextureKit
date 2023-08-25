@@ -15,7 +15,7 @@ open class VAImageNode: ASImageNode, VACornerable {
     public var tintColorGetter: ((VATheme) -> UIColor)?
     /// A closure that provides the background color based on the current theme.
     public var backgroundColorGetter: ((VATheme) -> UIColor)?
-    /// The corner rounding configuration for the image node.
+    /// The corner rounding configuration for the node.
     public var corner: VACornerRoundingParameters {
         didSet { updateCornerParameters() }
     }

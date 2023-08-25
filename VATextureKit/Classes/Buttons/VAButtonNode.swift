@@ -11,6 +11,7 @@ import AsyncDisplayKit
 open class VAButtonNode: ASButtonNode, VACornerable {
     /// A closure that gets executed when the button is tapped. Use either `onTap` closure or `func onTap` function, but not both.
     public var onTap: (() -> Void)?
+    /// The corner rounding configuration for the node.
     public var corner: VACornerRoundingParameters {
         didSet { updateCornerParameters() }
     }

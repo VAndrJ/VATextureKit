@@ -11,6 +11,7 @@ open class VAViewController<Node: ASDisplayNode>: ASDKViewController<ASDisplayNo
     open override var preferredStatusBarStyle: UIStatusBarStyle { theme.statusBarStyle }
     
     public var contentNode: Node { node as! Node }
+    /// The currently active theme obtained from the app's context.
     public var theme: VATheme { appContext.themeManager.theme }
     public lazy var transitionAnimator: VATransionAnimator = VADefaultTransionAnimator(controller: self)
     

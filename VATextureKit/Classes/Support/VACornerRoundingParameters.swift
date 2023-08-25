@@ -17,6 +17,7 @@ public struct VACornerRoundingParameters: Equatable {
     public let curve: VACornerCurve
     public let roundingType: ASCornerRoundingType
     public let maskedCorners: CACornerMask
+    public let clipsToBounds: Bool
 
     public init(
         radius: VACornerRoundingParameters.CornerRadius = .fixed(0),
@@ -27,12 +28,14 @@ public struct VACornerRoundingParameters: Equatable {
             .layerMaxXMinYCorner,
             .layerMinXMaxYCorner,
             .layerMinXMinYCorner,
-        ]
+        ],
+        clipsToBounds: Bool = false
     ) {
         self.radius = radius
         self.curve = curve
         self.roundingType = roundingType
         self.maskedCorners = maskedCorners
+        self.clipsToBounds = clipsToBounds
     }
 }
 
@@ -49,6 +52,7 @@ public extension VACornerable where Self: ASDisplayNode {
     }
     
     func updateCornerParameters() {
+        clipsToBounds = corner.clipsToBounds
         maskedCorners = corner.maskedCorners
         cornerCurve = corner.curve
         cornerRoundingType = corner.roundingType

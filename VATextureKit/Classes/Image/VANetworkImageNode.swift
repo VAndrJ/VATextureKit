@@ -9,7 +9,7 @@ import AsyncDisplayKit
 
 /// `VANetworkImageNode` is a subclass of `ASNetworkImageNode` that adds support for custom corner rounding to the image displayed. It provides the ability to specify a corner rounding configuration and displays either a remote URL image or a locally stored image.
 open class VANetworkImageNode: ASNetworkImageNode, VACornerable {
-    /// The corner rounding configuration for the image node.
+    /// The corner rounding configuration for the node.
     public var corner: VACornerRoundingParameters {
         get { _corner }
         set {

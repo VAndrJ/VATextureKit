@@ -8,7 +8,9 @@
 import AsyncDisplayKit
 
 open class VADisplayNode: ASDisplayNode, VACornerable {
+    /// The currently active theme obtained from the app's context.
     public var theme: VATheme { appContext.themeManager.theme }
+    /// The corner rounding configuration for the node.
     public var corner: VACornerRoundingParameters {
         didSet { updateCornerParameters() }
     }

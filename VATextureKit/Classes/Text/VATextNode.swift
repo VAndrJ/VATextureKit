@@ -91,6 +91,7 @@ open class VATextNode: _VATextNode {
     public var text: String? {
         didSet { configureTheme(theme) }
     }
+    /// The currently active theme obtained from the app's context.
     public var theme: VATheme { appContext.themeManager.theme }
     public let stringGetter: (String?, VATheme) -> NSAttributedString?
 

@@ -7,10 +7,8 @@
 
 import AsyncDisplayKit
 
-// TODO: - Documentation, tests
-open class VAShimmerTileNode: VADisplayNode, VACornerable {
-    public let corner: VACornerRoundingParameters
-
+// TODO: - Documentation
+open class VAShimmerTileNode: VADisplayNode {
     let backgroundColorGetter: (VATheme) -> UIColor
 
     public init(
@@ -18,21 +16,8 @@ open class VAShimmerTileNode: VADisplayNode, VACornerable {
         corner: VACornerRoundingParameters = .init()
     ) {
         self.backgroundColorGetter = backgroundColor
-        self.corner = corner
 
-        super.init()
-    }
-
-    open override func didLoad() {
-        super.didLoad()
-
-        updateCornerParameters()
-    }
-
-    public override func layout() {
-        super.layout()
-
-        updateCornerProportionalIfNeeded()
+        super.init(corner: corner)
     }
 
     open override func configureTheme(_ theme: VATheme) {
