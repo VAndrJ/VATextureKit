@@ -22,7 +22,7 @@ final class SearchMovieCellNode: VACellNode {
             image: viewModel.image?.getImagePath(width: 500),
             size: CGSize(width: 32, height: 48),
             contentMode: .scaleAspectFill,
-            corner: .init(radius: .fixed(4))
+            corner: .init(radius: .fixed(4), clipsToBounds: true)
         )
 
         super.init()

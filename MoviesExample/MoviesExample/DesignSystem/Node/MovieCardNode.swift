@@ -22,7 +22,7 @@ final class MovieCardNode: VADisplayNode {
         self.coverImageNode = VANetworkImageNode(
             image: data.image?.getImagePath(width: 500),
             contentMode: .scaleAspectFill,
-            corner: .init(radius: .fixed(16))
+            corner: .init(radius: .fixed(16), clipsToBounds: true)
         ).flex(shrink: 0.1, grow: 1)
         self.titleTextNode = VATextNode(
             text: data.title,
