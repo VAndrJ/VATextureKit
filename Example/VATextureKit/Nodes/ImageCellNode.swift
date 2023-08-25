@@ -22,7 +22,7 @@ class ImageCellNode: VAScrollRespondingEdgeCellNode {
         super.init(onScroll: viewModel.onScroll)
 
         if let cornerRadius = viewModel.cornerRadius {
-            self.cornerRadius = cornerRadius
+            self.corner = .init(radius: .fixed(cornerRadius), clipsToBounds: true)
         }
     }
     
