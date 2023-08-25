@@ -17,20 +17,11 @@ open class VADisplayNode: ASDisplayNode, VACornerable {
 
     var shouldConfigureTheme = true
 
-    public init(corner: VACornerRoundingParameters) {
+    public init(corner: VACornerRoundingParameters = .init()) {
         self.corner = corner
 
         super.init()
 
-        automaticallyManagesSubnodes = true
-        configureLayoutElements()
-    }
-    
-    public override init() {
-        self.corner = .init()
-
-        super.init()
-        
         automaticallyManagesSubnodes = true
         configureLayoutElements()
     }

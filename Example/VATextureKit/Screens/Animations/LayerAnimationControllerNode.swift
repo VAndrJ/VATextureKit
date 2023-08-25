@@ -17,7 +17,7 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
     private lazy var colorAnimationExampleNode = ColorAnimationExampleNode()
     private lazy var scrollNode = VAScrollNode(data: .init())
 
-    override init() {
+    init() {
         super.init()
 
         scrollNode.layoutSpecBlock = { [weak self] in

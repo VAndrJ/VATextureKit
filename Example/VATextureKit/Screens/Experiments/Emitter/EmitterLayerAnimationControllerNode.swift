@@ -31,7 +31,7 @@ final class EmitterLayerAnimationControllerNode: VASafeAreaDisplayNode {
         multipleConfettiNode,
     ].ratio(1)
 
-    override init() {
+    init() {
         super.init()
 
         scrollNode.layoutSpecBlock = { [weak self] in

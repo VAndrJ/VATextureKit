@@ -16,14 +16,8 @@ open class VAButtonNode: ASButtonNode, VACornerable {
         didSet { updateCornerParameters() }
     }
 
-    public init(corner: VACornerRoundingParameters) {
+    public init(corner: VACornerRoundingParameters = .init()) {
         self.corner = corner
-
-        super.init()
-    }
-
-    public override init() {
-        self.corner = .init()
 
         super.init()
     }

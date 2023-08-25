@@ -56,7 +56,7 @@ final class KeyframeAnimationsControllerNode: VASafeAreaDisplayNode {
     ]
     private lazy var scrollNode = VAScrollNode(data: .init())
 
-    override init() {
+    init() {
         super.init()
 
         scrollNode.layoutSpecBlock = { [weak self] in

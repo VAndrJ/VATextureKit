@@ -21,21 +21,11 @@ open class VACellNode: ASCellNode, VACornerable {
     /// Initializes a `VACellNode` instance with the specified corner rounding parameters.
     ///
     /// - Parameter corner: The corner rounding parameters to apply to the cell.
-    public init(corner: VACornerRoundingParameters) {
+    public init(corner: VACornerRoundingParameters = .init()) {
         self.corner = corner
 
         super.init()
 
-        automaticallyManagesSubnodes = true
-        configureLayoutElements()
-    }
-
-    /// Initializes a `VACellNode` instance with default corner rounding parameters.
-    public override init() {
-        self.corner = .init()
-
-        super.init()
-        
         automaticallyManagesSubnodes = true
         configureLayoutElements()
     }
