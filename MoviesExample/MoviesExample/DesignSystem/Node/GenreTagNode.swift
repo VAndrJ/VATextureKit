@@ -18,16 +18,9 @@ final class GenreTagNode: VADisplayNode {
             colorGetter: { $0.secondaryLabel }
         )
 
-        super.init()
+        super.init(corner: .init(radius: .fixed(8)))
 
-        cornerRadius = 8
         borderWidth = 1
-    }
-
-    override func didLoad() {
-        super.didLoad()
-
-        cornerCurve = .continuous
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {

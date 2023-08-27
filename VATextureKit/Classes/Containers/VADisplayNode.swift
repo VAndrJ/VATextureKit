@@ -7,14 +7,25 @@
 
 import AsyncDisplayKit
 
-open class VADisplayNode: ASDisplayNode {
+open class VADisplayNode: ASDisplayNode, VACornerable {
+    /// The currently active theme obtained from the app's context.
     public var theme: VATheme { appContext.themeManager.theme }
+    /// The corner rounding configuration for the node.
+    public var corner: VACornerRoundingParameters {
+        didSet {
+            guard oldValue != corner else { return }
+
+            updateCornerParameters()
+        }
+    }
 
     var shouldConfigureTheme = true
-    
-    public override init() {
+
+    public init(corner: VACornerRoundingParameters = .default) {
+        self.corner = corner
+
         super.init()
-        
+
         automaticallyManagesSubnodes = true
         configureLayoutElements()
     }
@@ -22,6 +33,7 @@ open class VADisplayNode: ASDisplayNode {
     open override func didLoad() {
         super.didLoad()
 
+        updateCornerParameters()
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(themeDidChanged(_:)),
@@ -40,6 +52,12 @@ open class VADisplayNode: ASDisplayNode {
             themeDidChanged()
             shouldConfigureTheme = false
         }
+    }
+
+    open override func layout() {
+        super.layout()
+
+        updateCornerProportionalIfNeeded()
     }
 
     /// Method for layout parameters that need to be defined only once

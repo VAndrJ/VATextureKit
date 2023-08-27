@@ -19,12 +19,11 @@ final class MovieCardNode: VADisplayNode {
     private let ratingNode: RatingNode
 
     init(data: DTO) {
-        self.coverImageNode = VANetworkImageNode(data: .init(
+        self.coverImageNode = VANetworkImageNode(
             image: data.image?.getImagePath(width: 500),
             contentMode: .scaleAspectFill,
-            cornerRadius: 16,
-            cornerCurve: .continuous
-        )).flex(shrink: 0.1, grow: 1)
+            corner: .init(radius: .fixed(16), clipsToBounds: true)
+        ).flex(shrink: 0.1, grow: 1)
         self.titleTextNode = VATextNode(
             text: data.title,
             fontStyle: .footnote

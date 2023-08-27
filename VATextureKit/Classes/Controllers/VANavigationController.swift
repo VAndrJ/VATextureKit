@@ -11,6 +11,7 @@ open class VANavigationController: ASDKNavigationController {
     open override var childForStatusBarStyle: UIViewController? { topViewController }
     open override var childForStatusBarHidden: UIViewController? { topViewController }
 
+    /// The currently active theme obtained from the app's context.
     public var theme: VATheme { appContext.themeManager.theme }
     public lazy var transitionAnimator: VATransionAnimator = VADefaultTransionAnimator(controller: self)
 

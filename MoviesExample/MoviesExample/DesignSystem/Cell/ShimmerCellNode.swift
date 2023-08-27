@@ -54,15 +54,15 @@ class ShimmerCellNodeViewModel: CellViewModel {
 }
 
 private final class MovieDetailsShimmerNode: VAShimmerNode {
-    private let tag0Node = VAShimmerTileNode(data: .init(cornerRadius: 8))
+    private let tag0Node = VAShimmerTileNode(corner: .init(radius: .fixed(8)))
         .sized(CGSize(width: 64, height: 34))
-    private let tag1Node = VAShimmerTileNode(data: .init(cornerRadius: 8))
+    private let tag1Node = VAShimmerTileNode(corner: .init(radius: .fixed(8)))
         .sized(CGSize(width: 96, height: 34))
-    private let tag2Node = VAShimmerTileNode(data: .init(cornerRadius: 8))
+    private let tag2Node = VAShimmerTileNode(corner: .init(radius: .fixed(8)))
         .sized(CGSize(width: 48, height: 34))
-    private let description0Node = VAShimmerTileNode(data: .init(cornerRadius: 2))
+    private let description0Node = VAShimmerTileNode(corner: .init(radius: .fixed(2)))
         .sized(CGSize(width: 96, height: 18))
-    private let description1Node = VAShimmerTileNode(data: .init(cornerRadius: 2))
+    private let description1Node = VAShimmerTileNode(corner: .init(radius: .fixed(2)))
         .sized(CGSize(width: 48, height: 18))
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -82,11 +82,11 @@ private final class MovieDetailsShimmerNode: VAShimmerNode {
 }
 
 private final class TrendingListShimmerNode: VAShimmerNode {
-    private let imageNode = VAShimmerTileNode(data: .init(cornerRadius: 16))
+    private let imageNode = VAShimmerTileNode(corner: .init(radius: .fixed(16)))
         .sized(CGSize(width: 126, height: 78))
-    private let titleNode = VAShimmerTileNode(data: .init(cornerRadius: 2))
+    private let titleNode = VAShimmerTileNode(corner: .init(radius: .fixed(2)))
         .sized(CGSize(width: 120, height: 20))
-    private let descriptionNode = VAShimmerTileNode(data: .init(cornerRadius: 2))
+    private let descriptionNode = VAShimmerTileNode(corner: .init(radius: .fixed(2)))
         .sized(CGSize(width: 80, height: 16))
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -103,7 +103,7 @@ private final class TrendingListShimmerNode: VAShimmerNode {
 }
 
 private final class HomeCellShimmerNode: VAShimmerNode {
-    private let sliderNode = VAShimmerTileNode(data: .init(cornerRadius: 22))
+    private let sliderNode = VAShimmerTileNode(corner: .init(radius: .fixed(22)))
         .sized(height: 44)
     private let cardNode = HomeCellShimmerCardPartNode()
 
@@ -119,10 +119,10 @@ private final class HomeCellShimmerNode: VAShimmerNode {
 }
 
 private final class HomeCellShimmerCardPartNode: VADisplayNode {
-    private let cardNode = VAShimmerTileNode(data: .init(cornerRadius: 16))
-    private let ratingNode = VAShimmerTileNode(data: .init(cornerRadius: 2))
+    private let cardNode = VAShimmerTileNode(corner: .init(radius: .fixed(16)))
+    private let ratingNode = VAShimmerTileNode(corner: .init(radius: .fixed(2)))
         .sized(width: 46, height: 18)
-    private let titleNode = VAShimmerTileNode(data: .init(cornerRadius: 2))
+    private let titleNode = VAShimmerTileNode(corner: .init(radius: .fixed(2)))
         .sized(height: 18)
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {

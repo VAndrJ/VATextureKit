@@ -18,13 +18,12 @@ final class SearchMovieCellNode: VACellNode {
             text: viewModel.title,
             fontStyle: .headline
         ).flex(shrink: 0.1)
-        self.imageNode = VANetworkImageNode(data: .init(
+        self.imageNode = VANetworkImageNode(
             image: viewModel.image?.getImagePath(width: 500),
-            contentMode: .scaleAspectFill,
             size: CGSize(width: 32, height: 48),
-            cornerRadius: 4,
-            cornerCurve: .continuous
-        ))
+            contentMode: .scaleAspectFill,
+            corner: .init(radius: .fixed(4), clipsToBounds: true)
+        )
 
         super.init()
     }

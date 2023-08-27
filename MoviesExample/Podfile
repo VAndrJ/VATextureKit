@@ -5,6 +5,7 @@ platform :ios, '13.0'
 def project_pods
   inhibit_all_warnings!
 
+  pod 'VATextureKitSpec', :path => '../'
   pod 'VATextureKit', :path => '../'
   pod 'VATextureKitRx', :path => '../'
   pod 'Swiftional'

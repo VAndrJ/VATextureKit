@@ -7,43 +7,27 @@
 
 import AsyncDisplayKit
 
+/// `VAShimmerTileNode` is a subclass of `VADisplayNode` designed for creating shimmering tile-like UI components with customizable background colors.
 open class VAShimmerTileNode: VADisplayNode {
-    public struct DTO {
-        let backgroundColor: (VATheme) -> UIColor
-        // TODO: - parameters
-        // Rounded on nil
-        let cornerRadius: CGFloat?
+    /// A closure that determines the background color based on the current theme.
+    let backgroundColorGetter: (VATheme) -> UIColor
 
-        public init(
-            backgroundColor: @escaping (VATheme) -> UIColor = { $0.systemGray6 },
-            cornerRadius: CGFloat? = 0.0
-        ) {
-            self.backgroundColor = backgroundColor
-            self.cornerRadius = cornerRadius
-        }
+    /// Initializes a `VAShimmerTileNode` instance with customizable background color and corner rounding.
+    ///
+    /// - Parameters:
+    ///   - backgroundColor: A closure that returns the desired background color based on the current theme.
+    ///   - corner: The corner rounding parameters to apply to the tile.
+    public init(
+        backgroundColor: @escaping (VATheme) -> UIColor = { $0.systemGray6 },
+        corner: VACornerRoundingParameters = .default
+    ) {
+        self.backgroundColorGetter = backgroundColor
+
+        super.init(corner: corner)
     }
 
-    let data: DTO
-
-    public init(data: DTO) {
-        self.data = data
-
-        super.init()
-
-        if let cornerRadius = data.cornerRadius {
-            self.cornerRadius = cornerRadius
-        }
-    }
-
-    public override func layout() {
-        super.layout()
-
-        if data.cornerRadius == nil {
-            self.cornerRadius = min(bounds.width, bounds.height) / 2
-        }
-    }
-
+    /// Configure the tile's background color based on the current theme.
     open override func configureTheme(_ theme: VATheme) {
-        backgroundColor = data.backgroundColor(theme)
+        backgroundColor = backgroundColorGetter(theme)
     }
 }

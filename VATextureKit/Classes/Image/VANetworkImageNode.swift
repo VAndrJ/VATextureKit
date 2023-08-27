@@ -7,40 +7,38 @@
 
 import AsyncDisplayKit
 
-open class VANetworkImageNode: ASNetworkImageNode {
-    public struct DTO {
-        let image: String?
-        let contentMode: UIView.ContentMode?
-        let size: CGSize?
-        let cornerRadius: CGFloat?
-        let cornerRoundingType: ASCornerRoundingType
-        let cornerCurve: VACornerCurve?
+/// `VANetworkImageNode` is a subclass of `ASNetworkImageNode` that adds support for custom corner rounding to the image displayed. It provides the ability to specify a corner rounding configuration and displays either a remote URL image or a locally stored image.
+open class VANetworkImageNode: ASNetworkImageNode, VACornerable {
+    /// The corner rounding configuration for the node.
+    public var corner: VACornerRoundingParameters {
+        get { _corner }
+        set {
+            guard _corner != newValue else { return }
 
-        public init(
-            image: String? = nil,
-            contentMode: UIView.ContentMode? = nil,
-            size: CGSize? = nil,
-            cornerRadius: CGFloat? = nil,
-            cornerRoundingType: ASCornerRoundingType = .defaultSlowCALayer,
-            cornerCurve: VACornerCurve? = nil
-        ) {
-            self.image = image
-            self.contentMode = contentMode
-            self.size = size
-            self.cornerRadius = cornerRadius
-            self.cornerRoundingType = cornerRoundingType
-            self.cornerCurve = cornerCurve
+            _corner = newValue
+            updateCornerParameters()
         }
     }
 
-    private(set) var data: DTO!
+    private var _corner: VACornerRoundingParameters!
 
-    public convenience init(data: DTO) {
-
+    /// Initializes the `VANetworkImageNode` with optional parameters.
+    ///
+    /// - Parameters:
+    ///   - image: The image URL or local image file path.
+    ///   - size: The preferred size of the image node.
+    ///   - contentMode: The content mode for displaying the image.
+    ///   - corner: The corner rounding configuration for the image node.
+    public convenience init(
+        image: String? = nil,
+        size: CGSize? = nil,
+        contentMode: UIView.ContentMode? = nil,
+        corner: VACornerRoundingParameters = .default
+    ) {
         self.init()
 
-        self.data = data
-        if let image = data.image {
+        self._corner = corner
+        if let image {
             switch Self.parseImage(string: image) {
             case let .image(image):
                 self.image = image
@@ -48,27 +46,28 @@ open class VANetworkImageNode: ASNetworkImageNode {
                 self.url = url
             }
         }
-        if let contentMode = data.contentMode {
-            self.contentMode = contentMode
-        }
-        if let size = data.size {
+        if let size {
             self.style.preferredSize = size
         }
-        if let cornerRadius = data.cornerRadius {
-            self.cornerRadius = cornerRadius
-            self.cornerRoundingType = data.cornerRoundingType
+        if let contentMode {
+            self.contentMode = contentMode
         }
     }
 
     open override func didLoad() {
         super.didLoad()
 
-        if let cornerCurve = data?.cornerCurve {
-            self.cornerCurve = cornerCurve
-        }
+        updateCornerParameters()
+    }
+
+    open override func layout() {
+        super.layout()
+
+        updateCornerProportionalIfNeeded()
     }
 }
 
+/// An enumeration defining the possible sources of an image: either a URL or a local UIImage.
 public enum ImageSource: Equatable {
     case url(URL?)
     case image(UIImage?)
@@ -89,6 +88,10 @@ public enum ImageSource: Equatable {
 
 public extension VANetworkImageNode {
 
+    /// Parses the provided string to determine the source of the image.
+    ///
+    /// - Parameter string: The string to parse for image information.
+    /// - Returns: An `ImageSource` enum value indicating whether the string corresponds to a URL or a local image.
     static func parseImage(string: String?) -> ImageSource {
         if let string, !string.isEmpty {
             if string.hasPrefix("http"), let url = URL(string: string) {

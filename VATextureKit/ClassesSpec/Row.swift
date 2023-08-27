@@ -1,6 +1,6 @@
 //
 //  Row.swift
-//  VATextureKit
+//  VATextureKitSpec
 //
 //  Created by Volodymyr Andriienko on 18.02.2023.
 //

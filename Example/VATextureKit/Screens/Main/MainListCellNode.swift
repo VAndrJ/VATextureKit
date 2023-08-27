@@ -11,12 +11,12 @@ import VATextureKit
 final class MainListCellNode: VACellNode {
     private let titleNode: VATextNode
     private let descriptionNode: VATextNode
-    private lazy var chevronImageNode = VAImageNode(data: .init(
+    private lazy var chevronImageNode = VAImageNode(
         image: R.image.chevron_right(),
-        tintColor: { $0.tertiaryLabel },
         size: CGSize(same: 14),
-        contentMode: .center
-    ))
+        contentMode: .center,
+        tintColor: { $0.tertiaryLabel }
+    )
     
     init(viewModel: MainListCellNodeViewModel) {
         self.titleNode = VATextNode(text: viewModel.title)

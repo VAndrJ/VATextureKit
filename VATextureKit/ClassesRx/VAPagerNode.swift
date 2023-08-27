@@ -45,6 +45,7 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
         }
     }
 
+    /// The currently active theme obtained from the app's context.
     public var theme: VATheme { appContext.themeManager.theme }
     public var itemsCountObs: Observable<Int> { itemsCountRelay.asObservable() }
     public var itemsCount: Int { itemsCountRelay.value }

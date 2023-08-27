@@ -51,7 +51,7 @@ final class RowLayoutControllerNode: VASafeAreaDisplayNode {
     )
     private lazy var scrollNode = VAScrollNode(data: .init(contentInset: UIEdgeInsets(vertical: 24)))
 
-    override init() {
+    init() {
         super.init()
 
         scrollNode.layoutSpecBlock = { [weak self] in

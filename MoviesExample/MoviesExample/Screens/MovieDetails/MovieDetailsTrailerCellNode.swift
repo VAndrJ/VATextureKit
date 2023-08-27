@@ -11,10 +11,10 @@ final class MovieDetailsTrailerCellNode: VACellNode {
     private let imageNode: VANetworkImageNode
 
     init(viewModel: MovieDetailsTrailerCellNodeViewModel) {
-        self.imageNode = VANetworkImageNode(data: .init(
+        self.imageNode = VANetworkImageNode(
             image: viewModel.image?.getImagePath(width: 500),
             contentMode: .scaleAspectFill
-        )).withAnimatedTransition(id: "image_\(viewModel.transitionId)", animation: .default(additions: .init(opacity: .skip)))
+        ).withAnimatedTransition(id: "image_\(viewModel.transitionId)", animation: .default(additions: .init(opacity: .skip)))
 
         super.init()
     }

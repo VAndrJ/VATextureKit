@@ -14,7 +14,7 @@ final class StackLayoutControllerNode: VASafeAreaDisplayNode {
     private lazy var stackPositionsLayoutExampleNode = StackPositionsLayoutExampleNode()
     private lazy var scrollNode = VAScrollNode(data: .init())
 
-    override init() {
+    init() {
         super.init()
 
         scrollNode.layoutSpecBlock = { [weak self] in

@@ -17,7 +17,7 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
     private lazy var colorAnimationExampleNode = ColorAnimationExampleNode()
     private lazy var scrollNode = VAScrollNode(data: .init())
 
-    override init() {
+    init() {
         super.init()
 
         scrollNode.layoutSpecBlock = { [weak self] in
@@ -51,9 +51,6 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
 private class CornerRadiusAnimationExampleNode: VADisplayNode {
     private lazy var exampleNode = VADisplayNode()
         .sized(width: 100, height: 40)
-        .apply {
-            $0.cornerCurve = .continuous
-        }
     private lazy var buttonNode = HapticButtonNode(title: "Toggle corner radius")
     private var isToggled = false {
         didSet {
@@ -92,12 +89,12 @@ private class CornerRadiusAnimationExampleNode: VADisplayNode {
 }
 
 private class RotationAnimationExampleNode: VADisplayNode {
-    private lazy var exampleNode = VAImageNode(data: .init(
+    private lazy var exampleNode = VAImageNode(
         image: R.image.chevron_right(),
-        tintColor: { $0.darkText },
         size: CGSize(same: 50),
-        contentMode: .center
-    ))
+        contentMode: .center,
+        tintColor: { $0.darkText }
+    )
     private lazy var buttonNode = HapticButtonNode(title: "Toggle rotation")
     private var isToggled = false {
         didSet {

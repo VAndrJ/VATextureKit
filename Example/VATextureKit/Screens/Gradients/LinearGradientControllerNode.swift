@@ -27,7 +27,7 @@ final class LinearGradientControllerNode: VASafeAreaDisplayNode {
         customGradientNode,
     ].map { $0.ratio(1) }
     
-    override init() {
+    init() {
         super.init()
         
         scrollNode.layoutSpecBlock = { [weak self] in

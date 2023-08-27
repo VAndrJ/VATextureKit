@@ -22,9 +22,11 @@
 ### CocoaPods
 Add the following to your Podfile:
 ```
-pod 'VATextureKit'
+pod 'VATextureKitRx'    // includes additional wrappers.
 or
-pod 'VATextureKitRx' // includes RxSwift and additional wrappers.
+pod 'VATextureKit'      // includes Texture nodes wrappers.
+or
+pod 'VATextureKitSpec'  // includes only Layout Spec wrappers.
 ```
 In the project directory in the Terminal:
 ```

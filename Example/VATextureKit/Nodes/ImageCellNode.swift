@@ -14,16 +14,15 @@ class ImageCellNode: VAScrollRespondingEdgeCellNode {
     
     init(viewModel: ImageCellNodeViewModel) {
         self.viewModel = viewModel
-        self.imageNode = VANetworkImageNode(data: .init(
+        self.imageNode = VANetworkImageNode(
             image: viewModel.image,
             contentMode: .scaleAspectFill
-        ))
+        )
         
         super.init(onScroll: viewModel.onScroll)
 
         if let cornerRadius = viewModel.cornerRadius {
-            self.cornerRadius = cornerRadius
-            cornerCurve = .continuous
+            self.corner = .init(radius: .fixed(cornerRadius), clipsToBounds: true)
         }
     }
     

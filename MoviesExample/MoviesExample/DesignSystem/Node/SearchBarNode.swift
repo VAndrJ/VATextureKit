@@ -16,7 +16,7 @@ final class SearchBarNode: VASizedViewWrapperNode<UISearchBar> {
     convenience init(beginSearchObs: Observable<Void>? = nil) {
         self.init(
             childGetter: { UISearchBar().apply { $0.searchBarStyle = .minimal } },
-            sizing: .viewHeihgt
+            sizing: .viewHeight
         )
 
         bind(beginSearchObs: beginSearchObs)
