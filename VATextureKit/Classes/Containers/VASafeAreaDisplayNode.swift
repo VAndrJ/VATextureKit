@@ -15,20 +15,3 @@ open class VASafeAreaDisplayNode: VADisplayNode {
         automaticallyRelayoutOnSafeAreaChanges = true
     }
 }
-
-// MARK: - Capitalized for beauty when used
-
-extension ASDisplayNode {
-
-    public func SafeArea(_ layoutElement: () -> ASLayoutElement) -> ASLayoutSpec {
-        layoutElement()
-            .padding(.insets(safeAreaInsets))
-    }
-
-    public func SafeArea(edges: VASafeAreaEdge, _ layoutElement: () -> ASLayoutElement) -> ASLayoutSpec {
-        ASInsetLayoutSpec(
-            insets: UIEdgeInsets(paddings: mapToPaddings(edges: edges, in: self)),
-            child: layoutElement()
-        )
-    }
-}
