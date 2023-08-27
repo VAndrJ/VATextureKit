@@ -9,7 +9,7 @@ import AsyncDisplayKit
 
 open class VASafeAreaDisplayNode: VADisplayNode {
     
-    public override init(corner: VACornerRoundingParameters = .init()) {
+    public override init(corner: VACornerRoundingParameters = .default) {
         super.init(corner: corner)
         
         automaticallyRelayoutOnSafeAreaChanges = true

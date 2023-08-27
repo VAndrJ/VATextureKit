@@ -13,10 +13,14 @@ open class VAButtonNode: ASButtonNode, VACornerable {
     public var onTap: (() -> Void)?
     /// The corner rounding configuration for the node.
     public var corner: VACornerRoundingParameters {
-        didSet { updateCornerParameters() }
+        didSet {
+            guard oldValue != corner else { return }
+
+            updateCornerParameters()
+        }
     }
 
-    public init(corner: VACornerRoundingParameters = .init()) {
+    public init(corner: VACornerRoundingParameters = .default) {
         self.corner = corner
 
         super.init()

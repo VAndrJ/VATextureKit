@@ -17,7 +17,11 @@ open class VAImageNode: ASImageNode, VACornerable {
     public var backgroundColorGetter: ((VATheme) -> UIColor)?
     /// The corner rounding configuration for the node.
     public var corner: VACornerRoundingParameters {
-        didSet { updateCornerParameters() }
+        didSet {
+            guard oldValue != corner else { return }
+
+            updateCornerParameters()
+        }
     }
 
     open override var tintColor: UIColor! {
@@ -45,7 +49,7 @@ open class VAImageNode: ASImageNode, VACornerable {
         contentMode: UIView.ContentMode? = nil,
         tintColor: ((VATheme) -> UIColor)? = nil,
         backgroundColor: ((VATheme) -> UIColor)? = nil,
-        corner: VACornerRoundingParameters = .init()
+        corner: VACornerRoundingParameters = .default
     ) {
         self.tintColorGetter = tintColor
         self.backgroundColorGetter = backgroundColor

@@ -12,12 +12,16 @@ open class VADisplayNode: ASDisplayNode, VACornerable {
     public var theme: VATheme { appContext.themeManager.theme }
     /// The corner rounding configuration for the node.
     public var corner: VACornerRoundingParameters {
-        didSet { updateCornerParameters() }
+        didSet {
+            guard oldValue != corner else { return }
+
+            updateCornerParameters()
+        }
     }
 
     var shouldConfigureTheme = true
 
-    public init(corner: VACornerRoundingParameters = .init()) {
+    public init(corner: VACornerRoundingParameters = .default) {
         self.corner = corner
 
         super.init()

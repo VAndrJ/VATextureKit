@@ -13,6 +13,8 @@ open class VANetworkImageNode: ASNetworkImageNode, VACornerable {
     public var corner: VACornerRoundingParameters {
         get { _corner }
         set {
+            guard _corner != newValue else { return }
+
             _corner = newValue
             updateCornerParameters()
         }
@@ -31,7 +33,7 @@ open class VANetworkImageNode: ASNetworkImageNode, VACornerable {
         image: String? = nil,
         size: CGSize? = nil,
         contentMode: UIView.ContentMode? = nil,
-        corner: VACornerRoundingParameters = .init()
+        corner: VACornerRoundingParameters = .default
     ) {
         self.init()
 

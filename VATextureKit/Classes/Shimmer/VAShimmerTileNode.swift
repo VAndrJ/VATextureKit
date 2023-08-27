@@ -19,7 +19,7 @@ open class VAShimmerTileNode: VADisplayNode {
     ///   - corner: The corner rounding parameters to apply to the tile.
     public init(
         backgroundColor: @escaping (VATheme) -> UIColor = { $0.systemGray6 },
-        corner: VACornerRoundingParameters = .init()
+        corner: VACornerRoundingParameters = .default
     ) {
         self.backgroundColorGetter = backgroundColor
 

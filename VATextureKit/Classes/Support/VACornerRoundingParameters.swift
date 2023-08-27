@@ -7,11 +7,21 @@
 
 import AsyncDisplayKit
 
-public struct VACornerRoundingParameters: Equatable {
+public class VACornerRoundingParameters: Equatable {
     public enum CornerRadius: Equatable {
         case fixed(_ radius: CGFloat)
         case proportional(percent: CGFloat)
     }
+
+    public static func == (lhs: VACornerRoundingParameters, rhs: VACornerRoundingParameters) -> Bool {
+        lhs.radius == rhs.radius &&
+        lhs.curve == rhs.curve &&
+        lhs.roundingType == rhs.roundingType &&
+        lhs.maskedCorners == rhs.maskedCorners &&
+        lhs.clipsToBounds == rhs.clipsToBounds
+    }
+
+    public static let `default`: VACornerRoundingParameters = .init()
 
     public let radius: CornerRadius
     public let curve: VACornerCurve

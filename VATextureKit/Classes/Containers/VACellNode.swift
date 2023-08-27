@@ -13,7 +13,11 @@ open class VACellNode: ASCellNode, VACornerable {
     public var theme: VATheme { appContext.themeManager.theme }
     /// The corner rounding configuration for the node.
     public var corner: VACornerRoundingParameters {
-        didSet { updateCornerParameters() }
+        didSet {
+            guard oldValue != corner else { return }
+
+            updateCornerParameters()
+        }
     }
 
     var shouldConfigureTheme = true
@@ -21,7 +25,7 @@ open class VACellNode: ASCellNode, VACornerable {
     /// Initializes a `VACellNode` instance with the specified corner rounding parameters.
     ///
     /// - Parameter corner: The corner rounding parameters to apply to the cell.
-    public init(corner: VACornerRoundingParameters = .init()) {
+    public init(corner: VACornerRoundingParameters = .default) {
         self.corner = corner
 
         super.init()
