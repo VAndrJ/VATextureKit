@@ -479,3 +479,20 @@ public struct VASafeAreaEdge: RawRepresentable, OptionSet {
     public static let horizontal: VASafeAreaEdge = [left, right]
     public static let all: VASafeAreaEdge = [top, left, bottom, right]
 }
+
+// MARK: - Capitalized for beauty when used
+
+public extension ASDisplayNode {
+
+    func SafeArea(_ layoutElement: () -> ASLayoutElement) -> ASLayoutSpec {
+        layoutElement()
+            .padding(.insets(safeAreaInsets))
+    }
+
+    func SafeArea(edges: VASafeAreaEdge, _ layoutElement: () -> ASLayoutElement) -> ASLayoutSpec {
+        ASInsetLayoutSpec(
+            insets: UIEdgeInsets(paddings: mapToPaddings(edges: edges, in: self)),
+            child: layoutElement()
+        )
+    }
+}
