@@ -1,6 +1,6 @@
 //
 //  Stack.swift
-//  VATextureKit
+//  VATextureKitSpec
 //
 //  Created by Volodymyr Andriienko on 17.04.2023.
 //
