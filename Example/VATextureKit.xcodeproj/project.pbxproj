@@ -264,7 +264,7 @@
 		A3AAE1842A78E0F000F6C7C1 /* ASScrollDirectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASScrollDirectionTests.swift; sourceTree = "<group>"; };
 		A3AAE1862A78E19700F6C7C1 /* ASSizeRangeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASSizeRangeTests.swift; sourceTree = "<group>"; };
 		A3AAE1882A78E4AC00F6C7C1 /* ArrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayTests.swift; sourceTree = "<group>"; };
-		A3B2B6DD2A9B25940076F9A8 /* VATextureKitSpec.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = VATextureKitSpec.podspec; path = ../VATextureKitSpec.podspec; sourceTree = "<group>"; };
+		A3B2B6DD2A9B25940076F9A8 /* VATextureKitSpec.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = VATextureKitSpec.podspec; path = ../VATextureKitSpec.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A3B3F37829A0CDAD0090E6E2 /* MainNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNodeController.swift; sourceTree = "<group>"; };
 		A3B3F3AE29A17A5B0090E6E2 /* ExampleNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleNavigationController.swift; sourceTree = "<group>"; };
 		A3B3F3C429A22F860090E6E2 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
