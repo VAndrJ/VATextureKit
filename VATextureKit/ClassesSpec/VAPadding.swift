@@ -39,6 +39,9 @@ public enum VAPadding {
 
 extension UIEdgeInsets {
 
+    /// Creates a `UIEdgeInsets` instance based on an array of padding configurations.
+    ///
+    /// - Parameter paddings: An array of `VAPadding` representing the padding values for each edge of the insets.
     init(paddings: [VAPadding]) {
         var top: CGFloat = 0
         var left: CGFloat = 0
