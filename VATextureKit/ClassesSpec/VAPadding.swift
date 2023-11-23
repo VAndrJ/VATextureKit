@@ -20,6 +20,7 @@ public enum VAPadding {
     case bottomLeft(CGFloat)
     case bottomRight(CGFloat)
     case custom(CGFloat, CGFloat, CGFloat, CGFloat)
+    case custom(top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat)
     case insets(UIEdgeInsets)
 }
 
