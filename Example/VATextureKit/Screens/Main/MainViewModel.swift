@@ -37,6 +37,7 @@ final class MainViewModel {
             MainListCellNodeViewModel(title: "Dynamic height grid list layout", description: "ASCollectionNode based", route: .dynamicHeightGridList),
             MainListCellNodeViewModel(title: "Spec based grid list layout", description: "ASCollectionNode based", route: .specBasedGridList),
             MainListCellNodeViewModel(title: "Cells responding to scroll", description: "ASCollectionNode based", route: .elementsScrollingAnimationList),
+            MainListCellNodeViewModel(title: "Self-sizing list container", description: "For ASCollectionNode", route: .selfSizingList),
         ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Compositing"), items: [
             MainListCellNodeViewModel(title: "Blend mode", description: "Layer", route: .blendMode),

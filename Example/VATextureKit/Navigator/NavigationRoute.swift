@@ -37,4 +37,5 @@ enum NavigationRoute {
     case keyframeLayerAnimations
     case elementsScrollingAnimationList
     case emitter
+    case selfSizingList
 }

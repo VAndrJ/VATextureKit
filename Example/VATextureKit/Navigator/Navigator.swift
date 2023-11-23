@@ -120,6 +120,8 @@ class ScreenFactory {
             return ElementsScrollingAnimationListViewController()
         case .emitter:
             return VAViewController(node: EmitterLayerAnimationControllerNode())
+        case .selfSizingList:
+            return VAViewController(node: SelfSizingListContainerControllerNode())
         }
     }
 }
