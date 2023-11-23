@@ -61,6 +61,7 @@
 		A35639972A7408F500DE531F /* MetalCoreImageKernel.metal in Sources */ = {isa = PBXBuildFile; fileRef = A35639962A7408F500DE531F /* MetalCoreImageKernel.metal */; };
 		A35639992A740A5E00DE531F /* MetalCoreImageFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35639982A740A5E00DE531F /* MetalCoreImageFilters.swift */; };
 		A356399B2A740C0E00DE531F /* FilterControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A356399A2A740C0E00DE531F /* FilterControllerNode.swift */; };
+		A35689CA2B0F8E0400BEB3C4 /* SelfSizingListContainerControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35689C92B0F8E0400BEB3C4 /* SelfSizingListContainerControllerNode.swift */; };
 		A357B7F929FFF290004835C5 /* SlidingTabBarControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357B7F829FFF290004835C5 /* SlidingTabBarControllerNode.swift */; };
 		A357B7FE2A01644C004835C5 /* VASlidingTabBarNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357B7FD2A01644C004835C5 /* VASlidingTabBarNode.swift */; };
 		A357B8002A02483C004835C5 /* VASlidingTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357B7FF2A02483C004835C5 /* VASlidingTab.swift */; };
@@ -74,7 +75,6 @@
 		A359CB872A7F7E22002C60CA /* StackLayoutControllerNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A359CB862A7F7E22002C60CA /* StackLayoutControllerNodeTests.swift */; };
 		A364DA892A1F4973001355AE /* VATextNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A364DA882A1F4973001355AE /* VATextNodeTests.swift */; };
 		A3657F452A90E75F00B0E70B /* VASpacerNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3657F442A90E75F00B0E70B /* VASpacerNodeTests.swift */; };
-		A3657F482A90EC3600B0E70B /* MainNodeControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3657F472A90EC3600B0E70B /* MainNodeControllerTests.swift */; };
 		A36AAF4F2A78D961006168D7 /* ASDimensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36AAF4D2A78D0FD006168D7 /* ASDimensionTests.swift */; };
 		A3820D1529E53BD600993406 /* VARadialGradientNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3820D1429E53BD600993406 /* VARadialGradientNodeTests.swift */; };
 		A3820D2A29E568BE00993406 /* VATextFieldNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3820D2929E568BE00993406 /* VATextFieldNode.swift */; };
@@ -221,6 +221,7 @@
 		A35639962A7408F500DE531F /* MetalCoreImageKernel.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = MetalCoreImageKernel.metal; sourceTree = "<group>"; };
 		A35639982A740A5E00DE531F /* MetalCoreImageFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalCoreImageFilters.swift; sourceTree = "<group>"; };
 		A356399A2A740C0E00DE531F /* FilterControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterControllerNode.swift; sourceTree = "<group>"; };
+		A35689C92B0F8E0400BEB3C4 /* SelfSizingListContainerControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSizingListContainerControllerNode.swift; sourceTree = "<group>"; };
 		A357B7F829FFF290004835C5 /* SlidingTabBarControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidingTabBarControllerNode.swift; sourceTree = "<group>"; };
 		A357B7FD2A01644C004835C5 /* VASlidingTabBarNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASlidingTabBarNode.swift; sourceTree = "<group>"; };
 		A357B7FF2A02483C004835C5 /* VASlidingTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASlidingTab.swift; sourceTree = "<group>"; };
@@ -234,7 +235,6 @@
 		A359CB862A7F7E22002C60CA /* StackLayoutControllerNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackLayoutControllerNodeTests.swift; sourceTree = "<group>"; };
 		A364DA882A1F4973001355AE /* VATextNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VATextNodeTests.swift; sourceTree = "<group>"; };
 		A3657F442A90E75F00B0E70B /* VASpacerNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASpacerNodeTests.swift; sourceTree = "<group>"; };
-		A3657F472A90EC3600B0E70B /* MainNodeControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNodeControllerTests.swift; sourceTree = "<group>"; };
 		A36AAF4D2A78D0FD006168D7 /* ASDimensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASDimensionTests.swift; sourceTree = "<group>"; };
 		A3820D1429E53BD600993406 /* VARadialGradientNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VARadialGradientNodeTests.swift; sourceTree = "<group>"; };
 		A3820D2929E568BE00993406 /* VATextFieldNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VATextFieldNode.swift; sourceTree = "<group>"; };
@@ -264,7 +264,7 @@
 		A3AAE1842A78E0F000F6C7C1 /* ASScrollDirectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASScrollDirectionTests.swift; sourceTree = "<group>"; };
 		A3AAE1862A78E19700F6C7C1 /* ASSizeRangeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASSizeRangeTests.swift; sourceTree = "<group>"; };
 		A3AAE1882A78E4AC00F6C7C1 /* ArrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayTests.swift; sourceTree = "<group>"; };
-		A3B2B6DD2A9B25940076F9A8 /* VATextureKitSpec.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = VATextureKitSpec.podspec; path = ../VATextureKitSpec.podspec; sourceTree = "<group>"; };
+		A3B2B6DD2A9B25940076F9A8 /* VATextureKitSpec.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = VATextureKitSpec.podspec; path = ../VATextureKitSpec.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A3B3F37829A0CDAD0090E6E2 /* MainNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNodeController.swift; sourceTree = "<group>"; };
 		A3B3F3AE29A17A5B0090E6E2 /* ExampleNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleNavigationController.swift; sourceTree = "<group>"; };
 		A3B3F3C429A22F860090E6E2 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -528,6 +528,7 @@
 			children = (
 				A38D5E972A6C14F200A67BC7 /* DynamicHeightGridListControllerNode.swift */,
 				A311B22D2A7668240025B060 /* ElementsScrollingAnimationListViewController.swift */,
+				A35689C92B0F8E0400BEB3C4 /* SelfSizingListContainerControllerNode.swift */,
 				A38D5EAA2A6D63BF00A67BC7 /* SpecBasedGridListControllerNode.swift */,
 				A3F8890129CE314500C67187 /* CollectionListDifferentCells */,
 				A34F8E7329F439E400EF4C42 /* CollectionListHeaderFooter */,
@@ -551,7 +552,6 @@
 			children = (
 				A359CB822A7F7CF3002C60CA /* ColumnLayoutControllerNodeTests.swift */,
 				A39301E72A7FFB85007F8001 /* LinearGradientControllerNodeTests.swift */,
-				A3657F472A90EC3600B0E70B /* MainNodeControllerTests.swift */,
 				A39301E92A7FFC5C007F8001 /* RadialGradientControllerNodeTests.swift */,
 				A359CB842A7F7DD4002C60CA /* RowLayoutControllerNodeTests.swift */,
 				A359CB862A7F7E22002C60CA /* StackLayoutControllerNodeTests.swift */,
@@ -1021,6 +1021,7 @@
 				A33871382A7A5ECA00F9D329 /* VAMultipleConfettiNode.swift in Sources */,
 				A3B3F3CD29A2B4FC0090E6E2 /* MainListCellNode.swift in Sources */,
 				A3A0BEE429ED68B900253AAD /* StackLayoutControllerNode.swift in Sources */,
+				A35689CA2B0F8E0400BEB3C4 /* SelfSizingListContainerControllerNode.swift in Sources */,
 				A35639992A740A5E00DE531F /* MetalCoreImageFilters.swift in Sources */,
 				A3F888DD29CC602900C67187 /* CollectionExampleCellNode.swift in Sources */,
 				A357B7F929FFF290004835C5 /* SlidingTabBarControllerNode.swift in Sources */,
@@ -1129,7 +1130,6 @@
 				A39301EA2A7FFC5C007F8001 /* RadialGradientControllerNodeTests.swift in Sources */,
 				A33871332A7A1B8300F9D329 /* NSObjectTests.swift in Sources */,
 				A35219C22A893F6F00DD17A9 /* ImageNumberCellNodeTests.swift in Sources */,
-				A3657F482A90EC3600B0E70B /* MainNodeControllerTests.swift in Sources */,
 				A3CC537A2A79062A00BC4B3A /* DispatchQueueTests.swift in Sources */,
 				A36AAF4F2A78D961006168D7 /* ASDimensionTests.swift in Sources */,
 				A316144D2A96321A00ED8561 /* VAContainerButtonNodeSnapshotTests.swift in Sources */,

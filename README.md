@@ -1057,6 +1057,20 @@ To wrap any node with Cell Node.
 </details>
 
 
+</details>
+
+
+<details>
+<summary>VASelfSizingListContainerNode</summary>
+
+
+Container for wrapping an ASCollectionNode to enable self-sizing behavior in vertical or horizontal direction.
+Recommended not to use this class with large lists.
+
+
+</details>
+
+
 ## Wrappers
 
 

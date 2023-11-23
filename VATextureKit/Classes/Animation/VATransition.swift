@@ -334,6 +334,7 @@ extension VATransition where Base: Transformable {
     }
 }
 
+/// An enumeration that represents the different edges in a layout.
 public enum VAEdge {
     case top
     case leading
