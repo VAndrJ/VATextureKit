@@ -44,7 +44,7 @@ final class ScreenFactory {
         switch screen {
         case let .movie(entity):
             return ViewController(
-                node: MovieDetailsNode(viewModel: .init(data: .init(
+                node: MovieDetailsNode(viewModel: MovieDetailsViewModel(data: .init(
                     related: .init(listMovieEntity: entity),
                     source: .init(
                         getMovie: remoteDataSource.getMovie(id:),
