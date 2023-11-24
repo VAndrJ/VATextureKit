@@ -25,7 +25,12 @@ open class VADefaultTransionAnimator: VATransionAnimator {
         self.controller = controller
     }
 
-    public func animateTransition(source: UIViewController?, destination: UIViewController?, animated: Bool, isPresenting: Bool) {
+    public func animateTransition(
+        source: UIViewController?,
+        destination: UIViewController?,
+        animated: Bool,
+        isPresenting: Bool
+    ) {
         guard animated, let source, let destination else {
             return
         }
@@ -42,7 +47,9 @@ open class VADefaultTransionAnimator: VATransionAnimator {
             return
         }
 
-        destinationController.node.loadForPreview()
+        if isPresenting {
+            destinationController.node.loadForPreview()
+        }
         destinationController.node.layer.isHidden = true
         // MARK: - Crutch to get proper target layout on push
         mainAsync(after: 0.01) { [self] in
