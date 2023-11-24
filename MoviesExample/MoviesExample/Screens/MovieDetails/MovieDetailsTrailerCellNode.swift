@@ -13,7 +13,8 @@ final class MovieDetailsTrailerCellNode: VACellNode {
     init(viewModel: MovieDetailsTrailerCellNodeViewModel) {
         self.imageNode = VANetworkImageNode(
             image: viewModel.image?.getImagePath(width: 500),
-            contentMode: .scaleAspectFill
+            contentMode: .scaleAspectFill,
+            corner: .init(clipsToBounds: true)
         ).withAnimatedTransition(id: "image_\(viewModel.transitionId)", animation: .default(additions: .init(opacity: .skip)))
 
         super.init()

@@ -31,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             completionHandler(false)
             return
         }
+
         Task {
             let result = await handle(event: ResponderShortcutEvent(shortcut: shortcut))
             completionHandler(result)
