@@ -85,8 +85,8 @@ extension UIEdgeInsets {
                 top = padding
                 right = padding
             case let .bottomLeft(padding):
-                bottom = padding
                 left = padding
+                bottom = padding
             case let .bottomRight(padding):
                 bottom = padding
                 right = padding

@@ -8,27 +8,23 @@
 import VATextureKit
 
 final class MovieCardNode: VADisplayNode {
-    struct DTO {
-        let image: String?
-        let title: String
-        let rating: Double
-    }
-
     private let coverImageNode: VANetworkImageNode
     private let titleTextNode: VATextNode
     private let ratingNode: RatingNode
 
-    init(data: DTO) {
+    init(viewModel: MovieCardNodeViewModel) {
         self.coverImageNode = VANetworkImageNode(
-            image: data.image?.getImagePath(width: 500),
+            image: viewModel.image?.getImagePath(width: 500),
             contentMode: .scaleAspectFill,
             corner: .init(radius: .fixed(16), clipsToBounds: true)
-        ).flex(shrink: 0.1, grow: 1)
+        )
+        .flex(shrink: 0.1, grow: 1)
         self.titleTextNode = VATextNode(
-            text: data.title,
+            text: viewModel.title,
             fontStyle: .footnote
         )
-        self.ratingNode = RatingNode(rating: data.rating)
+        .withAnimatedTransition(id: "title_\(viewModel.transitionId)")
+        self.ratingNode = RatingNode(rating: viewModel.rating)
 
         super.init()
     }
@@ -48,13 +44,16 @@ final class MovieCardNode: VADisplayNode {
     }
 }
 
-extension MovieCardNode.DTO {
+class MovieCardNodeViewModel: CellViewModel {
+    let image: String?
+    let title: String
+    let rating: Double
 
     init(listMovie source: ListMovieEntity) {
-        self.init(
-            image: source.poster,
-            title: source.title,
-            rating: source.rating
-        )
+        self.image = source.poster
+        self.title = source.title
+        self.rating = source.rating
+
+        super.init(identity: "\(source.id)_\(String(describing: type(of: self)))")
     }
 }

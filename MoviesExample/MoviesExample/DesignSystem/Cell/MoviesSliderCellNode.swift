@@ -24,7 +24,7 @@ final class MoviesSliderCellNode: VACellNode {
         )
         self.movieNodes = viewModel.movies.map { movie in
             VAContainerButtonNode(
-                child: MovieCardNode(data: .init(listMovie: movie)),
+                child: MovieCardNode(viewModel: .init(listMovie: movie)),
                 onTap: viewModel.onSelect <<| movie
             )
         }

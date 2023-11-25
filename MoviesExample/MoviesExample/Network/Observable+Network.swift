@@ -67,6 +67,7 @@ extension ObservableConvertibleType where Element == Error {
                 if let errorCode = (error as? URLError)?.code, errorCode == URLError.Code.notConnectedToInternet {
                     return
                 }
+
                 throw error
             }
             .flatMap {

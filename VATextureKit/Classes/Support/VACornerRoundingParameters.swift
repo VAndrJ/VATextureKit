@@ -8,8 +8,24 @@
 import AsyncDisplayKit
 
 public class VACornerRoundingParameters: Equatable {
+    /// Representing different corner radius configurations for a UI component.
     public enum CornerRadius: Equatable {
+        /// A fixed corner radius
+        ///
+        /// Example usage:
+        /// ```swift
+        /// radius: .fixed(10.0)
+        /// ```
+        /// Creates a fixed corner radius of 10.0, same to `cornerRadius = 10.0`
         case fixed(_ radius: CGFloat)
+        /// A proportional corner radius relative to the size of the component.
+        ///
+        /// Example usage:
+        /// ```swift
+        /// radius: .proportional(100.0)
+        /// ```
+        /// Creates a proportional corner radius half of the component's size, same to `min(bounds.width, bounds.height) / 2`.
+        /// Updates when element resized.
         case proportional(percent: CGFloat)
     }
 

@@ -9,12 +9,17 @@ import VATextureKit
 
 final class MovieDetailsTrailerCellNode: VACellNode {
     private let imageNode: VANetworkImageNode
-
+    
     init(viewModel: MovieDetailsTrailerCellNodeViewModel) {
         self.imageNode = VANetworkImageNode(
             image: viewModel.image?.getImagePath(width: 500),
-            contentMode: .scaleAspectFill
-        ).withAnimatedTransition(id: "image_\(viewModel.transitionId)", animation: .default(additions: .init(opacity: .skip)))
+            contentMode: .scaleAspectFill,
+            corner: .init(clipsToBounds: true)
+        )
+        .withAnimatedTransition(
+            id: "image_\(viewModel.transitionId)",
+            animation: .default(additions: .init(opacity: .skip))
+        )
 
         super.init()
     }
