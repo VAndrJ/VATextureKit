@@ -9,6 +9,7 @@ import VATextureKit
 import RxSwift
 import RxCocoa
 
+/// A subclass of `ASCollectionNode` that provides a configurable declarative list.
 open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollectionDelegate, ASCollectionDelegateFlowLayout {
     public struct IndicatorConfiguration {
         let showsVerticalScrollIndicator: Bool
@@ -211,7 +212,8 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
             refreshData: refreshData
         )
     }
-    
+
+    // MARK: - `UICollectionViewFlowLayout` is marked with `@MainActor`. However, it can be created from a background thread without encountering any problems for now.
     public convenience init(data: DTO, layoutData: LayoutDTO, refreshData: RefreshDTO = .init()) {
         switch layoutData.layout {
         case let .default(parameters):
@@ -221,6 +223,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
             flowLayout.minimumInteritemSpacing = parameters.minimumInteritemSpacing
             flowLayout.sectionHeadersPinToVisibleBounds = parameters.sectionHeadersPinToVisibleBounds
             flowLayout.sectionFootersPinToVisibleBounds = parameters.sectionFootersPinToVisibleBounds
+
             self.init(
                 frame: CGRect(origin: .zero, size: CGSize(same: 320)),
                 collectionViewLayout: flowLayout,
