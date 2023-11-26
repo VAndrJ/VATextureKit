@@ -183,7 +183,10 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
     private var isRefreshing = false
     private let delayedConfiguration: Bool
     
-    public convenience init<T>(data: ElementDTO, refreshData: RefreshDTO = .init()) where S == AnimatableSectionModel<String, T> {
+    public convenience init<T>(
+        data: ElementDTO,
+        refreshData: RefreshDTO = .init()
+    ) where S == AnimatableSectionModel<String, T> {
         self.init(
             data: DTO(
                 configuration: data.configuration,
@@ -199,7 +202,10 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         )
     }
 
-    public convenience init<Model, Item>(data: AnimatableSectionDTO<Model, Item>, refreshData: RefreshDTO = .init()) where Item == S.Item, S == AnimatableSectionModel<Model, Item> {
+    public convenience init<Model, Item>(
+        data: AnimatableSectionDTO<Model, Item>,
+        refreshData: RefreshDTO = .init()
+    ) where Item == S.Item, S == AnimatableSectionModel<Model, Item> {
         self.init(
             data: DTO(
                 configuration: data.configuration,

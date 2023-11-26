@@ -15,7 +15,10 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         let showsVerticalScrollIndicator: Bool
         let showsHorizontalScrollIndicator: Bool
 
-        public init(showsVerticalScrollIndicator: Bool = true, showsHorizontalScrollIndicator: Bool = true) {
+        public init(
+            showsVerticalScrollIndicator: Bool = true,
+            showsHorizontalScrollIndicator: Bool = true
+        ) {
             self.showsVerticalScrollIndicator = showsVerticalScrollIndicator
             self.showsHorizontalScrollIndicator = showsHorizontalScrollIndicator
         }
@@ -193,7 +196,11 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
     private var isRefreshing = false
     private var delayedConfiguration: Bool!
     
-    public convenience init<T>(data: ElementDTO, layoutData: LayoutDTO, refreshData: RefreshDTO = .init()) where S == AnimatableSectionModel<String, T> {
+    public convenience init<T>(
+        data: ElementDTO,
+        layoutData: LayoutDTO,
+        refreshData: RefreshDTO = .init()
+    ) where S == AnimatableSectionModel<String, T> {
         self.init(
             data: .init(
                 indicatorConfiguration: data.indicatorConfiguration,
@@ -214,7 +221,11 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
     }
 
     // MARK: - `UICollectionViewFlowLayout` is marked with `@MainActor`. However, it can be created from a background thread without encountering any problems for now.
-    public convenience init(data: DTO, layoutData: LayoutDTO, refreshData: RefreshDTO = .init()) {
+    public convenience init(
+        data: DTO,
+        layoutData: LayoutDTO,
+        refreshData: RefreshDTO = .init()
+    ) {
         switch layoutData.layout {
         case let .default(parameters):
             let flowLayout = UICollectionViewFlowLayout()
