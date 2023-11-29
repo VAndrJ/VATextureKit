@@ -36,6 +36,7 @@ class DisplayNode<ViewModel: EventViewModel>: VASafeAreaDisplayNode, Responder, 
 
     func handle(event: ResponderEvent) async -> Bool {
         logResponder(from: self, event: event)
+
         return await nextEventResponder?.handle(event: event) ?? false
     }
 
@@ -63,6 +64,7 @@ class DisplayNode<ViewModel: EventViewModel>: VASafeAreaDisplayNode, Responder, 
             )
             .map { keyboardHeight, safeAreaBottom, tabBarHeght in
                 let possibleBottomInset = keyboardHeight - max(safeAreaBottom, tabBarHeght)
+                
                 return (max(possibleBottomInset, initialBottomInset), max(possibleBottomInset, initialIndicatorBottomInset))
             }
             .subscribe(onNext: { bottomInset, indicatorBottomInset in

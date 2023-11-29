@@ -37,6 +37,11 @@ final class NavigationController: VANavigationController {
         if viewControllers.isNotEmpty {
             for i in viewControllers.indices.dropLast(1).reversed() where (viewControllers[i] as? NavigationClosable)?.isNotImportant == true {
                 viewControllers.remove(at: i)
+                if i >= 1 && i < viewControllers.count {
+                    (viewControllers[i - 1] as? Responder)?.nextEventResponder = viewControllers[i] as? Responder
+                } else if i < 1 && i < viewControllers.count {
+                    nextEventResponder = viewControllers[i] as? Responder
+                }
             }
         }
     }

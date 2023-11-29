@@ -99,6 +99,7 @@ final class SearchViewModel: EventViewModel {
                     try? await Task.sleep(milliseconds: 300)
                     self?._beginSearchObs.rx.accept(())
                 }
+
                 return true
             }
         default:
