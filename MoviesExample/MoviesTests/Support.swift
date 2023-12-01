@@ -34,6 +34,18 @@ extension ListMovieEntity {
             year: "2020"
         )
     }
+
+    static func dummyMovie(repeatingString: Int = 0, id: Int = 0) -> Self {
+        .init(
+            id: .init(rawValue: id),
+            title: "Title".dummyLong(range: 0...repeatingString),
+            backdropPath: .coverFilePath,
+            posterPath: .coverFilePath,
+            overview: "Overview".dummyLong(range: 0...repeatingString),
+            rating: 80,
+            year: "2023"
+        )
+    }
 }
 
 extension ListActorEntity {

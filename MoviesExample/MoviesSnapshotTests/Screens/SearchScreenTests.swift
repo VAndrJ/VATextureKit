@@ -53,7 +53,6 @@ class SearchScreenTests: XCTestCase {
                 getSearchMovies: { _ in .just(movies) }
             ),
             navigation: .init(
-                closeAllAndPopTo: { _ in },
                 followMovie: { _ in nil }
             )
         )))

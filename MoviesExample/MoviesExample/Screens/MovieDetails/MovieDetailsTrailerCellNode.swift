@@ -56,7 +56,7 @@ final class MovieDetailsTrailerCellNodeViewModel: CellViewModel {
     init(listMovie source: ListMovieEntity, dataObs: Observable<MovieEntity?>?) {
         self.image = source.backdropPath
         self._transitionId = "\(source.id)"
-        self.dataObs = dataObs?.compactMap(\.?.backdropPath)
+        self.dataObs = dataObs?.compactMap { $0 }.map(\.backdropPath)
 
         super.init(identity: "\(source.id)_\(String(describing: type(of: self)))")
     }

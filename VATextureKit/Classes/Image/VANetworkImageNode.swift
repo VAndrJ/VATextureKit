@@ -52,18 +52,26 @@ open class VANetworkImageNode: ASNetworkImageNode, VACornerable {
             switch Self.parseImage(string: image) {
             case let .image(image):
                 if self.image != image {
-                    self.url = nil
+                    if self.url != nil {
+                        self.url = nil
+                    }
                     self.image = image
                 }
             case let .url(url):
                 if self.url != url {
-                    self.image = nil
+                    if self.image != nil {
+                        self.image = nil
+                    }
                     self.url = url
                 }
             }
         } else {
-            self.image = nil
-            self.url = nil
+            if self.image != nil {
+                self.image = nil
+            }
+            if self.url != nil {
+                self.url = nil
+            }
         }
     }
 
