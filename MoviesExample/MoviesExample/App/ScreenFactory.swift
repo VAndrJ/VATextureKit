@@ -18,6 +18,7 @@ final class ScreenFactory {
         )
     )
 
+    // swiftlint:disable function_body_length
     func assembleScreen(identity: NavigationIdentity, navigator: Navigator) -> (UIViewController & Responder)? {
         switch identity {
         case let identity as MainTabsNavigationIdentity:
@@ -89,9 +90,17 @@ final class ScreenFactory {
             let controller = ViewController(node: ActorDetailsNode(viewModel: ActorDetailsViewModel(actor: identity.actor)))
             controller.navigationIdentity = identity
             return controller
+        case let identity as HomeNavigationIdentity:
+            let controller = ViewController(node: HomeNode(viewModel: HomeViewModel(data: .init(
+                source: .init(),
+                navigation: .init()
+            ))))
+            controller.navigationIdentity = identity
+            return controller
         default:
             assertionFailure("Not implemented")
             return nil
         }
     }
+    // swiftlint:enable function_body_length
 }

@@ -31,6 +31,7 @@ final class CompositionRoot {
             navigator.navigate(
                 destination: MainTabsNavigationIdentity(tabsIdentity: [
                     SearchNavigationIdentity(),
+                    HomeNavigationIdentity(),
                 ]),
                 strategy: .replaceWindowRoot
             )

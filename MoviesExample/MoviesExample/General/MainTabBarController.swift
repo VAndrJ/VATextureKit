@@ -9,18 +9,18 @@ import VATextureKit
 
 final class MainTabBarController: VATabBarController, Responder {
     enum Tab {
-        case main
+        case home
         case search
 
         var title: String {
             switch self {
-            case .main: return "Home"
+            case .home: return "Home"
             case .search: return "Search"
             }
         }
         var image: UIImage? {
             switch self {
-            case .main: return UIImage(systemName: "house")
+            case .home: return UIImage(systemName: "house")
             case .search: return UIImage(systemName: "magnifyingglass")
             }
         }
@@ -37,6 +37,8 @@ final class MainTabBarController: VATabBarController, Responder {
                 switch identity {
                 case _ as SearchNavigationIdentity:
                     return (.search, controller)
+                case _ as HomeNavigationIdentity:
+                    return (.home, controller)
                 case let identity as NavNavigationIdentity:
                     return getTabs(identity: identity.childIdentity)
                 default:
