@@ -29,9 +29,9 @@ final class CompositionRoot {
 
         func launch() {
             navigator.performNavigation(
-                destination: .init(identity: MainTabsNavigationIdentity(tabsIdentity: [
+                destination: MainTabsNavigationIdentity(tabsIdentity: [
                     SearchNavigationIdentity(),
-                ])),
+                ]),
                 strategy: .replaceWindowRoot
             )
         }
@@ -67,18 +67,24 @@ final class CompositionRoot {
         }
         // swiftlint:disable indentation_width
         guard let queryItems = components.queryItems,
-              queryItems.count == 1,
-              let item = queryItems.first,
-              item.name == "id",
-              let id = item.value.flatMap({ Int($0).flatMap { Id<Movie>(rawValue: $0) } }) else {
+              let item = queryItems.first(where: { $0.name == "id" }),
+              let id = item.value.flatMap({ Int($0).flatMap { Id<Movie>(rawValue: $0) } }),
+              let title = queryItems.first(where: { $0.name == "title" })?.value,
+              let year = queryItems.first(where: { $0.name == "year" })?.value
+        else {
             return false
         }
         // swiftlint:enable indentation_width
         navigator.performNavigation(
-            destination: NavigationDestination(
-                identity: MovieDetailsNavigationIdentity(id: id)
-            ),
-            strategy: .pushOrPopToExisting
+            destination: MovieDetailsNavigationIdentity(movie: ListMovieEntity(
+                id: id,
+                title: title,
+                overview: "",
+                rating: 0,
+                year: year
+            )),
+            strategy: .pushOrPopToExisting,
+            event: ResponderOpenedFromURLEvent()
         )
 
         return true

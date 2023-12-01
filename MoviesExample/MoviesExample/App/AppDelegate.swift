@@ -23,10 +23,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             application: application,
             launchOptions: launchOptions
         )
+
         return true
     }
 
-    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+    func application(
+        _ application: UIApplication,
+        performActionFor shortcutItem: UIApplicationShortcutItem,
+        completionHandler: @escaping (Bool) -> Void
+    ) {
         guard let shortcut = Shortcut(rawValue: shortcutItem.type) else {
             completionHandler(false)
             return

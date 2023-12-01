@@ -7,11 +7,11 @@
 
 import VATextureKit
 
-struct ListMovieEntity {
+struct ListMovieEntity: Equatable {
     let id: Id<Movie>
     let title: String
-    let backdropPath: String?
-    let posterPath: String?
+    var backdropPath: String?
+    var posterPath: String?
     let overview: String
     let rating: Double
     let year: String

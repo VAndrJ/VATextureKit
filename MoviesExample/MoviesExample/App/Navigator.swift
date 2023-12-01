@@ -23,13 +23,16 @@ final class Navigator {
     }
 
     func navigate(
-        destination: NavigationDestination,
+        destination: NavigationIdentity,
         strategy: NavigationStrategy,
+        event: ResponderEvent? = nil,
         animated: Bool = true
     ) -> Responder? {
+        let eventController: (UIViewController & Responder)?
+        var navigatorEvent: ResponderEvent?
         switch strategy {
         case .replaceWindowRoot:
-            guard let controller = screenFactory.assembleScreen(identity: destination.identity, navigator: self) else {
+            guard let controller = screenFactory.assembleScreen(identity: destination, navigator: self) else {
                 return nil
             }
 
@@ -39,9 +42,9 @@ final class Navigator {
             } else {
                 window?.set(rootViewController: controller)
             }
-            return controller
+            eventController = controller
         case .push:
-            guard let controller = screenFactory.assembleScreen(identity: destination.identity, navigator: self) else {
+            guard let controller = screenFactory.assembleScreen(identity: destination, navigator: self) else {
                 return nil
             }
 
@@ -49,14 +52,14 @@ final class Navigator {
                 controller,
                 animated: animated
             )
-            return controller
+            eventController = controller
         case .pushOrPopToExisting:
-            if let controller = window?.rootViewController?.findController(identity: destination.identity) {
+            if let controller = window?.rootViewController?.findController(identity: destination) {
                 controller.navigationController?.popToViewController(controller, animated: animated)
-
-                return nil
+                eventController = controller as? (UIViewController & Responder)
+                navigatorEvent = ResponderPoppedToExistingEvent()
             } else {
-                guard let controller = screenFactory.assembleScreen(identity: destination.identity, navigator: self) else {
+                guard let controller = screenFactory.assembleScreen(identity: destination, navigator: self) else {
                     return nil
                 }
 
@@ -64,57 +67,37 @@ final class Navigator {
                     controller,
                     animated: animated
                 )
-                return controller
+                eventController = controller
             }
         }
+        if let event {
+            Task {
+                await eventController?.handle(event: event)
+            }
+        }
+        if let navigatorEvent {
+            Task {
+                await eventController?.handle(event: navigatorEvent)
+            }
+        }
+
+        return eventController
     }
 
     func performNavigation(
-        destination: NavigationDestination,
+        destination: NavigationIdentity,
         strategy: NavigationStrategy,
+        event: ResponderEvent? = nil,
         animated: Bool = true
     ) {
-        let responder = navigate(destination: destination, strategy: strategy, animated: animated)
+        let responder = navigate(
+            destination: destination,
+            strategy: strategy,
+            event: event,
+            animated: animated
+        )
         (window?.topViewController as? Responder)?.nextEventResponder = responder
     }
-
-//    func performNavigation(to route: NavigationRoute, animated: Bool = true) {
-//        let responder = navigate(to: route, animated: animated)
-//        (window?.topViewController as? Responder)?.nextEventResponder = responder
-//    }
-
-//    func navigate(to route: NavigationRoute, animated: Bool = true) -> Responder? {
-//        switch route {
-//        case let .present(route):
-//            return nil //present(route: route)
-//        case let .movie(movie):
-//            return navigate(
-//                destination: .init(
-//                    identity: MovieDetailsNavigationIdentity(id: movie.id, details: movie)
-//                ),
-//                strategy: .pushOrPopToExisting,
-//                animated: animated
-//            )
-//        case let .actor(actor):
-//            let controller = screenFactory.create(screen: route.screen, navigator: self)
-////            navigationController.present(controller, animated: true)
-//            return controller
-//        default:
-//            let controller = screenFactory.create(screen: route.screen, navigator: self)
-////            navigationController.pushViewController(
-////                controller,
-////                animated: animated
-////            )
-//            return controller
-//        }
-//    }
-
-//    func closeAllAndPop(to controller: UIViewController?) {
-//        navigationController.presentedViewController?.dismiss(animated: false)
-//        if let controller {
-//            navigationController.popToViewController(controller, animated: false)
-//        }
-//    }
 }
 
 extension Navigator: Responder {
@@ -125,30 +108,19 @@ extension Navigator: Responder {
 
     func handle(event: ResponderEvent) async -> Bool {
         logResponder(from: self, event: event)
-        return await nextEventResponder?.handle(event: event) ?? false
-    }
-}
-
-enum NavigationRoute {
-    case main
-    case search
-    case actor(ListActorEntity)
-    case movie(ListMovieEntity)
-    indirect case present(NavigationRoute)
-
-    var screen: Screen {
-        switch self {
-        case .search:
-            return .search
-        case .main:
-            return .main
-        case let .actor(entity):
-            return .actor(entity)
-        case let .movie(entity):
-            return .movie(entity)
-        case .present:
-            assertionFailure("Handle in Navigator")
-            return .main
+        switch event {
+        case let event as ResponderShortcutEvent:
+            switch event.shortcut {
+            case .search:
+                performNavigation(
+                    destination: SearchNavigationIdentity(),
+                    strategy: .pushOrPopToExisting,
+                    event: event
+                )
+            }
+            return true
+        default:
+            return await nextEventResponder?.handle(event: event) ?? false
         }
     }
 }
@@ -221,15 +193,14 @@ struct SearchNavigationIdentity: NavigationIdentity {
 }
 
 struct MovieDetailsNavigationIdentity: NavigationIdentity {
-    let id: Id<Movie>
-    var details: ListMovieEntity?
+    var movie: ListMovieEntity
 
     func isEqual(to other: NavigationIdentity?) -> Bool {
         guard let other = other as? MovieDetailsNavigationIdentity else {
             return false
         }
 
-        return self.id == other.id
+        return self.movie == other.movie
     }
 }
 
@@ -259,10 +230,6 @@ extension UIViewController {
 public protocol NavigationIdentity {
 
     func isEqual(to other: NavigationIdentity?) -> Bool
-}
-
-public struct NavigationDestination {
-    public let identity: NavigationIdentity
 }
 
 public extension UIWindow {
@@ -324,9 +291,7 @@ extension UIWindow {
         } else {
             newRootViewController.setNeedsStatusBarAppearanceUpdate()
         }
-        if #available(iOS 13.0, *) {
-            // In iOS 13 we don't want to remove the transition view as it'll create a blank screen
-        } else {
+        if #unavailable(iOS 13.0) {
             if let transitionViewClass = NSClassFromString("UITransitionView") {
                 for subview in subviews where subview.isKind(of: transitionViewClass) {
                     subview.removeFromSuperview()

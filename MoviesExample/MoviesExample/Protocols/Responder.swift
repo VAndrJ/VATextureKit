@@ -9,6 +9,10 @@ import Foundation
 
 struct ResponderDismissEvent: ResponderEvent {}
 
+struct ResponderOpenedFromURLEvent: ResponderEvent {}
+
+struct ResponderPoppedToExistingEvent: ResponderEvent {}
+
 protocol ResponderEvent {}
 
 protocol Responder: AnyObject {

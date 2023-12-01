@@ -8,17 +8,6 @@
 import VATextureKit
 @_exported import Swiftional
 
-enum Screen {
-    case main
-    case search
-    case movie(ListMovieEntity)
-    case actor(ListActorEntity)
-}
-
-enum Flow {
-    case tabs
-}
-
 final class ScreenFactory {
     let network = Network(networkLogger: DebugNetworkLogger())
     private(set) lazy var remoteDataSource = RemoteDataSource(
@@ -52,10 +41,9 @@ final class ScreenFactory {
                         getSearchMovies: remoteDataSource.getSearchMovies
                     ),
                     navigation: .init(
-//                        closeAllAndPopTo: { [weak navigator] in navigator?.closeAllAndPop(to: $0) },
                         followMovie: { [weak navigator] in
                             navigator?.navigate(
-                                destination: .init(identity: MovieDetailsNavigationIdentity(id: $0.id, details: $0)),
+                                destination: MovieDetailsNavigationIdentity(movie: $0),
                                 strategy: .pushOrPopToExisting
                             )
                         }
@@ -69,8 +57,7 @@ final class ScreenFactory {
             let controller = ViewController(
                 node: MovieDetailsNode(viewModel: MovieDetailsViewModel(data: .init(
                     related: .init(
-                        id: identity.id,
-                        listMovieEntity: identity.details
+                        listMovieEntity: identity.movie
                     ),
                     source: .init(
                         getMovie: remoteDataSource.getMovie(id:),
@@ -80,7 +67,7 @@ final class ScreenFactory {
                     navigation: .init(
                         followMovie: { [weak navigator] in
                             navigator?.navigate(
-                                destination: .init(identity: MovieDetailsNavigationIdentity(id: $0.id, details: $0)),
+                                destination: MovieDetailsNavigationIdentity(movie: $0),
                                 strategy: .pushOrPopToExisting
                             )
                         },
@@ -92,7 +79,7 @@ final class ScreenFactory {
                 ))),
                 shouldHideNavigationBar: false,
                 isNotImportant: true,
-                title: identity.details?.title
+                title: identity.movie.title
             ).withAnimatedTransitionEnabled()
             controller.navigationIdentity = identity
             return controller

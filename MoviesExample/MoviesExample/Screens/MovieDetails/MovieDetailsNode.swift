@@ -20,6 +20,12 @@ final class MovieDetailsNode: DisplayNode<MovieDetailsViewModel> {
         )
     )
 
+    override init(viewModel: MovieDetailsViewModel) {
+        super.init(viewModel: viewModel)
+
+        bind()
+    }
+
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
             listNode
@@ -28,5 +34,14 @@ final class MovieDetailsNode: DisplayNode<MovieDetailsViewModel> {
 
     override func configureTheme(_ theme: VATheme) {
         backgroundColor = theme.systemBackground
+    }
+
+    private func bind() {
+        viewModel.scrollToTopObs
+            .subscribe(onNext: listNode ?> { $0.scrollToTop() })
+            .disposed(by: bag)
+        viewModel.titleObs
+            .subscribe(onNext: self ?> { $0.closestViewController?.title = $1 })
+            .disposed(by: bag)
     }
 }
