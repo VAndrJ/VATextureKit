@@ -44,20 +44,43 @@ final class MovieDetailsTitleCellNodeViewModel: CellViewModel {
     let title: String
     let year: String
     let rating: Double
+    
+    override var transitionId: String { _transitionId }
+
+    private let _transitionId: String
 
     init(movie source: MovieEntity) {
         self.title = source.title
         self.year = source.year
         self.rating = source.rating
+        self._transitionId = "\(source.id)"
 
         super.init(identity: "\(source.id)_\(String(describing: type(of: self)))")
+    }
+
+    convenience init(id: Id<Movie>, listMovie source: ListMovieEntity?) {
+        if let source {
+            self.init(listMovie: source)
+        } else {
+            self.init(id: id)
+        }
     }
 
     init(listMovie source: ListMovieEntity) {
         self.title = source.title
         self.year = source.year
         self.rating = source.rating
+        self._transitionId = "\(source.id)"
 
         super.init(identity: "\(source.id)_\(String(describing: type(of: self)))")
+    }
+
+    init(id: Id<Movie>) {
+        self.title = ""
+        self.year = ""
+        self.rating = 0
+        self._transitionId = "\(id)"
+
+        super.init(identity: UUID().uuidString)
     }
 }

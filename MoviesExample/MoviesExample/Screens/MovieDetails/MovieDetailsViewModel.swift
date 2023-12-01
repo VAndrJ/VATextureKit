@@ -19,7 +19,8 @@ struct OpenListActorDetailsEvent: Event {
 final class MovieDetailsViewModel: EventViewModel {
     struct DTO {
         struct Related {
-            let listMovieEntity: ListMovieEntity
+            let id: Id<Movie>
+            let listMovieEntity: ListMovieEntity?
         }
 
         struct DataSource {
@@ -30,6 +31,7 @@ final class MovieDetailsViewModel: EventViewModel {
 
         struct Navigation {
             let followMovie: (ListMovieEntity) -> Responder?
+            let followActor: (ListActorEntity) -> Responder?
         }
 
         let related: Related
@@ -52,8 +54,8 @@ final class MovieDetailsViewModel: EventViewModel {
             )
             .map { $0 + $1 + $2 }
             .startWith([
-                MovieDetailsTitleCellNodeViewModel(listMovie: data.related.listMovieEntity),
-                MovieDetailsTrailerCellNodeViewModel(listMovie: data.related.listMovieEntity),
+                MovieDetailsTitleCellNodeViewModel(id: data.related.id, listMovie: data.related.listMovieEntity),
+                MovieDetailsTrailerCellNodeViewModel(id: data.related.id, listMovie: data.related.listMovieEntity),
                 ShimmerCellNodeViewModel(kind: .movieDetails),
             ])
     }
@@ -73,10 +75,12 @@ final class MovieDetailsViewModel: EventViewModel {
 
     override func run(_ event: Event) {
         switch event {
+        case let event as OpenListActorDetailsEvent:
+            nextEventResponder = data.navigation.followActor(event.actor)
         case _ as DidSelectEvent:
             break
         case _ as LoadDataEvent:
-            let id = data.related.listMovieEntity.id
+            let id = data.related.id
             Observable
                 .combineLatest(
                     data.source.getMovie(id),

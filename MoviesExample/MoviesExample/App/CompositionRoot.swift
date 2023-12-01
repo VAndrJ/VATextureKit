@@ -22,6 +22,7 @@ final class CompositionRoot {
     ) {
         window = VAWindow(standardLightTheme: .moviesTheme)
         self.navigator = Navigator(
+            window: window,
             screenFactory: ScreenFactory(),
             navigationController: NavigationController(),
             flow: .tabs
@@ -46,6 +47,37 @@ final class CompositionRoot {
 
         shortcutService.addShortcuts()
         configureCache()
+    }
+    
+    func application(
+        _ app: UIApplication,
+        open url: URL,
+        options: [UIApplication.OpenURLOptionsKey: Any] = [:]
+    ) -> Bool {
+        print("source application = \(options[.sourceApplication] ?? "Unknown")")
+
+        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+            print("Invalid URL or album path missing")
+            return false
+        }
+        guard components.path == "movie" else {
+            return false
+        }
+        // swiftlint:disable indentation_width
+        guard let queryItems = components.queryItems,
+              queryItems.count == 1,
+              let item = queryItems.first,
+              item.name == "id",
+              let id = item.value.flatMap({ Int($0).flatMap { Id<Movie>(rawValue: $0) } }) else {
+            return false
+        }
+        // swiftlint:enable indentation_width
+        navigator.performNavigation(destination: NavigationDestination(
+            identity: MovieDetailsNavigationIdentity(id: id),
+            strategy: .pushOrPopToExisting
+        ))
+
+        return true
     }
 
     private func configureCache() {
