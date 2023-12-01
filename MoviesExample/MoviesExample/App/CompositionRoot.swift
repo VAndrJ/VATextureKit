@@ -23,15 +23,17 @@ final class CompositionRoot {
         window = VAWindow(standardLightTheme: .moviesTheme)
         self.navigator = Navigator(
             window: window,
-            screenFactory: ScreenFactory(),
-            navigationController: NavigationController(),
-            flow: .tabs
+            screenFactory: ScreenFactory()
         )
         self.window = window
 
         func launch() {
-            window?.rootViewController = navigator.navigationController
-            window?.makeKeyAndVisible()
+            navigator.performNavigation(
+                destination: .init(identity: MainTabsNavigationIdentity(tabsIdentity: [
+                    SearchNavigationIdentity(),
+                ])),
+                strategy: .replaceWindowRoot
+            )
         }
 
         #if DEBUG && targetEnvironment(simulator)
@@ -72,10 +74,12 @@ final class CompositionRoot {
             return false
         }
         // swiftlint:enable indentation_width
-        navigator.performNavigation(destination: NavigationDestination(
-            identity: MovieDetailsNavigationIdentity(id: id),
+        navigator.performNavigation(
+            destination: NavigationDestination(
+                identity: MovieDetailsNavigationIdentity(id: id)
+            ),
             strategy: .pushOrPopToExisting
-        ))
+        )
 
         return true
     }

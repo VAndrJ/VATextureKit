@@ -21,7 +21,7 @@ final class SearchViewModel: EventViewModel {
         }
 
         struct Navigation {
-            let closeAllAndPopTo: (_ controller: UIViewController?) -> Void
+//            let closeAllAndPopTo: (_ controller: UIViewController?) -> Void
             let followMovie: (ListMovieEntity) -> Responder?
         }
 
@@ -94,7 +94,7 @@ final class SearchViewModel: EventViewModel {
         case let event as ResponderShortcutEvent:
             switch event.shortcut {
             case .search:
-                data.navigation.closeAllAndPopTo(controller)
+//                data.navigation.closeAllAndPopTo(controller)
                 Task.detached { [weak self] in
                     try? await Task.sleep(milliseconds: 300)
                     self?._beginSearchObs.rx.accept(())

@@ -10,6 +10,15 @@ import VATextureKit
 final class NavigationController: VANavigationController {
     var onDismissed: (() -> Void)?
 
+    convenience init(controller: UIViewController) {
+        self.init()
+
+        setViewControllers(
+            [controller],
+            animated: false
+        )
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 

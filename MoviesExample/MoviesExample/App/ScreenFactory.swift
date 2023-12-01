@@ -29,25 +29,42 @@ final class ScreenFactory {
         )
     )
 
-    func create(flow: Flow, navigator: Navigator) -> [UIViewController & Responder] {
-        switch flow {
-        case .tabs:
-            let navC = NavigationController()
-            navC.setViewControllers(
-                [create(screen: .search, navigator: navigator)],
-                animated: false
-            )
-            return [
-                MainTabBarController(tabs: [
-                    // (.main, navigator.getChildNavigator(route: .main).navigationController), // WIP
-                    (.search, navC),
-                ]),
-            ]
-        }
-    }
-
     func assembleScreen(identity: NavigationIdentity, navigator: Navigator) -> (UIViewController & Responder)? {
         switch identity {
+        case let identity as MainTabsNavigationIdentity:
+            let controller = MainTabBarController(controllers: identity.tabsIdentity
+                .compactMap {
+                    assembleScreen(identity: $0, navigator: navigator)
+                }
+                .map {
+                    let controller = NavigationController(controller: $0)
+                    controller.navigationIdentity = NavNavigationIdentity(childIdentity: $0.navigationIdentity)
+                    return controller
+                }
+            )
+            controller.navigationIdentity = identity
+            return controller
+        case let identity as SearchNavigationIdentity:
+            let controller = ViewController(
+                node: SearchNode(viewModel: SearchViewModel(data: .init(
+                    source: .init(
+                        getTrendingMovies: remoteDataSource.getTrendingMovies,
+                        getSearchMovies: remoteDataSource.getSearchMovies
+                    ),
+                    navigation: .init(
+//                        closeAllAndPopTo: { [weak navigator] in navigator?.closeAllAndPop(to: $0) },
+                        followMovie: { [weak navigator] in
+                            navigator?.navigate(
+                                destination: .init(identity: MovieDetailsNavigationIdentity(id: $0.id, details: $0)),
+                                strategy: .pushOrPopToExisting
+                            )
+                        }
+                    )
+                ))),
+                title: R.string.localizable.search_screen_title()
+            )
+            controller.navigationIdentity = identity
+            return controller
         case let identity as MovieDetailsNavigationIdentity:
             let controller = ViewController(
                 node: MovieDetailsNode(viewModel: MovieDetailsViewModel(data: .init(
@@ -61,8 +78,16 @@ final class ScreenFactory {
                         getMovieActors: remoteDataSource.getMovieActors(id:)
                     ),
                     navigation: .init(
-                        followMovie: { [weak navigator] in navigator?.navigate(to: .movie($0)) },
-                        followActor: { [weak navigator] in navigator?.navigate(to: .actor($0)) }
+                        followMovie: { [weak navigator] in
+                            navigator?.navigate(
+                                destination: .init(identity: MovieDetailsNavigationIdentity(id: $0.id, details: $0)),
+                                strategy: .pushOrPopToExisting
+                            )
+                        },
+                        followActor: { [weak navigator] _ in
+                            assertionFailure("Not implemented")
+                            return nil
+                        }
                     )
                 ))),
                 shouldHideNavigationBar: false,
@@ -72,58 +97,8 @@ final class ScreenFactory {
             controller.navigationIdentity = identity
             return controller
         default:
+            assertionFailure("Not implemented")
             return nil
-        }
-    }
-
-    func create(screen: Screen, navigator: Navigator) -> UIViewController & Responder {
-        switch screen {
-        case let .actor(entity):
-            let controller = ViewController(node: TestNode(viewModel: ArtistViewModel()))
-            return controller
-        case let .movie(entity):
-            return ViewController(
-                node: MovieDetailsNode(viewModel: MovieDetailsViewModel(data: .init(
-                    related: .init(
-                        id: entity.id,
-                        listMovieEntity: entity
-                    ),
-                    source: .init(
-                        getMovie: remoteDataSource.getMovie(id:),
-                        getRecommendations: remoteDataSource.getMovieRecommendations(id:),
-                        getMovieActors: remoteDataSource.getMovieActors(id:)
-                    ),
-                    navigation: .init(
-                        followMovie: { [weak navigator] in navigator?.navigate(to: .movie($0)) },
-                        followActor: { [weak navigator] in navigator?.navigate(to: .actor($0)) }
-                    )
-                ))),
-                shouldHideNavigationBar: false,
-                isNotImportant: true,
-                title: entity.title
-            ).withAnimatedTransitionEnabled()
-        case .main:
-            return ViewController(
-                node: MainNode(viewModel: MainViewModel(data: .init(
-                    source: .init(),
-                    navigation: .init()
-                ))),
-                title: R.string.localizable.home_screen_title()
-            )
-        case .search:
-            return ViewController(
-                node: SearchNode(viewModel: SearchViewModel(data: .init(
-                    source: .init(
-                        getTrendingMovies: remoteDataSource.getTrendingMovies,
-                        getSearchMovies: remoteDataSource.getSearchMovies
-                    ),
-                    navigation: .init(
-                        closeAllAndPopTo: { [weak navigator] in navigator?.closeAllAndPop(to: $0) },
-                        followMovie: { [weak navigator] in navigator?.navigate(to: .movie($0)) }
-                    )
-                ))),
-                title: R.string.localizable.search_screen_title()
-            )
         }
     }
 }
