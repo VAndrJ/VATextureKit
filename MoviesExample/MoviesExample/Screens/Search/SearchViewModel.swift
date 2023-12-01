@@ -87,6 +87,24 @@ final class SearchViewModel: EventViewModel {
         }
     }
 
+    private func bind() {
+        searchQueryRelay
+            .compactMap { $0 }
+            .throttle(.seconds(1), latest: true, scheduler: MainScheduler.asyncInstance)
+            .flatMapLatest { [data] query in
+                if query.count > 1 {
+                    return data.source.getSearchMovies(query)
+                        .catchAndReturn([])
+                } else {
+                    return .just([])
+                }
+            }
+            .bind(to: _searchDataObs.rx)
+            .disposed(by: bag)
+    }
+
+    // MARK: - Responder
+
     override func handle(event: ResponderEvent) async -> Bool {
         logResponder(from: self, event: event)
         switch event {
@@ -103,26 +121,12 @@ final class SearchViewModel: EventViewModel {
                 }
 
                 return true
+            case .home:
+                return await nextEventResponder?.handle(event: event) ?? false
             }
         default:
             return await nextEventResponder?.handle(event: event) ?? false
         }
-    }
-
-    private func bind() {
-        searchQueryRelay
-            .compactMap { $0 }
-            .throttle(.seconds(1), latest: true, scheduler: MainScheduler.asyncInstance)
-            .flatMapLatest { [data] query in
-                if query.count > 1 {
-                    return data.source.getSearchMovies(query)
-                        .catchAndReturn([])
-                } else {
-                    return .just([])
-                }
-            }
-            .bind(to: _searchDataObs.rx)
-            .disposed(by: bag)
     }
 }
 

@@ -17,6 +17,7 @@ final class ShortcutsService {
         UIApplication.shared.shortcutItems?.removeAll()
         UIApplication.shared.shortcutItems = [
             UIApplicationShortcutItem(type: .search),
+            UIApplicationShortcutItem(type: .home),
         ]
     }
 }
@@ -36,20 +37,24 @@ private extension UIApplicationShortcutItem {
 
 enum Shortcut: String {
     case search = "com.vandrj.MoviesExample.search"
+    case home = "com.vandrj.MoviesExample.home"
 
     var title: String {
         switch self {
         case .search: return R.string.localizable.shortcut_search_title()
+        case .home: return R.string.localizable.shortcut_home_title()
         }
     }
     var subtitle: String? {
         switch self {
         case .search: return R.string.localizable.shortcut_search_description()
+        case .home: return R.string.localizable.shortcut_home_description()
         }
     }
     var icon: UIApplicationShortcutIcon {
         switch self {
         case .search: return UIApplicationShortcutIcon(type: .search)
+        case .home: return UIApplicationShortcutIcon(type: .home)
         }
     }
 }

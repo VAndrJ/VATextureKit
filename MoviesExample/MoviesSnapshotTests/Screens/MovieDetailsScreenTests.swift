@@ -26,12 +26,13 @@ class MovieDetailsScreenTests: XCTestCase {
         MovieDetailsNode(viewModel: MovieDetailsViewModel(data: .init(
             related: .init(listMovieEntity: .dummy()),
             source: .init(
-                getMovie: { _ in isEmpty ? .empty() : .just(.dummy()) },
-                getRecommendations: { _ in isEmpty ? .empty() : .just([.dummy()]) },
-                getMovieActors: { _ in isEmpty ? .empty() : .just([.dummy()]) }
+                getMovie: { _ in isEmpty ? .never() : .just(.dummy()) },
+                getRecommendations: { _ in isEmpty ? .never() : .just([.dummy()]) },
+                getMovieActors: { _ in isEmpty ? .never() : .just([.dummy()]) }
             ),
             navigation: .init(
-                followMovie: { _ in nil }
+                followMovie: { _ in nil },
+                followActor: { _ in nil }
             )
         )))
     }

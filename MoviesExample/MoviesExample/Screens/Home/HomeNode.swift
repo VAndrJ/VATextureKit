@@ -1,5 +1,5 @@
 //
-//  MainNode.swift
+//  HomeNode.swift
 //  MoviesExample
 //
 //  Created by VAndrJ on 12.04.2023.
@@ -8,17 +8,21 @@
 import VATextureKitRx
 import Swiftional
 
-final class MainNode: DisplayNode<MainViewModel> {
+final class HomeNode: DisplayNode<HomeViewModel> {
     private lazy var backgoundNode = VAImageNode(image: R.image.main_background())
     private lazy var listNode = VAListNode(
         data: .init(
             listDataObs: viewModel.listDataObs,
             cellGetter: mapToCell(viewModel:),
-            headerGetter: { MainSectionHeaderNode(viewModel: $0.model) }
+            headerGetter: { HomeSectionHeaderNode(viewModel: $0.model) }
         ),
         layoutData: .init(
             sizing: .entireWidthFreeHeight()
         )
+    )
+    private lazy var titleTextNode = VATextNode(
+        text: R.string.localizable.wip(),
+        fontStyle: .largeTitle
     )
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -26,6 +30,7 @@ final class MainNode: DisplayNode<MainViewModel> {
             listNode
         }
         .background(backgoundNode)
+        .overlay(titleTextNode.centered())
     }
 
     override func configureTheme(_ theme: VATheme) {

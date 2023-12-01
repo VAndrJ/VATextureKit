@@ -46,6 +46,17 @@ struct NavNavigationIdentity: NavigationIdentity {
     }
 }
 
+struct HomeNavigationIdentity: NavigationIdentity {
+
+    func isEqual(to other: NavigationIdentity?) -> Bool {
+        guard other is HomeNavigationIdentity else {
+            return false
+        }
+
+        return true
+    }
+}
+
 struct SearchNavigationIdentity: NavigationIdentity {
 
     func isEqual(to other: NavigationIdentity?) -> Bool {

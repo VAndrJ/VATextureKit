@@ -121,6 +121,8 @@ final class MovieDetailsViewModel: EventViewModel {
         }
     }
 
+    // MARK: - Responder
+
     override func handle(event: ResponderEvent) async -> Bool {
         logResponder(from: self, event: event)
         switch event {

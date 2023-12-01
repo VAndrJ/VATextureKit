@@ -8,10 +8,14 @@
 import Foundation
 
 class ViewModel: NSObject, Responder {
+
+    // MARK: - Responder
+
     weak var nextEventResponder: Responder?
 
     func handle(event: ResponderEvent) async -> Bool {
         logResponder(from: self, event: event)
+        
         return await nextEventResponder?.handle(event: event) ?? false
     }
 }

@@ -11,7 +11,7 @@ import XCTest
 class MovieDetailsTrailerCellNodeTests: XCTestCase {
 
     func test_node() {
-        let sut = MovieDetailsTrailerCellNode(viewModel: .init(image: .coverFilePath, transitionId: nil))
+        let sut = MovieDetailsTrailerCellNode(viewModel: .init(listMovie: .dummy(), dataObs: nil))
 
         assertNodeSnapshot(matching: sut, size: .freeHeightFixedWidth(48))
     }

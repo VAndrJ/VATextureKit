@@ -7,7 +7,7 @@
 
 import VATextureKitRx
 
-final class Navigator {
+final class Navigator: Responder {
     let screenFactory: ScreenFactory
 
     private(set) weak var window: UIWindow?
@@ -20,13 +20,38 @@ final class Navigator {
         self.screenFactory = screenFactory
     }
 
+    // swiftlint:disable function_body_length
     @discardableResult
     func navigate(
         destination: NavigationIdentity,
+        source: NavigationIdentity? = nil,
         strategy: NavigationStrategy,
         event: ResponderEvent? = nil,
         animated: Bool = true
     ) -> Responder? {
+        func selectTabIfNeeded(
+            source: NavigationIdentity?,
+            controller: UIViewController?,
+            completion: ((UIViewController?) -> Void)? = nil
+        ) {
+            if let source, let tabBarController = controller?.findTabBarController() {
+                for index in (tabBarController.viewControllers ?? []).indices {
+                    if let sourceController = tabBarController.viewControllers?[index].findController(identity: source) {
+                        if tabBarController.selectedIndex != index {
+                            tabBarController.selectedIndex = index
+                            mainAsync(after: 0.4) {
+                                completion?(sourceController)
+                            }
+                        } else {
+                            completion?(sourceController)
+                        }
+                        return
+                    }
+                }
+            }
+            completion?(nil)
+        }
+
         let eventController: (UIViewController & Responder)?
         var navigatorEvent: ResponderEvent?
         switch strategy {
@@ -60,6 +85,7 @@ final class Navigator {
             } else {
                 return navigate(
                     destination: destination,
+                    source: source,
                     strategy: .present,
                     event: event,
                     animated: animated
@@ -70,9 +96,19 @@ final class Navigator {
                 return nil
             }
 
-            window?.topViewController?.navigationController?.pushViewController(
-                controller,
-                animated: animated
+            selectTabIfNeeded(
+                source: source,
+                controller: window?.topViewController,
+                completion: { [self] sourceController in
+                    if let presentedViewController = sourceController?.presentedViewController {
+                        presentedViewController.dismiss(animated: animated)
+                    }
+                    let topViewController = window?.topViewController
+                    (topViewController as? UINavigationController ?? topViewController?.navigationController)?.pushViewController(
+                        controller,
+                        animated: animated
+                    )
+                }
             )
             eventController = controller
         case .pushOrPopToExisting:
@@ -81,11 +117,13 @@ final class Navigator {
                 if let presentedViewController = controller.presentedViewController {
                     presentedViewController.dismiss(animated: animated)
                 }
+                selectTabIfNeeded(source: source, controller: controller)
                 eventController = controller as? (UIViewController & Responder)
                 navigatorEvent = ResponderPoppedToExistingEvent()
             } else {
                 return navigate(
                     destination: destination,
+                    source: source,
                     strategy: .push,
                     event: event,
                     animated: animated
@@ -105,11 +143,10 @@ final class Navigator {
 
         return eventController
     }
-}
+    // swiftlint:enable function_body_length
 
-// MARK: - Responder
+    // MARK: - Responder
 
-extension Navigator: Responder {
     var nextEventResponder: Responder? {
         get { nil }
         set {} // swiftlint:disable:this unused_setter_value
@@ -123,6 +160,14 @@ extension Navigator: Responder {
             case .search:
                 navigate(
                     destination: SearchNavigationIdentity(),
+                    source: SearchNavigationIdentity(),
+                    strategy: .pushOrPopToExisting,
+                    event: event
+                )
+            case .home:
+                navigate(
+                    destination: HomeNavigationIdentity(),
+                    source: HomeNavigationIdentity(),
                     strategy: .pushOrPopToExisting,
                     event: event
                 )
