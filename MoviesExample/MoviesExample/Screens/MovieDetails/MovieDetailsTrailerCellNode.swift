@@ -5,12 +5,15 @@
 //  Created by VAndrJ on 13.04.2023.
 //
 
-import VATextureKit
+import VATextureKitRx
 
 final class MovieDetailsTrailerCellNode: VACellNode {
     private let imageNode: VANetworkImageNode
+    private let viewModel: MovieDetailsTrailerCellNodeViewModel
+    private let bag = DisposeBag()
     
     init(viewModel: MovieDetailsTrailerCellNodeViewModel) {
+        self.viewModel = viewModel
         self.imageNode = VANetworkImageNode(
             image: viewModel.image?.getImagePath(width: 500),
             contentMode: .scaleAspectFill,
@@ -22,6 +25,8 @@ final class MovieDetailsTrailerCellNode: VACellNode {
         )
 
         super.init()
+
+        bind()
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -32,25 +37,26 @@ final class MovieDetailsTrailerCellNode: VACellNode {
     override func configureTheme(_ theme: VATheme) {
         imageNode.backgroundColor = theme.systemGray6
     }
+
+    private func bind() {
+        viewModel.dataObs?
+            .subscribe(onNext: imageNode ?> { $0.update(image: $1?.getImagePath(width: 500)) })
+            .disposed(by: bag)
+    }
 }
 
 final class MovieDetailsTrailerCellNodeViewModel: CellViewModel {
     let image: String?
+    let dataObs: Observable<String?>?
 
-    init(image: String?, transitionId: String?) {
-        self.image = image
+    override var transitionId: String { _transitionId }
 
-        super.init(identity: image ?? UUID().uuidString)
-    }
+    private let _transitionId: String
 
-    init(movie source: MovieEntity) {
+    init(listMovie source: ListMovieEntity, dataObs: Observable<MovieEntity?>?) {
         self.image = source.backdropPath
-
-        super.init(identity: "\(source.id)_\(String(describing: type(of: self)))")
-    }
-
-    init(listMovie source: ListMovieEntity) {
-        self.image = source.backdropPath
+        self._transitionId = "\(source.id)"
+        self.dataObs = dataObs?.compactMap(\.?.backdropPath)
 
         super.init(identity: "\(source.id)_\(String(describing: type(of: self)))")
     }

@@ -30,6 +30,7 @@ final class MovieDetailsViewModel: EventViewModel {
 
         struct Navigation {
             let followMovie: (ListMovieEntity) -> Responder?
+            let followActor: (ListActorEntity) -> Responder?
         }
 
         let related: Related
@@ -37,8 +38,15 @@ final class MovieDetailsViewModel: EventViewModel {
         let navigation: Navigation
     }
 
-    var listDataObs: Observable<[CellViewModel]> {
-        Observable
+    var titleObs: Observable<String> { movieRelay.compactMap(\.?.title) }
+    @Obs.Relay()
+    var scrollToTopObs: Observable<Void>
+    var listDataObs: Observable<[AnimatableSectionModel<String, CellViewModel>]> {
+        func getDetailsSection(items: [CellViewModel]? = nil) -> AnimatableSectionModel<String, CellViewModel> {
+            AnimatableSectionModel(model: "Details", items: items ?? [ShimmerCellNodeViewModel(kind: .movieDetails)])
+        }
+
+        return Observable
             .combineLatest(
                 movieRelay
                     .compactMap { $0 }
@@ -50,15 +58,30 @@ final class MovieDetailsViewModel: EventViewModel {
                     .skip(1)
                     .map { mapRecommendationMovies($0, viewModel: self) }
             )
-            .map { $0 + $1 + $2 }
+            .map { [headerSection] in
+                [
+                    headerSection,
+                    getDetailsSection(items: $0 + $1 + $2),
+                ]
+            }
             .startWith([
-                MovieDetailsTitleCellNodeViewModel(listMovie: data.related.listMovieEntity),
-                MovieDetailsTrailerCellNodeViewModel(listMovie: data.related.listMovieEntity),
-                ShimmerCellNodeViewModel(kind: .movieDetails),
+                headerSection,
+                getDetailsSection(),
             ])
     }
+
     let data: DTO
 
+    private lazy var headerSection = AnimatableSectionModel(model: "Header", items: [
+        MovieDetailsTitleCellNodeViewModel(
+            listMovie: data.related.listMovieEntity,
+            dataObs: movieRelay.asObservable()
+        ),
+        MovieDetailsTrailerCellNodeViewModel(
+            listMovie: data.related.listMovieEntity,
+            dataObs: movieRelay.asObservable()
+        ),
+    ])
     private let movieRelay = BehaviorRelay<MovieEntity?>(value: nil)
     private let actorsRelay = BehaviorRelay<[ListActorEntity]>(value: [])
     private let moviesRecommendationsRelay = BehaviorRelay<[ListMovieEntity]>(value: [])
@@ -73,6 +96,8 @@ final class MovieDetailsViewModel: EventViewModel {
 
     override func run(_ event: Event) {
         switch event {
+        case let event as OpenListActorDetailsEvent:
+            nextEventResponder = data.navigation.followActor(event.actor)
         case _ as DidSelectEvent:
             break
         case _ as LoadDataEvent:
@@ -95,12 +120,22 @@ final class MovieDetailsViewModel: EventViewModel {
             super.run(event)
         }
     }
+
+    override func handle(event: ResponderEvent) async -> Bool {
+        logResponder(from: self, event: event)
+        switch event {
+        case _ as ResponderOpenedFromURLEvent, _ as ResponderPoppedToExistingEvent:
+            _scrollToTopObs.rx.accept(())
+
+            return true
+        default:
+            return await nextEventResponder?.handle(event: event) ?? false
+        }
+    }
 }
 
 func mapMovieDetails(_ data: MovieEntity, viewModel: EventViewModel) -> [CellViewModel] {
     [
-        MovieDetailsTitleCellNodeViewModel(movie: data),
-        MovieDetailsTrailerCellNodeViewModel(movie: data),
         GenresTagsCellNodeViewModel(genres: data.genres),
         MovieDetailsDescriptionCellNodeViewModel(description: data.overview),
     ]

@@ -31,6 +31,24 @@ final class MainTabBarController: VATabBarController, Responder {
     private let tabs: [Tab]
     private let tabControllers: [Tab: UIViewController & Responder]
 
+    convenience init(controllers: [UIViewController & Responder]) {
+        let tabs: [(tab: Tab, controller: UIViewController & Responder)] = controllers.compactMap { controller in
+            func getTabs(identity: NavigationIdentity?) -> (tab: Tab, controller: UIViewController & Responder)? {
+                switch identity {
+                case _ as SearchNavigationIdentity:
+                    return (.search, controller)
+                case let identity as NavNavigationIdentity:
+                    return getTabs(identity: identity.childIdentity)
+                default:
+                    assertionFailure("Not implemented")
+                    return nil
+                }
+            }
+            return getTabs(identity: controller.navigationIdentity)
+        }
+        self.init(tabs: tabs)
+    }
+
     init(tabs: [(tab: Tab, controller: UIViewController & Responder)]) {
         self.tabs = tabs.map(\.tab)
         self.tabControllers = Dictionary(tabs, uniquingKeysWith: { $1 })

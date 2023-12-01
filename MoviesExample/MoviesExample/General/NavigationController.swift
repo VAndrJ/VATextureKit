@@ -10,6 +10,15 @@ import VATextureKit
 final class NavigationController: VANavigationController {
     var onDismissed: (() -> Void)?
 
+    convenience init(controller: UIViewController) {
+        self.init()
+
+        setViewControllers(
+            [controller],
+            animated: false
+        )
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -37,6 +46,11 @@ final class NavigationController: VANavigationController {
         if viewControllers.isNotEmpty {
             for i in viewControllers.indices.dropLast(1).reversed() where (viewControllers[i] as? NavigationClosable)?.isNotImportant == true {
                 viewControllers.remove(at: i)
+                if i >= 1 && i < viewControllers.count {
+                    (viewControllers[i - 1] as? Responder)?.nextEventResponder = viewControllers[i] as? Responder
+                } else if i < 1 && i < viewControllers.count {
+                    nextEventResponder = viewControllers[i] as? Responder
+                }
             }
         }
     }

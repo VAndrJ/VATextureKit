@@ -22,15 +22,18 @@ final class CompositionRoot {
     ) {
         window = VAWindow(standardLightTheme: .moviesTheme)
         self.navigator = Navigator(
-            screenFactory: ScreenFactory(),
-            navigationController: NavigationController(),
-            flow: .tabs
+            window: window,
+            screenFactory: ScreenFactory()
         )
         self.window = window
 
         func launch() {
-            window?.rootViewController = navigator.navigationController
-            window?.makeKeyAndVisible()
+            navigator.navigate(
+                destination: MainTabsNavigationIdentity(tabsIdentity: [
+                    SearchNavigationIdentity(),
+                ]),
+                strategy: .replaceWindowRoot
+            )
         }
 
         #if DEBUG && targetEnvironment(simulator)
@@ -46,6 +49,45 @@ final class CompositionRoot {
 
         shortcutService.addShortcuts()
         configureCache()
+    }
+    
+    func application(
+        _ app: UIApplication,
+        open url: URL,
+        options: [UIApplication.OpenURLOptionsKey: Any] = [:]
+    ) -> Bool {
+        print("source application = \(options[.sourceApplication] ?? "Unknown")")
+
+        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+            print("Invalid URL or album path missing")
+            return false
+        }
+        guard components.path == "movie" else {
+            return false
+        }
+        // swiftlint:disable indentation_width
+        guard let queryItems = components.queryItems,
+              let item = queryItems.first(where: { $0.name == "id" }),
+              let id = item.value.flatMap({ Int($0).flatMap { Id<Movie>(rawValue: $0) } }),
+              let title = queryItems.first(where: { $0.name == "title" })?.value,
+              let year = queryItems.first(where: { $0.name == "year" })?.value
+        else {
+            return false
+        }
+        // swiftlint:enable indentation_width
+        navigator.navigate(
+            destination: MovieDetailsNavigationIdentity(movie: ListMovieEntity(
+                id: id,
+                title: title,
+                overview: "",
+                rating: 0,
+                year: year
+            )),
+            strategy: .pushOrPopToExisting,
+            event: ResponderOpenedFromURLEvent()
+        )
+
+        return true
     }
 
     private func configureCache() {

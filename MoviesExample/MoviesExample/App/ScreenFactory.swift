@@ -8,16 +8,6 @@
 import VATextureKit
 @_exported import Swiftional
 
-enum Screen {
-    case main
-    case search
-    case movie(ListMovieEntity)
-}
-
-enum Flow {
-    case tabs
-}
-
 final class ScreenFactory {
     let network = Network(networkLogger: DebugNetworkLogger())
     private(set) lazy var remoteDataSource = RemoteDataSource(
@@ -28,59 +18,80 @@ final class ScreenFactory {
         )
     )
 
-    func create(flow: Flow, navigator: Navigator) -> [UIViewController & Responder] {
-        switch flow {
-        case .tabs:
-            return [
-                MainTabBarController(tabs: [
-                    // (.main, navigator.getChildNavigator(route: .main).navigationController), // WIP
-                    (.search, navigator.getChildNavigator(route: .search).navigationController),
-                ]),
-            ]
-        }
-    }
-
-    func create(screen: Screen, navigator: Navigator) -> UIViewController & Responder {
-        switch screen {
-        case let .movie(entity):
-            return ViewController(
-                node: MovieDetailsNode(viewModel: MovieDetailsViewModel(data: .init(
-                    related: .init(listMovieEntity: entity),
-                    source: .init(
-                        getMovie: remoteDataSource.getMovie(id:),
-                        getRecommendations: remoteDataSource.getMovieRecommendations(id:),
-                        getMovieActors: remoteDataSource.getMovieActors(id:)
-                    ),
-                    navigation: .init(
-                        followMovie: { [weak navigator] in navigator?.navigate(to: .movie($0)) }
-                    )
-                ))),
-                shouldHideNavigationBar: false,
-                isNotImportant: true,
-                title: entity.title
-            ).withAnimatedTransitionEnabled()
-        case .main:
-            return ViewController(
-                node: MainNode(viewModel: MainViewModel(data: .init(
-                    source: .init(),
-                    navigation: .init()
-                ))),
-                title: R.string.localizable.home_screen_title()
+    func assembleScreen(identity: NavigationIdentity, navigator: Navigator) -> (UIViewController & Responder)? {
+        switch identity {
+        case let identity as MainTabsNavigationIdentity:
+            let controller = MainTabBarController(controllers: identity.tabsIdentity
+                .compactMap {
+                    assembleScreen(identity: $0, navigator: navigator)
+                }
+                .map {
+                    let controller = NavigationController(controller: $0)
+                    controller.navigationIdentity = NavNavigationIdentity(childIdentity: $0.navigationIdentity)
+                    return controller
+                }
             )
-        case .search:
-            return ViewController(
+            controller.navigationIdentity = identity
+            return controller
+        case let identity as SearchNavigationIdentity:
+            let controller = ViewController(
                 node: SearchNode(viewModel: SearchViewModel(data: .init(
                     source: .init(
                         getTrendingMovies: remoteDataSource.getTrendingMovies,
                         getSearchMovies: remoteDataSource.getSearchMovies
                     ),
                     navigation: .init(
-                        closeAllAndPopTo: { [weak navigator] in navigator?.closeAllAndPop(to: $0) },
-                        followMovie: { [weak navigator] in navigator?.navigate(to: .movie($0)) }
+                        followMovie: { [weak navigator] in
+                            navigator?.navigate(
+                                destination: MovieDetailsNavigationIdentity(movie: $0),
+                                strategy: .pushOrPopToExisting
+                            )
+                        }
                     )
                 ))),
                 title: R.string.localizable.search_screen_title()
             )
+            controller.navigationIdentity = identity
+            return controller
+        case let identity as MovieDetailsNavigationIdentity:
+            let controller = ViewController(
+                node: MovieDetailsNode(viewModel: MovieDetailsViewModel(data: .init(
+                    related: .init(
+                        listMovieEntity: identity.movie
+                    ),
+                    source: .init(
+                        getMovie: remoteDataSource.getMovie(id:),
+                        getRecommendations: remoteDataSource.getMovieRecommendations(id:),
+                        getMovieActors: remoteDataSource.getMovieActors(id:)
+                    ),
+                    navigation: .init(
+                        followMovie: { [weak navigator] in
+                            navigator?.navigate(
+                                destination: MovieDetailsNavigationIdentity(movie: $0),
+                                strategy: .pushOrPopToExisting
+                            )
+                        },
+                        followActor: { [weak navigator] in
+                            navigator?.navigate(
+                                destination: ActorDetailsNavigationIdentity(actor: $0),
+                                strategy: .present
+                            )
+                        }
+                    )
+                ))),
+                shouldHideNavigationBar: false,
+                isNotImportant: true,
+                title: identity.movie.title
+            ).withAnimatedTransitionEnabled()
+            controller.navigationIdentity = identity
+            return controller
+        case let identity as ActorDetailsNavigationIdentity:
+            let controller = ViewController(node: ActorDetailsNode(viewModel: ActorDetailsViewModel(actor: identity.actor)))
+            controller.navigationIdentity = identity
+            return controller
+        default:
+            assertionFailure("Not implemented")
+            return nil
         }
     }
 }

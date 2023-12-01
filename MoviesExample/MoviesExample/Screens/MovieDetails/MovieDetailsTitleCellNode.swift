@@ -5,14 +5,21 @@
 //  Created by VAndrJ on 13.04.2023.
 //
 
-import VATextureKit
+import VATextureKitRx
 
 final class MovieDetailsTitleCellNode: VACellNode {
+    private static let minimumRatingToDisplay = 60.0
+
     private let titleTextNode: VATextNode
     private let yearTextNode: VATextNode
-    private let ratingNode: RatingNode
+    private var ratingNode: RatingNode? {
+        didSet { setNeedsLayout() }
+    }
+    private let viewModel: MovieDetailsTitleCellNodeViewModel
+    private let bag = DisposeBag()
 
     init(viewModel: MovieDetailsTitleCellNodeViewModel) {
+        self.viewModel = viewModel
         self.titleTextNode = VATextNode(text: viewModel.title, fontStyle: .headline)
             .withAnimatedTransition(id: "title_\(viewModel.transitionId)")
             .flex(shrink: 0.1)
@@ -21,9 +28,13 @@ final class MovieDetailsTitleCellNode: VACellNode {
             maximumNumberOfLines: 1,
             colorGetter: { $0.secondaryLabel }
         ).flex(shrink: 0.1)
-        self.ratingNode = RatingNode(rating: viewModel.rating)
+        if viewModel.rating >= Self.minimumRatingToDisplay {
+            self.ratingNode = RatingNode(rating: viewModel.rating)
+        }
 
         super.init()
+
+        bind()
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -33,10 +44,26 @@ final class MovieDetailsTitleCellNode: VACellNode {
             }
             Row(spacing: 4, main: .spaceBetween, cross: .center) {
                 yearTextNode
-                ratingNode
+                if let ratingNode {
+                    ratingNode
+                }
             }
         }
         .padding(.top(16), .horizontal(16), .bottom(8))
+    }
+
+    private func bind() {
+        viewModel.dataObs?
+            .subscribe(onNext: self ?> {
+                $0.titleTextNode.text = $1.title
+                $0.yearTextNode.text = $1.year
+                if $1.rating >= Self.minimumRatingToDisplay {
+                    self.ratingNode = RatingNode(rating: $1.rating)
+                } else {
+                    self.ratingNode = nil
+                }
+            })
+            .disposed(by: bag)
     }
 }
 
@@ -44,19 +71,20 @@ final class MovieDetailsTitleCellNodeViewModel: CellViewModel {
     let title: String
     let year: String
     let rating: Double
+    let dataObs: Observable<(title: String, year: String, rating: Double)>?
+    
+    override var transitionId: String { _transitionId }
 
-    init(movie source: MovieEntity) {
+    private let _transitionId: String
+
+    init(listMovie source: ListMovieEntity, dataObs: Observable<MovieEntity?>?) {
         self.title = source.title
         self.year = source.year
         self.rating = source.rating
-
-        super.init(identity: "\(source.id)_\(String(describing: type(of: self)))")
-    }
-
-    init(listMovie source: ListMovieEntity) {
-        self.title = source.title
-        self.year = source.year
-        self.rating = source.rating
+        self._transitionId = "\(source.id)"
+        self.dataObs = dataObs?.compactMap { $0 }.map {
+            ($0.title, $0.year, $0.rating)
+        }
 
         super.init(identity: "\(source.id)_\(String(describing: type(of: self)))")
     }

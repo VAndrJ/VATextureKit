@@ -9,12 +9,16 @@ import VATextureKit
 import RxSwift
 import RxCocoa
 
+/// A subclass of `ASCollectionNode` that provides a configurable declarative list.
 open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollectionDelegate, ASCollectionDelegateFlowLayout {
     public struct IndicatorConfiguration {
         let showsVerticalScrollIndicator: Bool
         let showsHorizontalScrollIndicator: Bool
 
-        public init(showsVerticalScrollIndicator: Bool = true, showsHorizontalScrollIndicator: Bool = true) {
+        public init(
+            showsVerticalScrollIndicator: Bool = true,
+            showsHorizontalScrollIndicator: Bool = true
+        ) {
             self.showsVerticalScrollIndicator = showsVerticalScrollIndicator
             self.showsHorizontalScrollIndicator = showsHorizontalScrollIndicator
         }
@@ -192,7 +196,11 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
     private var isRefreshing = false
     private var delayedConfiguration: Bool!
     
-    public convenience init<T>(data: ElementDTO, layoutData: LayoutDTO, refreshData: RefreshDTO = .init()) where S == AnimatableSectionModel<String, T> {
+    public convenience init<T>(
+        data: ElementDTO,
+        layoutData: LayoutDTO,
+        refreshData: RefreshDTO = .init()
+    ) where S == AnimatableSectionModel<String, T> {
         self.init(
             data: .init(
                 indicatorConfiguration: data.indicatorConfiguration,
@@ -211,8 +219,13 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
             refreshData: refreshData
         )
     }
-    
-    public convenience init(data: DTO, layoutData: LayoutDTO, refreshData: RefreshDTO = .init()) {
+
+    // MARK: - `UICollectionViewFlowLayout` is marked with `@MainActor`. However, it can be created from a background thread without encountering any problems for now.
+    public convenience init(
+        data: DTO,
+        layoutData: LayoutDTO,
+        refreshData: RefreshDTO = .init()
+    ) {
         switch layoutData.layout {
         case let .default(parameters):
             let flowLayout = UICollectionViewFlowLayout()
@@ -221,6 +234,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
             flowLayout.minimumInteritemSpacing = parameters.minimumInteritemSpacing
             flowLayout.sectionHeadersPinToVisibleBounds = parameters.sectionHeadersPinToVisibleBounds
             flowLayout.sectionFootersPinToVisibleBounds = parameters.sectionFootersPinToVisibleBounds
+
             self.init(
                 frame: CGRect(origin: .zero, size: CGSize(same: 320)),
                 collectionViewLayout: flowLayout,
@@ -253,6 +267,10 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
             configure()
             bind()
         }
+    }
+
+    open func scrollToTop() {
+        view.scrollRectToVisible(CGRect(size: CGSize(same: 1)), animated: true)
     }
 
     open func configureRefresh() {
@@ -310,7 +328,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
                 self?.batchContext?.completeBatchFetching(true)
                 self?.batchContext = nil
                 if shouldScrollToTopOnDataChange {
-                    self?.view.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+                    self?.scrollToTop()
                 }
             })
             .bind(to: rx.items(dataSource: dataSource))
