@@ -28,7 +28,7 @@ final class CompositionRoot {
         self.window = window
 
         func launch() {
-            navigator.performNavigation(
+            navigator.navigate(
                 destination: MainTabsNavigationIdentity(tabsIdentity: [
                     SearchNavigationIdentity(),
                 ]),
@@ -75,7 +75,7 @@ final class CompositionRoot {
             return false
         }
         // swiftlint:enable indentation_width
-        navigator.performNavigation(
+        navigator.navigate(
             destination: MovieDetailsNavigationIdentity(movie: ListMovieEntity(
                 id: id,
                 title: title,

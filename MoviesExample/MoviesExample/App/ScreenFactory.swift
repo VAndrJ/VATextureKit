@@ -71,9 +71,11 @@ final class ScreenFactory {
                                 strategy: .pushOrPopToExisting
                             )
                         },
-                        followActor: { [weak navigator] _ in
-                            assertionFailure("Not implemented")
-                            return nil
+                        followActor: { [weak navigator] in
+                            navigator?.navigate(
+                                destination: ActorDetailsNavigationIdentity(actor: $0),
+                                strategy: .present
+                            )
                         }
                     )
                 ))),
@@ -83,19 +85,13 @@ final class ScreenFactory {
             ).withAnimatedTransitionEnabled()
             controller.navigationIdentity = identity
             return controller
+        case let identity as ActorDetailsNavigationIdentity:
+            let controller = ViewController(node: ActorDetailsNode(viewModel: ActorDetailsViewModel(actor: identity.actor)))
+            controller.navigationIdentity = identity
+            return controller
         default:
             assertionFailure("Not implemented")
             return nil
         }
     }
-}
-
-class TestNode: DisplayNode<ArtistViewModel> {
-
-    override func configureTheme(_ theme: VATheme) {
-        backgroundColor = theme.systemGreen
-    }
-}
-
-class ArtistViewModel: EventViewModel {
 }
