@@ -7,15 +7,6 @@
 
 import UIKit
 
-extension UIViewController {
-    public var navigationIdentity: (any NavigationIdentity)? {
-        get { (objc_getAssociatedObject(self, &navigationIdentityKey) as? (any NavigationIdentity)) }
-        set { objc_setAssociatedObject(self, &navigationIdentityKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
-    }
-}
-
-private var navigationIdentityKey = "navigationIdentityKey"
-
 public extension UIViewController {
 
     func topViewController(in rootViewController: UIViewController? = nil, root: Bool = false) -> UIViewController? {
@@ -50,6 +41,8 @@ public extension UIViewController {
                     return target
                 }
             }
+        } else if let presentedViewController {
+            return presentedViewController.findController(identity: identity)
         }
         // TODO: - Split
         return nil
@@ -69,9 +62,6 @@ public extension UIWindow {
 
         return topmostViewController
     }
-}
-
-extension UIWindow {
 
     func set(rootViewController newRootViewController: UIViewController, transition: CATransition? = nil) {
         let previousViewController = rootViewController
@@ -100,3 +90,12 @@ extension UIWindow {
         }
     }
 }
+
+extension UIViewController {
+    public var navigationIdentity: (any NavigationIdentity)? {
+        get { (objc_getAssociatedObject(self, &navigationIdentityKey) as? (any NavigationIdentity)) }
+        set { objc_setAssociatedObject(self, &navigationIdentityKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
+    }
+}
+
+private var navigationIdentityKey = "navigationIdentityKey"

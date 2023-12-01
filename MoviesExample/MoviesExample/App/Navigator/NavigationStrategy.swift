@@ -12,4 +12,5 @@ public enum NavigationStrategy {
     case push
     case pushOrPopToExisting
     case present
+    case presentOrCloseToExisting
 }

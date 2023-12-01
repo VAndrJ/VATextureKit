@@ -42,6 +42,29 @@ final class Navigator {
                 window?.set(rootViewController: controller)
             }
             eventController = controller
+        case .present:
+            guard let controller = screenFactory.assembleScreen(identity: destination, navigator: self) else {
+                return nil
+            }
+
+            window?.topViewController?.present(controller, animated: animated)
+            eventController = controller
+        case .presentOrCloseToExisting:
+            if let controller = window?.rootViewController?.findController(identity: destination) {
+                controller.navigationController?.popToViewController(controller, animated: animated)
+                if let presentedViewController = controller.presentedViewController {
+                    presentedViewController.dismiss(animated: animated)
+                }
+                eventController = controller as? (UIViewController & Responder)
+                navigatorEvent = ResponderPoppedToExistingEvent()
+            } else {
+                return navigate(
+                    destination: destination,
+                    strategy: .present,
+                    event: event,
+                    animated: animated
+                )
+            }
         case .push:
             guard let controller = screenFactory.assembleScreen(identity: destination, navigator: self) else {
                 return nil
@@ -52,13 +75,6 @@ final class Navigator {
                 animated: animated
             )
             eventController = controller
-        case .present:
-            guard let controller = screenFactory.assembleScreen(identity: destination, navigator: self) else {
-                return nil
-            }
-
-            window?.topViewController?.present(controller, animated: animated)
-            eventController = controller
         case .pushOrPopToExisting:
             if let controller = window?.rootViewController?.findController(identity: destination) {
                 controller.navigationController?.popToViewController(controller, animated: animated)
@@ -68,15 +84,12 @@ final class Navigator {
                 eventController = controller as? (UIViewController & Responder)
                 navigatorEvent = ResponderPoppedToExistingEvent()
             } else {
-                guard let controller = screenFactory.assembleScreen(identity: destination, navigator: self) else {
-                    return nil
-                }
-
-                window?.topViewController?.navigationController?.pushViewController(
-                    controller,
+                return navigate(
+                    destination: destination,
+                    strategy: .push,
+                    event: event,
                     animated: animated
                 )
-                eventController = controller
             }
         }
         if let event {
