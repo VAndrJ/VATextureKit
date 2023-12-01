@@ -37,10 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return
         }
 
-        Task {
-            let result = await handle(event: ResponderShortcutEvent(shortcut: shortcut))
-            completionHandler(result)
-        }
+        completionHandler(compositionRoot?.handleShortcut(item: shortcut) ?? false)
     }
 
     func application(
@@ -56,22 +53,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         supportedInterfaceOrientationsFor window: UIWindow?
     ) -> UIInterfaceOrientationMask {
         .portrait
-    }
-}
-
-extension AppDelegate: Responder {
-    var nextEventResponder: Responder? {
-        get { compositionRoot }
-        set {} // swiftlint:disable:this unused_setter_value
-    }
-
-    func handle(event: ResponderEvent) async -> Bool {
-        logResponder(from: self, event: event)
-        if let nextEventResponder {
-            return await nextEventResponder.handle(event: event)
-        } else {
-            try? await Task.sleep(milliseconds: 300)
-            return await handle(event: event)
-        }
     }
 }

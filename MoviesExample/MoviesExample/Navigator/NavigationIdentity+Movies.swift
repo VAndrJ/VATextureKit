@@ -7,14 +7,15 @@
 
 import Foundation
 
-public protocol TabsNavigationIdentity: NavigationIdentity {
+protocol TabsNavigationIdentity: NavigationIdentity {
     var tabsIdentity: [NavigationIdentity] { get }
 }
 
-public struct MainTabsNavigationIdentity: TabsNavigationIdentity {
-    public let tabsIdentity: [NavigationIdentity]
+struct MainTabsNavigationIdentity: TabsNavigationIdentity {
+    let tabsIdentity: [NavigationIdentity]
+    var fallbackSource: NavigationIdentity?
 
-    public func isEqual(to other: NavigationIdentity?) -> Bool {
+    func isEqual(to other: NavigationIdentity?) -> Bool {
         guard let other = other as? MainTabsNavigationIdentity else {
             return false
         }
@@ -36,6 +37,7 @@ public struct MainTabsNavigationIdentity: TabsNavigationIdentity {
 
 struct NavNavigationIdentity: NavigationIdentity {
     var childIdentity: NavigationIdentity?
+    var fallbackSource: NavigationIdentity?
 
     func isEqual(to other: NavigationIdentity?) -> Bool {
         guard let other = other as? NavNavigationIdentity else {
@@ -46,7 +48,20 @@ struct NavNavigationIdentity: NavigationIdentity {
     }
 }
 
+struct HomeNavigationIdentity: NavigationIdentity {
+    var fallbackSource: NavigationIdentity?
+
+    func isEqual(to other: NavigationIdentity?) -> Bool {
+        guard other is HomeNavigationIdentity else {
+            return false
+        }
+
+        return true
+    }
+}
+
 struct SearchNavigationIdentity: NavigationIdentity {
+    var fallbackSource: NavigationIdentity?
 
     func isEqual(to other: NavigationIdentity?) -> Bool {
         guard other is SearchNavigationIdentity else {
@@ -59,6 +74,7 @@ struct SearchNavigationIdentity: NavigationIdentity {
 
 struct MovieDetailsNavigationIdentity: NavigationIdentity {
     var movie: ListMovieEntity
+    var fallbackSource: NavigationIdentity? = SearchNavigationIdentity()
 
     func isEqual(to other: NavigationIdentity?) -> Bool {
         guard let other = other as? MovieDetailsNavigationIdentity else {
@@ -71,6 +87,7 @@ struct MovieDetailsNavigationIdentity: NavigationIdentity {
 
 struct ActorDetailsNavigationIdentity: NavigationIdentity {
     var actor: ListActorEntity
+    var fallbackSource: NavigationIdentity? = SearchNavigationIdentity()
 
     func isEqual(to other: NavigationIdentity?) -> Bool {
         guard let other = other as? ActorDetailsNavigationIdentity else {

@@ -6,7 +6,6 @@
 //
 
 import VATextureKitRx
-import Swiftional
 
 final class SearchBarNode: VASizedViewWrapperNode<UISearchBar> {
     var textObs: Observable<String?> { child.rx.text.asObservable() }

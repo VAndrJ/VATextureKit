@@ -11,13 +11,13 @@ import XCTest
 class MovieCardNodeTests: XCTestCase {
 
     func test_node_short() {
-        let sut = MovieCardNode(data: .init(listMovie: .dummy()))
+        let sut = MovieCardNode(viewModel: .init(listMovie: .dummy()))
 
         assertNodeSnapshot(matching: sut, size: .freeHeightFixedWidth(85))
     }
 
     func test_node_long() {
-        let sut = MovieCardNode(data: .init(listMovie: .dummy(repeatingString: 3)))
+        let sut = MovieCardNode(viewModel: .init(listMovie: .dummy(repeatingString: 3)))
 
         assertNodeSnapshot(matching: sut, size: .freeHeightFixedWidth(85))
     }

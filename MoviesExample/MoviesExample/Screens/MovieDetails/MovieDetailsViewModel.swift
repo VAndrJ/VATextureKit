@@ -6,7 +6,6 @@
 //
 
 import VATextureKitRx
-import Swiftional
 
 struct OpenListMovieDetailsEvent: Event {
     let movie: ListMovieEntity
@@ -120,6 +119,8 @@ final class MovieDetailsViewModel: EventViewModel {
             super.run(event)
         }
     }
+
+    // MARK: - Responder
 
     override func handle(event: ResponderEvent) async -> Bool {
         logResponder(from: self, event: event)

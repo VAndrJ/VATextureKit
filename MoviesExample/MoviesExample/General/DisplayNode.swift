@@ -8,12 +8,8 @@
 import VATextureKitRx
 import RxKeyboard
 
-class DisplayNode<ViewModel: EventViewModel>: VASafeAreaDisplayNode, Responder, ControllerNode {
+class DisplayNode<ViewModel: EventViewModel>: VASafeAreaDisplayNode, ControllerNode, Responder {
     let bag = DisposeBag()
-    var nextEventResponder: Responder? {
-        get { viewModel }
-        set {} // swiftlint:disable:this unused_setter_value
-    }
     let viewModel: ViewModel
 
     init(viewModel: ViewModel) {
@@ -33,12 +29,6 @@ class DisplayNode<ViewModel: EventViewModel>: VASafeAreaDisplayNode, Responder, 
     func viewWillDisappear(in controller: UIViewController, animated: Bool) {}
 
     func viewDidDisappear(in controller: UIViewController, animated: Bool) {}
-
-    func handle(event: ResponderEvent) async -> Bool {
-        logResponder(from: self, event: event)
-
-        return await nextEventResponder?.handle(event: event) ?? false
-    }
 
     func bindKeyboardInset(scrollView: UIScrollView, tabBarController: UITabBarController? = nil) {
         let initialBottomInset = scrollView.contentInset.bottom
@@ -72,5 +62,18 @@ class DisplayNode<ViewModel: EventViewModel>: VASafeAreaDisplayNode, Responder, 
                 scrollView.verticalScrollIndicatorInsets.bottom = indicatorBottomInset
             })
             .disposed(by: bag)
+    }
+
+    // MARK: - Responder
+
+    var nextEventResponder: Responder? {
+        get { viewModel }
+        set { viewModel.nextEventResponder = newValue }
+    }
+
+    func handle(event: ResponderEvent) async -> Bool {
+        logResponder(from: self, event: event)
+
+        return await nextEventResponder?.handle(event: event) ?? false
     }
 }

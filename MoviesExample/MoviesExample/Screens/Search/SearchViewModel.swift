@@ -87,28 +87,6 @@ final class SearchViewModel: EventViewModel {
         }
     }
 
-    override func handle(event: ResponderEvent) async -> Bool {
-        logResponder(from: self, event: event)
-        switch event {
-        case let event as ResponderShortcutEvent:
-            switch event.shortcut {
-            case .search:
-                Task.detached { [weak self] in
-                    try? await Task.sleep(milliseconds: 300)
-                    guard let self else { return }
-
-                    await MainActor.run {
-                        self._beginSearchObs.rx.accept(())
-                    }
-                }
-
-                return true
-            }
-        default:
-            return await nextEventResponder?.handle(event: event) ?? false
-        }
-    }
-
     private func bind() {
         searchQueryRelay
             .compactMap { $0 }
@@ -123,6 +101,22 @@ final class SearchViewModel: EventViewModel {
             }
             .bind(to: _searchDataObs.rx)
             .disposed(by: bag)
+    }
+
+    // MARK: - Responder
+
+    override func handle(event: ResponderEvent) async -> Bool {
+        logResponder(from: self, event: event)
+        switch event {
+        case _ as ResponderOpenedFromShortcutEvent:
+            mainAsync(after: .milliseconds(400)) { [weak self] in
+                self?._beginSearchObs.rx.accept(())
+            }
+            
+            return true
+        default:
+            return await nextEventResponder?.handle(event: event) ?? false
+        }
     }
 }
 

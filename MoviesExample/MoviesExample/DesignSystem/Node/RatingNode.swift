@@ -6,7 +6,6 @@
 //
 
 import VATextureKit
-import Swiftional
 
 final class RatingNode: VADisplayNode {
     private let percentTextNode: VATextNode

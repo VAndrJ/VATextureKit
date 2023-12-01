@@ -7,6 +7,12 @@
 
 import Foundation
 
+public func mainAsync(after: DispatchTimeInterval, _ block: @escaping () -> Void) {
+    if let timeInterval = after.timeInterval {
+        mainAsync(after: timeInterval, block)
+    }
+}
+
 public func mainAsync(after: TimeInterval = 0, _ block: @escaping () -> Void) {
     if after > 0 {
         DispatchQueue.main.asyncAfter(deadline: .now() + after, execute: block)
@@ -52,5 +58,22 @@ public func ensureOnBackground(_ block: @escaping () -> Void) {
         block()
     } else {
         backgroundQueue.async(execute: block)
+    }
+}
+
+public extension DispatchTimeInterval {
+    var timeInterval: TimeInterval? {
+        switch self {
+        case let .seconds(int):
+            return TimeInterval(int)
+        case let .milliseconds(int):
+            return TimeInterval(int) / 1_000
+        case let .microseconds(int):
+            return TimeInterval(int) / 1_000_000
+        case let .nanoseconds(int):
+            return TimeInterval(int) / 1_000_000_000
+        case .never:
+            return nil
+        }
     }
 }

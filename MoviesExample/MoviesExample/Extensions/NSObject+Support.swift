@@ -6,6 +6,6 @@
 //
 
 import Foundation
-import Swiftional
+@_exported import Swiftional
 
 extension NSObject: Applyable {}

@@ -29,10 +29,11 @@ final class CompositionRoot {
 
         func launch() {
             navigator.navigate(
-                destination: MainTabsNavigationIdentity(tabsIdentity: [
+                destination: .identity(MainTabsNavigationIdentity(tabsIdentity: [
                     SearchNavigationIdentity(),
-                ]),
-                strategy: .replaceWindowRoot
+                    HomeNavigationIdentity(),
+                ])),
+                strategy: .replaceWindowRoot()
             )
         }
 
@@ -50,6 +51,27 @@ final class CompositionRoot {
         shortcutService.addShortcuts()
         configureCache()
     }
+
+    func handleShortcut(item: Shortcut) -> Bool {
+        switch item {
+        case .search:
+            navigator.navigate(
+                destination: .identity(SearchNavigationIdentity()),
+                source: SearchNavigationIdentity(),
+                strategy: .presentOrCloseToExisting,
+                event: ResponderOpenedFromShortcutEvent()
+            )
+        case .home:
+            navigator.navigate(
+                destination: .identity(HomeNavigationIdentity()),
+                source: HomeNavigationIdentity(),
+                strategy: .presentOrCloseToExisting,
+                event: ResponderOpenedFromShortcutEvent()
+            )
+        }
+
+        return true
+    }
     
     func application(
         _ app: UIApplication,
@@ -59,31 +81,19 @@ final class CompositionRoot {
         print("source application = \(options[.sourceApplication] ?? "Unknown")")
 
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
-            print("Invalid URL or album path missing")
             return false
         }
         guard components.path == "movie" else {
             return false
         }
-        // swiftlint:disable indentation_width
-        guard let queryItems = components.queryItems,
-              let item = queryItems.first(where: { $0.name == "id" }),
-              let id = item.value.flatMap({ Int($0).flatMap { Id<Movie>(rawValue: $0) } }),
-              let title = queryItems.first(where: { $0.name == "title" })?.value,
-              let year = queryItems.first(where: { $0.name == "year" })?.value
-        else {
+        guard let listMovieEntity = ListMovieEntity(queryItems: components.queryItems) else {
             return false
         }
-        // swiftlint:enable indentation_width
+
         navigator.navigate(
-            destination: MovieDetailsNavigationIdentity(movie: ListMovieEntity(
-                id: id,
-                title: title,
-                overview: "",
-                rating: 0,
-                year: year
-            )),
-            strategy: .pushOrPopToExisting,
+            destination: .identity(MovieDetailsNavigationIdentity(movie: listMovieEntity)),
+            source: SearchNavigationIdentity(),
+            strategy: .pushOrPopToExisting(),
             event: ResponderOpenedFromURLEvent()
         )
 
@@ -94,17 +104,5 @@ final class CompositionRoot {
         if let cache = (ASPINRemoteImageDownloader.shared().sharedPINRemoteImageManager().cache as? PINCache)?.diskCache {
             cache.byteLimit = 500 * 1024 * 1024
         }
-    }
-}
-
-extension CompositionRoot: Responder {
-    var nextEventResponder: Responder? {
-        get { navigator }
-        set {} // swiftlint:disable:this unused_setter_value
-    }
-
-    func handle(event: ResponderEvent) async -> Bool {
-        logResponder(from: self, event: event)
-        return await nextEventResponder?.handle(event: event) ?? false
     }
 }

@@ -11,13 +11,13 @@ import XCTest
 class MovieDetailsTitleCellNodeTests: XCTestCase {
 
     func test_node_short() {
-        let sut = MovieDetailsTitleCellNode(viewModel: .init(movie: .dummy()))
+        let sut = MovieDetailsTitleCellNode(viewModel: .init(listMovie: .dummyMovie(), dataObs: nil))
 
         assertNodeSnapshot(matching: sut, size: .freeHeightFixedWidth(320))
     }
 
     func test_node_long() {
-        let sut = MovieDetailsTitleCellNode(viewModel: .init(movie: .dummy(repeatingString: 10)))
+        let sut = MovieDetailsTitleCellNode(viewModel: .init(listMovie: .dummyMovie(repeatingString: 10), dataObs: nil))
 
         assertNodeSnapshot(matching: sut, size: .freeHeightFixedWidth(320))
     }

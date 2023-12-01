@@ -1,5 +1,5 @@
 //
-//  MainViewModel.swift
+//  HomeViewModel.swift
 //  MoviesExample
 //
 //  Created by VAndrJ on 12.04.2023.
@@ -9,7 +9,7 @@ import VATextureKitRx
 
 private struct LoadMainEvent: Event {}
 
-final class MainViewModel: EventViewModel {
+final class HomeViewModel: EventViewModel {
     struct DTO {
         struct DataSource {
         }
@@ -21,10 +21,10 @@ final class MainViewModel: EventViewModel {
         let navigation: Navigation
     }
 
-    var listDataObs: Observable<[AnimatableSectionModel<MainSectionHeaderNodeViewModel, CellViewModel>]> {
+    var listDataObs: Observable<[AnimatableSectionModel<HomeSectionHeaderNodeViewModel, CellViewModel>]> {
         .just([
             AnimatableSectionModel(
-                model: MainSectionHeaderNodeViewModel(title: R.string.localizable.home_section_trending()),
+                model: HomeSectionHeaderNodeViewModel(title: R.string.localizable.home_section_trending()),
                 items: [ShimmerCellNodeViewModel(kind: .homeCell)]
             ),
         ])

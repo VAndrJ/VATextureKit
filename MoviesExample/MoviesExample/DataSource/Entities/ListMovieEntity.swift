@@ -21,6 +21,26 @@ struct ListMovieEntity: Equatable {
 
 extension ListMovieEntity {
 
+    init?(queryItems source: [URLQueryItem]?) {
+        // swiftlint:disable indentation_width
+        guard let queryItems = source,
+              let item = queryItems.first(where: { $0.name == "id" }),
+              let id = item.value.flatMap({ Int($0).flatMap { Id<Movie>(rawValue: $0) } }),
+              let title = queryItems.first(where: { $0.name == "title" })?.value,
+              let year = queryItems.first(where: { $0.name == "year" })?.value else {
+            return nil
+        }
+        // swiftlint:enable indentation_width
+
+        self.init(
+            id: id,
+            title: title,
+            overview: "",
+            rating: 0,
+            year: year
+        )
+    }
+
     init(response source: ListMovieResponseDTO) {
         self.id = Id(rawValue: source.id)
         self.title = source.title

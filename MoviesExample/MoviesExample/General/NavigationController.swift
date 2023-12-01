@@ -7,7 +7,7 @@
 
 import VATextureKit
 
-final class NavigationController: VANavigationController {
+final class NavigationController: VANavigationController, Responder {
     var onDismissed: (() -> Void)?
 
     convenience init(controller: UIViewController) {
@@ -54,16 +54,17 @@ final class NavigationController: VANavigationController {
             }
         }
     }
-}
+    
+    // MARK: - Responder
 
-extension NavigationController: Responder {
     var nextEventResponder: Responder? {
-        get { viewControllers.first as? Responder }
+        get { topViewController as? Responder }
         set {} // swiftlint:disable:this unused_setter_value
     }
     
     func handle(event: ResponderEvent) async -> Bool {
         logResponder(from: self, event: event)
+        
         return await nextEventResponder?.handle(event: event) ?? false
     }
 }

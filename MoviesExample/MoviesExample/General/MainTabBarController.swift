@@ -7,47 +7,27 @@
 
 import VATextureKit
 
-final class MainTabBarController: VATabBarController, Responder {
+final class MainTabBarController: VATabBarController {
     enum Tab {
-        case main
+        case home
         case search
 
         var title: String {
             switch self {
-            case .main: return "Home"
-            case .search: return "Search"
+            case .home: return R.string.localizable.tab_home()
+            case .search: return R.string.localizable.tab_search()
             }
         }
         var image: UIImage? {
             switch self {
-            case .main: return UIImage(systemName: "house")
+            case .home: return UIImage(systemName: "house")
             case .search: return UIImage(systemName: "magnifyingglass")
             }
         }
     }
 
-    weak var nextEventResponder: Responder?
-
-    private let tabs: [Tab]
-    private let tabControllers: [Tab: UIViewController & Responder]
-
-    convenience init(controllers: [UIViewController & Responder]) {
-        let tabs: [(tab: Tab, controller: UIViewController & Responder)] = controllers.compactMap { controller in
-            func getTabs(identity: NavigationIdentity?) -> (tab: Tab, controller: UIViewController & Responder)? {
-                switch identity {
-                case _ as SearchNavigationIdentity:
-                    return (.search, controller)
-                case let identity as NavNavigationIdentity:
-                    return getTabs(identity: identity.childIdentity)
-                default:
-                    assertionFailure("Not implemented")
-                    return nil
-                }
-            }
-            return getTabs(identity: controller.navigationIdentity)
-        }
-        self.init(tabs: tabs)
-    }
+    let tabs: [Tab]
+    let tabControllers: [Tab: UIViewController & Responder]
 
     init(tabs: [(tab: Tab, controller: UIViewController & Responder)]) {
         self.tabs = tabs.map(\.tab)
@@ -61,25 +41,36 @@ final class MainTabBarController: VATabBarController, Responder {
         setViewControllers(tabs.map(\.controller), animated: false)
     }
 
-    func handle(event: ResponderEvent) async -> Bool {
-        logResponder(from: self, event: event)
-        switch event {
-        case let event as ResponderShortcutEvent:
-            presentedViewController?.dismiss(animated: false)
-            navigationController?.popToViewController(self, animated: false)
-            switch event.shortcut {
-            case .search:
-                selectedIndex = tabs.firstIndex(of: .search) ?? 0
-            }
-            return await tabControllers[.search]?.handle(event: event) ?? false
-        default:
-            return await nextEventResponder?.handle(event: event) ?? false
-        }
-    }
-
     override func configureTheme(_ theme: VATheme) {
         super.configureTheme(theme)
 
         tabBar.configureAppearance(theme: theme)
+    }
+}
+
+// MARK: - convenience inits
+
+extension MainTabBarController {
+
+    convenience init(controllers: [UIViewController & Responder]) {
+        let tabs: [(tab: Tab, controller: UIViewController & Responder)] = controllers.compactMap { controller in
+            func getTabs(identity: NavigationIdentity?) -> (tab: Tab, controller: UIViewController & Responder)? {
+                switch identity {
+                case _ as SearchNavigationIdentity:
+                    return (.search, controller)
+                case _ as HomeNavigationIdentity:
+                    return (.home, controller)
+                case let identity as NavNavigationIdentity:
+                    return getTabs(identity: identity.childIdentity)
+                default:
+                    assertionFailure("Not implemented")
+                    return nil
+                }
+            }
+
+            return getTabs(identity: controller.navigationIdentity)
+        }
+
+        self.init(tabs: tabs)
     }
 }
