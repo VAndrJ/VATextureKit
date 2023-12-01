@@ -21,7 +21,7 @@ final class HomeNode: DisplayNode<HomeViewModel> {
         )
     )
     private lazy var titleTextNode = VATextNode(
-        text: "Work in progress",
+        text: R.string.localizable.wip(),
         fontStyle: .largeTitle
     )
 

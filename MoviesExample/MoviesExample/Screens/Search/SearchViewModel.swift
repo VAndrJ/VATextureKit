@@ -121,6 +121,8 @@ final class SearchViewModel: EventViewModel {
                 }
 
                 return true
+            case .home:
+                return await nextEventResponder?.handle(event: event) ?? false
             }
         default:
             return await nextEventResponder?.handle(event: event) ?? false

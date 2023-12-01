@@ -14,8 +14,8 @@ final class MainTabBarController: VATabBarController, Responder {
 
         var title: String {
             switch self {
-            case .home: return "Home"
-            case .search: return "Search"
+            case .home: return R.string.localizable.tab_home()
+            case .search: return R.string.localizable.tab_search()
             }
         }
         var image: UIImage? {

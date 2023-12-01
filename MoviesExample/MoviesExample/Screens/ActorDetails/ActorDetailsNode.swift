@@ -9,7 +9,7 @@ import VATextureKit
 
 class ActorDetailsNode: DisplayNode<ActorDetailsViewModel> {
     let titleTextNode = VATextNode(
-        text: "Work in progress",
+        text: R.string.localizable.wip(),
         fontStyle: .largeTitle
     )
 

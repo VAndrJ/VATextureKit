@@ -60,7 +60,6 @@ final class CompositionRoot {
         print("source application = \(options[.sourceApplication] ?? "Unknown")")
 
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
-            print("Invalid URL or album path missing")
             return false
         }
         guard components.path == "movie" else {

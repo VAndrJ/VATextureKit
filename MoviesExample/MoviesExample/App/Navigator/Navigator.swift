@@ -40,7 +40,7 @@ final class Navigator {
                     if tabBarController.viewControllers?[index].findController(identity: source) != nil {
                         if tabBarController.selectedIndex != index {
                             tabBarController.selectedIndex = index
-                            mainAsync(after: 0.3) {
+                            mainAsync(after: 0.4) {
                                 completion?()
                             }
                             return
@@ -161,6 +161,13 @@ extension Navigator: Responder {
                 navigate(
                     destination: SearchNavigationIdentity(),
                     source: SearchNavigationIdentity(),
+                    strategy: .pushOrPopToExisting,
+                    event: event
+                )
+            case .home:
+                navigate(
+                    destination: HomeNavigationIdentity(),
+                    source: HomeNavigationIdentity(),
                     strategy: .pushOrPopToExisting,
                     event: event
                 )
