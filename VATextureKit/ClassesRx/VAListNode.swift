@@ -269,6 +269,10 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         }
     }
 
+    open func scrollToTop() {
+        view.scrollRectToVisible(CGRect(size: CGSize(same: 1)), animated: true)
+    }
+
     open func configureRefresh() {
         if refreshData.reloadData != nil {
             view.insertSubview(refreshControlView, at: 0)
@@ -324,7 +328,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
                 self?.batchContext?.completeBatchFetching(true)
                 self?.batchContext = nil
                 if shouldScrollToTopOnDataChange {
-                    self?.view.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+                    self?.scrollToTop()
                 }
             })
             .bind(to: rx.items(dataSource: dataSource))
