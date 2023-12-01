@@ -20,13 +20,40 @@ final class Navigator {
         self.screenFactory = screenFactory
     }
 
+    // swiftlint:disable function_body_length
     @discardableResult
     func navigate(
         destination: NavigationIdentity,
+        source: NavigationIdentity? = nil,
         strategy: NavigationStrategy,
         event: ResponderEvent? = nil,
         animated: Bool = true
     ) -> Responder? {
+        func selectTabIfNeeded(
+            source: NavigationIdentity?,
+            controller: UIViewController?,
+            completion: (() -> Void)? = nil
+        ) {
+            if let source, let tabBarController = controller?.tabBarController {
+                // swiftlint:disable for_where
+                for index in (tabBarController.viewControllers ?? []).indices {
+                    if tabBarController.viewControllers?[index].findController(identity: source) != nil {
+                        if tabBarController.selectedIndex != index {
+                            tabBarController.selectedIndex = index
+                            mainAsync(after: 0.3) {
+                                completion?()
+                            }
+                            return
+                        } else {
+                            break
+                        }
+                    }
+                }
+                // swiftlint:enable for_where
+            }
+            completion?()
+        }
+
         let eventController: (UIViewController & Responder)?
         var navigatorEvent: ResponderEvent?
         switch strategy {
@@ -60,6 +87,7 @@ final class Navigator {
             } else {
                 return navigate(
                     destination: destination,
+                    source: source,
                     strategy: .present,
                     event: event,
                     animated: animated
@@ -70,9 +98,15 @@ final class Navigator {
                 return nil
             }
 
-            window?.topViewController?.navigationController?.pushViewController(
-                controller,
-                animated: animated
+            selectTabIfNeeded(
+                source: source,
+                controller: window?.topViewController,
+                completion: { [self] in
+                    window?.topViewController?.navigationController?.pushViewController(
+                        controller,
+                        animated: animated
+                    )
+                }
             )
             eventController = controller
         case .pushOrPopToExisting:
@@ -81,11 +115,13 @@ final class Navigator {
                 if let presentedViewController = controller.presentedViewController {
                     presentedViewController.dismiss(animated: animated)
                 }
+                selectTabIfNeeded(source: source, controller: controller)
                 eventController = controller as? (UIViewController & Responder)
                 navigatorEvent = ResponderPoppedToExistingEvent()
             } else {
                 return navigate(
                     destination: destination,
+                    source: source,
                     strategy: .push,
                     event: event,
                     animated: animated
@@ -105,6 +141,7 @@ final class Navigator {
 
         return eventController
     }
+    // swiftlint:enable function_body_length
 }
 
 // MARK: - Responder
@@ -123,6 +160,7 @@ extension Navigator: Responder {
             case .search:
                 navigate(
                     destination: SearchNavigationIdentity(),
+                    source: SearchNavigationIdentity(),
                     strategy: .pushOrPopToExisting,
                     event: event
                 )

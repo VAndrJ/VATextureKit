@@ -26,10 +26,41 @@ final class MainTabBarController: VATabBarController, Responder {
         }
     }
 
+    let tabs: [Tab]
+    let tabControllers: [Tab: UIViewController & Responder]
+
+    init(tabs: [(tab: Tab, controller: UIViewController & Responder)]) {
+        self.tabs = tabs.map(\.tab)
+        self.tabControllers = Dictionary(tabs, uniquingKeysWith: { $1 })
+
+        super.init(nibName: nil, bundle: nil)
+
+        tabs.forEach { tab, controller in
+            controller.configureTabBarItem(title: tab.title, image: tab.image)
+        }
+        setViewControllers(tabs.map(\.controller), animated: false)
+    }
+
+    override func configureTheme(_ theme: VATheme) {
+        super.configureTheme(theme)
+
+        tabBar.configureAppearance(theme: theme)
+    }
+
+    // MARK: - Responder
+
     weak var nextEventResponder: Responder?
 
-    private let tabs: [Tab]
-    private let tabControllers: [Tab: UIViewController & Responder]
+    func handle(event: ResponderEvent) async -> Bool {
+        logResponder(from: self, event: event)
+
+        return await nextEventResponder?.handle(event: event) ?? false
+    }
+}
+
+// MARK: - convenience inits
+
+extension MainTabBarController {
 
     convenience init(controllers: [UIViewController & Responder]) {
         let tabs: [(tab: Tab, controller: UIViewController & Responder)] = controllers.compactMap { controller in
@@ -46,42 +77,10 @@ final class MainTabBarController: VATabBarController, Responder {
                     return nil
                 }
             }
+
             return getTabs(identity: controller.navigationIdentity)
         }
+
         self.init(tabs: tabs)
-    }
-
-    init(tabs: [(tab: Tab, controller: UIViewController & Responder)]) {
-        self.tabs = tabs.map(\.tab)
-        self.tabControllers = Dictionary(tabs, uniquingKeysWith: { $1 })
-
-        super.init(nibName: nil, bundle: nil)
-
-        tabs.forEach { tab, controller in
-            controller.configureTabBarItem(title: tab.title, image: tab.image)
-        }
-        setViewControllers(tabs.map(\.controller), animated: false)
-    }
-
-    func handle(event: ResponderEvent) async -> Bool {
-        logResponder(from: self, event: event)
-        switch event {
-        case let event as ResponderShortcutEvent:
-            presentedViewController?.dismiss(animated: false)
-            navigationController?.popToViewController(self, animated: false)
-            switch event.shortcut {
-            case .search:
-                selectedIndex = tabs.firstIndex(of: .search) ?? 0
-            }
-            return await tabControllers[.search]?.handle(event: event) ?? false
-        default:
-            return await nextEventResponder?.handle(event: event) ?? false
-        }
-    }
-
-    override func configureTheme(_ theme: VATheme) {
-        super.configureTheme(theme)
-
-        tabBar.configureAppearance(theme: theme)
     }
 }

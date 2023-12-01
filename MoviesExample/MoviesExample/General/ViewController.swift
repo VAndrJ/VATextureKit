@@ -11,7 +11,7 @@ protocol NavigationClosable: UIViewController {
     var isNotImportant: Bool { get }
 }
 
-class ViewController<Node: ASDisplayNode & Responder & ControllerNode>: VAViewController<Node>, NavigationClosable {
+class ViewController<Node: ASDisplayNode & Responder & ControllerNode>: VAViewController<Node>, NavigationClosable, Responder {
     let bag = DisposeBag()
     let isNotImportant: Bool
 
@@ -56,9 +56,9 @@ class ViewController<Node: ASDisplayNode & Responder & ControllerNode>: VAViewCo
 
         contentNode.viewDidDisappear(in: self, animated: animated)
     }
-}
+    
+    // MARK: - Responder
 
-extension ViewController: Responder {
     var nextEventResponder: Responder? {
         get { contentNode }
         set {} // swiftlint:disable:this unused_setter_value

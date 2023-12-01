@@ -72,6 +72,7 @@ final class CompositionRoot {
 
         navigator.navigate(
             destination: MovieDetailsNavigationIdentity(movie: listMovieEntity),
+            source: SearchNavigationIdentity(),
             strategy: .pushOrPopToExisting,
             event: ResponderOpenedFromURLEvent()
         )
@@ -94,6 +95,7 @@ extension CompositionRoot: Responder {
 
     func handle(event: ResponderEvent) async -> Bool {
         logResponder(from: self, event: event)
+
         return await nextEventResponder?.handle(event: event) ?? false
     }
 }
