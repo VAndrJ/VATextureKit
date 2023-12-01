@@ -7,7 +7,7 @@
 
 import VATextureKitRx
 
-final class Navigator {
+final class Navigator: Responder {
     let screenFactory: ScreenFactory
 
     private(set) weak var window: UIWindow?
@@ -144,11 +144,9 @@ final class Navigator {
         return eventController
     }
     // swiftlint:enable function_body_length
-}
 
-// MARK: - Responder
+    // MARK: - Responder
 
-extension Navigator: Responder {
     var nextEventResponder: Responder? {
         get { nil }
         set {} // swiftlint:disable:this unused_setter_value
