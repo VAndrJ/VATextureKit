@@ -15,15 +15,20 @@ public extension UIViewController {
             return nil
         }
 
+        var possibleController: UIViewController?
         if let tabBarController = controller as? UITabBarController {
-            return topViewController(in: tabBarController.selectedViewController)
+            possibleController = tabBarController.selectedViewController
         } else if let navigationController = controller as? UINavigationController {
-            return topViewController(in: navigationController.visibleViewController)
+            possibleController = navigationController.topViewController
         } else if let presentedViewController = controller.presentedViewController {
-            return topViewController(in: presentedViewController)
+            possibleController = presentedViewController
         }
         // TODO: - Split
-        return controller
+        if let possibleController, !possibleController.isBeingDismissed {
+            return topViewController(in: possibleController)
+        } else {
+            return controller
+        }
     }
 
     func findController(identity: NavigationIdentity) -> UIViewController? {
@@ -46,6 +51,18 @@ public extension UIViewController {
         }
         // TODO: - Split
         return nil
+    }
+
+    func findTabBarController() -> UITabBarController? {
+        if let tabController = self as? UITabBarController {
+            return tabController
+        } else if let tabBarController {
+            return tabBarController
+        } else if let presentingViewController {
+            return presentingViewController.findTabBarController()
+        } else {
+            return nil
+        }
     }
 }
 

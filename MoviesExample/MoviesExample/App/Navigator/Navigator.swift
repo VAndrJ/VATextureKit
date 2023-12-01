@@ -32,26 +32,24 @@ final class Navigator {
         func selectTabIfNeeded(
             source: NavigationIdentity?,
             controller: UIViewController?,
-            completion: (() -> Void)? = nil
+            completion: ((UIViewController?) -> Void)? = nil
         ) {
-            if let source, let tabBarController = controller?.tabBarController {
-                // swiftlint:disable for_where
+            if let source, let tabBarController = controller?.findTabBarController() {
                 for index in (tabBarController.viewControllers ?? []).indices {
-                    if tabBarController.viewControllers?[index].findController(identity: source) != nil {
+                    if let sourceController = tabBarController.viewControllers?[index].findController(identity: source) {
                         if tabBarController.selectedIndex != index {
                             tabBarController.selectedIndex = index
                             mainAsync(after: 0.4) {
-                                completion?()
+                                completion?(sourceController)
                             }
-                            return
                         } else {
-                            break
+                            completion?(sourceController)
                         }
+                        return
                     }
                 }
-                // swiftlint:enable for_where
             }
-            completion?()
+            completion?(nil)
         }
 
         let eventController: (UIViewController & Responder)?
@@ -101,8 +99,12 @@ final class Navigator {
             selectTabIfNeeded(
                 source: source,
                 controller: window?.topViewController,
-                completion: { [self] in
-                    window?.topViewController?.navigationController?.pushViewController(
+                completion: { [self] sourceController in
+                    if let presentedViewController = sourceController?.presentedViewController {
+                        presentedViewController.dismiss(animated: animated)
+                    }
+                    let topViewController = window?.topViewController
+                    (topViewController as? UINavigationController ?? topViewController?.navigationController)?.pushViewController(
                         controller,
                         animated: animated
                     )
