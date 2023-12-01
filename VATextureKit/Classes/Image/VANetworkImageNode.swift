@@ -38,19 +38,32 @@ open class VANetworkImageNode: ASNetworkImageNode, VACornerable {
         self.init()
 
         self._corner = corner
-        if let image {
-            switch Self.parseImage(string: image) {
-            case let .image(image):
-                self.image = image
-            case let .url(url):
-                self.url = url
-            }
-        }
+        update(image: image)
         if let size {
             self.style.preferredSize = size
         }
         if let contentMode {
             self.contentMode = contentMode
+        }
+    }
+
+    public func update(image: String?) {
+        if let image {
+            switch Self.parseImage(string: image) {
+            case let .image(image):
+                if self.image != image {
+                    self.url = nil
+                    self.image = image
+                }
+            case let .url(url):
+                if self.url != url {
+                    self.image = nil
+                    self.url = url
+                }
+            }
+        } else {
+            self.image = nil
+            self.url = nil
         }
     }
 
