@@ -44,7 +44,6 @@ final class Navigator: Responder {
         event: ResponderEvent? = nil,
         animated: Bool = true
     ) -> Responder? {
-
         let eventController: (UIViewController & Responder)?
         var navigatorEvent: ResponderEvent?
         switch strategy {
@@ -192,27 +191,7 @@ final class Navigator: Responder {
 
     func handle(event: ResponderEvent) async -> Bool {
         logResponder(from: self, event: event)
-        switch event {
-        case let event as ResponderShortcutEvent:
-            switch event.shortcut {
-            case .search:
-                navigate(
-                    destination: .identity(SearchNavigationIdentity()),
-                    source: SearchNavigationIdentity(),
-                    strategy: .pushOrPopToExisting,
-                    event: event
-                )
-            case .home:
-                navigate(
-                    destination: .identity(HomeNavigationIdentity()),
-                    source: HomeNavigationIdentity(),
-                    strategy: .pushOrPopToExisting,
-                    event: event
-                )
-            }
-            return true
-        default:
-            return await nextEventResponder?.handle(event: event) ?? false
-        }
+
+        return await nextEventResponder?.handle(event: event) ?? false
     }
 }

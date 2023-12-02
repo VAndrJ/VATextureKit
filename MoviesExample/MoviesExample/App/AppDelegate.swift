@@ -37,10 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return
         }
 
-        Task {
-            let result = await handle(event: ResponderShortcutEvent(shortcut: shortcut))
-            completionHandler(result)
-        }
+        completionHandler(compositionRoot?.handleShortcut(item: shortcut) ?? false)
     }
 
     func application(
@@ -70,7 +67,7 @@ extension AppDelegate: Responder {
         if let nextEventResponder {
             return await nextEventResponder.handle(event: event)
         } else {
-            try? await Task.sleep(milliseconds: 300)
+            try? await Task.sleep(milliseconds: 400)
             return await handle(event: event)
         }
     }

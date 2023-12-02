@@ -51,6 +51,27 @@ final class CompositionRoot {
         shortcutService.addShortcuts()
         configureCache()
     }
+
+    func handleShortcut(item: Shortcut) -> Bool {
+        switch item {
+        case .search:
+            navigator.navigate(
+                destination: .identity(SearchNavigationIdentity()),
+                source: SearchNavigationIdentity(),
+                strategy: .pushOrPopToExisting,
+                event: ResponderOpenedFromShortcutEvent()
+            )
+        case .home:
+            navigator.navigate(
+                destination: .identity(HomeNavigationIdentity()),
+                source: HomeNavigationIdentity(),
+                strategy: .pushOrPopToExisting,
+                event: ResponderOpenedFromShortcutEvent()
+            )
+        }
+
+        return true
+    }
     
     func application(
         _ app: UIApplication,

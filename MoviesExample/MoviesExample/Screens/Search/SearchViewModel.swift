@@ -108,22 +108,12 @@ final class SearchViewModel: EventViewModel {
     override func handle(event: ResponderEvent) async -> Bool {
         logResponder(from: self, event: event)
         switch event {
-        case let event as ResponderShortcutEvent:
-            switch event.shortcut {
-            case .search:
-                Task.detached { [weak self] in
-                    try? await Task.sleep(milliseconds: 300)
-                    guard let self else { return }
-
-                    await MainActor.run {
-                        self._beginSearchObs.rx.accept(())
-                    }
-                }
-
-                return true
-            case .home:
-                return await nextEventResponder?.handle(event: event) ?? false
+        case _ as ResponderOpenedFromShortcutEvent:
+            mainAsync(after: .milliseconds(400)) { [weak self] in
+                self?._beginSearchObs.rx.accept(())
             }
+            
+            return true
         default:
             return await nextEventResponder?.handle(event: event) ?? false
         }

@@ -7,10 +7,6 @@
 
 import UIKit
 
-struct ResponderShortcutEvent: ResponderEvent {
-    let shortcut: Shortcut
-}
-
 final class ShortcutsService {
 
     func addShortcuts() {
