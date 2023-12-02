@@ -44,7 +44,7 @@ final class ScreenFactory {
                     navigation: .init(
                         followMovie: { [weak navigator] in
                             navigator?.navigate(
-                                destination: MovieDetailsNavigationIdentity(movie: $0),
+                                destination: .identity(MovieDetailsNavigationIdentity(movie: $0)),
                                 strategy: .pushOrPopToExisting
                             )
                         }
@@ -68,13 +68,13 @@ final class ScreenFactory {
                     navigation: .init(
                         followMovie: { [weak navigator] in
                             navigator?.navigate(
-                                destination: MovieDetailsNavigationIdentity(movie: $0),
+                                destination: .identity(MovieDetailsNavigationIdentity(movie: $0)),
                                 strategy: .pushOrPopToExisting
                             )
                         },
                         followActor: { [weak navigator] in
                             navigator?.navigate(
-                                destination: ActorDetailsNavigationIdentity(actor: $0),
+                                destination: .identity(ActorDetailsNavigationIdentity(actor: $0)),
                                 strategy: .present
                             )
                         }

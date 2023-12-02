@@ -8,6 +8,20 @@
 import VATextureKitRx
 
 final class Navigator: Responder {
+    enum NavigationDestination {
+        case identity(NavigationIdentity)
+        case controller(UIViewController)
+
+        var identity: NavigationIdentity? {
+            switch self {
+            case let .identity(identity):
+                return identity
+            case let .controller(controller):
+                return controller.navigationIdentity
+            }
+        }
+    }
+
     let screenFactory: ScreenFactory
 
     private(set) weak var window: UIWindow?
@@ -23,7 +37,7 @@ final class Navigator: Responder {
     // swiftlint:disable function_body_length
     @discardableResult
     func navigate(
-        destination: NavigationIdentity,
+        destination: NavigationDestination,
         source: NavigationIdentity? = nil,
         strategy: NavigationStrategy,
         sourceStrategy: NavigationStrategy = .present,
@@ -57,7 +71,7 @@ final class Navigator: Responder {
         var navigatorEvent: ResponderEvent?
         switch strategy {
         case .replaceWindowRoot:
-            guard let controller = screenFactory.assembleScreen(identity: destination, navigator: self) else {
+            guard let controller = getScreen(destination: destination) else {
                 return nil
             }
 
@@ -67,21 +81,21 @@ final class Navigator: Responder {
             } else {
                 window?.set(rootViewController: controller)
             }
-            eventController = controller
+            eventController = controller as? UIViewController & Responder
         case .present:
-            guard let controller = screenFactory.assembleScreen(identity: destination, navigator: self) else {
+            guard let controller = getScreen(destination: destination) else {
                 return nil
             }
 
             window?.topViewController?.present(controller, animated: animated)
-            eventController = controller
+            eventController = controller as? UIViewController & Responder
         case .presentOrCloseToExisting:
-            if let controller = window?.rootViewController?.findController(identity: destination) {
+            if let controller = window?.rootViewController?.findController(destination: destination) {
                 controller.navigationController?.popToViewController(controller, animated: animated)
                 if let presentedViewController = controller.presentedViewController {
                     presentedViewController.dismiss(animated: animated)
                 }
-                eventController = controller as? (UIViewController & Responder)
+                eventController = controller as? UIViewController & Responder
                 navigatorEvent = ResponderPoppedToExistingEvent()
             } else {
                 return navigate(
@@ -93,12 +107,12 @@ final class Navigator: Responder {
                 )
             }
         case .push:
-            guard let controller = screenFactory.assembleScreen(identity: destination, navigator: self) else {
+            guard let controller = getScreen(destination: destination) else {
                 return nil
             }
 
             selectTabIfNeeded(
-                source: source ?? destination.fallbackSource,
+                source: source ?? destination.identity?.fallbackSource,
                 controller: window?.topViewController,
                 completion: { [self] sourceController in
                     if let presentedViewController = sourceController?.presentedViewController {
@@ -112,10 +126,7 @@ final class Navigator: Responder {
                         )
                     } else {
                         navigate(
-                            destination: NavNavigationIdentity(
-                                childIdentity: destination,
-                                fallbackSource: destination.fallbackSource
-                            ),
+                            destination: .controller(controller),
                             source: source,
                             strategy: [.push, .pushOrPopToExisting].contains(sourceStrategy) ? .present : sourceStrategy,
                             sourceStrategy: sourceStrategy,
@@ -125,12 +136,12 @@ final class Navigator: Responder {
                     }
                 }
             )
-            eventController = controller
+            eventController = controller as? UIViewController & Responder
         case .pushOrPopToExisting:
-            if let controller = window?.rootViewController?.findController(identity: destination) {
+            if let controller = window?.rootViewController?.findController(destination: destination) {
                 controller.navigationController?.popToViewController(controller, animated: animated)
                 controller.presentedViewController?.dismiss(animated: animated)
-                selectTabIfNeeded(source: source ?? destination.fallbackSource, controller: controller)
+                selectTabIfNeeded(source: source ?? destination.identity?.fallbackSource, controller: controller)
                 eventController = controller as? (UIViewController & Responder)
                 navigatorEvent = ResponderPoppedToExistingEvent()
             } else {
@@ -158,6 +169,15 @@ final class Navigator: Responder {
     }
     // swiftlint:enable function_body_length
 
+    func getScreen(destination: NavigationDestination) -> UIViewController? {
+        switch destination {
+        case let .identity(identity):
+            return screenFactory.assembleScreen(identity: identity, navigator: self)
+        case let .controller(controller):
+            return controller
+        }
+    }
+
     // MARK: - Responder
 
     var nextEventResponder: Responder? {
@@ -172,14 +192,14 @@ final class Navigator: Responder {
             switch event.shortcut {
             case .search:
                 navigate(
-                    destination: SearchNavigationIdentity(),
+                    destination: .identity(SearchNavigationIdentity()),
                     source: SearchNavigationIdentity(),
                     strategy: .pushOrPopToExisting,
                     event: event
                 )
             case .home:
                 navigate(
-                    destination: HomeNavigationIdentity(),
+                    destination: .identity(HomeNavigationIdentity()),
                     source: HomeNavigationIdentity(),
                     strategy: .pushOrPopToExisting,
                     event: event
