@@ -13,6 +13,7 @@ public protocol TabsNavigationIdentity: NavigationIdentity {
 
 public struct MainTabsNavigationIdentity: TabsNavigationIdentity {
     public let tabsIdentity: [NavigationIdentity]
+    public var fallbackSource: NavigationIdentity?
 
     public func isEqual(to other: NavigationIdentity?) -> Bool {
         guard let other = other as? MainTabsNavigationIdentity else {
@@ -36,6 +37,7 @@ public struct MainTabsNavigationIdentity: TabsNavigationIdentity {
 
 struct NavNavigationIdentity: NavigationIdentity {
     var childIdentity: NavigationIdentity?
+    var fallbackSource: NavigationIdentity?
 
     func isEqual(to other: NavigationIdentity?) -> Bool {
         guard let other = other as? NavNavigationIdentity else {
@@ -47,6 +49,7 @@ struct NavNavigationIdentity: NavigationIdentity {
 }
 
 struct HomeNavigationIdentity: NavigationIdentity {
+    var fallbackSource: NavigationIdentity?
 
     func isEqual(to other: NavigationIdentity?) -> Bool {
         guard other is HomeNavigationIdentity else {
@@ -58,6 +61,7 @@ struct HomeNavigationIdentity: NavigationIdentity {
 }
 
 struct SearchNavigationIdentity: NavigationIdentity {
+    var fallbackSource: NavigationIdentity?
 
     func isEqual(to other: NavigationIdentity?) -> Bool {
         guard other is SearchNavigationIdentity else {
@@ -70,6 +74,7 @@ struct SearchNavigationIdentity: NavigationIdentity {
 
 struct MovieDetailsNavigationIdentity: NavigationIdentity {
     var movie: ListMovieEntity
+    var fallbackSource: NavigationIdentity? = SearchNavigationIdentity()
 
     func isEqual(to other: NavigationIdentity?) -> Bool {
         guard let other = other as? MovieDetailsNavigationIdentity else {
@@ -82,6 +87,7 @@ struct MovieDetailsNavigationIdentity: NavigationIdentity {
 
 struct ActorDetailsNavigationIdentity: NavigationIdentity {
     var actor: ListActorEntity
+    var fallbackSource: NavigationIdentity? = SearchNavigationIdentity()
 
     func isEqual(to other: NavigationIdentity?) -> Bool {
         guard let other = other as? ActorDetailsNavigationIdentity else {

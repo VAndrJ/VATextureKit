@@ -31,6 +31,28 @@ public extension UIViewController {
         }
     }
 
+    func findController(controller: UIViewController) -> UIViewController? {
+        if self === controller {
+            return self
+        } else if let navigation = self as? UINavigationController {
+            for controller in navigation.viewControllers {
+                if let target = controller.findController(controller: controller) {
+                    return target
+                }
+            }
+        } else if let tab = self as? UITabBarController {
+            for controller in (tab.viewControllers ?? []) {
+                if let target = controller.findController(controller: controller) {
+                    return target
+                }
+            }
+        } else if let presentedViewController {
+            return presentedViewController.findController(controller: controller)
+        }
+        // TODO: - Split
+        return nil
+    }
+
     func findController(identity: NavigationIdentity) -> UIViewController? {
         if navigationIdentity?.isEqual(to: identity) == true {
             return self
@@ -62,6 +84,18 @@ public extension UIViewController {
             return presentingViewController.findTabBarController()
         } else {
             return nil
+        }
+    }
+}
+
+extension UIViewController {
+
+    func findController(destination: Navigator.NavigationDestination) -> UIViewController? {
+        switch destination {
+        case let .identity(identity):
+            return findController(identity: identity)
+        case let .controller(controller):
+            return findController(controller: controller)
         }
     }
 }

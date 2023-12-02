@@ -29,10 +29,10 @@ final class CompositionRoot {
 
         func launch() {
             navigator.navigate(
-                destination: MainTabsNavigationIdentity(tabsIdentity: [
+                destination: .identity(MainTabsNavigationIdentity(tabsIdentity: [
                     SearchNavigationIdentity(),
                     HomeNavigationIdentity(),
-                ]),
+                ])),
                 strategy: .replaceWindowRoot
             )
         }
@@ -70,7 +70,7 @@ final class CompositionRoot {
         }
 
         navigator.navigate(
-            destination: MovieDetailsNavigationIdentity(movie: listMovieEntity),
+            destination: .identity(MovieDetailsNavigationIdentity(movie: listMovieEntity)),
             source: SearchNavigationIdentity(),
             strategy: .pushOrPopToExisting,
             event: ResponderOpenedFromURLEvent()

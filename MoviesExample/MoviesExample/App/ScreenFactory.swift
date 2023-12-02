@@ -23,12 +23,12 @@ final class ScreenFactory {
         switch identity {
         case let identity as MainTabsNavigationIdentity:
             let controller = MainTabBarController(controllers: identity.tabsIdentity
-                .compactMap {
-                    assembleScreen(identity: $0, navigator: navigator)
+                .compactMap { identity in
+                    assembleScreen(identity: identity, navigator: navigator).map { ($0, identity) }
                 }
-                .map {
-                    let controller = NavigationController(controller: $0)
-                    controller.navigationIdentity = NavNavigationIdentity(childIdentity: $0.navigationIdentity)
+                .map { controller, identity in
+                    let controller = NavigationController(controller: controller)
+                    controller.navigationIdentity = NavNavigationIdentity(childIdentity: identity)
                     return controller
                 }
             )
@@ -44,7 +44,7 @@ final class ScreenFactory {
                     navigation: .init(
                         followMovie: { [weak navigator] in
                             navigator?.navigate(
-                                destination: MovieDetailsNavigationIdentity(movie: $0),
+                                destination: .identity(MovieDetailsNavigationIdentity(movie: $0)),
                                 strategy: .pushOrPopToExisting
                             )
                         }
@@ -68,13 +68,13 @@ final class ScreenFactory {
                     navigation: .init(
                         followMovie: { [weak navigator] in
                             navigator?.navigate(
-                                destination: MovieDetailsNavigationIdentity(movie: $0),
+                                destination: .identity(MovieDetailsNavigationIdentity(movie: $0)),
                                 strategy: .pushOrPopToExisting
                             )
                         },
                         followActor: { [weak navigator] in
                             navigator?.navigate(
-                                destination: ActorDetailsNavigationIdentity(actor: $0),
+                                destination: .identity(ActorDetailsNavigationIdentity(actor: $0)),
                                 strategy: .present
                             )
                         }
