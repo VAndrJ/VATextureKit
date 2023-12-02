@@ -44,43 +44,16 @@ final class Navigator: Responder {
         event: ResponderEvent? = nil,
         animated: Bool = true
     ) -> Responder? {
-        func selectTabIfNeeded(
-            source: NavigationIdentity?,
-            controller: UIViewController?,
-            completion: ((UIViewController?) -> Void)? = nil
-        ) {
-            if let source, let tabBarController = controller?.findTabBarController() {
-                for index in (tabBarController.viewControllers ?? []).indices {
-                    if let sourceController = tabBarController.viewControllers?[index].findController(identity: source) {
-                        if tabBarController.selectedIndex != index {
-                            tabBarController.selectedIndex = index
-                            mainAsync(after: 0.4) {
-                                completion?(sourceController)
-                            }
-                        } else {
-                            completion?(sourceController)
-                        }
-                        return
-                    }
-                }
-            }
-            completion?(nil)
-        }
 
         let eventController: (UIViewController & Responder)?
         var navigatorEvent: ResponderEvent?
         switch strategy {
-        case .replaceWindowRoot:
+        case let .replaceWindowRoot(transition):
             guard let controller = getScreen(destination: destination) else {
                 return nil
             }
 
-            if window?.rootViewController == nil {
-                window?.rootViewController = controller
-                window?.makeKeyAndVisible()
-            } else {
-                window?.set(rootViewController: controller)
-            }
+            replaceWindowRoot(controller: controller, transition: transition)
             eventController = controller as? UIViewController & Responder
         case .present:
             guard let controller = getScreen(destination: destination) else {
@@ -176,6 +149,38 @@ final class Navigator: Responder {
         case let .controller(controller):
             return controller
         }
+    }
+
+    private func replaceWindowRoot(controller: UIViewController, transition: CATransition?) {
+        if window?.rootViewController == nil {
+            window?.rootViewController = controller
+            window?.makeKeyAndVisible()
+        } else {
+            window?.set(rootViewController: controller, transition: transition)
+        }
+    }
+
+    private func selectTabIfNeeded(
+        source: NavigationIdentity?,
+        controller: UIViewController?,
+        completion: ((UIViewController?) -> Void)? = nil
+    ) {
+        if let source, let tabBarController = controller?.findTabBarController() {
+            for index in (tabBarController.viewControllers ?? []).indices {
+                if let sourceController = tabBarController.viewControllers?[index].findController(identity: source) {
+                    if tabBarController.selectedIndex != index {
+                        tabBarController.selectedIndex = index
+                        mainAsync(after: 0.4) {
+                            completion?(sourceController)
+                        }
+                    } else {
+                        completion?(sourceController)
+                    }
+                    return
+                }
+            }
+        }
+        completion?(nil)
     }
 
     // MARK: - Responder

@@ -33,7 +33,7 @@ final class CompositionRoot {
                     SearchNavigationIdentity(),
                     HomeNavigationIdentity(),
                 ])),
-                strategy: .replaceWindowRoot
+                strategy: .replaceWindowRoot()
             )
         }
 

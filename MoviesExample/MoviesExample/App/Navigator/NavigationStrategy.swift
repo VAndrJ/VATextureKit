@@ -7,8 +7,8 @@
 
 import Foundation
 
-public enum NavigationStrategy {
-    case replaceWindowRoot
+public enum NavigationStrategy: Equatable {
+    case replaceWindowRoot(transition: CATransition? = nil)
     case push
     case pushOrPopToExisting
     case present
