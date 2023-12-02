@@ -36,9 +36,8 @@ final class Navigator: Responder {
 
     @discardableResult
     func navigate(
-        chain: [NavigationDestination],
+        chain: [(destination: NavigationDestination, strategy: NavigationStrategy)],
         source: NavigationIdentity? = nil,
-        strategy: NavigationStrategy,
         event: ResponderEvent? = nil,
         animated: Bool = true,
         completion: (() -> Void)? = nil
@@ -49,18 +48,17 @@ final class Navigator: Responder {
         }
 
         var chain = chain
-        let destination = chain.removeFirst()
+        let link = chain.removeFirst()
         return navigate(
-            destination: destination,
+            destination: link.destination,
             source: source,
-            strategy: strategy,
+            strategy: link.strategy,
             event: event,
             animated: animated,
             completion: { [self] in
                 navigate(
                     chain: chain,
-                    source: destination.identity,
-                    strategy: strategy,
+                    source: link.destination.identity,
                     event: event,
                     animated: animated,
                     completion: completion
@@ -100,9 +98,15 @@ final class Navigator: Responder {
             eventController = controller as? UIViewController & Responder
         case .presentOrCloseToExisting:
             if let controller = window?.findController(destination: destination) {
-                closeNavigationPresented(controller: controller, animated: animated)
+                selectTabIfNeeded(
+                    source: source ?? destination.identity?.fallbackSource,
+                    controller: window?.topViewController,
+                    completion: { [self] sourceController in
+                        closeNavigationPresented(controller: sourceController ?? controller, animated: animated)
+                        completion?()
+                    }
+                )
                 eventController = controller as? UIViewController & Responder
-                completion?()
                 navigatorEvent = ResponderPoppedToExistingEvent()
             } else {
                 return navigate(
@@ -124,6 +128,7 @@ final class Navigator: Responder {
                 source: source ?? destination.identity?.fallbackSource,
                 controller: window?.topViewController,
                 completion: { [self] sourceController in
+                    let sourceController = sourceController?.topViewController(root: true)?.orNavigationController
                     if push(sourceController: sourceController, controller: controller, animated: animated) {
                         completion?()
                     } else {
@@ -140,7 +145,7 @@ final class Navigator: Responder {
             )
             eventController = controller as? UIViewController & Responder
         case let .pushOrPopToExisting(alwaysEmbedded):
-            if let controller = window?.findController(destination: destination) {
+            if let controller = window?.topViewController?.navigationController?.findController(destination: destination) {
                 closeNavigationPresented(controller: controller, animated: animated)
                 selectTabIfNeeded(source: source ?? destination.identity?.fallbackSource, controller: controller)
                 eventController = controller as? (UIViewController & Responder)
@@ -182,9 +187,8 @@ final class Navigator: Responder {
     }
 
     private func push(sourceController: UIViewController?, controller: UIViewController, animated: Bool) -> Bool {
-        sourceController?.presentedViewController?.dismiss(animated: animated)
-        let topViewController = window?.topViewController
-        if let navigationController = topViewController?.orNavigationController {
+        dismissPresented(in: sourceController, animated: animated)
+        if let navigationController = window?.topViewController?.orNavigationController {
             navigationController.pushViewController(
                 controller,
                 animated: animated
@@ -222,9 +226,17 @@ final class Navigator: Responder {
 
     private func closeNavigationPresented(controller: UIViewController?, animated: Bool) {
         if let controller {
-            controller.presentedViewController?.dismiss(animated: animated)
+            dismissPresented(in: controller, animated: animated)
             controller.navigationController?.popToViewController(controller, animated: animated)
         }
+    }
+
+    private func dismissPresented(in controller: UIViewController?, animated: Bool) {
+        controller?.presentedViewController?.dismiss(animated: animated, completion: { [weak self] in
+            if controller?.presentedViewController != nil {
+                self?.dismissPresented(in: controller, animated: animated)
+            }
+        })
     }
 
     private func selectTabIfNeeded(

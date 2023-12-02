@@ -58,14 +58,14 @@ final class CompositionRoot {
             navigator.navigate(
                 destination: .identity(SearchNavigationIdentity()),
                 source: SearchNavigationIdentity(),
-                strategy: .pushOrPopToExisting(),
+                strategy: .presentOrCloseToExisting,
                 event: ResponderOpenedFromShortcutEvent()
             )
         case .home:
             navigator.navigate(
                 destination: .identity(HomeNavigationIdentity()),
                 source: HomeNavigationIdentity(),
-                strategy: .pushOrPopToExisting(),
+                strategy: .presentOrCloseToExisting,
                 event: ResponderOpenedFromShortcutEvent()
             )
         }
