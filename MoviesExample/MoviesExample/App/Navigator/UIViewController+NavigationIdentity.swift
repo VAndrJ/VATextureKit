@@ -90,6 +90,10 @@ public extension UIViewController {
 
 extension UIViewController {
 
+    var orNavigationController: UINavigationController? {
+        (self as? UINavigationController) ?? navigationController
+    }
+
     func findController(destination: Navigator.NavigationDestination) -> UIViewController? {
         switch destination {
         case let .identity(identity):

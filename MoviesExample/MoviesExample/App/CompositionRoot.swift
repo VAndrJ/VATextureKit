@@ -58,14 +58,14 @@ final class CompositionRoot {
             navigator.navigate(
                 destination: .identity(SearchNavigationIdentity()),
                 source: SearchNavigationIdentity(),
-                strategy: .pushOrPopToExisting,
+                strategy: .pushOrPopToExisting(),
                 event: ResponderOpenedFromShortcutEvent()
             )
         case .home:
             navigator.navigate(
                 destination: .identity(HomeNavigationIdentity()),
                 source: HomeNavigationIdentity(),
-                strategy: .pushOrPopToExisting,
+                strategy: .pushOrPopToExisting(),
                 event: ResponderOpenedFromShortcutEvent()
             )
         }
@@ -93,7 +93,7 @@ final class CompositionRoot {
         navigator.navigate(
             destination: .identity(MovieDetailsNavigationIdentity(movie: listMovieEntity)),
             source: SearchNavigationIdentity(),
-            strategy: .pushOrPopToExisting,
+            strategy: .pushOrPopToExisting(),
             event: ResponderOpenedFromURLEvent()
         )
 

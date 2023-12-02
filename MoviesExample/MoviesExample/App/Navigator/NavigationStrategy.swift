@@ -9,8 +9,8 @@ import Foundation
 
 public enum NavigationStrategy: Equatable {
     case replaceWindowRoot(transition: CATransition? = nil)
-    case push
-    case pushOrPopToExisting
+    case push(alwaysEmbedded: Bool = true)
+    case pushOrPopToExisting(alwaysEmbedded: Bool = true)
     case present
     case presentOrCloseToExisting
 }

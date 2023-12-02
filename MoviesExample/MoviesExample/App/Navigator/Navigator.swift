@@ -63,10 +63,7 @@ final class Navigator: Responder {
             eventController = controller as? UIViewController & Responder
         case .presentOrCloseToExisting:
             if let controller = window?.rootViewController?.findController(destination: destination) {
-                controller.navigationController?.popToViewController(controller, animated: animated)
-                if let presentedViewController = controller.presentedViewController {
-                    presentedViewController.dismiss(animated: animated)
-                }
+                closeNavigationPresented(controller: controller, animated: animated)
                 eventController = controller as? UIViewController & Responder
                 navigatorEvent = ResponderPoppedToExistingEvent()
             } else {
@@ -78,7 +75,7 @@ final class Navigator: Responder {
                     animated: animated
                 )
             }
-        case .push:
+        case let .push(alwaysEmbedded):
             guard let controller = getScreen(destination: destination) else {
                 return nil
             }
@@ -89,9 +86,14 @@ final class Navigator: Responder {
                 completion: { [self] sourceController in
                     if !push(sourceController: sourceController, controller: controller, animated: animated) {
                         navigate(
-                            destination: .controller(controller),
+                            destination: .controller(alwaysEmbedded ? screenFactory.embedInNavigationControllerIfNeeded(controller: controller) : controller),
                             source: source,
-                            strategy: [.push, .pushOrPopToExisting].contains(sourceStrategy) ? .present : sourceStrategy,
+                            strategy: [
+                                .push(alwaysEmbedded: true),
+                                .push(alwaysEmbedded: false),
+                                .pushOrPopToExisting(alwaysEmbedded: true),
+                                .pushOrPopToExisting(alwaysEmbedded: false)
+                            ].contains(sourceStrategy) ? .present : sourceStrategy,
                             sourceStrategy: sourceStrategy,
                             event: event,
                             animated: animated
@@ -100,10 +102,9 @@ final class Navigator: Responder {
                 }
             )
             eventController = controller as? UIViewController & Responder
-        case .pushOrPopToExisting:
+        case let .pushOrPopToExisting(alwaysEmbedded):
             if let controller = window?.rootViewController?.findController(destination: destination) {
-                controller.presentedViewController?.dismiss(animated: animated)
-                controller.navigationController?.popToViewController(controller, animated: animated)
+                closeNavigationPresented(controller: controller, animated: animated)
                 selectTabIfNeeded(source: source ?? destination.identity?.fallbackSource, controller: controller)
                 eventController = controller as? (UIViewController & Responder)
                 navigatorEvent = ResponderPoppedToExistingEvent()
@@ -111,7 +112,7 @@ final class Navigator: Responder {
                 return navigate(
                     destination: destination,
                     source: source,
-                    strategy: .push,
+                    strategy: .push(alwaysEmbedded: alwaysEmbedded),
                     event: event,
                     animated: animated
                 )
@@ -142,16 +143,14 @@ final class Navigator: Responder {
     }
 
     private func push(sourceController: UIViewController?, controller: UIViewController, animated: Bool) -> Bool {
-        if let sourceController {
-            sourceController.presentedViewController?.dismiss(animated: animated)
-            sourceController.navigationController?.popToViewController(sourceController, animated: animated)
-        }
+        closeNavigationPresented(controller: sourceController, animated: animated)
         let topViewController = window?.topViewController
-        if let navigationController = topViewController as? UINavigationController ?? topViewController?.navigationController {
+        if let navigationController = topViewController?.orNavigationController {
             navigationController.pushViewController(
                 controller,
                 animated: animated
             )
+
             return true
         } else {
             return false
@@ -178,6 +177,13 @@ final class Navigator: Responder {
             window?.makeKeyAndVisible()
         } else {
             window?.set(rootViewController: controller, transition: transition)
+        }
+    }
+
+    private func closeNavigationPresented(controller: UIViewController?, animated: Bool) {
+        if let controller {
+            controller.presentedViewController?.dismiss(animated: animated)
+            controller.navigationController?.popToViewController(controller, animated: animated)
         }
     }
 

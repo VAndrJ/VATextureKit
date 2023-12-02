@@ -45,7 +45,7 @@ final class ScreenFactory {
                         followMovie: { [weak navigator] in
                             navigator?.navigate(
                                 destination: .identity(MovieDetailsNavigationIdentity(movie: $0)),
-                                strategy: .pushOrPopToExisting
+                                strategy: .pushOrPopToExisting()
                             )
                         }
                     )
@@ -69,7 +69,7 @@ final class ScreenFactory {
                         followMovie: { [weak navigator] in
                             navigator?.navigate(
                                 destination: .identity(MovieDetailsNavigationIdentity(movie: $0)),
-                                strategy: .pushOrPopToExisting
+                                strategy: .pushOrPopToExisting()
                             )
                         },
                         followActor: { [weak navigator] in
@@ -103,4 +103,14 @@ final class ScreenFactory {
         }
     }
     // swiftlint:enable function_body_length
+
+    func embedInNavigationControllerIfNeeded(controller: UIViewController) -> UIViewController {
+        if let controller = controller.orNavigationController {
+            return controller
+        } else {
+            let controller = NavigationController(controller: controller)
+            controller.navigationIdentity = NavNavigationIdentity()
+            return controller
+        }
+    }
 }
