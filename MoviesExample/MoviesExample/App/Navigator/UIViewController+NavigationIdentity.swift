@@ -146,6 +146,13 @@ public extension UIWindow {
     }
 }
 
+extension UIWindow {
+
+    func findController(destination: Navigator.NavigationDestination) -> UIViewController? {
+        rootViewController?.findController(destination: destination)
+    }
+}
+
 extension UIViewController {
     public var navigationIdentity: (any NavigationIdentity)? {
         get { (objc_getAssociatedObject(self, &navigationIdentityKey) as? (any NavigationIdentity)) }

@@ -22,7 +22,7 @@ final class Navigator: Responder {
         }
     }
 
-    let screenFactory: ScreenFactory
+    let screenFactory: NavigatorScreenFactory
 
     private(set) weak var window: UIWindow?
 
@@ -40,15 +40,16 @@ final class Navigator: Responder {
         destination: NavigationDestination,
         source: NavigationIdentity? = nil,
         strategy: NavigationStrategy,
-        sourceStrategy: NavigationStrategy = .present,
         event: ResponderEvent? = nil,
-        animated: Bool = true
+        animated: Bool = true,
+        completion: (() -> Void)? = nil
     ) -> Responder? {
         let eventController: (UIViewController & Responder)?
         var navigatorEvent: ResponderEvent?
         switch strategy {
         case let .replaceWindowRoot(transition):
             guard let controller = getScreen(destination: destination) else {
+                completion?()
                 return nil
             }
 
@@ -56,13 +57,14 @@ final class Navigator: Responder {
             eventController = controller as? UIViewController & Responder
         case .present:
             guard let controller = getScreen(destination: destination) else {
+                completion?()
                 return nil
             }
 
             present(controller: controller, animated: animated)
             eventController = controller as? UIViewController & Responder
         case .presentOrCloseToExisting:
-            if let controller = window?.rootViewController?.findController(destination: destination) {
+            if let controller = window?.findController(destination: destination) {
                 closeNavigationPresented(controller: controller, animated: animated)
                 eventController = controller as? UIViewController & Responder
                 navigatorEvent = ResponderPoppedToExistingEvent()
@@ -72,11 +74,13 @@ final class Navigator: Responder {
                     source: source,
                     strategy: .present,
                     event: event,
-                    animated: animated
+                    animated: animated,
+                    completion: completion
                 )
             }
         case let .push(alwaysEmbedded):
             guard let controller = getScreen(destination: destination) else {
+                completion?()
                 return nil
             }
 
@@ -84,26 +88,23 @@ final class Navigator: Responder {
                 source: source ?? destination.identity?.fallbackSource,
                 controller: window?.topViewController,
                 completion: { [self] sourceController in
-                    if !push(sourceController: sourceController, controller: controller, animated: animated) {
+                    if push(sourceController: sourceController, controller: controller, animated: animated) {
+                        completion?()
+                    } else {
                         navigate(
                             destination: .controller(alwaysEmbedded ? screenFactory.embedInNavigationControllerIfNeeded(controller: controller) : controller),
                             source: source,
-                            strategy: [
-                                .push(alwaysEmbedded: true),
-                                .push(alwaysEmbedded: false),
-                                .pushOrPopToExisting(alwaysEmbedded: true),
-                                .pushOrPopToExisting(alwaysEmbedded: false)
-                            ].contains(sourceStrategy) ? .present : sourceStrategy,
-                            sourceStrategy: sourceStrategy,
+                            strategy: .present,
                             event: event,
-                            animated: animated
+                            animated: animated,
+                            completion: completion
                         )
                     }
                 }
             )
             eventController = controller as? UIViewController & Responder
         case let .pushOrPopToExisting(alwaysEmbedded):
-            if let controller = window?.rootViewController?.findController(destination: destination) {
+            if let controller = window?.findController(destination: destination) {
                 closeNavigationPresented(controller: controller, animated: animated)
                 selectTabIfNeeded(source: source ?? destination.identity?.fallbackSource, controller: controller)
                 eventController = controller as? (UIViewController & Responder)
@@ -114,7 +115,8 @@ final class Navigator: Responder {
                     source: source,
                     strategy: .push(alwaysEmbedded: alwaysEmbedded),
                     event: event,
-                    animated: animated
+                    animated: animated,
+                    completion: completion
                 )
             }
         }
@@ -128,7 +130,8 @@ final class Navigator: Responder {
                 await eventController?.handle(event: navigatorEvent)
             }
         }
-
+        
+        completion?()
         return eventController
     }
     // swiftlint:enable function_body_length
@@ -143,7 +146,7 @@ final class Navigator: Responder {
     }
 
     private func push(sourceController: UIViewController?, controller: UIViewController, animated: Bool) -> Bool {
-        closeNavigationPresented(controller: sourceController, animated: animated)
+        sourceController?.presentedViewController?.dismiss(animated: animated)
         let topViewController = window?.topViewController
         if let navigationController = topViewController?.orNavigationController {
             navigationController.pushViewController(

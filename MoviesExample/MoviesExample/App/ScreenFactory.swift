@@ -8,7 +8,7 @@
 import VATextureKit
 @_exported import Swiftional
 
-final class ScreenFactory {
+final class ScreenFactory: NavigatorScreenFactory {
     let network = Network(networkLogger: DebugNetworkLogger())
     private(set) lazy var remoteDataSource = RemoteDataSource(
         network: network,
@@ -19,12 +19,12 @@ final class ScreenFactory {
     )
 
     // swiftlint:disable function_body_length
-    func assembleScreen(identity: NavigationIdentity, navigator: Navigator) -> (UIViewController & Responder)? {
+    func assembleScreen(identity: NavigationIdentity, navigator: Navigator) -> UIViewController {
         switch identity {
         case let identity as MainTabsNavigationIdentity:
             let controller = MainTabBarController(controllers: identity.tabsIdentity
                 .compactMap { identity in
-                    assembleScreen(identity: identity, navigator: navigator).map { ($0, identity) }
+                    (assembleScreen(identity: identity, navigator: navigator), identity)
                 }
                 .map { controller, identity in
                     let controller = NavigationController(controller: controller)
@@ -99,7 +99,8 @@ final class ScreenFactory {
             return controller
         default:
             assertionFailure("Not implemented")
-            return nil
+
+            return UIViewController()
         }
     }
     // swiftlint:enable function_body_length
