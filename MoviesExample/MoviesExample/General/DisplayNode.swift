@@ -68,7 +68,7 @@ class DisplayNode<ViewModel: EventViewModel>: VASafeAreaDisplayNode, ControllerN
 
     var nextEventResponder: Responder? {
         get { viewModel }
-        set {} // swiftlint:disable:this unused_setter_value
+        set { viewModel.nextEventResponder = newValue }
     }
 
     func handle(event: ResponderEvent) async -> Bool {

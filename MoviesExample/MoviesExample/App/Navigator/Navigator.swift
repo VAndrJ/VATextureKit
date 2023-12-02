@@ -7,7 +7,7 @@
 
 import VATextureKitRx
 
-final class Navigator: Responder {
+final class Navigator {
     enum NavigationDestination {
         case identity(NavigationIdentity)
         case controller(UIViewController)
@@ -260,18 +260,5 @@ final class Navigator: Responder {
             }
         }
         completion?(nil)
-    }
-
-    // MARK: - Responder
-
-    var nextEventResponder: Responder? {
-        get { nil }
-        set {} // swiftlint:disable:this unused_setter_value
-    }
-
-    func handle(event: ResponderEvent) async -> Bool {
-        logResponder(from: self, event: event)
-
-        return await nextEventResponder?.handle(event: event) ?? false
     }
 }

@@ -55,20 +55,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         .portrait
     }
 }
-
-extension AppDelegate: Responder {
-    var nextEventResponder: Responder? {
-        get { compositionRoot }
-        set {} // swiftlint:disable:this unused_setter_value
-    }
-
-    func handle(event: ResponderEvent) async -> Bool {
-        logResponder(from: self, event: event)
-        if let nextEventResponder {
-            return await nextEventResponder.handle(event: event)
-        } else {
-            try? await Task.sleep(milliseconds: 400)
-            return await handle(event: event)
-        }
-    }
-}

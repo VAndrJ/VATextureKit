@@ -58,7 +58,7 @@ final class NavigationController: VANavigationController, Responder {
     // MARK: - Responder
 
     var nextEventResponder: Responder? {
-        get { viewControllers.first as? Responder }
+        get { topViewController as? Responder }
         set {} // swiftlint:disable:this unused_setter_value
     }
     

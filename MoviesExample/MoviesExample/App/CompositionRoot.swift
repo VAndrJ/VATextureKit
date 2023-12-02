@@ -106,16 +106,3 @@ final class CompositionRoot {
         }
     }
 }
-
-extension CompositionRoot: Responder {
-    var nextEventResponder: Responder? {
-        get { navigator }
-        set {} // swiftlint:disable:this unused_setter_value
-    }
-
-    func handle(event: ResponderEvent) async -> Bool {
-        logResponder(from: self, event: event)
-
-        return await nextEventResponder?.handle(event: event) ?? false
-    }
-}

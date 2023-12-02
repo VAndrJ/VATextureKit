@@ -7,7 +7,7 @@
 
 import VATextureKit
 
-final class MainTabBarController: VATabBarController, Responder {
+final class MainTabBarController: VATabBarController {
     enum Tab {
         case home
         case search
@@ -45,16 +45,6 @@ final class MainTabBarController: VATabBarController, Responder {
         super.configureTheme(theme)
 
         tabBar.configureAppearance(theme: theme)
-    }
-
-    // MARK: - Responder
-
-    weak var nextEventResponder: Responder?
-
-    func handle(event: ResponderEvent) async -> Bool {
-        logResponder(from: self, event: event)
-
-        return await nextEventResponder?.handle(event: event) ?? false
     }
 }
 

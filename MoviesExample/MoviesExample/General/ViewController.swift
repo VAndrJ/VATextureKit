@@ -61,11 +61,12 @@ class ViewController<Node: ASDisplayNode & Responder & ControllerNode>: VAViewCo
 
     var nextEventResponder: Responder? {
         get { contentNode }
-        set {} // swiftlint:disable:this unused_setter_value
+        set { contentNode.nextEventResponder = newValue }
     }
 
     func handle(event: ResponderEvent) async -> Bool {
         logResponder(from: self, event: event)
+
         return await nextEventResponder?.handle(event: event) ?? false
     }
 }
