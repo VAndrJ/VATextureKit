@@ -59,7 +59,7 @@ final class Navigator: Responder {
                 return nil
             }
 
-            window?.topViewController?.present(controller, animated: animated)
+            present(controller: controller, animated: animated)
             eventController = controller as? UIViewController & Responder
         case .presentOrCloseToExisting:
             if let controller = window?.rootViewController?.findController(destination: destination) {
@@ -147,6 +147,20 @@ final class Navigator: Responder {
             return screenFactory.assembleScreen(identity: identity, navigator: self)
         case let .controller(controller):
             return controller
+        }
+    }
+
+    private func present(controller: UIViewController, animated: Bool) {
+        if window?.rootViewController != nil {
+            window?.topViewController?.present(controller, animated: animated)
+        } else {
+            var transition: CATransition?
+            if animated {
+                transition = CATransition()
+                transition?.duration = 0.3
+                transition?.type = .fade
+            }
+            replaceWindowRoot(controller: controller, transition: transition)
         }
     }
 
