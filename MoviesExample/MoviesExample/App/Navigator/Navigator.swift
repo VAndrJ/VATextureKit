@@ -26,6 +26,7 @@ final class Navigator: Responder {
         destination: NavigationIdentity,
         source: NavigationIdentity? = nil,
         strategy: NavigationStrategy,
+        sourceStrategy: NavigationStrategy = .present,
         event: ResponderEvent? = nil,
         animated: Bool = true
     ) -> Responder? {
@@ -97,27 +98,39 @@ final class Navigator: Responder {
             }
 
             selectTabIfNeeded(
-                source: source,
+                source: source ?? destination.fallbackSource,
                 controller: window?.topViewController,
                 completion: { [self] sourceController in
                     if let presentedViewController = sourceController?.presentedViewController {
                         presentedViewController.dismiss(animated: animated)
                     }
                     let topViewController = window?.topViewController
-                    (topViewController as? UINavigationController ?? topViewController?.navigationController)?.pushViewController(
-                        controller,
-                        animated: animated
-                    )
+                    if let navigationController = topViewController as? UINavigationController ?? topViewController?.navigationController {
+                        navigationController.pushViewController(
+                            controller,
+                            animated: animated
+                        )
+                    } else {
+                        navigate(
+                            destination: NavNavigationIdentity(
+                                childIdentity: destination,
+                                fallbackSource: destination.fallbackSource
+                            ),
+                            source: source,
+                            strategy: [.push, .pushOrPopToExisting].contains(sourceStrategy) ? .present : sourceStrategy,
+                            sourceStrategy: sourceStrategy,
+                            event: event,
+                            animated: animated
+                        )
+                    }
                 }
             )
             eventController = controller
         case .pushOrPopToExisting:
             if let controller = window?.rootViewController?.findController(identity: destination) {
                 controller.navigationController?.popToViewController(controller, animated: animated)
-                if let presentedViewController = controller.presentedViewController {
-                    presentedViewController.dismiss(animated: animated)
-                }
-                selectTabIfNeeded(source: source, controller: controller)
+                controller.presentedViewController?.dismiss(animated: animated)
+                selectTabIfNeeded(source: source ?? destination.fallbackSource, controller: controller)
                 eventController = controller as? (UIViewController & Responder)
                 navigatorEvent = ResponderPoppedToExistingEvent()
             } else {
