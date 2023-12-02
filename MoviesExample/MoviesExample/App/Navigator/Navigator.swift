@@ -87,16 +87,7 @@ final class Navigator: Responder {
                 source: source ?? destination.identity?.fallbackSource,
                 controller: window?.topViewController,
                 completion: { [self] sourceController in
-                    if let presentedViewController = sourceController?.presentedViewController {
-                        presentedViewController.dismiss(animated: animated)
-                    }
-                    let topViewController = window?.topViewController
-                    if let navigationController = topViewController as? UINavigationController ?? topViewController?.navigationController {
-                        navigationController.pushViewController(
-                            controller,
-                            animated: animated
-                        )
-                    } else {
+                    if !push(sourceController: sourceController, controller: controller, animated: animated) {
                         navigate(
                             destination: .controller(controller),
                             source: source,
@@ -111,8 +102,8 @@ final class Navigator: Responder {
             eventController = controller as? UIViewController & Responder
         case .pushOrPopToExisting:
             if let controller = window?.rootViewController?.findController(destination: destination) {
-                controller.navigationController?.popToViewController(controller, animated: animated)
                 controller.presentedViewController?.dismiss(animated: animated)
+                controller.navigationController?.popToViewController(controller, animated: animated)
                 selectTabIfNeeded(source: source ?? destination.identity?.fallbackSource, controller: controller)
                 eventController = controller as? (UIViewController & Responder)
                 navigatorEvent = ResponderPoppedToExistingEvent()
@@ -147,6 +138,23 @@ final class Navigator: Responder {
             return screenFactory.assembleScreen(identity: identity, navigator: self)
         case let .controller(controller):
             return controller
+        }
+    }
+
+    private func push(sourceController: UIViewController?, controller: UIViewController, animated: Bool) -> Bool {
+        if let sourceController {
+            sourceController.presentedViewController?.dismiss(animated: animated)
+            sourceController.navigationController?.popToViewController(sourceController, animated: animated)
+        }
+        let topViewController = window?.topViewController
+        if let navigationController = topViewController as? UINavigationController ?? topViewController?.navigationController {
+            navigationController.pushViewController(
+                controller,
+                animated: animated
+            )
+            return true
+        } else {
+            return false
         }
     }
 
