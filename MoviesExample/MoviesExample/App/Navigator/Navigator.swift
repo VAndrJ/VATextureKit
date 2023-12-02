@@ -12,6 +12,7 @@ final class Navigator {
         case identity(NavigationIdentity)
         case controller(UIViewController)
 
+        /// Computed property to extract the navigation identity from the destination.
         var identity: NavigationIdentity? {
             switch self {
             case let .identity(identity):
@@ -34,6 +35,15 @@ final class Navigator {
         self.screenFactory = screenFactory
     }
 
+    /// Navigates through a chain of destinations.
+    ///
+    /// - Parameters:
+    ///   - chain: An array of tuples representing the navigation chain with destination and strategy.
+    ///   - source: The source navigation identity.
+    ///   - event: `ResponderEvent` to be handled by the destination controller.
+    ///   - animated: A flag indicating whether the navigation should be animated.
+    ///   - completion: A closure to be executed after the entire navigation chain is complete.
+    /// - Returns: The `Responder` representing the destination controller.
     @discardableResult
     func navigate(
         chain: [(destination: NavigationDestination, strategy: NavigationStrategy)],
@@ -55,8 +65,8 @@ final class Navigator {
             strategy: link.strategy,
             event: event,
             animated: animated,
-            completion: { [self] in
-                navigate(
+            completion: { [weak self] in
+                self?.navigate(
                     chain: chain,
                     source: link.destination.identity,
                     event: event,
@@ -68,6 +78,16 @@ final class Navigator {
     }
 
     // swiftlint:disable function_body_length
+    /// Navigates to a specific destination using the provided navigation strategy.
+    ///
+    /// - Parameters:
+    ///   - destination: The destination to navigate to.
+    ///   - source: The source identity for navigation.
+    ///   - strategy: The navigation strategy to be applied.
+    ///   - event: `ResponderEvent` to be handled by the destination controller.
+    ///   - animated: A flag indicating whether the navigation should be animated.
+    ///   - completion: A closure to be executed after the navigation is complete.
+    /// - Returns: The `Responder` representing the destination controller.
     @discardableResult
     func navigate(
         destination: NavigationDestination,
@@ -101,8 +121,8 @@ final class Navigator {
                 selectTabIfNeeded(
                     source: source ?? destination.identity?.fallbackSource,
                     controller: window?.topViewController,
-                    completion: { [self] sourceController in
-                        closeNavigationPresented(controller: sourceController ?? controller, animated: animated)
+                    completion: { [weak self] sourceController in
+                        self?.closeNavigationPresented(controller: sourceController ?? controller, animated: animated)
                         completion?()
                     }
                 )
@@ -127,7 +147,12 @@ final class Navigator {
             selectTabIfNeeded(
                 source: source ?? destination.identity?.fallbackSource,
                 controller: window?.topViewController,
-                completion: { [self] sourceController in
+                completion: { [weak self] sourceController in
+                    guard let self else {
+                        completion?()
+                        return
+                    }
+
                     let sourceController = sourceController?.topViewController(root: true)?.orNavigationController
                     if push(sourceController: sourceController, controller: controller, animated: animated) {
                         completion?()
@@ -149,8 +174,8 @@ final class Navigator {
                 closeNavigationPresented(controller: controller, animated: animated)
                 selectTabIfNeeded(source: source ?? destination.identity?.fallbackSource, controller: controller)
                 eventController = controller as? (UIViewController & Responder)
-                completion?()
                 navigatorEvent = ResponderPoppedToExistingEvent()
+                completion?()
             } else {
                 return navigate(
                     destination: destination,
@@ -177,6 +202,10 @@ final class Navigator {
     }
     // swiftlint:enable function_body_length
 
+    /// Retrieves a view controller based on the provided navigation destination.
+    ///
+    /// - Parameter destination: The navigation destination indicating whether to assemble a screen using an identity or use an existing controller.
+    /// - Returns: The view controller corresponding to the given navigation destination.
     func getScreen(destination: NavigationDestination) -> UIViewController? {
         switch destination {
         case let .identity(identity):
@@ -186,6 +215,13 @@ final class Navigator {
         }
     }
 
+    /// Pushes a view controller onto the navigation stack of the top view controller in the window, dismissing presented controllers in the process.
+    ///
+    /// - Parameters:
+    ///   - sourceController: The source controller from which presented controllers will be dismissed.
+    ///   - controller: The view controller to push onto the navigation stack.
+    ///   - animated: Should be animated or not.
+    /// - Returns: A boolean value indicating whether the push operation was successful. `true` if successful, `false` if a navigation controller was not found.
     private func push(sourceController: UIViewController?, controller: UIViewController, animated: Bool) -> Bool {
         dismissPresented(in: sourceController, animated: animated)
         if let navigationController = window?.topViewController?.orNavigationController {
@@ -200,6 +236,12 @@ final class Navigator {
         }
     }
 
+    /// Presents a view controller from the current top controller in the window or sets it as the `rootViewController` if the window is empty.
+    ///
+    /// - Parameters:
+    ///   - controller: The view controller to present.
+    ///   - animated: Should be animated or not.
+    ///   - completion: A closure to be executed after the replacement is complete.
     private func present(controller: UIViewController, animated: Bool, completion: (() -> Void)?) {
         if window?.rootViewController != nil {
             window?.topViewController?.present(controller, animated: animated, completion: completion)
@@ -214,6 +256,12 @@ final class Navigator {
         }
     }
 
+    /// Replaces the root view controller of the window or sets it as the initial root view controller.
+    ///
+    /// - Parameters:
+    ///   - controller: The view controller to set as the `rootViewController`.
+    ///   - transition: Animated transitions when replacing the `rootViewController`.
+    ///   - completion: A closure to be executed after the replacement is complete.
     private func replaceWindowRoot(controller: UIViewController, transition: CATransition?, completion: (() -> Void)?) {
         if window?.rootViewController == nil {
             window?.rootViewController = controller
@@ -224,6 +272,11 @@ final class Navigator {
         }
     }
 
+    /// Dismisses all presented view controllers within the given controller while they are being presented and pops back to the specified controller in the navigation stack if it exists.
+    ///
+    /// - Parameters:
+    ///   - controller: Controller with presented controllers to dismiss and the target for navigation stack pop.
+    ///   - animated: Should be animated or not.
     private func closeNavigationPresented(controller: UIViewController?, animated: Bool) {
         if let controller {
             dismissPresented(in: controller, animated: animated)
@@ -231,6 +284,11 @@ final class Navigator {
         }
     }
 
+    /// Dismisses all presented view controllers within the given controller while they are being presented.
+    ///
+    /// - Parameters:
+    ///   - controller: Controller with presented controllers to dismiss.
+    ///   - animated: Should be animated or not.
     private func dismissPresented(in controller: UIViewController?, animated: Bool) {
         controller?.presentedViewController?.dismiss(animated: animated, completion: { [weak self] in
             if controller?.presentedViewController != nil {
@@ -239,6 +297,12 @@ final class Navigator {
         })
     }
 
+    /// Selects the tab in the tab bar controller, if needed, based on the provided source identity.
+    ///
+    /// - Parameters:
+    ///   - source: The source navigation identity to find in the tab bar controller.
+    ///   - controller: The view controller from which to start searching for the tab bar controller.
+    ///   - completion: A closure to be executed after the tab is selected, providing the view controller found in the selected tab if applicable.
     private func selectTabIfNeeded(
         source: NavigationIdentity?,
         controller: UIViewController?,
@@ -249,7 +313,7 @@ final class Navigator {
                 if let sourceController = tabBarController.viewControllers?[index].findController(identity: source) {
                     if tabBarController.selectedIndex != index {
                         tabBarController.selectedIndex = index
-                        mainAsync(after: 0.4) {
+                        mainAsync(after: .milliseconds(400)) {
                             completion?(sourceController)
                         }
                     } else {
