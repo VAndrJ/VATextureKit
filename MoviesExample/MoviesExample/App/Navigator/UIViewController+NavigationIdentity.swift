@@ -118,7 +118,7 @@ public extension UIWindow {
         return topmostViewController
     }
 
-    func set(rootViewController newRootViewController: UIViewController, transition: CATransition? = nil) {
+    func set(rootViewController newRootViewController: UIViewController, transition: CATransition? = nil, completion: (() -> Void)? = nil) {
         let previousViewController = rootViewController
         if let transition {
             layer.add(transition, forKey: kCATransition)
@@ -141,7 +141,10 @@ public extension UIWindow {
         if let previousViewController {
             previousViewController.dismiss(animated: false) {
                 previousViewController.view.removeFromSuperview()
+                completion?()
             }
+        } else {
+            completion?()
         }
     }
 }

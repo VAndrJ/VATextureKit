@@ -34,6 +34,41 @@ final class Navigator: Responder {
         self.screenFactory = screenFactory
     }
 
+    @discardableResult
+    func navigate(
+        chain: [NavigationDestination],
+        source: NavigationIdentity? = nil,
+        strategy: NavigationStrategy,
+        event: ResponderEvent? = nil,
+        animated: Bool = true,
+        completion: (() -> Void)? = nil
+    ) -> Responder? {
+        guard chain.isNotEmpty else {
+            completion?()
+            return nil
+        }
+
+        var chain = chain
+        let destination = chain.removeFirst()
+        return navigate(
+            destination: destination,
+            source: source,
+            strategy: strategy,
+            event: event,
+            animated: animated,
+            completion: { [self] in
+                navigate(
+                    chain: chain,
+                    source: destination.identity,
+                    strategy: strategy,
+                    event: event,
+                    animated: animated,
+                    completion: completion
+                )
+            }
+        )
+    }
+
     // swiftlint:disable function_body_length
     @discardableResult
     func navigate(
@@ -53,7 +88,7 @@ final class Navigator: Responder {
                 return nil
             }
 
-            replaceWindowRoot(controller: controller, transition: transition)
+            replaceWindowRoot(controller: controller, transition: transition, completion: completion)
             eventController = controller as? UIViewController & Responder
         case .present:
             guard let controller = getScreen(destination: destination) else {
@@ -61,12 +96,13 @@ final class Navigator: Responder {
                 return nil
             }
 
-            present(controller: controller, animated: animated)
+            present(controller: controller, animated: animated, completion: completion)
             eventController = controller as? UIViewController & Responder
         case .presentOrCloseToExisting:
             if let controller = window?.findController(destination: destination) {
                 closeNavigationPresented(controller: controller, animated: animated)
                 eventController = controller as? UIViewController & Responder
+                completion?()
                 navigatorEvent = ResponderPoppedToExistingEvent()
             } else {
                 return navigate(
@@ -108,6 +144,7 @@ final class Navigator: Responder {
                 closeNavigationPresented(controller: controller, animated: animated)
                 selectTabIfNeeded(source: source ?? destination.identity?.fallbackSource, controller: controller)
                 eventController = controller as? (UIViewController & Responder)
+                completion?()
                 navigatorEvent = ResponderPoppedToExistingEvent()
             } else {
                 return navigate(
@@ -130,8 +167,7 @@ final class Navigator: Responder {
                 await eventController?.handle(event: navigatorEvent)
             }
         }
-        
-        completion?()
+
         return eventController
     }
     // swiftlint:enable function_body_length
@@ -160,9 +196,9 @@ final class Navigator: Responder {
         }
     }
 
-    private func present(controller: UIViewController, animated: Bool) {
+    private func present(controller: UIViewController, animated: Bool, completion: (() -> Void)?) {
         if window?.rootViewController != nil {
-            window?.topViewController?.present(controller, animated: animated)
+            window?.topViewController?.present(controller, animated: animated, completion: completion)
         } else {
             var transition: CATransition?
             if animated {
@@ -170,16 +206,17 @@ final class Navigator: Responder {
                 transition?.duration = 0.3
                 transition?.type = .fade
             }
-            replaceWindowRoot(controller: controller, transition: transition)
+            replaceWindowRoot(controller: controller, transition: transition, completion: completion)
         }
     }
 
-    private func replaceWindowRoot(controller: UIViewController, transition: CATransition?) {
+    private func replaceWindowRoot(controller: UIViewController, transition: CATransition?, completion: (() -> Void)?) {
         if window?.rootViewController == nil {
             window?.rootViewController = controller
             window?.makeKeyAndVisible()
+            completion?()
         } else {
-            window?.set(rootViewController: controller, transition: transition)
+            window?.set(rootViewController: controller, transition: transition, completion: completion)
         }
     }
 
