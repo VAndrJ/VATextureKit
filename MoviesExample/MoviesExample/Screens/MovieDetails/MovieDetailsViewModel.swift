@@ -6,7 +6,6 @@
 //
 
 import VATextureKitRx
-import Swiftional
 
 struct OpenListMovieDetailsEvent: Event {
     let movie: ListMovieEntity

@@ -6,7 +6,6 @@
 //
 
 import VATextureKitRx
-import Swiftional
 
 final class SearchNode: DisplayNode<SearchViewModel> {
     private lazy var searchNode = SearchBarNode(beginSearchObs: viewModel.beginSearchObs)

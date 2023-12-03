@@ -6,7 +6,6 @@
 //
 
 import VATextureKit
-import Swiftional
 
 final class MoviesSliderCellNode: VACellNode {
     private let titleTextNode: VATextNode

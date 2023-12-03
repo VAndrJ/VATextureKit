@@ -6,7 +6,6 @@
 //
 
 import VATextureKit
-@_exported import Swiftional
 
 final class ScreenFactory: NavigatorScreenFactory {
     let network = Network(networkLogger: DebugNetworkLogger())

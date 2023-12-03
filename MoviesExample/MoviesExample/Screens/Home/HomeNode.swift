@@ -6,7 +6,6 @@
 //
 
 import VATextureKitRx
-import Swiftional
 
 final class HomeNode: DisplayNode<HomeViewModel> {
     private lazy var backgoundNode = VAImageNode(image: R.image.main_background())

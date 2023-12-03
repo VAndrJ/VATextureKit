@@ -6,7 +6,6 @@
 //
 
 import VATextureKitRx
-import Swiftional
 
 final class MovieDetailsNode: DisplayNode<MovieDetailsViewModel> {
     private lazy var listNode = VAListNode(
