@@ -41,15 +41,13 @@ final class Navigator {
     ///   - chain: An array of tuples representing the navigation chain with destination and strategy.
     ///   - source: The source navigation identity.
     ///   - event: `ResponderEvent` to be handled by the destination controller.
-    ///   - animated: A flag indicating whether the navigation should be animated.
     ///   - completion: A closure to be executed after the entire navigation chain is complete.
     /// - Returns: The `Responder` representing the destination controller.
     @discardableResult
     func navigate(
-        chain: [(destination: NavigationDestination, strategy: NavigationStrategy)],
+        chain: [(destination: NavigationDestination, strategy: NavigationStrategy, animated: Bool)],
         source: NavigationIdentity? = nil,
         event: ResponderEvent? = nil,
-        animated: Bool = true,
         completion: (() -> Void)? = nil
     ) -> Responder? {
         guard chain.isNotEmpty else {
@@ -59,18 +57,18 @@ final class Navigator {
 
         var chain = chain
         let link = chain.removeFirst()
+        
         return navigate(
             destination: link.destination,
             source: source,
             strategy: link.strategy,
             event: event,
-            animated: animated,
+            animated: link.animated,
             completion: { [weak self] in
                 self?.navigate(
                     chain: chain,
                     source: link.destination.identity,
                     event: event,
-                    animated: animated,
                     completion: completion
                 )
             }
@@ -173,7 +171,7 @@ final class Navigator {
             if let controller = window?.topViewController?.navigationController?.findController(destination: destination) {
                 closeNavigationPresented(controller: controller, animated: animated)
                 selectTabIfNeeded(source: source ?? destination.identity?.fallbackSource, controller: controller)
-                eventController = controller as? (UIViewController & Responder)
+                eventController = controller as? UIViewController & Responder
                 navigatorEvent = ResponderPoppedToExistingEvent()
                 completion?()
             } else {
@@ -181,6 +179,26 @@ final class Navigator {
                     destination: destination,
                     source: source,
                     strategy: .push(alwaysEmbedded: alwaysEmbedded),
+                    event: event,
+                    animated: animated,
+                    completion: completion
+                )
+            }
+        case .replaceNavigationRoot:
+            if let navigationController = window?.topViewController?.navigationController {
+                guard let controller = getScreen(destination: destination) else {
+                    completion?()
+                    return nil
+                }
+
+                navigationController.setViewControllers([controller], animated: animated)
+                eventController = controller as? UIViewController & Responder
+                completion?()
+            } else {
+                return navigate(
+                    destination: destination,
+                    source: source,
+                    strategy: .push(alwaysEmbedded: true),
                     event: event,
                     animated: animated,
                     completion: completion

@@ -13,4 +13,5 @@ public enum NavigationStrategy: Equatable {
     case pushOrPopToExisting(alwaysEmbedded: Bool = true)
     case present
     case presentOrCloseToExisting
+    case replaceNavigationRoot
 }
