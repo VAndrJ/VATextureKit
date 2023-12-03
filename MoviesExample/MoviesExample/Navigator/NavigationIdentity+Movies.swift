@@ -7,15 +7,15 @@
 
 import Foundation
 
-public protocol TabsNavigationIdentity: NavigationIdentity {
+protocol TabsNavigationIdentity: NavigationIdentity {
     var tabsIdentity: [NavigationIdentity] { get }
 }
 
-public struct MainTabsNavigationIdentity: TabsNavigationIdentity {
-    public let tabsIdentity: [NavigationIdentity]
-    public var fallbackSource: NavigationIdentity?
+struct MainTabsNavigationIdentity: TabsNavigationIdentity {
+    let tabsIdentity: [NavigationIdentity]
+    var fallbackSource: NavigationIdentity?
 
-    public func isEqual(to other: NavigationIdentity?) -> Bool {
+    func isEqual(to other: NavigationIdentity?) -> Bool {
         guard let other = other as? MainTabsNavigationIdentity else {
             return false
         }

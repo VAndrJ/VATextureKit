@@ -7,10 +7,6 @@
 
 import Foundation
 
-struct ResponderDismissEvent: ResponderEvent {}
-
 struct ResponderOpenedFromURLEvent: ResponderEvent {}
 
 struct ResponderOpenedFromShortcutEvent: ResponderEvent {}
-
-struct ResponderPoppedToExistingEvent: ResponderEvent {}

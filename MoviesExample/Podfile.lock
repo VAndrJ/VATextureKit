@@ -58,6 +58,7 @@ PODS:
     - Texture/Core
   - Texture/Video (3.1.0):
     - Texture/Core
+  - VANavigator (0.0.1)
   - VATextureKit (1.1.5):
     - Texture (~> 3.1.0)
     - VATextureKitSpec (= 1.1.5)
@@ -78,6 +79,7 @@ DEPENDENCIES:
   - RxSwiftExt
   - RxTest
   - Swiftional
+  - VANavigator
   - VATextureKit (from `../`)
   - VATextureKitRx (from `../`)
   - VATextureKitSpec (from `../`)
@@ -98,6 +100,7 @@ SPEC REPOS:
     - RxTest
     - Swiftional
     - Texture
+    - VANavigator
 
 EXTERNAL SOURCES:
   VATextureKit:
@@ -122,10 +125,11 @@ SPEC CHECKSUMS:
   RxTest: eb2d23adefc5a5ebf5779c7792fa3edfe6ebcc17
   Swiftional: c8b6746865543ab4b696aecaa94a487ad60a4c3d
   Texture: 2e8ab2519452515f7f5a520f5a8f7e0a413abfa3
+  VANavigator: b517b4d1f180a414f708d751180aa235c179b795
   VATextureKit: 97f2f2554c5cee63ba055ef53b085eb654280e4b
   VATextureKitRx: ea0ecebaea33855d027fed020b38cc254733546f
   VATextureKitSpec: 46958346faa8e9ede7119b968566fd13ad6be70d
 
-PODFILE CHECKSUM: 05517ff3f401d5c96efc6e6146808ac79528b3da
+PODFILE CHECKSUM: d002eaaa59647b7c2ea1ce4ee7a0c0c9a46fcc19
 
 COCOAPODS: 1.13.0

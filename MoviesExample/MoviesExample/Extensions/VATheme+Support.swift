@@ -13,6 +13,7 @@ extension VATheme {
     static var moviesTheme: VATheme {
         let theme: VATheme = .vaLight
         theme.tag = MovieThemeTag()
+        
         return theme
     }
 }
