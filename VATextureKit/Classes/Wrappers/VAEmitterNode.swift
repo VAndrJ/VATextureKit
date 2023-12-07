@@ -31,6 +31,7 @@ open class VAEmitterNode: VADisplayNode {
     private var _emitterLayer: VAEmitterLayer?
     private var token: String?
 
+    @MainActor
     open override func layout() {
         super.layout()
 

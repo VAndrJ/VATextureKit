@@ -23,6 +23,16 @@ open class VAViewWrapperNode<T: UIView>: VADisplayNode {
     
     private let childGetter: () -> T
     private let sizing: Sizing?
+
+    /// Creates an instance.
+    ///
+    /// - Parameters:
+    ///   - actorChildGetter: A closure returning the UIView instance to be wrapped.
+    ///   - sizing: The sizing option to apply to the wrapped view.
+    @available (iOS 13.0, *)
+    public convenience init(actorChildGetter: @escaping @MainActor () -> T, sizing: Sizing? = nil) {
+        self.init(childGetter: actorChildGetter, sizing: sizing)
+    }
     
     /// Creates an instance.
     ///
@@ -46,7 +56,8 @@ open class VAViewWrapperNode<T: UIView>: VADisplayNode {
             break
         }
     }
-    
+
+    @MainActor
     open override func didLoad() {
         super.didLoad()
         
@@ -62,7 +73,8 @@ open class VAViewWrapperNode<T: UIView>: VADisplayNode {
         }
         view.addSubview(child)
     }
-    
+
+    @MainActor
     open override func layout() {
         super.layout()
 

@@ -25,6 +25,7 @@ open class VASelfSizingListContainerNode<ListNode: ASCollectionNode>: VADisplayN
         super.init(corner: corner)
     }
 
+    @MainActor
     open override func didLoad() {
         super.didLoad()
 
@@ -55,6 +56,7 @@ open class VASelfSizingListContainerNode<ListNode: ASCollectionNode>: VADisplayN
         )
     }
 
+    @MainActor
     private func configure() {
         child.view.contentInsetAdjustmentBehavior = .never
         child.view.isScrollEnabled = false

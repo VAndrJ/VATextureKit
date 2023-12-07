@@ -32,6 +32,7 @@ open class VALinearGradientNode: VABaseGradientNode {
         self.gradient = gradient
     }
 
+    @MainActor
     open override func didLoad() {
         super.didLoad()
 

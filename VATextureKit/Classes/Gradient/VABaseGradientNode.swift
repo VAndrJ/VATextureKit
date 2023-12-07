@@ -18,6 +18,7 @@ open class VABaseGradientNode: ASDisplayNode {
         self.gradientType = type
     }
 
+    @MainActor
     open override func didLoad() {
         super.didLoad()
 

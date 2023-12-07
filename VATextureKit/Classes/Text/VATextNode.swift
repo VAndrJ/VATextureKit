@@ -233,7 +233,8 @@ open class VATextNode: _VATextNode {
             configureTheme(theme)
         }
     }
-    
+
+    @MainActor
     open override func didLoad() {
         super.didLoad()
 

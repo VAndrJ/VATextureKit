@@ -13,6 +13,7 @@ public protocol VAHapticable {}
 
 public extension VAHapticable where Self: AnyObject & ReactiveCompatible {
 
+    @MainActor
     func bindHaptic(
         style: UIImpactFeedbackGenerator.FeedbackStyle,
         delay: RxTimeInterval,
@@ -27,6 +28,7 @@ public extension VAHapticable where Self: AnyObject & ReactiveCompatible {
 
 public extension VAHapticable where Self: ASDisplayNode {
 
+    @MainActor
     func bindTouchHaptic(
         style: UIImpactFeedbackGenerator.FeedbackStyle = .light,
         delay: RxTimeInterval = .seconds(0),
@@ -47,6 +49,7 @@ public extension VAHapticable where Self: ASDisplayNode {
 
 public extension VAHapticable where Self: UIView {
 
+    @MainActor
     func bindTouchHaptic(
         style: UIImpactFeedbackGenerator.FeedbackStyle = .light,
         delay: RxTimeInterval = .seconds(0),

@@ -32,14 +32,18 @@ public class VASpecGridListLayoutDelegate: NSObject, ASCollectionLayoutDelegate 
         let indexMap = getIndexMap(indexPaths: indexPaths)
         let orderedIndexMap = indexMap.lazy.sorted(by: { $0.key < $1.key })
         let itemLayoutSpecs: [ASLayoutElement] = orderedIndexMap.map { section, items in
-            let header = elements.supplementaryElement(
-                ofKind: UICollectionView.elementKindSectionHeader,
-                at: IndexPath(item: 0, section: section)
-            )?.node
-            let footer = elements.supplementaryElement(
-                ofKind: UICollectionView.elementKindSectionFooter,
-                at: IndexPath(item: 0, section: section)
-            )?.node
+            let getHeader: () -> ASCellNode? = { @MainActor in
+                elements.supplementaryElement(
+                    ofKind: UICollectionView.elementKindSectionHeader,
+                    at: IndexPath(item: 0, section: section)
+                )?.node
+            }
+            let getFooter: () -> ASCellNode? = { @MainActor in
+                elements.supplementaryElement(
+                    ofKind: UICollectionView.elementKindSectionFooter,
+                    at: IndexPath(item: 0, section: section)
+                )?.node
+            }
             let itemElements = items.lazy.map { IndexPath(item: $0, section: section) }.compactMap { elements.elementForItem(at: $0) }
             let itemsSpec = getItemsSpec(
                 context: context,
@@ -53,9 +57,9 @@ public class VASpecGridListLayoutDelegate: NSObject, ASCollectionLayoutDelegate 
                 justifyContent: .start,
                 alignItems: .stretch,
                 children: [
-                    header,
+                    getHeader(),
                     itemsSpec,
-                    footer
+                    getFooter(),
                 ].compactMap { $0 }
             )
         }

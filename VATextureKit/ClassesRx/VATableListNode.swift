@@ -154,7 +154,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         let isLoadingObs: Observable<Bool>
 
         public init(
-            refreshControlView: @escaping () -> UIRefreshControl = { UIRefreshControl() },
+            refreshControlView: @escaping @MainActor () -> UIRefreshControl = { UIRefreshControl() },
             isDelayed: Bool = true,
             reloadData: @escaping () -> Void,
             isLoadingObs: Observable<Bool>
@@ -166,7 +166,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         }
 
         public init() {
-            self.refreshControlView = { UIRefreshControl() }
+            self.refreshControlView = { @MainActor in UIRefreshControl() }
             self.isDelayed = false
             self.reloadData = nil
             self.isLoadingObs = .empty()
@@ -234,6 +234,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         }
     }
 
+    @MainActor
     open override func didLoad() {
         super.didLoad()
 

@@ -39,15 +39,18 @@ public class VADynamicHeightGridListLayoutDelegate: NSObject, ASCollectionLayout
             top += info.sectionInsets.top
             if info.headerHeight > 0 {
                 let indexPath = IndexPath(item: 0, section: section)
-                if let element = elements.supplementaryElement(ofKind: UICollectionView.elementKindSectionHeader, at: indexPath) {
-                    let attrs = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, with: indexPath)
-                    let sizeRange = getHeaderSizeRange(section: section, viewportSize: context.viewportSize, info: info)
-                    let size = element.node.layoutThatFits(sizeRange).size
-                    let frame = CGRect(x: info.sectionInsets.left, y: top, width: size.width, height: size.height)
-                    attrs.frame = frame
-                    attrsMap.setObject(attrs, forKey: element)
-                    top = frame.maxY
+                let performCalculations: () -> Void = { @MainActor in
+                    if let element = elements.supplementaryElement(ofKind: UICollectionView.elementKindSectionHeader, at: indexPath) {
+                        let attrs = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, with: indexPath)
+                        let sizeRange = getHeaderSizeRange(section: section, viewportSize: context.viewportSize, info: info)
+                        let size = element.node.layoutThatFits(sizeRange).size
+                        let frame = CGRect(x: info.sectionInsets.left, y: top, width: size.width, height: size.height)
+                        attrs.frame = frame
+                        attrsMap.setObject(attrs, forKey: element)
+                        top = frame.maxY
+                    }
                 }
+                performCalculations()
             }
             let columns: Int
             if context.viewportSize.width > context.viewportSize.height {
@@ -63,19 +66,22 @@ public class VADynamicHeightGridListLayoutDelegate: NSObject, ASCollectionLayout
             for idx in 0..<numberOfItems {
                 let columnIndex = getShortestColumnIndex(section: section, columnHeights: columnHeights)
                 let indexPath = IndexPath(item: idx, section: section)
-                if let element = elements.elementForItem(at: indexPath) {
-                    let attrs = UICollectionViewLayoutAttributes(forCellWith: indexPath)
-                    let sizeRange = getSizeRange(item: element.node, indexPath: indexPath, viewportSize: context.viewportSize, info: info)
-                    let size = element.node.layoutThatFits(sizeRange).size
-                    let position = CGPoint(
-                        x: info.sectionInsets.left + (columnWidth + info.columnSpacing) * Double(columnIndex),
-                        y: columnHeights[section][columnIndex]
-                    )
-                    let frame = CGRect(x: position.x, y: position.y, width: size.width, height: size.height)
-                    attrs.frame = frame
-                    attrsMap.setObject(attrs, forKey: element)
-                    columnHeights[section][columnIndex] = frame.maxY + info.interItemSpacing
+                let performCalculations: () -> Void = { @MainActor in
+                    if let element = elements.elementForItem(at: indexPath) {
+                        let attrs = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+                        let sizeRange = getSizeRange(item: element.node, indexPath: indexPath, viewportSize: context.viewportSize, info: info)
+                        let size = element.node.layoutThatFits(sizeRange).size
+                        let position = CGPoint(
+                            x: info.sectionInsets.left + (columnWidth + info.columnSpacing) * Double(columnIndex),
+                            y: columnHeights[section][columnIndex]
+                        )
+                        let frame = CGRect(x: position.x, y: position.y, width: size.width, height: size.height)
+                        attrs.frame = frame
+                        attrsMap.setObject(attrs, forKey: element)
+                        columnHeights[section][columnIndex] = frame.maxY + info.interItemSpacing
+                    }
                 }
+                performCalculations()
             }
             let columnIndex = getTallestColumnIndex(section: section, columnHeight: columnHeights)
             top = columnHeights[section][columnIndex] - info.interItemSpacing + info.sectionInsets.bottom

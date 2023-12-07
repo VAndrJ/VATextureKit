@@ -34,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.rootViewController = appNavigator.navigationController
             window?.makeKeyAndVisible()
         }
+        
 #if DEBUG && targetEnvironment(simulator)
         if Environment.isTesting {
             if #available(iOS 12.0, *) {
@@ -43,6 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             window?.rootViewController = UIViewController()
             window?.makeKeyAndVisible()
+
             return true
         } else {
             launch()

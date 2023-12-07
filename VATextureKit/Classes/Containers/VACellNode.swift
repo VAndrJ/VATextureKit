@@ -33,7 +33,8 @@ open class VACellNode: ASCellNode, VACornerable {
         automaticallyManagesSubnodes = true
         configureLayoutElements()
     }
-    
+
+    @MainActor
     open override func didLoad() {
         super.didLoad()
 
@@ -58,6 +59,7 @@ open class VACellNode: ASCellNode, VACornerable {
         }
     }
 
+    @MainActor
     open override func layout() {
         super.layout()
 

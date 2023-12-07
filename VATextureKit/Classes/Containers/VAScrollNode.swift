@@ -52,16 +52,19 @@ open class VAScrollNode: ASScrollNode {
         scrollableDirections = data.scrollableDirections
     }
 
+    @MainActor
     open override func didLoad() {
         super.didLoad()
 
         configure()
     }
 
+    @MainActor
     open override func animateLayoutTransition(_ context: ASContextTransitioning) {
         animateLayoutTransition(context: context)
     }
 
+    @MainActor
     private func configure() {
         view.showsVerticalScrollIndicator = false
         view.showsHorizontalScrollIndicator = false

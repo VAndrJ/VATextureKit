@@ -167,7 +167,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         let isLoadingObs: Observable<Bool>
 
         public init(
-            refreshControlView: @escaping () -> UIRefreshControl = { UIRefreshControl() },
+            refreshControlView: @escaping @MainActor () -> UIRefreshControl = { UIRefreshControl() },
             isDelayed: Bool = true,
             reloadData: @escaping () -> Void,
             isLoadingObs: Observable<Bool>
@@ -179,7 +179,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         }
 
         public init() {
-            self.refreshControlView = { UIRefreshControl() }
+            self.refreshControlView = { @MainActor in UIRefreshControl() }
             self.isDelayed = false
             self.reloadData = nil
             self.isLoadingObs = .empty()
@@ -260,6 +260,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         }
     }
 
+    @MainActor
     open override func didLoad() {
         super.didLoad()
 

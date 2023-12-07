@@ -5,13 +5,13 @@
 //  Created by Volodymyr Andriienko on 23.07.2023.
 //
 
-import AsyncDisplayKit
+@preconcurrency import AsyncDisplayKit
 
 public extension ASTableNode {
 
     func reloadDataWithoutAnimations() {
         reloadData { [weak self] in
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
                 self?.disableAllLayerAnimations()
             }
         }

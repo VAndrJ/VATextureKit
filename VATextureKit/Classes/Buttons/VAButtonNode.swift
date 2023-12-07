@@ -25,7 +25,8 @@ open class VAButtonNode: ASButtonNode, VACornerable {
 
         super.init()
     }
-    
+
+    @MainActor
     open override func didLoad() {
         super.didLoad()
 
@@ -33,6 +34,7 @@ open class VAButtonNode: ASButtonNode, VACornerable {
         bind()
     }
 
+    @MainActor
     open override func layout() {
         super.layout()
 

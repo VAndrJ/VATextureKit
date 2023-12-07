@@ -68,6 +68,7 @@ open class VAImageNode: ASImageNode, VACornerable {
         }
     }
 
+    @MainActor
     open override func didLoad() {
         super.didLoad()
 
@@ -92,6 +93,7 @@ open class VAImageNode: ASImageNode, VACornerable {
         }
     }
 
+    @MainActor
     open override func layout() {
         super.layout()
 

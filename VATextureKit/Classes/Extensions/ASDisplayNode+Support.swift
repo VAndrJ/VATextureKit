@@ -104,6 +104,7 @@ public extension ASDisplayNode {
 public extension ASDisplayNode {
     static var shouldDebugLabelBeHidden = true
 
+    @MainActor
     func addDebugLabel(
         addition: String? = nil,
         offset: CGSize = .zero,
@@ -138,7 +139,8 @@ public extension ASDisplayNode {
             object: nil
         )
     }
-    
+
+    @MainActor
     @objc private func onTapLabel(_ sender: UILongPressGestureRecognizer) {
         guard sender.state == .began, let label = sender.view as? UILabel else { return }
 
@@ -146,10 +148,12 @@ public extension ASDisplayNode {
         UIPasteboard.general.string = label.text
     }
 
+    @MainActor
     @objc private func onToggleDebug(_ notification: Notification) {
         removeDebugLabel()
     }
-    
+
+    @MainActor
     func removeDebugLabel() {
         Self.shouldDebugLabelBeHidden = true
         view.subviews.first(where: { $0.tag == -42 })?.isHidden = true
