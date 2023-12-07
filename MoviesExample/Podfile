@@ -8,11 +8,11 @@ def project_pods
   pod 'VATextureKitSpec', :path => '../'
   pod 'VATextureKit', :path => '../'
   pod 'VATextureKitRx', :path => '../'
-  pod 'VANavigator'
-  pod 'Swiftional'
-  pod 'R.swift'
-  pod 'RxSwiftExt'
-  pod 'RxKeyboard'
+  pod 'VANavigator', '0.2.0'
+  pod 'Swiftional', '1.0.0'
+  pod 'R.swift', '7.3.2'
+  pod 'RxSwiftExt', '6.2.1'
+  pod 'RxKeyboard', '2.0.0'
 end
 
 def test_pods
