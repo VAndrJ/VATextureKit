@@ -84,6 +84,7 @@ open class VAImageNode: ASImageNode, VACornerable {
 #endif
     }
 
+    @MainActor
     open override func didEnterDisplayState() {
         super.didEnterDisplayState()
 
@@ -103,12 +104,14 @@ open class VAImageNode: ASImageNode, VACornerable {
     /// Configures the node's theme elements based on the given theme.
     ///
     /// - Parameter theme: The theme to apply to the node.
+    @MainActor
     open func configureTheme(_ theme: VATheme) {
         updateTintColorIfAvailable(theme)
         updateBackgroundColorIfAvailable(theme)
     }
 
     /// Called when the app's theme changes. Configures the theme if the node is in the display state, otherwise sets `shouldConfigureTheme` to true.
+    @MainActor
     open func themeDidChanged() {
         if isInDisplayState {
             configureTheme(theme)
@@ -136,6 +139,7 @@ open class VAImageNode: ASImageNode, VACornerable {
         }
     }
 
+    @MainActor
     @objc private func themeDidChanged(_ notification: Notification) {
         themeDidChanged()
     }

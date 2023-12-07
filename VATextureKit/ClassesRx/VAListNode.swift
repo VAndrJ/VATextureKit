@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 
 /// A subclass of `ASCollectionNode` that provides a configurable declarative list.
-open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollectionDelegate, ASCollectionDelegateFlowLayout {
+open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollectionDelegate, ASCollectionDelegateFlowLayout, Sendable {
     public struct IndicatorConfiguration {
         let showsVerticalScrollIndicator: Bool
         let showsHorizontalScrollIndicator: Bool

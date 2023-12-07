@@ -98,7 +98,7 @@ final class MovieDetailsViewModel: EventViewModel {
         case let event as OpenListActorDetailsEvent:
             let responder = data.navigation.followActor(event.actor)
             Task { @MainActor in
-                nextEventResponder = responder
+                self.nextEventResponder = responder
             }
         case _ as DidSelectEvent:
             break
