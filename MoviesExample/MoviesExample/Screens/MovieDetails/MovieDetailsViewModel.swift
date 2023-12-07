@@ -28,8 +28,8 @@ final class MovieDetailsViewModel: EventViewModel {
         }
 
         struct Navigation {
-            let followMovie: (ListMovieEntity) -> Responder?
-            let followActor: (ListActorEntity) -> Responder?
+            let followMovie: (ListMovieEntity) -> Void
+            let followActor: (ListActorEntity) -> Void
         }
 
         let related: Related
@@ -96,10 +96,7 @@ final class MovieDetailsViewModel: EventViewModel {
     override func run(_ event: Event) {
         switch event {
         case let event as OpenListActorDetailsEvent:
-            let responder = data.navigation.followActor(event.actor)
-            Task { @MainActor in
-                self.nextEventResponder = responder
-            }
+            data.navigation.followActor(event.actor)
         case _ as DidSelectEvent:
             break
         case _ as LoadDataEvent:
@@ -117,10 +114,7 @@ final class MovieDetailsViewModel: EventViewModel {
                 }) // TODO: - on error
                 .disposed(by: bag)
         case let event as OpenListMovieDetailsEvent:
-            let responder = data.navigation.followMovie(event.movie)
-            Task { @MainActor in
-                nextEventResponder = responder
-            }
+            data.navigation.followMovie(event.movie)
         default:
             super.run(event)
         }
