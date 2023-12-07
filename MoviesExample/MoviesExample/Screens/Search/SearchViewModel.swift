@@ -75,7 +75,10 @@ final class SearchViewModel: EventViewModel {
                 .disposed(by: bag)
         case let event as DidSelectEvent:
             let entity = _searchDataObs.value.isEmpty.fold { _searchDataObs.value[event.indexPath.row] } _: { _trendingDataObs.value[event.indexPath.row] }
-            nextEventResponder = data.navigation.followMovie(entity)
+            let responder = data.navigation.followMovie(entity)
+            Task { @MainActor in
+                nextEventResponder = responder
+            }
         case _ as BecomeVisibleEvent:
             if _trendingDataObs.value.isEmpty && isNotLoading {
                 perform(LoadTrendingEvent())

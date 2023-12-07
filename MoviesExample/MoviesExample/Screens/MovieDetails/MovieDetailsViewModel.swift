@@ -96,7 +96,10 @@ final class MovieDetailsViewModel: EventViewModel {
     override func run(_ event: Event) {
         switch event {
         case let event as OpenListActorDetailsEvent:
-            nextEventResponder = data.navigation.followActor(event.actor)
+            let responder = data.navigation.followActor(event.actor)
+            Task { @MainActor in
+                nextEventResponder = responder
+            }
         case _ as DidSelectEvent:
             break
         case _ as LoadDataEvent:
@@ -114,7 +117,10 @@ final class MovieDetailsViewModel: EventViewModel {
                 }) // TODO: - on error
                 .disposed(by: bag)
         case let event as OpenListMovieDetailsEvent:
-            nextEventResponder = data.navigation.followMovie(event.movie)
+            let responder = data.navigation.followMovie(event.movie)
+            Task { @MainActor in
+                nextEventResponder = responder
+            }
         default:
             super.run(event)
         }
