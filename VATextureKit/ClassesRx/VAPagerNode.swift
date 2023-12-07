@@ -97,6 +97,7 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
         }
     }
 
+    @MainActor
     open override func didLoad() {
         super.didLoad()
 

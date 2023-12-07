@@ -21,7 +21,7 @@ final class SearchViewModel: EventViewModel {
         }
 
         struct Navigation {
-            let followMovie: (ListMovieEntity) -> Responder?
+            let followMovie: (ListMovieEntity) -> Void
         }
 
         let source: DataSource
@@ -75,7 +75,7 @@ final class SearchViewModel: EventViewModel {
                 .disposed(by: bag)
         case let event as DidSelectEvent:
             let entity = _searchDataObs.value.isEmpty.fold { _searchDataObs.value[event.indexPath.row] } _: { _trendingDataObs.value[event.indexPath.row] }
-            nextEventResponder = data.navigation.followMovie(entity)
+            data.navigation.followMovie(entity)
         case _ as BecomeVisibleEvent:
             if _trendingDataObs.value.isEmpty && isNotLoading {
                 perform(LoadTrendingEvent())

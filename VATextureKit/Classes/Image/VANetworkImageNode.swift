@@ -75,12 +75,14 @@ open class VANetworkImageNode: ASNetworkImageNode, VACornerable {
         }
     }
 
+    @MainActor
     open override func didLoad() {
         super.didLoad()
 
         updateCornerParameters()
     }
 
+    @MainActor
     open override func layout() {
         super.layout()
 

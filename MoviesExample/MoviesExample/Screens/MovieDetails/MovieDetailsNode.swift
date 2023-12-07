@@ -8,16 +8,18 @@
 import VATextureKitRx
 
 final class MovieDetailsNode: DisplayNode<MovieDetailsViewModel> {
-    private lazy var listNode = VAListNode(
-        data: .init(
-            listDataObs: viewModel.listDataObs,
-            onSelect: { [viewModel] in viewModel.perform(DidSelectEvent(indexPath: $0)) },
-            cellGetter: mapToCell(viewModel:)
-        ),
-        layoutData: .init(
-            sizing: .entireWidthFreeHeight()
+    private lazy var listNode = MainActorEscaped(value: { [viewModel] in
+        VAListNode(
+            data: .init(
+                listDataObs: viewModel.listDataObs,
+                onSelect: { [viewModel] in viewModel.perform(DidSelectEvent(indexPath: $0)) },
+                cellGetter: mapToCell(viewModel:)
+            ),
+            layoutData: .init(
+                sizing: .entireWidthFreeHeight()
+            )
         )
-    )
+    }).value
 
     override init(viewModel: MovieDetailsViewModel) {
         super.init(viewModel: viewModel)
@@ -37,10 +39,22 @@ final class MovieDetailsNode: DisplayNode<MovieDetailsViewModel> {
 
     private func bind() {
         viewModel.scrollToTopObs
-            .subscribe(onNext: listNode ?> { $0.scrollToTop() })
+            .subscribe(onNext: self ?> { $0.scrollToTop() })
             .disposed(by: bag)
         viewModel.titleObs
-            .subscribe(onNext: self ?> { $0.closestViewController?.title = $1 })
+            .subscribe(onNext: self ?> { $0.updateClosestController(title: $1) })
             .disposed(by: bag)
+    }
+
+    private func scrollToTop() {
+        Task { @MainActor [listNode] in
+            listNode.scrollToTop()
+        }
+    }
+
+    private func updateClosestController(title: String) {
+        Task { @MainActor [closestViewController] in
+            closestViewController?.title = title
+        }
     }
 }

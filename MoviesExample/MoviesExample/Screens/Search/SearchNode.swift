@@ -9,20 +9,22 @@ import VATextureKitRx
 
 final class SearchNode: DisplayNode<SearchViewModel> {
     private lazy var searchNode = SearchBarNode(beginSearchObs: viewModel.beginSearchObs)
-    private lazy var listNode = VAListNode(
-        data: .init(
-            listDataObs: viewModel.listDataObs,
-            onSelect: { [viewModel] in viewModel.perform(DidSelectEvent(indexPath: $0)) },
-            cellGetter: mapToCell(viewModel:),
-            headerGetter: { SearchSectionHeaderNode(viewModel: $0.model) }
-        ),
-        layoutData: .init(
-            keyboardDismissMode: .interactive,
-            shouldScrollToTopOnDataChange: true,
-            sizing: .entireWidthFreeHeight(),
-            layout: .default(parameters: .init(sectionHeadersPinToVisibleBounds: true))
-        )
-    ).flex(grow: 1)
+    private lazy var listNode = MainActorEscaped { [viewModel] in
+        VAListNode(
+            data: .init(
+                listDataObs: viewModel.listDataObs,
+                onSelect: { [viewModel] in viewModel.perform(DidSelectEvent(indexPath: $0)) },
+                cellGetter: mapToCell(viewModel:),
+                headerGetter: { SearchSectionHeaderNode(viewModel: $0.model) }
+            ),
+            layoutData: .init(
+                keyboardDismissMode: .interactive,
+                shouldScrollToTopOnDataChange: true,
+                sizing: .entireWidthFreeHeight(),
+                layout: .default(parameters: .init(sectionHeadersPinToVisibleBounds: true))
+            )
+        ).flex(grow: 1)
+    }.value
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
@@ -38,6 +40,7 @@ final class SearchNode: DisplayNode<SearchViewModel> {
         backgroundColor = theme.systemBackground
     }
 
+    @MainActor
     override func animateLayoutTransition(_ context: ASContextTransitioning) {
         animateLayoutTransition(context: context)
     }

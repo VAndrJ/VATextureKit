@@ -34,12 +34,14 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
         super.init()
     }
 
+    @MainActor
     open override func didLoad() {
         super.didLoad()
 
         view.addSubview(child)
     }
 
+    @MainActor
     open override func layout() {
         super.layout()
 

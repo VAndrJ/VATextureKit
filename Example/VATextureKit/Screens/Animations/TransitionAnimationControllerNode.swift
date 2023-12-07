@@ -88,6 +88,7 @@ final class TransitionAnimationControllerNode: VASafeAreaDisplayNode {
         }
     }
 
+    @MainActor
     override func animateLayoutTransition(_ context: ASContextTransitioning) {
         animateLayoutTransition(context: context)
     }

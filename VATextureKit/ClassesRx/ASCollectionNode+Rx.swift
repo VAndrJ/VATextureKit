@@ -60,13 +60,23 @@ extension Reactive where Base: ASCollectionNode {
     
     public var contentOffset: ControlProperty<CGPoint> {
         let proxy = RxASCollectionDelegateProxy.proxy(for: base)
-        let bindingObserver = Binder(base) { collectionNode, contentOffset in
-            collectionNode.contentOffset = contentOffset
+        let getProperty: () -> ControlProperty<CGPoint> = { @MainActor in
+            let bindingObserver = Binder(base) { collectionNode, contentOffset in
+                collectionNode.contentOffset = contentOffset
+            }
+            return ControlProperty(values: proxy.contentOffsetBehaviorSubject, valueSink: bindingObserver)
         }
-        return ControlProperty(values: proxy.contentOffsetBehaviorSubject, valueSink: bindingObserver)
+
+        return getProperty()
     }
     
-    public var didScroll: ControlEvent<Void> { ControlEvent(events: RxASCollectionDelegateProxy.proxy(for: base).contentOffsetPublishSubject) }
+    public var didScroll: ControlEvent<Void> {
+        let getEvent: () -> ControlEvent<Void> = { @MainActor in
+            ControlEvent(events: RxASCollectionDelegateProxy.proxy(for: base).contentOffsetPublishSubject)
+        }
+
+        return getEvent()
+    }
     
     public var willBeginDecelerating: ControlEvent<Void> { ControlEvent(events: delegate.methodInvoked(#selector(ASCollectionDelegate.scrollViewWillBeginDecelerating(_:))).map { _ in }) }
     
@@ -256,7 +266,10 @@ open class RxASCollectionSectionedAnimatedDataSource<S: AnimatableSectionModelTy
             if !dataSource.dataSet {
                 dataSource.dataSet = true
                 dataSource.setSections(newSections)
-                collectionNode.reloadDataWithoutAnimations()
+                let reload: () -> Void = { @MainActor in
+                    collectionNode.reloadDataWithoutAnimations()
+                }
+                reload()
             } else {
                 if dataSource.animationConfiguration.animated {
                     let oldSections = dataSource.sectionModels
@@ -272,26 +285,38 @@ open class RxASCollectionSectionedAnimatedDataSource<S: AnimatableSectionModelTy
                                     dataSource.setSections(difference.finalSections)
                                     collectionNode.batchUpdates(difference, animationConfiguration: dataSource.animationConfiguration)
                                 }
-                                collectionNode.performBatch(
-                                    animated: dataSource.animationConfiguration.animated,
-                                    updates: updateBlock,
-                                    completion: nil
-                                )
+                                let reload: () -> Void = { @MainActor in
+                                    collectionNode.performBatch(
+                                        animated: dataSource.animationConfiguration.animated,
+                                        updates: updateBlock,
+                                        completion: nil
+                                    )
+                                }
+                                reload()
                             }
                         case .reload:
                             dataSource.setSections(newSections)
-                            collectionNode.reloadDataWithoutAnimations()
+                            let reload: () -> Void = { @MainActor in
+                                collectionNode.reloadDataWithoutAnimations()
+                            }
+                            reload()
 
                             return
                         }
                     } catch {
                         rxDebugFatalError(error)
                         dataSource.setSections(newSections)
-                        collectionNode.reloadDataWithoutAnimations()
+                        let reload: () -> Void = { @MainActor in
+                            collectionNode.reloadDataWithoutAnimations()
+                        }
+                        reload()
                     }
                 } else {
                     dataSource.setSections(newSections)
-                    collectionNode.reloadDataWithoutAnimations()
+                    let reload: () -> Void = { @MainActor in
+                        collectionNode.reloadDataWithoutAnimations()
+                    }
+                    reload()
                 }
             }
         }.on(observedEvent)
@@ -307,8 +332,11 @@ open class RxASCollectionSectionedReloadDataSource<S: SectionModelType>: ASColle
             dataSource._dataSourceBound = true
 #endif
             dataSource.setSections(element)
-            collectionNode.reloadData()
-            collectionNode.collectionViewLayout.invalidateLayout()
+            let reload: () -> Void = { @MainActor in
+                collectionNode.reloadData()
+                collectionNode.collectionViewLayout.invalidateLayout()
+            }
+            reload()
         }.on(observedEvent)
     }
 }

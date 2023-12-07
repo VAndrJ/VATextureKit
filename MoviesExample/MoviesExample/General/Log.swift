@@ -9,7 +9,7 @@ import Foundation
 import os
 
 extension OSLog {
-    private static var subsystem = Bundle.main.bundleIdentifier! // swiftlint:disable:this force_unwrapping
+    private static let subsystem = Bundle.main.bundleIdentifier! // swiftlint:disable:this force_unwrapping
 
     static let responderChain = OSLog(subsystem: subsystem, category: "ResponderChain")
 }

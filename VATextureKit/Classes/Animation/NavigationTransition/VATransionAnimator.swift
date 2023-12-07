@@ -25,6 +25,7 @@ open class VADefaultTransionAnimator: VATransionAnimator {
         self.controller = controller
     }
 
+    @MainActor
     public func animateTransition(
         source: UIViewController?,
         destination: UIViewController?,
@@ -65,6 +66,7 @@ open class VADefaultTransionAnimator: VATransionAnimator {
         }
     }
 
+    @MainActor
     public func addTransitionOverlayView() -> UIView {
         let transitionOverlayView = VATouchesPassThroughView()
         controller?.view.window?.addSubview(transitionOverlayView)
@@ -81,6 +83,7 @@ public class VATouchesPassThroughView: UIView {
     }
 }
 
+@MainActor
 private func animateLayers(fromLayersDict: [String: (CALayer, CGRect)], toLayersDict: [String: (CALayer, CGRect)], transitionOverlayView: UIView, animationDuration: TimeInterval) {
     if !(fromLayersDict.isEmpty || toLayersDict.isEmpty) {
         CATransaction.begin()
@@ -98,6 +101,7 @@ private func animateLayers(fromLayersDict: [String: (CALayer, CGRect)], toLayers
     }
 }
 
+@MainActor
 private func storeAnimationLayers(layer: CALayer, isFrom: Bool, to: inout [String: (CALayer, CGRect)]) {
     if let id = layer.transitionAnimationId {
         if isFrom, let node = (layer.delegate as? _ASDisplayView)?.asyncdisplaykit_node {
@@ -112,6 +116,7 @@ private func storeAnimationLayers(layer: CALayer, isFrom: Bool, to: inout [Strin
 }
 
 // TODO: - Extend
+@MainActor
 private func animate(from source: (layer: CALayer, bounds: CGRect), to destination: (layer: CALayer, bounds: CGRect), in overlayView: UIView, animationDuration: TimeInterval) {
     let from = source.layer
     let to = destination.layer

@@ -14,23 +14,24 @@ final class SearchBarNode: VASizedViewWrapperNode<UISearchBar> {
 
     convenience init(beginSearchObs: Observable<Void>? = nil) {
         self.init(
-            childGetter: { UISearchBar().apply { $0.searchBarStyle = .minimal } },
+            childGetter: { MainActorEscaped { UISearchBar().apply { $0.searchBarStyle = .minimal } }.value },
             sizing: .viewHeight
         )
 
         bind(beginSearchObs: beginSearchObs)
     }
 
+    @MainActor
     override func isFirstResponder() -> Bool {
         child.isFirstResponder
     }
 
-    @discardableResult
+    @MainActor @discardableResult
     override func becomeFirstResponder() -> Bool {
         child.becomeFirstResponder()
     }
 
-    @discardableResult
+    @MainActor @discardableResult
     override func resignFirstResponder() -> Bool {
         child.resignFirstResponder()
     }
@@ -42,7 +43,11 @@ final class SearchBarNode: VASizedViewWrapperNode<UISearchBar> {
     private func bind(beginSearchObs: Observable<Void>?) {
         beginSearchObs?
             .observe(on: MainScheduler.asyncInstance)
-            .subscribe(onNext: ignored(child.becomeFirstResponder))
+            .subscribe(onNext: { [child] in
+                Task { @MainActor in
+                    child.becomeFirstResponder()
+                }
+            })
             .disposed(by: bag)
     }
 }

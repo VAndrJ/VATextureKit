@@ -95,6 +95,7 @@ import AsyncDisplayKit
 @available (iOS 13.0, *)
 public extension ASDisplayNode {
 
+    @MainActor
     func sRepresentation(layout: VAPreviewLayout) -> AnyView {
         let node: ASDisplayNode
         if self.isLayerBacked {

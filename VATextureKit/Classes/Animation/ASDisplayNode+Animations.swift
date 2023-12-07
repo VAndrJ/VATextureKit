@@ -9,6 +9,7 @@ import AsyncDisplayKit
 
 extension ASDisplayNode {
 
+    @MainActor
     public func animateLayoutTransition(
         context: ASContextTransitioning,
         animation: VAAnimation = .default(),
@@ -78,10 +79,12 @@ private var transitionKey = "transitionKey"
 public typealias NodeTransitionAnimation = VATransition<ASDisplayNode>
 
 extension ASDisplayNode: Transformable {
+    @MainActor
     public var affineTransform: CGAffineTransform {
         get { view.transform }
         set { view.transform = newValue }
     }
+    @MainActor
     public var isLtrDirection: Bool { view.isLtrDirection }
 }
 
@@ -100,6 +103,7 @@ extension ASDisplayNode {
     ///   - animation: Animation parameters.
     ///   - restoreState: Restore node state on animation completion
     ///   - completion: Block to be executed when animation finishes.
+    @MainActor
     public func animate(
         transition: NodeTransitionAnimation,
         direction: TransitionDirection = .removal,
@@ -129,6 +133,7 @@ extension ASDisplayNode {
     ///   - transition: Transition.
     ///   - animation: Animation parameters.
     ///   - completion: Block to be executed when transition finishes.
+    @MainActor
     public func set(hidden: Bool, transition: NodeTransitionAnimation, animation: VAAnimation = .default(), completion: (() -> Void)? = nil) {
         set(
             hidden: hidden,
@@ -146,6 +151,7 @@ extension ASDisplayNode {
     ///   - transition: Transition.
     ///   - animation: Animation parameters.
     ///   - completion: Block to be executed when transition finishes.
+    @MainActor
     public func removeFromSupernode(transition: NodeTransitionAnimation, animation: VAAnimation = .default(), completion: (() -> Void)? = nil) {
         addOrRemove(
             to: supernode,
@@ -163,6 +169,7 @@ extension ASDisplayNode {
     ///   - transition: Transition.
     ///   - animation: Animation parameters.
     ///   - completion: Block to be executed when transition finishes.
+    @MainActor
     public func add(subnode: ASDisplayNode, transition: NodeTransitionAnimation, animation: VAAnimation = .default(), completion: (() -> Void)? = nil) {
         subnode.addOrRemove(
             to: self,
@@ -173,6 +180,7 @@ extension ASDisplayNode {
         )
     }
 
+    @MainActor
     public func addOrRemove(
         to supernode: ASDisplayNode?,
         add: Bool,
@@ -196,6 +204,7 @@ extension ASDisplayNode {
         )
     }
 
+    @MainActor
     private func set(
         hidden: Bool,
         insideAnimation: Bool,

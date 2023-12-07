@@ -37,6 +37,7 @@ final class StackLayoutControllerNode: VASafeAreaDisplayNode {
         .padding(.all(16))
     }
 
+    @MainActor
     override func animateLayoutTransition(_ context: ASContextTransitioning) {
         animateLayoutTransition(context: context)
     }

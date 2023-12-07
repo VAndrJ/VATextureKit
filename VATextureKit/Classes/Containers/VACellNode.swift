@@ -33,7 +33,8 @@ open class VACellNode: ASCellNode, VACornerable {
         automaticallyManagesSubnodes = true
         configureLayoutElements()
     }
-    
+
+    @MainActor
     open override func didLoad() {
         super.didLoad()
 
@@ -49,6 +50,7 @@ open class VACellNode: ASCellNode, VACornerable {
 #endif
     }
 
+    @MainActor
     open override func didEnterDisplayState() {
         super.didEnterDisplayState()
 
@@ -58,6 +60,7 @@ open class VACellNode: ASCellNode, VACornerable {
         }
     }
 
+    @MainActor
     open override func layout() {
         super.layout()
 
@@ -69,9 +72,11 @@ open class VACellNode: ASCellNode, VACornerable {
     open func configureLayoutElements() {}
     
     /// Configure the appearance of the cell based on the provided theme.
+    @MainActor
     open func configureTheme(_ theme: VATheme) {}
     
     /// Called when the theme changes. Configures the theme if the cell is in the display state, otherwise sets the `shouldConfigureTheme` flag.
+    @MainActor
     open func themeDidChanged() {
         if isInDisplayState {
             configureTheme(theme)
@@ -79,7 +84,8 @@ open class VACellNode: ASCellNode, VACornerable {
             shouldConfigureTheme = true
         }
     }
-    
+
+    @MainActor
     @objc private func themeDidChanged(_ notification: Notification) {
         themeDidChanged()
     }

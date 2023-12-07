@@ -41,6 +41,7 @@ open class VAShapeNode: ASDisplayNode {
         self.data = data
     }
 
+    @MainActor
     open override func didLoad() {
         super.didLoad()
 

@@ -27,6 +27,7 @@ open class VARadialGradientNode: VABaseGradientNode {
         self.gradient = gradient
     }
 
+    @MainActor
     open override func didLoad() {
         super.didLoad()
 

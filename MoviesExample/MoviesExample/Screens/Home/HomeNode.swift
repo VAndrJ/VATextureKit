@@ -8,18 +8,20 @@
 import VATextureKitRx
 
 final class HomeNode: DisplayNode<HomeViewModel> {
-    private lazy var backgoundNode = VAImageNode(image: R.image.main_background())
-    private lazy var listNode = VAListNode(
-        data: .init(
-            listDataObs: viewModel.listDataObs,
-            cellGetter: mapToCell(viewModel:),
-            headerGetter: { HomeSectionHeaderNode(viewModel: $0.model) }
-        ),
-        layoutData: .init(
-            sizing: .entireWidthFreeHeight()
+    private let backgoundNode = VAImageNode(image: R.image.main_background())
+    private lazy var listNode = MainActorEscaped(value: { [viewModel] in
+        VAListNode(
+            data: .init(
+                listDataObs: viewModel.listDataObs,
+                cellGetter: mapToCell(viewModel:),
+                headerGetter: { HomeSectionHeaderNode(viewModel: $0.model) }
+            ),
+            layoutData: .init(
+                sizing: .entireWidthFreeHeight()
+            )
         )
-    )
-    private lazy var titleTextNode = VATextNode(
+    }).value
+    private let titleTextNode = VATextNode(
         text: R.string.localizable.wip(),
         fontStyle: .largeTitle
     )

@@ -29,7 +29,8 @@ open class VADisplayNode: ASDisplayNode, VACornerable {
         automaticallyManagesSubnodes = true
         configureLayoutElements()
     }
-    
+
+    @MainActor
     open override func didLoad() {
         super.didLoad()
 
@@ -45,6 +46,7 @@ open class VADisplayNode: ASDisplayNode, VACornerable {
 #endif
     }
 
+    @MainActor
     open override func didEnterDisplayState() {
         super.didEnterDisplayState()
 
@@ -54,6 +56,7 @@ open class VADisplayNode: ASDisplayNode, VACornerable {
         }
     }
 
+    @MainActor
     open override func layout() {
         super.layout()
 
@@ -63,9 +66,11 @@ open class VADisplayNode: ASDisplayNode, VACornerable {
     /// Method for layout parameters that need to be defined only once
     /// and are used throughout the layout calculations within the `layoutSpecThatFits`.
     open func configureLayoutElements() {}
-    
+
+    @MainActor
     open func configureTheme(_ theme: VATheme) {}
 
+    @MainActor
     open func themeDidChanged() {
         if isInDisplayState {
             configureTheme(theme)
@@ -73,7 +78,8 @@ open class VADisplayNode: ASDisplayNode, VACornerable {
             shouldConfigureTheme = true
         }
     }
-    
+
+    @MainActor
     @objc private func themeDidChanged(_ notification: Notification) {
         themeDidChanged()
     }
