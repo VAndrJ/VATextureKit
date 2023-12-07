@@ -297,6 +297,7 @@ private class BoundsAnimationExampleNode: VADisplayNode {
         }
     }
 
+    @MainActor
     override func animateLayoutTransition(_ context: ASContextTransitioning) {
         animateLayoutTransition(context: context)
     }
