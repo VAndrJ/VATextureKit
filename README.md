@@ -1,8 +1,12 @@
 # VATextureKit
 
-[![Version](https://img.shields.io/cocoapods/v/VATextureKit.svg?style=plastic)](https://cocoapods.org/pods/VATextureKit)
 [![License](https://img.shields.io/cocoapods/l/VATextureKit.svg?style=plastic)](https://cocoapods.org/pods/VATextureKit)
-[![Platform](https://img.shields.io/cocoapods/p/VATextureKit.svg?style=plastic)](https://cocoapods.org/pods/VATextureKit)
+
+VATextureKitSpec: [![Version](https://img.shields.io/cocoapods/v/VATextureKitSpec.svg?style=plastic)](https://cocoapods.org/pods/VATextureKit)[![Platform](https://img.shields.io/cocoapods/p/VATextureKitSpec.svg?style=plastic)](https://cocoapods.org/pods/VATextureKit)
+
+VATextureKit: [![Version](https://img.shields.io/cocoapods/v/VATextureKit.svg?style=plastic)](https://cocoapods.org/pods/VATextureKit)[![Platform](https://img.shields.io/cocoapods/p/VATextureKit.svg?style=plastic)](https://cocoapods.org/pods/VATextureKit)
+
+VATextureKitRx: [![Version](https://img.shields.io/cocoapods/v/VATextureKitRx.svg?style=plastic)](https://cocoapods.org/pods/VATextureKit)[![Platform](https://img.shields.io/cocoapods/p/VATextureKitRx.svg?style=plastic)](https://cocoapods.org/pods/VATextureKit)
 
 **[Texture](https://texturegroup.org/docs/getting-started.html)** library wrapper with some additions.
 
