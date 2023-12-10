@@ -19,7 +19,10 @@ open class VAContentSizeManager {
     public func updateIfNeeded(contentSize: UIContentSizeCategory) {
         if self.contentSize != contentSize {
             self.contentSize = contentSize
-            NotificationCenter.default.post(name: Self.contentSizeDidChangedNotification, object: self)
+            NotificationCenter.default.post(
+                name: Self.contentSizeDidChangedNotification,
+                object: self
+            )
         }
     }
 }

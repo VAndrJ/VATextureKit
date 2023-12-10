@@ -35,6 +35,7 @@ private let globalQueueValue = NSObject()
 private let globalQueue: DispatchQueue = {
     let queue = DispatchQueue(label: "globalQueue", qos: .default)
     queue.setSpecific(key: key, value: globalQueueValue)
+
     return queue
 }()
 
@@ -50,6 +51,7 @@ private let backgroundQueueValue = NSObject()
 private let backgroundQueue: DispatchQueue = {
     let queue = DispatchQueue(label: "backgroundQueue", qos: .background)
     queue.setSpecific(key: key, value: backgroundQueueValue)
+    
     return queue
 }()
 

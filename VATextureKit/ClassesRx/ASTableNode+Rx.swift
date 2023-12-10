@@ -26,6 +26,7 @@ extension Reactive where Base: ASTableNode {
             // Strong reference is needed because data source is in use until result subscription is disposed
             return source.subscribeProxyDataSource(ofObject: base, dataSource: dataSource as ASTableDataSource, retainDataSource: true) { [weak tableNode = base] (_: RxASTableDataSourceProxy, event) -> Void in
                 guard let tableNode else { return }
+
                 dataSource.tableNode(tableNode, observedEvent: event)
             }
         }

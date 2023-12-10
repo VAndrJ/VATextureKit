@@ -113,6 +113,7 @@ public class VADynamicHeightGridListLayoutDelegate: NSObject, ASCollectionLayout
             index = key
             tallestHeight = height
         }
+
         return index
     }
 
@@ -123,6 +124,7 @@ public class VADynamicHeightGridListLayoutDelegate: NSObject, ASCollectionLayout
             index = key
             shortestHeight = height
         }
+        
         return index
     }
 

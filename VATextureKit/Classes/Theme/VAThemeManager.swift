@@ -85,25 +85,37 @@ open class VAThemeManager {
             } else {
                 theme = standardLightTheme
             }
-            NotificationCenter.default.post(name: Self.themeDidChangedNotification, object: self)
+            NotificationCenter.default.post(
+                name: Self.themeDidChangedNotification,
+                object: self
+            )
         }
     }
     
     public func setCustomTheme(_ customTheme: VATheme) {
         themeType = .custom
         theme = customTheme
-        NotificationCenter.default.post(name: Self.themeDidChangedNotification, object: self)
+        NotificationCenter.default.post(
+            name: Self.themeDidChangedNotification,
+            object: self
+        )
     }
     
     public func setLightAsCustomTheme() {
         themeType = .custom
         theme = standardLightTheme
-        NotificationCenter.default.post(name: Self.themeDidChangedNotification, object: self)
+        NotificationCenter.default.post(
+            name: Self.themeDidChangedNotification,
+            object: self
+        )
     }
     
     public func setDarkAsCustomTheme() {
         themeType = .custom
         theme = standardDarkTheme
-        NotificationCenter.default.post(name: Self.themeDidChangedNotification, object: self)
+        NotificationCenter.default.post(
+            name: Self.themeDidChangedNotification,
+            object: self
+        )
     }
 }

@@ -90,6 +90,7 @@ extension ObservableType {
                     break
                 }
             }
+        
         return Disposables.create { [weak object] in
             subscription.dispose()
             object?.layoutIfNeeded()

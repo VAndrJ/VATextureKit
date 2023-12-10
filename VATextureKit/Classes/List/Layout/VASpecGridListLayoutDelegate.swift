@@ -27,6 +27,7 @@ public class VASpecGridListLayoutDelegate: NSObject, ASCollectionLayoutDelegate 
         guard let elements = context.elements, !elements.itemIndexPaths.isEmpty, context.viewportSize != .zero else {
             return ASCollectionLayoutState(context: context)
         }
+
         let info = context.additionalInfo as! VASpecGridListLayoutInfo
         let indexPaths = elements.itemIndexPaths
         let indexMap = getIndexMap(indexPaths: indexPaths)
@@ -51,6 +52,7 @@ public class VASpecGridListLayoutDelegate: NSObject, ASCollectionLayoutDelegate 
                 children: Array(itemElements.map(\.node)),
                 info: info
             )
+
             return ASStackLayoutSpec(
                 direction: info.scrollableDirection == .vertical ? .vertical : .horizontal,
                 spacing: 0,
@@ -65,6 +67,7 @@ public class VASpecGridListLayoutDelegate: NSObject, ASCollectionLayoutDelegate 
         }
         let sectionLayoutSpec = getSectionLayoutSpec(context: context, children: itemLayoutSpecs, info: info)
         let layout = sectionLayoutSpec.layoutThatFits(getSizeRange(viewportSize: context.viewportSize, info: info))
+
         return ASCollectionLayoutState(
             context: context,
             layout: layout,
@@ -81,6 +84,7 @@ public class VASpecGridListLayoutDelegate: NSObject, ASCollectionLayoutDelegate 
             items.append(indexPath.item)
             indexMap[indexPath.section] = items
         }
+
         return indexMap
     }
 
@@ -97,6 +101,7 @@ public class VASpecGridListLayoutDelegate: NSObject, ASCollectionLayoutDelegate 
         } else {
             spec.style.preferredLayoutSize.width = .fraction(1)
         }
+
         return spec
     }
 
@@ -122,6 +127,7 @@ public class VASpecGridListLayoutDelegate: NSObject, ASCollectionLayoutDelegate 
             sizeRange.min.width = viewportSize.width
             sizeRange.max.width = viewportSize.width
         }
+
         return sizeRange
     }
 }

@@ -10,7 +10,11 @@ import UIKit
 open class VAWindow: UIWindow {
 
     @available(iOS 12.0, *)
-    public init(customTheme: VATheme, standardLightTheme: VATheme, standardDarkTheme: VATheme) {
+    public init(
+        customTheme: VATheme,
+        standardLightTheme: VATheme,
+        standardDarkTheme: VATheme
+    ) {
         super.init(frame: UIScreen.main.bounds)
         
         let themeManager = VAThemeManager(
@@ -22,7 +26,11 @@ open class VAWindow: UIWindow {
         appContexts.append(VAAppContext(themeManager: themeManager, window: self))
     }
 
-    public init(customTheme: VATheme, legacyLightTheme: VATheme, legacyDarkTheme: VATheme) {
+    public init(
+        customTheme: VATheme,
+        legacyLightTheme: VATheme,
+        legacyDarkTheme: VATheme
+    ) {
         super.init(frame: UIScreen.main.bounds)
 
         let themeManager = VAThemeManager(
@@ -36,11 +44,17 @@ open class VAWindow: UIWindow {
 
     @available(iOS 12.0, *)
     public convenience init(standardLightTheme: VATheme) {
-        self.init(standardLightTheme: standardLightTheme, standardDarkTheme: standardLightTheme)
+        self.init(
+            standardLightTheme: standardLightTheme,
+            standardDarkTheme: standardLightTheme
+        )
     }
 
     public convenience init(legacyLightTheme: VATheme) {
-        self.init(legacyLightTheme: legacyLightTheme, legacyDarkTheme: legacyLightTheme)
+        self.init(
+            legacyLightTheme: legacyLightTheme,
+            legacyDarkTheme: legacyLightTheme
+        )
     }
 
     @available(iOS 12.0, *)

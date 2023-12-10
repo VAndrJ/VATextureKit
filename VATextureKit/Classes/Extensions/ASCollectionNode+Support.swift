@@ -12,7 +12,7 @@ public extension ASCollectionNode {
 
     func reloadDataWithoutAnimations() {
         reloadData { [weak self] in
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
                 self?.disableAllLayerAnimations()
             }
         }
