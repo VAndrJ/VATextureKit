@@ -19,7 +19,12 @@ open class VAAlertController: UIAlertController {
         preferredStyle: UIAlertController.Style,
         actions: UIAlertAction...
     ) {
-        self.init(title: title, message: message, preferredStyle: preferredStyle, actions: Array(actions))
+        self.init(
+            title: title,
+            message: message,
+            preferredStyle: preferredStyle,
+            actions: Array(actions)
+        )
     }
 
     public convenience init(
@@ -28,7 +33,11 @@ open class VAAlertController: UIAlertController {
         preferredStyle: UIAlertController.Style,
         actions: [UIAlertAction]
     ) {
-        self.init(title: title, message: message, preferredStyle: preferredStyle)
+        self.init(
+            title: title,
+            message: message,
+            preferredStyle: preferredStyle
+        )
 
         actions.forEach(addAction(_:))
     }

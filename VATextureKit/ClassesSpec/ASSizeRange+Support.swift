@@ -64,6 +64,7 @@ public extension ASSizeRange {
 }
 
 extension ASSizeRange: Equatable {
+    
     public static func == (lhs: ASSizeRange, rhs: ASSizeRange) -> Bool {
         lhs.min == rhs.min && lhs.max == rhs.max
     }

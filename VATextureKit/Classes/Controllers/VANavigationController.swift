@@ -19,8 +19,14 @@ open class VANavigationController: ASDKNavigationController {
         super.init(nibName: nil, bundle: nil)
     }
 
-    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    public override init(
+        nibName nibNameOrNil: String?,
+        bundle nibBundleOrNil: Bundle?
+    ) {
+        super.init(
+            nibName: nibNameOrNil,
+            bundle: nibBundleOrNil
+        )
     }
 
     @available(*, unavailable)

@@ -29,6 +29,7 @@ public extension UIFontDescriptor {
             UIFontDescriptor.AttributeName.featureSettings: fontDescriptorFeatureSettings
         ]
         let fontDescriptor = addingAttributes(fontDescriptorAttributes)
+
         return fontDescriptor
     }
 }

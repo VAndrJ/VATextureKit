@@ -173,7 +173,8 @@ extension CGPath: VALayerAnimationValueConvertible {
         } else {
             return false
         }
-//        if let to, to is CGPath { // 'is' test is always true because 'CGPath' is a Core Foundation type
+        // https://forums.swift.org/t/how-can-i-cast-any-to-cf-types/17071
+//        if let to, to is CGPath { // Error: 'is' test is always true because 'CGPath' is a Core Foundation type
 //            return (to as! CGPath) == self
 //        } else {
 //            return false
@@ -181,6 +182,7 @@ extension CGPath: VALayerAnimationValueConvertible {
 //        guard let to = to as? CGPath else { // Error: Conditional downcast to CoreFoundation type 'CGPath' will always succeed
 //            return false
 //        }
+//        return to == self // Error: Cannot convert value of type 'Any?' to expected argument type 'CGPath'
     }
 
     public func getProgressMultiplier(to: Any?, current: Any?) -> Double {

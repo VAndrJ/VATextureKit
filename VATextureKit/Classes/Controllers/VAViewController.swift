@@ -69,7 +69,11 @@ open class VAViewController<Node: ASDisplayNode>: ASDKViewController<ASDisplayNo
         contentSizeDidChanged()
     }
 
-    open override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
+    open override func present(
+        _ viewControllerToPresent: UIViewController,
+        animated flag: Bool,
+        completion: (() -> Void)? = nil
+    ) {
         transitionAnimator.animateTransition(
             source: self,
             destination: viewControllerToPresent,
@@ -93,7 +97,10 @@ open class VAViewController<Node: ASDisplayNode>: ASDKViewController<ASDisplayNo
 
     // MARK: - UIAdaptivePresentationControllerDelegate
 
-    open func presentationController(_ controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
+    open func presentationController(
+        _ controller: UIPresentationController,
+        viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle
+    ) -> UIViewController? {
         return nil
     }
 

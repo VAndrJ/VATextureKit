@@ -174,6 +174,7 @@ extension VATransition {
             transitions: transitions.map { transition in
                 Transition {
                     guard type($0) else { return }
+
                     transition.block($0, $1, $2)
                 }
             },
@@ -222,7 +223,10 @@ extension VATransition {
 
     public static func value(_ keyPath: ReferenceWritableKeyPath<Base, CGFloat>, _ transformed: CGFloat, default defaultValue: CGFloat? = nil) -> VATransition {
         VATransition(keyPath) { progress, view, value in
-            view[keyPath: keyPath] = progress.value(identity: defaultValue ?? value, transformed: transformed)
+            view[keyPath: keyPath] = progress.value(
+                identity: defaultValue ?? value,
+                transformed: transformed
+            )
         }
     }
 
@@ -253,8 +257,8 @@ extension VATransition where Base: Transformable {
     public static func scale(_ scale: CGPoint, anchor: CGPoint) -> VATransition {
         VATransition(\.[\.affineTransform, \.anchorPoint]) { progress, view, transform in
             let anchor = view.isLtrDirection ? anchor : CGPoint(x: 1 - anchor.x, y: anchor.y)
-            let scaleX = scale.x != 0 ? scale.x : 0.0001
-            let scaleY = scale.y != 0 ? scale.y : 0.0001
+            let scaleX = scale.x.notZero
+            let scaleY = scale.y.notZero
             let xPadding = 1 / scaleX * (anchor.x - transform.1.x) * view.bounds.width
             let yPadding = 1 / scaleY * (anchor.y - transform.1.y) * view.bounds.height
 
@@ -439,6 +443,7 @@ public enum Progress: Hashable, Codable {
     public func value(identity: CGFloat, transformed: CGFloat) -> CGFloat {
         var result = identity - transformed
         result *= progress
+
         return transformed + result
     }
 }

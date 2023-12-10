@@ -129,20 +129,64 @@ open class VAReadMoreTextNode: VATextNode {
 
 extension VAReadMoreTextNode: ASTextNodeDelegate {
 
-    public func textNode(_ textNode: ASTextNode, shouldHighlightLinkAttribute attribute: String, value: Any, at point: CGPoint) -> Bool {
-        textDelegate?.textNode?(textNode, shouldHighlightLinkAttribute: attribute, value: value, at: point) ?? false
+    public func textNode(
+        _ textNode: ASTextNode,
+        shouldHighlightLinkAttribute attribute: String,
+        value: Any,
+        at point: CGPoint
+    ) -> Bool {
+        textDelegate?.textNode?(
+            textNode,
+            shouldHighlightLinkAttribute: attribute,
+            value: value,
+            at: point
+        ) ?? false
     }
 
-    public func textNode(_ textNode: ASTextNode, shouldLongPressLinkAttribute attribute: String, value: Any, at point: CGPoint) -> Bool {
-        textDelegate?.textNode?(textNode, shouldLongPressLinkAttribute: attribute, value: value, at: point) ?? false
+    public func textNode(
+        _ textNode: ASTextNode,
+        shouldLongPressLinkAttribute attribute: String,
+        value: Any,
+        at point: CGPoint
+    ) -> Bool {
+        textDelegate?.textNode?(
+            textNode,
+            shouldLongPressLinkAttribute: attribute,
+            value: value,
+            at: point
+        ) ?? false
     }
 
-    public func textNode(_ textNode: ASTextNode, tappedLinkAttribute attribute: String, value: Any, at point: CGPoint, textRange: NSRange) {
-        textDelegate?.textNode?(textNode, tappedLinkAttribute: attribute, value: value, at: point, textRange: textRange)
+    public func textNode(
+        _ textNode: ASTextNode,
+        tappedLinkAttribute attribute: String,
+        value: Any,
+        at point: CGPoint,
+        textRange: NSRange
+    ) {
+        textDelegate?.textNode?(
+            textNode,
+            tappedLinkAttribute: attribute,
+            value: value,
+            at: point,
+            textRange: textRange
+        )
     }
 
-    public func textNode(_ textNode: ASTextNode, longPressedLinkAttribute attribute: String, value: Any, at point: CGPoint, textRange: NSRange) {
-        textDelegate?.textNode?(textNode, longPressedLinkAttribute: attribute, value: value, at: point, textRange: textRange)
+    public func textNode(
+        _ textNode: ASTextNode,
+        longPressedLinkAttribute attribute: String,
+        value: Any,
+        at point: CGPoint,
+        textRange: NSRange
+    ) {
+        textDelegate?.textNode?(
+            textNode,
+            longPressedLinkAttribute: attribute,
+            value: value,
+            at: point,
+            textRange: textRange
+        )
     }
 
     public func textNodeTappedTruncationToken(_ textNode: ASTextNode) {

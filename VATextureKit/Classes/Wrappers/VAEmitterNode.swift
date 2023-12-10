@@ -279,7 +279,9 @@ open class VAEmitterLayer: CAEmitterLayer {
         guard let behaviorWithType = behaviorClass.method(for: NSSelectorFromString("behaviorWithType:")) else {
             return NSObject()
         }
+        
         let castedBehaviorWithType = unsafeBitCast(behaviorWithType, to: (@convention(c)(Any?, Selector, Any?) -> NSObject).self)
+
         return castedBehaviorWithType(behaviorClass, NSSelectorFromString("behaviorWithType:"), type)
     }
 }

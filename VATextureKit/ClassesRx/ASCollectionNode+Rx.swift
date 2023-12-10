@@ -203,6 +203,7 @@ extension Reactive where Base: ASCollectionNode {
             guard let node else {
                 return Observable.empty()
             }
+
             return Observable.just(try node.rx.model(at: indexPath))
         }
 
@@ -450,6 +451,7 @@ open class ASCollectionSectionedDataSource<S: SectionModelType>: NSObject, ASCol
     
     open subscript(section: Int) -> S {
         let sectionModel = _sectionModels[section]
+        
         return S(original: sectionModel.model, items: sectionModel.items)
     }
 

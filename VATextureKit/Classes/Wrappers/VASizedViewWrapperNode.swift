@@ -22,6 +22,16 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
     private let childGetter: () -> T
     private let sizing: Sizing
 
+    /// Creates an instance.
+    ///
+    /// - Parameters:
+    ///   - actorChildGetter: A closure returning the UIView instance to be wrapped.
+    ///   - sizing: The sizing option to apply to the wrapped view.
+    @available (iOS 13.0, *)
+    public convenience init(actorChildGetter: @escaping @MainActor () -> T, sizing: Sizing) {
+        self.init(childGetter: actorChildGetter, sizing: sizing)
+    }
+
     /// Creates an instance of `VASizedViewWrapperNode`.
     ///
     /// - Parameters:
