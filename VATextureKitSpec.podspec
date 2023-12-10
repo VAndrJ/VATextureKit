@@ -14,6 +14,7 @@ It provides an easier syntax and includes wrappers on top of Layout Specs.
   s.source           = { :git => 'https://github.com/VAndrJ/VATextureKit.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '11.0'
+  s.tvos.deployment_target = '11.0'
 
   s.source_files = 'VATextureKit/ClassesSpec/**/*'
 
