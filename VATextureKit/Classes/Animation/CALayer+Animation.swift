@@ -55,12 +55,28 @@ public extension CALayer {
 
         func getProgressMultiplier(current: Any?) -> Double {
             if let fromOriginalValue = fromOriginalValue as? VALayerAnimationValueConvertible {
-                return fromOriginalValue.getProgressMultiplier(to: toOriginalValue, current: current)
+                return fromOriginalValue.getProgressMultiplier(
+                    to: toOriginalValue,
+                    current: current
+                )
             } else {
                 return 0
             }
         }
     }
+
+    struct VALayerKeyframeAnimation {
+        public let values: [Any]
+        public let keyPath: String
+
+        public init(values: [Any], keyPath: String) {
+            self.values = values
+            self.keyPath = keyPath
+        }
+    }
+
+    var isAnimationsPaused: Bool { speed.isZero }
+    var hasAnimations: Bool { animationKeys().map { !$0.isEmpty } ?? false }
 
     @discardableResult
     func add(
@@ -84,6 +100,7 @@ public extension CALayer {
 
             return self
         }
+
         let basicAnimation = getAnimation(
             animation,
             duration: duration,
@@ -128,6 +145,7 @@ public extension CALayer {
             duration *= progress
             from = value
         }
+
         return getAnimation(
             from: from,
             to: animation.to,
@@ -144,16 +162,6 @@ public extension CALayer {
             spring: spring,
             completion: completion
         )
-    }
-
-    struct VALayerKeyframeAnimation {
-        public let values: [Any]
-        public let keyPath: String
-
-        public init(values: [Any], keyPath: String) {
-            self.values = values
-            self.keyPath = keyPath
-        }
     }
 
     @discardableResult
@@ -260,7 +268,10 @@ public extension CALayer {
         animation.autoreverses = autoreverses
         animation.isAdditive = additive
         if let completion {
-            animation.delegate = _AnimationDelegate(animation: animation, completion: completion)
+            animation.delegate = _AnimationDelegate(
+                animation: animation,
+                completion: completion
+            )
         }
 
         return animation
@@ -330,8 +341,8 @@ public extension CALayer {
         }
         animation.fromValue = from
         animation.toValue = to
-        if let anim = animation as? CASpringAnimation {
-            animation.duration = anim.settlingDuration
+        if let springAnimation = animation as? CASpringAnimation {
+            animation.duration = springAnimation.settlingDuration
         } else {
             animation.duration = duration
         }
@@ -351,14 +362,21 @@ public extension CALayer {
         animation.fillMode = .forwards
         animation.isAdditive = additive
         if let completion {
-            animation.delegate = _AnimationDelegate(animation: animation, completion: completion)
+            animation.delegate = _AnimationDelegate(
+                animation: animation,
+                completion: completion
+            )
         }
 
         return animation
     }
 
     @discardableResult
-    func animate(chain animations: [CAAnimation], key: String = UUID().uuidString, completion: ((Bool) -> Void)? = nil) -> Self {
+    func animate(
+        chain animations: [CAAnimation],
+        key: String = UUID().uuidString,
+        completion: ((Bool) -> Void)? = nil
+    ) -> Self {
         let animationGroup = CAAnimationGroup()
         var duration = 0.0
         for animation in animations {
@@ -368,7 +386,10 @@ public extension CALayer {
         animationGroup.animations = animations
         animationGroup.duration = duration
         if let completion {
-            animationGroup.delegate = _AnimationDelegate(animation: animationGroup, completion: completion)
+            animationGroup.delegate = _AnimationDelegate(
+                animation: animationGroup,
+                completion: completion
+            )
         }
         add(animationGroup, forKey: key)
 
@@ -376,21 +397,27 @@ public extension CALayer {
     }
 
     @discardableResult
-    func animate(group animations: [CAAnimation], duration: TimeInterval, key: String = UUID().uuidString, removeOnCompletion: Bool = false, completion: ((Bool) -> Void)? = nil) -> Self {
+    func animate(
+        group animations: [CAAnimation],
+        duration: TimeInterval,
+        key: String = UUID().uuidString,
+        removeOnCompletion: Bool = false,
+        completion: ((Bool) -> Void)? = nil
+    ) -> Self {
         let animationGroup = CAAnimationGroup()
         animationGroup.animations = animations
-        
         animationGroup.duration = duration
         animationGroup.isRemovedOnCompletion = removeOnCompletion
         if let completion {
-            animationGroup.delegate = _AnimationDelegate(animation: animationGroup, completion: completion)
+            animationGroup.delegate = _AnimationDelegate(
+                animation: animationGroup,
+                completion: completion
+            )
         }
         add(animationGroup, forKey: key)
 
         return self
     }
-
-    var isAnimationsPaused: Bool { speed.isZero }
 
     func pauseAnimations() {
         if !isAnimationsPaused {
@@ -410,8 +437,6 @@ public extension CALayer {
             beginTime = timeSincePause
         }
     }
-
-    var hasAnimations: Bool { animationKeys().map { !$0.isEmpty } ?? false }
 }
 
 @objc private class _AnimationDelegate: NSObject, CAAnimationDelegate {
@@ -433,6 +458,7 @@ public extension CALayer {
                 return
             }
         }
+
         if let completion {
             completion(flag)
             self.completion = nil

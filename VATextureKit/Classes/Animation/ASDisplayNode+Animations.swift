@@ -45,8 +45,10 @@ extension ASDisplayNode {
             removals.forEach { $0.value.update(progress: .removal(.end), view: $0.key) }
             subnodes.forEach {
                 guard insertions[$0] == nil, removals[$0] == nil else { return }
+
                 let finalFrame = context.finalFrame(for: $0)
                 guard finalFrame.origin.x != .infinity, finalFrame.origin.y != .infinity else { return }
+
                 $0.frame = context.finalFrame(for: $0)
             }
             animate?()
@@ -281,6 +283,7 @@ extension RelationValue where Value == CGFloat {
         case let .relative(koeficient):
             var result = full
             result *= koeficient
+
             return result
         }
     }
@@ -354,6 +357,7 @@ extension UIColor {
         var blue: CGFloat = 0
         var alpha: CGFloat = 0
         getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+
         return (red, green, blue, alpha)
     }
 }
@@ -483,6 +487,7 @@ public extension ASDisplayNode {
                     supernode?.setNeedsLayoutAnimated()
                     return
                 }
+
                 supernode = supernode?.supernode
             }
         }

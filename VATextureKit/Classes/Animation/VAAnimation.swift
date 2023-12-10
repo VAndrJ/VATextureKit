@@ -37,7 +37,11 @@ public struct VAAnimation: ExpressibleByArrayLiteral {
         delay: Double = 0,
         options: UIView.AnimationOptions = [.curveEaseInOut]
     ) -> VAAnimation {
-        VAAnimation(duration: duration, delay: delay, options: options)
+        VAAnimation(
+            duration: duration,
+            delay: delay,
+            options: options
+        )
     }
 
     public static func `repeat`(
@@ -45,7 +49,11 @@ public struct VAAnimation: ExpressibleByArrayLiteral {
         delay: Double = 0,
         options: UIView.AnimationOptions = [.curveEaseInOut, .autoreverse]
     ) -> VAAnimation {
-        VAAnimation(duration: duration, delay: delay, options: options.intersection(.repeat))
+        VAAnimation(
+            duration: duration,
+            delay: delay,
+            options: options.intersection(.repeat)
+        )
     }
 
     public static func spring(
@@ -276,7 +284,10 @@ extension VATransition where Base: Transformable & AnyObject {
 
     public static func transform(to targetView: Base) -> VATransition {
         VATransition(TransformToModifier(targetView)) { progress, view, initial in
-            let (sourceScale, sourceOffset) = transform(progress: progress, initial: initial)
+            let (sourceScale, sourceOffset) = transform(
+                progress: progress,
+                initial: initial
+            )
             view.affineTransform = initial.sourceTransform
                 .translatedBy(x: sourceOffset.x, y: sourceOffset.y)
                 .scaledBy(x: sourceScale.width, y: sourceScale.height)
@@ -343,6 +354,6 @@ private struct Matching {
     var targetRect: CGRect
 }
 
-private extension CGFloat {
+extension CGFloat {
     var notZero: CGFloat { self == 0 ? 0.0001 : self }
 }
