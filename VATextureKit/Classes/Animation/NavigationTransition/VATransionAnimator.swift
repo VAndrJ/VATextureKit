@@ -43,7 +43,11 @@ open class VADefaultTransionAnimator: VATransionAnimator {
         }
 
         var fromLayersDict: [String: (CALayer, CGRect)] = [:]
-        storeAnimationLayers(layer: sourceController.node.layer, isFrom: true, to: &fromLayersDict)
+        storeAnimationLayers(
+            layer: sourceController.node.layer,
+            isFrom: true,
+            to: &fromLayersDict
+        )
         guard !fromLayersDict.isEmpty else {
             return
         }
@@ -55,7 +59,11 @@ open class VADefaultTransionAnimator: VATransionAnimator {
         // MARK: - Crutch to get proper target layout on push
         mainAsync(after: 0.01) { [self] in
             var toLayersDict: [String: (CALayer, CGRect)] = [:]
-            storeAnimationLayers(layer: destinationController.node.layer, isFrom: false, to: &toLayersDict)
+            storeAnimationLayers(
+                layer: destinationController.node.layer,
+                isFrom: false,
+                to: &toLayersDict
+            )
             animateLayers(
                 fromLayersDict: fromLayersDict,
                 toLayersDict: toLayersDict,
@@ -84,7 +92,12 @@ public class VATouchesPassThroughView: UIView {
 }
 
 @MainActor
-private func animateLayers(fromLayersDict: [String: (CALayer, CGRect)], toLayersDict: [String: (CALayer, CGRect)], transitionOverlayView: UIView, animationDuration: TimeInterval) {
+private func animateLayers(
+    fromLayersDict: [String: (CALayer, CGRect)],
+    toLayersDict: [String: (CALayer, CGRect)],
+    transitionOverlayView: UIView,
+    animationDuration: TimeInterval
+) {
     if !(fromLayersDict.isEmpty || toLayersDict.isEmpty) {
         CATransaction.begin()
         CATransaction.setCompletionBlock {
@@ -92,7 +105,12 @@ private func animateLayers(fromLayersDict: [String: (CALayer, CGRect)], toLayers
         }
         for key in fromLayersDict.keys {
             if let from = fromLayersDict[key], let to = toLayersDict[key] {
-                animate(from: from, to: to, in: transitionOverlayView, animationDuration: animationDuration)
+                animate(
+                    from: from,
+                    to: to,
+                    in: transitionOverlayView,
+                    animationDuration: animationDuration
+                )
             }
         }
         CATransaction.commit()
@@ -102,7 +120,11 @@ private func animateLayers(fromLayersDict: [String: (CALayer, CGRect)], toLayers
 }
 
 @MainActor
-private func storeAnimationLayers(layer: CALayer, isFrom: Bool, to: inout [String: (CALayer, CGRect)]) {
+private func storeAnimationLayers(
+    layer: CALayer,
+    isFrom: Bool,
+    to: inout [String: (CALayer, CGRect)]
+) {
     if let id = layer.transitionAnimationId {
         if isFrom, let node = (layer.delegate as? _ASDisplayView)?.asyncdisplaykit_node {
             if node.isVisible {
@@ -117,7 +139,12 @@ private func storeAnimationLayers(layer: CALayer, isFrom: Bool, to: inout [Strin
 
 // TODO: - Extend
 @MainActor
-private func animate(from source: (layer: CALayer, bounds: CGRect), to destination: (layer: CALayer, bounds: CGRect), in overlayView: UIView, animationDuration: TimeInterval) {
+private func animate(
+    from source: (layer: CALayer, bounds: CGRect),
+    to destination: (layer: CALayer, bounds: CGRect),
+    in overlayView: UIView,
+    animationDuration: TimeInterval
+) {
     let from = source.layer
     let to = destination.layer
     if let fromLayerSnapshot = from.getSnapshot(shouldUnhide: true), let toLayerSnapshot = to.getSnapshot(shouldUnhide: true) {
@@ -141,13 +168,50 @@ private func animate(from source: (layer: CALayer, bounds: CGRect), to destinati
             toLayerSnapshot.removeFromSuperlayer()
         }
 
-        func addAnimations(to layer: CALayer, corner: CGFloat, isTarget: Bool, transitionAnimation: VATransitionAnimation) {
+        func addAnimations(
+            to layer: CALayer,
+            corner: CGFloat,
+            isTarget: Bool,
+            transitionAnimation: VATransitionAnimation
+        ) {
             switch transitionAnimation {
             case let .default(timings, additions):
-                layer.add(animation: .bounds(from: fromLayerSnapshot.bounds, to: toLayerSnapshot.bounds), duration: animationDuration, timingFunction: timings.bounds, removeOnCompletion: false)
-                layer.add(animation: .positionX(from: fromConvertedPosition.x, to: toConvertedPosition.x), duration: animationDuration, timingFunction: timings.positionX, removeOnCompletion: false)
-                layer.add(animation: .positionY(from: fromConvertedPosition.y, to: toConvertedPosition.y), duration: animationDuration, timingFunction: timings.positionY, removeOnCompletion: false)
-                layer.add(animation: .cornerRadius(from: layer.cornerRadius, to: corner), duration: animationDuration, timingFunction: timings.cornerRadius, removeOnCompletion: false)
+                layer.add(
+                    animation: .bounds(
+                        from: fromLayerSnapshot.bounds,
+                        to: toLayerSnapshot.bounds
+                    ),
+                    duration: animationDuration,
+                    timingFunction: timings.bounds,
+                    removeOnCompletion: false
+                )
+                layer.add(
+                    animation: .positionX(
+                        from: fromConvertedPosition.x,
+                        to: toConvertedPosition.x
+                    ),
+                    duration: animationDuration,
+                    timingFunction: timings.positionX,
+                    removeOnCompletion: false
+                )
+                layer.add(
+                    animation: .positionY(
+                        from: fromConvertedPosition.y,
+                        to: toConvertedPosition.y
+                    ),
+                    duration: animationDuration,
+                    timingFunction: timings.positionY,
+                    removeOnCompletion: false
+                )
+                layer.add(
+                    animation: .cornerRadius(
+                        from: layer.cornerRadius,
+                        to: corner
+                    ),
+                    duration: animationDuration,
+                    timingFunction: timings.cornerRadius,
+                    removeOnCompletion: false
+                )
                 let shouldAnimateOpacity: Bool
                 switch additions.opacity {
                 case .skip: shouldAnimateOpacity = false
@@ -156,13 +220,31 @@ private func animate(from source: (layer: CALayer, bounds: CGRect), to destinati
                 default: shouldAnimateOpacity = true
                 }
                 if shouldAnimateOpacity {
-                    layer.add(animation: .opacity(from: isTarget ? 0 : 1, to: !isTarget ? 0 : 1), duration: animationDuration, timingFunction: timings.opacity, removeOnCompletion: false)
+                    layer.add(
+                        animation: .opacity(
+                            from: isTarget ? 0 : 1,
+                            to: !isTarget ? 0 : 1
+                        ),
+                        duration: animationDuration,
+                        timingFunction: timings.opacity,
+                        removeOnCompletion: false
+                    )
                 }
             }
         }
         
-        addAnimations(to: fromLayerSnapshot, corner: toLayerSnapshot.cornerRadius, isTarget: false, transitionAnimation: transitionAnimation)
-        addAnimations(to: toLayerSnapshot, corner: fromLayerSnapshot.cornerRadius, isTarget: true, transitionAnimation: transitionAnimation)
+        addAnimations(
+            to: fromLayerSnapshot,
+            corner: toLayerSnapshot.cornerRadius,
+            isTarget: false,
+            transitionAnimation: transitionAnimation
+        )
+        addAnimations(
+            to: toLayerSnapshot,
+            corner: fromLayerSnapshot.cornerRadius,
+            isTarget: true,
+            transitionAnimation: transitionAnimation
+        )
         CATransaction.commit()
     }
 }

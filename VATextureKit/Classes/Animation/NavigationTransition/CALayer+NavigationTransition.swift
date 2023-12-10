@@ -77,6 +77,7 @@ public extension CALayer {
         if let snapshot {
             snapshot.frame = frame
             snapshot.bounds = bounds
+            
             return snapshot
         } else {
             return nil
