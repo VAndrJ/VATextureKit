@@ -60,18 +60,25 @@ open class VAViewWrapperNode<T: UIView>: VADisplayNode {
     @MainActor
     open override func didLoad() {
         super.didLoad()
-        
+
+        var needsLayout = false
         switch sizing {
         case .inheritedHeight:
             style.height = .points(child.frame.height)
+            needsLayout = true
         case .inheritedWidth:
             style.width = .points(child.frame.width)
+            needsLayout = true
         case .inheritedSize:
             style.preferredSize = child.frame.size
+            needsLayout = true
         default:
             break
         }
         view.addSubview(child)
+        if needsLayout {
+            setNeedsLayout()
+        }
     }
 
     @MainActor
