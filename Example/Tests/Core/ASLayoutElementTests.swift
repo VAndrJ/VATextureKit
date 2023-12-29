@@ -170,6 +170,18 @@ class ASLayoutElementTests: XCTestCase {
         XCTAssertEqual(expected.size, node.style.preferredSize)
     }
 
+    func test_spec_absoluteSizePosition() {
+        let expected = CGRect(x: 10, y: 10, width: 10, height: 10)
+        let expectedSizing: ASAbsoluteLayoutSpecSizing = .sizeToFit
+        let node = ASDisplayNode()
+        let element = node
+            .absolutely(preferredSize: expected.size, layoutPosition: expected.origin, sizing: expectedSizing)
+
+        XCTAssertEqual(expectedSizing, element.sizing)
+        XCTAssertEqual(expected.origin, node.style.layoutPosition)
+        XCTAssertEqual(expected.size, node.style.preferredSize)
+    }
+
     func test_spec_background() {
         let node = ASDisplayNode()
         let element = ASDisplayNode()
