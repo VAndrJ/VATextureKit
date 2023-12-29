@@ -180,6 +180,31 @@ public extension ASLayoutElement {
     /// Creates an `ASAbsoluteLayoutSpec` with the layout element absolutely positioned.
     ///
     /// - Parameters:
+    ///   - preferredSize: The size of the layout element in the `ASAbsoluteLayoutSpec`.
+    ///   - layoutPosition: The position of the layout element in the `ASAbsoluteLayoutSpec`.
+    ///   - sizing: The sizing option for the `ASAbsoluteLayoutSpec`. Defaults to `.default`.
+    /// - Returns: An `ASAbsoluteLayoutSpec` with the layout element absolutely positioned.
+    func absolutely(
+        preferredSize: CGSize? = nil,
+        layoutPosition: CGPoint? = nil,
+        sizing: ASAbsoluteLayoutSpecSizing = .default
+    ) -> ASAbsoluteLayoutSpec {
+        if let preferredSize {
+            style.preferredSize = preferredSize
+        }
+        if let layoutPosition {
+            style.layoutPosition = layoutPosition
+        }
+
+        return ASAbsoluteLayoutSpec(
+            sizing: sizing,
+            children: [self]
+        )
+    }
+
+    /// Creates an `ASAbsoluteLayoutSpec` with the layout element absolutely positioned.
+    ///
+    /// - Parameters:
     ///   - frame: The frame representing the position and size of the layout element in the `ASAbsoluteLayoutSpec`.
     ///   - sizing: The sizing option for the `ASAbsoluteLayoutSpec`. Defaults to `.default`.
     /// - Returns: An `ASAbsoluteLayoutSpec` with the layout element absolutely positioned.
