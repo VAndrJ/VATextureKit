@@ -8,7 +8,6 @@
 
 import VATextureKit
 
-// swiftlint:disable indentation_width
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
@@ -35,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.makeKeyAndVisible()
         }
         
-#if DEBUG && targetEnvironment(simulator)
+        #if DEBUG && targetEnvironment(simulator)
         if Environment.isTesting {
             if #available(iOS 12.0, *) {
                 window = VAWindow(standardLightTheme: .vaLight, standardDarkTheme: .vaDark)
@@ -49,17 +48,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             launch()
         }
-#else
+        #else
         launch()
-#endif
+        #endif
         
         return true
     }
     
     private func configure() {
-#if DEBUG || targetEnvironment(simulator)
+        #if DEBUG || targetEnvironment(simulator)
         ASDisplayNode.shouldDebugLabelBeHidden = false
-#endif
+        #endif
         themeManager.checkInitialTheme()
     }
 }

@@ -17,6 +17,7 @@ extension VATextNode {
         var attributes: [NSAttributedString.Key: Any] = [:]
     }
 
+    // swiftlint:disable:next function_body_length
     convenience init(
         string: String,
         textStyle: FontStyle = .body,
