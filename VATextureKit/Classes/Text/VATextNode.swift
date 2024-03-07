@@ -34,7 +34,7 @@ open class _VATextNode: ASTextNode {}
 #endif
 
 open class VATextNode: _VATextNode {
-    public struct FontStyle {
+    public struct FontStyle: Sendable {
         public static let largeTitle = FontStyle(textStyle: .largeTitle, pointSize: 34, weight: .regular)
         public static let title1 = FontStyle(textStyle: .title1, pointSize: 28, weight: .regular)
         public static let title2 = FontStyle(textStyle: .title2, pointSize: 22, weight: .regular)
