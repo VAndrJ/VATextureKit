@@ -8,6 +8,8 @@
 
 import VATextureKit
 
+struct EmitterLayerAnimationNavigationIdentity: DefaultNavigationIdentity {}
+
 final class EmitterLayerAnimationControllerNode: VASafeAreaDisplayNode {
     private lazy var fireworksEmitterNode = VAFireworksEmitterNode(data: .init())
     private lazy var confettiTopCenterEmitterNode = VAConfettiEmitterNode(data: .init(startPoint: .topCenter))

@@ -7,5 +7,10 @@
 //
 
 import VATextureKitRx
+import VANavigator
 
 typealias Obs = VATextureKitRx.Obs
+
+typealias NavigationIdentity = VANavigator.NavigationIdentity
+typealias Navigator = VANavigator.Navigator
+typealias NavigatorScreenFactory = VANavigator.NavigatorScreenFactory

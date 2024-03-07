@@ -8,6 +8,8 @@
 
 import VATextureKit
 
+struct RadialGradientNavigationIdentity: DefaultNavigationIdentity {}
+
 final class RadialGradientControllerNode: VASafeAreaDisplayNode {
     private lazy var scrollNode = VAScrollNode(data: .init())
     private lazy var centeredGradientNode = VARadialGradientNode(gradient: .centered)

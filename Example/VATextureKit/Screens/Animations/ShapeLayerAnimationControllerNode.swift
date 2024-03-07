@@ -8,6 +8,8 @@
 
 import VATextureKit
 
+struct ShapeLayerAnimationNavigationIdentity: DefaultNavigationIdentity {}
+
 final class ShapeLayerAnimationControllerNode: VASafeAreaDisplayNode {
     private lazy var fillColorExampleNode = FillColorExampleNode()
     private lazy var pathExampleNode = PathExampleNode()

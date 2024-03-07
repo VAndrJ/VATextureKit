@@ -13,12 +13,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     private let themeManager = ThemeManager()
-    private lazy var appNavigator = Navigator(
-        screenFactory: ScreenFactory(themeManager: themeManager),
-        navigationController: ExampleNavigationController(),
-        initialRoute: .main
+    private lazy var navigator = AppNavigator(
+        window: window,
+        screenFactory: AppScreenFactory(themeManager: themeManager),
+        navigationInterceptor: nil
     )
-    
+
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 window = VAWindow(legacyLightTheme: .vaLight, legacyDarkTheme: .vaDark)
             }
             configure()
-            window?.rootViewController = appNavigator.navigationController
+            navigator.start()
             window?.makeKeyAndVisible()
         }
         

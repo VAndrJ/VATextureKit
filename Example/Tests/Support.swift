@@ -172,9 +172,10 @@ extension String {
     }
 }
 
-extension Navigator {
-    static let dummy = Navigator(
-        screenFactory: ScreenFactory(themeManager: ThemeManager()),
-        navigationController: VANavigationController()
+extension AppNavigator {
+    static let dummy = AppNavigator(
+        window: UIWindow(),
+        screenFactory: AppScreenFactory(themeManager: ThemeManager()),
+        navigationInterceptor: nil
     )
 }

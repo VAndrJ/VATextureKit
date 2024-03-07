@@ -8,6 +8,8 @@
 
 import VATextureKitRx
 
+struct SelfSizingListNavigationIdentity: DefaultNavigationIdentity {}
+
 final class SelfSizingListContainerControllerNode: VASafeAreaDisplayNode {
     private lazy var listNode = VAListNode(
         data: .init(

@@ -89,6 +89,7 @@
 		A38D5E9C2A6D251E00A67BC7 /* ShimmersControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E9B2A6D251E00A67BC7 /* ShimmersControllerNode.swift */; };
 		A38D5EAB2A6D63BF00A67BC7 /* SpecBasedGridListControllerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5EAA2A6D63BF00A67BC7 /* SpecBasedGridListControllerNode.swift */; };
 		A38D5EAD2A6D654C00A67BC7 /* TagCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5EAC2A6D654C00A67BC7 /* TagCellNode.swift */; };
+		A3923DC72B99230F0069C9CE /* DefaultNavigationIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3923DC62B99230F0069C9CE /* DefaultNavigationIdentity.swift */; };
 		A39301E82A7FFB85007F8001 /* LinearGradientControllerNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39301E72A7FFB85007F8001 /* LinearGradientControllerNodeTests.swift */; };
 		A39301EA2A7FFC5C007F8001 /* RadialGradientControllerNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39301E92A7FFC5C007F8001 /* RadialGradientControllerNodeTests.swift */; };
 		A397A2C229AAA68800A05B8F /* AlertNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A397A2C129AAA68800A05B8F /* AlertNodeController.swift */; };
@@ -106,8 +107,7 @@
 		A3B3F3AF29A17A5B0090E6E2 /* ExampleNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3AE29A17A5B0090E6E2 /* ExampleNavigationController.swift */; };
 		A3B3F3C529A22F860090E6E2 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3C429A22F860090E6E2 /* Theme.swift */; };
 		A3B3F3CD29A2B4FC0090E6E2 /* MainListCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3CC29A2B4FC0090E6E2 /* MainListCellNode.swift */; };
-		A3B3F3CF29A2C0590090E6E2 /* NavigationRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3CE29A2C0590090E6E2 /* NavigationRoute.swift */; };
-		A3B3F3D129A2C1190090E6E2 /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3D029A2C1190090E6E2 /* Navigator.swift */; };
+		A3B3F3D129A2C1190090E6E2 /* AppNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3D029A2C1190090E6E2 /* AppNavigator.swift */; };
 		A3B3F3D329A2C8280090E6E2 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3D229A2C8280090E6E2 /* MainViewModel.swift */; };
 		A3B3F3D629A2C91A0090E6E2 /* AppearanceContollerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3D529A2C91A0090E6E2 /* AppearanceContollerNode.swift */; };
 		A3B3F3D829A2C9340090E6E2 /* AppearanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3D729A2C9340090E6E2 /* AppearanceViewController.swift */; };
@@ -248,6 +248,7 @@
 		A38D5E9B2A6D251E00A67BC7 /* ShimmersControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmersControllerNode.swift; sourceTree = "<group>"; };
 		A38D5EAA2A6D63BF00A67BC7 /* SpecBasedGridListControllerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecBasedGridListControllerNode.swift; sourceTree = "<group>"; };
 		A38D5EAC2A6D654C00A67BC7 /* TagCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCellNode.swift; sourceTree = "<group>"; };
+		A3923DC62B99230F0069C9CE /* DefaultNavigationIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNavigationIdentity.swift; sourceTree = "<group>"; };
 		A39301E72A7FFB85007F8001 /* LinearGradientControllerNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearGradientControllerNodeTests.swift; sourceTree = "<group>"; };
 		A39301E92A7FFC5C007F8001 /* RadialGradientControllerNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialGradientControllerNodeTests.swift; sourceTree = "<group>"; };
 		A397A2C129AAA68800A05B8F /* AlertNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertNodeController.swift; sourceTree = "<group>"; };
@@ -266,8 +267,7 @@
 		A3B3F3AE29A17A5B0090E6E2 /* ExampleNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleNavigationController.swift; sourceTree = "<group>"; };
 		A3B3F3C429A22F860090E6E2 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		A3B3F3CC29A2B4FC0090E6E2 /* MainListCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListCellNode.swift; sourceTree = "<group>"; };
-		A3B3F3CE29A2C0590090E6E2 /* NavigationRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRoute.swift; sourceTree = "<group>"; };
-		A3B3F3D029A2C1190090E6E2 /* Navigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
+		A3B3F3D029A2C1190090E6E2 /* AppNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigator.swift; sourceTree = "<group>"; };
 		A3B3F3D229A2C8280090E6E2 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		A3B3F3D529A2C91A0090E6E2 /* AppearanceContollerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceContollerNode.swift; sourceTree = "<group>"; };
 		A3B3F3D729A2C9340090E6E2 /* AppearanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceViewController.swift; sourceTree = "<group>"; };
@@ -748,8 +748,8 @@
 		A3B3F3EA29A399440090E6E2 /* Navigator */ = {
 			isa = PBXGroup;
 			children = (
-				A3B3F3CE29A2C0590090E6E2 /* NavigationRoute.swift */,
-				A3B3F3D029A2C1190090E6E2 /* Navigator.swift */,
+				A3B3F3D029A2C1190090E6E2 /* AppNavigator.swift */,
+				A3923DC62B99230F0069C9CE /* DefaultNavigationIdentity.swift */,
 			);
 			path = Navigator;
 			sourceTree = "<group>";
@@ -1030,7 +1030,6 @@
 				A3B3F3E729A3869B0090E6E2 /* ContentSizeViewController.swift in Sources */,
 				A357B7FE2A01644C004835C5 /* VASlidingTabBarNode.swift in Sources */,
 				A357B8042A02490E004835C5 /* VASlidingIndicatorContainerNode.swift in Sources */,
-				A3B3F3CF29A2C0590090E6E2 /* NavigationRoute.swift in Sources */,
 				A3DDF30029DD84B1009460F1 /* CompositingCellNode.swift in Sources */,
 				A3B3F37929A0CDAD0090E6E2 /* MainNodeController.swift in Sources */,
 				A38D5EAD2A6D654C00A67BC7 /* TagCellNode.swift in Sources */,
@@ -1040,7 +1039,7 @@
 				A3B3F3D629A2C91A0090E6E2 /* AppearanceContollerNode.swift in Sources */,
 				A3B3F3C529A22F860090E6E2 /* Theme.swift in Sources */,
 				A3884CCB2A7CC6DD00DFB4A4 /* VASnowEmitterNode.swift in Sources */,
-				A3B3F3D129A2C1190090E6E2 /* Navigator.swift in Sources */,
+				A3B3F3D129A2C1190090E6E2 /* AppNavigator.swift in Sources */,
 				A3F8890529CE316C00C67187 /* CollectionListDifferentCellsViewModel.swift in Sources */,
 				A3B3F3AF29A17A5B0090E6E2 /* ExampleNavigationController.swift in Sources */,
 				A338712C2A79885D00F9D329 /* EmitterLayerAnimationControllerNode.swift in Sources */,
@@ -1059,6 +1058,7 @@
 				A35639902A72D24300DE531F /* GradientLayerAnimationControllerNode.swift in Sources */,
 				A3F8890929CE37BD00C67187 /* ImageCellNode.swift in Sources */,
 				A3884CC82A7C303300DFB4A4 /* VARainEmitterNode.swift in Sources */,
+				A3923DC72B99230F0069C9CE /* DefaultNavigationIdentity.swift in Sources */,
 				A3820D2A29E568BE00993406 /* VATextFieldNode.swift in Sources */,
 				A3CC9FAF2A75B82800A66DC0 /* KeyframeAnimationsControllerNode.swift in Sources */,
 				A31F445D29F6AD76003618C9 /* PagerControllerNodeViewModel.swift in Sources */,
@@ -1280,7 +1280,8 @@
 			baseConfigurationReference = 308A99719FCF60953697F53E /* Pods-VATextureKit_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = JKXXWRD2Y7;
+				GCC_OPTIMIZATION_LEVEL = s;
 				INFOPLIST_FILE = VATextureKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1293,6 +1294,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_STRICT_CONCURRENCY = targeted;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
@@ -1304,7 +1306,7 @@
 			baseConfigurationReference = 46020EE7D2BA97387DB61459 /* Pods-VATextureKit_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = JKXXWRD2Y7;
 				INFOPLIST_FILE = VATextureKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1328,7 +1330,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = JKXXWRD2Y7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1364,7 +1366,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = JKXXWRD2Y7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 					"$(inherited)",

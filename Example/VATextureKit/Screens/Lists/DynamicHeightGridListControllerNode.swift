@@ -8,6 +8,8 @@
 
 import VATextureKitRx
 
+struct DynamicHeightGridListNavigationIdentity: DefaultNavigationIdentity {}
+
 final class DynamicHeightGridListControllerNode: VASafeAreaDisplayNode {
     private lazy var listNode = VAListNode(
         data: .init(

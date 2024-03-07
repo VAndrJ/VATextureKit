@@ -8,6 +8,8 @@
 
 import VATextureKit
 
+struct StackLayoutNavigationIdentity: DefaultNavigationIdentity {}
+
 final class StackLayoutControllerNode: VASafeAreaDisplayNode {
     private lazy var stackLayoutExampleNode = StackLayoutExampleNode()
     private lazy var stackCenteringLayoutExampleNode = StackCenteringLayoutExampleNode()

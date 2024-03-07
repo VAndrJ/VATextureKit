@@ -8,6 +8,8 @@
 
 import VATextureKit
 
+struct KeyframeAnimationsNavigationIdentity: DefaultNavigationIdentity {}
+
 final class KeyframeAnimationsControllerNode: VASafeAreaDisplayNode {
     private lazy var shakeAnimationExampleNode = ShakeAnimationExampleNode()
     private lazy var shakeAnimationPauseResumeExampleNode = ShakeAnimationPauseResumeExampleNode()

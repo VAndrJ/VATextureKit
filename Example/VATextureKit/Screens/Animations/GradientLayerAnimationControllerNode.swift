@@ -8,6 +8,8 @@
 
 import VATextureKit
 
+struct GradientLayerAnimationNavigationIdentity: DefaultNavigationIdentity {}
+
 final class GradientLayerAnimationControllerNode: VASafeAreaDisplayNode {
     private lazy var locationsExampleNode = LocationsExampleNode()
     private lazy var colorsExampleNode = ColorsExampleNode()

@@ -7,6 +7,11 @@
 //
 
 import VATextureKit
+import VANavigator
+
+struct ExampleNavigationControllerIdentity: DefaultNavigationIdentity {
+    let root: NavigationIdentity
+}
 
 class ExampleNavigationController: VANavigationController {
     

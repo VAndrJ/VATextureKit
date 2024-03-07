@@ -8,6 +8,8 @@
 
 import VATextureKit
 
+struct TypingTextNavigationIdentity: DefaultNavigationIdentity {}
+
 final class TypingTextControllerNode: VASafeAreaDisplayNode {
     private lazy var typingTextNode = VATypingTextNode(text: .loremText)
     private lazy var startTypingButtonNode = HapticButtonNode(title: "Start typing")
