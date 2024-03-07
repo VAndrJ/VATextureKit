@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-class ThemeManager {
+class ThemeManager: @unchecked Sendable {
     var currentTheme: Theme {
         switch appContext.themeManager.theme.tag {
         case _ as VALightThemeTag where appContext.themeManager.themeType == .custom:

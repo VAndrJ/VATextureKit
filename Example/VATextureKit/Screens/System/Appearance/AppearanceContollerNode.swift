@@ -10,7 +10,7 @@ import VATextureKit
 
 final class AppearanceContollerNode: VASafeAreaDisplayNode {
     let pickerNode = VAViewWrapperNode(
-        childGetter: { UIPickerView() },
+        actorChildGetter: { UIPickerView() },
         sizing: .inheritedHeight
     )
     

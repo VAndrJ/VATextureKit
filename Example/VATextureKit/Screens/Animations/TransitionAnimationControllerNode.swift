@@ -105,6 +105,7 @@ final class TransitionAnimationControllerNode: VASafeAreaDisplayNode {
         expandNode.backgroundColor = theme.systemPurple
     }
 
+    @MainActor
     private func bind() {
         exchangeButtonNode.onTap = self ?> { $0.isNodesExchanged.toggle() }
         toggleButtonNode.onTap = self ?> { $0.isNodeToggled.toggle() }

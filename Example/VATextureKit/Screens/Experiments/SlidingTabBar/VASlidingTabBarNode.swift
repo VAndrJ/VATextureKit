@@ -88,6 +88,7 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode {
     private func convertIntersection(indicator frame: CGRect, node: ASDisplayNode) -> CGRect {
         let intersectionFrame = node.frame.intersection(frame)
         let convertedOrigin = view.convert(intersectionFrame.origin, to: node.view)
+
         return CGRect(origin: convertedOrigin, size: intersectionFrame.size)
     }
 

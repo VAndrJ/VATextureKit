@@ -13,20 +13,9 @@ final class PagerIndicatorNode<Item: Equatable & IdentifiableType>: VASizedViewW
     private weak var pagerNode: VAPagerNode<Item>?
 
     convenience init(pagerNode: VAPagerNode<Item>) {
-        self.init(childGetter: { UIPageControl() }, sizing: .viewSize)
+        self.init(actorChildGetter: { UIPageControl() }, sizing: .viewSize)
 
         self.pagerNode = pagerNode
-        pagerNode.indexObs
-            .map { Int($0 + 0.5) }
-            .debounce(.milliseconds(100), scheduler: MainScheduler.asyncInstance)
-            .distinctUntilChanged()
-            .bind(to: child.rx.currentPage)
-            .disposed(by: bag)
-        pagerNode.itemsCountObs
-            .distinctUntilChanged()
-            .do(afterNext: { [weak self] _ in self?.setNeedsLayout() })
-            .bind(to: child.rx.numberOfPages)
-            .disposed(by: bag)
     }
 
     override func didLoad() {
@@ -40,14 +29,27 @@ final class PagerIndicatorNode<Item: Equatable & IdentifiableType>: VASizedViewW
         child.pageIndicatorTintColor = theme.systemOrange
     }
 
+    @MainActor
     private func bind() {
         child.addTarget(
             self,
             action: #selector(onChange(_:)),
             for: .valueChanged
         )
+        pagerNode?.indexObs
+            .map { Int($0 + 0.5) }
+            .debounce(.milliseconds(100), scheduler: MainScheduler.asyncInstance)
+            .distinctUntilChanged()
+            .bind(to: child.rx.currentPage)
+            .disposed(by: bag)
+        pagerNode?.itemsCountObs
+            .distinctUntilChanged()
+            .do(afterNext: self ?>> { $0.setNeedsLayout })
+            .bind(to: child.rx.numberOfPages)
+            .disposed(by: bag)
     }
 
+    @MainActor
     @objc private func onChange(_ sender: UIPageControl) {
         pagerNode?.scroll(to: sender.currentPage)
     }

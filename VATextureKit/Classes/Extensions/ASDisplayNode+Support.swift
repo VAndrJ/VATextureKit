@@ -102,6 +102,7 @@ public extension ASDisplayNode {
 
 #if DEBUG || targetEnvironment(simulator)
 public extension ASDisplayNode {
+    @MainActor
     static var shouldDebugLabelBeHidden = true
 
     @MainActor

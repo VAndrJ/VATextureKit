@@ -24,7 +24,7 @@ final class CollectionListDifferentCellsViewModel {
 
     func reloadData() {
         _isLoadingObs.rx.accept(true)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [self] in
+        mainAsync(after: 3) { [self] in
             count = 0
             _listDataObs.rx.accept([
                 LoadingCellNodeViewModel(),
@@ -34,7 +34,7 @@ final class CollectionListDifferentCellsViewModel {
     }
     
     func loadMore() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [self] in
+        mainAsync(after: 3) { [self] in
             count += 1
             var data = _listDataObs.rx.value
             var more: CellViewModel?
