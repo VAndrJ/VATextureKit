@@ -14,7 +14,7 @@ Includes RxSwift additions.
   s.author           = { 'Volodymyr Andriienko' => 'vandrjios@gmail.com' }
   s.source           = { :git => 'https://github.com/VAndrJ/VATextureKit.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '12.0'
+  s.ios.deployment_target = '11.0'
 
   s.source_files = 'VATextureKit/ClassesRx/**/*'
 
@@ -25,5 +25,5 @@ Includes RxSwift additions.
   s.dependency 'VATextureKitSpec',  '1.3.0'
   s.dependency 'VATextureKit',      '1.3.0'
 
-  s.swift_versions = '5.9'
+  s.swift_versions = '5.8'
 end
