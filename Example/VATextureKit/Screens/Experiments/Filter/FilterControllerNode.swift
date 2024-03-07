@@ -8,6 +8,8 @@
 
 import VATextureKit
 
+struct FilterNavigationIdentity: DefaultNavigationIdentity {}
+
 final class FilterControllerNode: VASafeAreaDisplayNode {
     private lazy var imageNode = VAImageNode(
         image: filter.outputImage(image: R.image.colibri()),

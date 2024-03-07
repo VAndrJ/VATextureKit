@@ -8,6 +8,8 @@
 
 import VATextureKitRx
 
+struct ElementsScrollingAnimationListNavigationIdentity: DefaultNavigationIdentity {}
+
 // MARK: - ViewController as a View example
 
 final class ElementsScrollingAnimationListViewController: VANodeController {

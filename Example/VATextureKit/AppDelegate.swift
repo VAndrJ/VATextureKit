@@ -8,18 +8,17 @@
 
 import VATextureKit
 
-// swiftlint:disable indentation_width
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     private let themeManager = ThemeManager()
-    private lazy var appNavigator = Navigator(
-        screenFactory: ScreenFactory(themeManager: themeManager),
-        navigationController: ExampleNavigationController(),
-        initialRoute: .main
+    private lazy var navigator = AppNavigator(
+        window: window,
+        screenFactory: AppScreenFactory(themeManager: themeManager),
+        navigationInterceptor: nil
     )
-    
+
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
@@ -31,11 +30,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 window = VAWindow(legacyLightTheme: .vaLight, legacyDarkTheme: .vaDark)
             }
             configure()
-            window?.rootViewController = appNavigator.navigationController
+            navigator.start()
             window?.makeKeyAndVisible()
         }
         
-#if DEBUG && targetEnvironment(simulator)
+        #if DEBUG && targetEnvironment(simulator)
         if Environment.isTesting {
             if #available(iOS 12.0, *) {
                 window = VAWindow(standardLightTheme: .vaLight, standardDarkTheme: .vaDark)
@@ -49,17 +48,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             launch()
         }
-#else
+        #else
         launch()
-#endif
+        #endif
         
         return true
     }
     
     private func configure() {
-#if DEBUG || targetEnvironment(simulator)
+        #if DEBUG || targetEnvironment(simulator)
         ASDisplayNode.shouldDebugLabelBeHidden = false
-#endif
+        #endif
         themeManager.checkInitialTheme()
     }
 }

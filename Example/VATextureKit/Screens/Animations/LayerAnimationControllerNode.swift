@@ -8,6 +8,8 @@
 
 import VATextureKit
 
+struct LayerAnimationNavigationIdentity: DefaultNavigationIdentity {}
+
 final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
     private lazy var boundsAnimationExampleNode = BoundsAnimationExampleNode()
     private lazy var opacityAnimationExampleNode = OpacityAnimationExampleNode()

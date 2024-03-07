@@ -64,7 +64,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         }
     }
     
-    public struct DTO {
+    public struct Context {
         let indicatorConfiguration: IndicatorConfiguration
         let listDataObs: Observable<[S]>
         let onSelect: ((IndexPath) -> Void)?
@@ -186,7 +186,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         }
     }
     
-    public private(set) var data: DTO!
+    public private(set) var data: Context!
     public private(set) var layoutData: LayoutDTO!
     public private(set) var refreshData: RefreshDTO!
     public private(set) var batchContext: ASBatchContext?
@@ -222,7 +222,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
 
     // MARK: - `UICollectionViewFlowLayout` is marked with `@MainActor`. However, it can be created from a background thread without encountering any problems for now.
     public convenience init(
-        data: DTO,
+        data: Context,
         layoutData: LayoutDTO,
         refreshData: RefreshDTO = .init()
     ) {
@@ -301,7 +301,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         if data.footerGetter != nil {
             registerSupplementaryNode(ofKind: UICollectionView.elementKindSectionFooter)
         }
-        let data: DTO = data
+        let data: Context = data
         let dataSource = RxASCollectionSectionedAnimatedDataSource<S>(
             animationConfiguration: layoutData.animationConfiguration,
             configureCellBlock: { [data] _, _, _, item in { data.cellGetter(item) } },

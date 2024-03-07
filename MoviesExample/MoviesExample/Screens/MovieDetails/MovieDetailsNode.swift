@@ -39,21 +39,21 @@ final class MovieDetailsNode: DisplayNode<MovieDetailsViewModel> {
 
     private func bind() {
         viewModel.scrollToTopObs
-            .subscribe(onNext: self ?> { $0.scrollToTop() })
+            .subscribe(onNext: self ?>> { $0.scrollToTop })
             .disposed(by: bag)
         viewModel.titleObs
-            .subscribe(onNext: self ?> { $0.updateClosestController(title: $1) })
+            .subscribe(onNext: self ?>> { $0.updateClosestController(title:) })
             .disposed(by: bag)
     }
 
     private func scrollToTop() {
-        Task { @MainActor [listNode] in
+        Task { @MainActor in
             listNode.scrollToTop()
         }
     }
 
     private func updateClosestController(title: String) {
-        Task { @MainActor [closestViewController] in
+        Task { @MainActor in
             closestViewController?.title = title
         }
     }

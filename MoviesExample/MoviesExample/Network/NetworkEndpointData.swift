@@ -33,6 +33,7 @@ struct NetworkEndpointData<T: Decodable> {
         guard let baseUrl = URL(string: urlString) else {
             throw NetworkError.incorrectEndpointBaseURL(string: urlString)
         }
+        
         var base = baseUrl
         pathComponents?.forEach {
             base.appendPathComponent($0)
@@ -75,6 +76,7 @@ struct NetworkEndpointData<T: Decodable> {
             request.httpBody = body
         }
         request.httpMethod = method.rawValue
+        
         return request
     }
 }

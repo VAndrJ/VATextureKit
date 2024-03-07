@@ -29,7 +29,7 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
         }
     }
 
-    public struct DTO {
+    public struct Context {
         var items: [Item]
         let cellGetter: (Item) -> ASCellNode
         let isCircular: Bool
@@ -57,7 +57,7 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
     }
     public var itemPosition: CGFloat { contentOffset.x / itemSize.width }
     public let bag = DisposeBag()
-    public private(set) var data: DTO {
+    public private(set) var data: Context {
         didSet { itemsCountRelay.accept(data.items.count) }
     }
 
@@ -80,7 +80,7 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
             .disposed(by: bag)
     }
 
-    public init(data: DTO) {
+    public init(data: Context) {
         self.data = data
         self.itemsCountRelay = BehaviorRelay(value: data.items.count)
         self.delayedConfiguration = !Thread.current.isMainThread

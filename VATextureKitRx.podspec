@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'VATextureKitRx'
-  s.version          = '1.2.3'
+  s.version          = '1.3.0'
   s.summary          = 'Texture library wrapper with Rx additions.'
 
   s.description      = <<-DESC
@@ -14,7 +14,7 @@ Includes RxSwift additions.
   s.author           = { 'Volodymyr Andriienko' => 'vandrjios@gmail.com' }
   s.source           = { :git => 'https://github.com/VAndrJ/VATextureKit.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '11.0'
+  s.ios.deployment_target = '12.0'
 
   s.source_files = 'VATextureKit/ClassesRx/**/*'
 
@@ -22,8 +22,8 @@ Includes RxSwift additions.
   s.dependency 'RxSwift',           '~> 6.5.0'
   s.dependency 'RxCocoa',           '~> 6.5.0'
   s.dependency 'Differentiator',    '~> 5.0.0'
-  s.dependency 'VATextureKitSpec',  '1.2.3'
-  s.dependency 'VATextureKit',      '1.2.3'
-  
-  s.swift_versions = '5.8'
+  s.dependency 'VATextureKitSpec',  '1.3.0'
+  s.dependency 'VATextureKit',      '1.3.0'
+
+  s.swift_versions = '5.9'
 end

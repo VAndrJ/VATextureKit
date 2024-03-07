@@ -8,6 +8,8 @@
 
 import VATextureKit
 
+struct LinkTextNavigationIdentity: DefaultNavigationIdentity {}
+
 final class LinkTextControllerNode: VASafeAreaDisplayNode {
     private lazy var linkTextNode = VALinkTextNode(text: [
         .loremText,

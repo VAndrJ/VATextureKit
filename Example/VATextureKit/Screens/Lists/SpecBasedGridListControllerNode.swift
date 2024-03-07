@@ -8,6 +8,8 @@
 
 import VATextureKitRx
 
+struct SpecBasedGridListNavigationIdentity: DefaultNavigationIdentity {}
+
 final class SpecBasedGridListControllerNode: VASafeAreaDisplayNode {
     private lazy var listNode = VAListNode(
         data: .init(

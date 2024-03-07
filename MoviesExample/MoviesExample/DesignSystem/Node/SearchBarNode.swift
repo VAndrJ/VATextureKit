@@ -26,12 +26,14 @@ final class SearchBarNode: VASizedViewWrapperNode<UISearchBar> {
         child.isFirstResponder
     }
 
-    @MainActor @discardableResult
+    @MainActor
+    @discardableResult
     override func becomeFirstResponder() -> Bool {
         child.becomeFirstResponder()
     }
 
-    @MainActor @discardableResult
+    @MainActor
+    @discardableResult
     override func resignFirstResponder() -> Bool {
         child.resignFirstResponder()
     }

@@ -34,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ) {
         guard let shortcut = Shortcut(rawValue: shortcutItem.type) else {
             completionHandler(false)
+
             return
         }
 

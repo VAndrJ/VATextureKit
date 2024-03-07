@@ -14,7 +14,7 @@ struct SearchMovieEvent: Event {
 private struct LoadTrendingEvent: Event {}
 
 final class SearchViewModel: EventViewModel {
-    struct DTO {
+    struct Context {
         struct DataSource {
             let getTrendingMovies: () -> Observable<[ListMovieEntity]>
             let getSearchMovies: (_ query: String) -> Observable<[ListMovieEntity]>
@@ -47,7 +47,7 @@ final class SearchViewModel: EventViewModel {
                 search.isEmpty.fold { search } _: { trending }
             }
     }
-    let data: DTO
+    let data: Context
     @Obs.Relay()
     var beginSearchObs: Observable<Void>
 
@@ -57,7 +57,7 @@ final class SearchViewModel: EventViewModel {
     private var searchDataObs: Observable<[ListMovieEntity]>
     private let searchQueryRelay = PublishRelay<String?>()
 
-    init(data: DTO) {
+    init(data: Context) {
         self.data = data
 
         super.init()
@@ -65,7 +65,7 @@ final class SearchViewModel: EventViewModel {
         bind()
     }
 
-    override func run(_ event: Event) {
+    override func run(_ event: Event) async {
         switch event {
         case _ as LoadTrendingEvent:
             data.source.getTrendingMovies()
@@ -83,7 +83,7 @@ final class SearchViewModel: EventViewModel {
         case let event as SearchMovieEvent:
             searchQueryRelay.accept(event.query)
         default:
-            super.run(event)
+            await super.run(event)
         }
     }
 

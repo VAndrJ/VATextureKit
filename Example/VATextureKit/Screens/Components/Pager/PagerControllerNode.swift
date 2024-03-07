@@ -8,6 +8,8 @@
 
 import VATextureKitRx
 
+struct PagerControllerNavigationIdentity: DefaultNavigationIdentity {}
+
 final class PagerControllerNode: VASafeAreaDisplayNode {
     private lazy var pagerNode = VAPagerNode(data: .init(
         itemsObs: viewModel.pagerItemsObs,

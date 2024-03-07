@@ -16,7 +16,7 @@ struct OpenListActorDetailsEvent: Event {
 }
 
 final class MovieDetailsViewModel: EventViewModel {
-    struct DTO {
+    struct Context {
         struct Related {
             let listMovieEntity: ListMovieEntity
         }
@@ -69,7 +69,7 @@ final class MovieDetailsViewModel: EventViewModel {
             ])
     }
 
-    let data: DTO
+    let data: Context
 
     private lazy var headerSection = AnimatableSectionModel(model: "Header", items: [
         MovieDetailsTitleCellNodeViewModel(
@@ -85,7 +85,7 @@ final class MovieDetailsViewModel: EventViewModel {
     private let actorsRelay = BehaviorRelay<[ListActorEntity]>(value: [])
     private let moviesRecommendationsRelay = BehaviorRelay<[ListMovieEntity]>(value: [])
 
-    init(data: DTO) {
+    init(data: Context) {
         self.data = data
 
         super.init()
@@ -93,7 +93,7 @@ final class MovieDetailsViewModel: EventViewModel {
         perform(LoadDataEvent())
     }
 
-    override func run(_ event: Event) {
+    override func run(_ event: Event) async {
         switch event {
         case let event as OpenListActorDetailsEvent:
             data.navigation.followActor(event.actor)
@@ -116,7 +116,7 @@ final class MovieDetailsViewModel: EventViewModel {
         case let event as OpenListMovieDetailsEvent:
             data.navigation.followMovie(event.movie)
         default:
-            super.run(event)
+            await super.run(event)
         }
     }
 

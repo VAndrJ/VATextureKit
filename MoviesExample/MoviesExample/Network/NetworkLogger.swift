@@ -7,16 +7,16 @@
 
 import Foundation
 
-protocol NetworkLogger {
+protocol NetworkLogger: Sendable {
 
     func log(request: URLRequest, response: URLResponse, data: Data?, date: Date)
     func log(error: Error, request: URLRequest, date: Date)
 }
 
-class DebugNetworkLogger: NetworkLogger {
+final class DebugNetworkLogger: NetworkLogger {
 
     func log(request: URLRequest, response: URLResponse, data: Data?, date: Date) {
-#if DEBUG
+        #if DEBUG
         logRequestInfo(request)
         let httpResponse = response as? HTTPURLResponse
         let statusCode = httpResponse?.statusCode ?? -1
@@ -36,11 +36,11 @@ class DebugNetworkLogger: NetworkLogger {
 
         """
         print(result)
-#endif
+        #endif
     }
 
     func log(error: Error, request: URLRequest, date: Date) {
-#if DEBUG
+        #if DEBUG
         let now = Date()
         let url = request.url?.absoluteString ?? ""
         print("""
@@ -55,7 +55,7 @@ class DebugNetworkLogger: NetworkLogger {
         😱 Error info end 🤨
 
         """)
-#endif
+        #endif
     }
 
     private func logRequestInfo(_ request: URLRequest) {
@@ -85,6 +85,7 @@ class DebugNetworkLogger: NetworkLogger {
 
     private func requestDurationTime(startDate: Date, endDate: Date) -> String {
         let duration = (endDate.timeIntervalSince1970 - startDate.timeIntervalSince1970)
+        
         return "Request duration time: \(String(format: "%.3f", duration)) s."
     }
 }

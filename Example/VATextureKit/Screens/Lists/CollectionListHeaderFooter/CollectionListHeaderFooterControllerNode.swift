@@ -8,6 +8,8 @@
 
 import VATextureKitRx
 
+struct CollectionListHeaderFooterNavigationIdentity: DefaultNavigationIdentity {}
+
 final class CollectionListHeaderFooterControllerNode: VASafeAreaDisplayNode {
     private(set) lazy var leftListNode = VAListNode(
         data: .init(

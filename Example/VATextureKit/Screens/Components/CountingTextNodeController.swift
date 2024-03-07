@@ -8,6 +8,8 @@
 
 import VATextureKit
 
+struct CountingTextNodeNavigationIdentity: DefaultNavigationIdentity {}
+
 final class CountingTextNodeController: VASafeAreaDisplayNode {
     private lazy var countingTextNode = VACountingTextNode(string: "", color: { $0.label }, descriptor: .monospacedDigits).apply {
         $0.updateCount(to: 0)

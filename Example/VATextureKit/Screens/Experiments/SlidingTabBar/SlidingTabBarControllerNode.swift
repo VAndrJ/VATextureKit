@@ -8,6 +8,8 @@
 
 import VATextureKitRx
 
+struct SlidingTabBarNavigationIdentity: DefaultNavigationIdentity {}
+
 class SlidingTabBarControllerNode: VASafeAreaDisplayNode {
     private lazy var pagerNode = VAPagerNode(data: .init(
         items: (0...5).map { PagerCardCellNodeViewModel(title: "Title \($0)", description: "Description \($0)") },

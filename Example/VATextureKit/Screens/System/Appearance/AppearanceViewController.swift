@@ -8,6 +8,8 @@
 
 import VATextureKit
 
+struct AppearanceNavigationIdentity: DefaultNavigationIdentity {}
+
 // MARK: - ViewController with Node example
 
 final class AppearanceViewController: VAViewController<AppearanceContollerNode> {

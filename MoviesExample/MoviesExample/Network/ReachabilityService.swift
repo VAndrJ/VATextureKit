@@ -191,8 +191,7 @@ open class NetworkReachabilityManager {
     private let reachability: SCNetworkReachability
 
     /// Protected storage for mutable state.
-    @Protected
-    private var mutableState = MutableState()
+    @Protected private var mutableState = MutableState()
 
     // MARK: - Initialization
     /// Creates an instance with the specified host.
@@ -344,6 +343,7 @@ extension SCNetworkReachabilityFlags {
 
         return "\(W)\(R) \(c)\(t)\(i)\(C)\(D)\(l)\(d)\(a)"
     }
+    // swiftlint:enable identifier_name
 }
 
 private protocol Lock {

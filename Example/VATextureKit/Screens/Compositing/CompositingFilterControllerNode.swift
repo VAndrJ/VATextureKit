@@ -8,6 +8,10 @@
 
 import VATextureKitRx
 
+struct BlendModeNavigationIdentity: DefaultNavigationIdentity {}
+
+struct CompositingFilterNavigationIdentity: DefaultNavigationIdentity {}
+
 // MARK: - View with ViewModel example. Code organization example
 
 final class CompositingFilterControllerNode: VASafeAreaDisplayNode {

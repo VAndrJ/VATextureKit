@@ -116,7 +116,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         }
     }
     
-    public struct DTO {
+    public struct Context {
         let configuration: Configuration
         let listDataObs: Observable<[S]>
         let onSelect: ((IndexPath) -> Void)?
@@ -173,7 +173,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         }
     }
     
-    public let data: DTO
+    public let data: Context
     public let refreshData: RefreshDTO
     public private(set) var batchContext: ASBatchContext?
     
@@ -188,7 +188,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         refreshData: RefreshDTO = .init()
     ) where S == AnimatableSectionModel<String, T> {
         self.init(
-            data: DTO(
+            data: Context(
                 configuration: data.configuration,
                 listDataObs: data.listDataObs.map { [AnimatableSectionModel(model: "test", items: $0)] },
                 onSelect: data.onSelect,
@@ -207,7 +207,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         refreshData: RefreshDTO = .init()
     ) where Item == S.Item, S == AnimatableSectionModel<Model, Item> {
         self.init(
-            data: DTO(
+            data: Context(
                 configuration: data.configuration,
                 listDataObs: data.listDataObs,
                 onSelect: data.onSelect,
@@ -221,7 +221,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         )
     }
     
-    public init(data: DTO, refreshData: RefreshDTO = .init()) {
+    public init(data: Context, refreshData: RefreshDTO = .init()) {
         self.refreshData = refreshData
         self.data = data
         self.delayedConfiguration = !Thread.current.isMainThread

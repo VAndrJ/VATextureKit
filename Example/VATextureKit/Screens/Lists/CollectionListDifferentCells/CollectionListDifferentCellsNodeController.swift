@@ -8,6 +8,8 @@
 
 import VATextureKitRx
 
+struct CollectionListDifferentCellsNavigationIdentity: DefaultNavigationIdentity {}
+
 // MARK: - ViewController as a View example
 
 final class CollectionListDifferentCellsNodeController: VANodeController {

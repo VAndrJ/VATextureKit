@@ -8,7 +8,7 @@
 import VATextureKit
 
 final class ActorCardNode: VADisplayNode {
-    struct DTO {
+    struct Context {
         let avatar: String?
         let name: String
         let character: String
@@ -18,7 +18,7 @@ final class ActorCardNode: VADisplayNode {
     private let nameTextNode: VATextNode
     private let roleTextNode: VATextNode
 
-    init(data: DTO) {
+    init(data: Context) {
         self.avatarImageNode = VANetworkImageNode(
             image: data.avatar?.getImagePath(width: 500),
             contentMode: .scaleAspectFill
@@ -53,7 +53,7 @@ final class ActorCardNode: VADisplayNode {
     }
 }
 
-extension ActorCardNode.DTO {
+extension ActorCardNode.Context {
 
     init(listActor source: ListActorEntity) {
         self.init(

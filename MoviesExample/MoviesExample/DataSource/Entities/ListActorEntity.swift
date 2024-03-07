@@ -20,6 +20,7 @@ extension ListActorEntity {
         guard let character = source.character else {
             return nil
         }
+        
         self.id = Id(rawValue: source.id)
         self.name = source.name
         self.avatar = source.profilePath

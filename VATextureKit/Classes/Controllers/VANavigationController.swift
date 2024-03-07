@@ -29,6 +29,10 @@ open class VANavigationController: ASDKNavigationController {
         )
     }
 
+    public override init(rootViewController: UIViewController) {
+        super.init(rootViewController: rootViewController)
+    }
+
     @available(*, unavailable)
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -85,6 +89,7 @@ open class VANavigationController: ASDKNavigationController {
             animated: animated,
             isPresenting: false
         )
+
         return popController
     }
 

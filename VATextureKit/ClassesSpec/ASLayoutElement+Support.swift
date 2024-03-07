@@ -489,7 +489,7 @@ public extension Array where Element: ASLayoutElement {
 }
 
 /// A set of options representing safe area edges.
-public struct VASafeAreaEdge: RawRepresentable, OptionSet {
+public struct VASafeAreaEdge: RawRepresentable, OptionSet, Sendable {
     public var rawValue: UInt
 
     public init(rawValue: UInt) {

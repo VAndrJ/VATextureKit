@@ -11,7 +11,7 @@ protocol Movie {}
 protocol Genre {}
 protocol Actor {}
 
-public struct Id<Tag>: Codable, RawRepresentable, Equatable, Hashable, ExpressibleByIntegerLiteral, CustomStringConvertible {
+public struct Id<Tag>: Codable, RawRepresentable, Equatable, Hashable, ExpressibleByIntegerLiteral, CustomStringConvertible, Sendable {
     public let rawValue: Int
     public var description: String { "\(rawValue)" }
 

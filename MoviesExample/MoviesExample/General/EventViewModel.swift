@@ -15,7 +15,7 @@ struct DidSelectEvent: Event {
     let indexPath: IndexPath
 }
 
-protocol Event {}
+protocol Event: Sendable {}
 
 class EventViewModel: ViewModel {
     let bag = DisposeBag()
@@ -35,10 +35,11 @@ class EventViewModel: ViewModel {
         bind()
     }
 
-    func run(_ event: Event) {
-#if DEBUG || targetEnvironment(simulator)
+    @MainActor
+    func run(_ event: Event) async {
+        #if DEBUG || targetEnvironment(simulator)
         debugPrint("⚠️ [Event not handled] \(event)")
-#endif
+        #endif
     }
 
     func perform(_ event: Event) {
@@ -47,27 +48,26 @@ class EventViewModel: ViewModel {
 
     private func bind() {
         bindEvents()
-#if DEBUG || targetEnvironment(simulator)
+        #if DEBUG || targetEnvironment(simulator)
         bindLogging()
-#endif
+        #endif
     }
 
     private func bindEvents() {
         eventRelay
             .observe(on: scheduler)
-            .subscribe(onNext: { [weak self] in
-                self?.run($0)
+            .subscribe(onNext: { [weak self] event in
+                Task { @MainActor [weak self] in
+                    await self?.run(event)
+                }
             })
             .disposed(by: bag)
     }
 
-#if DEBUG || targetEnvironment(simulator)
+    #if DEBUG || targetEnvironment(simulator)
     private func bindLogging() {
         eventRelay
-            .subscribe(onNext: { [weak self] in
-                guard let self else { return }
-                self.log(event: $0, file: String(describing: self))
-            })
+            .subscribe(onNext: self ?> { $0.log(event: $1, file: String(describing: $0)) })
             .disposed(by: bag)
     }
 
@@ -81,5 +81,5 @@ class EventViewModel: ViewModel {
     deinit {
         debugPrint("\(#function) \(String(describing: self))")
     }
-#endif
+    #endif
 }

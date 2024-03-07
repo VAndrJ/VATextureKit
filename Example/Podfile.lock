@@ -1,6 +1,5 @@
 PODS:
   - Differentiator (5.0.0)
-  - Nimble (10.0.0)
   - PINCache (3.0.3):
     - PINCache/Arc-exception-safe (= 3.0.3)
     - PINCache/Core (= 3.0.3)
@@ -16,7 +15,6 @@ PODS:
   - PINRemoteImage/PINCache (3.0.3):
     - PINCache (~> 3.0.3)
     - PINRemoteImage/Core
-  - Quick (2.2.1)
   - R.swift (7.3.2)
   - RxCocoa (6.5.0):
     - RxRelay (= 6.5.0)
@@ -24,7 +22,7 @@ PODS:
   - RxRelay (6.5.0):
     - RxSwift (= 6.5.0)
   - RxSwift (6.5.0)
-  - Swiftional (0.3.3)
+  - Swiftional (2.0.0)
   - Texture (3.1.0):
     - Texture/AssetsLibrary (= 3.1.0)
     - Texture/Core (= 3.1.0)
@@ -45,24 +43,24 @@ PODS:
     - Texture/Core
   - Texture/Video (3.1.0):
     - Texture/Core
-  - VATextureKit (1.2.3):
+  - VANavigator (1.3.7)
+  - VATextureKit (1.3.0):
     - Texture (~> 3.1.0)
-    - VATextureKitSpec (= 1.2.3)
-  - VATextureKitRx (1.2.3):
+    - VATextureKitSpec (= 1.3.0)
+  - VATextureKitRx (1.3.0):
     - Differentiator (~> 5.0.0)
     - RxCocoa (~> 6.5.0)
     - RxSwift (~> 6.5.0)
     - Texture (~> 3.1.0)
-    - VATextureKit (= 1.2.3)
-    - VATextureKitSpec (= 1.2.3)
-  - VATextureKitSpec (1.2.3):
+    - VATextureKit (= 1.3.0)
+    - VATextureKitSpec (= 1.3.0)
+  - VATextureKitSpec (1.3.0):
     - Texture (~> 3.1.0)
 
 DEPENDENCIES:
-  - Nimble (~> 10.0.0)
-  - Quick (~> 2.2.0)
-  - R.swift
-  - Swiftional (= 0.3.3)
+  - R.swift (= 7.3.2)
+  - Swiftional (= 2.0.0)
+  - VANavigator (= 1.3.7)
   - VATextureKit (from `../`)
   - VATextureKitRx (from `../`)
   - VATextureKitSpec (from `../`)
@@ -70,17 +68,16 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Differentiator
-    - Nimble
     - PINCache
     - PINOperation
     - PINRemoteImage
-    - Quick
     - R.swift
     - RxCocoa
     - RxRelay
     - RxSwift
     - Swiftional
     - Texture
+    - VANavigator
 
 EXTERNAL SOURCES:
   VATextureKit:
@@ -92,21 +89,20 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
-  Nimble: 5316ef81a170ce87baf72dd961f22f89a602ff84
   PINCache: 7a8fc1a691173d21dbddbf86cd515de6efa55086
   PINOperation: daa34d4aa1d8449089be7d405b9d974abc4724c6
   PINRemoteImage: f1295b29f8c5e640e25335a1b2bd9d805171bd01
-  Quick: f5754d69b7013f5864c29aab9ae6f0c79c5bc200
   R.swift: 0af0d882f49f03711415cb4e5215daa977d8a480
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
-  Swiftional: 25ee70c9a008d587e1352b799859d78cec520127
+  Swiftional: 9357f2dd8c0dce2e02324d5c199eae33b6ec320c
   Texture: 2e8ab2519452515f7f5a520f5a8f7e0a413abfa3
-  VATextureKit: adfd694431551ee0f6df91cd3e17c4beaa23c635
-  VATextureKitRx: f88c8663155ffa6c9be5b8957fa9bc7fc24f9ac3
-  VATextureKitSpec: adef8425f6cc6c08e67a51730c287855041ffb9c
+  VANavigator: 16a73ac29bc5b32d5197db33ceb90669f1f06359
+  VATextureKit: 7fa30bbe96c3b1019dff65869e73e7e083f0b282
+  VATextureKitRx: 918119b0aedfca27beebf8bd964e88c5e67e2d52
+  VATextureKitSpec: 970b8e2088eb43f1da5821e15251e0274d320a94
 
-PODFILE CHECKSUM: 5ac592fbac2f7bedff475a81932923c58644b656
+PODFILE CHECKSUM: 43eae12e127f5efd9c9abcb3aacf41ba39873c4b
 
-COCOAPODS: 1.13.0
+COCOAPODS: 1.15.2

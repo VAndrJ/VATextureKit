@@ -8,6 +8,8 @@
 
 import VATextureKit
 
+struct TransitionAnimationNavigationIdentity: DefaultNavigationIdentity {}
+
 final class TransitionAnimationControllerNode: VASafeAreaDisplayNode {
     private lazy var leftTextNode = VATextNode(text: "left", fontStyle: .body, alignment: .center)
         .withAnimatedTransition(id: "Test")
@@ -103,6 +105,7 @@ final class TransitionAnimationControllerNode: VASafeAreaDisplayNode {
         expandNode.backgroundColor = theme.systemPurple
     }
 
+    @MainActor
     private func bind() {
         exchangeButtonNode.onTap = self ?> { $0.isNodesExchanged.toggle() }
         toggleButtonNode.onTap = self ?> { $0.isNodeToggled.toggle() }

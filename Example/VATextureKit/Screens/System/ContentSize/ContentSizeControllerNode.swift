@@ -8,6 +8,8 @@
 
 import VATextureKit
 
+struct ContentSizeNavigationIdentity: DefaultNavigationIdentity {}
+
 final class ContentSizeControllerNode: VASafeAreaDisplayNode {
     let contentSizeTextNode = VATextNode(fontStyle: .title3, alignment: .center)
     

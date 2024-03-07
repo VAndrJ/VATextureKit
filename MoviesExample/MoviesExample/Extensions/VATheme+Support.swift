@@ -25,3 +25,4 @@ extension VATheme {
     var tertiary: UIColor { R.color.tertiary()! }
     var tabTint: UIColor { R.color.tabTint()! }
 }
+// swiftlint:enable force_unwrapping

@@ -8,6 +8,8 @@
 
 import VATextureKit
 
+struct AlertNavigationIdentity: DefaultNavigationIdentity {}
+
 // MARK: - ViewController as a View axample
 
 final class AlertNodeController: VANodeController {

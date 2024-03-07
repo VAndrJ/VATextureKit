@@ -8,6 +8,8 @@
 
 import VATextureKit
 
+struct ColumnLayoutNavigationIdentity: DefaultNavigationIdentity {}
+
 final class ColumnLayoutControllerNode: VASafeAreaDisplayNode {
     private lazy var mainCrossStartExampleNode = MainAxisColumnLayoutExampleNode(
         title: "Main axis .start\nCross axis .start",

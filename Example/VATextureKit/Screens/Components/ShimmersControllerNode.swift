@@ -8,6 +8,8 @@
 
 import VATextureKit
 
+struct ShimmersNavigationIdentity: DefaultNavigationIdentity {}
+
 final class ShimmersControllerNode: VASafeAreaDisplayNode {
     private lazy var acrossWindowSynchronizedTextNode = VATextNode(text: "Shimmer across window synchronized")
     private lazy var acrossWindowShimmer0Node = _ShimmerExampleNode(data: .init())

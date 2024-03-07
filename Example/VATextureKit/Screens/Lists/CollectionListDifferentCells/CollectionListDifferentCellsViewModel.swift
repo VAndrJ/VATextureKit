@@ -24,7 +24,7 @@ final class CollectionListDifferentCellsViewModel {
 
     func reloadData() {
         _isLoadingObs.rx.accept(true)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [self] in
+        mainAsync(after: 3) { [self] in
             count = 0
             _listDataObs.rx.accept([
                 LoadingCellNodeViewModel(),
@@ -34,7 +34,7 @@ final class CollectionListDifferentCellsViewModel {
     }
     
     func loadMore() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [self] in
+        mainAsync(after: 3) { [self] in
             count += 1
             var data = _listDataObs.rx.value
             var more: CellViewModel?
@@ -42,7 +42,7 @@ final class CollectionListDifferentCellsViewModel {
                 more = data.removeLast()
             }
             data.append(contentsOf: [
-                MainListCellNodeViewModel(title: "Title \(count)", description: "Description \(count)", route: .alert),
+                MainListCellNodeViewModel(title: "Title \(count)", description: "Description \(count)", route: AlertNavigationIdentity()),
                 ImageCellNodeViewModel(image: testImages.randomElement()),
                 ImageCellNodeViewModel(image: testImages.randomElement(), ratio: 2),
                 ImageCellNodeViewModel(image: testImages.randomElement(), ratio: 1.0 / 2),

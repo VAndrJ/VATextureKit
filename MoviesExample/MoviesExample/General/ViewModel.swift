@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ViewModel: NSObject, Responder {
+class ViewModel: NSObject, Responder, @unchecked Sendable {
 
     // MARK: - Responder
 

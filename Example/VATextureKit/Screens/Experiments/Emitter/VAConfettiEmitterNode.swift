@@ -16,7 +16,7 @@ class VAConfettiEmitterNode: VAEmitterNode {
         case bottomLeft
     }
 
-    struct DTO {
+    struct Context {
         var startPoint: StartPoint
         var confettiTypes: [ConfettiType] = {
             var confettiArray: [ConfettiType] = []
@@ -30,9 +30,9 @@ class VAConfettiEmitterNode: VAEmitterNode {
         }()
     }
 
-    let data: DTO
+    let data: Context
 
-    init(data: DTO) {
+    init(data: Context) {
         self.data = data
 
         super.init()

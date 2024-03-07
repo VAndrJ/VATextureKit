@@ -8,11 +8,13 @@
 
 import VATextureKitRx
 
+struct MainNavigationIdentity: DefaultNavigationIdentity {}
+
 /// ViewController as a View axample
 final class MainNodeController: VANodeController {
     private(set) lazy var listNode = VATableListNode(data: .init(
         listDataObs: viewModel.listDataObs,
-        onSelect: viewModel.didSelect(indexPath:),
+        onSelect: viewModel ?>> { $0.didSelect(indexPath:) },
         cellGetter: MainListCellNode.init(viewModel:),
         sectionHeaderGetter: MainListSectionHeaderNode.init(viewModel:)
     )).flex(shrink: 0.1, grow: 1)

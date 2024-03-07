@@ -43,7 +43,12 @@ open class VAScrollRespondingEdgeCellNode: VACellNode {
         }
     }
 
-    open override func cellNodeVisibilityEvent(_ event: ASCellNodeVisibilityEvent, in scrollView: UIScrollView?, withCellFrame cellFrame: CGRect) {
+    @MainActor
+    open override func cellNodeVisibilityEvent(
+        _ event: ASCellNodeVisibilityEvent,
+        in scrollView: UIScrollView?,
+        withCellFrame cellFrame: CGRect
+    ) {
         if event == .didEndDragging {
             isScrolling = false
         }

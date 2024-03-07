@@ -8,6 +8,8 @@
 
 import VATextureKit
 
+struct ReadMoreTextNavigationIdentity: DefaultNavigationIdentity {}
+
 final class ReadMoreTextControllerNode: VASafeAreaDisplayNode {
     private lazy var readMoreTextNode = VAReadMoreTextNode(
         text: .loremText,

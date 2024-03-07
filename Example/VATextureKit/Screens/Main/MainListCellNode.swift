@@ -59,11 +59,15 @@ final class MainListCellNode: VACellNode {
 class MainListCellNodeViewModel: CellViewModel {
     let title: String
     let description: String
-    let route: NavigationRoute
+    let route: NavigationIdentity
     let titleTransitionAnimationId: String?
     let descriptionTransitionAnimationId: String?
 
-    init(title: String, description: String, route: NavigationRoute) {
+    init(
+        title: String,
+        description: String,
+        route: NavigationIdentity
+    ) {
         self.title = title
         self.description = description
         self.route = route
@@ -71,7 +75,13 @@ class MainListCellNodeViewModel: CellViewModel {
         self.descriptionTransitionAnimationId = nil
     }
 
-    init(title: String, description: String, route: NavigationRoute, titleTransitionAnimationId: String, descriptionTransitionAnimationId: String) {
+    init(
+        title: String,
+        description: String,
+        route: NavigationIdentity,
+        titleTransitionAnimationId: String,
+        descriptionTransitionAnimationId: String
+    ) {
         self.title = title
         self.description = description
         self.route = route
@@ -89,10 +99,10 @@ struct MainListCellNode_Preview: PreviewProvider {
         VStack(spacing: 0) {
             ForEach(
                 [
-                    MainListCellNodeViewModel(title: "Title", description: "Description", route: .alert),
-                    .init(title: "Title".dummyLong(), description: "Description".dummyLong(), route: .alert),
-                    .init(title: "Title", description: "Description".dummyLong(), route: .alert),
-                    .init(title: "Title".dummyLong(), description: "Description", route: .alert),
+                    MainListCellNodeViewModel(title: "Title", description: "Description", route: AlertNavigationIdentity()),
+                    .init(title: "Title".dummyLong(), description: "Description".dummyLong(), route: AlertNavigationIdentity()),
+                    .init(title: "Title", description: "Description".dummyLong(), route: AlertNavigationIdentity()),
+                    .init(title: "Title".dummyLong(), description: "Description", route: AlertNavigationIdentity()),
                 ],
                 id: \.identity
             ) {

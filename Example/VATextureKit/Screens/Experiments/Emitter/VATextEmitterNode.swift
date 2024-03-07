@@ -9,13 +9,13 @@
 import VATextureKit
 
 class VATextEmitterNode: VAEmitterNode {
-    struct DTO {
+    struct Context {
         var strings: [String] = Array("asdfghjklqwertyuiopzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890").map { String($0) }
     }
 
-    let data: DTO
+    let data: Context
 
-    init(data: DTO) {
+    init(data: Context) {
         self.data = data
 
         super.init()
