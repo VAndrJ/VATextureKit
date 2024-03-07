@@ -9,7 +9,7 @@
 import VATextureKitRx
 
 open class VASlidingTabBarNode<TabData>: VAScrollNode {
-    public struct DTO {
+    public struct Context {
         var data: [TabData]
         let spacing: CGFloat
         let contentInset: UIEdgeInsets
@@ -20,12 +20,12 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode {
         let onSelect: (Int) -> Void
     }
 
-    private var data: DTO
+    private var data: Context
     private var items: [(any ASDisplayNode & VASlidingTab)]
     private let bag = DisposeBag()
     private lazy var indicatorContainerNode = VASlidingIndicatorContainerNode(color: data.color)
 
-    public init(data: DTO) {
+    public init(data: Context) {
         self.data = data
         self.items = data.data.enumerated().map { index, value in
             data.item(value, { data.onSelect(index) })

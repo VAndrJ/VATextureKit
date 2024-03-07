@@ -8,7 +8,7 @@
 import AsyncDisplayKit
 
 open class VAScrollNode: ASScrollNode {
-    public struct DTO {
+    public struct Context {
         let scrollableDirections: ASScrollDirection
         let alwaysBounceVertical: Bool
         let alwaysBounceHorizontal: Bool
@@ -39,9 +39,9 @@ open class VAScrollNode: ASScrollNode {
         }
     }
 
-    let data: DTO
+    let data: Context
 
-    public init(data: DTO) {
+    public init(data: Context) {
         self.data = data
 
         super.init()

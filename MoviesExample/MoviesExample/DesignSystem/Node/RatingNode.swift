@@ -33,7 +33,7 @@ final class RatingNode: VADisplayNode {
 }
 
 final private class RatingIndicatorNode: VADisplayNode {
-    struct DTO {
+    struct Context {
         let rating: Double
         let lineWidth: CGFloat
         let withBacking: Bool
@@ -54,9 +54,9 @@ final private class RatingIndicatorNode: VADisplayNode {
 
     private let shapeLayer = CAShapeLayer()
     private lazy var backingShapeLayer = CAShapeLayer()
-    private let data: DTO
+    private let data: Context
 
-    init(data: DTO) {
+    init(data: Context) {
         self.data = data
 
         super.init()

@@ -7,7 +7,7 @@
 
 import VATextureKit
 
-struct ListMovieEntity: Equatable {
+struct ListMovieEntity: Equatable, Sendable {
     let id: Id<Movie>
     let title: String
     var backdropPath: String?
@@ -15,6 +15,7 @@ struct ListMovieEntity: Equatable {
     let overview: String
     let rating: Double
     let year: String
+
     var image: String? { backdropPath ?? posterPath }
     var poster: String? { posterPath ?? backdropPath }
 }
@@ -22,15 +23,13 @@ struct ListMovieEntity: Equatable {
 extension ListMovieEntity {
 
     init?(queryItems source: [URLQueryItem]?) {
-        // swiftlint:disable indentation_width
         guard let queryItems = source,
-              let item = queryItems.first(where: { $0.name == "id" }),
-              let id = item.value.flatMap({ Int($0).flatMap { Id<Movie>(rawValue: $0) } }),
-              let title = queryItems.first(where: { $0.name == "title" })?.value,
-              let year = queryItems.first(where: { $0.name == "year" })?.value else {
+            let item = queryItems.first(where: { $0.name == "id" }),
+            let id = item.value.flatMap({ Int($0).flatMap { Id<Movie>(rawValue: $0) } }),
+            let title = queryItems.first(where: { $0.name == "title" })?.value,
+            let year = queryItems.first(where: { $0.name == "year" })?.value else {
             return nil
         }
-        // swiftlint:enable indentation_width
 
         self.init(
             id: id,
@@ -42,13 +41,15 @@ extension ListMovieEntity {
     }
 
     init(response source: ListMovieResponseDTO) {
-        self.id = Id(rawValue: source.id)
-        self.title = source.title
-        self.backdropPath = source.backdropPath
-        self.posterPath = source.posterPath
-        self.overview = source.overview
-        self.rating = source.voteAverage * 10
-        self.year = source.releaseDate.components(separatedBy: "-").first ?? ""
+        self.init(
+            id: Id(rawValue: source.id),
+            title: source.title,
+            backdropPath: source.backdropPath,
+            posterPath: source.posterPath,
+            overview: source.overview,
+            rating: source.voteAverage * 10,
+            year: source.releaseDate.components(separatedBy: "-").first ?? ""
+        )
     }
 }
 

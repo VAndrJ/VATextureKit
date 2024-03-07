@@ -7,8 +7,8 @@
 
 import Foundation
 
-// swiftlint:disable force_cast
 enum Environment {
+    // swiftlint:disable force_cast
     static let mainURLString = Bundle.main.object(forInfoDictionaryKey: "MAIN_URL") as! String
     static let apiKey: String = {
         let string = Bundle.main.object(forInfoDictionaryKey: "API_KEY") as! String
@@ -18,6 +18,7 @@ enum Environment {
             return string
         }
     }()
+    // swiftlint:enable force_cast
 
     enum TestType {
         enum Screen {
@@ -30,6 +31,7 @@ enum Environment {
 
     static var isTesting: Bool {
         let arguments = ProcessInfo.processInfo.arguments
+        
         return arguments.contains("IS_TESTING") || arguments.contains("IS_UI_TESTING")
     }
 

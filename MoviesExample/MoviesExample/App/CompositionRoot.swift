@@ -9,6 +9,7 @@ import UIKit
 import VATextureKit
 import PINCache
 import PINRemoteImage
+import VANavigator
 
 @MainActor
 final class CompositionRoot {
@@ -58,15 +59,13 @@ final class CompositionRoot {
         case .search:
             navigator.navigate(
                 destination: .identity(SearchNavigationIdentity()),
-                source: SearchNavigationIdentity(),
-                strategy: .presentOrCloseToExisting,
+                strategy: .closeToExisting,
                 event: ResponderOpenedFromShortcutEvent()
             )
         case .home:
             navigator.navigate(
                 destination: .identity(HomeNavigationIdentity()),
-                source: HomeNavigationIdentity(),
-                strategy: .presentOrCloseToExisting,
+                strategy: .closeToExisting,
                 event: ResponderOpenedFromShortcutEvent()
             )
         }
@@ -79,7 +78,9 @@ final class CompositionRoot {
         open url: URL,
         options: [UIApplication.OpenURLOptionsKey: Any] = [:]
     ) -> Bool {
+        #if DEBUG
         print("source application = \(options[.sourceApplication] ?? "Unknown")")
+        #endif
 
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
             return false
@@ -93,8 +94,12 @@ final class CompositionRoot {
 
         navigator.navigate(
             destination: .identity(MovieDetailsNavigationIdentity(movie: listMovieEntity)),
-            source: SearchNavigationIdentity(),
-            strategy: .pushOrPopToExisting(),
+            strategy: .popToExisting(),
+            fallback: .init(
+                destination: .identity(MovieDetailsNavigationIdentity(movie: listMovieEntity)),
+                strategy: .push(),
+                animated: true
+            ),
             event: ResponderOpenedFromURLEvent()
         )
 

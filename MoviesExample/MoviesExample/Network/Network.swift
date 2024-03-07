@@ -10,13 +10,13 @@ import RxSwift
 import RxCocoa
 import RxSwiftExt
 
-final class Network {
-    let coreRequest: (_ request: URLRequest) -> Observable<(response: HTTPURLResponse, data: Data)>
+final class Network: Sendable {
+    let coreRequest: @Sendable (_ request: URLRequest) -> Observable<(response: HTTPURLResponse, data: Data)>
     let networkLogger: NetworkLogger
 
     init(
         networkLogger: NetworkLogger,
-        coreRequest: @escaping (_ request: URLRequest) -> Observable<(response: HTTPURLResponse, data: Data)> = {
+        coreRequest: @escaping @Sendable (_ request: URLRequest) -> Observable<(response: HTTPURLResponse, data: Data)> = {
         URLSession.shared.rx.response(request: $0) }
     ) {
         self.networkLogger = networkLogger
@@ -29,7 +29,9 @@ final class Network {
         guard let data else {
             return .error(NetworkError.emptyRequestData)
         }
+        
         let requestDate = Date()
+
         return requestRaw(data: data)
             .map { try data.parser.parse(data: $0) }
             .do(onError: { [networkLogger] in
@@ -45,6 +47,7 @@ final class Network {
         guard let data else {
             return .error(NetworkError.emptyRequestData)
         }
+
         let requestDate = Date()
         let request = data.getRequest()
         return getData(response: coreRequest, request: { request })

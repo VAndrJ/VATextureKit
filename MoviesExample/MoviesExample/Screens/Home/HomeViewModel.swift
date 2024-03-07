@@ -10,7 +10,7 @@ import VATextureKitRx
 private struct LoadMainEvent: Event {}
 
 final class HomeViewModel: EventViewModel {
-    struct DTO {
+    struct Context {
         struct DataSource {
         }
 
@@ -29,12 +29,12 @@ final class HomeViewModel: EventViewModel {
             ),
         ])
     }
-    let data: DTO
+    let data: Context
 
     @Obs.Relay(value: nil)
     var trendingObs: Observable<[ListMovieEntity]?>
 
-    init(data: DTO) {
+    init(data: Context) {
         self.data = data
 
         super.init()
@@ -42,12 +42,12 @@ final class HomeViewModel: EventViewModel {
         perform(LoadMainEvent())
     }
 
-    override func run(_ event: Event) {
+    override func run(_ event: Event) async {
         switch event {
         case _ as LoadMainEvent:
             break
         default:
-            super.run(event)
+            await super.run(event)
         }
     }
 }

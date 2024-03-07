@@ -21,13 +21,15 @@ struct MovieEntity {
 extension MovieEntity {
 
     init(response source: MovieResponseDTO) {
-        self.id = Id(rawValue: source.id)
-        self.title = source.title
-        self.releaseDate = source.releaseDate
-        self.rating = source.voteAverage * 10
-        self.year = source.releaseDate.components(separatedBy: "-").first ?? ""
-        self.backdropPath = source.backdropPath
-        self.genres = source.genres.map { GenreEntity(id: .init(rawValue: $0.id), name: $0.name) }
-        self.overview = source.overview
+        self.init(
+            id: Id(rawValue: source.id),
+            title: source.title,
+            releaseDate: source.releaseDate,
+            rating: source.voteAverage * 10,
+            year: source.releaseDate.components(separatedBy: "-").first ?? "",
+            backdropPath: source.backdropPath,
+            genres: source.genres.map { GenreEntity(id: .init(rawValue: $0.id), name: $0.name) },
+            overview: source.overview
+        )
     }
 }

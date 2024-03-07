@@ -9,17 +9,17 @@
 import VATextureKit
 
 class VAFireworksEmitterNode: VAEmitterNode {
-    struct DTO {
+    struct Context {
         var number = 2
         var dotColor: UIColor = .lightGray
         var dotSize = CGSize(same: 12)
     }
 
-    let data: DTO
+    let data: Context
 
     private lazy var image = UIImage.render(color: data.dotColor, size: data.dotSize).cgImage
 
-    init(data: DTO) {
+    init(data: Context) {
         self.data = data
 
         super.init()

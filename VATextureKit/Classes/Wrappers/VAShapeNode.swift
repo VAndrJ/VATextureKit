@@ -8,7 +8,7 @@
 import AsyncDisplayKit
 
 open class VAShapeNode: ASDisplayNode {
-    public struct DTO {
+    public struct Context {
         let fillColor: UIColor
         let strokeColor: UIColor
         let backgroundColor: UIColor
@@ -32,10 +32,10 @@ open class VAShapeNode: ASDisplayNode {
 
     public override var layer: CAShapeLayer { super.layer as! CAShapeLayer }
 
-    private var data: DTO!
+    private var data: Context!
     private var observation: NSKeyValueObservation?
 
-    public convenience init(data: DTO) {
+    public convenience init(data: Context) {
         self.init { CAShapeLayer() }
 
         self.data = data

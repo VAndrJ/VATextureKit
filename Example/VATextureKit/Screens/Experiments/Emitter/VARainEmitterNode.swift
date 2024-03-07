@@ -9,7 +9,7 @@
 import VATextureKit
 
 class VARainEmitterNode: VAEmitterNode {
-    struct DTO {
+    struct Context {
         enum Strength {
             case small
             case medium
@@ -19,7 +19,7 @@ class VARainEmitterNode: VAEmitterNode {
         var strength: Strength = .heavy
     }
 
-    let data: DTO
+    let data: Context
 
     private lazy var images: [CGImage] = {
         let images: [CGImage?]
@@ -46,7 +46,7 @@ class VARainEmitterNode: VAEmitterNode {
         return images.compactMap { $0 }
     }()
 
-    init(data: DTO) {
+    init(data: Context) {
         self.data = data
 
         super.init()

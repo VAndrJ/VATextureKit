@@ -6,8 +6,9 @@
 //
 
 import VATextureKit
+import VANavigator
 
-final class ScreenFactory: NavigatorScreenFactory {
+final class ScreenFactory: @unchecked Sendable, NavigatorScreenFactory {
     let network = Network(networkLogger: DebugNetworkLogger())
     private(set) lazy var remoteDataSource = RemoteDataSource(
         network: network,
@@ -17,44 +18,44 @@ final class ScreenFactory: NavigatorScreenFactory {
         )
     )
 
-    // swiftlint:disable function_body_length
+    // swiftlint:disable:next function_body_length
     func assembleScreen(identity: NavigationIdentity, navigator: Navigator) -> UIViewController {
         switch identity {
         case let identity as MainTabsNavigationIdentity:
-            let controller = MainTabBarController(controllers: identity.tabsIdentity
-                .compactMap { identity in
-                    (assembleScreen(identity: identity, navigator: navigator), identity)
-                }
-                .map { controller, identity in
-                    let controller = NavigationController(controller: controller)
-                    controller.navigationIdentity = NavNavigationIdentity(childIdentity: identity)
-                    return controller
+            MainTabBarController(controllers: identity.tabsIdentity
+                .map { identity in
+                    NavigationController(controller: assembleScreen(identity: identity, navigator: navigator).apply {
+                        $0.navigationIdentity = identity
+                    }).apply {
+                        $0.navigationIdentity = NavNavigationIdentity(childIdentity: identity)
+                    }
                 }
             )
-            controller.navigationIdentity = identity
-            return controller
-        case let identity as SearchNavigationIdentity:
-            let controller = ViewController(
-                node: SearchNode(viewModel: SearchViewModel(data: .init(
+        case _ as SearchNavigationIdentity:
+            ViewController(
+                node: SearchNode(viewModel: .init(data: .init(
                     source: .init(
                         getTrendingMovies: remoteDataSource.getTrendingMovies,
                         getSearchMovies: remoteDataSource.getSearchMovies
                     ),
                     navigation: .init(
-                        followMovie: { [weak navigator] in
-                            navigator?.navigate(
-                                destination: .identity(MovieDetailsNavigationIdentity(movie: $0)),
-                                strategy: .pushOrPopToExisting()
+                        followMovie: navigator ?> {
+                            $0.navigate(
+                                destination: .identity(MovieDetailsNavigationIdentity(movie: $1)),
+                                strategy: .popToExisting(),
+                                fallback: .init(
+                                    destination: .identity(MovieDetailsNavigationIdentity(movie: $1)),
+                                    strategy: .push(),
+                                    animated: true
+                                )
                             )
                         }
                     )
                 ))),
                 title: R.string.localizable.search_screen_title()
             )
-            controller.navigationIdentity = identity
-            return controller
         case let identity as MovieDetailsNavigationIdentity:
-            let controller = ViewController(
+            ViewController(
                 node: MovieDetailsNode(viewModel: MovieDetailsViewModel(data: .init(
                     related: .init(
                         listMovieEntity: identity.movie
@@ -65,16 +66,21 @@ final class ScreenFactory: NavigatorScreenFactory {
                         getMovieActors: remoteDataSource.getMovieActors(id:)
                     ),
                     navigation: .init(
-                        followMovie: { [weak navigator] in
-                            navigator?.navigate(
-                                destination: .identity(MovieDetailsNavigationIdentity(movie: $0)),
-                                strategy: .pushOrPopToExisting()
+                        followMovie: navigator ?> {
+                            $0.navigate(
+                                destination: .identity(MovieDetailsNavigationIdentity(movie: $1)),
+                                strategy: .popToExisting(),
+                                fallback: .init(
+                                    destination: .identity(MovieDetailsNavigationIdentity(movie: $1)),
+                                    strategy: .push(),
+                                    animated: true
+                                )
                             )
                         },
-                        followActor: { [weak navigator] in
-                            navigator?.navigate(
-                                destination: .identity(ActorDetailsNavigationIdentity(actor: $0)),
-                                strategy: .present
+                        followActor: navigator ?> {
+                            $0.navigate(
+                                destination: .identity(ActorDetailsNavigationIdentity(actor: $1)),
+                                strategy: .present()
                             )
                         }
                     )
@@ -83,34 +89,15 @@ final class ScreenFactory: NavigatorScreenFactory {
                 isNotImportant: true,
                 title: identity.movie.title
             ).withAnimatedTransitionEnabled()
-            controller.navigationIdentity = identity
-            return controller
         case let identity as ActorDetailsNavigationIdentity:
-            let controller = ViewController(node: ActorDetailsNode(viewModel: ActorDetailsViewModel(actor: identity.actor)))
-            controller.navigationIdentity = identity
-            return controller
-        case let identity as HomeNavigationIdentity:
-            let controller = ViewController(node: HomeNode(viewModel: HomeViewModel(data: .init(
+            ViewController(node: ActorDetailsNode(viewModel: .init(actor: identity.actor)))
+        case _ as HomeNavigationIdentity:
+            ViewController(node: HomeNode(viewModel: .init(data: .init(
                 source: .init(),
                 navigation: .init()
             ))))
-            controller.navigationIdentity = identity
-            return controller
         default:
-            assertionFailure("Not implemented")
-
-            return UIViewController()
-        }
-    }
-    // swiftlint:enable function_body_length
-
-    func embedInNavigationControllerIfNeeded(controller: UIViewController) -> UIViewController {
-        if let controller = controller.orNavigationController {
-            return controller
-        } else {
-            let controller = NavigationController(controller: controller)
-            controller.navigationIdentity = NavNavigationIdentity()
-            return controller
+            fatalError("Not implemented")
         }
     }
 }

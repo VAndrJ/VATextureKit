@@ -8,7 +8,7 @@
 import AsyncDisplayKit
 
 open class VAShimmerNode: VADisplayNode {
-    public struct DTO {
+    public struct Context {
         let isAcrossWindow: Bool
         let isSynchronized: Bool
         let animationDuration: CFTimeInterval
@@ -54,10 +54,10 @@ open class VAShimmerNode: VADisplayNode {
         }
     }
 
-    let data: DTO
+    let data: Context
     private(set) lazy var maskLayer: CAGradientLayer = data.maskLayer()
 
-    public init(data: DTO) {
+    public init(data: Context) {
         self.data = data
 
         super.init()

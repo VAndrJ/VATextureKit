@@ -21,10 +21,8 @@ enum NetworkPath: String {
 
         var rawValue: String {
             switch self {
-            case let .convertible(value):
-                return value.description
-            default:
-                return "\(self)"
+            case let .convertible(value): value.description
+            default: "\(self)"
             }
         }
     }
