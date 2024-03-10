@@ -1,5 +1,4 @@
 {
-  "originHash" : "09b08963887ce6eac26952e8acb25256a8ec102f2b5528ae68a97fa296723712",
   "pins" : [
     {
       "identity" : "swift-snapshot-testing",
@@ -15,10 +14,10 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-syntax",
       "state" : {
-        "revision" : "08a2f0a9a30e0f705f79c9cfaca1f68b71bdc775",
-        "version" : "510.0.0"
+        "revision" : "fa8f95c2d536d6620cc2f504ebe8a6167c9fc2dd",
+        "version" : "510.0.1"
       }
     }
   ],
-  "version" : 3
+  "version" : 2
 }
