@@ -1,5 +1,5 @@
 //
-//  SpecBasedGridListControllerNode.swift
+//  SpecBasedGridListScreenNode.swift
 //  VATextureKit_Example
 //
 //  Created by Volodymyr Andriienko on 23.07.2023.
@@ -10,36 +10,32 @@ import VATextureKitRx
 
 struct SpecBasedGridListNavigationIdentity: DefaultNavigationIdentity {}
 
-final class SpecBasedGridListControllerNode: VASafeAreaDisplayNode {
-    private lazy var listNode = VAListNode(
-        data: .init(
-            listDataObs: listDataObs,
-            cellGetter: TagCellNode.init(viewModel:)
-        ),
-        layoutData: .init(
-            contentInset: UIEdgeInsets(all: 16),
-            layout: .delegate(VASpecGridListLayoutDelegate(info: .init(
-                scrollableDirection: .vertical,
-                itemsConfiguration: .init(
-                    spacing: 8,
-                    main: .center,
-                    alignContent: .center,
-                    line: 8
-                ),
-                sectionsConfiguration: .init(cross: .stretch)
-            )))
+final class SpecBasedGridListScreenNode: ScreenNode {
+    private lazy var listNode = MainActorEscaped { [self] in
+        VAListNode(
+            data: .init(
+                listDataObs: listDataObs,
+                cellGetter: TagCellNode.init(viewModel:)
+            ),
+            layoutData: .init(
+                contentInset: UIEdgeInsets(all: 16),
+                layout: .delegate(VASpecGridListLayoutDelegate(info: .init(
+                    scrollableDirection: .vertical,
+                    itemsConfiguration: .init(
+                        spacing: 8,
+                        main: .center,
+                        alignContent: .center,
+                        line: 8
+                    ),
+                    sectionsConfiguration: .init(cross: .stretch)
+                )))
+            )
         )
-    )
+    }.value
 
     @Obs.Relay(value: [])
     private var listDataObs: Observable<[TagCellNodeViewModel]>
     private let bag = DisposeBag()
-
-    override func didLoad() {
-        super.didLoad()
-
-        bind()
-    }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
@@ -52,7 +48,7 @@ final class SpecBasedGridListControllerNode: VASafeAreaDisplayNode {
         listNode.backgroundColor = theme.systemBackground
     }
 
-    private func bind() {
+    override func bind() {
         Observable<Int>
             .timer(.seconds(0), period: .milliseconds(300), scheduler: MainScheduler.instance)
             .subscribe(onNext: self ?> {

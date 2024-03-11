@@ -1,5 +1,5 @@
 //
-//  SelfSizingListContainerControllerNode.swift
+//  SelfSizingListContainerScreenNode.swift
 //  VATextureKit_Example
 //
 //  Created by Volodymyr Andriienko on 23.11.2023.
@@ -10,25 +10,29 @@ import VATextureKitRx
 
 struct SelfSizingListNavigationIdentity: DefaultNavigationIdentity {}
 
-final class SelfSizingListContainerControllerNode: VASafeAreaDisplayNode {
-    private lazy var listNode = VAListNode(
-        data: .init(
-            listDataObs: .just((0...1).map { index in
-                ExampleCardCellNodeViewModel(title: "\(index)")
-            }),
-            cellGetter: ExampleCardCellNode.init(viewModel:)
-        ),
-        layoutData: .init(layout: .default(parameters: .init()))
-    )
-    private lazy var listNode1 = VAListNode(
-        data: .init(
-            listDataObs: .just((0...1).map { index in
-                ExampleCardCellNodeViewModel(title: "\(index)")
-            }),
-            cellGetter: ExampleCardCellNode.init(viewModel:)
-        ),
-        layoutData: .init(layout: .default(parameters: .init()))
-    )
+final class SelfSizingListContainerScreenNode: ScreenNode {
+    private lazy var listNode = MainActorEscaped { [self] in
+        VAListNode(
+            data: .init(
+                listDataObs: .just((0...1).map { index in
+                    ExampleCardCellNodeViewModel(title: "\(index)")
+                }),
+                cellGetter: ExampleCardCellNode.init(viewModel:)
+            ),
+            layoutData: .init(layout: .default(parameters: .init()))
+        )
+    }.value
+    private lazy var listNode1 = MainActorEscaped { [self] in
+        VAListNode(
+            data: .init(
+                listDataObs: .just((0...1).map { index in
+                    ExampleCardCellNodeViewModel(title: "\(index)")
+                }),
+                cellGetter: ExampleCardCellNode.init(viewModel:)
+            ),
+            layoutData: .init(layout: .default(parameters: .init()))
+        )
+    }.value
     private let verticalTextNode = VATextNode(
         string: "Vertical",
         color: { $0.darkText }
@@ -43,24 +47,28 @@ final class SelfSizingListContainerControllerNode: VASafeAreaDisplayNode {
         corner: .init(radius: .fixed(16), clipsToBounds: true)
     )
 
-    private lazy var horizontalListNode = VAListNode(
-        data: .init(
-            listDataObs: .just((0...1).map { index in
-                ExampleCardCellNodeViewModel(title: "\(index)")
-            }),
-            cellGetter: ExampleCardCellNode.init(viewModel:)
-        ),
-        layoutData: .init(layout: .default(parameters: .init(scrollDirection: .horizontal)))
-    )
-    private lazy var horizontalListNode1 = VAListNode(
-        data: .init(
-            listDataObs: .just((0...1).map { index in
-                ExampleCardCellNodeViewModel(title: "\(index)")
-            }),
-            cellGetter: ExampleCardCellNode.init(viewModel:)
-        ),
-        layoutData: .init(layout: .default(parameters: .init(scrollDirection: .horizontal)))
-    )
+    private lazy var horizontalListNode = MainActorEscaped { [self] in
+        VAListNode(
+            data: .init(
+                listDataObs: .just((0...1).map { index in
+                    ExampleCardCellNodeViewModel(title: "\(index)")
+                }),
+                cellGetter: ExampleCardCellNode.init(viewModel:)
+            ),
+            layoutData: .init(layout: .default(parameters: .init(scrollDirection: .horizontal)))
+        )
+    }.value
+    private lazy var horizontalListNode1 = MainActorEscaped { [self] in
+        VAListNode(
+            data: .init(
+                listDataObs: .just((0...1).map { index in
+                    ExampleCardCellNodeViewModel(title: "\(index)")
+                }),
+                cellGetter: ExampleCardCellNode.init(viewModel:)
+            ),
+            layoutData: .init(layout: .default(parameters: .init(scrollDirection: .horizontal)))
+        )
+    }.value
     private let horizontalTextNode = VATextNode(
         string: "Horizontal",
         color: { $0.darkText }

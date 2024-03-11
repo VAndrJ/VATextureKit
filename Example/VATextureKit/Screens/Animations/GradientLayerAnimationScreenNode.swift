@@ -1,5 +1,5 @@
 //
-//  GradientLayerAnimationControllerNode.swift
+//  GradientLayerAnimationScreenNode.swift
 //  VATextureKit_Example
 //
 //  Created by Volodymyr Andriienko on 27.07.2023.
@@ -10,7 +10,7 @@ import VATextureKit
 
 struct GradientLayerAnimationNavigationIdentity: DefaultNavigationIdentity {}
 
-final class GradientLayerAnimationControllerNode: VASafeAreaDisplayNode {
+final class GradientLayerAnimationScreenNode: ScreenNode {
     private lazy var locationsExampleNode = LocationsExampleNode()
     private lazy var colorsExampleNode = ColorsExampleNode()
     private lazy var pointsExampleNode = PointsExampleNode()

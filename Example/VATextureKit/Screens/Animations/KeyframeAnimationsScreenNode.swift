@@ -1,5 +1,5 @@
 //
-//  KeyframeAnimationsControllerNode.swift
+//  KeyframeAnimationsScreenNode.swift
 //  VATextureKit_Example
 //
 //  Created by Volodymyr Andriienko on 30.07.2023.
@@ -10,7 +10,7 @@ import VATextureKit
 
 struct KeyframeAnimationsNavigationIdentity: DefaultNavigationIdentity {}
 
-final class KeyframeAnimationsControllerNode: VASafeAreaDisplayNode {
+final class KeyframeAnimationsScreenNode: ScrollScreenNode {
     private lazy var shakeAnimationExampleNode = ShakeAnimationExampleNode()
     private lazy var shakeAnimationPauseResumeExampleNode = ShakeAnimationPauseResumeExampleNode()
     private lazy var animationExampleNodes = [
@@ -56,23 +56,8 @@ final class KeyframeAnimationsControllerNode: VASafeAreaDisplayNode {
             CGPoint(x: 1, y: 0.5),
         ])),
     ]
-    private lazy var scrollNode = VAScrollNode(data: .init())
 
-    init() {
-        super.init()
-
-        scrollNode.layoutSpecBlock = { [weak self] in
-            self?.scrollLayoutSpecThatFits($1) ?? ASLayoutSpec()
-        }
-    }
-
-    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        SafeArea {
-            scrollNode
-        }
-    }
-
-    private func scrollLayoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    override func scrollLayoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column(spacing: 16, cross: .stretch) {
             shakeAnimationExampleNode
             shakeAnimationPauseResumeExampleNode
@@ -86,7 +71,7 @@ final class KeyframeAnimationsControllerNode: VASafeAreaDisplayNode {
     }
 }
 
-private class ShakeAnimationPauseResumeExampleNode: VADisplayNode {
+private class ShakeAnimationPauseResumeExampleNode: DisplayNode {
     private lazy var shakeXNode = VADisplayNode()
         .sized(width: 100, height: 30)
     private lazy var buttonNode = HapticButtonNode(title: "Animate shake")
@@ -102,12 +87,6 @@ private class ShakeAnimationPauseResumeExampleNode: VADisplayNode {
                 autoreverses: true
             )
         }
-    }
-
-    override func didLoad() {
-        super.didLoad()
-
-        bind()
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -128,25 +107,19 @@ private class ShakeAnimationPauseResumeExampleNode: VADisplayNode {
         shakeXNode.backgroundColor = theme.label
     }
 
-    private func bind() {
+    override func bind() {
         buttonNode.onTap = self ?> { $0.isToggled = true }
         pauseButtonNode.onTap = self ?>> { $0.shakeXNode.pauseAnimations }
         resumeButtonNode.onTap = self ?>> { $0.shakeXNode.resumeAnimations }
     }
 }
 
-private class ShakeAnimationExampleNode: VADisplayNode {
+private class ShakeAnimationExampleNode: DisplayNode {
     private lazy var shakeXNode = VADisplayNode()
         .sized(width: 100, height: 30)
     private lazy var shakeYNode = VADisplayNode()
         .sized(width: 100, height: 30)
     private lazy var buttonNode = HapticButtonNode(title: "Animate shake")
-
-    override func didLoad() {
-        super.didLoad()
-
-        bind()
-    }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column(cross: .stretch) {
@@ -163,7 +136,7 @@ private class ShakeAnimationExampleNode: VADisplayNode {
         shakeYNode.backgroundColor = theme.systemIndigo
     }
 
-    private func bind() {
+    override func bind() {
         buttonNode.onTap = self ?> {
             $0.shakeXNode.animate(
                 .positionX(values: [0, -10, +10, -20, +20, -10, +10, 0] + $0.shakeXNode.position.x),
@@ -177,7 +150,7 @@ private class ShakeAnimationExampleNode: VADisplayNode {
     }
 }
 
-private class AnimationExampleNode: VADisplayNode {
+private class AnimationExampleNode: DisplayNode {
     private lazy var exampleNode = VADisplayNode()
         .sized(width: 300, height: 30)
         .apply {
@@ -195,12 +168,6 @@ private class AnimationExampleNode: VADisplayNode {
         super.init()
     }
 
-    override func didLoad() {
-        super.didLoad()
-
-        bind()
-    }
-
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column(cross: .stretch) {
             Row(main: .center) {
@@ -215,14 +182,14 @@ private class AnimationExampleNode: VADisplayNode {
         exampleNode.shadowColor = theme.systemOrange.cgColor
     }
 
-    private func bind() {
+    override func bind() {
         buttonNode.onTap = self ?> {
             $0.exampleNode.animate($0.animation, duration: 2)
         }
     }
 }
 
-private class GradientAnimationExampleNode: VADisplayNode {
+private class GradientAnimationExampleNode: DisplayNode {
     private lazy var exampleNode = VALinearGradientNode(gradient: .horizontal)
         .sized(width: 300, height: 30)
     private lazy var buttonNode = HapticButtonNode(title: "Animate \(animation.keyPath)")
@@ -232,12 +199,6 @@ private class GradientAnimationExampleNode: VADisplayNode {
         self.animation = animation
 
         super.init()
-    }
-
-    override func didLoad() {
-        super.didLoad()
-
-        bind()
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -253,7 +214,7 @@ private class GradientAnimationExampleNode: VADisplayNode {
         exampleNode.update(colors: (theme.systemOrange, 0), (theme.systemIndigo, 1))
     }
 
-    private func bind() {
+    override func bind() {
         buttonNode.onTap = self ?> {
             $0.exampleNode.animate($0.animation, duration: 2)
         }

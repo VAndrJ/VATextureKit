@@ -1,5 +1,5 @@
 //
-//  ShimmersControllerNode.swift
+//  ShimmersScreenNode.swift
 //  VATextureKit_Example
 //
 //  Created by Volodymyr Andriienko on 23.07.2023.
@@ -10,7 +10,7 @@ import VATextureKit
 
 struct ShimmersNavigationIdentity: DefaultNavigationIdentity {}
 
-final class ShimmersControllerNode: VASafeAreaDisplayNode {
+final class ShimmersScreenNode: ScreenNode {
     private lazy var acrossWindowSynchronizedTextNode = VATextNode(text: "Shimmer across window synchronized")
     private lazy var acrossWindowShimmer0Node = _ShimmerExampleNode(data: .init())
         .flex(grow: 1)

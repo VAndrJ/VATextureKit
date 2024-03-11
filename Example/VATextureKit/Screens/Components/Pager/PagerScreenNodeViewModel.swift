@@ -1,5 +1,5 @@
 //
-//  PagerControllerNodeViewModel.swift
+//  PagerScreenNodeViewModel.swift
 //  VATextureKit_Example
 //
 //  Created by Volodymyr Andriienko on 24.04.2023.
@@ -8,7 +8,7 @@
 
 import VATextureKitRx
 
-final class PagerControllerNodeViewModel {
+final class PagerScreenNodeViewModel {
     @Obs.Relay(value: (0...2).map { PagerCardCellNodeViewModel(title: "Title \($0)", description: "Description \($0)") })
     var pagerItemsObs: Observable<[CellViewModel]>
 

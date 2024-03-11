@@ -1,5 +1,5 @@
 //
-//  PagerControllerNode.swift
+//  PagerScreenNode.swift
 //  VATextureKit_Example
 //
 //  Created by Volodymyr Andriienko on 23.04.2023.
@@ -10,12 +10,14 @@ import VATextureKitRx
 
 struct PagerControllerNavigationIdentity: DefaultNavigationIdentity {}
 
-final class PagerControllerNode: VASafeAreaDisplayNode {
-    private lazy var pagerNode = VAPagerNode(data: .init(
-        itemsObs: viewModel.pagerItemsObs,
-        cellGetter: mapToCell(viewModel:),
-        isCircular: true
-    ))
+final class PagerScreenNode: ScreenNode {
+    private lazy var pagerNode = MainActorEscaped { [self] in
+        VAPagerNode(data: .init(
+            itemsObs: viewModel.pagerItemsObs,
+            cellGetter: mapToCell(viewModel:),
+            isCircular: true
+        ))
+    }.value
     private lazy var previousButtonNode = HapticButtonNode(title: "Previous")
         .minConstrained(size: CGSize(same: 44))
     private lazy var nextButtonNode = HapticButtonNode(title: "Next")
@@ -23,18 +25,12 @@ final class PagerControllerNode: VASafeAreaDisplayNode {
     private lazy var randomizeButtonNode = HapticButtonNode(title: "Randomize")
         .minConstrained(size: CGSize(same: 44))
     private lazy var pagerIndicatorNode = PagerIndicatorNode(pagerNode: pagerNode)
-    private let viewModel: PagerControllerNodeViewModel
+    private let viewModel: PagerScreenNodeViewModel
 
-    init(viewModel: PagerControllerNodeViewModel) {
+    init(viewModel: PagerScreenNodeViewModel) {
         self.viewModel = viewModel
 
         super.init()
-    }
-
-    override func didLoad() {
-        super.didLoad()
-
-        bind()
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -63,7 +59,7 @@ final class PagerControllerNode: VASafeAreaDisplayNode {
         backgroundColor = theme.systemBackground
     }
 
-    private func bind() {
+    override func bind() {
         previousButtonNode.onTap = self ?>> { $0.pagerNode.previous }
         nextButtonNode.onTap = self ?>> { $0.pagerNode.next }
         randomizeButtonNode.onTap = self ?>> { $0.viewModel.generateRandomPagerItems }
@@ -76,6 +72,7 @@ private func mapToCell(viewModel: CellViewModel) -> ASCellNode {
         return PagerCardCellNode(viewModel: viewModel)
     default:
         assertionFailure("Implement \(type(of: viewModel))")
+        
         return ASCellNode()
     }
 }

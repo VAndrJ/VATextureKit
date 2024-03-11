@@ -1,5 +1,5 @@
 //
-//  ContentSizeControllerNode.swift
+//  ContentSizeScreenNode.swift
 //  VATextureKit_Example
 //
 //  Created by Volodymyr Andriienko on 18.02.2023.
@@ -10,7 +10,7 @@ import VATextureKit
 
 struct ContentSizeNavigationIdentity: DefaultNavigationIdentity {}
 
-final class ContentSizeControllerNode: VASafeAreaDisplayNode {
+final class ContentSizeScreenNode: ScreenNode {
     let contentSizeTextNode = VATextNode(fontStyle: .title3, alignment: .center)
     
     override func configureTheme(_ theme: VATheme) {

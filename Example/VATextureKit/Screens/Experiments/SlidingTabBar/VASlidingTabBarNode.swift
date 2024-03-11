@@ -94,6 +94,7 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode {
         return CGRect(origin: convertedOrigin, size: intersectionFrame.size)
     }
 
+    @MainActor
     private func bind() {
         data.indexObs
             .subscribe(onNext: self ?>> { $0.scroll(index:) })

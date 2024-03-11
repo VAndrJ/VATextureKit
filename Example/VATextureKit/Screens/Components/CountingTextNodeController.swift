@@ -10,17 +10,11 @@ import VATextureKit
 
 struct CountingTextNodeNavigationIdentity: DefaultNavigationIdentity {}
 
-final class CountingTextNodeController: VASafeAreaDisplayNode {
+final class CountingTextNodeController: ScreenNode {
     private lazy var countingTextNode = VACountingTextNode(string: "", color: { $0.label }, descriptor: .monospacedDigits).apply {
         $0.updateCount(to: 0)
     }
     private lazy var randomButtonNode = HapticButtonNode(title: "Random")
-
-    override func didLoad() {
-        super.didLoad()
-
-        bind()
-    }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
@@ -36,7 +30,7 @@ final class CountingTextNodeController: VASafeAreaDisplayNode {
         backgroundColor = theme.systemBackground
     }
 
-    private func bind() {
+    override func bind() {
         randomButtonNode.onTap = self ?> { $0.countingTextNode.updateCount(to: Int.random(in: 0...1000)) }
     }
 }

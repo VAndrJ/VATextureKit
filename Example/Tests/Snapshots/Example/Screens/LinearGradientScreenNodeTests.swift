@@ -1,5 +1,5 @@
 //
-//  LinearGradientControllerNodeTests.swift
+//  LinearGradientScreenNodeTests.swift
 //  VATextureKit_Tests
 //
 //  Created by Volodymyr Andriienko on 06.08.2023.
@@ -11,18 +11,18 @@ import XCTest
 import SnapshotTesting
 import VATextureKit
 
-class LinearGradientControllerNodeTests: XCTestCase {
+class LinearGradientScreenNodeTests: XCTestCase {
 
     func test_node() {
         appContext.themeManager.setLightAsCustomTheme()
-        let sut = LinearGradientControllerNode()
+        let sut = LinearGradientScreenNode()
 
         assertNodeSnapshot(matching: sut, size: .fixed(CGSize(width: 24, height: 24 * 7)))
     }
 
     func test_node_dark_theme() {
         appContext.themeManager.setDarkAsCustomTheme()
-        let sut = LinearGradientControllerNode()
+        let sut = LinearGradientScreenNode()
 
         assertNodeSnapshot(matching: sut, size: .fixed(CGSize(width: 24, height: 24 * 7)))
     }

@@ -1,5 +1,5 @@
 //
-//  RowLayoutControllerNodeTests.swift
+//  RowLayoutScreenNodeTests.swift
 //  VATextureKit_Tests
 //
 //  Created by Volodymyr Andriienko on 06.08.2023.
@@ -11,18 +11,18 @@ import XCTest
 import SnapshotTesting
 import VATextureKit
 
-class RowLayoutControllerNodeTests: XCTestCase {
+class RowLayoutScreenNodeTests: XCTestCase {
 
     func test_node() {
         appContext.themeManager.setLightAsCustomTheme()
-        let sut = RowLayoutControllerNode()
+        let sut = RowLayoutScreenNode()
 
         assertNodeSnapshot(matching: sut, size: .freeHeightFixedWidth(375))
     }
 
     func test_node_dark_theme() {
         appContext.themeManager.setDarkAsCustomTheme()
-        let sut = RowLayoutControllerNode()
+        let sut = RowLayoutScreenNode()
 
         assertNodeSnapshot(matching: sut, size: .freeHeightFixedWidth(375))
     }

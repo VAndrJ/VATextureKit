@@ -1,5 +1,5 @@
 //
-//  ColumnLayoutControllerNodeTests.swift
+//  StackLayoutScreenNodeTests.swift
 //  VATextureKit_Tests
 //
 //  Created by Volodymyr Andriienko on 06.08.2023.
@@ -11,18 +11,18 @@ import XCTest
 import SnapshotTesting
 import VATextureKit
 
-class ColumnLayoutControllerNodeTests: XCTestCase {
+class StackLayoutScreenNodeTests: XCTestCase {
 
     func test_node() {
         appContext.themeManager.setLightAsCustomTheme()
-        let sut = ColumnLayoutControllerNode()
+        let sut = StackLayoutScreenNode()
 
         assertNodeSnapshot(matching: sut, size: .freeHeightFixedWidth(375))
     }
 
     func test_node_dark_theme() {
         appContext.themeManager.setDarkAsCustomTheme()
-        let sut = ColumnLayoutControllerNode()
+        let sut = StackLayoutScreenNode()
 
         assertNodeSnapshot(matching: sut, size: .freeHeightFixedWidth(375))
     }

@@ -1,5 +1,5 @@
 //
-//  ReadMoreTextControllerNode.swift
+//  ReadMoreTextScreenNode.swift
 //  VATextureKit_Example
 //
 //  Created by Volodymyr Andriienko on 19.04.2023.
@@ -10,7 +10,7 @@ import VATextureKit
 
 struct ReadMoreTextNavigationIdentity: DefaultNavigationIdentity {}
 
-final class ReadMoreTextControllerNode: VASafeAreaDisplayNode {
+final class ReadMoreTextScreenNode: ScreenNode {
     private lazy var readMoreTextNode = VAReadMoreTextNode(
         text: .loremText,
         maximumNumberOfLines: 2,

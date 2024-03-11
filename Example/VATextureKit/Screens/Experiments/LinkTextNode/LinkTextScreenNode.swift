@@ -1,5 +1,5 @@
 //
-//  LinkTextControllerNode.swift
+//  LinkTextScreenNode.swift
 //  VATextureKit_Example
 //
 //  Created by Volodymyr Andriienko on 03.05.2023.
@@ -10,19 +10,13 @@ import VATextureKit
 
 struct LinkTextNavigationIdentity: DefaultNavigationIdentity {}
 
-final class LinkTextControllerNode: VASafeAreaDisplayNode {
+final class LinkTextScreenNode: ScreenNode {
     private lazy var linkTextNode = VALinkTextNode(text: [
         .loremText,
         "https://texturegroup.org",
         .loremText,
         "https://github.com/texturegroup/texture",
     ].joined(separator: " "))
-
-    override func didLoad() {
-        super.didLoad()
-
-        bind()
-    }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
@@ -35,11 +29,7 @@ final class LinkTextControllerNode: VASafeAreaDisplayNode {
         backgroundColor = theme.systemBackground
     }
 
-    private func bind() {
-        linkTextNode.onLinkTap = { url in
-            Task { @MainActor in
-                UIApplication.shared.open(url)
-            }
-        }
+    override func bind() {
+        linkTextNode.onLinkTap = { UIApplication.shared.open($0) }
     }
 }

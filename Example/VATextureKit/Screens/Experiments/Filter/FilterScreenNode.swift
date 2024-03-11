@@ -1,5 +1,5 @@
 //
-//  FilterControllerNode.swift
+//  FilterScreenNode.swift
 //  VATextureKit_Example
 //
 //  Created by Volodymyr Andriienko on 28.07.2023.
@@ -10,7 +10,7 @@ import VATextureKit
 
 struct FilterNavigationIdentity: DefaultNavigationIdentity {}
 
-final class FilterControllerNode: VASafeAreaDisplayNode {
+final class FilterScreenNode: ScreenNode {
     private lazy var imageNode = VAImageNode(
         image: filter.outputImage(image: R.image.colibri()),
         size: CGSize(same: 300),

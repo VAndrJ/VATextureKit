@@ -1,5 +1,5 @@
 //
-//  CompositingFilterControllerNode.swift
+//  CompositingFilterScreenNode.swift
 //  VATextureKit_Example
 //
 //  Created by Volodymyr Andriienko on 05.04.2023.
@@ -14,7 +14,7 @@ struct CompositingFilterNavigationIdentity: DefaultNavigationIdentity {}
 
 // MARK: - View with ViewModel example. Code organization example
 
-final class CompositingFilterControllerNode: VASafeAreaDisplayNode {
+final class CompositingFilterScreenNode: ScreenNode {
 
     // MARK: - UI related code
 
@@ -26,12 +26,14 @@ final class CompositingFilterControllerNode: VASafeAreaDisplayNode {
         image: R.image.colibri(),
         contentMode: .scaleAspectFill
     )
-    private(set) lazy var listNode = VATableListNode(data: .init(
-        configuration: .init(shouldDeselect: (false, true)),
-        listDataObs: viewModel.filtersObs,
-        onSelect: viewModel.didSelect(indexPath:),
-        cellGetter: CompositingCellNode.init(viewModel:)
-    ))
+    private(set) lazy var listNode = MainActorEscaped { [self] in
+        VATableListNode(data: .init(
+            configuration: .init(shouldDeselect: (false, true)),
+            listDataObs: viewModel.filtersObs,
+            onSelect: viewModel.didSelect(indexPath:),
+            cellGetter: CompositingCellNode.init(viewModel:)
+        ))
+    }.value
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         (constrainedSize.max.width > constrainedSize.max.height).fold {
@@ -73,13 +75,7 @@ final class CompositingFilterControllerNode: VASafeAreaDisplayNode {
         super.init()
     }
 
-    override func didLoad() {
-        super.didLoad()
-
-        bind()
-    }
-
-    private func bind() {
+    override func bind() {
         viewModel.selectedFilterObs
             .map { $0 as Any }
             .bind(to: composingImageNode.layer.rx.compositingFilter)

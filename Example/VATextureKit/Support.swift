@@ -37,3 +37,13 @@ extension String {
         (0...count).map { _ in self }.joined(separator: "")
     }
 }
+
+struct MainActorEscaped<T> {
+    let value: T
+
+    init(getter: @MainActor @escaping () -> T) {
+        let escape: () -> T = getter
+
+        self.value = escape()
+    }
+}

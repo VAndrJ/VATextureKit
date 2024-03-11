@@ -1,5 +1,5 @@
 //
-//  StackLayoutControllerNode.swift
+//  StackLayoutScreenNode.swift
 //  VATextureKit_Example
 //
 //  Created by Volodymyr Andriienko on 17.04.2023.
@@ -10,27 +10,12 @@ import VATextureKit
 
 struct StackLayoutNavigationIdentity: DefaultNavigationIdentity {}
 
-final class StackLayoutControllerNode: VASafeAreaDisplayNode {
+final class StackLayoutScreenNode: ScrollScreenNode {
     private lazy var stackLayoutExampleNode = StackLayoutExampleNode()
     private lazy var stackCenteringLayoutExampleNode = StackCenteringLayoutExampleNode()
     private lazy var stackPositionsLayoutExampleNode = StackPositionsLayoutExampleNode()
-    private lazy var scrollNode = VAScrollNode(data: .init())
 
-    init() {
-        super.init()
-
-        scrollNode.layoutSpecBlock = { [weak self] in
-            self?.scrollLayoutSpecThatFits(constrainedSize: $1) ?? ASLayoutSpec()
-        }
-    }
-
-    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        SafeArea {
-            scrollNode
-        }
-    }
-
-    func scrollLayoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    override func scrollLayoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column(spacing: 32, cross: .stretch) {
             stackLayoutExampleNode
             stackCenteringLayoutExampleNode
@@ -49,7 +34,7 @@ final class StackLayoutControllerNode: VASafeAreaDisplayNode {
     }
 }
 
-private class StackLayoutExampleNode: VADisplayNode {
+private class StackLayoutExampleNode: DisplayNode {
     private lazy var titleTextNode = getTitleTextNode(string: "Stack with 2 elements, second is relatively", selection: "")
     private lazy var pairNodes = [ASDisplayNode().sized(CGSize(same: 128)), ASDisplayNode().sized(CGSize(same: 64))]
 
@@ -72,7 +57,7 @@ private class StackLayoutExampleNode: VADisplayNode {
     }
 }
 
-private class StackCenteringLayoutExampleNode: VADisplayNode {
+private class StackCenteringLayoutExampleNode: DisplayNode {
     private lazy var titleTextNode = getTitleTextNode(string: "Stack with 2 elements, second is centered", selection: "")
     private lazy var centeringInfoTextNode = VATextNode(
         text: centeringOptions.description,
@@ -85,12 +70,6 @@ private class StackCenteringLayoutExampleNode: VADisplayNode {
             setNeedsLayoutAnimated()
             centeringInfoTextNode.text = centeringOptions.description
         }
-    }
-
-    override func didLoad() {
-        super.didLoad()
-
-        bind()
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -116,12 +95,12 @@ private class StackCenteringLayoutExampleNode: VADisplayNode {
         }
     }
 
-    private func bind() {
+    override func bind() {
         centeringButtonNode.onTap = self ?> { $0.centeringOptions.toggle() }
     }
 }
 
-private class StackPositionsLayoutExampleNode: VADisplayNode {
+private class StackPositionsLayoutExampleNode: DisplayNode {
     private lazy var titleTextNode = getTitleTextNode(string: "Stack with 2 elements, second is relatively", selection: "")
     private lazy var pairNodes = [ASDisplayNode().sized(CGSize(same: 128)), ASDisplayNode().sized(CGSize(same: 64))]
     private lazy var relativeHorizontalPositionButtonNode = HapticButtonNode(title: "Change horizontal")
@@ -145,12 +124,6 @@ private class StackPositionsLayoutExampleNode: VADisplayNode {
             setNeedsLayoutAnimated()
             relativePositionVerticalInfoTextNode.text = relativeVerticalPosition.verticalDescription
         }
-    }
-
-    override func didLoad() {
-        super.didLoad()
-
-        bind()
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -178,7 +151,7 @@ private class StackPositionsLayoutExampleNode: VADisplayNode {
         }
     }
 
-    private func bind() {
+    override func bind() {
         relativeHorizontalPositionButtonNode.onTap = self ?> { $0.relativeHorizontalPosition.toggle() }
         relativeVerticalPositionButtonNode.onTap = self ?> { $0.relativeVerticalPosition.toggle() }
     }
@@ -219,6 +192,7 @@ private extension ASRelativeLayoutSpecPosition {
         case .center: string = ".center"
         default: string = ".none"
         }
+        
         return string
     }
     var toggled: Self {

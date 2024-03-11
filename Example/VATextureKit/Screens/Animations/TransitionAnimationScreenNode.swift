@@ -1,5 +1,5 @@
 //
-//  TransitionAnimationControllerNode.swift
+//  TransitionAnimationScreenNode.swift
 //  VATextureKit_Example
 //
 //  Created by Volodymyr Andriienko on 02.04.2023.
@@ -10,7 +10,7 @@ import VATextureKit
 
 struct TransitionAnimationNavigationIdentity: DefaultNavigationIdentity {}
 
-final class TransitionAnimationControllerNode: VASafeAreaDisplayNode {
+final class TransitionAnimationScreenNode: ScreenNode {
     private lazy var leftTextNode = VATextNode(text: "left", fontStyle: .body, alignment: .center)
         .withAnimatedTransition(id: "Test")
         .flex(shrink: 0.1, basisPercent: 60)
@@ -47,12 +47,6 @@ final class TransitionAnimationControllerNode: VASafeAreaDisplayNode {
         self.isPresented = isPresented
 
         super.init()
-    }
-
-    override func didLoad() {
-        super.didLoad()
-
-        bind()
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -105,14 +99,13 @@ final class TransitionAnimationControllerNode: VASafeAreaDisplayNode {
         expandNode.backgroundColor = theme.systemPurple
     }
 
-    @MainActor
-    private func bind() {
+    override func bind() {
         exchangeButtonNode.onTap = self ?> { $0.isNodesExchanged.toggle() }
         toggleButtonNode.onTap = self ?> { $0.isNodeToggled.toggle() }
         expandButtonNode.onTap = self ?> { $0.isNodeExpanded.toggle() }
         presentButtonNode.onTap = self ?> {
             $0.closestViewController?.present(
-                VAViewController(node: TransitionAnimationControllerNode(isPresented: true)).withAnimatedTransitionEnabled(),
+                VAViewController(node: TransitionAnimationScreenNode(isPresented: true)).withAnimatedTransitionEnabled(),
                 animated: true
             )
         }

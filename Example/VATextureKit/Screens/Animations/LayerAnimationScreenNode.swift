@@ -1,5 +1,5 @@
 //
-//  LayerAnimationControllerNode.swift
+//  LayerAnimationScreenNode.swift
 //  VATextureKit_Example
 //
 //  Created by Volodymyr Andriienko on 21.07.2023.
@@ -10,30 +10,15 @@ import VATextureKit
 
 struct LayerAnimationNavigationIdentity: DefaultNavigationIdentity {}
 
-final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
+final class LayerAnimationScreenNode: ScrollScreenNode {
     private lazy var boundsAnimationExampleNode = BoundsAnimationExampleNode()
     private lazy var opacityAnimationExampleNode = OpacityAnimationExampleNode()
     private lazy var scaleAnimationExampleNode = ScaleAnimationExampleNode()
     private lazy var rotationAnimationExampleNode = RotationAnimationExampleNode()
     private lazy var cornerRadiusAnimationExampleNode = CornerRadiusAnimationExampleNode()
     private lazy var colorAnimationExampleNode = ColorAnimationExampleNode()
-    private lazy var scrollNode = VAScrollNode(data: .init())
 
-    init() {
-        super.init()
-
-        scrollNode.layoutSpecBlock = { [weak self] in
-            self?.scrollLayoutSpecThatFits($1) ?? ASLayoutSpec()
-        }
-    }
-
-    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        SafeArea {
-            scrollNode
-        }
-    }
-
-    private func scrollLayoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    override func scrollLayoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column(spacing: 16, cross: .stretch) {
             boundsAnimationExampleNode
             opacityAnimationExampleNode
@@ -50,7 +35,7 @@ final class LayerAnimationControllerNode: VASafeAreaDisplayNode {
     }
 }
 
-private class CornerRadiusAnimationExampleNode: VADisplayNode {
+private class CornerRadiusAnimationExampleNode: DisplayNode {
     private lazy var exampleNode = VADisplayNode()
         .sized(width: 100, height: 40)
     private lazy var buttonNode = HapticButtonNode(title: "Toggle corner radius")
@@ -68,12 +53,6 @@ private class CornerRadiusAnimationExampleNode: VADisplayNode {
         }
     }
 
-    override func didLoad() {
-        super.didLoad()
-
-        bind()
-    }
-
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column(cross: .stretch) {
             exampleNode
@@ -85,12 +64,12 @@ private class CornerRadiusAnimationExampleNode: VADisplayNode {
         exampleNode.backgroundColor = theme.systemGray
     }
 
-    private func bind() {
+    override func bind() {
         buttonNode.onTap = self ?> { $0.isToggled.toggle() }
     }
 }
 
-private class RotationAnimationExampleNode: VADisplayNode {
+private class RotationAnimationExampleNode: DisplayNode {
     private lazy var exampleNode = VAImageNode(
         image: R.image.chevron_right(),
         size: CGSize(same: 50),
@@ -112,12 +91,6 @@ private class RotationAnimationExampleNode: VADisplayNode {
         }
     }
 
-    override func didLoad() {
-        super.didLoad()
-
-        bind()
-    }
-
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column(cross: .stretch) {
             exampleNode
@@ -129,12 +102,12 @@ private class RotationAnimationExampleNode: VADisplayNode {
         exampleNode.backgroundColor = theme.systemPink
     }
 
-    private func bind() {
+    override func bind() {
         buttonNode.onTap = self ?> { $0.isToggled.toggle() }
     }
 }
 
-private class ScaleAnimationExampleNode: VADisplayNode {
+private class ScaleAnimationExampleNode: DisplayNode {
     private lazy var exampleNode = VADisplayNode()
         .sized(height: 20)
     private lazy var  buttonNode = HapticButtonNode(title: "Toggle scale")
@@ -152,12 +125,6 @@ private class ScaleAnimationExampleNode: VADisplayNode {
         }
     }
 
-    override func didLoad() {
-        super.didLoad()
-
-        bind()
-    }
-
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column(cross: .stretch) {
             exampleNode
@@ -169,12 +136,12 @@ private class ScaleAnimationExampleNode: VADisplayNode {
         exampleNode.backgroundColor = theme.systemGreen
     }
 
-    private func bind() {
+    override func bind() {
         buttonNode.onTap = self ?> { $0.isToggled.toggle() }
     }
 }
 
-private class ColorAnimationExampleNode: VADisplayNode {
+private class ColorAnimationExampleNode: DisplayNode {
     private lazy var exampleNode = VADisplayNode()
         .sized(height: 20)
     private lazy var buttonNode = HapticButtonNode(title: "Toggle color")
@@ -192,12 +159,6 @@ private class ColorAnimationExampleNode: VADisplayNode {
         }
     }
 
-    override func didLoad() {
-        super.didLoad()
-
-        bind()
-    }
-
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column(cross: .stretch) {
             exampleNode
@@ -209,12 +170,12 @@ private class ColorAnimationExampleNode: VADisplayNode {
         exampleNode.backgroundColor = isToggled ? theme.systemIndigo : theme.systemRed
     }
 
-    private func bind() {
+    override func bind() {
         buttonNode.onTap = self ?> { $0.isToggled.toggle() }
     }
 }
 
-private class OpacityAnimationExampleNode: VADisplayNode {
+private class OpacityAnimationExampleNode: DisplayNode {
     private lazy var exampleNode = VADisplayNode()
         .sized(height: 20)
     private lazy var buttonNode = HapticButtonNode(title: "Toggle opacity")
@@ -232,12 +193,6 @@ private class OpacityAnimationExampleNode: VADisplayNode {
         }
     }
 
-    override func didLoad() {
-        super.didLoad()
-
-        bind()
-    }
-
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column(cross: .stretch) {
             exampleNode
@@ -249,12 +204,12 @@ private class OpacityAnimationExampleNode: VADisplayNode {
         exampleNode.backgroundColor = theme.systemOrange
     }
 
-    private func bind() {
+    override func bind() {
         buttonNode.onTap = self ?> { $0.isToggled.toggle() }
     }
 }
 
-private class BoundsAnimationExampleNode: VADisplayNode {
+private class BoundsAnimationExampleNode: DisplayNode {
     private lazy var heightNode = VADisplayNode()
         .sized(width: 100, height: isToggled ? 100 : 20)
     private lazy var widthNode = VADisplayNode()
@@ -282,12 +237,6 @@ private class BoundsAnimationExampleNode: VADisplayNode {
         }
     }
 
-    override func didLoad() {
-        super.didLoad()
-
-        bind()
-    }
-
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column(cross: .stretch) {
             Row(spacing: 8) {
@@ -310,7 +259,7 @@ private class BoundsAnimationExampleNode: VADisplayNode {
         boundsNode.backgroundColor = theme.systemPurple
     }
 
-    private func bind() {
+    override func bind() {
         buttonNode.onTap = self ?> { $0.isToggled.toggle() }
     }
 }

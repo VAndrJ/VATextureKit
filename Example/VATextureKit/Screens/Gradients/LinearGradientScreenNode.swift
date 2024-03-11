@@ -1,5 +1,5 @@
 //
-//  LinearGradientControllerNode.swift
+//  LinearGradientScreenNode.swift
 //  VATextureKit_Example
 //
 //  Created by Volodymyr Andriienko on 18.02.2023.
@@ -10,8 +10,7 @@ import VATextureKit
 
 struct LinearGradientNavigationIdentity: DefaultNavigationIdentity {}
 
-final class LinearGradientControllerNode: VASafeAreaDisplayNode {
-    private lazy var scrollNode = VAScrollNode(data: .init())
+final class LinearGradientScreenNode: ScrollScreenNode {
     private lazy var verticalGradientNode = VALinearGradientNode(gradient: .vertical)
     private lazy var horizontalGradientNode = VALinearGradientNode(gradient: .horizontal)
     private lazy var topLeftToBottomRightGradientNode = VALinearGradientNode(gradient: .diagonal(.topLeftToBottomRight))
@@ -29,14 +28,6 @@ final class LinearGradientControllerNode: VASafeAreaDisplayNode {
         customGradientNode,
     ].map { $0.ratio(1) }
     
-    init() {
-        super.init()
-        
-        scrollNode.layoutSpecBlock = { [weak self] in
-            self?.scrollLayoutSpecThatFits($1) ?? ASLayoutSpec()
-        }
-    }
-    
     override func layout() {
         super.layout()
         
@@ -46,14 +37,8 @@ final class LinearGradientControllerNode: VASafeAreaDisplayNode {
             scrollNode.scrollableDirections = .vertical
         }
     }
-    
-    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        SafeArea {
-            scrollNode
-        }
-    }
 
-    private func scrollLayoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    override func scrollLayoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
         (constrainedSize.min.width > constrainedSize.min.height).fold {
             Column {
                 contentNodes
