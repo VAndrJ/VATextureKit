@@ -71,19 +71,16 @@ extension Reactive where Base: ASTableNode {
         let bindingObserver = Binder(base) { tableNode, contentOffset in
             tableNode.contentOffset = contentOffset
         }
-        let getControlProperty: () -> ControlProperty<CGPoint> = { @MainActor in
-            ControlProperty(values: proxy.contentOffsetBehaviorSubject, valueSink: bindingObserver)
-        }
 
-        return getControlProperty()
+        return mainActorEscaped {
+            ControlProperty(values: proxy.contentOffsetBehaviorSubject, valueSink: bindingObserver)
+        }()
     }
     
     public var didScroll: ControlEvent<Void> {
-        let getControlEvent: () -> ControlEvent<Void> = { @MainActor in
+        mainActorEscaped {
             ControlEvent(events: RxASTableDelegateProxy.proxy(for: base).contentOffsetPublishSubject)
-        }
-
-        return getControlEvent()
+        }()
     }
     
     public var willBeginDecelerating: ControlEvent<Void> {

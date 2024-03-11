@@ -149,7 +149,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
     }
     
     public struct RefreshDTO {
-        let refreshControlView: () -> UIRefreshControl
+        let refreshControlView: @MainActor () -> UIRefreshControl
         let isDelayed: Bool
         let reloadData: (() -> Void)?
         let isLoadingObs: Observable<Bool>
