@@ -7,3 +7,7 @@
 
 @_exported import AsyncDisplayKit
 @_exported import VATextureKitSpec
+
+public func mainActorEscaped<R>(_ closure: @MainActor @escaping () -> R) -> () -> R {
+    closure
+}

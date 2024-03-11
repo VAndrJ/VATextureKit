@@ -12,14 +12,12 @@ public var appContext: VAAppContext {
         return appContext
     } else {
         if ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1" {
-            let contextGetter: () -> VAAppContext = { @MainActor in
+            return mainActorEscaped {
                 VAAppContext(
                     themeManager: .init(standardLightTheme: .vaLight, standardDarkTheme: .vaDark),
                     window: UIWindow()
                 )
-            }
-
-            return contextGetter()
+            }()
         } else {
             fatalError("Use VAWindow instead of UIWindow")
         }

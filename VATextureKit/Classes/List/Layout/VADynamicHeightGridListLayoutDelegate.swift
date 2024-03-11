@@ -39,7 +39,7 @@ public class VADynamicHeightGridListLayoutDelegate: NSObject, ASCollectionLayout
             top += info.sectionInsets.top
             if info.headerHeight > 0 {
                 let indexPath = IndexPath(item: 0, section: section)
-                let performCalculations: () -> Void = { @MainActor in
+                mainActorEscaped {
                     if let element = elements.supplementaryElement(ofKind: UICollectionView.elementKindSectionHeader, at: indexPath) {
                         let attrs = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, with: indexPath)
                         let sizeRange = getHeaderSizeRange(section: section, viewportSize: context.viewportSize, info: info)
@@ -49,8 +49,7 @@ public class VADynamicHeightGridListLayoutDelegate: NSObject, ASCollectionLayout
                         attrsMap.setObject(attrs, forKey: element)
                         top = frame.maxY
                     }
-                }
-                performCalculations()
+                }()
             }
             let columns: Int
             if context.viewportSize.width > context.viewportSize.height {
@@ -66,7 +65,7 @@ public class VADynamicHeightGridListLayoutDelegate: NSObject, ASCollectionLayout
             for idx in 0..<numberOfItems {
                 let columnIndex = getShortestColumnIndex(section: section, columnHeights: columnHeights)
                 let indexPath = IndexPath(item: idx, section: section)
-                let performCalculations: () -> Void = { @MainActor in
+                mainActorEscaped {
                     if let element = elements.elementForItem(at: indexPath) {
                         let attrs = UICollectionViewLayoutAttributes(forCellWith: indexPath)
                         let sizeRange = getSizeRange(item: element.node, indexPath: indexPath, viewportSize: context.viewportSize, info: info)
@@ -80,8 +79,7 @@ public class VADynamicHeightGridListLayoutDelegate: NSObject, ASCollectionLayout
                         attrsMap.setObject(attrs, forKey: element)
                         columnHeights[section][columnIndex] = frame.maxY + info.interItemSpacing
                     }
-                }
-                performCalculations()
+                }()
             }
             let columnIndex = getTallestColumnIndex(section: section, columnHeight: columnHeights)
             top = columnHeights[section][columnIndex] - info.interItemSpacing + info.sectionInsets.bottom
@@ -99,7 +97,11 @@ public class VADynamicHeightGridListLayoutDelegate: NSObject, ASCollectionLayout
         )
     }
 
-    private static func getHeaderSizeRange(section: Int, viewportSize: CGSize, info: VADynamicHeightGridListLayoutInfo) -> ASSizeRange {
+    private static func getHeaderSizeRange(
+        section: Int,
+        viewportSize: CGSize,
+        info: VADynamicHeightGridListLayoutInfo
+    ) -> ASSizeRange {
         ASSizeRange(
             min: CGSize(width: 0, height: info.headerHeight),
             max: CGSize(width: getWidth(section: section, viewportSize: viewportSize, info: info), height: info.headerHeight)
@@ -128,7 +130,12 @@ public class VADynamicHeightGridListLayoutDelegate: NSObject, ASCollectionLayout
         return index
     }
 
-    private static func getSizeRange(item: ASCellNode, indexPath: IndexPath, viewportSize: CGSize, info: VADynamicHeightGridListLayoutInfo) -> ASSizeRange {
+    private static func getSizeRange(
+        item: ASCellNode,
+        indexPath: IndexPath,
+        viewportSize: CGSize,
+        info: VADynamicHeightGridListLayoutInfo
+    ) -> ASSizeRange {
         let itemWidth = getColumnWidth(section: indexPath.section, viewportSize: viewportSize, info: info)
         if info.supportedCellTypes.isEmpty || info.supportedCellTypes.contains(where: { $0 == type(of: item) }) {
             return ASSizeRange(
@@ -143,7 +150,11 @@ public class VADynamicHeightGridListLayoutDelegate: NSObject, ASCollectionLayout
         }
     }
 
-    private static func getColumnWidth(section: Int, viewportSize: CGSize, info: VADynamicHeightGridListLayoutInfo) -> CGFloat {
+    private static func getColumnWidth(
+        section: Int,
+        viewportSize: CGSize,
+        info: VADynamicHeightGridListLayoutInfo
+    ) -> CGFloat {
         let columns: CGFloat
         if viewportSize.width > viewportSize.height {
             columns = CGFloat(info.albumColumns ?? info.portraitColumns)
@@ -154,7 +165,11 @@ public class VADynamicHeightGridListLayoutDelegate: NSObject, ASCollectionLayout
         return (getWidth(section: section, viewportSize: viewportSize, info: info) - ((columns - 1) * info.columnSpacing)) / columns
     }
 
-    private static func getWidth(section: Int, viewportSize: CGSize, info: VADynamicHeightGridListLayoutInfo) -> CGFloat {
+    private static func getWidth(
+        section: Int,
+        viewportSize: CGSize,
+        info: VADynamicHeightGridListLayoutInfo
+    ) -> CGFloat {
         viewportSize.width - info.sectionInsets.left - info.sectionInsets.right
     }
 }
