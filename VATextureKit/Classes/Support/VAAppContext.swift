@@ -12,14 +12,12 @@ public var appContext: VAAppContext {
         return appContext
     } else {
         if ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1" {
-            let contextGetter: () -> VAAppContext = { @MainActor in
-                VAAppContext(
-                    themeManager: .init(standardLightTheme: .vaLight, standardDarkTheme: .vaDark),
-                    window: UIWindow()
-                )
-            }
+            let themeManager = VAThemeManager(standardLightTheme: .vaLight, standardDarkTheme: .vaDark)
 
-            return contextGetter()
+            return VAAppContext(
+                themeManager: themeManager,
+                window: VAWindow(themeManager: themeManager)
+            )
         } else {
             fatalError("Use VAWindow instead of UIWindow")
         }
@@ -33,10 +31,14 @@ public class VAAppContext {
     public private(set) var themeManager: VAThemeManager
     public private(set) var contentSizeManager: VAContentSizeManager
 
-    @MainActor
-    public init(themeManager: VAThemeManager, window: UIWindow) {
+    let id: UUID
+
+    public init(themeManager: VAThemeManager, window: VAWindow) {
+        self.id = UUID()
         self.window = window
         self.themeManager = themeManager
         self.contentSizeManager = VAContentSizeManager(contentSize: window.traitCollection.preferredContentSizeCategory)
+
+        window.id = id
     }
 }
