@@ -10,6 +10,7 @@ import XCTest
 @testable import VATextureKit_Example
 import VATextureKit
 
+@MainActor
 class VAViewWrapperNodeTests: XCTestCase {
 
     func test_node() {
