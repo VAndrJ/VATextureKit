@@ -7,14 +7,14 @@
 
 public final class ImageDrawingBuffer: NSObject {
     private var isDataCreated = false
-    private var length: UInt
+    private var length: Int
     private(set) var mutableBytes: UnsafeMutableRawPointer
 
     public init(
-        length: UInt
+        length: Int
     ) {
         self.length = length
-        self.mutableBytes = malloc(Int(length))
+        self.mutableBytes = malloc(length)
 
         super.init()
     }
@@ -22,7 +22,7 @@ public final class ImageDrawingBuffer: NSObject {
     public func createDataProviderAndInvalidate() -> CGDataProvider? {
         isDataCreated = true
 
-        return CGDataProvider(data: NSData(bytesNoCopy: mutableBytes, length: Int(length)) { bytes, _ in
+        return CGDataProvider(data: NSData(bytesNoCopy: mutableBytes, length: length) { bytes, _ in
             free(bytes)
         })
     }
