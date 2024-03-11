@@ -61,8 +61,6 @@ final class SearchViewModel: EventViewModel {
         self.data = data
 
         super.init()
-
-        bind()
     }
 
     override func run(_ event: Event) async {
@@ -87,7 +85,7 @@ final class SearchViewModel: EventViewModel {
         }
     }
 
-    private func bind() {
+    override func bind() {
         searchQueryRelay
             .compactMap { $0 }
             .throttle(.seconds(1), latest: true, scheduler: MainScheduler.asyncInstance)

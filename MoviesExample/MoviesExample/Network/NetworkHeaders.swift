@@ -21,13 +21,13 @@ struct NetworkHeaders {
 
         var rawValue: String {
             switch self {
-            case .accept: "accept"
-            case .version: "version"
-            case .platform: "platform"
-            case .authorization: "Authorization"
-            case .contentType: "Content-Type"
-            case .contentDisposition: "Content-Disposition"
-            case .platformVersion: "platform-version"
+            case .accept: return "accept"
+            case .version: return "version"
+            case .platform: return "platform"
+            case .authorization: return "Authorization"
+            case .contentType: return "Content-Type"
+            case .contentDisposition: return "Content-Disposition"
+            case .platformVersion: return "platform-version"
             }
         }
     }
@@ -41,11 +41,11 @@ struct NetworkHeaders {
 
         var rawValue: String {
             switch self {
-            case .platform: "iOS"
-            case .applicationJson: "application/json"
-            case .multipartFormData: "multipart/form-data"
-            case let .bearer(token): "Bearer \(token)"
-            case let .generic(value): "\(value)"
+            case .platform: return "iOS"
+            case .applicationJson: return "application/json"
+            case .multipartFormData: return "multipart/form-data"
+            case let .bearer(token): return "Bearer \(token)"
+            case let .generic(value): return "\(value)"
             }
         }
     }

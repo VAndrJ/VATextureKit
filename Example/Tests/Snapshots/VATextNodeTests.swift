@@ -77,8 +77,8 @@ class VATextNodeTests: XCTestCase {
                     fontGetter: { contentSize, theme in
                         theme.font(.design(
                             .default,
-                            size: VATextNode.FontStyle.caption2.getFontSize(contentSize: contentSize),
-                            weight: VATextNode.FontStyle.caption2.weight
+                            size: VAFontStyle.caption2.getFontSize(contentSize: contentSize),
+                            weight: VAFontStyle.caption2.weight
                         ))
                     },
                     kern: .relative(10),

@@ -8,20 +8,20 @@
 
 import VATextureKit
 
-class VASlidingTabTextNode: VADisplayNode, VASlidingTab {
+class VASlidingTabTextNode: DisplayNode, VASlidingTab {
     let titleNode: VATextNode
     let topTitleNode: VATextNode
     let buttonNode = VAButtonNode()
 
     private let maskLayer = CAShapeLayer()
+    private let onSelect: () -> Void
 
     required init(data: String, onSelect: @escaping () -> Void) {
+        self.onSelect = onSelect
         self.titleNode = VATextNode(text: data)
         self.topTitleNode = VATextNode(text: data, colorGetter: { $0.systemBackground })
 
         super.init()
-
-        buttonNode.onTap = onSelect
     }
 
     override func didLoad() {
@@ -46,5 +46,9 @@ class VASlidingTabTextNode: VADisplayNode, VASlidingTab {
         }
         .padding(.vertical(8))
         .overlay(buttonNode)
+    }
+
+    override func bind() {
+        buttonNode.onTap = onSelect
     }
 }

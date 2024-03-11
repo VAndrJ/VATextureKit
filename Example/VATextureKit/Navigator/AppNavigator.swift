@@ -45,7 +45,7 @@ class AppScreenFactory: NavigatorScreenFactory {
     func assembleScreen(identity: NavigationIdentity, navigator: Navigator) -> UIViewController {
         switch identity {
         case let identity as ExampleNavigationControllerIdentity:
-            ExampleNavigationController(
+            return ExampleNavigationController(
                 rootViewController: assembleScreen(
                     identity: identity.root,
                     navigator: navigator
@@ -54,68 +54,68 @@ class AppScreenFactory: NavigatorScreenFactory {
                 }
             )
         case _ as AppearanceNavigationIdentity:
-            AppearanceViewController(viewModel: AppearanceViewModel(themeManager: themeManager))
+            return AppearanceViewController(viewModel: AppearanceViewModel(themeManager: themeManager))
         case _ as ContentSizeNavigationIdentity:
-            ContentSizeViewController(node: ContentSizeControllerNode())
+            return ContentSizeViewController(node: ContentSizeScreenNode())
         case _ as LinearGradientNavigationIdentity:
-            VAViewController(node: LinearGradientControllerNode())
+            return VAViewController(node: LinearGradientScreenNode())
         case _ as RadialGradientNavigationIdentity:
-            VAViewController(node: RadialGradientControllerNode())
+            return VAViewController(node: RadialGradientScreenNode())
         case _ as AlertNavigationIdentity:
-            AlertNodeController()
+            return AlertNodeController()
         case _ as CollectionListDifferentCellsNavigationIdentity:
-            CollectionListDifferentCellsNodeController(viewModel: CollectionListDifferentCellsViewModel())
+            return CollectionListDifferentCellsNodeController(viewModel: CollectionListDifferentCellsViewModel())
         case _ as CollectionListHeaderFooterNavigationIdentity:
-            VAViewController(node: CollectionListHeaderFooterControllerNode(viewModel: CollectionListHeaderFooterViewModel()))
+            return VAViewController(node: CollectionListHeaderFooterScreenNode(viewModel: CollectionListHeaderFooterViewModel()))
         case _ as TransitionAnimationNavigationIdentity:
-            VAViewController(node: TransitionAnimationControllerNode(isPresented: false))
+            return VAViewController(node: TransitionAnimationScreenNode(isPresented: false))
                 .withAnimatedTransitionEnabled()
         case _ as LayerAnimationNavigationIdentity:
-            VAViewController(node: LayerAnimationControllerNode())
+            return VAViewController(node: LayerAnimationScreenNode())
         case _ as CompositingFilterNavigationIdentity:
-            VAViewController(node: CompositingFilterControllerNode(viewModel: CompositingFilterViewModel()))
+            return VAViewController(node: CompositingFilterScreenNode(viewModel: CompositingFilterViewModel()))
         case _ as BlendModeNavigationIdentity:
-            VAViewController(node: CompositingFilterControllerNode(viewModel: BlendModeViewModel()))
+            return VAViewController(node: CompositingFilterScreenNode(viewModel: BlendModeViewModel()))
         case _ as RowLayoutNavigationIdentity:
-            VAViewController(node: RowLayoutControllerNode())
+            return VAViewController(node: RowLayoutScreenNode())
         case _ as ColumnLayoutNavigationIdentity:
-            VAViewController(node: ColumnLayoutControllerNode())
+            return VAViewController(node: ColumnLayoutScreenNode())
         case _ as StackLayoutNavigationIdentity:
-            VAViewController(node: StackLayoutControllerNode())
+            return VAViewController(node: StackLayoutScreenNode())
         case _ as TypingTextNavigationIdentity:
-            VAViewController(node: TypingTextControllerNode())
+            return VAViewController(node: TypingTextScreenNode())
         case _ as ReadMoreTextNavigationIdentity:
-            VAViewController(node: ReadMoreTextControllerNode())
+            return VAViewController(node: ReadMoreTextScreenNode())
         case _ as PagerControllerNavigationIdentity:
-            VAViewController(node: PagerControllerNode(viewModel: PagerControllerNodeViewModel()))
+            return VAViewController(node: PagerScreenNode(viewModel: PagerScreenNodeViewModel()))
         case _ as SlidingTabBarNavigationIdentity:
-            VAViewController(node: SlidingTabBarControllerNode())
+            return VAViewController(node: SlidingTabBarScreenNode())
         case _ as LinkTextNavigationIdentity:
-            VAViewController(node: LinkTextControllerNode())
+            return VAViewController(node: LinkTextScreenNode())
         case _ as CountingTextNodeNavigationIdentity:
-            VAViewController(node: CountingTextNodeController())
+            return VAViewController(node: CountingTextNodeController())
         case _ as DynamicHeightGridListNavigationIdentity:
-            VAViewController(node: DynamicHeightGridListControllerNode())
+            return VAViewController(node: DynamicHeightGridListScreenNode())
         case _ as ShimmersNavigationIdentity:
-            VAViewController(node: ShimmersControllerNode())
+            return VAViewController(node: ShimmersScreenNode())
         case _ as SpecBasedGridListNavigationIdentity:
-            VAViewController(node: SpecBasedGridListControllerNode())
+            return VAViewController(node: SpecBasedGridListScreenNode())
         case _ as GradientLayerAnimationNavigationIdentity:
-            VAViewController(node: GradientLayerAnimationControllerNode())
+            return VAViewController(node: GradientLayerAnimationScreenNode())
         case _ as ShapeLayerAnimationNavigationIdentity:
-            VAViewController(node: ShapeLayerAnimationControllerNode())
+            return VAViewController(node: ShapeLayerAnimationScreenNode())
         case _ as FilterNavigationIdentity:
-            VAViewController(node: FilterControllerNode())
+            return VAViewController(node: FilterScreenNode())
         case _ as KeyframeAnimationsNavigationIdentity:
-            VAViewController(node: KeyframeAnimationsControllerNode())
+            return VAViewController(node: KeyframeAnimationsScreenNode())
         case _ as ElementsScrollingAnimationListNavigationIdentity:
-            ElementsScrollingAnimationListViewController()
+            return ElementsScrollingAnimationListViewController()
         case _ as MainNavigationIdentity:
-            MainNodeController(viewModel: MainViewModel(navigator: navigator as? AppNavigator))
+            return MainNodeController(viewModel: MainViewModel(navigator: navigator as? AppNavigator))
         case _ as EmitterLayerAnimationNavigationIdentity:
-            VAViewController(node: EmitterLayerAnimationControllerNode())
+            return VAViewController(node: EmitterLayerAnimationScreenNode())
         case _ as SelfSizingListNavigationIdentity:
-            VAViewController(node: SelfSizingListContainerControllerNode())
+            return VAViewController(node: SelfSizingListContainerScreenNode())
         default:
             fatalError("Not implemented")
         }

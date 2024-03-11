@@ -32,6 +32,10 @@ class EventViewModel: ViewModel {
 
         super.init()
 
+        bindEvents()
+        #if DEBUG || targetEnvironment(simulator)
+        bindLogging()
+        #endif
         bind()
     }
 
@@ -46,12 +50,7 @@ class EventViewModel: ViewModel {
         eventRelay.accept(event)
     }
 
-    private func bind() {
-        bindEvents()
-        #if DEBUG || targetEnvironment(simulator)
-        bindLogging()
-        #endif
-    }
+    func bind() {}
 
     private func bindEvents() {
         eventRelay

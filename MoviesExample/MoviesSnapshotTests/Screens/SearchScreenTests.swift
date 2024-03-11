@@ -46,8 +46,8 @@ class SearchScreenTests: XCTestCase {
         assertNodeSnapshot(matching: sut, size: .iPhone8HalfHeight)
     }
 
-    private func generateSUT(movies: [ListMovieEntity]) -> SearchNode {
-        SearchNode(viewModel: SearchViewModel(data: .init(
+    private func generateSUT(movies: [ListMovieEntity]) -> SearchScreenNode {
+        SearchScreenNode(viewModel: SearchViewModel(data: .init(
             source: .init(
                 getTrendingMovies: { .just(movies) },
                 getSearchMovies: { _ in .just(movies) }

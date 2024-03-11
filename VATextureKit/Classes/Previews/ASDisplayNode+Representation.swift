@@ -7,7 +7,7 @@
 //
 
 import AsyncDisplayKit
-@_exported import VATextureKitSpec
+import VATextureKitSpec
 
 public extension ASDisplayNode {
 

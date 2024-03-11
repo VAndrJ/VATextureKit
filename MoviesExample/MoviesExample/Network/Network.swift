@@ -21,8 +21,6 @@ final class Network: Sendable {
     ) {
         self.networkLogger = networkLogger
         self.coreRequest = coreRequest
-
-        URLSession.rx.shouldLogRequest = { _ in false }
     }
 
     func request<T: Decodable>(data: NetworkEndpointData<T>?) -> Observable<T> {

@@ -8,17 +8,18 @@
 import VATextureKitRx
 
 final class SearchBarNode: VASizedViewWrapperNode<UISearchBar> {
-    var textObs: Observable<String?> { child.rx.text.asObservable() }
+    @MainActor var textObs: Observable<String?> { child.rx.text.asObservable() }
 
     private let bag = DisposeBag()
+    private var beginSearchObs: Observable<Void>?
 
     convenience init(beginSearchObs: Observable<Void>? = nil) {
         self.init(
-            childGetter: { MainActorEscaped { UISearchBar().apply { $0.searchBarStyle = .minimal } }.value },
+            actorChildGetter: { UISearchBar().apply { $0.searchBarStyle = .minimal } },
             sizing: .viewHeight
         )
 
-        bind(beginSearchObs: beginSearchObs)
+        self.beginSearchObs = beginSearchObs
     }
 
     @MainActor
@@ -41,15 +42,17 @@ final class SearchBarNode: VASizedViewWrapperNode<UISearchBar> {
     override func configureTheme(_ theme: VATheme) {
         child.tintColor = theme.secondary
     }
+    override func didLoad() {
+        super.didLoad()
 
+        bind(beginSearchObs: beginSearchObs)
+    }
+
+    @MainActor
     private func bind(beginSearchObs: Observable<Void>?) {
         beginSearchObs?
             .observe(on: MainScheduler.asyncInstance)
-            .subscribe(onNext: { [child] in
-                Task { @MainActor in
-                    child.becomeFirstResponder()
-                }
-            })
+            .subscribe(onNext: child ?> { $0.becomeFirstResponder() })
             .disposed(by: bag)
     }
 }

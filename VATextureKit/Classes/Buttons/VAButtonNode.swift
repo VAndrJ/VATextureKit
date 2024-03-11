@@ -10,6 +10,7 @@ import AsyncDisplayKit
 /// `VAButtonNode` is a subclass of `ASButtonNode` that provides additional functionality for handling button taps.
 open class VAButtonNode: ASButtonNode, VACornerable {
     /// A closure that gets executed when the button is tapped. Use either `onTap` closure or `func onTap` function, but not both.
+    @MainActor
     public var onTap: (() -> Void)?
     /// The corner rounding configuration for the node.
     public var corner: VACornerRoundingParameters {
@@ -46,6 +47,7 @@ open class VAButtonNode: ASButtonNode, VACornerable {
     /// - Parameters:
     ///   - object: The object to be weakly captured in the closure.
     ///   - block: The closure to be executed when the button is tapped.
+    @MainActor
     public func onTap<T: AnyObject>(weakify object: T, block: @escaping (T) -> Void) {
         onTap = { [weak object] in
             guard let object else { return }
@@ -59,6 +61,7 @@ open class VAButtonNode: ASButtonNode, VACornerable {
     /// - Parameters:
     ///   - objects: A tuple of objects to be weakly captured in the closure.
     ///   - block: The closure to be executed when the button is tapped.
+    @MainActor
     public func onTap<T: AnyObject, U: AnyObject>(weakify objects: (T, U), block: @escaping (T, U) -> Void) {
         onTap = { [weak object0 = objects.0, weak object1 = objects.1] in
             guard let object0, let object1 else { return }
@@ -66,7 +69,8 @@ open class VAButtonNode: ASButtonNode, VACornerable {
             block(object0, object1)
         }
     }
-    
+
+    @MainActor
     @objc private func touchUpInside() {
         onTap?()
     }
