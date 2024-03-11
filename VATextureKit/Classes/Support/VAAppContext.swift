@@ -16,7 +16,7 @@ public var appContext: VAAppContext {
 
             return VAAppContext(
                 themeManager: themeManager,
-                window: VAWindow(themeManager: themeManager)
+                window: VAWindow(legacyLightTheme: .vaLight)
             )
         } else {
             fatalError("Use VAWindow instead of UIWindow")

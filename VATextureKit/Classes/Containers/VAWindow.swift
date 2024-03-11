@@ -117,7 +117,11 @@ open class VAWindow: UIWindow {
     
     deinit {
         let id = self.id
-        Task { @MainActor in
+        if #available(iOS 13.0, *) {
+            Task { @MainActor in
+                appContexts.removeAll(where: { $0.id == id })
+            }
+        } else {
             appContexts.removeAll(where: { $0.id == id })
         }
     }

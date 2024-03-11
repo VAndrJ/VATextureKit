@@ -22,8 +22,7 @@ open class VAViewWrapperNode<T: UIView>: VADisplayNode {
     @MainActor
     public private(set) lazy var child: T = childGetter()
 
-    @MainActor
-    private let childGetter: () -> T
+    private let childGetter: @MainActor () -> T
     private let sizing: Sizing?
 
     /// Creates an instance.
