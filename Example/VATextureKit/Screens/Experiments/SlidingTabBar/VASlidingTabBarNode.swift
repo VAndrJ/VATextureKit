@@ -58,6 +58,7 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode {
         .background(indicatorContainerNode)
     }
 
+    @MainActor
     private func scroll(index: CGFloat) {
         let currentIndex = Int(index)
         guard let currentItem = items[node: currentIndex], let nextItem = items[node: currentIndex + 1] else {
@@ -85,6 +86,7 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode {
         nextItem.update(intersection: convertIntersection(indicator: indicatorFrame, node: nextItem))
     }
 
+    @MainActor
     private func convertIntersection(indicator frame: CGRect, node: ASDisplayNode) -> CGRect {
         let intersectionFrame = node.frame.intersection(frame)
         let convertedOrigin = view.convert(intersectionFrame.origin, to: node.view)

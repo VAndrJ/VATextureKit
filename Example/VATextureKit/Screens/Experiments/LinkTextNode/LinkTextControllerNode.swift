@@ -36,6 +36,10 @@ final class LinkTextControllerNode: VASafeAreaDisplayNode {
     }
 
     private func bind() {
-        linkTextNode.onLinkTap = { UIApplication.shared.open($0) }
+        linkTextNode.onLinkTap = { url in
+            Task { @MainActor in
+                UIApplication.shared.open(url)
+            }
+        }
     }
 }
