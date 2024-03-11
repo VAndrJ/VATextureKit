@@ -34,38 +34,6 @@ open class _VATextNode: ASTextNode {}
 #endif
 
 open class VATextNode: _VATextNode {
-    public struct FontStyle: Sendable {
-        public static let largeTitle = FontStyle(textStyle: .largeTitle, pointSize: 34, weight: .regular)
-        public static let title1 = FontStyle(textStyle: .title1, pointSize: 28, weight: .regular)
-        public static let title2 = FontStyle(textStyle: .title2, pointSize: 22, weight: .regular)
-        public static let title3 = FontStyle(textStyle: .title3, pointSize: 20, weight: .regular)
-        public static let headline = FontStyle(textStyle: .headline, pointSize: 17, weight: .semibold)
-        public static let body = FontStyle(textStyle: .body, pointSize: 17, weight: .regular)
-        public static let callout = FontStyle(textStyle: .callout, pointSize: 16, weight: .regular)
-        public static let subhead = FontStyle(textStyle: .subheadline, pointSize: 15, weight: .regular)
-        public static let footnote = FontStyle(textStyle: .footnote, pointSize: 13, weight: .regular)
-        public static let caption1 = FontStyle(textStyle: .caption1, pointSize: 12, weight: .regular)
-        public static let caption2 = FontStyle(textStyle: .caption2, pointSize: 11, weight: .regular)
-
-        public let textStyle: UIFont.TextStyle
-        public let pointSize: CGFloat
-        public let weight: UIFont.Weight
-
-        public init(textStyle: UIFont.TextStyle = .body, pointSize: CGFloat, weight: UIFont.Weight) {
-            self.textStyle = textStyle
-            self.pointSize = pointSize
-            self.weight = weight
-        }
-        
-        public func getFontSize(contentSize: UIContentSizeCategory) -> CGFloat {
-            UIFontMetrics(forTextStyle: textStyle)
-                .scaledValue(
-                    for: pointSize,
-                    compatibleWith: UITraitCollection(preferredContentSizeCategory: contentSize)
-                )
-        }
-    }
-
     public struct SecondaryAttributes {
         let strings: [String]
         let fontGetter: ((_ contentSize: UIContentSizeCategory, _ theme: VATheme) -> UIFont)?
@@ -99,7 +67,7 @@ open class VATextNode: _VATextNode {
     
     public convenience init(
         text: String? = nil,
-        fontStyle: FontStyle = .body,
+        fontStyle: VAFontStyle = .body,
         kern: VAKern? = nil,
         lineHeight: VALineHeight? = nil,
         alignment: NSTextAlignment = .natural,

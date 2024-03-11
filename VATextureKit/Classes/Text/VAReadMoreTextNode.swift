@@ -11,13 +11,13 @@ open class VAReadMoreTextNode: VATextNode {
     public struct ReadMore {
         let truncationText: String
         let text: String
-        let fontStyle: FontStyle
+        let fontStyle: VAFontStyle
         let colorGetter: (VATheme) -> UIColor
 
         public init(
             truncationText: String = "…",
             text: String,
-            fontStyle: VATextNode.FontStyle,
+            fontStyle: VAFontStyle,
             colorGetter: @escaping (VATheme) -> UIColor
         ) {
             self.truncationText = truncationText
@@ -76,7 +76,7 @@ open class VAReadMoreTextNode: VATextNode {
 
     public convenience init(
         text: String? = nil,
-        fontStyle: FontStyle = .body,
+        fontStyle: VAFontStyle = .body,
         alignment: NSTextAlignment = .natural,
         truncationMode: NSLineBreakMode = .byWordWrapping,
         maximumNumberOfLines: UInt,

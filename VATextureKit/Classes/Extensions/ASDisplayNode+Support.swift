@@ -5,7 +5,7 @@
 //  Created by Volodymyr Andriienko on 18.02.2023.
 //
 
-@_exported import AsyncDisplayKit
+import AsyncDisplayKit
 
 // MARK: - Filters
 

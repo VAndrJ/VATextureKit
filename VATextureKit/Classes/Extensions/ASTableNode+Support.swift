@@ -5,7 +5,7 @@
 //  Created by Volodymyr Andriienko on 23.07.2023.
 //
 
-@preconcurrency @_exported import AsyncDisplayKit
+import AsyncDisplayKit
 
 public extension ASTableNode {
 
