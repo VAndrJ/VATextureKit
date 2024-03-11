@@ -8,7 +8,6 @@
 import UIKit
 
 open class VAWindow: UIWindow {
-    var id: UUID?
 
     @available(iOS 12.0, *)
     public init(
@@ -116,13 +115,6 @@ open class VAWindow: UIWindow {
     }
     
     deinit {
-        let id = self.id
-        if #available(iOS 13.0, *) {
-            Task { @MainActor in
-                appContexts.removeAll(where: { $0.id == id })
-            }
-        } else {
-            appContexts.removeAll(where: { $0.id == id })
-        }
+        appContexts.removeAll(where: { $0.window === self })
     }
 }

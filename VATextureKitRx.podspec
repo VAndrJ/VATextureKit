@@ -22,8 +22,8 @@ Includes RxSwift additions.
   s.dependency 'RxSwift',           '~> 6.5.0'
   s.dependency 'RxCocoa',           '~> 6.5.0'
   s.dependency 'Differentiator',    '~> 5.0.0'
-  s.dependency 'VATextureKitSpec',  '1.5.0'
-  s.dependency 'VATextureKit',      '1.5.0'
+  s.dependency 'VATextureKitSpec',  '1.4.0'
+  s.dependency 'VATextureKit',      '1.4.0'
 
   s.swift_versions = '5.8'
 end

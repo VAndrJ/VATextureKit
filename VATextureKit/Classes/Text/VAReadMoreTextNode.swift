@@ -33,13 +33,17 @@ open class VAReadMoreTextNode: VATextNode {
         guard let self else {
             return nil
         }
+
+        let getSize: () -> CGFloat = { @MainActor in
+            readMore.fontStyle.getFontSize(contentSize: appContext.contentSizeManager.contentSize)
+        }
         
         return NSAttributedString(
             string: readMore.text,
             attributes: [
                 .font: theme.font(.design(
                     .default,
-                    size: readMore.fontStyle.getFontSize(contentSize: appContext.contentSizeManager.contentSize),
+                    size: getSize(),
                     weight: readMore.fontStyle.weight
                 )),
                 .foregroundColor: readMore.colorGetter(self.theme)

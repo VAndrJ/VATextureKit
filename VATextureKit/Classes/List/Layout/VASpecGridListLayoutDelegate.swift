@@ -33,13 +33,13 @@ public class VASpecGridListLayoutDelegate: NSObject, ASCollectionLayoutDelegate 
         let indexMap = getIndexMap(indexPaths: indexPaths)
         let orderedIndexMap = indexMap.lazy.sorted(by: { $0.key < $1.key })
         let itemLayoutSpecs: [ASLayoutElement] = orderedIndexMap.map { section, items in
-            let getHeader: () -> ASCellNode? = {
+            let getHeader: () -> ASCellNode? = { @MainActor in
                 elements.supplementaryElement(
                     ofKind: UICollectionView.elementKindSectionHeader,
                     at: IndexPath(item: 0, section: section)
                 )?.node
             }
-            let getFooter: () -> ASCellNode? = {
+            let getFooter: () -> ASCellNode? = { @MainActor in
                 elements.supplementaryElement(
                     ofKind: UICollectionView.elementKindSectionFooter,
                     at: IndexPath(item: 0, section: section)
