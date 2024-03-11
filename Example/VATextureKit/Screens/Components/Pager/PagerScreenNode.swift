@@ -11,13 +11,11 @@ import VATextureKitRx
 struct PagerControllerNavigationIdentity: DefaultNavigationIdentity {}
 
 final class PagerScreenNode: ScreenNode {
-    private lazy var pagerNode = MainActorEscaped { [self] in
-        VAPagerNode(data: .init(
-            itemsObs: viewModel.pagerItemsObs,
-            cellGetter: mapToCell(viewModel:),
-            isCircular: true
-        ))
-    }.value
+    private lazy var pagerNode = VAPagerNode(data: .init(
+        itemsObs: viewModel.pagerItemsObs,
+        cellGetter: mapToCell(viewModel:),
+        isCircular: true
+    ))
     private lazy var previousButtonNode = HapticButtonNode(title: "Previous")
         .minConstrained(size: CGSize(same: 44))
     private lazy var nextButtonNode = HapticButtonNode(title: "Next")

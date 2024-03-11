@@ -11,27 +11,25 @@ import VATextureKitRx
 struct SpecBasedGridListNavigationIdentity: DefaultNavigationIdentity {}
 
 final class SpecBasedGridListScreenNode: ScreenNode {
-    private lazy var listNode = MainActorEscaped { [self] in
-        VAListNode(
-            data: .init(
-                listDataObs: listDataObs,
-                cellGetter: TagCellNode.init(viewModel:)
-            ),
-            layoutData: .init(
-                contentInset: UIEdgeInsets(all: 16),
-                layout: .delegate(VASpecGridListLayoutDelegate(info: .init(
-                    scrollableDirection: .vertical,
-                    itemsConfiguration: .init(
-                        spacing: 8,
-                        main: .center,
-                        alignContent: .center,
-                        line: 8
-                    ),
-                    sectionsConfiguration: .init(cross: .stretch)
-                )))
-            )
+    private lazy var listNode = VAListNode(
+        data: .init(
+            listDataObs: listDataObs,
+            cellGetter: TagCellNode.init(viewModel:)
+        ),
+        layoutData: .init(
+            contentInset: UIEdgeInsets(all: 16),
+            layout: .delegate(VASpecGridListLayoutDelegate(info: .init(
+                scrollableDirection: .vertical,
+                itemsConfiguration: .init(
+                    spacing: 8,
+                    main: .center,
+                    alignContent: .center,
+                    line: 8
+                ),
+                sectionsConfiguration: .init(cross: .stretch)
+            )))
         )
-    }.value
+    )
 
     @Obs.Relay(value: [])
     private var listDataObs: Observable<[TagCellNodeViewModel]>

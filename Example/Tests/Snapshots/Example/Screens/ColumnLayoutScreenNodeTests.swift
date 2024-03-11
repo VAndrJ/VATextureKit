@@ -11,6 +11,7 @@ import XCTest
 import SnapshotTesting
 import VATextureKit
 
+@MainActor
 class ColumnLayoutScreenNodeTests: XCTestCase {
 
     func test_node() {

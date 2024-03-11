@@ -11,6 +11,7 @@ import XCTest
 import SnapshotTesting
 import VATextureKit
 
+@MainActor
 class RadialGradientScreenNodeTests: XCTestCase {
 
     func test_node() {

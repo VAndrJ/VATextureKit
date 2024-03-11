@@ -26,14 +26,12 @@ final class CompositingFilterScreenNode: ScreenNode {
         image: R.image.colibri(),
         contentMode: .scaleAspectFill
     )
-    private(set) lazy var listNode = MainActorEscaped { [self] in
-        VATableListNode(data: .init(
-            configuration: .init(shouldDeselect: (false, true)),
-            listDataObs: viewModel.filtersObs,
-            onSelect: viewModel.didSelect(indexPath:),
-            cellGetter: CompositingCellNode.init(viewModel:)
-        ))
-    }.value
+    private(set) lazy var listNode = VATableListNode(data: .init(
+        configuration: .init(shouldDeselect: (false, true)),
+        listDataObs: viewModel.filtersObs,
+        onSelect: viewModel.didSelect(indexPath:),
+        cellGetter: CompositingCellNode.init(viewModel:)
+    ))
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         (constrainedSize.max.width > constrainedSize.max.height).fold {
