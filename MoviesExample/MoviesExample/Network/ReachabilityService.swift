@@ -10,12 +10,12 @@ import VATextureKitRx
 // MARK: - Copied from Alamofire
 
 // swiftlint:disable file_length
-public enum ReachabilityStatus {
+public enum ReachabilityStatus: Sendable {
     case notReachable
     case reachable
 }
 
-public final class ReachabilityService {
+public final class ReachabilityService: @unchecked Sendable {
     public static let shared = ReachabilityService()
     /// key to send notification by changing the status of the network
     public static let reachabilityStatusChanged = NSNotification.Name(rawValue: "NSNotificationKeyReachabilityStatusChanged")
@@ -112,9 +112,9 @@ import SystemConfiguration
 /// Reachability can be used to determine background information about why a network operation failed, or to retry
 /// network requests when a connection is established. It should not be used to prevent a user from initiating a network
 /// request, as it's possible that an initial request may be required to establish reachability.
-open class NetworkReachabilityManager {
+open class NetworkReachabilityManager: @unchecked Sendable {
     /// Defines the various states of network reachability.
-    public enum NetworkReachabilityStatus {
+    public enum NetworkReachabilityStatus: Sendable {
         /// It is unknown whether the network is reachable.
         case unknown
         /// The network is not reachable.
@@ -133,7 +133,7 @@ open class NetworkReachabilityManager {
         }
 
         /// Defines the various connection types detected by reachability flags.
-        public enum ConnectionType {
+        public enum ConnectionType: Sendable {
             /// The connection type is either over Ethernet or WiFi.
             case ethernetOrWiFi
             /// The connection type is a cellular connection.
@@ -143,7 +143,7 @@ open class NetworkReachabilityManager {
 
     /// A closure executed when the network reachability status changes. The closure takes a single argument: the
     /// network reachability status.
-    public typealias Listener = (NetworkReachabilityStatus) -> Void
+    public typealias Listener = @Sendable (NetworkReachabilityStatus) -> Void
 
     /// Default `NetworkReachabilityManager` for the zero address and a `listenerQueue` of `.main`.
     public static let `default` = NetworkReachabilityManager()

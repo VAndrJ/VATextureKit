@@ -1,5 +1,5 @@
 //
-//  ActorDetailsNode.swift
+//  ActorDetailsScreenNode.swift
 //  MoviesExample
 //
 //  Created by VAndrJ on 01.12.2023.
@@ -7,7 +7,7 @@
 
 import VATextureKit
 
-class ActorDetailsNode: DisplayNode<ActorDetailsViewModel> {
+class ActorDetailsScreenNode: ScreenNode<ActorDetailsViewModel> {
     let titleTextNode = VATextNode(
         text: R.string.localizable.wip(),
         fontStyle: .largeTitle

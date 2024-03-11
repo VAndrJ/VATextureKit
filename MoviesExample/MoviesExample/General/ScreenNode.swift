@@ -8,7 +8,8 @@
 import VATextureKitRx
 import RxKeyboard
 
-class DisplayNode<ViewModel: EventViewModel>: VASafeAreaDisplayNode, ControllerNode, Responder {
+@MainActor
+class ScreenNode<ViewModel: EventViewModel>: VASafeAreaDisplayNode, ControllerNode, Responder {
     let bag = DisposeBag()
     let viewModel: ViewModel
 
@@ -16,6 +17,13 @@ class DisplayNode<ViewModel: EventViewModel>: VASafeAreaDisplayNode, ControllerN
         self.viewModel = viewModel
 
         super.init()
+    }
+
+    override func didLoad() {
+        super.didLoad()
+
+        configure()
+        bind()
     }
 
     func viewDidLoad(in controller: UIViewController) {
@@ -30,7 +38,6 @@ class DisplayNode<ViewModel: EventViewModel>: VASafeAreaDisplayNode, ControllerN
 
     func viewDidDisappear(in controller: UIViewController, animated: Bool) {}
 
-    @MainActor
     func bindKeyboardInset(scrollView: UIScrollView, tabBarController: UITabBarController? = nil) {
         let initialBottomInset = scrollView.contentInset.bottom
         let initialIndicatorBottomInset = scrollView.verticalScrollIndicatorInsets.bottom
@@ -64,6 +71,10 @@ class DisplayNode<ViewModel: EventViewModel>: VASafeAreaDisplayNode, ControllerN
             })
             .disposed(by: bag)
     }
+
+    func bind() {}
+
+    func configure() {}
 
     // MARK: - Responder
 

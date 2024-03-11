@@ -22,7 +22,7 @@ final class ScreenFactory: @unchecked Sendable, NavigatorScreenFactory {
     func assembleScreen(identity: NavigationIdentity, navigator: Navigator) -> UIViewController {
         switch identity {
         case let identity as MainTabsNavigationIdentity:
-            MainTabBarController(controllers: identity.tabsIdentity
+            return MainTabBarController(controllers: identity.tabsIdentity
                 .map { identity in
                     NavigationController(controller: assembleScreen(identity: identity, navigator: navigator).apply {
                         $0.navigationIdentity = identity
@@ -32,8 +32,8 @@ final class ScreenFactory: @unchecked Sendable, NavigatorScreenFactory {
                 }
             )
         case _ as SearchNavigationIdentity:
-            ViewController(
-                node: SearchNode(viewModel: .init(data: .init(
+            return ViewController(
+                node: SearchScreenNode(viewModel: .init(data: .init(
                     source: .init(
                         getTrendingMovies: remoteDataSource.getTrendingMovies,
                         getSearchMovies: remoteDataSource.getSearchMovies
@@ -55,8 +55,8 @@ final class ScreenFactory: @unchecked Sendable, NavigatorScreenFactory {
                 title: R.string.localizable.search_screen_title()
             )
         case let identity as MovieDetailsNavigationIdentity:
-            ViewController(
-                node: MovieDetailsNode(viewModel: MovieDetailsViewModel(data: .init(
+            return ViewController(
+                node: MovieDetailsScreenNode(viewModel: MovieDetailsViewModel(data: .init(
                     related: .init(
                         listMovieEntity: identity.movie
                     ),
@@ -90,9 +90,9 @@ final class ScreenFactory: @unchecked Sendable, NavigatorScreenFactory {
                 title: identity.movie.title
             ).withAnimatedTransitionEnabled()
         case let identity as ActorDetailsNavigationIdentity:
-            ViewController(node: ActorDetailsNode(viewModel: .init(actor: identity.actor)))
+            return ViewController(node: ActorDetailsScreenNode(viewModel: .init(actor: identity.actor)))
         case _ as HomeNavigationIdentity:
-            ViewController(node: HomeNode(viewModel: .init(data: .init(
+            return ViewController(node: HomeScreenNode(viewModel: .init(data: .init(
                 source: .init(),
                 navigation: .init()
             ))))

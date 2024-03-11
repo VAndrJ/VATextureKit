@@ -22,8 +22,8 @@ class MovieDetailsScreenTests: XCTestCase {
         assertNodeSnapshot(matching: sut, size: .iPhone8)
     }
 
-    private func generateSUT(isEmpty: Bool) -> MovieDetailsNode {
-        MovieDetailsNode(viewModel: MovieDetailsViewModel(data: .init(
+    private func generateSUT(isEmpty: Bool) -> MovieDetailsScreenNode {
+        MovieDetailsScreenNode(viewModel: MovieDetailsViewModel(data: .init(
             related: .init(listMovieEntity: .dummy()),
             source: .init(
                 getMovie: { _ in isEmpty ? .never() : .just(.dummy()) },

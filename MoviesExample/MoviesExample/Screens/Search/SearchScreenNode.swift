@@ -1,5 +1,5 @@
 //
-//  SearchNode.swift
+//  SearchScreenNode.swift
 //  MoviesExample
 //
 //  Created by VAndrJ on 12.04.2023.
@@ -7,24 +7,22 @@
 
 import VATextureKitRx
 
-final class SearchNode: DisplayNode<SearchViewModel> {
+final class SearchScreenNode: ScreenNode<SearchViewModel> {
     private lazy var searchNode = SearchBarNode(beginSearchObs: viewModel.beginSearchObs)
-    private lazy var listNode = MainActorEscaped { [viewModel] in
-        VAListNode(
-            data: .init(
-                listDataObs: viewModel.listDataObs,
-                onSelect: { [viewModel] in viewModel.perform(DidSelectEvent(indexPath: $0)) },
-                cellGetter: mapToCell(viewModel:),
-                headerGetter: { SearchSectionHeaderNode(viewModel: $0.model) }
-            ),
-            layoutData: .init(
-                keyboardDismissMode: .interactive,
-                shouldScrollToTopOnDataChange: true,
-                sizing: .entireWidthFreeHeight(),
-                layout: .default(parameters: .init(sectionHeadersPinToVisibleBounds: true))
-            )
-        ).flex(grow: 1)
-    }.value
+    private lazy var listNode = VAListNode(
+        data: .init(
+            listDataObs: viewModel.listDataObs,
+            onSelect: viewModel ?> { $0.perform(DidSelectEvent(indexPath: $1)) },
+            cellGetter: mapToCell(viewModel:),
+            headerGetter: { SearchSectionHeaderNode(viewModel: $0.model) }
+        ),
+        layoutData: .init(
+            keyboardDismissMode: .interactive,
+            shouldScrollToTopOnDataChange: true,
+            sizing: .entireWidthFreeHeight(),
+            layout: .default(parameters: .init(sectionHeadersPinToVisibleBounds: true))
+        )
+    ).flex(grow: 1)
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
@@ -40,15 +38,8 @@ final class SearchNode: DisplayNode<SearchViewModel> {
         backgroundColor = theme.systemBackground
     }
 
-    @MainActor
     override func animateLayoutTransition(_ context: ASContextTransitioning) {
         animateLayoutTransition(context: context)
-    }
-
-    override func didLoad() {
-        super.didLoad()
-
-        bind()
     }
 
     override func viewDidLoad(in controller: UIViewController) {
@@ -57,7 +48,7 @@ final class SearchNode: DisplayNode<SearchViewModel> {
         bindKeyboardInset(scrollView: listNode.view, tabBarController: controller.tabBarController)
     }
 
-    private func bind() {
+    override func bind() {
         Observable
             .merge(
                 rx.methodInvoked(#selector(didEnterVisibleState))
