@@ -51,11 +51,7 @@ open class VATextNode: VABaseTextNode {
     }
     
     public var text: String? {
-        didSet {
-            Task { @MainActor in
-                configureTheme(theme)
-            }
-        }
+        didSet { configureTheme(theme) }
     }
     /// The currently active theme obtained from the app's context.
     public let stringGetter: (String?, VATheme) -> NSAttributedString?
@@ -193,9 +189,7 @@ open class VATextNode: VABaseTextNode {
 
         if let text {
             self.text = text
-            Task { @MainActor in
-                configureTheme(theme)
-            }
+            configureTheme(theme)
         }
     }
     

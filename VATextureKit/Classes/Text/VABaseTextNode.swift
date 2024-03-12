@@ -47,10 +47,8 @@ open class VABaseTextNode: _VATextNode {
         }
     }
 
-    @MainActor
     open func configureTheme(_ theme: VATheme) {}
 
-    @MainActor
     open func themeDidChanged() {
         if isInDisplayState {
             configureTheme(theme)
@@ -59,7 +57,6 @@ open class VABaseTextNode: _VATextNode {
         }
     }
 
-    @MainActor
     @objc private func themeDidChanged(_ notification: Notification) {
         themeDidChanged()
     }
