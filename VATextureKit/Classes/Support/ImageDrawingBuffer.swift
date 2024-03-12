@@ -8,7 +8,7 @@
 public final class ImageDrawingBuffer: NSObject {
     private var isDataCreated = false
     private var length: Int
-    private(set) var mutableBytes: UnsafeMutableRawPointer
+    public private(set) var mutableBytes: UnsafeMutableRawPointer
 
     public init(
         length: Int
