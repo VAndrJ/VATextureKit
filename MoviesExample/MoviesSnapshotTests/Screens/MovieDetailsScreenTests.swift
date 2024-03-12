@@ -8,6 +8,7 @@
 import XCTest
 @testable import MoviesExample
 
+@MainActor
 class MovieDetailsScreenTests: XCTestCase {
 
     func test_node_initial() {
@@ -31,8 +32,8 @@ class MovieDetailsScreenTests: XCTestCase {
                 getMovieActors: { _ in isEmpty ? .never() : .just([.dummy()]) }
             ),
             navigation: .init(
-                followMovie: { _ in nil },
-                followActor: { _ in nil }
+                followMovie: { _ in },
+                followActor: { _ in }
             )
         )))
     }

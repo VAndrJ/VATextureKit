@@ -87,6 +87,8 @@
 		A3884CC32A7C134600DFB4A4 /* CGPointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3884CC22A7C134600DFB4A4 /* CGPointTests.swift */; };
 		A3884CC82A7C303300DFB4A4 /* VARainEmitterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3884CC62A7C2F0800DFB4A4 /* VARainEmitterNode.swift */; };
 		A3884CCB2A7CC6DD00DFB4A4 /* VASnowEmitterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3884CC92A7CC6B900DFB4A4 /* VASnowEmitterNode.swift */; };
+		A388637B2BA08B3800FC05FD /* VASizedViewWrapperNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A388637A2BA08B3800FC05FD /* VASizedViewWrapperNodeTests.swift */; };
+		A38863812BA0B0E400FC05FD /* VAViewHostingNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38863802BA0B0E400FC05FD /* VAViewHostingNodeTests.swift */; };
 		A38D5E932A6BBEF200A67BC7 /* CountingTextNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E922A6BBEF200A67BC7 /* CountingTextNodeController.swift */; };
 		A38D5E982A6C14F200A67BC7 /* DynamicHeightGridListScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E972A6C14F200A67BC7 /* DynamicHeightGridListScreenNode.swift */; };
 		A38D5E9C2A6D251E00A67BC7 /* ShimmersScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E9B2A6D251E00A67BC7 /* ShimmersScreenNode.swift */; };
@@ -249,6 +251,8 @@
 		A3884CC22A7C134600DFB4A4 /* CGPointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPointTests.swift; sourceTree = "<group>"; };
 		A3884CC62A7C2F0800DFB4A4 /* VARainEmitterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VARainEmitterNode.swift; sourceTree = "<group>"; };
 		A3884CC92A7CC6B900DFB4A4 /* VASnowEmitterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASnowEmitterNode.swift; sourceTree = "<group>"; };
+		A388637A2BA08B3800FC05FD /* VASizedViewWrapperNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASizedViewWrapperNodeTests.swift; sourceTree = "<group>"; };
+		A38863802BA0B0E400FC05FD /* VAViewHostingNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAViewHostingNodeTests.swift; sourceTree = "<group>"; };
 		A38D5E922A6BBEF200A67BC7 /* CountingTextNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountingTextNodeController.swift; sourceTree = "<group>"; };
 		A38D5E972A6C14F200A67BC7 /* DynamicHeightGridListScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicHeightGridListScreenNode.swift; sourceTree = "<group>"; };
 		A38D5E9B2A6D251E00A67BC7 /* ShimmersScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmersScreenNode.swift; sourceTree = "<group>"; };
@@ -464,8 +468,10 @@
 				A3551A5429DD57F000B0B18F /* VALinearGradientNodeTests.swift */,
 				A3820D1429E53BD600993406 /* VARadialGradientNodeTests.swift */,
 				A34F8E7029F3F1B300EF4C42 /* VAReadMoreTextNodeTests.swift */,
+				A388637A2BA08B3800FC05FD /* VASizedViewWrapperNodeTests.swift */,
 				A3657F442A90E75F00B0E70B /* VASpacerNodeTests.swift */,
 				A364DA882A1F4973001355AE /* VATextNodeTests.swift */,
+				A38863802BA0B0E400FC05FD /* VAViewHostingNodeTests.swift */,
 				A3D2FABF29D896B300AA01CA /* Example */,
 				A3A0BEE729EDC3FE00253AAD /* Layouts */,
 			);
@@ -1112,6 +1118,7 @@
 				A359CB872A7F7E22002C60CA /* StackLayoutScreenNodeTests.swift in Sources */,
 				A316144F2A9738D000ED8561 /* VAViewWrapperNodeTests.swift in Sources */,
 				A3AAE1872A78E19700F6C7C1 /* ASSizeRangeTests.swift in Sources */,
+				A38863812BA0B0E400FC05FD /* VAViewHostingNodeTests.swift in Sources */,
 				A35219C82A8941AA00DD17A9 /* CollectionExampleCellNodeTests.swift in Sources */,
 				A3CC539C2A79326E00BC4B3A /* CGSizeTests.swift in Sources */,
 				A359CB832A7F7CF3002C60CA /* ColumnLayoutScreenNodeTests.swift in Sources */,
@@ -1122,6 +1129,7 @@
 				A3CC53982A792FD700BC4B3A /* ASCollectionNodeTests.swift in Sources */,
 				A39301E82A7FFB85007F8001 /* LinearGradientScreenNodeTests.swift in Sources */,
 				A31614512A979ABD00ED8561 /* VAImageNodeSnapshotTests.swift in Sources */,
+				A388637B2BA08B3800FC05FD /* VASizedViewWrapperNodeTests.swift in Sources */,
 				A364DA892A1F4973001355AE /* VATextNodeTests.swift in Sources */,
 				A3CC537C2A79078B00BC4B3A /* ASLayoutElementTests.swift in Sources */,
 				A384F0B629EDCB5A006BF197 /* StackTests.swift in Sources */,

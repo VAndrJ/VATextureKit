@@ -8,6 +8,7 @@
 import XCTest
 @testable import MoviesExample
 
+@MainActor
 class RatingNodeTests: XCTestCase {
 
     func test_node() {

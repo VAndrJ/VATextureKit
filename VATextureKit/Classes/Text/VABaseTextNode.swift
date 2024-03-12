@@ -1,49 +1,40 @@
 //
-//  VADisplayNode.swift
+//  VABaseTextNode.swift
 //  VATextureKit
 //
-//  Created by Volodymyr Andriienko on 18.02.2023.
+//  Created by Volodymyr Andriienko on 12.03.2024.
 //
 
 import AsyncDisplayKit
 
-open class VADisplayNode: ASDisplayNode, VACornerable {
+#if AS_ENABLE_TEXTNODE2
+open class _VATextNode: ASTextNode2 {}
+#else
+open class _VATextNode: ASTextNode {}
+#endif
+
+open class VABaseTextNode: _VATextNode {
     /// The currently active theme obtained from the app's context.
     public var theme: VATheme { appContext.themeManager.theme }
-    /// The corner rounding configuration for the node.
-    public var corner: VACornerRoundingParameters {
-        didSet {
-            guard oldValue != corner else { return }
-
-            updateCornerParameters()
-        }
-    }
 
     var shouldConfigureTheme = true
-
-    public init(corner: VACornerRoundingParameters = .default) {
-        self.corner = corner
-
-        super.init()
-
-        automaticallyManagesSubnodes = true
-        configureLayoutElements()
-    }
 
     @MainActor
     open override func didLoad() {
         super.didLoad()
 
-        updateCornerParameters()
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(themeDidChanged(_:)),
             name: VAThemeManager.themeDidChangedNotification,
             object: appContext.themeManager
         )
-        #if DEBUG || targetEnvironment(simulator)
-        addDebugLabel()
-        #endif
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(themeDidChanged(_:)),
+            name: VAContentSizeManager.contentSizeDidChangedNotification,
+            object: appContext.contentSizeManager
+        )
     }
 
     @MainActor
@@ -56,21 +47,8 @@ open class VADisplayNode: ASDisplayNode, VACornerable {
         }
     }
 
-    @MainActor
-    open override func layout() {
-        super.layout()
-
-        updateCornerProportionalIfNeeded()
-    }
-
-    /// Method for layout parameters that need to be defined only once
-    /// and are used throughout the layout calculations within the `layoutSpecThatFits`.
-    open func configureLayoutElements() {}
-
-    @MainActor
     open func configureTheme(_ theme: VATheme) {}
 
-    @MainActor
     open func themeDidChanged() {
         if isInDisplayState {
             configureTheme(theme)
@@ -79,7 +57,6 @@ open class VADisplayNode: ASDisplayNode, VACornerable {
         }
     }
 
-    @MainActor
     @objc private func themeDidChanged(_ notification: Notification) {
         themeDidChanged()
     }

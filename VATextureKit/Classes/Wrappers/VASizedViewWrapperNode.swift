@@ -8,20 +8,23 @@
 import UIKit
 import AsyncDisplayKit
 
-/// A custom `ASDisplayNode` subclass for wrapping autolayout `UIView` with various sizing options.
-open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
-    public enum Sizing {
-        case viewHeight
-        case viewWidth
-        case viewSize
-    }
+public enum WrapperNodeSizing {
+    // Adjust node height based on child autosizing, width remains node-based
+    case viewHeight
+    // Adjust node width based on child autosizing, height remains node-based
+    case viewWidth
+    // Adjust both node height and width based on child autosizing
+    case viewSize
+}
 
+/// A custom `ASDisplayNode` subclass for wrapping autolayout and self-sizing `UIView`s with various sizing options.
+open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
     /// The wrapped UIView instance.
     @MainActor
     public private(set) lazy var child: T = childGetter()
 
     private let childGetter: @MainActor () -> T
-    private let sizing: Sizing
+    private let sizing: WrapperNodeSizing
 
     /// Creates an instance.
     ///
@@ -29,7 +32,7 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
     ///   - actorChildGetter: A closure returning the UIView instance to be wrapped.
     ///   - sizing: The sizing option to apply to the wrapped view.
     @available (iOS 13.0, *)
-    public init(actorChildGetter: @MainActor @escaping () -> T, sizing: Sizing) {
+    public init(actorChildGetter: @MainActor @escaping () -> T, sizing: WrapperNodeSizing) {
         self.sizing = sizing
         self.childGetter = actorChildGetter
 
@@ -41,7 +44,7 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
     /// - Parameters:
     ///   - childGetter: A closure returning the UIView instance to be wrapped.
     ///   - sizing: The sizing option to apply to the wrapped view.
-    public init(childGetter: @escaping () -> T, sizing: Sizing) {
+    public init(childGetter: @escaping () -> T, sizing: WrapperNodeSizing) {
         self.sizing = sizing
         self.childGetter = childGetter
 
@@ -59,41 +62,40 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
     open override func layout() {
         super.layout()
 
-        child.sizeToFit()
         switch sizing {
         case .viewHeight:
-            if child.frame.height.rounded(.up) != bounds.height.rounded(.up) || child.frame.height.isZero {
-                child.frame.size = CGSize(width: bounds.width, height: UIView.layoutFittingExpandedSize.height)
-                child.setNeedsLayout()
-                child.layoutIfNeeded()
-                let size = child.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-                let height = size.height.rounded(.up)
-                child.frame = CGRect(x: 0, y: 0, width: bounds.width, height: height)
+            let size = child.systemLayoutSizeFitting(.init(
+                width: bounds.width,
+                height: UIView.layoutFittingExpandedSize.height
+            ))
+            if !size.height.isPixelEqual(to: bounds.height) {
+                let height = size.height.pixelRounded(.up)
+                child.frame = CGRect(width: bounds.width, height: height)
                 style.height = .points(height)
                 setNeedsLayout()
             } else {
                 child.frame = bounds
             }
         case .viewWidth:
-            if child.frame.width.rounded(.up) != bounds.width.rounded(.up) || child.frame.width.isZero {
-                child.frame.size = CGSize(width: UIView.layoutFittingExpandedSize.width, height: bounds.height)
-                child.setNeedsLayout()
-                child.layoutIfNeeded()
-                let size = child.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-                let width = size.width.rounded(.up)
-                child.frame = CGRect(x: 0, y: 0, width: width, height: bounds.height)
+            let size = child.systemLayoutSizeFitting(.init(
+                width: UIView.layoutFittingExpandedSize.width,
+                height: bounds.height
+            ))
+            if !size.width.isPixelEqual(to: bounds.width) {
+                let width = size.width.pixelRounded(.up)
+                child.frame = CGRect(width: width, height: bounds.height)
                 style.width = .points(width)
                 setNeedsLayout()
             } else {
                 child.frame = bounds
             }
         case .viewSize:
-            if child.frame.width.rounded(.up) != bounds.width.rounded(.up) || child.frame.width.isZero || child.frame.height.rounded(.up) != bounds.height.rounded(.up) || child.frame.height.isZero {
-                child.frame.size = CGSize(width: UIView.layoutFittingExpandedSize.width, height: UIView.layoutFittingExpandedSize.width)
-                child.setNeedsLayout()
-                child.layoutIfNeeded()
-                let size = child.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-                child.frame = CGRect(origin: .zero, size: size)
+            let size = child.systemLayoutSizeFitting(UIView.layoutFittingExpandedSize)
+            if !size.height.isPixelEqual(to: bounds.height) || !size.width.isPixelEqual(to: bounds.width) {
+                child.frame = CGRect(
+                    width: size.width.pixelRounded(.up),
+                    height: size.height.pixelRounded(.up)
+                )
                 style.preferredSize = size
                 setNeedsLayout()
             } else {

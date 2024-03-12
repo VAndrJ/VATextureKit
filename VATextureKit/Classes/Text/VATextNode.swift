@@ -27,13 +27,7 @@ public enum VALineHeight {
     case custom(_ heightGetter: (_ pointSize: CGFloat) -> CGFloat)
 }
 
-#if AS_ENABLE_TEXTNODE2
-open class _VATextNode: ASTextNode2 {}
-#else
-open class _VATextNode: ASTextNode {}
-#endif
-
-open class VATextNode: _VATextNode {
+open class VATextNode: VABaseTextNode {
     public struct SecondaryAttributes {
         let strings: [String]
         let fontGetter: ((_ contentSize: UIContentSizeCategory, _ theme: VATheme) -> UIFont)?
@@ -60,10 +54,7 @@ open class VATextNode: _VATextNode {
         didSet { configureTheme(theme) }
     }
     /// The currently active theme obtained from the app's context.
-    public var theme: VATheme { appContext.themeManager.theme }
     public let stringGetter: (String?, VATheme) -> NSAttributedString?
-
-    var shouldConfigureTheme = true
     
     public convenience init(
         text: String? = nil,
@@ -201,47 +192,8 @@ open class VATextNode: _VATextNode {
             configureTheme(theme)
         }
     }
-
-    @MainActor
-    open override func didLoad() {
-        super.didLoad()
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(themeDidChanged(_:)),
-            name: VAThemeManager.themeDidChangedNotification,
-            object: appContext.themeManager
-        )
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(themeDidChanged(_:)),
-            name: VAContentSizeManager.contentSizeDidChangedNotification,
-            object: appContext.contentSizeManager
-        )
-    }
-
-    open override func didEnterDisplayState() {
-        super.didEnterDisplayState()
-
-        if shouldConfigureTheme {
-            themeDidChanged()
-            shouldConfigureTheme = false
-        }
-    }
     
-    open func configureTheme(_ theme: VATheme) {
+    open override func configureTheme(_ theme: VATheme) {
         attributedText = stringGetter(text, theme)
-    }
-
-    open func themeDidChanged() {
-        if isInDisplayState {
-            configureTheme(theme)
-        } else {
-            shouldConfigureTheme = true
-        }
-    }
-    
-    @objc private func themeDidChanged(_ notification: Notification) {
-        themeDidChanged()
     }
 }
