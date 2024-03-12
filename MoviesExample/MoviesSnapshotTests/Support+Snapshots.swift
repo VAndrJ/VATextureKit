@@ -10,6 +10,7 @@ import SnapshotTesting
 import XCTest
 @testable import MoviesExample
 
+@MainActor
 extension XCTestCase {
     enum SnapshotSize {
         case fixed(CGSize)

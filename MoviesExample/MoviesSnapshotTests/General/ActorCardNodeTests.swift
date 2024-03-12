@@ -8,6 +8,7 @@
 import XCTest
 @testable import MoviesExample
 
+@MainActor
 class ActorCardNodeTests: XCTestCase {
 
     func test_node_short() {
