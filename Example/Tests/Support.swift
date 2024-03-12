@@ -142,11 +142,17 @@ extension XCTestCase {
         } else {
             sut = value
         }
+        sut.loadForSnapshot()
         let sizeThatFits = sut.layoutThatFits(ASSizeRange(
             min: CGSize(width: widthRange.lowerBound, height: heightRange.lowerBound),
             max: CGSize(width: widthRange.upperBound, height: heightRange.upperBound)
         )).size
-        sut.bounds = CGRect(origin: .zero, size: sizeThatFits)
+        if sizeThatFits == .zero {
+            sut.layout()
+            sut.bounds = .init(size: sut.style.preferredSize)
+        } else {
+            sut.bounds = CGRect(origin: .zero, size: sizeThatFits)
+        }
         sut.loadForPreview()
 
         assertSnapshot(
