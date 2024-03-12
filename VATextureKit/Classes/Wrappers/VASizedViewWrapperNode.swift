@@ -8,20 +8,23 @@
 import UIKit
 import AsyncDisplayKit
 
+public enum WrapperNodeSizing {
+    // Adjust node height based on child autosizing, width remains node-based
+    case viewHeight
+    // Adjust node width based on child autosizing, height remains node-based
+    case viewWidth
+    // Adjust both node height and width based on child autosizing
+    case viewSize
+}
+
 /// A custom `ASDisplayNode` subclass for wrapping autolayout and self-sizing `UIView`s with various sizing options.
 open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
-    public enum Sizing {
-        case viewHeight
-        case viewWidth
-        case viewSize
-    }
-
     /// The wrapped UIView instance.
     @MainActor
     public private(set) lazy var child: T = childGetter()
 
     private let childGetter: @MainActor () -> T
-    private let sizing: Sizing
+    private let sizing: WrapperNodeSizing
 
     /// Creates an instance.
     ///
@@ -29,7 +32,7 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
     ///   - actorChildGetter: A closure returning the UIView instance to be wrapped.
     ///   - sizing: The sizing option to apply to the wrapped view.
     @available (iOS 13.0, *)
-    public init(actorChildGetter: @MainActor @escaping () -> T, sizing: Sizing) {
+    public init(actorChildGetter: @MainActor @escaping () -> T, sizing: WrapperNodeSizing) {
         self.sizing = sizing
         self.childGetter = actorChildGetter
 
@@ -41,7 +44,7 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
     /// - Parameters:
     ///   - childGetter: A closure returning the UIView instance to be wrapped.
     ///   - sizing: The sizing option to apply to the wrapped view.
-    public init(childGetter: @escaping () -> T, sizing: Sizing) {
+    public init(childGetter: @escaping () -> T, sizing: WrapperNodeSizing) {
         self.sizing = sizing
         self.childGetter = childGetter
 

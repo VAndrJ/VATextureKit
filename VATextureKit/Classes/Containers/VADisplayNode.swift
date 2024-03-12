@@ -41,9 +41,9 @@ open class VADisplayNode: ASDisplayNode, VACornerable {
             name: VAThemeManager.themeDidChangedNotification,
             object: appContext.themeManager
         )
-#if DEBUG || targetEnvironment(simulator)
+        #if DEBUG || targetEnvironment(simulator)
         addDebugLabel()
-#endif
+        #endif
     }
 
     @MainActor
