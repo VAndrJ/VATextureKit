@@ -16,7 +16,7 @@ final class AlertNodeController: VANodeController {
 
     // MARK: - UI related code
 
-    let buttonNode = HapticButtonNode(title: "Show alert")
+    private let buttonNode = HapticButtonNode(title: "Show alert")
 
     override func layoutSpec(_ node: ASDisplayNode, _ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
@@ -34,12 +34,6 @@ final class AlertNodeController: VANodeController {
 
     // MARK: - Controller related code
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        bind()
-    }
-
     private func showAlert() {
         let alertController = VAAlertController(
             title: "title",
@@ -50,7 +44,7 @@ final class AlertNodeController: VANodeController {
         present(alertController, animated: true)
     }
     
-    private func bind() {
+    override func bind() {
         buttonNode.onTap = self ?>> { $0.showAlert }
     }
 }

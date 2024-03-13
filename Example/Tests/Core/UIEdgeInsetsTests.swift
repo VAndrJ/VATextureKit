@@ -112,4 +112,42 @@ class UIEdgeInsetsTests: XCTestCase {
 
         XCTAssertEqual(expectedInsets, insets)
     }
+
+    func test_paddings() {
+        let value = 10.0
+        XCTAssertEqual(UIEdgeInsets(top: value), UIEdgeInsets(paddings: [.top(value)]))
+        XCTAssertEqual(UIEdgeInsets(left: value), UIEdgeInsets(paddings: [.left(value)]))
+        XCTAssertEqual(UIEdgeInsets(bottom: value), UIEdgeInsets(paddings: [.bottom(value)]))
+        XCTAssertEqual(UIEdgeInsets(right: value), UIEdgeInsets(paddings: [.right(value)]))
+        XCTAssertEqual(UIEdgeInsets(vertical: value), UIEdgeInsets(paddings: [.vertical(value)]))
+        XCTAssertEqual(UIEdgeInsets(horizontal: value), UIEdgeInsets(paddings: [.horizontal(value)]))
+        XCTAssertEqual(
+            UIEdgeInsets(top: value, left: value, bottom: 0, right: 0),
+            UIEdgeInsets(paddings: [.topLeft(value)])
+        )
+        XCTAssertEqual(
+            UIEdgeInsets(top: 0, left: value, bottom: value, right: 0),
+            UIEdgeInsets(paddings: [.bottomLeft(value)])
+        )
+        XCTAssertEqual(
+            UIEdgeInsets(top: value, left: 0, bottom: 0, right: value),
+            UIEdgeInsets(paddings: [.topRight(value)])
+        )
+        XCTAssertEqual(
+            UIEdgeInsets(top: 0, left: 0, bottom: value, right: value),
+            UIEdgeInsets(paddings: [.bottomRight(value)])
+        )
+        XCTAssertEqual(
+            UIEdgeInsets(all: value),
+            UIEdgeInsets(paddings: [.custom(top: value, left: value, bottom: value, right: value)])
+        )
+        XCTAssertEqual(
+            UIEdgeInsets(all: value),
+            UIEdgeInsets(paddings: [.insets(UIEdgeInsets(all: value))])
+        )
+        XCTAssertEqual(
+            UIEdgeInsets(all: value),
+            UIEdgeInsets(paddings: [.all(value)])
+        )
+    }
 }

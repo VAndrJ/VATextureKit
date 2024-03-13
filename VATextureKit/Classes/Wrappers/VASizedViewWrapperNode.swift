@@ -37,6 +37,9 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
         self.childGetter = actorChildGetter
 
         super.init()
+
+        // To trigger `layout()` in any spec and avoid zero-sized frames.
+        minConstrained(size: CGSize(same: 1))
     }
 
     /// Creates an instance of `VASizedViewWrapperNode`.
@@ -49,6 +52,9 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
         self.childGetter = childGetter
 
         super.init()
+
+        // To trigger `layout()` in any spec and avoid zero-sized frames.
+        minConstrained(size: CGSize(same: 1))
     }
 
     @MainActor
@@ -70,7 +76,7 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
             ))
             if !size.height.isPixelEqual(to: bounds.height) {
                 let height = size.height.pixelRounded(.up)
-                child.frame = CGRect(width: bounds.width, height: height)
+                child.frame = .init(width: bounds.width, height: height)
                 style.height = .points(height)
                 setNeedsLayout()
             } else {
@@ -83,7 +89,7 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
             ))
             if !size.width.isPixelEqual(to: bounds.width) {
                 let width = size.width.pixelRounded(.up)
-                child.frame = CGRect(width: width, height: bounds.height)
+                child.frame = .init(width: width, height: bounds.height)
                 style.width = .points(width)
                 setNeedsLayout()
             } else {
@@ -92,7 +98,7 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
         case .viewSize:
             let size = child.systemLayoutSizeFitting(UIView.layoutFittingExpandedSize)
             if !size.height.isPixelEqual(to: bounds.height) || !size.width.isPixelEqual(to: bounds.width) {
-                child.frame = CGRect(
+                child.frame = .init(
                     width: size.width.pixelRounded(.up),
                     height: size.height.pixelRounded(.up)
                 )

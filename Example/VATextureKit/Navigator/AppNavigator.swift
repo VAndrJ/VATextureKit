@@ -116,6 +116,12 @@ class AppScreenFactory: NavigatorScreenFactory {
             return VAViewController(node: EmitterLayerAnimationScreenNode())
         case _ as SelfSizingListNavigationIdentity:
             return VAViewController(node: SelfSizingListContainerScreenNode())
+        case _ as UIViewSizedContainerNavigationIdentity:
+            return VAViewController(node: UIViewSizedContainerScreenNode())
+        case _ as UIViewContainerNavigationIdentity:
+            return VAViewController(node: UIViewContainerScreenNode())
+        case _ as ViewHostingNavigationIdentity:
+            return VAViewController(node: ViewHostingScreenNode())
         default:
             fatalError("Not implemented")
         }

@@ -12,26 +12,24 @@ struct MainNavigationIdentity: DefaultNavigationIdentity {}
 
 /// ViewController as a View axample
 final class MainNodeController: VANodeController {
-    private(set) lazy var listNode = VATableListNode(data: .init(
+    private lazy var listNode = VATableListNode(data: .init(
         listDataObs: viewModel.listDataObs,
         onSelect: viewModel ?>> { $0.didSelect(indexPath:) },
         cellGetter: MainListCellNode.init(viewModel:),
         sectionHeaderGetter: MainListSectionHeaderNode.init(viewModel:)
-    )).flex(shrink: 0.1, grow: 1)
-    let descriptionNode = VATextNode(text: "Examples", fontStyle: .headline)
-    
-    let viewModel: MainViewModel
+    ))
+    private lazy var descriptionNode = VATextNode(text: "Examples", fontStyle: .headline)
+    private let viewModel: MainViewModel
     
     init(viewModel: MainViewModel) {
         self.viewModel = viewModel
         
         super.init()
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        configure()
+
+    override func configureLayoutElements() {
+        listNode
+            .flex(shrink: 0.1, grow: 1)
     }
     
     override func layoutSpec(_ node: ASDisplayNode, _ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -51,7 +49,7 @@ final class MainNodeController: VANodeController {
         listNode.backgroundColor = theme.systemBackground
     }
     
-    private func configure() {
+    override func configure() {
         title = "Examples"
     }
 }

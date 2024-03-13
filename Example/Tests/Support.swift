@@ -171,13 +171,6 @@ extension XCTestCase {
     }
 }
 
-extension String {
-    
-    func dummyLong(separator: String = " ", range: ClosedRange<Int> = 0...10) -> String {
-        range.map { _ in self }.joined(separator: separator)
-    }
-}
-
 extension AppNavigator {
     static let dummy = AppNavigator(
         window: UIWindow(),

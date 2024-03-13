@@ -66,7 +66,7 @@ class VATextNodeTests: XCTestCase {
 
     func test_node_secondary() {
         let sut = generateSUT(
-            text: "Text test string example".dummyLong(range: 0...20),
+            text: "Text test string example".dummyLong(repeating: 21),
             secondary: [
                 .init(
                     strings: ["test", "example"],
@@ -91,7 +91,7 @@ class VATextNodeTests: XCTestCase {
     }
 
     private func generateSUT(
-        text: String = "Text".dummyLong(range: 0...20),
+        text: String = "Text".dummyLong(repeating: 21),
         kern: VAKern? = nil,
         lineHeight: VALineHeight? = nil,
         secondary: [VATextNode.SecondaryAttributes] = []

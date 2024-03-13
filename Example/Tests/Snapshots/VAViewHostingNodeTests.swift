@@ -20,7 +20,7 @@ class VAViewHostingNodeTests: XCTestCase {
 
     func test_sizing_height() {
         let sut = VAViewHostingNode(
-            viewGetter: {
+            body: {
                 HStack {
                     Text("Test")
                     Spacer()
@@ -35,7 +35,7 @@ class VAViewHostingNodeTests: XCTestCase {
 
     func test_sizing_width() {
         let sut = VAViewHostingNode(
-            viewGetter: {
+            body: {
                 VStack {
                     Text("Test")
                     Spacer()
@@ -50,7 +50,7 @@ class VAViewHostingNodeTests: XCTestCase {
 
     func test_sizing_size() {
         let sut = VAViewHostingNode(
-            viewGetter: {
+            body: {
                 HStack {
                     VStack(alignment: .leading) {
                         Text("Test Test")

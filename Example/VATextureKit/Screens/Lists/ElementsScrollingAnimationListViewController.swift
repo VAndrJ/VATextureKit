@@ -15,7 +15,7 @@ struct ElementsScrollingAnimationListNavigationIdentity: DefaultNavigationIdenti
 final class ElementsScrollingAnimationListViewController: VANodeController {
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask { .portrait }
 
-    private(set) lazy var listNode = VAListNode(
+    private lazy var listNode = VAListNode(
         data: .init(
             listDataObs: .just((0...100).map { _ in
                 ImageCellNodeViewModel(
@@ -61,6 +61,7 @@ private func mapToCell(viewModel: CellViewModel) -> ASCellNode {
         return ImageCellNode(viewModel: viewModel)
     default:
         assertionFailure("Implement")
+        
         return ASCellNode()
     }
 }

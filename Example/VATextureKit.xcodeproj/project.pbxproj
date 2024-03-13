@@ -89,6 +89,9 @@
 		A3884CCB2A7CC6DD00DFB4A4 /* VASnowEmitterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3884CC92A7CC6B900DFB4A4 /* VASnowEmitterNode.swift */; };
 		A388637B2BA08B3800FC05FD /* VASizedViewWrapperNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A388637A2BA08B3800FC05FD /* VASizedViewWrapperNodeTests.swift */; };
 		A38863812BA0B0E400FC05FD /* VAViewHostingNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38863802BA0B0E400FC05FD /* VAViewHostingNodeTests.swift */; };
+		A38863872BA1F42900FC05FD /* UIViewSizedContainerScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38863862BA1F42900FC05FD /* UIViewSizedContainerScreenNode.swift */; };
+		A38863892BA2166D00FC05FD /* UIViewContainerScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38863882BA2166D00FC05FD /* UIViewContainerScreenNode.swift */; };
+		A388638B2BA219CE00FC05FD /* ViewHostingScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A388638A2BA219CE00FC05FD /* ViewHostingScreenNode.swift */; };
 		A38D5E932A6BBEF200A67BC7 /* CountingTextNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E922A6BBEF200A67BC7 /* CountingTextNodeController.swift */; };
 		A38D5E982A6C14F200A67BC7 /* DynamicHeightGridListScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E972A6C14F200A67BC7 /* DynamicHeightGridListScreenNode.swift */; };
 		A38D5E9C2A6D251E00A67BC7 /* ShimmersScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E9B2A6D251E00A67BC7 /* ShimmersScreenNode.swift */; };
@@ -253,6 +256,9 @@
 		A3884CC92A7CC6B900DFB4A4 /* VASnowEmitterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASnowEmitterNode.swift; sourceTree = "<group>"; };
 		A388637A2BA08B3800FC05FD /* VASizedViewWrapperNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASizedViewWrapperNodeTests.swift; sourceTree = "<group>"; };
 		A38863802BA0B0E400FC05FD /* VAViewHostingNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAViewHostingNodeTests.swift; sourceTree = "<group>"; };
+		A38863862BA1F42900FC05FD /* UIViewSizedContainerScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewSizedContainerScreenNode.swift; sourceTree = "<group>"; };
+		A38863882BA2166D00FC05FD /* UIViewContainerScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewContainerScreenNode.swift; sourceTree = "<group>"; };
+		A388638A2BA219CE00FC05FD /* ViewHostingScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewHostingScreenNode.swift; sourceTree = "<group>"; };
 		A38D5E922A6BBEF200A67BC7 /* CountingTextNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountingTextNodeController.swift; sourceTree = "<group>"; };
 		A38D5E972A6C14F200A67BC7 /* DynamicHeightGridListScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicHeightGridListScreenNode.swift; sourceTree = "<group>"; };
 		A38D5E9B2A6D251E00A67BC7 /* ShimmersScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmersScreenNode.swift; sourceTree = "<group>"; };
@@ -620,6 +626,16 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		A38863852BA1F3F100FC05FD /* Containers */ = {
+			isa = PBXGroup;
+			children = (
+				A38863862BA1F42900FC05FD /* UIViewSizedContainerScreenNode.swift */,
+				A38863882BA2166D00FC05FD /* UIViewContainerScreenNode.swift */,
+				A388638A2BA219CE00FC05FD /* ViewHostingScreenNode.swift */,
+			);
+			path = Containers;
+			sourceTree = "<group>";
+		};
 		A38D5E912A6BBECB00A67BC7 /* Experiments */ = {
 			isa = PBXGroup;
 			children = (
@@ -680,6 +696,7 @@
 		A3B3F37429A0CD830090E6E2 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				A38863852BA1F3F100FC05FD /* Containers */,
 				A33CDF3129D9B85F005F77C6 /* Animations */,
 				A384F0B729EE71ED006BF197 /* Components */,
 				A3DDF2F029DD6C9F009460F1 /* Compositing */,
@@ -1021,9 +1038,11 @@
 				A34F8E7829F43AF100EF4C42 /* CollectionListHeaderFooterScreenNode.swift in Sources */,
 				A33CDF3329D9B875005F77C6 /* TransitionAnimationScreenNode.swift in Sources */,
 				A359BE7E29D76E1B003BDE19 /* Environment.swift in Sources */,
+				A38863872BA1F42900FC05FD /* UIViewSizedContainerScreenNode.swift in Sources */,
 				A3F8890B29CE385B00C67187 /* ImageNumberCellNode.swift in Sources */,
 				A38D5E9C2A6D251E00A67BC7 /* ShimmersScreenNode.swift in Sources */,
 				A38D5E982A6C14F200A67BC7 /* DynamicHeightGridListScreenNode.swift in Sources */,
+				A38863892BA2166D00FC05FD /* UIViewContainerScreenNode.swift in Sources */,
 				A3483AD029E937B500948574 /* HapticButtonNode.swift in Sources */,
 				A3BCEC5729CFA6770077217F /* LoadingCellNode.swift in Sources */,
 				A3B3F3E529A3868F0090E6E2 /* ContentSizeScreenNode.swift in Sources */,
@@ -1079,6 +1098,7 @@
 				A3820D2A29E568BE00993406 /* VATextFieldNode.swift in Sources */,
 				A3CC9FAF2A75B82800A66DC0 /* KeyframeAnimationsScreenNode.swift in Sources */,
 				A31F445D29F6AD76003618C9 /* PagerScreenNodeViewModel.swift in Sources */,
+				A388638B2BA219CE00FC05FD /* ViewHostingScreenNode.swift in Sources */,
 				A35639922A72E0D300DE531F /* ShapeLayerAnimationScreenNode.swift in Sources */,
 				A31F445F29F6ADC7003618C9 /* PagerIndicatorNode.swift in Sources */,
 				A311B2302A768C490025B060 /* VAScrollRespondingEdgeCellNode.swift in Sources */,
@@ -1239,7 +1259,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_STRICT_CONCURRENCY = targeted;
 			};
 			name = Debug;
 		};
@@ -1290,7 +1310,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_STRICT_CONCURRENCY = targeted;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1315,7 +1335,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_STRICT_CONCURRENCY = targeted;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
 			};
@@ -1338,7 +1358,7 @@
 				MTL_COMPILER_FLAGS = "-fcikernel";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_STRICT_CONCURRENCY = targeted;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
 			};
@@ -1373,6 +1393,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Tests/VATextureKit_Tests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = targeted;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1404,6 +1425,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Tests/VATextureKit_Tests-Bridging-Header.h";
+				SWIFT_STRICT_CONCURRENCY = targeted;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
