@@ -89,7 +89,8 @@
 		A3884CCB2A7CC6DD00DFB4A4 /* VASnowEmitterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3884CC92A7CC6B900DFB4A4 /* VASnowEmitterNode.swift */; };
 		A388637B2BA08B3800FC05FD /* VASizedViewWrapperNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A388637A2BA08B3800FC05FD /* VASizedViewWrapperNodeTests.swift */; };
 		A38863812BA0B0E400FC05FD /* VAViewHostingNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38863802BA0B0E400FC05FD /* VAViewHostingNodeTests.swift */; };
-		A38863872BA1F42900FC05FD /* UIViewContainerScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38863862BA1F42900FC05FD /* UIViewContainerScreenNode.swift */; };
+		A38863872BA1F42900FC05FD /* UIViewSizedContainerScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38863862BA1F42900FC05FD /* UIViewSizedContainerScreenNode.swift */; };
+		A38863892BA2166D00FC05FD /* UIViewContainerScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38863882BA2166D00FC05FD /* UIViewContainerScreenNode.swift */; };
 		A38D5E932A6BBEF200A67BC7 /* CountingTextNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E922A6BBEF200A67BC7 /* CountingTextNodeController.swift */; };
 		A38D5E982A6C14F200A67BC7 /* DynamicHeightGridListScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E972A6C14F200A67BC7 /* DynamicHeightGridListScreenNode.swift */; };
 		A38D5E9C2A6D251E00A67BC7 /* ShimmersScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E9B2A6D251E00A67BC7 /* ShimmersScreenNode.swift */; };
@@ -254,7 +255,8 @@
 		A3884CC92A7CC6B900DFB4A4 /* VASnowEmitterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASnowEmitterNode.swift; sourceTree = "<group>"; };
 		A388637A2BA08B3800FC05FD /* VASizedViewWrapperNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASizedViewWrapperNodeTests.swift; sourceTree = "<group>"; };
 		A38863802BA0B0E400FC05FD /* VAViewHostingNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAViewHostingNodeTests.swift; sourceTree = "<group>"; };
-		A38863862BA1F42900FC05FD /* UIViewContainerScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewContainerScreenNode.swift; sourceTree = "<group>"; };
+		A38863862BA1F42900FC05FD /* UIViewSizedContainerScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewSizedContainerScreenNode.swift; sourceTree = "<group>"; };
+		A38863882BA2166D00FC05FD /* UIViewContainerScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewContainerScreenNode.swift; sourceTree = "<group>"; };
 		A38D5E922A6BBEF200A67BC7 /* CountingTextNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountingTextNodeController.swift; sourceTree = "<group>"; };
 		A38D5E972A6C14F200A67BC7 /* DynamicHeightGridListScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicHeightGridListScreenNode.swift; sourceTree = "<group>"; };
 		A38D5E9B2A6D251E00A67BC7 /* ShimmersScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmersScreenNode.swift; sourceTree = "<group>"; };
@@ -625,7 +627,8 @@
 		A38863852BA1F3F100FC05FD /* Containers */ = {
 			isa = PBXGroup;
 			children = (
-				A38863862BA1F42900FC05FD /* UIViewContainerScreenNode.swift */,
+				A38863862BA1F42900FC05FD /* UIViewSizedContainerScreenNode.swift */,
+				A38863882BA2166D00FC05FD /* UIViewContainerScreenNode.swift */,
 			);
 			path = Containers;
 			sourceTree = "<group>";
@@ -1032,10 +1035,11 @@
 				A34F8E7829F43AF100EF4C42 /* CollectionListHeaderFooterScreenNode.swift in Sources */,
 				A33CDF3329D9B875005F77C6 /* TransitionAnimationScreenNode.swift in Sources */,
 				A359BE7E29D76E1B003BDE19 /* Environment.swift in Sources */,
-				A38863872BA1F42900FC05FD /* UIViewContainerScreenNode.swift in Sources */,
+				A38863872BA1F42900FC05FD /* UIViewSizedContainerScreenNode.swift in Sources */,
 				A3F8890B29CE385B00C67187 /* ImageNumberCellNode.swift in Sources */,
 				A38D5E9C2A6D251E00A67BC7 /* ShimmersScreenNode.swift in Sources */,
 				A38D5E982A6C14F200A67BC7 /* DynamicHeightGridListScreenNode.swift in Sources */,
+				A38863892BA2166D00FC05FD /* UIViewContainerScreenNode.swift in Sources */,
 				A3483AD029E937B500948574 /* HapticButtonNode.swift in Sources */,
 				A3BCEC5729CFA6770077217F /* LoadingCellNode.swift in Sources */,
 				A3B3F3E529A3868F0090E6E2 /* ContentSizeScreenNode.swift in Sources */,

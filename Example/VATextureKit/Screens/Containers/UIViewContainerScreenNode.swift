@@ -11,43 +11,73 @@ import VATextureKit
 struct UIViewContainerNavigationIdentity: DefaultNavigationIdentity {}
 
 final class UIViewContainerScreenNode: ScreenNode {
-    private lazy var textHeightContainerNode = VASizedViewWrapperNode(
+    private lazy var inheritedSizeContainerNode = VAViewWrapperNode(
         childGetter: {
-            UILabel().apply {
-                $0.numberOfLines = 0
-                $0.text = ".viewHeight sizing".dummyLong(repeating: 5)
-                $0.backgroundColor = .systemGreen.withAlphaComponent(0.1)
+            UIView(frame: .init(width: 48, height: 24)).apply {
+                $0.backgroundColor = .systemGreen
             }
         },
-        sizing: .viewHeight
-    ).sized(width: 280)
-    private lazy var textWidthContainerNode = VASizedViewWrapperNode(
-        childGetter: {
-            UILabel().apply {
-                $0.numberOfLines = 0
-                $0.text = ".viewWidth sizing".dummyLong(separator: "\n", repeating: 4)
-                $0.backgroundColor = .systemOrange.withAlphaComponent(0.1)
-            }
-        },
-        sizing: .viewWidth
-    ).sized(height: 140)
-    private lazy var textSizeContainerNode = VASizedViewWrapperNode(
-        childGetter: {
-            UILabel().apply {
-                $0.numberOfLines = 0
-                $0.text = ".viewSize sizing".dummyLong(repeating: 2).dummyLong(separator: "\n", repeating: 3)
-                $0.backgroundColor = .systemPurple.withAlphaComponent(0.1)
-            }
-        },
-        sizing: .viewSize
+        sizing: .inheritedSize
     )
+    private lazy var inheritedWidthContainerNode = VAViewWrapperNode(
+        childGetter: {
+            UIView(frame: .init(width: 48, height: 24)).apply {
+                $0.backgroundColor = .systemOrange
+            }
+        },
+        sizing: .inheritedWidth
+    ).sized(height: 48)
+    private lazy var inheritedHeightContainerNode = VAViewWrapperNode(
+        childGetter: {
+            UIView(frame: .init(width: 48, height: 24)).apply {
+                $0.backgroundColor = .systemYellow
+            }
+        },
+        sizing: .inheritedHeight
+    ).sized(width: 96)
+    private lazy var noSizingContainerNode = VAViewWrapperNode(
+        childGetter: {
+            UIView(frame: .init(width: 48, height: 24)).apply {
+                $0.backgroundColor = .systemPink
+            }
+        },
+        sizing: .none
+    ).sized(CGSize(same: 36))
+    private lazy var fixedSizeContainerNode = VAViewWrapperNode(
+        childGetter: {
+            UIView(frame: .init(width: 48, height: 24)).apply {
+                $0.backgroundColor = .systemPurple
+            }
+        },
+        sizing: .fixedSize(CGSize(same: 36))
+    )
+    private lazy var fixedWidthContainerNode = VAViewWrapperNode(
+        childGetter: {
+            UIView(frame: .init(width: 48, height: 24)).apply {
+                $0.backgroundColor = .systemTeal
+            }
+        },
+        sizing: .fixedWidth(96)
+    ).sized(height: 48)
+    private lazy var fixedHeightContainerNode = VAViewWrapperNode(
+        childGetter: {
+            UIView(frame: .init(width: 48, height: 24)).apply {
+                $0.backgroundColor = .systemBrown
+            }
+        },
+        sizing: .fixedHeight(48)
+    ).sized(width: 24)
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
-            Column(spacing: 32) {
-                textHeightContainerNode
-                textWidthContainerNode
-                textSizeContainerNode
+            Column(spacing: 4, cross: .stretch) {
+                inheritedSizeContainerNode
+                inheritedWidthContainerNode
+                inheritedHeightContainerNode
+                noSizingContainerNode
+                fixedSizeContainerNode
+                fixedWidthContainerNode
+                fixedHeightContainerNode
             }
             .padding(.all(16))
         }

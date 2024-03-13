@@ -51,7 +51,8 @@ final class MainViewModel {
             MainListCellNodeViewModel(title: "VAPagerNode", description: "ASPagerNode with improvements", route: PagerControllerNavigationIdentity()),
         ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Containers"), items: [
-            MainListCellNodeViewModel(title: "UIView container", description: "Autolayout UIView, different sizing", route: UIViewContainerNavigationIdentity()),
+            MainListCellNodeViewModel(title: "UIView container", description: "Autolayout UIView, different sizing", route: UIViewSizedContainerNavigationIdentity()),
+            MainListCellNodeViewModel(title: "UIView container", description: "UIView, different sizing", route: UIViewContainerNavigationIdentity()),
         ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Experiments"), items: [
             MainListCellNodeViewModel(title: "Emitter", description: "CAEmitterLayer based node", route: EmitterLayerAnimationNavigationIdentity()),
