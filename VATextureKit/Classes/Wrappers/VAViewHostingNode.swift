@@ -60,7 +60,7 @@ open class VAViewHostingNode: VADisplayNode {
             ))
             if !size.height.isPixelEqual(to: bounds.height) {
                 let height = size.height.pixelRounded(.up)
-                hostingController.view.frame = CGRect(width: bounds.width, height: height)
+                hostingController.view.frame = .init(width: bounds.width, height: height)
                 style.height = .points(height)
                 setNeedsLayout()
             } else {
@@ -73,7 +73,7 @@ open class VAViewHostingNode: VADisplayNode {
             ))
             if !size.width.isPixelEqual(to: bounds.width) {
                 let width = size.width.pixelRounded(.up)
-                hostingController.view.frame = CGRect(width: width, height: bounds.height)
+                hostingController.view.frame = .init(width: width, height: bounds.height)
                 style.width = .points(width)
                 setNeedsLayout()
             } else {
@@ -82,7 +82,7 @@ open class VAViewHostingNode: VADisplayNode {
         case .viewSize:
             let size = hostingController.view.systemLayoutSizeFitting(UIView.layoutFittingExpandedSize)
             if !size.height.isPixelEqual(to: bounds.height) || !size.width.isPixelEqual(to: bounds.width) {
-                hostingController.view.frame = CGRect(
+                hostingController.view.frame = .init(
                     width: size.width.pixelRounded(.up),
                     height: size.height.pixelRounded(.up)
                 )

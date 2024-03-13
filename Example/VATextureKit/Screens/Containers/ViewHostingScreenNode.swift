@@ -21,8 +21,12 @@ final class ViewHostingScreenNode: ScreenNode {
     ).sized(width: 280)
     private lazy var textWidthContainerNode = VAViewHostingNode(
         body: {
-            Text(".viewWidth sizing".dummyLong(separator: "\n", repeating: 4))
-                .background(Color.orange.opacity(0.1))
+            VStack {
+                Text(".viewWidth sizing")
+                Spacer()
+                Text(".viewWidth sizing")
+            }
+            .background(Color.orange.opacity(0.1))
         },
         sizing: .viewWidth
     ).sized(height: 140)
