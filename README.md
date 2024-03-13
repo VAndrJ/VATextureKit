@@ -1078,7 +1078,7 @@ To wrap any node with Cell Node.
 <summary>VASelfSizingListContainerNode</summary>
 
 
-Container for wrapping an ASCollectionNode to enable self-sizing behavior in vertical or horizontal direction.
+Container for wrapping an `ASCollectionNode` to enable self-sizing behavior in vertical or horizontal direction.
 Recommended not to use this class with large lists.
 
 
@@ -1112,7 +1112,62 @@ Container to use node with views.
 <summary>VASizedViewWrapperNode</summary>
 
 
+Container to use autolayout `UIView` with nodes and inheriting its size.
+
+
+Example:
+
+```
+VASizedViewWrapperNode(
+    childGetter: { MyAwesomeView() },
+    sizing: .viewWidth
+)
+.sized(height: 140)
+```
+
+
+</details>
+
+
+<details>
+<summary>VAViewWrapperNode</summary>
+
+
 Container to use `UIView` with nodes and inheriting its size.
+
+
+Example:
+
+```
+VAViewWrapperNode(
+    childGetter: { MyAwesomeView(frame: .init(width: 48, height: 24)) },
+    sizing: .inheritedWidth
+)
+.sized(height: 140)
+```
+
+
+</details>
+
+
+<details>
+<summary>VAViewHostingNode</summary>
+
+
+Container to use SwiftUI `View` with nodes and inheriting its size.
+
+
+Example:
+
+```
+VAViewHostingNode(
+    body: {
+        Text("Some text")
+            .background(Color.green.opacity(0.1))
+    },
+    sizing: .viewSize
+)
+```
 
 
 </details>
