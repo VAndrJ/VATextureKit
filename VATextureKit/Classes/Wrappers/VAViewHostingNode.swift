@@ -9,24 +9,27 @@
 import SwiftUI
 /// A custom `ASDisplayNode` subclass for wrapping SwiftUI `View` with various sizing options.
 @available (iOS 13.0, *)
-open class VAViewHostingNode<T: View>: VADisplayNode {
+open class VAViewHostingNode: VADisplayNode {
     @MainActor
     private(set) lazy var hostingController = UIHostingController(rootView: viewGetter())
 
-    private let viewGetter: @MainActor () -> T
+    private let viewGetter: @MainActor () -> AnyView
     private let sizing: WrapperNodeSizing
     private var shouldAddToController = true
 
     /// Creates an instance.
     ///
     /// - Parameters:
-    ///   - actorChildGetter: A closure returning the UIView instance to be wrapped.
+    ///   - body: A closure returning the View instance to be wrapped.
     ///   - sizing: The sizing option to apply to the wrapped view.
-    public init(viewGetter: @MainActor @escaping () -> T, sizing: WrapperNodeSizing) {
+    public init(body: @MainActor @escaping () -> some View, sizing: WrapperNodeSizing) {
         self.sizing = sizing
-        self.viewGetter = viewGetter
+        self.viewGetter = { AnyView(body()) }
 
         super.init()
+
+        // To trigger `layout()` in any spec and avoid zero-sized frames.
+        minConstrained(size: CGSize(same: 1))
     }
 
     @MainActor
