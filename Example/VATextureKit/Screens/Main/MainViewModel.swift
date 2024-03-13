@@ -53,6 +53,7 @@ final class MainViewModel {
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Containers"), items: [
             MainListCellNodeViewModel(title: "UIView container", description: "Autolayout UIView, different sizing", route: UIViewSizedContainerNavigationIdentity()),
             MainListCellNodeViewModel(title: "UIView container", description: "UIView, different sizing", route: UIViewContainerNavigationIdentity()),
+            MainListCellNodeViewModel(title: "View container", description: "SwiftUI View, different sizing", route: ViewHostingNavigationIdentity()),
         ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Experiments"), items: [
             MainListCellNodeViewModel(title: "Emitter", description: "CAEmitterLayer based node", route: EmitterLayerAnimationNavigationIdentity()),
