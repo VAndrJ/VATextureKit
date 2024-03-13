@@ -18,7 +18,7 @@ class VAReadMoreTextNodeTests: XCTestCase {
 
     func test_node_color() {
         let sut = VAReadMoreTextNode(
-            text: "Text".dummyLong(separator: " ", range: 0...30),
+            text: "Text".dummyLong(separator: " ", repeating: 31),
             maximumNumberOfLines: 2,
             readMore: .init(
                 text: "Read more",

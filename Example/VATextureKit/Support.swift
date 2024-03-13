@@ -26,11 +26,13 @@ let testImages = [
     "https://img.freepik.com/free-vector/gradient-grainy-texture_23-2148981502.jpg?w=360",
 ]
 
-extension String {
+public extension String {
     static let loremText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 
-    func dummyLong(separator: String = " ") -> String {
-        (0...10).map { _ in self }.joined(separator: separator)
+    func dummyLong(separator: String = " ", repeating count: Int = 11) -> String {
+        assert(count >= 1)
+        
+        return (1...count).map { _ in self }.joined(separator: separator)
     }
 
     func repeating(_ count: Int) -> String {
