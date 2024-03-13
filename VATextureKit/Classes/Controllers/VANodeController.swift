@@ -15,6 +15,8 @@ open class VANodeController: VAViewController<ASDisplayNode> {
         node.automaticallyRelayoutOnSafeAreaChanges = true
         
         super.init(node: node)
+
+        configureLayoutElements()
     }
     
     open override func viewDidLoad() {
@@ -23,6 +25,8 @@ open class VANodeController: VAViewController<ASDisplayNode> {
         contentNode.layoutSpecBlock = { [weak self] node, constrainedSize in
             self?.layoutSpec(node, constrainedSize) ?? ASLayoutSpec()
         }
+        configure()
+        bind()
     }
     
     public func setNeedsDisplay() {
@@ -30,8 +34,18 @@ open class VANodeController: VAViewController<ASDisplayNode> {
     }
     
     open func layoutSpec(_ node: ASDisplayNode, _ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        fatalError("implement")
+        #if DEBUG
+        assertionFailure("implement")
+        #endif
+        
+        return ASLayoutSpec()
     }
+
+    open func configureLayoutElements() {}
+
+    open func bind() {}
+
+    open func configure() {}
 }
 
 // MARK: - Capitalized for beauty when used
