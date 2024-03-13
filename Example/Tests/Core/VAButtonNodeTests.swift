@@ -10,8 +10,7 @@ import XCTest
 @testable import VATextureKit_Example
 import VATextureKit
 
-@MainActor
-class VAButtonNodeTests: XCTestCase {
+class VAButtonNodeTests: XCTestCase, MainActorIsolated {
     var sut: VAButtonNode!
 
     override func setUp() {

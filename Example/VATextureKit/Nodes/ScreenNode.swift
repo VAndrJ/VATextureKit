@@ -8,8 +8,7 @@
 
 import VATextureKitRx
 
-@MainActor
-class ScreenNode: VASafeAreaDisplayNode {
+class ScreenNode: VASafeAreaDisplayNode, MainActorIsolated {
 
     override func didLoad() {
         super.didLoad()

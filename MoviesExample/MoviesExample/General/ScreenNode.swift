@@ -8,8 +8,7 @@
 import VATextureKitRx
 import RxKeyboard
 
-@MainActor
-class ScreenNode<ViewModel: EventViewModel>: VASafeAreaDisplayNode, ControllerNode, Responder {
+class ScreenNode<ViewModel: EventViewModel>: VASafeAreaDisplayNode, ControllerNode, Responder, MainActorIsolated {
     let bag = DisposeBag()
     let viewModel: ViewModel
 

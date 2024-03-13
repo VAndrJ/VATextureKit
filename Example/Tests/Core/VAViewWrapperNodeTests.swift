@@ -10,8 +10,7 @@ import XCTest
 @testable import VATextureKit_Example
 import VATextureKit
 
-@MainActor
-class VAViewWrapperNodeTests: XCTestCase {
+class VAViewWrapperNodeTests: XCTestCase, MainActorIsolated {
 
     func test_node() {
         let frame = CGRect(origin: .zero, size: CGSize(same: 100))

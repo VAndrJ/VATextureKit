@@ -11,8 +11,7 @@ import XCTest
 import SnapshotTesting
 import VATextureKit
 
-@MainActor
-class LinearGradientScreenNodeTests: XCTestCase {
+class LinearGradientScreenNodeTests: XCTestCase, MainActorIsolated {
 
     func test_node() {
         appContext.themeManager.setLightAsCustomTheme()

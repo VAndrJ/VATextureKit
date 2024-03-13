@@ -7,12 +7,12 @@
 //
 
 import XCTest
+@testable import VATextureKit_Example
 import SnapshotTesting
 import VATextureKit
 import SwiftUI
 
-@MainActor
-class VAViewHostingNodeTests: XCTestCase {
+class VAViewHostingNodeTests: XCTestCase, MainActorIsolated {
 
     override func setUp() {
         appContext.themeManager.setLightAsCustomTheme()
