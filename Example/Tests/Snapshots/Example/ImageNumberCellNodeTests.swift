@@ -19,4 +19,11 @@ class ImageNumberCellNodeTests: XCTestCase {
 
         assertNodeSnapshot(matching: sut, size: .freeHeightFixedWidth(48))
     }
+
+    func test_node_dark() {
+        appContext.themeManager.setDarkAsCustomTheme()
+        let sut = ImageNumberCellNode(viewModel: .init(number: 1))
+
+        assertNodeSnapshot(matching: sut, size: .freeHeightFixedWidth(48))
+    }
 }
