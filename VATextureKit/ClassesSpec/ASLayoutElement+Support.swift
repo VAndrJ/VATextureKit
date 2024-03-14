@@ -509,11 +509,21 @@ public struct VASafeAreaEdge: RawRepresentable, OptionSet, Sendable {
 
 public extension ASDisplayNode {
 
+    /// Creates a layout spec that pads the provided layout element with `safeAreaInsets`.
+    ///
+    /// - Parameter layoutElement: A closure returning the layout element to be padded.
+    /// - Returns: A layout spec that applies padding with `safeAreaInsets` to the provided layout element.
     func SafeArea(_ layoutElement: () -> ASLayoutElement) -> ASLayoutSpec {
         layoutElement()
             .padding(.insets(safeAreaInsets))
     }
 
+    /// Creates a layout spec that pads the provided layout element with custom edge `safeAreaInsets` based on the specified edges.
+    ///
+    /// - Parameters:
+    ///   - edges: The edges of the safe area for which padding is applied.
+    ///   - layoutElement: A closure returning the layout element to be padded.
+    /// - Returns: A layout spec that applies padding with custom edge insets to the provided layout element.
     func SafeArea(edges: VASafeAreaEdge, _ layoutElement: () -> ASLayoutElement) -> ASLayoutSpec {
         ASInsetLayoutSpec(
             insets: UIEdgeInsets(paddings: mapToPaddings(edges: edges, in: self)),
