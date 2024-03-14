@@ -43,6 +43,7 @@ class VARainEmitterNode: VAEmitterNode {
                 UIImage.render(color: .white, size: CGSize(width: 2, height: 2), isEllipse: true).cgImage,
             ]
         }
+        
         return images.compactMap { $0 }
     }()
 

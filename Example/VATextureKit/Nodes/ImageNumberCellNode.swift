@@ -11,10 +11,8 @@ import VATextureKit
 class ImageNumberCellNode: VACellNode {
     let imageNode: VANetworkImageNode
     let numberTextNode: VATextNode
-    let tonerNode = ASDisplayNode().apply {
-        $0.backgroundColor = .black.withAlphaComponent(0.4)
-    }
-    
+    let tonerNode = ASDisplayNode()
+
     let viewModel: ImageNumberCellNodeViewModel
     
     init(viewModel: ImageNumberCellNodeViewModel) {
@@ -22,7 +20,7 @@ class ImageNumberCellNode: VACellNode {
         self.numberTextNode = VATextNode(
             text: "\(viewModel.number)",
             fontStyle: .largeTitle,
-            colorGetter: { _ in .white }
+            colorGetter: { $0.systemPurple }
         )
         self.imageNode = VANetworkImageNode(
             image: viewModel.image,
@@ -41,6 +39,7 @@ class ImageNumberCellNode: VACellNode {
     
     override func configureTheme(_ theme: VATheme) {
         backgroundColor = theme.systemBackground
+        tonerNode.backgroundColor = theme.label.withAlphaComponent(0.32)
     }
 }
 

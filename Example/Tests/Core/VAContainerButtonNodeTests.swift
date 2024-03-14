@@ -29,7 +29,3 @@ class VAContainerButtonNodeTests: XCTestCase {
         XCTAssertTrue(receiver.isTapped)
     }
 }
-
-private class MockTapReceiver {
-    var isTapped = false
-}

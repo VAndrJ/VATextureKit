@@ -10,7 +10,6 @@ import VATextureKit
 
 class CollectionExampleCellNode: VACellNode {
     let imageNode = VANetworkImageNode(contentMode: .scaleAspectFill)
-        .flex(shrink: 0.1, grow: 1)
     let titleNode: VATextNode
     
     let viewModel: CollectionExampleCellNodeViewModel
@@ -25,10 +24,14 @@ class CollectionExampleCellNode: VACellNode {
         
         super.init()
         
-        guard let url = viewModel.image.flatMap(URL.init(string:)) else {
-            return
-        }
+        guard let url = viewModel.image.flatMap(URL.init(string:)) else { return }
+
         imageNode.url = url
+    }
+
+    override func configureLayoutElements() {
+        imageNode
+            .flex(shrink: 0.1, grow: 1)
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {

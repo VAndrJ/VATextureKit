@@ -17,8 +17,14 @@ class PagerCardCellNode: VACellNode {
 
     init(viewModel: PagerCardCellNodeViewModel) {
         self.viewModel = viewModel
-        self.titleTextNode = VATextNode(text: viewModel.title, fontStyle: .largeTitle)
-        self.descriptionTextNode = VATextNode(text: viewModel.description, fontStyle: .title1)
+        self.titleTextNode = VATextNode(
+            text: viewModel.title,
+            fontStyle: .largeTitle
+        )
+        self.descriptionTextNode = VATextNode(
+            text: viewModel.description,
+            fontStyle: .title1
+        )
 
         super.init()
     }

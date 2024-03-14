@@ -9,9 +9,9 @@
 import VATextureKit
 
 final class AppearanceContollerNode: ScreenNode {
-    let pickerNode = VAViewWrapperNode(
+    let pickerNode = VASizedViewWrapperNode(
         actorChildGetter: { UIPickerView() },
-        sizing: .inheritedHeight
+        sizing: .viewHeight
     )
     
     override func configureTheme(_ theme: VATheme) {

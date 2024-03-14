@@ -11,7 +11,6 @@ import VANavigator
 
 class AppNavigator: Navigator {
 
-    @MainActor
     func start() {
         navigate(
             destination: .identity(
@@ -24,11 +23,14 @@ class AppNavigator: Navigator {
         )
     }
 
-    nonisolated func navigate(to identity: NavigationIdentity) {
+    nonisolated func navigate(
+        to identity: NavigationIdentity,
+        strategy: NavigationStrategy = .push()
+    ) {
         Task { @MainActor in
             navigate(
                 destination: .identity(identity),
-                strategy: .push()
+                strategy: strategy
             )
         }
     }
@@ -56,13 +58,22 @@ class AppScreenFactory: NavigatorScreenFactory {
         case _ as AppearanceNavigationIdentity:
             return AppearanceViewController(viewModel: AppearanceViewModel(themeManager: themeManager))
         case _ as ContentSizeNavigationIdentity:
-            return ContentSizeViewController(node: ContentSizeScreenNode())
+            return ContentSizeNodeController()
         case _ as LinearGradientNavigationIdentity:
             return VAViewController(node: LinearGradientScreenNode())
         case _ as RadialGradientNavigationIdentity:
             return VAViewController(node: RadialGradientScreenNode())
         case _ as AlertNavigationIdentity:
-            return AlertNodeController()
+            return AlertNodeController(data: .init(
+                navigation: .init(
+                    showAlert: navigator ?> {
+                        $0.navigate(
+                            destination: .controller($1),
+                            strategy: .present()
+                        )
+                    }
+                )
+            ))
         case _ as CollectionListDifferentCellsNavigationIdentity:
             return CollectionListDifferentCellsNodeController(viewModel: CollectionListDifferentCellsViewModel())
         case _ as CollectionListHeaderFooterNavigationIdentity:
@@ -109,7 +120,7 @@ class AppScreenFactory: NavigatorScreenFactory {
         case _ as KeyframeAnimationsNavigationIdentity:
             return VAViewController(node: KeyframeAnimationsScreenNode())
         case _ as ElementsScrollingAnimationListNavigationIdentity:
-            return ElementsScrollingAnimationListViewController()
+            return ElementsScrollingAnimationListNodeController()
         case _ as MainNavigationIdentity:
             return MainNodeController(viewModel: MainViewModel(navigator: navigator as? AppNavigator))
         case _ as EmitterLayerAnimationNavigationIdentity:

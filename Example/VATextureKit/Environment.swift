@@ -20,6 +20,7 @@ enum Environment {
 
     static var isTesting: Bool {
         let arguments = ProcessInfo.processInfo.arguments
+        
         return arguments.contains("IS_TESTING") || arguments.contains("IS_UI_TESTING")
     }
 

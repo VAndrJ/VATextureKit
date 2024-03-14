@@ -12,7 +12,10 @@ class TagCellNode: VACellNode {
     let titleTextNode: VATextNode
 
     init(viewModel: TagCellNodeViewModel) {
-        self.titleTextNode = VATextNode(text: viewModel.title, fontStyle: .headline)
+        self.titleTextNode = VATextNode(
+            text: viewModel.title,
+            fontStyle: .headline
+        )
 
         super.init(corner: .init(radius: .proportional(percent: 100)))
     }

@@ -10,8 +10,7 @@ import XCTest
 @testable import VATextureKit_Example
 import VATextureKit
 
-@MainActor
-class VAButtonNodeTests: XCTestCase {
+class VAButtonNodeTests: XCTestCase, MainActorIsolated {
     var sut: VAButtonNode!
 
     override func setUp() {
@@ -55,8 +54,4 @@ class VAButtonNodeTests: XCTestCase {
         XCTAssertTrue(receiver.isTapped)
         XCTAssertTrue(receiver1.isTapped)
     }
-}
-
-private class MockTapReceiver {
-    var isTapped = false
 }

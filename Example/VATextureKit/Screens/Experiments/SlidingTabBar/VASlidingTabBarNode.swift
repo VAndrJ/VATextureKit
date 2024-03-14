@@ -47,7 +47,7 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode {
     open override func layout() {
         super.layout()
 
-        indicatorContainerNode.indicatorNode.cornerRadius = bounds.height / 2 - data.contentInset.top
+        indicatorContainerNode.indicatorNode.corner = .init(radius: .fixed(bounds.height / 2 - data.contentInset.top))
     }
 
     open override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -64,6 +64,7 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode {
         guard let currentItem = items[node: currentIndex], let nextItem = items[node: currentIndex + 1] else {
             return
         }
+
         let progress = index.truncatingRemainder(dividingBy: 1)
         let itemOffset = currentItem.frame.origin.x - data.contentInset.left
         let contentWidth = view.contentSize.width
@@ -108,6 +109,7 @@ private extension Array {
         guard !isEmpty else {
             return nil
         }
+
         return self[Swift.max(0, Swift.min(count - 1, index))]
     }
 }

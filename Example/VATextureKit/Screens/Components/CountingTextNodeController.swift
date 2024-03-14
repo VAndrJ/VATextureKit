@@ -11,7 +11,11 @@ import VATextureKit
 struct CountingTextNodeNavigationIdentity: DefaultNavigationIdentity {}
 
 final class CountingTextNodeController: ScreenNode {
-    private lazy var countingTextNode = VACountingTextNode(string: "", color: { $0.label }, descriptor: .monospacedDigits).apply {
+    private lazy var countingTextNode = VACountingTextNode(
+        string: "",
+        color: { $0.label },
+        descriptor: .monospacedDigits
+    ).apply {
         $0.updateCount(to: 0)
     }
     private lazy var randomButtonNode = HapticButtonNode(title: "Random")

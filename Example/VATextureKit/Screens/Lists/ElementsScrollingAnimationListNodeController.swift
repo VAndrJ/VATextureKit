@@ -1,5 +1,5 @@
 //
-//  ElementsScrollingAnimationListViewController.swift
+//  ElementsScrollingAnimationListNodeController.swift
 //  VATextureKit_Example
 //
 //  Created by Volodymyr Andriienko on 30.07.2023.
@@ -12,7 +12,7 @@ struct ElementsScrollingAnimationListNavigationIdentity: DefaultNavigationIdenti
 
 // MARK: - ViewController as a View example
 
-final class ElementsScrollingAnimationListViewController: VANodeController {
+final class ElementsScrollingAnimationListNodeController: VANodeController {
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask { .portrait }
 
     private lazy var listNode = VAListNode(
@@ -41,7 +41,7 @@ final class ElementsScrollingAnimationListViewController: VANodeController {
         listNode.view.alwaysBounceVertical = true
     }
 
-    override func layoutSpec(_ node: ASDisplayNode, _ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
             listNode
         }

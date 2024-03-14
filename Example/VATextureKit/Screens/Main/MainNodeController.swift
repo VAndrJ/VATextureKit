@@ -32,7 +32,7 @@ final class MainNodeController: VANodeController {
             .flex(shrink: 0.1, grow: 1)
     }
     
-    override func layoutSpec(_ node: ASDisplayNode, _ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
             Column(cross: .stretch) {
                 listNode

@@ -11,8 +11,7 @@ import XCTest
 import SnapshotTesting
 import VATextureKit
 
-@MainActor
-class StackLayoutScreenNodeTests: XCTestCase {
+class StackLayoutScreenNodeTests: XCTestCase, MainActorIsolated {
 
     func test_node() {
         appContext.themeManager.setLightAsCustomTheme()

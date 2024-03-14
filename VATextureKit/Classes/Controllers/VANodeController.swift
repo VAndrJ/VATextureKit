@@ -22,8 +22,8 @@ open class VANodeController: VAViewController<ASDisplayNode> {
     open override func viewDidLoad() {
         super.viewDidLoad()
         
-        contentNode.layoutSpecBlock = { [weak self] node, constrainedSize in
-            self?.layoutSpec(node, constrainedSize) ?? ASLayoutSpec()
+        contentNode.layoutSpecBlock = { [weak self] _, constrainedSize in
+            self?.layoutSpecThatFits(constrainedSize) ?? ASLayoutSpec()
         }
         configure()
         bind()
@@ -33,7 +33,7 @@ open class VANodeController: VAViewController<ASDisplayNode> {
         contentNode.setNeedsDisplay()
     }
     
-    open func layoutSpec(_ node: ASDisplayNode, _ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    open func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         #if DEBUG
         assertionFailure("implement")
         #endif

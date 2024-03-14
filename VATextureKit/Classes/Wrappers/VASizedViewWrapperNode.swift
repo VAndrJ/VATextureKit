@@ -25,6 +25,9 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
 
     private let childGetter: @MainActor () -> T
     private let sizing: WrapperNodeSizing
+    // To avoid `systemLayoutSizeFitting` calculation issues
+    private var cHeight: NSLayoutConstraint?
+    private var cWidth: NSLayoutConstraint?
 
     /// Creates an instance.
     ///
@@ -61,6 +64,7 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
     open override func didLoad() {
         super.didLoad()
 
+        child.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(child)
     }
 
@@ -70,42 +74,78 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
 
         switch sizing {
         case .viewHeight:
+            if let cWidth {
+                cWidth.constant = bounds.width
+            } else {
+                cWidth = child.widthAnchor.constraint(equalToConstant: bounds.width)
+                cWidth?.priority = .init(999)
+                cWidth?.isActive = true
+            }
             let size = child.systemLayoutSizeFitting(.init(
                 width: bounds.width,
                 height: UIView.layoutFittingExpandedSize.height
             ))
             if !size.height.isPixelEqual(to: bounds.height) {
-                let height = size.height.pixelRounded(.up)
-                child.frame = .init(width: bounds.width, height: height)
-                style.height = .points(height)
-                setNeedsLayout()
+                if !size.height.isPixelEqual(to: style.height.value) {
+                    let height = size.height.pixelRounded(.up)
+                    child.frame = .init(width: bounds.width, height: height)
+                    style.height = .points(height)
+                    var newFrame = frame
+                    newFrame.size.height = height
+                    frame = newFrame
+                    setNeedsLayout()
+                }
             } else {
-                child.frame = bounds
+                if child.frame != bounds {
+                    child.frame = bounds
+                }
             }
         case .viewWidth:
+            if let cHeight {
+                cHeight.constant = bounds.height
+            } else {
+                cHeight = child.heightAnchor.constraint(equalToConstant: bounds.height)
+                cHeight?.priority = .init(999)
+                cHeight?.isActive = true
+            }
             let size = child.systemLayoutSizeFitting(.init(
                 width: UIView.layoutFittingExpandedSize.width,
                 height: bounds.height
             ))
             if !size.width.isPixelEqual(to: bounds.width) {
-                let width = size.width.pixelRounded(.up)
-                child.frame = .init(width: width, height: bounds.height)
-                style.width = .points(width)
-                setNeedsLayout()
+                if !size.width.isPixelEqual(to: style.width.value) {
+                    let width = size.width.pixelRounded(.up)
+                    child.frame = .init(width: width, height: bounds.height)
+                    style.width = .points(width)
+                    var newFrame = frame
+                    newFrame.size.width = width
+                    frame = newFrame
+                    setNeedsLayout()
+                }
             } else {
-                child.frame = bounds
+                if child.frame != bounds {
+                    child.frame = bounds
+                }
             }
         case .viewSize:
             let size = child.systemLayoutSizeFitting(UIView.layoutFittingExpandedSize)
             if !size.height.isPixelEqual(to: bounds.height) || !size.width.isPixelEqual(to: bounds.width) {
-                child.frame = .init(
-                    width: size.width.pixelRounded(.up),
-                    height: size.height.pixelRounded(.up)
-                )
-                style.preferredSize = size
-                setNeedsLayout()
+                if !size.height.isPixelEqual(to: style.preferredSize.height) || !size.width.isPixelEqual(to: style.preferredSize.width) {
+                    let newSize = CGSize(
+                        width: size.width.pixelRounded(.up),
+                        height: size.height.pixelRounded(.up)
+                    )
+                    child.frame = .init(size: newSize)
+                    style.preferredSize = newSize
+                    var newFrame = frame
+                    newFrame.size = newSize
+                    frame = newFrame
+                    setNeedsLayout()
+                }
             } else {
-                child.frame = bounds
+                if child.frame != bounds {
+                    child.frame = bounds
+                }
             }
         }
     }

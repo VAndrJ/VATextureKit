@@ -140,7 +140,7 @@ class VAStateModelTests: XCTestCase {
         }
         sut.execute(DelayAction(delay: 2))
         sut.execute(DelayAction(delay: 3))
-        DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+        mainAsync(after: 6) {
             expect.fulfill()
         }
         wait(for: [expect], timeout: 7)
@@ -162,7 +162,7 @@ class VAStateModelTests: XCTestCase {
         }
         sut.execute(DelayAction(delay: 2))
         sut.execute(DelayAction(delay: 3))
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+        mainAsync(after: 4) {
             expect.fulfill()
         }
         wait(for: [expect], timeout: 5)
@@ -184,7 +184,7 @@ class VAStateModelTests: XCTestCase {
         }
         sut.execute(DelayAction(delay: 2))
         sut.execute(DelayAction(delay: 3))
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+        mainAsync(after: 4) {
             expect.fulfill()
         }
         wait(for: [expect], timeout: 5)
@@ -206,7 +206,7 @@ class VAStateModelTests: XCTestCase {
         }
         sut.execute(DelayAction(delay: 3))
         sut.execute(DelayAction(delay: 2))
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+        mainAsync(after: 4) {
             expect.fulfill()
         }
         wait(for: [expect], timeout: 5)
@@ -229,7 +229,7 @@ class VAStateModelTests: XCTestCase {
         }
         sut.execute(DelayAction(delay: 2))
         sut.execute(DelayAction(delay: 3))
-        DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+        mainAsync(after: 6) {
             expect.fulfill()
         }
         wait(for: [expect], timeout: 7)
@@ -252,7 +252,7 @@ class VAStateModelTests: XCTestCase {
         }
         sut.execute(DelayAction(delay: 2))
         sut.execute(DelayAction(delay: 3))
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+        mainAsync(after: 4) {
             expect.fulfill()
         }
         wait(for: [expect], timeout: 5)
@@ -275,7 +275,7 @@ class VAStateModelTests: XCTestCase {
         }
         sut.execute(DelayAction(delay: 2))
         sut.execute(DelayAction(delay: 3))
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+        mainAsync(after: 4) {
             expect.fulfill()
         }
         wait(for: [expect], timeout: 5)
@@ -298,7 +298,7 @@ class VAStateModelTests: XCTestCase {
         }
         sut.execute(DelayAction(delay: 3))
         sut.execute(DelayAction(delay: 2))
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+        mainAsync(after: 4) {
             expect.fulfill()
         }
         wait(for: [expect], timeout: 5)

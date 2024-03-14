@@ -10,8 +10,7 @@ import XCTest
 @testable import VATextureKit_Example
 import VATextureKitRx
 
-@MainActor
-class ASCollectionNodeTests: XCTestCase {
+class ASCollectionNodeTests: XCTestCase, MainActorIsolated {
 
     func test_direction() {
         let node = VAListNode(

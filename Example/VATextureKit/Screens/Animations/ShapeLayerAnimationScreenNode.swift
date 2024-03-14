@@ -11,11 +11,11 @@ import VATextureKit
 struct ShapeLayerAnimationNavigationIdentity: DefaultNavigationIdentity {}
 
 final class ShapeLayerAnimationScreenNode: ScreenNode {
-    private lazy var fillColorExampleNode = FillColorExampleNode()
-    private lazy var pathExampleNode = PathExampleNode()
-    private lazy var strokeColorExampleNode = StrokeColorExampleNode()
-    private lazy var strokeEndExampleNode = StrokeEndExampleNode()
-    private lazy var lineDashExampleNode = LineDashExampleNode()
+    private lazy var fillColorExampleNode = _FillColorExampleNode()
+    private lazy var pathExampleNode = _PathExampleNode()
+    private lazy var strokeColorExampleNode = _StrokeColorExampleNode()
+    private lazy var strokeEndExampleNode = _StrokeEndExampleNode()
+    private lazy var lineDashExampleNode = _LineDashExampleNode()
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
@@ -35,7 +35,7 @@ final class ShapeLayerAnimationScreenNode: ScreenNode {
     }
 }
 
-private class FillColorExampleNode: DisplayNode {
+private class _FillColorExampleNode: DisplayNode {
     private lazy var exampleNode = VAShapeNode(data: .init(fillColor: theme.systemOrange))
         .sized(height: 64)
 
@@ -62,7 +62,7 @@ private class FillColorExampleNode: DisplayNode {
     }
 }
 
-private class PathExampleNode: DisplayNode {
+private class _PathExampleNode: DisplayNode {
     private lazy var exampleNode = VAShapeNode(data: .init(fillColor: theme.systemOrange))
         .sized(height: 64)
 
@@ -94,7 +94,7 @@ private class PathExampleNode: DisplayNode {
     }
 }
 
-private class StrokeColorExampleNode: DisplayNode {
+private class _StrokeColorExampleNode: DisplayNode {
     private lazy var exampleNode = VAShapeNode(data: .init(strokeColor: theme.systemOrange))
         .apply {
             $0.setLineWidth(10)
@@ -124,7 +124,7 @@ private class StrokeColorExampleNode: DisplayNode {
     }
 }
 
-private class StrokeEndExampleNode: DisplayNode {
+private class _StrokeEndExampleNode: DisplayNode {
     private lazy var exampleNode = VAShapeNode(data: .init(strokeColor: theme.systemOrange))
         .apply {
             $0.setLineWidth(32)
@@ -154,7 +154,7 @@ private class StrokeEndExampleNode: DisplayNode {
     }
 }
 
-private class LineDashExampleNode: DisplayNode {
+private class _LineDashExampleNode: DisplayNode {
     private lazy var exampleNode = VAShapeNode(data: .init(strokeColor: theme.systemOrange))
         .apply {
             $0.setLineWidth(2)

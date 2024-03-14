@@ -11,9 +11,9 @@ import VATextureKit
 struct GradientLayerAnimationNavigationIdentity: DefaultNavigationIdentity {}
 
 final class GradientLayerAnimationScreenNode: ScreenNode {
-    private lazy var locationsExampleNode = LocationsExampleNode()
-    private lazy var colorsExampleNode = ColorsExampleNode()
-    private lazy var pointsExampleNode = PointsExampleNode()
+    private lazy var locationsExampleNode = _LocationsExampleNode()
+    private lazy var colorsExampleNode = _ColorsExampleNode()
+    private lazy var pointsExampleNode = _PointsExampleNode()
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
@@ -31,7 +31,7 @@ final class GradientLayerAnimationScreenNode: ScreenNode {
     }
 }
 
-private class PointsExampleNode: VADisplayNode {
+private class _PointsExampleNode: VADisplayNode {
     private lazy var exampleNode = VALinearGradientNode(gradient: .horizontal)
         .apply { $0.update(colors: (.green, 0), (.black, 0.5), (.green, 1)) }
         .sized(height: 64)
@@ -40,13 +40,13 @@ private class PointsExampleNode: VADisplayNode {
         super.didLoad()
 
         exampleNode.animate(
-            .startPoint(from: CGPoint(x: 0, y: 0.5), to: CGPoint(x: 0.5, y: 1)),
+            .startPoint(from: .init(x: 0, y: 0.5), to: .init(x: 0.5, y: 1)),
             duration: 2,
             repeatCount: .greatestFiniteMagnitude,
             autoreverses: true
         )
         exampleNode.animate(
-            .endPoint(from: CGPoint(x: 1, y: 0.5), to: CGPoint(x: 0.5, y: 0)),
+            .endPoint(from: .init(x: 1, y: 0.5), to: .init(x: 0.5, y: 0)),
             duration: 2,
             repeatCount: .greatestFiniteMagnitude,
             autoreverses: true
@@ -59,7 +59,7 @@ private class PointsExampleNode: VADisplayNode {
     }
 }
 
-private class ColorsExampleNode: VADisplayNode {
+private class _ColorsExampleNode: VADisplayNode {
     private lazy var exampleNode = VALinearGradientNode(gradient: .horizontal)
         .apply { $0.update(colors: (.green, 0), (.black, 0.5), (.green, 1)) }
         .sized(height: 64)
@@ -81,7 +81,7 @@ private class ColorsExampleNode: VADisplayNode {
     }
 }
 
-private class LocationsExampleNode: VADisplayNode {
+private class _LocationsExampleNode: VADisplayNode {
     private lazy var exampleNode = VALinearGradientNode(gradient: .horizontal)
         .apply { $0.update(colors: (.green, 0), (.black, 0.2), (.green, 0.4)) }
         .sized(height: 64)
