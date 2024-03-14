@@ -24,11 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         func launch() {
-            if #available(iOS 12.0, *) {
-                window = VAWindow(standardLightTheme: .vaLight, standardDarkTheme: .vaDark)
-            } else {
-                window = VAWindow(legacyLightTheme: .vaLight, legacyDarkTheme: .vaDark)
-            }
+            window = VAWindow(standardLightTheme: .vaLight, standardDarkTheme: .vaDark)
             configure()
             navigator.start()
             window?.makeKeyAndVisible()
@@ -36,11 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         #if DEBUG && targetEnvironment(simulator)
         if Environment.isTesting {
-            if #available(iOS 12.0, *) {
-                window = VAWindow(standardLightTheme: .vaLight, standardDarkTheme: .vaDark)
-            } else {
-                window = VAWindow(legacyLightTheme: .vaLight, legacyDarkTheme: .vaDark)
-            }
+            window = VAWindow(standardLightTheme: .vaLight, standardDarkTheme: .vaDark)
             window?.rootViewController = UIViewController()
             window?.makeKeyAndVisible()
 

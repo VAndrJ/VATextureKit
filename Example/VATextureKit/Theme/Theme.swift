@@ -22,6 +22,7 @@ extension VATheme {
         let theme = VATheme.vaLight
         theme.tag = PurpleThemeTag()
         theme.label = .purple
+        
         return theme
     }
 }

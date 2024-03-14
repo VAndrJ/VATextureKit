@@ -11,7 +11,10 @@ import SwiftUI
 @available (iOS 13.0, *)
 open class VAViewHostingNode: VADisplayNode {
     @MainActor
-    private(set) lazy var hostingController = UIHostingController(rootView: viewGetter())
+    private(set) lazy var hostingController = _LayoutTrackingHostingController(
+        rootView: viewGetter(),
+        shouldLayout: { [weak self] in self?.setNeedsLayout() }
+    )
 
     private let viewGetter: @MainActor () -> AnyView
     private let sizing: WrapperNodeSizing
@@ -38,7 +41,6 @@ open class VAViewHostingNode: VADisplayNode {
 
         view.addSubview(hostingController.view)
         hostingController.view.backgroundColor = .clear
-        hostingController.view.invalidateIntrinsicContentSize()
     }
 
     @MainActor
@@ -59,12 +61,19 @@ open class VAViewHostingNode: VADisplayNode {
                 height: UIView.layoutFittingExpandedSize.height
             ))
             if !size.height.isPixelEqual(to: bounds.height) {
-                let height = size.height.pixelRounded(.up)
-                hostingController.view.frame = .init(width: bounds.width, height: height)
-                style.height = .points(height)
-                setNeedsLayout()
+                if !size.height.isPixelEqual(to: style.height.value) {
+                    let height = size.height.pixelRounded(.up)
+                    hostingController.view.frame = .init(width: bounds.width, height: height)
+                    style.height = .points(height)
+                    var newFrame = frame
+                    newFrame.size.height = height
+                    frame = newFrame
+                    setNeedsLayout()
+                }
             } else {
-                hostingController.view.frame = bounds
+                if hostingController.view.frame != bounds {
+                    hostingController.view.frame = bounds
+                }
             }
         case .viewWidth:
             let size = hostingController.view.systemLayoutSizeFitting(.init(
@@ -72,26 +81,62 @@ open class VAViewHostingNode: VADisplayNode {
                 height: bounds.height
             ))
             if !size.width.isPixelEqual(to: bounds.width) {
-                let width = size.width.pixelRounded(.up)
-                hostingController.view.frame = .init(width: width, height: bounds.height)
-                style.width = .points(width)
-                setNeedsLayout()
+                if !size.width.isPixelEqual(to: style.width.value) {
+                    let width = size.width.pixelRounded(.up)
+                    hostingController.view.frame = .init(width: width, height: bounds.height)
+                    style.width = .points(width)
+                    var newFrame = frame
+                    newFrame.size.width = width
+                    frame = newFrame
+                    setNeedsLayout()
+                }
             } else {
-                hostingController.view.frame = bounds
+                if hostingController.view.frame != bounds {
+                    hostingController.view.frame = bounds
+                }
             }
         case .viewSize:
             let size = hostingController.view.systemLayoutSizeFitting(UIView.layoutFittingExpandedSize)
             if !size.height.isPixelEqual(to: bounds.height) || !size.width.isPixelEqual(to: bounds.width) {
-                hostingController.view.frame = .init(
-                    width: size.width.pixelRounded(.up),
-                    height: size.height.pixelRounded(.up)
-                )
-                style.preferredSize = size
-                setNeedsLayout()
+                if !size.height.isPixelEqual(to: style.preferredSize.height) || !size.width.isPixelEqual(to: style.preferredSize.width) {
+                    let newSize = CGSize(
+                        width: size.width.pixelRounded(.up),
+                        height: size.height.pixelRounded(.up)
+                    )
+                    hostingController.view.frame = .init(size: newSize)
+                    style.preferredSize = newSize
+                    var newFrame = frame
+                    newFrame.size = newSize
+                    frame = newFrame
+                    setNeedsLayout()
+                }
             } else {
-                hostingController.view.frame = bounds
+                if hostingController.view.frame != bounds {
+                    hostingController.view.frame = bounds
+                }
             }
         }
+    }
+}
+
+class _LayoutTrackingHostingController<Content: View>: UIHostingController<Content> {
+    let shouldLayout: () -> Void
+
+    init(rootView: Content, shouldLayout: @escaping () -> Void) {
+        self.shouldLayout = shouldLayout
+
+        super.init(rootView: rootView)
+    }
+
+    @MainActor required dynamic init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        view.invalidateIntrinsicContentSize()
+        shouldLayout()
     }
 }
 #endif

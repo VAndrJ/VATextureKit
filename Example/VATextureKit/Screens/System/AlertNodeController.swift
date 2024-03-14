@@ -13,12 +13,21 @@ struct AlertNavigationIdentity: DefaultNavigationIdentity {}
 // MARK: - ViewController as a View axample
 
 final class AlertNodeController: VANodeController {
+    struct Context {
+        struct Navigation {
+            let showAlert: (UIAlertController) -> Void
+        }
+
+        let navigation: Navigation
+    }
+
+    private let data: Context
 
     // MARK: - UI related code
 
     private let buttonNode = HapticButtonNode(title: "Show alert")
 
-    override func layoutSpec(_ node: ASDisplayNode, _ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
             Column(cross: .stretch) {
                 buttonNode
@@ -34,17 +43,20 @@ final class AlertNodeController: VANodeController {
 
     // MARK: - Controller related code
 
-    private func showAlert() {
-        let alertController = VAAlertController(
-            title: "title",
-            message: "message",
-            preferredStyle: .alert,
-            actions: UIAlertAction(title: "OK", style: .cancel)
-        )
-        present(alertController, animated: true)
+    init(data: Context) {
+        self.data = data
+
+        super.init()
     }
     
     override func bind() {
-        buttonNode.onTap = self ?>> { $0.showAlert }
+        buttonNode.onTap = self ?> {
+            $0.data.navigation.showAlert(VAAlertController(
+                title: "title",
+                message: "message",
+                preferredStyle: .alert,
+                actions: UIAlertAction(title: "OK", style: .cancel)
+            ))
+        }
     }
 }

@@ -10,10 +10,11 @@ import VATextureKit
 
 class ThemeManager: @unchecked Sendable {
     var currentTheme: Theme {
-        switch appContext.themeManager.theme.tag {
-        case _ as VALightThemeTag where appContext.themeManager.themeType == .custom:
+        let themeManager = appContext.themeManager
+        switch themeManager.theme.tag {
+        case _ as VALightThemeTag where themeManager.themeType == .custom:
             return .light
-        case _ as VADarkThemeTag where appContext.themeManager.themeType == .custom:
+        case _ as VADarkThemeTag where themeManager.themeType == .custom:
             return .dark
         case _ as PurpleThemeTag:
             return .purple
@@ -21,23 +22,23 @@ class ThemeManager: @unchecked Sendable {
             return .system
         }
     }
-    
-    private let defaultsKey = "com.vandrj.theme"
+
+    @VANilableRawUserDefault(key: "com.vandrj.theme")
+    private var theme: Theme?
     
     func checkInitialTheme() {
-        if let theme = Theme(rawValue: UserDefaults.standard.integer(forKey: defaultsKey)) {
+        if let theme {
             changeIfNeeded(to: theme)
         }
     }
     
-    func update(theme: Theme) {
-        changeIfNeeded(to: theme)
-        UserDefaults.standard.set(theme.rawValue, forKey: defaultsKey)
-        UserDefaults.standard.synchronize()
+    func update(theme newTheme: Theme) {
+        theme = newTheme
+        changeIfNeeded(to: newTheme)
     }
     
-    private func changeIfNeeded(to theme: Theme) {
-        switch theme {
+    private func changeIfNeeded(to newTheme: Theme) {
+        switch newTheme {
         case .light:
             if !(appContext.themeManager.theme.tag is VALightThemeTag) || appContext.themeManager.themeType == .standard {
                 appContext.themeManager.setLightAsCustomTheme()
@@ -46,13 +47,13 @@ class ThemeManager: @unchecked Sendable {
             if !(appContext.themeManager.theme.tag is VADarkThemeTag) || appContext.themeManager.themeType == .standard {
                 appContext.themeManager.setDarkAsCustomTheme()
             }
-        case .system:
-            if appContext.themeManager.themeType != .standard {
-                appContext.themeManager.setStandardTheme()
-            }
         case .purple:
             if !(appContext.themeManager.theme.tag is PurpleThemeTag) {
                 appContext.themeManager.setCustomTheme(.purple)
+            }
+        case .system:
+            if appContext.themeManager.themeType != .standard {
+                appContext.themeManager.setStandardTheme()
             }
         }
     }

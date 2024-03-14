@@ -35,7 +35,11 @@ final class AppearanceViewController: VAViewController<AppearanceContollerNode> 
     private func bind() {
         contentNode.pickerNode.child.dataSource = self
         contentNode.pickerNode.child.delegate = self
-        contentNode.pickerNode.child.selectRow(viewModel.currentTheme.rawValue, inComponent: 0, animated: false)
+        contentNode.pickerNode.child.selectRow(
+            viewModel.currentTheme.rawValue,
+            inComponent: 0,
+            animated: false
+        )
     }
 }
 
@@ -47,7 +51,10 @@ extension AppearanceViewController: UIPickerViewDataSource {
         1
     }
     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(
+        _ pickerView: UIPickerView,
+        numberOfRowsInComponent component: Int
+    ) -> Int {
         viewModel.themes.count
     }
 }
@@ -56,7 +63,11 @@ extension AppearanceViewController: UIPickerViewDataSource {
 
 extension AppearanceViewController: UIPickerViewDelegate {
 
-    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+    func pickerView(
+        _ pickerView: UIPickerView,
+        attributedTitleForRow row: Int,
+        forComponent component: Int
+    ) -> NSAttributedString? {
         NSMutableAttributedString(
             string: "\(viewModel.themes[row])".capitalized,
             font: .boldSystemFont(ofSize: 13),
@@ -65,7 +76,11 @@ extension AppearanceViewController: UIPickerViewDelegate {
         )
     }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(
+        _ pickerView: UIPickerView,
+        didSelectRow row: Int,
+        inComponent component: Int
+    ) {
         viewModel.didSelect(at: row)
     }
 }

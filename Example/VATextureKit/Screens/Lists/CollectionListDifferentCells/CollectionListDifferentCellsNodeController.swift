@@ -59,7 +59,7 @@ final class CollectionListDifferentCellsNodeController: VANodeController {
             .flex(grow: 2 / 3)
     }
     
-    override func layoutSpec(_ node: ASDisplayNode, _ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
             Row {
                 leftListNode
