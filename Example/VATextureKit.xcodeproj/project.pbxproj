@@ -92,6 +92,7 @@
 		A38863872BA1F42900FC05FD /* UIViewSizedContainerScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38863862BA1F42900FC05FD /* UIViewSizedContainerScreenNode.swift */; };
 		A38863892BA2166D00FC05FD /* UIViewContainerScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38863882BA2166D00FC05FD /* UIViewContainerScreenNode.swift */; };
 		A388638B2BA219CE00FC05FD /* ViewHostingScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A388638A2BA219CE00FC05FD /* ViewHostingScreenNode.swift */; };
+		A388638D2BA2F8C200FC05FD /* UIColorSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A388638C2BA2F8C200FC05FD /* UIColorSnapshotTests.swift */; };
 		A38D5E932A6BBEF200A67BC7 /* CountingTextNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E922A6BBEF200A67BC7 /* CountingTextNodeController.swift */; };
 		A38D5E982A6C14F200A67BC7 /* DynamicHeightGridListScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E972A6C14F200A67BC7 /* DynamicHeightGridListScreenNode.swift */; };
 		A38D5E9C2A6D251E00A67BC7 /* ShimmersScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5E9B2A6D251E00A67BC7 /* ShimmersScreenNode.swift */; };
@@ -259,6 +260,7 @@
 		A38863862BA1F42900FC05FD /* UIViewSizedContainerScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewSizedContainerScreenNode.swift; sourceTree = "<group>"; };
 		A38863882BA2166D00FC05FD /* UIViewContainerScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewContainerScreenNode.swift; sourceTree = "<group>"; };
 		A388638A2BA219CE00FC05FD /* ViewHostingScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewHostingScreenNode.swift; sourceTree = "<group>"; };
+		A388638C2BA2F8C200FC05FD /* UIColorSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorSnapshotTests.swift; sourceTree = "<group>"; };
 		A38D5E922A6BBEF200A67BC7 /* CountingTextNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountingTextNodeController.swift; sourceTree = "<group>"; };
 		A38D5E972A6C14F200A67BC7 /* DynamicHeightGridListScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicHeightGridListScreenNode.swift; sourceTree = "<group>"; };
 		A38D5E9B2A6D251E00A67BC7 /* ShimmersScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmersScreenNode.swift; sourceTree = "<group>"; };
@@ -467,6 +469,7 @@
 		A328F9A329D757B300FEB663 /* Snapshots */ = {
 			isa = PBXGroup;
 			children = (
+				A388638C2BA2F8C200FC05FD /* UIColorSnapshotTests.swift */,
 				A3551A5829DD5FCF00B0B18F /* VABaseGradientNodeTests.swift */,
 				A316144C2A96321A00ED8561 /* VAContainerButtonNodeSnapshotTests.swift */,
 				A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */,
@@ -1138,6 +1141,7 @@
 				A359CB872A7F7E22002C60CA /* StackLayoutScreenNodeTests.swift in Sources */,
 				A316144F2A9738D000ED8561 /* VAViewWrapperNodeTests.swift in Sources */,
 				A3AAE1872A78E19700F6C7C1 /* ASSizeRangeTests.swift in Sources */,
+				A388638D2BA2F8C200FC05FD /* UIColorSnapshotTests.swift in Sources */,
 				A38863812BA0B0E400FC05FD /* VAViewHostingNodeTests.swift in Sources */,
 				A35219C82A8941AA00DD17A9 /* CollectionExampleCellNodeTests.swift in Sources */,
 				A3CC539C2A79326E00BC4B3A /* CGSizeTests.swift in Sources */,
