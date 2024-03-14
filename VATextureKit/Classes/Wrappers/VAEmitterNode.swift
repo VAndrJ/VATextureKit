@@ -7,6 +7,7 @@
 
 import AsyncDisplayKit
 
+/// `CAEmitterLayer` wrapper node.
 open class VAEmitterNode: VADisplayNode {
     public var onAnimationsEnded: (() -> Void)?
     public var isStarted: Bool { token != nil }
@@ -24,6 +25,7 @@ open class VAEmitterNode: VADisplayNode {
             layer.emitterPosition = emitterPosition
             layer.emitterSize = emitterSize
             _emitterLayer = layer
+
             return layer
         }
     }
@@ -101,6 +103,7 @@ open class VAEmitterNode: VADisplayNode {
     }
 }
 
+/// `CAEmitterLayer` subclass with useful additions.
 open class VAEmitterLayer: CAEmitterLayer {
     public enum AttractorType: String {
         case radial

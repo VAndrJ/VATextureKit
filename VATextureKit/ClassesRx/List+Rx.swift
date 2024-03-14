@@ -57,6 +57,7 @@ extension Array where Element: SectionModelType {
 }
 
 extension ObservableType {
+
     func subscribeProxyDataSource<DelegateProxy: DelegateProxyType>(ofObject object: DelegateProxy.ParentObject, dataSource: DelegateProxy.Delegate, retainDataSource: Bool, binding: @escaping (DelegateProxy, Event<Element>) -> Void) -> Disposable where DelegateProxy.ParentObject: ASDisplayNode, DelegateProxy.Delegate: AnyObject {
         let proxy = DelegateProxy.proxy(for: object)
         // disposable needs to be disposed on the main thread
@@ -73,7 +74,7 @@ extension ObservableType {
 
                 return Observable.empty()
             }
-        // source can never end, otherwise it would release the subscriber, and deallocate the data source
+            // source can never end, otherwise it would release the subscriber, and deallocate the data source
             .concat(Observable.never())
             .take(until: object.rx.deallocated)
             .subscribe { [weak object] (event: Event<Element>) in
@@ -111,11 +112,11 @@ enum RxDataSourceTextureError: Error {
 
 func bindingError(_ error: Swift.Error) {
     let error = "Binding error: \(error)"
-#if DEBUG
+    #if DEBUG
     rxFatalError(error)
-#else
+    #else
     print(error)
-#endif
+    #endif
 }
 
 /// Used as a runtime check to ensure that methods that are intended to be abstract (i.e., they should be implemented in subclasses) are not called directly on the superclass.
@@ -128,11 +129,11 @@ func rxFatalError(_ lastMessage: @autoclosure () -> String, file: StaticString =
 }
 
 func rxFatalErrorInDebug(_ lastMessage: @autoclosure () -> String, file: StaticString = #file, line: UInt = #line) {
-#if DEBUG
+    #if DEBUG
     fatalError(lastMessage(), file: file, line: line)
-#else
+    #else
     print("\(file):\(line): \(lastMessage())")
-#endif
+    #endif
 }
 
 func rxDebugFatalError(_ error: Error) {
@@ -140,11 +141,11 @@ func rxDebugFatalError(_ error: Error) {
 }
 
 func rxDebugFatalError(_ message: String) {
-#if DEBUG
+    #if DEBUG
     fatalError(message)
-#else
+    #else
     print(message)
-#endif
+    #endif
 }
 
 // MARK: casts
@@ -275,6 +276,7 @@ extension ASCollectionNode: SectionedNodeType {
 }
 
 public protocol SectionedNodeType {
+    
     func insertItemsAtIndexPaths(_ paths: [IndexPath], animationStyle: UITableView.RowAnimation)
     func deleteItemsAtIndexPaths(_ paths: [IndexPath], animationStyle: UITableView.RowAnimation)
     func moveItemAtIndexPath(_ from: IndexPath, to: IndexPath)

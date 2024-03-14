@@ -7,6 +7,7 @@
 
 import AsyncDisplayKit
 
+/// `CAShapeLayer` wrapper node
 open class VAShapeNode: ASDisplayNode {
     public struct Context {
         let fillColor: UIColor

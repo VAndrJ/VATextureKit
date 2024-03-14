@@ -261,9 +261,9 @@ open class RxASCollectionSectionedAnimatedDataSource<S: AnimatableSectionModelTy
     
     open func collectionNode(_ collectionNode: ASCollectionNode, observedEvent: Event<Element>) {
         Binder(self) { dataSource, newSections in
-#if DEBUG
+            #if DEBUG
             dataSource._dataSourceBound = true
-#endif
+            #endif
             if !dataSource.dataSet {
                 dataSource.dataSet = true
                 dataSource.setSections(newSections)
@@ -315,7 +315,8 @@ open class RxASCollectionSectionedAnimatedDataSource<S: AnimatableSectionModelTy
                     }()
                 }
             }
-        }.on(observedEvent)
+        }
+        .on(observedEvent)
     }
 }
 
@@ -324,15 +325,16 @@ open class RxASCollectionSectionedReloadDataSource<S: SectionModelType>: ASColle
     
     open func collectionNode(_ collectionNode: ASCollectionNode, observedEvent: Event<[S]>) {
         Binder(self) { dataSource, element in
-#if DEBUG
+            #if DEBUG
             dataSource._dataSourceBound = true
-#endif
+            #endif
             dataSource.setSections(element)
             mainActorEscaped {
                 collectionNode.reloadData()
                 collectionNode.collectionViewLayout.invalidateLayout()
             }()
-        }.on(observedEvent)
+        }
+        .on(observedEvent)
     }
 }
 
@@ -419,7 +421,7 @@ open class ASCollectionSectionedDataSource<S: SectionModelType>: NSObject, ASCol
         self.canMoveItemWith = canMoveItemWith
     }
     
-#if DEBUG
+    #if DEBUG
     // If data source has already been bound, then mutating it
     // afterwards isn't something desired.
     // This simulates immutability after binding
@@ -428,8 +430,7 @@ open class ASCollectionSectionedDataSource<S: SectionModelType>: NSObject, ASCol
     private func ensureNotMutatedAfterBinding() {
         assert(!_dataSourceBound, "Data source is already bound. Please write this line before binding call (`bindTo`, `drive`). Data source must first be completely configured, and then bound after that.")
     }
-    
-#endif
+    #endif
     
     // This structure exists because model can be mutable
     // In that case current state value should be preserved.
@@ -482,33 +483,33 @@ open class ASCollectionSectionedDataSource<S: SectionModelType>: NSObject, ASCol
     
     open var configureCellBlock: ConfigureCellBlock {
         didSet {
-#if DEBUG
+            #if DEBUG
             ensureNotMutatedAfterBinding()
-#endif
+            #endif
         }
     }
     
     open var configureSupplementaryNodeBlock: ConfigureSupplementaryNodeBlock? {
         didSet {
-#if DEBUG
+            #if DEBUG
             ensureNotMutatedAfterBinding()
-#endif
+            #endif
         }
     }
     
     open var moveItem: MoveItem {
         didSet {
-#if DEBUG
+            #if DEBUG
             ensureNotMutatedAfterBinding()
-#endif
+            #endif
         }
     }
     
     open var canMoveItemWith: ((ASCollectionSectionedDataSource<S>, ASCellNode) -> Bool)? {
         didSet {
-#if DEBUG
+            #if DEBUG
             ensureNotMutatedAfterBinding()
-#endif
+            #endif
         }
     }
     
@@ -524,6 +525,7 @@ open class ASCollectionSectionedDataSource<S: SectionModelType>: NSObject, ASCol
     
     open func collectionNode(_ collectionNode: ASCollectionNode, nodeBlockForItemAt indexPath: IndexPath) -> ASCellNodeBlock {
         precondition(indexPath.item < _sectionModels[indexPath.section].items.count)
+
         return configureCellBlock(self, collectionNode, indexPath, self[indexPath])
     }
 

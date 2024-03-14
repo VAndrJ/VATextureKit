@@ -88,7 +88,7 @@ public extension UIColor {
     /// - Returns: A new `UIColor` that is the result of blending the foreground color with the background color using the specified alpha value.
     @available (iOS 13.0, *)
     func opaque(on background: UIColor, traitCollection: UITraitCollection) -> UIColor {
-        return UIColor.fromAlpha(
+        UIColor.fromAlpha(
             foreground: self,
             background: background,
             traitCollection: traitCollection
@@ -101,7 +101,7 @@ public extension UIColor {
     ///   - background: The background `UIColor` to be used as the base color for blending.
     /// - Returns: A new `UIColor` that is the result of blending the foreground color with the background color using the specified alpha value.
     func opaque(on background: UIColor) -> UIColor {
-        return UIColor.fromAlpha(
+        UIColor.fromAlpha(
             foreground: self,
             background: background
         )
