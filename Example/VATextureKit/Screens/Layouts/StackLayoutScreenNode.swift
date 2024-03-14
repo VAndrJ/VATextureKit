@@ -36,7 +36,10 @@ final class StackLayoutScreenNode: ScrollScreenNode {
 
 private class StackLayoutExampleNode: DisplayNode {
     private lazy var titleTextNode = getTitleTextNode(string: "Stack with 2 elements, second is relatively", selection: "")
-    private lazy var pairNodes = [ASDisplayNode().sized(CGSize(same: 128)), ASDisplayNode().sized(CGSize(same: 64))]
+    private lazy var pairNodes = [
+        ASDisplayNode().sized(CGSize(same: 128)),
+        ASDisplayNode().sized(CGSize(same: 64)),
+    ]
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column(spacing: 8) {
@@ -63,7 +66,10 @@ private class StackCenteringLayoutExampleNode: DisplayNode {
         text: centeringOptions.description,
         fontStyle: .headline
     )
-    private lazy var pairNodes = [ASDisplayNode().sized(CGSize(same: 128)), ASDisplayNode().sized(CGSize(same: 64))]
+    private lazy var pairNodes = [
+        ASDisplayNode().sized(CGSize(same: 128)),
+        ASDisplayNode().sized(CGSize(same: 64)),
+    ]
     private lazy var centeringButtonNode = HapticButtonNode(title: "Change centering")
     private var centeringOptions: ASCenterLayoutSpecCenteringOptions = .XY {
         didSet {
@@ -102,7 +108,10 @@ private class StackCenteringLayoutExampleNode: DisplayNode {
 
 private class StackPositionsLayoutExampleNode: DisplayNode {
     private lazy var titleTextNode = getTitleTextNode(string: "Stack with 2 elements, second is relatively", selection: "")
-    private lazy var pairNodes = [ASDisplayNode().sized(CGSize(same: 128)), ASDisplayNode().sized(CGSize(same: 64))]
+    private lazy var pairNodes = [
+        ASDisplayNode().sized(CGSize(same: 128)),
+        ASDisplayNode().sized(CGSize(same: 64)),
+    ]
     private lazy var relativeHorizontalPositionButtonNode = HapticButtonNode(title: "Change horizontal")
     private lazy var relativeVerticalPositionButtonNode = HapticButtonNode(title: "Change vertical")
     private lazy var relativePositionHorizontalInfoTextNode = VATextNode(

@@ -11,7 +11,6 @@ import VANavigator
 
 class AppNavigator: Navigator {
 
-    @MainActor
     func start() {
         navigate(
             destination: .identity(

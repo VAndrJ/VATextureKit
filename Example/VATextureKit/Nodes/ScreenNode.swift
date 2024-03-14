@@ -17,9 +17,7 @@ class ScreenNode: VASafeAreaDisplayNode, MainActorIsolated {
         bind()
     }
 
-    @MainActor
     func bind() {}
 
-    @MainActor
     func configure() {}
 }
