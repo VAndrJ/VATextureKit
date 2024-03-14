@@ -16,17 +16,25 @@ public extension Double {
 
 public extension CGFloat {
 
-    @MainActor
-    func pixelRounded(_ rule: FloatingPointRoundingRule) -> CGFloat {
-        (self * UIScreen.main.scale).rounded(rule) / UIScreen.main.scale
-    }
-
     func isRoughlyEqual(to other: CGFloat, tolerance: CGFloat) -> Bool {
         (self - tolerance) <= other && other <= (self + tolerance)
     }
 
     @MainActor
+    func pixelRounded(_ rule: FloatingPointRoundingRule) -> CGFloat {
+        pixelRounded(rule, scale: UIScreen.main.scale)
+    }
+
+    func pixelRounded(_ rule: FloatingPointRoundingRule, scale: CGFloat) -> CGFloat {
+        (self * scale).rounded(rule) / scale
+    }
+
+    @MainActor
     func isPixelEqual(to other: CGFloat) -> Bool {
-        isRoughlyEqual(to: other, tolerance: 1 / UIScreen.main.scale)
+        isPixelEqual(to: other, scale: UIScreen.main.scale)
+    }
+
+    func isPixelEqual(to other: CGFloat, scale: CGFloat) -> Bool {
+        isRoughlyEqual(to: other, tolerance: 1 / scale)
     }
 }
