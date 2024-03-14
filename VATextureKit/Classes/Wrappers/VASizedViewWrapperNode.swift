@@ -25,6 +25,9 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
 
     private let childGetter: @MainActor () -> T
     private let sizing: WrapperNodeSizing
+    // To avoid `systemLayoutSizeFitting` calculation issues
+    private var cHeight: NSLayoutConstraint?
+    private var cWidth: NSLayoutConstraint?
 
     /// Creates an instance.
     ///
@@ -71,6 +74,13 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
 
         switch sizing {
         case .viewHeight:
+            if let cWidth {
+                cWidth.constant = bounds.width
+            } else {
+                cWidth = child.widthAnchor.constraint(equalToConstant: bounds.width)
+                cWidth?.priority = .init(999)
+                cWidth?.isActive = true
+            }
             let size = child.systemLayoutSizeFitting(.init(
                 width: bounds.width,
                 height: UIView.layoutFittingExpandedSize.height
@@ -91,6 +101,13 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
                 }
             }
         case .viewWidth:
+            if let cHeight {
+                cHeight.constant = bounds.height
+            } else {
+                cHeight = child.heightAnchor.constraint(equalToConstant: bounds.height)
+                cHeight?.priority = .init(999)
+                cHeight?.isActive = true
+            }
             let size = child.systemLayoutSizeFitting(.init(
                 width: UIView.layoutFittingExpandedSize.width,
                 height: bounds.height
