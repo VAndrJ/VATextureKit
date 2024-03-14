@@ -11,9 +11,9 @@ import VATextureKit
 struct StackLayoutNavigationIdentity: DefaultNavigationIdentity {}
 
 final class StackLayoutScreenNode: ScrollScreenNode {
-    private lazy var stackLayoutExampleNode = StackLayoutExampleNode()
-    private lazy var stackCenteringLayoutExampleNode = StackCenteringLayoutExampleNode()
-    private lazy var stackPositionsLayoutExampleNode = StackPositionsLayoutExampleNode()
+    private lazy var stackLayoutExampleNode = _StackLayoutExampleNode()
+    private lazy var stackCenteringLayoutExampleNode = _StackCenteringLayoutExampleNode()
+    private lazy var stackPositionsLayoutExampleNode = _StackPositionsLayoutExampleNode()
 
     override func scrollLayoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column(spacing: 32, cross: .stretch) {
@@ -34,8 +34,11 @@ final class StackLayoutScreenNode: ScrollScreenNode {
     }
 }
 
-private class StackLayoutExampleNode: DisplayNode {
-    private lazy var titleTextNode = getTitleTextNode(string: "Stack with 2 elements, second is relatively", selection: "")
+private class _StackLayoutExampleNode: DisplayNode {
+    private lazy var titleTextNode = getTitleTextNode(
+        string: "Stack with 2 elements, second is relatively",
+        selection: ""
+    )
     private lazy var pairNodes = [
         ASDisplayNode().sized(CGSize(same: 128)),
         ASDisplayNode().sized(CGSize(same: 64)),
@@ -60,8 +63,11 @@ private class StackLayoutExampleNode: DisplayNode {
     }
 }
 
-private class StackCenteringLayoutExampleNode: DisplayNode {
-    private lazy var titleTextNode = getTitleTextNode(string: "Stack with 2 elements, second is centered", selection: "")
+private class _StackCenteringLayoutExampleNode: DisplayNode {
+    private lazy var titleTextNode = getTitleTextNode(
+        string: "Stack with 2 elements, second is centered",
+        selection: ""
+    )
     private lazy var centeringInfoTextNode = VATextNode(
         text: centeringOptions.description,
         fontStyle: .headline
@@ -106,8 +112,11 @@ private class StackCenteringLayoutExampleNode: DisplayNode {
     }
 }
 
-private class StackPositionsLayoutExampleNode: DisplayNode {
-    private lazy var titleTextNode = getTitleTextNode(string: "Stack with 2 elements, second is relatively", selection: "")
+private class _StackPositionsLayoutExampleNode: DisplayNode {
+    private lazy var titleTextNode = getTitleTextNode(
+        string: "Stack with 2 elements, second is relatively",
+        selection: ""
+    )
     private lazy var pairNodes = [
         ASDisplayNode().sized(CGSize(same: 128)),
         ASDisplayNode().sized(CGSize(same: 64)),
@@ -175,6 +184,7 @@ private extension ASCenterLayoutSpecCenteringOptions {
         case .Y: string = ".Y"
         default: string = ".none"
         }
+
         return "Centering: \(string)"
     }
     var toggled: Self {

@@ -11,42 +11,42 @@ import VATextureKit
 struct ColumnLayoutNavigationIdentity: DefaultNavigationIdentity {}
 
 final class ColumnLayoutScreenNode: ScrollScreenNode {
-    private lazy var mainCrossStartExampleNode = MainAxisColumnLayoutExampleNode(
+    private lazy var mainCrossStartExampleNode = _MainAxisColumnLayoutExampleNode(
         title: "Main axis .start\nCross axis .start",
         selection: ".start",
         main: .start
     )
-    private lazy var mainEndExampleNode = MainAxisColumnLayoutExampleNode(
+    private lazy var mainEndExampleNode = _MainAxisColumnLayoutExampleNode(
         title: "Main axis .end",
         selection: ".end",
         main: .end
     )
-    private lazy var mainCenterExampleNode = MainAxisColumnLayoutExampleNode(
+    private lazy var mainCenterExampleNode = _MainAxisColumnLayoutExampleNode(
         title: "Main axis .center",
         selection: ".center",
         main: .center
     )
-    private lazy var mainSpaceBetweenExampleNode = MainAxisColumnLayoutExampleNode(
+    private lazy var mainSpaceBetweenExampleNode = _MainAxisColumnLayoutExampleNode(
         title: "Main axis .spaceBetween",
         selection: ".spaceBetween",
         main: .spaceBetween
     )
-    private lazy var mainSpaceAroundExampleNode = MainAxisColumnLayoutExampleNode(
+    private lazy var mainSpaceAroundExampleNode = _MainAxisColumnLayoutExampleNode(
         title: "Main axis .spaceAround",
         selection: ".spaceAround",
         main: .spaceAround
     )
-    private lazy var crossCenterExampleNode = CrossAxisColumnLayoutExampleNode(
+    private lazy var crossCenterExampleNode = _CrossAxisColumnLayoutExampleNode(
         title: "Cross axis .center",
         selection: ".center",
         cross: .center
     )
-    private lazy var crossEndExampleNode = CrossAxisColumnLayoutExampleNode(
+    private lazy var crossEndExampleNode = _CrossAxisColumnLayoutExampleNode(
         title: "Cross axis .end",
         selection: ".end",
         cross: .end
     )
-    private lazy var crossStretchExampleNode = CrossAxisColumnLayoutExampleNode(
+    private lazy var crossStretchExampleNode = _CrossAxisColumnLayoutExampleNode(
         title: "Cross axis .stretch",
         selection: ".stretch",
         cross: .stretch
@@ -74,7 +74,7 @@ final class ColumnLayoutScreenNode: ScrollScreenNode {
     }
 }
 
-private class MainAxisColumnLayoutExampleNode: DisplayNode {
+private class _MainAxisColumnLayoutExampleNode: DisplayNode {
     private lazy var exampleNodes = (1..<4).map { _ in ASDisplayNode().sized(CGSize(same: 24)) }
     private lazy var comparisonNode = ASDisplayNode().sized(CGSize(width: 24, height: 200))
     private let titleTextNode: VATextNode
@@ -107,7 +107,7 @@ private class MainAxisColumnLayoutExampleNode: DisplayNode {
     }
 }
 
-private class CrossAxisColumnLayoutExampleNode: DisplayNode {
+private class _CrossAxisColumnLayoutExampleNode: DisplayNode {
     private lazy var exampleNodes = (1...4).map {
         if cross == .stretch {
             return ASDisplayNode().sized(height: 12 * CGFloat($0))

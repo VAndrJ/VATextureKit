@@ -13,7 +13,9 @@ func getColorKernel(name: String) throws -> CIColorKernel {
     guard let url = Bundle.main.url(forResource: "default", withExtension: "metallib") else {
         throw NSError(domain: "metallib", code: -1)
     }
+
     let data = try Data(contentsOf: url)
+
     return try CIColorKernel(functionName: name, fromMetalLibraryData: data)
 }
 
@@ -34,6 +36,10 @@ class MetalDropPixelsFilter: CIFilter {
         guard let ciImage = (image?.ciImage ?? image?.cgImage.map { CIImage(cgImage: $0) }) else {
             return nil
         }
-        return kernel.apply(extent: ciImage.extent, arguments: [ciImage, Float.random(in: 0...255)]).map { UIImage(ciImage: $0) }
+
+        return kernel.apply(
+            extent: ciImage.extent,
+            arguments: [ciImage, Float.random(in: 0...255)]
+        ).map { UIImage(ciImage: $0) }
     }
 }

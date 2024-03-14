@@ -146,7 +146,7 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
 
     private func checkPosition() {
         if data.isCircular && !data.items.isEmpty {
-            DispatchQueue.main.async {
+            mainAsync {
                 self.scrollToPage(at: 1, animated: false)
             }
         }

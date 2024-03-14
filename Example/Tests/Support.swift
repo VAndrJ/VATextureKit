@@ -178,3 +178,7 @@ extension AppNavigator {
         navigationInterceptor: nil
     )
 }
+
+class MockTapReceiver {
+    var isTapped = false
+}

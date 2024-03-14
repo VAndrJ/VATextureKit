@@ -26,6 +26,7 @@ class VAConfettiEmitterNode: VAEmitterNode {
                     confettiArray.append(ConfettiType(color: .fromAlpha(foreground: color.withAlphaComponent(alpha))))
                 }
             }
+            
             return confettiArray
         }()
     }

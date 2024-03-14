@@ -14,18 +14,18 @@ final class SelfSizingListContainerScreenNode: ScreenNode {
     private lazy var listNode = VAListNode(
         data: .init(
             listDataObs: .just((0...1).map { index in
-                ExampleCardCellNodeViewModel(title: "\(index)")
+                _ExampleCardCellNodeViewModel(title: "\(index)")
             }),
-            cellGetter: ExampleCardCellNode.init(viewModel:)
+            cellGetter: _ExampleCardCellNode.init(viewModel:)
         ),
         layoutData: .init(layout: .default(parameters: .init()))
     )
     private lazy var listNode1 = VAListNode(
         data: .init(
             listDataObs: .just((0...1).map { index in
-                ExampleCardCellNodeViewModel(title: "\(index)")
+                _ExampleCardCellNodeViewModel(title: "\(index)")
             }),
-            cellGetter: ExampleCardCellNode.init(viewModel:)
+            cellGetter: _ExampleCardCellNode.init(viewModel:)
         ),
         layoutData: .init(layout: .default(parameters: .init()))
     )
@@ -46,18 +46,18 @@ final class SelfSizingListContainerScreenNode: ScreenNode {
     private lazy var horizontalListNode = VAListNode(
         data: .init(
             listDataObs: .just((0...1).map { index in
-                ExampleCardCellNodeViewModel(title: "\(index)")
+                _ExampleCardCellNodeViewModel(title: "\(index)")
             }),
-            cellGetter: ExampleCardCellNode.init(viewModel:)
+            cellGetter: _ExampleCardCellNode.init(viewModel:)
         ),
         layoutData: .init(layout: .default(parameters: .init(scrollDirection: .horizontal)))
     )
     private lazy var horizontalListNode1 = VAListNode(
         data: .init(
             listDataObs: .just((0...1).map { index in
-                ExampleCardCellNodeViewModel(title: "\(index)")
+                _ExampleCardCellNodeViewModel(title: "\(index)")
             }),
-            cellGetter: ExampleCardCellNode.init(viewModel:)
+            cellGetter: _ExampleCardCellNode.init(viewModel:)
         ),
         layoutData: .init(layout: .default(parameters: .init(scrollDirection: .horizontal)))
     )
@@ -105,12 +105,12 @@ final class SelfSizingListContainerScreenNode: ScreenNode {
     }
 }
 
-private class ExampleCardCellNode: VACellNode {
+private class _ExampleCardCellNode: VACellNode {
     let titleTextNode: VATextNode
 
-    private let viewModel: ExampleCardCellNodeViewModel
+    private let viewModel: _ExampleCardCellNodeViewModel
 
-    init(viewModel: ExampleCardCellNodeViewModel) {
+    init(viewModel: _ExampleCardCellNodeViewModel) {
         self.viewModel = viewModel
         self.titleTextNode = VATextNode(text: viewModel.title, fontStyle: .largeTitle)
 
@@ -128,7 +128,7 @@ private class ExampleCardCellNode: VACellNode {
     }
 }
 
-private class ExampleCardCellNodeViewModel: CellViewModel {
+private class _ExampleCardCellNodeViewModel: CellViewModel {
     let title: String
 
     init(title: String) {

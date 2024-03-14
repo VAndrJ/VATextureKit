@@ -19,7 +19,10 @@ class VASlidingTabTextNode: DisplayNode, VASlidingTab {
     required init(data: String, onSelect: @escaping () -> Void) {
         self.onSelect = onSelect
         self.titleNode = VATextNode(text: data)
-        self.topTitleNode = VATextNode(text: data, colorGetter: { $0.systemBackground })
+        self.topTitleNode = VATextNode(
+            text: data,
+            colorGetter: { $0.systemBackground }
+        )
 
         super.init()
     }

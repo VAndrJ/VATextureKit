@@ -32,7 +32,10 @@ class CollectionListSectionHeaderFooterViewModel: CellViewModel {
     let headerViewModel: CollectionListSectionHeaderViewModel?
     let footerViewModel: CollectionListSectionFooterViewModel?
 
-    init(headerViewModel: CollectionListSectionHeaderViewModel? = nil, footerViewModel: CollectionListSectionFooterViewModel? = nil) {
+    init(
+        headerViewModel: CollectionListSectionHeaderViewModel? = nil,
+        footerViewModel: CollectionListSectionFooterViewModel? = nil
+    ) {
         self.headerViewModel = headerViewModel
         self.footerViewModel = footerViewModel
     }

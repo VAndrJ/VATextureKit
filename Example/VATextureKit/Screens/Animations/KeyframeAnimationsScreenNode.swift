@@ -11,23 +11,23 @@ import VATextureKit
 struct KeyframeAnimationsNavigationIdentity: DefaultNavigationIdentity {}
 
 final class KeyframeAnimationsScreenNode: ScrollScreenNode {
-    private lazy var shakeAnimationExampleNode = ShakeAnimationExampleNode()
-    private lazy var shakeAnimationPauseResumeExampleNode = ShakeAnimationPauseResumeExampleNode()
+    private lazy var shakeAnimationExampleNode = _ShakeAnimationExampleNode()
+    private lazy var shakeAnimationPauseResumeExampleNode = _ShakeAnimationPauseResumeExampleNode()
     private lazy var animationExampleNodes = [
-        AnimationExampleNode(animation: .scale(values: [1, 1.1, 0.9, 1.2, 0.8, 1.1, 0.9, 1])),
-        AnimationExampleNode(animation: .opacity(values: [1, 0.9, 0.8, 0.1, 0, 0.2, 0.9, 1, 0, 1])),
-        AnimationExampleNode(animation: .backgroundColor(values: [theme.systemOrange, .green, .blue, .black, theme.systemOrange])),
-        AnimationExampleNode(animation: .borderColor(values: [.black, theme.systemOrange, .green, .blue, .clear, theme.systemOrange, .black])),
-        AnimationExampleNode(animation: .borderWidth(values: [2, 0, 10, 0, 5, 2])),
-        AnimationExampleNode(animation: .cornerRadius(values: [0, 15, 5, 15, 0])),
-        AnimationExampleNode(animation: .scaleX(values: [1, 1.1, 0.9, 1.1, 1])),
-        AnimationExampleNode(animation: .scaleY(values: [1, 1.1, 0.9, 1.1, 1])),
-        AnimationExampleNode(animation: .shadowColor(values: [theme.systemOrange, .black, .green, .blue, theme.systemOrange])),
-        AnimationExampleNode(animation: .shadowOffset(values: [.zero, .init(same: 5), .init(same: -5), .init(width: 5, height: -5), .init(width: -5, height: 5), .zero])),
-        AnimationExampleNode(animation: .shadowRadius(values: [4, 20, 0, 10, 4])),
-        AnimationExampleNode(animation: .shadowOpacity(values: [1, 0, 1, 0, 1])),
-        AnimationExampleNode(animation: .rotation(values: [0, .pi / 16, -.pi / 32, .pi / 64, -.pi / 128, .pi / 256, -.pi / 512, 0])),
-        GradientAnimationExampleNode(animation: .locations(values: [
+        _AnimationExampleNode(animation: .scale(values: [1, 1.1, 0.9, 1.2, 0.8, 1.1, 0.9, 1])),
+        _AnimationExampleNode(animation: .opacity(values: [1, 0.9, 0.8, 0.1, 0, 0.2, 0.9, 1, 0, 1])),
+        _AnimationExampleNode(animation: .backgroundColor(values: [theme.systemOrange, .green, .blue, .black, theme.systemOrange])),
+        _AnimationExampleNode(animation: .borderColor(values: [.black, theme.systemOrange, .green, .blue, .clear, theme.systemOrange, .black])),
+        _AnimationExampleNode(animation: .borderWidth(values: [2, 0, 10, 0, 5, 2])),
+        _AnimationExampleNode(animation: .cornerRadius(values: [0, 15, 5, 15, 0])),
+        _AnimationExampleNode(animation: .scaleX(values: [1, 1.1, 0.9, 1.1, 1])),
+        _AnimationExampleNode(animation: .scaleY(values: [1, 1.1, 0.9, 1.1, 1])),
+        _AnimationExampleNode(animation: .shadowColor(values: [theme.systemOrange, .black, .green, .blue, theme.systemOrange])),
+        _AnimationExampleNode(animation: .shadowOffset(values: [.zero, .init(same: 5), .init(same: -5), .init(width: 5, height: -5), .init(width: -5, height: 5), .zero])),
+        _AnimationExampleNode(animation: .shadowRadius(values: [4, 20, 0, 10, 4])),
+        _AnimationExampleNode(animation: .shadowOpacity(values: [1, 0, 1, 0, 1])),
+        _AnimationExampleNode(animation: .rotation(values: [0, .pi / 16, -.pi / 32, .pi / 64, -.pi / 128, .pi / 256, -.pi / 512, 0])),
+        _GradientAnimationExampleNode(animation: .locations(values: [
             [0, 1],
             [0, 0.3],
             [0.3, 1],
@@ -35,20 +35,20 @@ final class KeyframeAnimationsScreenNode: ScrollScreenNode {
             [0, 0.3],
             [0, 1],
         ])),
-        GradientAnimationExampleNode(animation: .colors(values: [
+        _GradientAnimationExampleNode(animation: .colors(values: [
             [theme.systemOrange, theme.systemIndigo],
             [theme.systemGreen, theme.systemBlue],
             [theme.systemRed, theme.label],
             [theme.systemOrange, theme.systemIndigo],
         ])),
-        GradientAnimationExampleNode(animation: .startPoint(values: [
+        _GradientAnimationExampleNode(animation: .startPoint(values: [
             CGPoint(x: 0, y: 0.5),
             CGPoint(x: 0, y: 1),
             CGPoint(x: 0.5, y: 1),
             CGPoint(xy: 0.5),
             CGPoint(x: 0, y: 0.5),
         ])),
-        GradientAnimationExampleNode(animation: .endPoint(values: [
+        _GradientAnimationExampleNode(animation: .endPoint(values: [
             CGPoint(x: 1, y: 0.5),
             CGPoint(x: 1, y: 1),
             CGPoint(x: 0.5, y: 1),
@@ -71,7 +71,7 @@ final class KeyframeAnimationsScreenNode: ScrollScreenNode {
     }
 }
 
-private class ShakeAnimationPauseResumeExampleNode: DisplayNode {
+private class _ShakeAnimationPauseResumeExampleNode: DisplayNode {
     private lazy var shakeXNode = VADisplayNode()
         .sized(width: 100, height: 30)
     private lazy var buttonNode = HapticButtonNode(title: "Animate shake")
@@ -114,7 +114,7 @@ private class ShakeAnimationPauseResumeExampleNode: DisplayNode {
     }
 }
 
-private class ShakeAnimationExampleNode: DisplayNode {
+private class _ShakeAnimationExampleNode: DisplayNode {
     private lazy var shakeXNode = VADisplayNode()
         .sized(width: 100, height: 30)
     private lazy var shakeYNode = VADisplayNode()
@@ -150,7 +150,7 @@ private class ShakeAnimationExampleNode: DisplayNode {
     }
 }
 
-private class AnimationExampleNode: DisplayNode {
+private class _AnimationExampleNode: DisplayNode {
     private lazy var exampleNode = VADisplayNode()
         .sized(width: 300, height: 30)
         .apply {
@@ -183,13 +183,11 @@ private class AnimationExampleNode: DisplayNode {
     }
 
     override func bind() {
-        buttonNode.onTap = self ?> {
-            $0.exampleNode.animate($0.animation, duration: 2)
-        }
+        buttonNode.onTap = self ?> { $0.exampleNode.animate($0.animation, duration: 2) }
     }
 }
 
-private class GradientAnimationExampleNode: DisplayNode {
+private class _GradientAnimationExampleNode: DisplayNode {
     private lazy var exampleNode = VALinearGradientNode(gradient: .horizontal)
         .sized(width: 300, height: 30)
     private lazy var buttonNode = HapticButtonNode(title: "Animate \(animation.keyPath)")
@@ -215,8 +213,6 @@ private class GradientAnimationExampleNode: DisplayNode {
     }
 
     override func bind() {
-        buttonNode.onTap = self ?> {
-            $0.exampleNode.animate($0.animation, duration: 2)
-        }
+        buttonNode.onTap = self ?> { $0.exampleNode.animate($0.animation, duration: 2) }
     }
 }

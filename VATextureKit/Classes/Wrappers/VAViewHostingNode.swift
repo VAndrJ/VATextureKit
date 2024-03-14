@@ -119,6 +119,7 @@ open class VAViewHostingNode: VADisplayNode {
     }
 }
 
+@available (iOS 13.0, *)
 class _LayoutTrackingHostingController<Content: View>: UIHostingController<Content> {
     let shouldLayout: () -> Void
 

@@ -16,6 +16,7 @@ open class VALinkTextNode: VATextNode {
         } else {
             let linkRelay = PublishRelay<URL>()
             self.linkRelay = linkRelay
+            
             return linkRelay.asObservable()
         }
     }

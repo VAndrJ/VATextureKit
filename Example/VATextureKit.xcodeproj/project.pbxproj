@@ -20,7 +20,6 @@
 		A31614512A979ABD00ED8561 /* VAImageNodeSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31614502A979ABD00ED8561 /* VAImageNodeSnapshotTests.swift */; };
 		A31614562A97BDEE00ED8561 /* VAImageNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31614552A97BDEE00ED8561 /* VAImageNodeTests.swift */; };
 		A316C74F2A90095C008329A0 /* LayoutSpecBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A316C74E2A90095C008329A0 /* LayoutSpecBuilderTests.swift */; };
-		A31F445D29F6AD76003618C9 /* PagerScreenNodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F445C29F6AD76003618C9 /* PagerScreenNodeViewModel.swift */; };
 		A31F445F29F6ADC7003618C9 /* PagerIndicatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F445E29F6ADC7003618C9 /* PagerIndicatorNode.swift */; };
 		A31F446129F70A7A003618C9 /* VALinkTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F446029F70A7A003618C9 /* VALinkTextNode.swift */; };
 		A31F88A929EA9C840077296B /* test_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A31F88A829EA9C840077296B /* test_image.jpg */; };
@@ -187,7 +186,6 @@
 		A31614502A979ABD00ED8561 /* VAImageNodeSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAImageNodeSnapshotTests.swift; sourceTree = "<group>"; };
 		A31614552A97BDEE00ED8561 /* VAImageNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAImageNodeTests.swift; sourceTree = "<group>"; };
 		A316C74E2A90095C008329A0 /* LayoutSpecBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutSpecBuilderTests.swift; sourceTree = "<group>"; };
-		A31F445C29F6AD76003618C9 /* PagerScreenNodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerScreenNodeViewModel.swift; sourceTree = "<group>"; };
 		A31F445E29F6ADC7003618C9 /* PagerIndicatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerIndicatorNode.swift; sourceTree = "<group>"; };
 		A31F446029F70A7A003618C9 /* VALinkTextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VALinkTextNode.swift; sourceTree = "<group>"; };
 		A31F88A829EA9C840077296B /* test_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test_image.jpg; sourceTree = "<group>"; };
@@ -455,15 +453,6 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
-		A31F445B29F6AD5F003618C9 /* Pager */ = {
-			isa = PBXGroup;
-			children = (
-				A34F8E8229F52EED00EF4C42 /* PagerScreenNode.swift */,
-				A31F445C29F6AD76003618C9 /* PagerScreenNodeViewModel.swift */,
-			);
-			path = Pager;
-			sourceTree = "<group>";
-		};
 		A328F9A329D757B300FEB663 /* Snapshots */ = {
 			isa = PBXGroup;
 			children = (
@@ -619,10 +608,10 @@
 			isa = PBXGroup;
 			children = (
 				A38D5E922A6BBEF200A67BC7 /* CountingTextNodeController.swift */,
+				A34F8E8229F52EED00EF4C42 /* PagerScreenNode.swift */,
 				A3B7F23729F0632E00CAA52D /* ReadMoreTextScreenNode.swift */,
 				A38D5E9B2A6D251E00A67BC7 /* ShimmersScreenNode.swift */,
 				A384F0B829EE7215006BF197 /* TypingTextScreenNode.swift */,
-				A31F445B29F6AD5F003618C9 /* Pager */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1080,7 +1069,6 @@
 				A3923DC72B99230F0069C9CE /* DefaultNavigationIdentity.swift in Sources */,
 				A3820D2A29E568BE00993406 /* VATextFieldNode.swift in Sources */,
 				A3CC9FAF2A75B82800A66DC0 /* KeyframeAnimationsScreenNode.swift in Sources */,
-				A31F445D29F6AD76003618C9 /* PagerScreenNodeViewModel.swift in Sources */,
 				A388638B2BA219CE00FC05FD /* ViewHostingScreenNode.swift in Sources */,
 				A35639922A72E0D300DE531F /* ShapeLayerAnimationScreenNode.swift in Sources */,
 				A31F445F29F6ADC7003618C9 /* PagerIndicatorNode.swift in Sources */,

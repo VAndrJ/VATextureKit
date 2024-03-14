@@ -9,6 +9,7 @@
 import VATextureKitRx
 
 class CellViewModel: Equatable, IdentifiableType {
+
     static func == (lhs: CellViewModel, rhs: CellViewModel) -> Bool {
         lhs.identity == rhs.identity
     }

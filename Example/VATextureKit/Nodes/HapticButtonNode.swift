@@ -9,8 +9,6 @@
 import VATextureKitRx
 
 class HapticButtonNode: VAButtonNode, VAHapticable {
-    private let titleTextNode: VATextNode
-
     override var isHighlighted: Bool {
         didSet { updateTitle() }
     }
@@ -18,8 +16,13 @@ class HapticButtonNode: VAButtonNode, VAHapticable {
         didSet { updateTitle() }
     }
 
+    private let titleTextNode: VATextNode
+
     init(title: String) {
-        self.titleTextNode = VATextNode(string: title, color: { $0.systemBlue })
+        self.titleTextNode = VATextNode(
+            string: title,
+            color: { $0.systemBlue }
+        )
 
         super.init()
     }

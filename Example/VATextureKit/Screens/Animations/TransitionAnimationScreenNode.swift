@@ -105,7 +105,8 @@ final class TransitionAnimationScreenNode: ScreenNode {
         expandButtonNode.onTap = self ?> { $0.isNodeExpanded.toggle() }
         presentButtonNode.onTap = self ?> {
             $0.closestViewController?.present(
-                VAViewController(node: TransitionAnimationScreenNode(isPresented: true)).withAnimatedTransitionEnabled(),
+                VAViewController(node: TransitionAnimationScreenNode(isPresented: true))
+                    .withAnimatedTransitionEnabled(),
                 animated: true
             )
         }

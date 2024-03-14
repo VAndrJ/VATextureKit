@@ -11,12 +11,12 @@ import VATextureKit
 struct LayerAnimationNavigationIdentity: DefaultNavigationIdentity {}
 
 final class LayerAnimationScreenNode: ScrollScreenNode {
-    private lazy var boundsAnimationExampleNode = BoundsAnimationExampleNode()
-    private lazy var opacityAnimationExampleNode = OpacityAnimationExampleNode()
-    private lazy var scaleAnimationExampleNode = ScaleAnimationExampleNode()
-    private lazy var rotationAnimationExampleNode = RotationAnimationExampleNode()
-    private lazy var cornerRadiusAnimationExampleNode = CornerRadiusAnimationExampleNode()
-    private lazy var colorAnimationExampleNode = ColorAnimationExampleNode()
+    private lazy var boundsAnimationExampleNode = _BoundsAnimationExampleNode()
+    private lazy var opacityAnimationExampleNode = _OpacityAnimationExampleNode()
+    private lazy var scaleAnimationExampleNode = _ScaleAnimationExampleNode()
+    private lazy var rotationAnimationExampleNode = _RotationAnimationExampleNode()
+    private lazy var cornerRadiusAnimationExampleNode = _CornerRadiusAnimationExampleNode()
+    private lazy var colorAnimationExampleNode = _ColorAnimationExampleNode()
 
     override func scrollLayoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column(spacing: 16, cross: .stretch) {
@@ -35,7 +35,7 @@ final class LayerAnimationScreenNode: ScrollScreenNode {
     }
 }
 
-private class CornerRadiusAnimationExampleNode: DisplayNode {
+private class _CornerRadiusAnimationExampleNode: DisplayNode {
     private lazy var exampleNode = VADisplayNode()
         .sized(width: 100, height: 40)
     private lazy var buttonNode = HapticButtonNode(title: "Toggle corner radius")
@@ -69,7 +69,7 @@ private class CornerRadiusAnimationExampleNode: DisplayNode {
     }
 }
 
-private class RotationAnimationExampleNode: DisplayNode {
+private class _RotationAnimationExampleNode: DisplayNode {
     private lazy var exampleNode = VAImageNode(
         image: R.image.chevron_right(),
         size: CGSize(same: 50),
@@ -107,7 +107,7 @@ private class RotationAnimationExampleNode: DisplayNode {
     }
 }
 
-private class ScaleAnimationExampleNode: DisplayNode {
+private class _ScaleAnimationExampleNode: DisplayNode {
     private lazy var exampleNode = VADisplayNode()
         .sized(height: 20)
     private lazy var  buttonNode = HapticButtonNode(title: "Toggle scale")
@@ -141,7 +141,7 @@ private class ScaleAnimationExampleNode: DisplayNode {
     }
 }
 
-private class ColorAnimationExampleNode: DisplayNode {
+private class _ColorAnimationExampleNode: DisplayNode {
     private lazy var exampleNode = VADisplayNode()
         .sized(height: 20)
     private lazy var buttonNode = HapticButtonNode(title: "Toggle color")
@@ -175,7 +175,7 @@ private class ColorAnimationExampleNode: DisplayNode {
     }
 }
 
-private class OpacityAnimationExampleNode: DisplayNode {
+private class _OpacityAnimationExampleNode: DisplayNode {
     private lazy var exampleNode = VADisplayNode()
         .sized(height: 20)
     private lazy var buttonNode = HapticButtonNode(title: "Toggle opacity")
@@ -209,7 +209,7 @@ private class OpacityAnimationExampleNode: DisplayNode {
     }
 }
 
-private class BoundsAnimationExampleNode: DisplayNode {
+private class _BoundsAnimationExampleNode: DisplayNode {
     private lazy var heightNode = VADisplayNode()
         .sized(width: 100, height: isToggled ? 100 : 20)
     private lazy var widthNode = VADisplayNode()

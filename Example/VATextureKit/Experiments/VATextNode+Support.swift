@@ -68,7 +68,7 @@ extension VATextNode {
                     color: color(theme),
                     alignment: alignment,
                     secondary: secondary.map { secondary in
-                        (
+                        return (
                             strings: secondary.strings,
                             font: getFont(descriptor: secondary.descriptor, textStyle: secondary.textStyle),
                             color: secondary.color(theme),
@@ -93,10 +93,13 @@ func getTitleTextNode(string: String, selection: String) -> VATextNode {
     } else {
         fontDesign = .default
     }
+
     return VATextNode(
         string: string,
         color: { $0.label },
         descriptor: fontDesign,
-        secondary: [.init(strings: [selection], color: { $0.systemIndigo }, descriptor: fontDesign)]
+        secondary: [
+            .init(strings: [selection], color: { $0.systemIndigo }, descriptor: fontDesign),
+        ]
     )
 }

@@ -64,6 +64,17 @@ final class PagerScreenNode: ScreenNode {
     }
 }
 
+final class PagerScreenNodeViewModel {
+    @Obs.Relay(value: (0...2).map { PagerCardCellNodeViewModel(title: "Title \($0)", description: "Description \($0)") })
+    var pagerItemsObs: Observable<[CellViewModel]>
+
+    func generateRandomPagerItems() {
+        let randomInt = Int.random(in: 0...10_000_000)
+        let items = (randomInt...(randomInt + Int.random(in: 0...4))).map { PagerCardCellNodeViewModel(title: "Title \($0)", description: "Description \($0)") }
+        _pagerItemsObs.rx.accept(items)
+    }
+}
+
 private func mapToCell(viewModel: CellViewModel) -> ASCellNode {
     switch viewModel {
     case let viewModel as PagerCardCellNodeViewModel:

@@ -55,7 +55,3 @@ class VAButtonNodeTests: XCTestCase, MainActorIsolated {
         XCTAssertTrue(receiver1.isTapped)
     }
 }
-
-private class MockTapReceiver {
-    var isTapped = false
-}
