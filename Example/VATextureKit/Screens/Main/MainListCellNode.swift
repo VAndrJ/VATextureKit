@@ -59,18 +59,18 @@ final class MainListCellNode: VACellNode {
 class MainListCellNodeViewModel: CellViewModel {
     let title: String
     let description: String
-    let route: NavigationIdentity
+    let destination: NavigationIdentity
     let titleTransitionAnimationId: String?
     let descriptionTransitionAnimationId: String?
 
     init(
         title: String,
         description: String,
-        route: NavigationIdentity
+        destination: NavigationIdentity
     ) {
         self.title = title
         self.description = description
-        self.route = route
+        self.destination = destination
         self.titleTransitionAnimationId = nil
         self.descriptionTransitionAnimationId = nil
     }
@@ -78,13 +78,13 @@ class MainListCellNodeViewModel: CellViewModel {
     init(
         title: String,
         description: String,
-        route: NavigationIdentity,
+        destination: NavigationIdentity,
         titleTransitionAnimationId: String,
         descriptionTransitionAnimationId: String
     ) {
         self.title = title
         self.description = description
-        self.route = route
+        self.destination = destination
         self.titleTransitionAnimationId = titleTransitionAnimationId
         self.descriptionTransitionAnimationId = descriptionTransitionAnimationId
     }
@@ -99,10 +99,10 @@ struct MainListCellNode_Preview: PreviewProvider {
         VStack(spacing: 0) {
             ForEach(
                 [
-                    MainListCellNodeViewModel(title: "Title", description: "Description", route: AlertNavigationIdentity()),
-                    .init(title: "Title".dummyLong(), description: "Description".dummyLong(), route: AlertNavigationIdentity()),
-                    .init(title: "Title", description: "Description".dummyLong(), route: AlertNavigationIdentity()),
-                    .init(title: "Title".dummyLong(), description: "Description", route: AlertNavigationIdentity()),
+                    MainListCellNodeViewModel(title: "Title", description: "Description", destination: AlertNavigationIdentity()),
+                    .init(title: "Title".dummyLong(), description: "Description".dummyLong(), destination: AlertNavigationIdentity()),
+                    .init(title: "Title", description: "Description".dummyLong(), destination: AlertNavigationIdentity()),
+                    .init(title: "Title".dummyLong(), description: "Description", destination: AlertNavigationIdentity()),
                 ],
                 id: \.identity
             ) {

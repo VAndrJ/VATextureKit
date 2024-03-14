@@ -15,21 +15,21 @@ class MainListCellNodeTests: XCTestCase {
 
     func test_node_short_strings() {
         appContext.themeManager.setLightAsCustomTheme()
-        let sut = MainListCellNode(viewModel: .init(title: "Title", description: "Description", route: AlertNavigationIdentity()))
+        let sut = MainListCellNode(viewModel: .init(title: "Title", description: "Description", destination: AlertNavigationIdentity()))
 
         assertNodeSnapshot(matching: sut, size: .freeHeightFixedWidth(375))
     }
 
     func test_node_long_strings() {
         appContext.themeManager.setLightAsCustomTheme()
-        let sut = MainListCellNode(viewModel: .init(title: "Title".dummyLong(), description: "Description".dummyLong(), route: AlertNavigationIdentity()))
+        let sut = MainListCellNode(viewModel: .init(title: "Title".dummyLong(), description: "Description".dummyLong(), destination: AlertNavigationIdentity()))
 
         assertNodeSnapshot(matching: sut, size: .freeHeightFixedWidth(375))
     }
 
     func test_node_dark_theme() {
         appContext.themeManager.setDarkAsCustomTheme()
-        let sut = MainListCellNode(viewModel: .init(title: "Title", description: "Description", route: AlertNavigationIdentity()))
+        let sut = MainListCellNode(viewModel: .init(title: "Title", description: "Description", destination: AlertNavigationIdentity()))
 
         assertNodeSnapshot(matching: sut, size: .freeHeightFixedWidth(375))
     }

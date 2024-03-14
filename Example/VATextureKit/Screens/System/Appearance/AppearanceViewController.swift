@@ -18,7 +18,7 @@ final class AppearanceViewController: VAViewController<AppearanceContollerNode> 
     init(viewModel: AppearanceViewModel) {
         self.viewModel = viewModel
         
-        super.init(node: AppearanceContollerNode())
+        super.init(node: .init())
     }
     
     override func viewDidLoad() {
