@@ -58,9 +58,9 @@ final class MovieDetailsTitleCellNode: VACellNode {
                 $0.titleTextNode.text = $1.title
                 $0.yearTextNode.text = $1.year
                 if $1.rating >= Self.minimumRatingToDisplay {
-                    self.ratingNode = RatingNode(rating: $1.rating)
+                    $0.ratingNode = RatingNode(rating: $1.rating)
                 } else {
-                    self.ratingNode = nil
+                    $0.ratingNode = nil
                 }
             })
             .disposed(by: bag)

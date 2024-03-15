@@ -7,6 +7,15 @@
 
 import Foundation
 
+protocol DefaultNavigationIdentity: NavigationIdentity {}
+
+extension DefaultNavigationIdentity {
+
+    func isEqual(to other: NavigationIdentity?) -> Bool {
+        other is Self
+    }
+}
+
 protocol TabsNavigationIdentity: NavigationIdentity {
     var tabsIdentity: [NavigationIdentity] { get }
 }
@@ -48,28 +57,12 @@ struct NavNavigationIdentity: NavigationIdentity {
     }
 }
 
-struct HomeNavigationIdentity: NavigationIdentity {
+struct HomeNavigationIdentity: DefaultNavigationIdentity {
     var fallbackSource: NavigationIdentity?
-
-    func isEqual(to other: NavigationIdentity?) -> Bool {
-        guard other is HomeNavigationIdentity else {
-            return false
-        }
-
-        return true
-    }
 }
 
-struct SearchNavigationIdentity: NavigationIdentity {
+struct SearchNavigationIdentity: DefaultNavigationIdentity {
     var fallbackSource: NavigationIdentity?
-
-    func isEqual(to other: NavigationIdentity?) -> Bool {
-        guard other is SearchNavigationIdentity else {
-            return false
-        }
-
-        return true
-    }
 }
 
 struct MovieDetailsNavigationIdentity: NavigationIdentity {

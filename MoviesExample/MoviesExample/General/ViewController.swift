@@ -17,7 +17,12 @@ class ViewController<Node: ASDisplayNode & Responder & ControllerNode>: VAViewCo
 
     private let shouldHideNavigationBar: Bool
 
-    init(node: Node, shouldHideNavigationBar: Bool = true, isNotImportant: Bool = false, title: String? = nil) {
+    init(
+        node: Node,
+        shouldHideNavigationBar: Bool = true,
+        isNotImportant: Bool = false,
+        title: String? = nil
+    ) {
         self.shouldHideNavigationBar = shouldHideNavigationBar
         self.isNotImportant = isNotImportant
 
