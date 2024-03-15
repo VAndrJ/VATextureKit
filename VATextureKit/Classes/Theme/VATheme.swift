@@ -21,6 +21,7 @@ public enum VAThemeFont: Hashable {
     case design(_ design: VAFontDesign, size: CGFloat, weight: UIFont.Weight)
 }
 
+/// "Backported" system theme.
 open class VATheme {
     public var tag: VAThemeTag
     public var userInterfaceStyle: VAUserInterfaceStyle

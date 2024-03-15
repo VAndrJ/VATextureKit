@@ -7,6 +7,7 @@
 
 import AsyncDisplayKit
 
+/// Subclass of `ASDisplayNode` designed to provide spacing within layout hierarchies.
 public class VASpacerNode: ASDisplayNode {
 
     public override init() {

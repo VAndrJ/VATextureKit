@@ -47,7 +47,10 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode {
     open override func layout() {
         super.layout()
 
-        indicatorContainerNode.indicatorNode.corner = .init(radius: .fixed(bounds.height / 2 - data.contentInset.top))
+        let newRadius: VACornerRoundingParameters.CornerRadius = .fixed(bounds.height / 2 - data.contentInset.top)
+        if indicatorContainerNode.indicatorNode.corner.radius != newRadius {
+            indicatorContainerNode.indicatorNode.corner = .init(radius: newRadius)
+        }
     }
 
     open override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -97,7 +100,12 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode {
 
     @MainActor
     private func bind() {
-        data.indexObs
+        Observable
+            .combineLatest(
+                rx.methodInvoked(#selector(didEnterVisibleState)),
+                data.indexObs
+            )
+            .map { $1 }
             .subscribe(onNext: self ?>> { $0.scroll(index:) })
             .disposed(by: bag)
     }

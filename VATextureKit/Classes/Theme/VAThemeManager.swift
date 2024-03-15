@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Custom `UserInterfaceStyle` replacement enum to use with iOS <12.
 public enum VAUserInterfaceStyle: Int {
     case unspecified = 0
     case light = 1

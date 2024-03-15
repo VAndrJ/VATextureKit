@@ -136,7 +136,7 @@ final class MovieDetailsViewModel: EventViewModel {
 }
 
 func mapMovieDetails(_ data: MovieEntity, viewModel: EventViewModel) -> [CellViewModel] {
-    [
+    return [
         GenresTagsCellNodeViewModel(genres: data.genres),
         MovieDetailsDescriptionCellNodeViewModel(description: data.overview),
     ]

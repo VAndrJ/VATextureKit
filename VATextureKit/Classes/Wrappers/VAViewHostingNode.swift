@@ -129,7 +129,8 @@ class _LayoutTrackingHostingController<Content: View>: UIHostingController<Conte
         super.init(rootView: rootView)
     }
 
-    @MainActor required dynamic init?(coder aDecoder: NSCoder) {
+    @MainActor
+    required dynamic init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 

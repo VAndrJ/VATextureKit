@@ -66,6 +66,23 @@ public extension UIColor {
     /// Returns the components that make up the color in the RGBA color space as a tuple.
     ///
     /// - Returns: The RGBA components of the color or `nil` if the color could not be converted to RGBA color space.
+    var rgbComponents: (red: CGFloat, green: CGFloat, blue: CGFloat)? {
+        var (red, green, blue, alpha) = (CGFloat.zero, CGFloat.zero, CGFloat.zero, CGFloat.zero)
+        guard getRed(&red, green: &green, blue: &blue, alpha: &alpha) else {
+            var gray: CGFloat = 0
+            if getWhite(&gray, alpha: &alpha) {
+                return (gray, gray, gray)
+            }
+
+            return nil
+        }
+
+        return (red, green, blue)
+    }
+
+    /// Returns the components that make up the color in the RGBA color space as a tuple.
+    ///
+    /// - Returns: The RGBA components of the color or `nil` if the color could not be converted to RGBA color space.
     var rgbaComponents: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat)? {
         var (red, green, blue, alpha) = (CGFloat.zero, CGFloat.zero, CGFloat.zero, CGFloat.zero)
         guard getRed(&red, green: &green, blue: &blue, alpha: &alpha) else {
@@ -88,7 +105,7 @@ public extension UIColor {
     /// - Returns: A new `UIColor` that is the result of blending the foreground color with the background color using the specified alpha value.
     @available (iOS 13.0, *)
     func opaque(on background: UIColor, traitCollection: UITraitCollection) -> UIColor {
-        return UIColor.fromAlpha(
+        UIColor.fromAlpha(
             foreground: self,
             background: background,
             traitCollection: traitCollection
@@ -101,7 +118,7 @@ public extension UIColor {
     ///   - background: The background `UIColor` to be used as the base color for blending.
     /// - Returns: A new `UIColor` that is the result of blending the foreground color with the background color using the specified alpha value.
     func opaque(on background: UIColor) -> UIColor {
-        return UIColor.fromAlpha(
+        UIColor.fromAlpha(
             foreground: self,
             background: background
         )
@@ -109,6 +126,40 @@ public extension UIColor {
 }
 
 public extension [UIColor] {
+
+    func getAveragePigments(on background: UIColor) -> UIColor {
+
+        func map(
+            components: (red: CGFloat, green: CGFloat, blue: CGFloat),
+            parameter: CGFloat,
+            transform: (CGFloat, CGFloat) -> CGFloat
+        ) -> (red: CGFloat, green: CGFloat, blue: CGFloat) {
+            (transform(components.red, parameter), transform(components.green, parameter), transform(components.blue, parameter))
+        }
+
+        var whiteComponents: [CGFloat] = []
+        var colorComponents: [(red: CGFloat, green: CGFloat, blue: CGFloat)] = []
+        self.map { $0.opaque(on: background) }.compactMap(\.rgbComponents).forEach { components in
+            let white = Swift.min(Swift.min(components.red, components.green), components.blue)
+            whiteComponents.append(white)
+            colorComponents.append(map(components: components, parameter: white, transform: -))
+        }
+        let averageWhite = whiteComponents.reduce(0, +) / CGFloat(whiteComponents.count)
+        var averageColor = colorComponents.reduce((red: 0.0, green: 0.0, blue: 0.0), {
+            ($0.red + $1.red, $0.green + $1.green, $0.blue + $1.blue)
+        })
+        let white = Swift.min(Swift.min(averageColor.red, averageColor.green), averageColor.blue)
+        averageColor = map(components: averageColor, parameter: white, transform: -)
+        averageColor.green += white
+        averageColor = map(components: averageColor, parameter: averageWhite, transform: +)
+
+        return UIColor(
+            red: Swift.min(1, averageColor.red),
+            green: Swift.min(1, averageColor.green),
+            blue: Swift.min(1, averageColor.blue),
+            alpha: 1
+        )
+    }
 
     var average: UIColor {
         var redSum = 0.0

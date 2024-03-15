@@ -260,12 +260,12 @@ open class ASTableSectionedDataSource<S: SectionModelType>: NSObject, ASTableDat
     public typealias CanEditRowAtIndexPath = (ASTableSectionedDataSource<S>, IndexPath) -> Bool
     public typealias CanMoveRowAtIndexPath = (ASTableSectionedDataSource<S>, IndexPath) -> Bool
     
-#if os(iOS)
+    #if os(iOS)
     public typealias SectionIndexTitles = (ASTableSectionedDataSource<S>) -> [String]?
     public typealias SectionForSectionIndexTitle = (ASTableSectionedDataSource<S>, _ title: String, _ index: Int) -> Int
-#endif
+    #endif
     
-#if os(iOS)
+    #if os(iOS)
     public init(
         configureCellBlock: @escaping ConfigureCellBlock,
         titleForHeaderInSection: @escaping TitleForHeaderInSection = { _, _ in nil },
@@ -284,7 +284,7 @@ open class ASTableSectionedDataSource<S: SectionModelType>: NSObject, ASTableDat
         self.sectionForSectionIndexTitle = sectionForSectionIndexTitle
     }
     
-#else
+    #else
     public init(
         configureCellBlock: @escaping configureCellBlock,
         titleForHeaderInSection: @escaping TitleForHeaderInSection = { _, _ in nil },
@@ -298,9 +298,9 @@ open class ASTableSectionedDataSource<S: SectionModelType>: NSObject, ASTableDat
         self.canEditRowAtIndexPath = canEditRowAtIndexPath
         self.canMoveRowAtIndexPath = canMoveRowAtIndexPath
     }
-#endif
+    #endif
     
-#if DEBUG
+    #if DEBUG
     // If data source has already been bound, then mutating it
     // afterwards isn't something desired.
     // This simulates immutability after binding
@@ -309,8 +309,7 @@ open class ASTableSectionedDataSource<S: SectionModelType>: NSObject, ASTableDat
     private func ensureNotMutatedAfterBinding() {
         assert(!_dataSourceBound, "Data source is already bound. Please write this line before binding call (`bindTo`, `drive`). Data source must first be completely configured, and then bound after that.")
     }
-    
-#endif
+    #endif
     
     // This structure exists because model can be mutable
     // In that case current state value should be preserved.
@@ -363,58 +362,58 @@ open class ASTableSectionedDataSource<S: SectionModelType>: NSObject, ASTableDat
     
     open var configureCellBlock: ConfigureCellBlock {
         didSet {
-#if DEBUG
+            #if DEBUG
             ensureNotMutatedAfterBinding()
-#endif
+            #endif
         }
     }
     
     open var titleForHeaderInSection: TitleForHeaderInSection {
         didSet {
-#if DEBUG
+            #if DEBUG
             ensureNotMutatedAfterBinding()
-#endif
+            #endif
         }
     }
     open var titleForFooterInSection: TitleForFooterInSection {
         didSet {
-#if DEBUG
+            #if DEBUG
             ensureNotMutatedAfterBinding()
-#endif
+            #endif
         }
     }
     
     open var canEditRowAtIndexPath: CanEditRowAtIndexPath {
         didSet {
-#if DEBUG
+            #if DEBUG
             ensureNotMutatedAfterBinding()
-#endif
+            #endif
         }
     }
     open var canMoveRowAtIndexPath: CanMoveRowAtIndexPath {
         didSet {
-#if DEBUG
+            #if DEBUG
             ensureNotMutatedAfterBinding()
-#endif
+            #endif
         }
     }
     
-#if os(iOS)
+    #if os(iOS)
     open var sectionIndexTitles: SectionIndexTitles {
         didSet {
-#if DEBUG
+            #if DEBUG
             ensureNotMutatedAfterBinding()
-#endif
+            #endif
         }
     }
     open var sectionForSectionIndexTitle: SectionForSectionIndexTitle {
         didSet {
-#if DEBUG
+            #if DEBUG
             ensureNotMutatedAfterBinding()
-#endif
+            #endif
         }
     }
-#endif
+    #endif
     
     // ASTableDataSource
     
@@ -473,7 +472,7 @@ open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>: 
     
     private var dataSet = false
     
-#if os(iOS)
+    #if os(iOS)
     public init(
         animationConfiguration: AnimationConfiguration = AnimationConfiguration(),
         decideNodeTransition: @escaping DecideNodeTransition = { _, _, _ in .animated },
@@ -498,7 +497,8 @@ open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>: 
             sectionForSectionIndexTitle: sectionForSectionIndexTitle
         )
     }
-#else
+    #else
+
     public init(
         animationConfiguration: AnimationConfiguration = AnimationConfiguration(),
         decideNodeTransition: @escaping DecideNodeTransition = { _, _, _ in .animated },
@@ -519,13 +519,13 @@ open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>: 
             canMoveRowAtIndexPath: canMoveRowAtIndexPath
         )
     }
-#endif
+    #endif
     
     public func tableNode(_ tableNode: ASTableNode, observedEvent: Event<[S]>) {
         Binder(self) { dataSource, newSections in
-#if DEBUG
+            #if DEBUG
             dataSource._dataSourceBound = true
-#endif
+            #endif
             if !dataSource.dataSet {
                 dataSource.dataSet = true
                 dataSource.setSections(newSections)
@@ -574,7 +574,8 @@ open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>: 
                     tableNode.reloadDataWithoutAnimations()
                 }
             }
-        }.on(observedEvent)
+        }
+        .on(observedEvent)
     }
 }
 
@@ -640,12 +641,13 @@ open class RxASTableSectionedReloadDataSource<S: SectionModelType>: ASTableSecti
     
     open func tableNode(_ tableNode: ASTableNode, observedEvent: Event<Element>) {
         Binder(self) { dataSource, element in
-#if DEBUG
+            #if DEBUG
             dataSource._dataSourceBound = true
-#endif
+            #endif
             dataSource.setSections(element)
             tableNode.reloadData()
-        }.on(observedEvent)
+        }
+        .on(observedEvent)
     }
 }
 

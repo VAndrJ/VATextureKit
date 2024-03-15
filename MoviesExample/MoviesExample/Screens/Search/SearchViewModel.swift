@@ -119,7 +119,7 @@ final class SearchViewModel: EventViewModel {
 }
 
 func mapSearchTrendingMovies(_ data: [ListMovieEntity]) -> [AnimatableSectionModel<SearchSectionHeaderNodeViewModel, CellViewModel>] {
-    [
+    return [
         AnimatableSectionModel(
             model: SearchSectionHeaderNodeViewModel(title: R.string.localizable.search_section_trending()),
             items: data.isEmpty ? [ShimmerCellNodeViewModel(kind: .trending)] : data.map(SearchTrendingMovieCellNodeViewModel.init(listEntity:))

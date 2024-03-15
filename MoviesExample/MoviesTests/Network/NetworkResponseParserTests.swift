@@ -17,6 +17,7 @@ final class NetworkResponseParserTests: XCTestCase {
     func test_decoding_emptyDataError() {
         do {
             let _ = try sut.parse(data: nil, type: TestResponseDTO.self)
+            
             XCTFail()
         } catch {
             XCTAssertEqual(NetworkError.emptyResponseData, error as! NetworkError)

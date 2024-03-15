@@ -46,4 +46,25 @@ class UIColorSnapshotTests: XCTestCase {
 
         return sut
     }
+
+    func test_averagePigments() {
+        let color = [UIColor.red, .blue].getAveragePigments(on: .white)
+        let sut = generateSUT(color: color)
+
+        assertNodeSnapshot(matching: sut, size: .fixed(CGSize(same: 24)))
+    }
+
+    func test_averagePigments_transparentOnWhite() {
+        let color = [UIColor.yellow.withAlphaComponent(0.5), .blue.withAlphaComponent(0.5)].getAveragePigments(on: .white)
+        let sut = generateSUT(color: color)
+
+        assertNodeSnapshot(matching: sut, size: .fixed(CGSize(same: 24)))
+    }
+
+    func test_averagePigments_transparentOnBlack() {
+        let color = [UIColor.yellow.withAlphaComponent(0.5), .blue.withAlphaComponent(0.5)].getAveragePigments(on: .black)
+        let sut = generateSUT(color: color)
+
+        assertNodeSnapshot(matching: sut, size: .fixed(CGSize(same: 24)))
+    }
 }
