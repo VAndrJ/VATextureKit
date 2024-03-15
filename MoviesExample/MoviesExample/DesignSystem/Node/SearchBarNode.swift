@@ -8,8 +8,7 @@
 import VATextureKitRx
 
 final class SearchBarNode: VASizedViewWrapperNode<UISearchBar> {
-    @MainActor
-    var textObs: Observable<String?> { child.rx.text.asObservable() }
+    @MainActor var textObs: Observable<String?> { child.rx.text.asObservable() }
 
     private let bag = DisposeBag()
     private var beginSearchObs: Observable<Void>?

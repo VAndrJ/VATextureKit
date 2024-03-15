@@ -11,7 +11,7 @@ public extension Collection {
     var isNotEmpty: Bool { !isEmpty }
 }
 
-public extension Collection? {
+public extension Optional where Wrapped: Collection {
     var isEmpty: Bool { self?.isEmpty ?? true }
     var isNotEmpty: Bool { !isEmpty }
 }

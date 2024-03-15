@@ -22,7 +22,6 @@ protocol TabsNavigationIdentity: NavigationIdentity {
 
 struct MainTabsNavigationIdentity: TabsNavigationIdentity {
     let tabsIdentity: [NavigationIdentity]
-    var fallbackSource: NavigationIdentity?
 
     func isEqual(to other: NavigationIdentity?) -> Bool {
         guard let other = other as? MainTabsNavigationIdentity else {
@@ -46,7 +45,6 @@ struct MainTabsNavigationIdentity: TabsNavigationIdentity {
 
 struct NavNavigationIdentity: NavigationIdentity {
     var childIdentity: NavigationIdentity?
-    var fallbackSource: NavigationIdentity?
 
     func isEqual(to other: NavigationIdentity?) -> Bool {
         guard let other = other as? NavNavigationIdentity else {
@@ -57,17 +55,12 @@ struct NavNavigationIdentity: NavigationIdentity {
     }
 }
 
-struct HomeNavigationIdentity: DefaultNavigationIdentity {
-    var fallbackSource: NavigationIdentity?
-}
+struct HomeNavigationIdentity: DefaultNavigationIdentity {}
 
-struct SearchNavigationIdentity: DefaultNavigationIdentity {
-    var fallbackSource: NavigationIdentity?
-}
+struct SearchNavigationIdentity: DefaultNavigationIdentity {}
 
 struct MovieDetailsNavigationIdentity: NavigationIdentity {
     var movie: ListMovieEntity
-    var fallbackSource: NavigationIdentity? = SearchNavigationIdentity()
 
     func isEqual(to other: NavigationIdentity?) -> Bool {
         guard let other = other as? MovieDetailsNavigationIdentity else {
@@ -80,7 +73,6 @@ struct MovieDetailsNavigationIdentity: NavigationIdentity {
 
 struct ActorDetailsNavigationIdentity: NavigationIdentity {
     var actor: ListActorEntity
-    var fallbackSource: NavigationIdentity? = SearchNavigationIdentity()
 
     func isEqual(to other: NavigationIdentity?) -> Bool {
         guard let other = other as? ActorDetailsNavigationIdentity else {

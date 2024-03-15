@@ -10,6 +10,7 @@
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
+		A110AB3D03A66DD568A383A1 /* libPods-VATextureKit_Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 547131B2FE623A19E5729CC5 /* libPods-VATextureKit_Tests.a */; };
 		A31054D32A87AA670076E079 /* TagCellNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31054D22A87AA670076E079 /* TagCellNodeTests.swift */; };
 		A310A43229CF471400632416 /* CellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A310A43129CF471400632416 /* CellViewModel.swift */; };
 		A311B22E2A7668240025B060 /* ElementsScrollingAnimationListNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A311B22D2A7668240025B060 /* ElementsScrollingAnimationListNodeController.swift */; };
@@ -150,7 +151,6 @@
 		A3F8890929CE37BD00C67187 /* ImageCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F8890829CE37BD00C67187 /* ImageCellNode.swift */; };
 		A3F8890B29CE385B00C67187 /* ImageNumberCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F8890A29CE385B00C67187 /* ImageNumberCellNode.swift */; };
 		CE717810709EFF8D0CBEE65B /* libPods-VATextureKit_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E185B2A54FE4FEA24B3DFA35 /* libPods-VATextureKit_Example.a */; };
-		D0C200A3DABB691A6AE7B754 /* libPods-VATextureKit_Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6E0986CDC6594AF22A3AE59 /* libPods-VATextureKit_Tests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -169,6 +169,7 @@
 		282F60A4B43FD260D631A2BF /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		308A99719FCF60953697F53E /* Pods-VATextureKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VATextureKit_Example.debug.xcconfig"; path = "Target Support Files/Pods-VATextureKit_Example/Pods-VATextureKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		46020EE7D2BA97387DB61459 /* Pods-VATextureKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VATextureKit_Example.release.xcconfig"; path = "Target Support Files/Pods-VATextureKit_Example/Pods-VATextureKit_Example.release.xcconfig"; sourceTree = "<group>"; };
+		547131B2FE623A19E5729CC5 /* libPods-VATextureKit_Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VATextureKit_Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* VATextureKit_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VATextureKit_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -318,7 +319,6 @@
 		A3F8890429CE316C00C67187 /* CollectionListDifferentCellsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionListDifferentCellsViewModel.swift; sourceTree = "<group>"; };
 		A3F8890829CE37BD00C67187 /* ImageCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCellNode.swift; sourceTree = "<group>"; };
 		A3F8890A29CE385B00C67187 /* ImageNumberCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageNumberCellNode.swift; sourceTree = "<group>"; };
-		A6E0986CDC6594AF22A3AE59 /* libPods-VATextureKit_Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VATextureKit_Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2E53F42A777AA0DCEE55AAF /* Pods-VATextureKit_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VATextureKit_Tests.release.xcconfig"; path = "Target Support Files/Pods-VATextureKit_Tests/Pods-VATextureKit_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		C09CD1909CE6DD4E1F0B3BCA /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		E185B2A54FE4FEA24B3DFA35 /* libPods-VATextureKit_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VATextureKit_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -338,7 +338,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3E47BCC29D763C200D51E08 /* SnapshotTesting in Frameworks */,
-				D0C200A3DABB691A6AE7B754 /* libPods-VATextureKit_Tests.a in Frameworks */,
+				A110AB3D03A66DD568A383A1 /* libPods-VATextureKit_Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,7 +350,7 @@
 			children = (
 				A3C617D329E47E7700CA75B5 /* SwiftUI.framework */,
 				E185B2A54FE4FEA24B3DFA35 /* libPods-VATextureKit_Example.a */,
-				A6E0986CDC6594AF22A3AE59 /* libPods-VATextureKit_Tests.a */,
+				547131B2FE623A19E5729CC5 /* libPods-VATextureKit_Tests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
