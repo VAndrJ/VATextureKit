@@ -66,4 +66,15 @@ class CGPointTests: XCTestCase {
 
         XCTAssertEqual(expectedPoint, point / value)
     }
+
+    func test_distance() {
+        let zeroPoint: CGPoint = .zero
+        let horizontalAxisPoint = CGPoint(x: 1, y: 0)
+        let verticalAxisPoint = CGPoint(x: 0, y: 1)
+        let point = CGPoint(x: 1, y: 1)
+
+        XCTAssertEqual(1.0, zeroPoint.distance(to: horizontalAxisPoint))
+        XCTAssertEqual(1.0, zeroPoint.distance(to: verticalAxisPoint))
+        XCTAssertEqual(sqrt(2), zeroPoint.distance(to: point))
+    }
 }

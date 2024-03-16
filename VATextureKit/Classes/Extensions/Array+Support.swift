@@ -21,29 +21,29 @@ public extension Array where Element: AdditiveArithmetic {
 public extension Array {
 
     subscript(at index: Int) -> Element? {
-        if 0 <= index && index < count {
-            return self[index]
-        } else {
+        guard 0 <= index && index < count else {
             return nil
         }
+
+        return self[index]
     }
 
     subscript(at indexPath: IndexPath) -> Element? {
-        if 0 <= indexPath.item && indexPath.item < count {
-            return self[indexPath.item]
-        } else {
+        guard 0 <= indexPath.item && indexPath.item < count else {
             return nil
         }
+
+        return self[indexPath.item]
     }
 }
 
 public extension Array where Element: Collection, Element.Index == Int {
 
     subscript(at indexPath: IndexPath) -> Element.Element? {
-        if 0 <= indexPath.section && indexPath.section < count, self[indexPath.section].indices.contains(indexPath.item) {
-            return self[indexPath.section][indexPath.item]
-        } else {
+        guard 0 <= indexPath.section && indexPath.section < count, self[indexPath.section].indices.contains(indexPath.item) else {
             return nil
         }
+
+        return self[indexPath.section][indexPath.item]
     }
 }
