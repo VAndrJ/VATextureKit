@@ -16,7 +16,7 @@ class VASlidingIndicatorContainerNode: VADisplayNode {
         }
     }
 
-    let indicatorNode = VADisplayNode()
+    let indicatorNode = VADisplayNode(corner: .init(radius: .proportional(percent: 100)))
 
     private let color: (VATheme) -> UIColor
 

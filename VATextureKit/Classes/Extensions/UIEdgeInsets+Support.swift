@@ -8,7 +8,7 @@
 import UIKit
 
 public extension UIEdgeInsets {
-    var origin: CGPoint { CGPoint(x: left, y: top) }
+    var origin: CGPoint { .init(x: left, y: top) }
     var vertical: CGFloat { top + bottom }
     var horizontal: CGFloat { left + right }
     

@@ -36,4 +36,8 @@ public extension CGPoint {
     init(xy: Double) {
         self.init(x: xy, y: xy)
     }
+
+    func distance(to point: CGPoint) -> CGFloat {
+        sqrt(pow(point.x - x, 2) + pow(point.y - y, 2))
+    }
 }

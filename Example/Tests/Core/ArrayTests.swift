@@ -20,9 +20,49 @@ class ArrayTests: XCTestCase {
         XCTAssertEqual(expectedArray, array + value)
     }
 
+    func test_substraction_withElement() {
+        let value = 2
+        let array = [0, 1, 10]
+        let expectedArray = array.map { $0 - value }
+
+        XCTAssertEqual(expectedArray, array - value)
+    }
+
+    func test_safeIndex() {
+        let sut = [1, 2]
+
+        XCTAssertNil(sut[at: -1])
+        XCTAssertEqual(1, sut[at: 0])
+        XCTAssertEqual(2, sut[at: 1])
+        XCTAssertNil(sut[at: 2])
+    }
+
+    func test_safeIndexPath() {
+        let sut = [1, 2]
+
+        XCTAssertNil(sut[at: IndexPath(item: -1, section: 0)])
+        XCTAssertEqual(1, sut[at: IndexPath(item: 0, section: 0)])
+        XCTAssertEqual(2, sut[at: IndexPath(row: 1, section: 0)])
+        XCTAssertNil(sut[at: IndexPath(row: 2, section: 0)])
+    }
+
+    func test_safeIndexPath_arrayWithArray() {
+        let sut = [[1, 2]]
+
+        XCTAssertNil(sut[at: IndexPath(item: -1, section: -1)])
+        XCTAssertNil(sut[at: IndexPath(item: -1, section: 0)])
+        XCTAssertNil(sut[at: IndexPath(item: -1, section: 1)])
+        XCTAssertEqual(1, sut[at: IndexPath(item: 0, section: 0)])
+        XCTAssertNil(sut[at: IndexPath(row: 1, section: -1)])
+        XCTAssertEqual(2, sut[at: IndexPath(row: 1, section: 0)])
+        XCTAssertNil(sut[at: IndexPath(row: 1, section: 1)])
+        XCTAssertNil(sut[at: IndexPath(row: 2, section: -1)])
+        XCTAssertNil(sut[at: IndexPath(row: 2, section: 0)])
+        XCTAssertNil(sut[at: IndexPath(row: 2, section: 1)])
+    }
+
     func test_builder_emptyValue() {
-        let sut = pipeFunc(array: .init {
-        })
+        let sut = pipeFunc(array: .init {})
         XCTAssertEqual([], sut)
     }
 

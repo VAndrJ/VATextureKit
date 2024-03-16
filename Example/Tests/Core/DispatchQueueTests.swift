@@ -71,4 +71,24 @@ class DispatchQueueTests: XCTestCase {
         }
         wait(for: [expect], timeout: 10)
     }
+
+    func test_main_asyncAfterTime() {
+        let expect = expectation(description: "Queue expectation")
+        ensureOnBackground {
+            XCTAssertFalse(Thread.isMainThread)
+            mainAsync(after: .milliseconds(1)) {
+                XCTAssertTrue(Thread.isMainThread)
+                expect.fulfill()
+            }
+        }
+        wait(for: [expect], timeout: 10)
+    }
+
+    func test_timeInterval() {
+        XCTAssertEqual(1, DispatchTimeInterval.seconds(1).timeInterval)
+        XCTAssertEqual(0.001, DispatchTimeInterval.milliseconds(1).timeInterval)
+        XCTAssertEqual(0.000001, DispatchTimeInterval.microseconds(1).timeInterval)
+        XCTAssertEqual(0.000000001, DispatchTimeInterval.nanoseconds(1).timeInterval)
+        XCTAssertNil(DispatchTimeInterval.never.timeInterval)
+    }
 }

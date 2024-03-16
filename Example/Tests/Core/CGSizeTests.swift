@@ -89,4 +89,22 @@ class CGSizeTests: XCTestCase {
 
         XCTAssertEqual(5, size.aspectMaxBoundingMultiplier(for: size1))
     }
+
+    func test_area() {
+        let size1 = CGSize(same: 1)
+        let size2 = CGSize(width: 2, height: 3)
+
+        XCTAssertEqual(1, size1.area)
+        XCTAssertEqual(6, size2.area)
+    }
+
+    func test_ratio() {
+        let size1 = CGSize(same: 1)
+        let size2 = CGSize(width: 2, height: 3)
+        let size3 = CGSize(width: 2, height: 1)
+
+        XCTAssertEqual(1, size1.ratio)
+        XCTAssertEqual(2 / 3, size2.ratio)
+        XCTAssertEqual(2, size3.ratio)
+    }
 }

@@ -77,6 +77,10 @@ public extension DispatchTimeInterval {
         case .never:
             return nil
         @unknown default:
+            #if DEBUG
+            assertionFailure()
+            #endif
+            
             return nil
         }
     }

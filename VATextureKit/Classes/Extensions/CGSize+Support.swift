@@ -33,6 +33,9 @@ public extension CGSize {
         CGSize(width: lhs.width - rhs, height: lhs.height - rhs)
     }
 
+    var area: CGFloat { width * height }
+    var ratio: CGFloat { width / height }
+
     init(same: CGFloat) {
         self.init(width: same, height: same)
     }

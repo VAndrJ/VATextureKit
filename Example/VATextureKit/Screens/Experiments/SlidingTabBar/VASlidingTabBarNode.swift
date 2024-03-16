@@ -44,15 +44,6 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode {
         bind()
     }
 
-    open override func layout() {
-        super.layout()
-
-        let newRadius: VACornerRoundingParameters.CornerRadius = .fixed(bounds.height / 2 - data.contentInset.top)
-        if indicatorContainerNode.indicatorNode.corner.radius != newRadius {
-            indicatorContainerNode.indicatorNode.corner = .init(radius: newRadius)
-        }
-    }
-
     open override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Row(spacing: data.spacing) {
             items

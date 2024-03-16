@@ -46,8 +46,8 @@ final class ShimmersScreenNode: ScreenNode {
         mainAsync(after: 0.8) { [weak self] in
             guard let self else { return }
             
-            acrossWindowShimmer2Node.didEnterVisibleState()
-            notSynchronizedShimmer2Node.didEnterVisibleState()
+            self.acrossWindowShimmer2Node.didEnterVisibleState()
+            self.notSynchronizedShimmer2Node.didEnterVisibleState()
         }
     }
 
