@@ -27,7 +27,7 @@ final class ShimmersScreenNode: ScreenNode {
     private lazy var notSynchronizedShimmer2Node = _ShimmerExampleNode(data: .init(isSynchronized: false))
         .flex(grow: 1)
 
-    private lazy var acrossNodeSynchronizedTextNode = VATextNode(text: "Shimmer across node synchronized")
+    private lazy var acrossNodeSynchronizedTextNode = VATextNode(text: "Shimmer across nodes synchronized")
     private lazy var notAcrossWindowShimmer0Node = _ShimmerExampleNode(data: .init(isAcrossWindow: false))
         .flex(grow: 1)
     private lazy var notAcrossWindowShimmer1Node = _ShimmerExampleNode(data: .init(isAcrossWindow: false))
@@ -35,26 +35,36 @@ final class ShimmersScreenNode: ScreenNode {
     private lazy var notAcrossWindowShimmer2Node = _ShimmerExampleNode(data: .init(isAcrossWindow: false))
         .flex(grow: 1)
 
+    private lazy var acrossNodesNotSynchronizedTextNode = VATextNode(text: "Shimmer across nodes not synchronized")
+    private lazy var notAcrossWindowNotSynchronizedShimmer0Node = _ShimmerExampleNode(data: .init(isAcrossWindow: false, isSynchronized: false))
+        .flex(grow: 1)
+    private lazy var notAcrossWindowNotSynchronizedShimmer1Node = _ShimmerExampleNode(data: .init(isAcrossWindow: false, isSynchronized: false))
+        .flex(grow: 1)
+    private lazy var notAcrossWindowNotSynchronizedShimmer2Node = _ShimmerExampleNode(data: .init(isAcrossWindow: false, isSynchronized: false))
+        .flex(grow: 1)
+
     override func didLoad() {
         super.didLoad()
 
         // To trigger shimmer update.
-        mainAsync(after: 0.4) { [self] in
+        mainAsync(after: 0.2) { [self] in
             acrossWindowShimmer1Node.didEnterVisibleState()
             notSynchronizedShimmer1Node.didEnterVisibleState()
+            notAcrossWindowNotSynchronizedShimmer1Node.didEnterVisibleState()
         }
-        mainAsync(after: 0.8) { [weak self] in
+        mainAsync(after: 0.75) { [weak self] in
             guard let self else { return }
             
             self.acrossWindowShimmer2Node.didEnterVisibleState()
             self.notSynchronizedShimmer2Node.didEnterVisibleState()
+            self.notAcrossWindowNotSynchronizedShimmer2Node.didEnterVisibleState()
         }
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
-            Column(spacing: 64, cross: .stretch) {
-                Column(spacing: 16, cross: .stretch) {
+            Column(spacing: 16, cross: .stretch) {
+                Column(spacing: 4, cross: .stretch) {
                     acrossWindowSynchronizedTextNode
                     Row(spacing: 8) {
                         acrossWindowShimmer0Node
@@ -62,7 +72,7 @@ final class ShimmersScreenNode: ScreenNode {
                         acrossWindowShimmer2Node
                     }
                 }
-                Column(spacing: 16, cross: .stretch) {
+                Column(spacing: 4, cross: .stretch) {
                     acrossWindowNotSynchronizedTextNode
                     Row(spacing: 8) {
                         notSynchronizedShimmer0Node
@@ -70,12 +80,20 @@ final class ShimmersScreenNode: ScreenNode {
                         notSynchronizedShimmer2Node
                     }
                 }
-                Column(spacing: 16, cross: .stretch) {
+                Column(spacing: 4, cross: .stretch) {
                     acrossNodeSynchronizedTextNode
                     Row(spacing: 8) {
                         notAcrossWindowShimmer0Node
                         notAcrossWindowShimmer1Node
                         notAcrossWindowShimmer2Node
+                    }
+                }
+                Column(spacing: 4, cross: .stretch) {
+                    acrossNodesNotSynchronizedTextNode
+                    Row(spacing: 8) {
+                        notAcrossWindowNotSynchronizedShimmer0Node
+                        notAcrossWindowNotSynchronizedShimmer1Node
+                        notAcrossWindowNotSynchronizedShimmer2Node
                     }
                 }
             }
