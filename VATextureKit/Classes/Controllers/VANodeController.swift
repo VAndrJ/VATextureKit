@@ -6,6 +6,7 @@
 //
 
 import AsyncDisplayKit
+import VATextureKitSpec
 
 open class VANodeController: VAViewController<ASDisplayNode> {
     
