@@ -53,18 +53,38 @@ open class VANodeController: VAViewController<ASDisplayNode> {
 // swiftlint:disable identifier_name
 public extension VANodeController {
 
+    /// Creates a layout spec that pads the provided layout element with `safeAreaInsets`.
+    ///
+    /// - Parameter layoutSpec: A closure returning the layout element to be padded.
+    /// - Returns: A layout spec that applies padding with `safeAreaInsets` to the provided layout element.
     func SafeArea(_ layoutSpec: () -> ASLayoutSpec) -> ASLayoutSpec {
         contentNode.SafeArea(layoutSpec)
     }
 
+    /// Creates a layout spec that pads the provided layout element with `safeAreaInsets`.
+    ///
+    /// - Parameter layoutElement: A closure returning the layout element to be padded.
+    /// - Returns: A layout spec that applies padding with `safeAreaInsets` to the provided layout element.
     func SafeArea(_ layoutElement: () -> ASLayoutElement) -> ASLayoutSpec {
         contentNode.SafeArea(layoutElement)
     }
 
+    /// Creates a layout spec that pads the provided layout element with custom edge `safeAreaInsets` based on the specified edges.
+    ///
+    /// - Parameters:
+    ///   - edges: The edges of the safe area for which padding is applied.
+    ///   - layoutSpec: A closure returning the layout element to be padded.
+    /// - Returns: A layout spec that applies padding with custom edge insets to the provided layout element.
     func SafeArea(edges: VASafeAreaEdge, _ layoutSpec: () -> ASLayoutSpec) -> ASLayoutSpec {
         contentNode.SafeArea(edges: edges, layoutSpec)
     }
 
+    /// Creates a layout spec that pads the provided layout element with custom edge `safeAreaInsets` based on the specified edges.
+    ///
+    /// - Parameters:
+    ///   - edges: The edges of the safe area for which padding is applied.
+    ///   - layoutElement: A closure returning the layout element to be padded.
+    /// - Returns: A layout spec that applies padding with custom edge insets to the provided layout element.
     func SafeArea(edges: VASafeAreaEdge, _ layoutElement: () -> ASLayoutElement) -> ASLayoutSpec {
         contentNode.SafeArea(edges: edges, layoutElement)
     }
