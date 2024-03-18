@@ -31,7 +31,7 @@ final class MainListSectionHeaderNode: VADisplayNode {
     }
 }
 
-class MainSectionHeaderNodeViewModel: CellViewModel {
+final class MainSectionHeaderNodeViewModel: CellViewModel {
     let title: String
 
     init(title: String) {

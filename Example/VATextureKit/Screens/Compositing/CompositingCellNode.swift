@@ -27,7 +27,7 @@ final class CompositingCellNode: VACellNode {
     }
 }
 
-class CompositingCellNodeViewModel: CellViewModel {
+final class CompositingCellNodeViewModel: CellViewModel {
     let compositingFilter: ASDisplayNode.CompositingFilter?
     let blendMode: ASDisplayNode.BlendMode?
 

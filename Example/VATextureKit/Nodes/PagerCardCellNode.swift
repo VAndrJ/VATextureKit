@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-class PagerCardCellNode: VACellNode {
+final class PagerCardCellNode: VACellNode {
     let titleTextNode: VATextNode
     let descriptionTextNode: VATextNode
     let cardNode = VADisplayNode(corner: .init(radius: .fixed(16)))
@@ -44,7 +44,7 @@ class PagerCardCellNode: VACellNode {
     }
 }
 
-class PagerCardCellNodeViewModel: CellViewModel {
+final class PagerCardCellNodeViewModel: CellViewModel {
     let title: String
     let description: String
     let padding: UIEdgeInsets

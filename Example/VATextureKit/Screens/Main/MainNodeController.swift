@@ -10,7 +10,8 @@ import VATextureKitRx
 
 struct MainNavigationIdentity: DefaultNavigationIdentity {}
 
-/// ViewController as a View axample
+// MARK: - ViewController as a View axample
+
 final class MainNodeController: VANodeController {
     private lazy var listNode = VATableListNode(data: .init(
         listDataObs: viewModel.listDataObs,
@@ -27,6 +28,8 @@ final class MainNodeController: VANodeController {
         super.init()
     }
 
+    // A different approach to organization: we set the layout parameters that are enough to set once
+    // in one place, near the `layoutSpecThatFits`.
     override func configureLayoutElements() {
         listNode
             .flex(shrink: 0.1, grow: 1)

@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-class TagCellNode: VACellNode {
+final class TagCellNode: VACellNode {
     let titleTextNode: VATextNode
 
     init(viewModel: TagCellNodeViewModel) {
@@ -30,7 +30,7 @@ class TagCellNode: VACellNode {
     }
 }
 
-class TagCellNodeViewModel: CellViewModel {
+final class TagCellNodeViewModel: CellViewModel {
     let title: String
 
     init(title: String) {

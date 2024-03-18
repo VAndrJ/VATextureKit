@@ -11,7 +11,7 @@ import VATextureKitRx
 struct CollectionListHeaderFooterNavigationIdentity: DefaultNavigationIdentity {}
 
 final class CollectionListHeaderFooterScreenNode: ScreenNode {
-    private(set) lazy var leftListNode = VAListNode(
+    private lazy var leftListNode = VAListNode(
         data: .init(
             listDataObs: viewModel.listDataObs,
             cellGetter: mapToCell(viewModel:),
@@ -27,7 +27,7 @@ final class CollectionListHeaderFooterScreenNode: ScreenNode {
             ))
         )
     ).flex(basisPercent: 50)
-    private(set) lazy var rightListNode = VAListNode(
+    private lazy var rightListNode = VAListNode(
         data: .init(
             listDataObs: viewModel.listDataObs,
             cellGetter: mapToCell(viewModel:),

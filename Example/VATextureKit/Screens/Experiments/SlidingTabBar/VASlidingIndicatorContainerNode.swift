@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-class VASlidingIndicatorContainerNode: VADisplayNode {
+final class VASlidingIndicatorContainerNode: VADisplayNode {
     var targetIndicatorFrame: CGRect = .zero {
         didSet {
             setNeedsLayout()

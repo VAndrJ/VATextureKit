@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-class CollectionExampleCellNode: VACellNode {
+final class CollectionExampleCellNode: VACellNode {
     let imageNode = VANetworkImageNode(contentMode: .scaleAspectFill)
     let titleNode: VATextNode
     

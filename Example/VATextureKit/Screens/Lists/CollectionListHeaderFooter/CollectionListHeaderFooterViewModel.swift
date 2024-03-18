@@ -28,7 +28,7 @@ final class CollectionListHeaderFooterViewModel {
     }
 }
 
-class CollectionListSectionHeaderFooterViewModel: CellViewModel {
+final class CollectionListSectionHeaderFooterViewModel: CellViewModel {
     let headerViewModel: CollectionListSectionHeaderViewModel?
     let footerViewModel: CollectionListSectionFooterViewModel?
 

@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-class ImageCellNode: VAScrollRespondingEdgeCellNode {
+final class ImageCellNode: VAScrollRespondingEdgeCellNode {
     let imageNode: VANetworkImageNode
     let viewModel: ImageCellNodeViewModel
     
@@ -39,7 +39,7 @@ class ImageCellNode: VAScrollRespondingEdgeCellNode {
     }
 }
 
-class ImageCellNodeViewModel: CellViewModel {
+final class ImageCellNodeViewModel: CellViewModel {
     let image: String?
     let ratio: CGFloat
     let cornerRadius: CGFloat?

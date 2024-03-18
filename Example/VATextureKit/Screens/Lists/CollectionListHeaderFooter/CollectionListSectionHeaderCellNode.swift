@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-class CollectionListSectionHeaderCellNode: VACellNode {
+final class CollectionListSectionHeaderCellNode: VACellNode {
     private let titleTextNode: VATextNode
 
     init(viewModel: CollectionListSectionHeaderViewModel) {
@@ -27,7 +27,7 @@ class CollectionListSectionHeaderCellNode: VACellNode {
     }
 }
 
-class CollectionListSectionHeaderViewModel: CellViewModel {
+final class CollectionListSectionHeaderViewModel: CellViewModel {
     let title: String
 
     init(title: String) {

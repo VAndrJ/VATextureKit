@@ -8,7 +8,7 @@
 
 import VATextureKitRx
 
-class HapticButtonNode: VAButtonNode, VAHapticable {
+final class HapticButtonNode: VAButtonNode, VAHapticable {
     override var isHighlighted: Bool {
         didSet { updateTitle() }
     }

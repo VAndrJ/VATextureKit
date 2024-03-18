@@ -18,15 +18,15 @@ final class CompositingFilterScreenNode: ScreenNode {
 
     // MARK: - UI related code
 
-    private(set) lazy var backgroundImageNode = VAImageNode(
+    private lazy var backgroundImageNode = VAImageNode(
         image: R.image.moon(),
         contentMode: .scaleAspectFill
     )
-    private(set) lazy var composingImageNode = VAImageNode(
+    private lazy var composingImageNode = VAImageNode(
         image: R.image.colibri(),
         contentMode: .scaleAspectFill
     )
-    private(set) lazy var listNode = VATableListNode(data: .init(
+    private lazy var listNode = VATableListNode(data: .init(
         configuration: .init(shouldDeselect: (false, true)),
         listDataObs: viewModel.filtersObs,
         onSelect: viewModel.didSelect(indexPath:),
@@ -63,9 +63,7 @@ final class CompositingFilterScreenNode: ScreenNode {
 
     // MARK: - ViewModel related code
 
-    let viewModel: CompositingFilterViewModelProtocol
-
-    private let bag = DisposeBag()
+    private let viewModel: CompositingFilterViewModelProtocol
 
     init(viewModel: CompositingFilterViewModelProtocol) {
         self.viewModel = viewModel
