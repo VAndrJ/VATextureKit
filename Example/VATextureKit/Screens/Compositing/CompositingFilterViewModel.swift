@@ -29,7 +29,7 @@ final class CompositingFilterViewModel: CompositingFilterViewModelProtocol {
     }
 }
 
-class BlendModeViewModel: CompositingFilterViewModelProtocol {
+final class BlendModeViewModel: CompositingFilterViewModelProtocol {
     @Obs.Relay(value: nil)
     var selectedFilterObs: Observable<String?>
     @Obs.Relay(

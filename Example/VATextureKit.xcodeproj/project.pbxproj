@@ -127,6 +127,7 @@
 		A3B3F3FB29A3CDA10090E6E2 /* RadialGradientScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3F3FA29A3CDA10090E6E2 /* RadialGradientScreenNode.swift */; };
 		A3B7F23829F0632E00CAA52D /* ReadMoreTextScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B7F23729F0632E00CAA52D /* ReadMoreTextScreenNode.swift */; };
 		A3BCEC5729CFA6770077217F /* LoadingCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BCEC5629CFA6770077217F /* LoadingCellNode.swift */; };
+		A3BDF4162BA860FE00D5CF41 /* UIImage+Emitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BDF4152BA860FE00D5CF41 /* UIImage+Emitter.swift */; };
 		A3CC53782A78FBC200BC4B3A /* UIEdgeInsetsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CC53772A78FBC200BC4B3A /* UIEdgeInsetsTests.swift */; };
 		A3CC537A2A79062A00BC4B3A /* DispatchQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CC53792A79062A00BC4B3A /* DispatchQueueTests.swift */; };
 		A3CC537C2A79078B00BC4B3A /* ASLayoutElementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CC537B2A79078B00BC4B3A /* ASLayoutElementTests.swift */; };
@@ -294,6 +295,7 @@
 		A3B3F3FA29A3CDA10090E6E2 /* RadialGradientScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialGradientScreenNode.swift; sourceTree = "<group>"; };
 		A3B7F23729F0632E00CAA52D /* ReadMoreTextScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadMoreTextScreenNode.swift; sourceTree = "<group>"; };
 		A3BCEC5629CFA6770077217F /* LoadingCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCellNode.swift; sourceTree = "<group>"; };
+		A3BDF4152BA860FE00D5CF41 /* UIImage+Emitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Emitter.swift"; sourceTree = "<group>"; };
 		A3C617D329E47E7700CA75B5 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		A3CC53772A78FBC200BC4B3A /* UIEdgeInsetsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEdgeInsetsTests.swift; sourceTree = "<group>"; };
 		A3CC53792A79062A00BC4B3A /* DispatchQueueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueTests.swift; sourceTree = "<group>"; };
@@ -391,14 +393,13 @@
 			isa = PBXGroup;
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
-				A3B3F3BC29A20C340090E6E2 /* Controllers */,
-				A3820D2B29E56F3D00993406 /* Experiments */,
-				A397A2C329AAAF5700A05B8F /* Extensions */,
-				A3B3F3EA29A399440090E6E2 /* Navigator */,
-				A3B3F3BD29A20C430090E6E2 /* Nodes */,
 				A3B3F37429A0CD830090E6E2 /* Screens */,
-				607FACD31AFB9204008FA782 /* Supporting Files */,
+				A3B3F3BD29A20C430090E6E2 /* Nodes */,
+				A3B3F3BC29A20C340090E6E2 /* Controllers */,
 				A3B3F38729A11D570090E6E2 /* Theme */,
+				A3B3F3EA29A399440090E6E2 /* Navigator */,
+				A397A2C329AAAF5700A05B8F /* Extensions */,
+				607FACD31AFB9204008FA782 /* Supporting Files */,
 			);
 			name = "Example for VATextureKit";
 			path = VATextureKit;
@@ -484,6 +485,7 @@
 				A3884CC62A7C2F0800DFB4A4 /* VARainEmitterNode.swift */,
 				A3884CC92A7CC6B900DFB4A4 /* VASnowEmitterNode.swift */,
 				A386395B2A7B8FFA00AAB22B /* VATextEmitterNode.swift */,
+				A3BDF4152BA860FE00D5CF41 /* UIImage+Emitter.swift */,
 			);
 			path = Emitter;
 			sourceTree = "<group>";
@@ -522,11 +524,11 @@
 		A33CDF3129D9B85F005F77C6 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
-				A356398F2A72D24300DE531F /* GradientLayerAnimationScreenNode.swift */,
-				A3CC9FAE2A75B82800A66DC0 /* KeyframeAnimationsScreenNode.swift */,
-				A3A72F642A6A68A90008B2DC /* LayerAnimationScreenNode.swift */,
-				A35639912A72E0D300DE531F /* ShapeLayerAnimationScreenNode.swift */,
 				A33CDF3229D9B875005F77C6 /* TransitionAnimationScreenNode.swift */,
+				A3A72F642A6A68A90008B2DC /* LayerAnimationScreenNode.swift */,
+				A356398F2A72D24300DE531F /* GradientLayerAnimationScreenNode.swift */,
+				A35639912A72E0D300DE531F /* ShapeLayerAnimationScreenNode.swift */,
+				A3CC9FAE2A75B82800A66DC0 /* KeyframeAnimationsScreenNode.swift */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
@@ -534,12 +536,12 @@
 		A34F8E7229F439AC00EF4C42 /* Lists */ = {
 			isa = PBXGroup;
 			children = (
-				A38D5E972A6C14F200A67BC7 /* DynamicHeightGridListScreenNode.swift */,
-				A311B22D2A7668240025B060 /* ElementsScrollingAnimationListNodeController.swift */,
-				A35689C92B0F8E0400BEB3C4 /* SelfSizingListContainerScreenNode.swift */,
-				A38D5EAA2A6D63BF00A67BC7 /* SpecBasedGridListScreenNode.swift */,
 				A3F8890129CE314500C67187 /* CollectionListDifferentCells */,
 				A34F8E7329F439E400EF4C42 /* CollectionListHeaderFooter */,
+				A38D5E972A6C14F200A67BC7 /* DynamicHeightGridListScreenNode.swift */,
+				A38D5EAA2A6D63BF00A67BC7 /* SpecBasedGridListScreenNode.swift */,
+				A311B22D2A7668240025B060 /* ElementsScrollingAnimationListNodeController.swift */,
+				A35689C92B0F8E0400BEB3C4 /* SelfSizingListContainerScreenNode.swift */,
 			);
 			path = Lists;
 			sourceTree = "<group>";
@@ -607,11 +609,11 @@
 		A384F0B729EE71ED006BF197 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				A38D5E922A6BBEF200A67BC7 /* CountingTextNodeController.swift */,
-				A34F8E8229F52EED00EF4C42 /* PagerScreenNode.swift */,
-				A3B7F23729F0632E00CAA52D /* ReadMoreTextScreenNode.swift */,
 				A38D5E9B2A6D251E00A67BC7 /* ShimmersScreenNode.swift */,
 				A384F0B829EE7215006BF197 /* TypingTextScreenNode.swift */,
+				A38D5E922A6BBEF200A67BC7 /* CountingTextNodeController.swift */,
+				A3B7F23729F0632E00CAA52D /* ReadMoreTextScreenNode.swift */,
+				A34F8E8229F52EED00EF4C42 /* PagerScreenNode.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -630,9 +632,9 @@
 			isa = PBXGroup;
 			children = (
 				A33871392A7B80D900F9D329 /* Emitter */,
-				A338713B2A7B812800F9D329 /* Filter */,
 				A338713A2A7B810400F9D329 /* LinkTextNode */,
 				A338713C2A7B815300F9D329 /* SlidingTabBar */,
+				A338713B2A7B812800F9D329 /* Filter */,
 			);
 			path = Experiments;
 			sourceTree = "<group>";
@@ -640,9 +642,9 @@
 		A38D5E942A6BC2AF00A67BC7 /* System */ = {
 			isa = PBXGroup;
 			children = (
+				A3B3F3D429A2C8F40090E6E2 /* Appearance */,
 				A3B3F3E629A3869B0090E6E2 /* ContentSizeNodeController.swift */,
 				A397A2C129AAA68800A05B8F /* AlertNodeController.swift */,
-				A3B3F3D429A2C8F40090E6E2 /* Appearance */,
 			);
 			path = System;
 			sourceTree = "<group>";
@@ -658,8 +660,8 @@
 		A3A0BED429ED4D1E00253AAD /* Layouts */ = {
 			isa = PBXGroup;
 			children = (
-				A3A0BEE129ED650000253AAD /* ColumnLayoutScreenNode.swift */,
 				A3A0BED529ED4D2D00253AAD /* RowLayoutScreenNode.swift */,
+				A3A0BEE129ED650000253AAD /* ColumnLayoutScreenNode.swift */,
 				A3A0BEE329ED68B900253AAD /* StackLayoutScreenNode.swift */,
 			);
 			path = Layouts;
@@ -678,16 +680,16 @@
 		A3B3F37429A0CD830090E6E2 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				A38863852BA1F3F100FC05FD /* Containers */,
-				A33CDF3129D9B85F005F77C6 /* Animations */,
-				A384F0B729EE71ED006BF197 /* Components */,
-				A3DDF2F029DD6C9F009460F1 /* Compositing */,
-				A38D5E912A6BBECB00A67BC7 /* Experiments */,
-				A3B3F3F029A3B8890090E6E2 /* Gradients */,
-				A3A0BED429ED4D1E00253AAD /* Layouts */,
-				A34F8E7229F439AC00EF4C42 /* Lists */,
 				A3B3F37529A0CD970090E6E2 /* Main */,
+				A3A0BED429ED4D1E00253AAD /* Layouts */,
+				A33CDF3129D9B85F005F77C6 /* Animations */,
 				A38D5E942A6BC2AF00A67BC7 /* System */,
+				A3B3F3F029A3B8890090E6E2 /* Gradients */,
+				A34F8E7229F439AC00EF4C42 /* Lists */,
+				A3DDF2F029DD6C9F009460F1 /* Compositing */,
+				A384F0B729EE71ED006BF197 /* Components */,
+				A38863852BA1F3F100FC05FD /* Containers */,
+				A38D5E912A6BBECB00A67BC7 /* Experiments */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -725,6 +727,7 @@
 			children = (
 				A310A43129CF471400632416 /* CellViewModel.swift */,
 				A3F888DC29CC602900C67187 /* CollectionExampleCellNode.swift */,
+				A37050BF2B9F43A20036138F /* DisplayNode.swift */,
 				A3483ACF29E937B500948574 /* HapticButtonNode.swift */,
 				A3F8890829CE37BD00C67187 /* ImageCellNode.swift */,
 				A3F8890A29CE385B00C67187 /* ImageNumberCellNode.swift */,
@@ -732,10 +735,10 @@
 				A34F8E8429F576C000EF4C42 /* PagerCardCellNode.swift */,
 				A31F445E29F6ADC7003618C9 /* PagerIndicatorNode.swift */,
 				A37050BD2B9F42E80036138F /* ScreenNode.swift */,
+				A37050C12B9F469F0036138F /* ScrollScreenNode.swift */,
 				A38D5EAC2A6D654C00A67BC7 /* TagCellNode.swift */,
 				A311B22F2A768C490025B060 /* VAScrollRespondingEdgeCellNode.swift */,
-				A37050BF2B9F43A20036138F /* DisplayNode.swift */,
-				A37050C12B9F469F0036138F /* ScrollScreenNode.swift */,
+				A3820D2B29E56F3D00993406 /* Experiments */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -1053,6 +1056,7 @@
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				A310A43229CF471400632416 /* CellViewModel.swift in Sources */,
 				A3DDF2FE29DD7314009460F1 /* R.generated.swift in Sources */,
+				A3BDF4162BA860FE00D5CF41 /* UIImage+Emitter.swift in Sources */,
 				A38D5E932A6BBEF200A67BC7 /* CountingTextNodeController.swift in Sources */,
 				A37050C02B9F43A20036138F /* DisplayNode.swift in Sources */,
 				A3A0BEE229ED650000253AAD /* ColumnLayoutScreenNode.swift in Sources */,

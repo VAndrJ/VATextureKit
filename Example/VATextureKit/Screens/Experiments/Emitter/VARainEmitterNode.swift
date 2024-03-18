@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-class VARainEmitterNode: VAEmitterNode {
+final class VARainEmitterNode: VAEmitterNode {
     struct Context {
         enum Strength {
             case small

@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-class VAConfettiEmitterNode: VAEmitterNode {
+final class VAConfettiEmitterNode: VAEmitterNode {
     enum StartPoint {
         case center
         case topCenter
@@ -162,7 +162,7 @@ class VAConfettiEmitterNode: VAEmitterNode {
     }
 }
 
-class ConfettiType {
+final class ConfettiType {
     let color: UIColor
     let size: CGSize
     let name = UUID().uuidString

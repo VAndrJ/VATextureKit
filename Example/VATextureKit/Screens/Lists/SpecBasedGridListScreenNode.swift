@@ -33,7 +33,6 @@ final class SpecBasedGridListScreenNode: ScreenNode {
 
     @Obs.Relay(value: [])
     private var listDataObs: Observable<[TagCellNodeViewModel]>
-    private let bag = DisposeBag()
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {

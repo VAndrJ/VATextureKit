@@ -9,17 +9,7 @@
 import Foundation
 import MetalKit
 
-func getColorKernel(name: String) throws -> CIColorKernel {
-    guard let url = Bundle.main.url(forResource: "default", withExtension: "metallib") else {
-        throw NSError(domain: "metallib", code: -1)
-    }
-
-    let data = try Data(contentsOf: url)
-
-    return try CIColorKernel(functionName: name, fromMetalLibraryData: data)
-}
-
-class MetalDropPixelsFilter: CIFilter {
+final class MetalDropPixelsFilter: CIFilter {
     private let kernel: CIColorKernel
 
     override init() {
@@ -37,9 +27,21 @@ class MetalDropPixelsFilter: CIFilter {
             return nil
         }
 
-        return kernel.apply(
-            extent: ciImage.extent,
-            arguments: [ciImage, Float.random(in: 0...255)]
-        ).map { UIImage(ciImage: $0) }
+        return kernel
+            .apply(
+                extent: ciImage.extent,
+                arguments: [ciImage, Float.random(in: 0...255)]
+            )
+            .map { UIImage(ciImage: $0) }
     }
+}
+
+private func getColorKernel(name: String) throws -> CIColorKernel {
+    guard let url = Bundle.main.url(forResource: "default", withExtension: "metallib") else {
+        throw NSError(domain: "metallib", code: -1)
+    }
+
+    let data = try Data(contentsOf: url)
+
+    return try CIColorKernel(functionName: name, fromMetalLibraryData: data)
 }

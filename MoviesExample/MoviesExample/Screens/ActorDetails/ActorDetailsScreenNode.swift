@@ -7,7 +7,7 @@
 
 import VATextureKit
 
-class ActorDetailsScreenNode: ScreenNode<ActorDetailsViewModel> {
+final class ActorDetailsScreenNode: ScreenNode<ActorDetailsViewModel> {
     let titleTextNode = VATextNode(
         text: R.string.localizable.wip(),
         fontStyle: .largeTitle
@@ -23,7 +23,7 @@ class ActorDetailsScreenNode: ScreenNode<ActorDetailsViewModel> {
     }
 }
 
-class ActorDetailsViewModel: EventViewModel {
+final class ActorDetailsViewModel: EventViewModel {
     let actor: ListActorEntity
 
     init(actor: ListActorEntity) {

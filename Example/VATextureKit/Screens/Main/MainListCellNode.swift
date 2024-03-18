@@ -56,7 +56,7 @@ final class MainListCellNode: VACellNode {
     }
 }
 
-class MainListCellNodeViewModel: CellViewModel {
+final class MainListCellNodeViewModel: CellViewModel {
     let title: String
     let description: String
     let destination: NavigationIdentity

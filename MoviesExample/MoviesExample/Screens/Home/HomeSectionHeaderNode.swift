@@ -26,7 +26,7 @@ final class HomeSectionHeaderNode: VACellNode {
     }
 }
 
-class HomeSectionHeaderNodeViewModel: CellViewModel {
+final class HomeSectionHeaderNodeViewModel: CellViewModel {
     let title: String
 
     init(title: String) {

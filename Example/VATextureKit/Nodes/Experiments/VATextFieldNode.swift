@@ -10,14 +10,14 @@ import UIKit
 import AsyncDisplayKit
 import VATextureKit
 
-class VATextFieldNode: VASizedViewWrapperNode<VATextField> {
+final class VATextFieldNode: VASizedViewWrapperNode<VATextField> {
 
     convenience init() {
         self.init(actorChildGetter: { VATextField() }, sizing: .viewHeight)
     }
 }
 
-class VATextField: UITextField {
+final class VATextField: UITextField {
     var textContainerInset: UIEdgeInsets {
         get { _textContainerInset }
         set {

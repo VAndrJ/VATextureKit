@@ -13,7 +13,7 @@ struct ExampleNavigationControllerIdentity: DefaultNavigationIdentity {
     let root: NavigationIdentity
 }
 
-class ExampleNavigationController: VANavigationController {
+final class ExampleNavigationController: VANavigationController {
     
     override func configureTheme(_ theme: VATheme) {
         super.configureTheme(theme)

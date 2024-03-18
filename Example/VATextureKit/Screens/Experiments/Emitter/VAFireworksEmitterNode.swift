@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-class VAFireworksEmitterNode: VAEmitterNode {
+final class VAFireworksEmitterNode: VAEmitterNode {
     struct Context {
         var number = 2
         var dotColor: UIColor = .lightGray
@@ -80,27 +80,5 @@ class VAFireworksEmitterNode: VAEmitterNode {
         }
 
         super.start()
-    }
-}
-
-public extension UIImage {
-
-    static func render(color: UIColor, size: CGSize, isEllipse: Bool = false) -> UIImage {
-        let rect = CGRect(origin: .zero, size: size)
-        return UIGraphicsImageRenderer(bounds: rect).image { context in
-            context.cgContext.setFillColor(color.cgColor)
-            if isEllipse {
-                context.cgContext.addEllipse(in: rect)
-            } else {
-                context.cgContext.addRect(rect)
-            }
-            context.cgContext.drawPath(using: .fill)
-        }
-    }
-
-    static func render(layer: CALayer) -> UIImage {
-        UIGraphicsImageRenderer(size: layer.bounds.size).image { context in
-            layer.render(in: context.cgContext)
-        }
     }
 }

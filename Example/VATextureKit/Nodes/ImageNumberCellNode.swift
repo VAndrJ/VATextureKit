@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-class ImageNumberCellNode: VACellNode {
+final class ImageNumberCellNode: VACellNode {
     let imageNode: VANetworkImageNode
     let numberTextNode: VATextNode
     let tonerNode = ASDisplayNode()
@@ -43,7 +43,7 @@ class ImageNumberCellNode: VACellNode {
     }
 }
 
-class ImageNumberCellNodeViewModel: CellViewModel {
+final class ImageNumberCellNodeViewModel: CellViewModel {
     let image: String?
     let ratio: CGFloat
     let number: Int
