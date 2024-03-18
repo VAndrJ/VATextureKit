@@ -506,15 +506,15 @@
 				A383D32229E95A1800ED3BCB /* README.md */,
 				A333E6BD29E5E47800A5954F /* Config.xcconfig */,
 				A3820D8029E5ACF000993406 /* App */,
-				A333E6CE29E6CE0C00A5954F /* DataSource */,
+				A3820D9229E5B4BD00993406 /* Screens */,
 				A333E6D929E6D26000A5954F /* DesignSystem */,
+				A333E6CE29E6CE0C00A5954F /* DataSource */,
 				A3820D8629E5AEFD00993406 /* Extensions */,
 				A3820D8129E5AD0300993406 /* General */,
 				A3F008C12B19EFC30083927F /* Navigator */,
 				A3820DAF29E5C99E00993406 /* Network */,
 				A3820D8B29E5AF1E00993406 /* Protocols */,
 				A3820D7229E59DC700993406 /* Resources */,
-				A3820D9229E5B4BD00993406 /* Screens */,
 			);
 			path = MoviesExample;
 			sourceTree = "<group>";
@@ -586,10 +586,10 @@
 		A3820D9229E5B4BD00993406 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				A3F008CA2B19F7860083927F /* ActorDetails */,
+				A3820D9829E5B52400993406 /* Search */,
 				A3820D9329E5B4D500993406 /* Home */,
 				A333E6E129E741E000A5954F /* MovieDetails */,
-				A3820D9829E5B52400993406 /* Search */,
+				A3F008CA2B19F7860083927F /* ActorDetails */,
 			);
 			path = Screens;
 			sourceTree = "<group>";

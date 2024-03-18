@@ -30,7 +30,7 @@ final class SearchSectionHeaderNode: VACellNode {
     }
 }
 
-class SearchSectionHeaderNodeViewModel: CellViewModel {
+final class SearchSectionHeaderNodeViewModel: CellViewModel {
     let title: String
 
     init(title: String) {

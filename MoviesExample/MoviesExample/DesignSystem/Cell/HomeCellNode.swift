@@ -7,7 +7,7 @@
 
 import VATextureKitRx
 
-class HomeCellNode: VACellNode {
+final class HomeCellNode: VACellNode {
     let viewModel: HomeCellNodeViewModel
 
     private var isDataLoaded = false
@@ -39,7 +39,7 @@ struct HomeCellTabData {
     let data: Observable<[ListMovieEntity]>
 }
 
-class HomeCellNodeViewModel: CellViewModel {
+final class HomeCellNodeViewModel: CellViewModel {
     let data: Observable<[HomeCellTabData]?>
 
     init(data: Observable<[HomeCellTabData]?>) {

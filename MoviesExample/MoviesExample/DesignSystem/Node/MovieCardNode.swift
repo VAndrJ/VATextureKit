@@ -44,7 +44,7 @@ final class MovieCardNode: VADisplayNode {
     }
 }
 
-class MovieCardNodeViewModel: CellViewModel {
+final class MovieCardNodeViewModel: CellViewModel {
     let image: String?
     let title: String
     let rating: Double

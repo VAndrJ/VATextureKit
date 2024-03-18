@@ -135,14 +135,14 @@ final class MovieDetailsViewModel: EventViewModel {
     }
 }
 
-func mapMovieDetails(_ data: MovieEntity, viewModel: EventViewModel) -> [CellViewModel] {
+private func mapMovieDetails(_ data: MovieEntity, viewModel: EventViewModel) -> [CellViewModel] {
     return [
         GenresTagsCellNodeViewModel(genres: data.genres),
         MovieDetailsDescriptionCellNodeViewModel(description: data.overview),
     ]
 }
 
-func mapMovieActors(_ data: [ListActorEntity], viewModel: EventViewModel) -> [CellViewModel] {
+private func mapMovieActors(_ data: [ListActorEntity], viewModel: EventViewModel) -> [CellViewModel] {
     if data.isEmpty {
         return []
     } else {
@@ -156,7 +156,7 @@ func mapMovieActors(_ data: [ListActorEntity], viewModel: EventViewModel) -> [Ce
     }
 }
 
-func mapRecommendationMovies(_ data: [ListMovieEntity], viewModel: EventViewModel) -> [CellViewModel] {
+private func mapRecommendationMovies(_ data: [ListMovieEntity], viewModel: EventViewModel) -> [CellViewModel] {
     if data.isEmpty {
         return []
     } else {
