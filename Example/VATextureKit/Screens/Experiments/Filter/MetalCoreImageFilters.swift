@@ -27,10 +27,12 @@ final class MetalDropPixelsFilter: CIFilter {
             return nil
         }
 
-        return kernel.apply(
-            extent: ciImage.extent,
-            arguments: [ciImage, Float.random(in: 0...255)]
-        ).map { UIImage(ciImage: $0) }
+        return kernel
+            .apply(
+                extent: ciImage.extent,
+                arguments: [ciImage, Float.random(in: 0...255)]
+            )
+            .map { UIImage(ciImage: $0) }
     }
 }
 
