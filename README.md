@@ -15,7 +15,12 @@ VATextureKit
 [![Platform](https://img.shields.io/cocoapods/p/VATextureKitRx.svg?style=plastic)](https://cocoapods.org/pods/VATextureKit)
 VATextureKitRx
 
+
 **[Texture](https://texturegroup.org/docs/getting-started.html)** library wrapper with some additions.
+
+
+Also, take a look at this package with helper macro: [VATextureKitMacro](https://github.com/VAndrJ/VATextureKitMacro)
+
 
 * [Installation](#installation)
 * [Layout Specs](#layout-specs)
@@ -38,7 +43,7 @@ Add the following to your Podfile:
 ```
 pod 'VATextureKitRx'    // includes additional wrappers.
 or
-pod 'VATextureKit'      // includes Texture nodes wrappers.
+pod 'VATextureKit'      // includes Texture node wrappers.
 or
 pod 'VATextureKitSpec'  // includes only Layout Spec wrappers.
 ```
@@ -48,10 +53,11 @@ pod install
 ```
 
 
-Or just try the example project:
+Or try the example project:
 ```
 pod try 'VATextureKit'
 ```
+
 
 Minimum deployment target: **iOS 11**
 
