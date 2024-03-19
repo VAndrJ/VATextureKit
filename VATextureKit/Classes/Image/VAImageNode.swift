@@ -8,7 +8,7 @@
 import AsyncDisplayKit
 
 /// `VAImageNode` is a subclass of `ASImageNode` that provides additional theming capabilities. It allows customization of the image `tintColor` and `backgroundColor` based on the current theme.
-open class VAImageNode: ASImageNode, VACornerable {
+open class VAImageNode: ASImageNode, VACornerable, VAThemeObserver {
     /// The currently active theme obtained from the app's context.
     public var theme: VATheme { appContext.themeManager.theme }
     /// A closure that provides the tint color based on the current theme.
@@ -73,12 +73,7 @@ open class VAImageNode: ASImageNode, VACornerable {
         super.didLoad()
 
         updateCornerParameters()
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(themeDidChanged(_:)),
-            name: VAThemeManager.themeDidChangedNotification,
-            object: appContext.themeManager
-        )
+        appContext.themeManager.addThemeObserver(self)
         #if DEBUG || targetEnvironment(simulator)
         addDebugLabel()
         #endif
@@ -89,7 +84,7 @@ open class VAImageNode: ASImageNode, VACornerable {
         super.didEnterDisplayState()
 
         if shouldConfigureTheme {
-            themeDidChanged()
+            configureTheme(theme)
             shouldConfigureTheme = false
         }
     }
@@ -105,16 +100,16 @@ open class VAImageNode: ASImageNode, VACornerable {
     ///
     /// - Parameter theme: The theme to apply to the node.
     @MainActor
-    open func configureTheme(_ theme: VATheme) {
+    @objc open func configureTheme(_ theme: VATheme) {
         updateTintColorIfAvailable(theme)
         updateBackgroundColorIfAvailable(theme)
     }
 
     /// Called when the app's theme changes. Configures the theme if the node is in the display state, otherwise sets `shouldConfigureTheme` to true.
     @MainActor
-    open func themeDidChanged() {
+    public func themeDidChanged(to newValue: VATheme) {
         if isInDisplayState {
-            configureTheme(theme)
+            configureTheme(newValue)
         } else {
             shouldConfigureTheme = true
         }
@@ -139,8 +134,7 @@ open class VAImageNode: ASImageNode, VACornerable {
         }
     }
 
-    @MainActor
-    @objc private func themeDidChanged(_ notification: Notification) {
-        themeDidChanged()
+    deinit {
+        appContext.themeManager.removeThemeObserver(self)
     }
 }

@@ -22,7 +22,7 @@ public enum VAThemeFont: Hashable {
 }
 
 /// "Backported" system theme.
-open class VATheme {
+open class VATheme: NSObject {
     public var tag: VAThemeTag
     public var userInterfaceStyle: VAUserInterfaceStyle
     public var statusBarStyle: UIStatusBarStyle

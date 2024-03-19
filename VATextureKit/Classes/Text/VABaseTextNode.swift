@@ -13,28 +13,22 @@ open class _VATextNode: ASTextNode2 {}
 open class _VATextNode: ASTextNode {}
 #endif
 
-open class VABaseTextNode: _VATextNode {
+open class VABaseTextNode: _VATextNode, VAThemeObserver, VAContentSizeObserver {
     /// The currently active theme obtained from the app's context.
     public var theme: VATheme { appContext.themeManager.theme }
 
-    var shouldConfigureTheme = true
+    private(set) var shouldConfigureTheme = true
+    private(set) var isObservingChanges = false
 
     @MainActor
     open override func didLoad() {
         super.didLoad()
 
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(themeDidChanged(_:)),
-            name: VAThemeManager.themeDidChangedNotification,
-            object: appContext.themeManager
-        )
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(themeDidChanged(_:)),
-            name: VAContentSizeManager.contentSizeDidChangedNotification,
-            object: appContext.contentSizeManager
-        )
+        if overrides(#selector(configureTheme(_:))) {
+            appContext.themeManager.addThemeObserver(self)
+            appContext.contentSizeManager.addContentSizeObserver(self)
+            isObservingChanges = true
+        }
     }
 
     @MainActor
@@ -42,14 +36,22 @@ open class VABaseTextNode: _VATextNode {
         super.didEnterDisplayState()
 
         if shouldConfigureTheme {
-            themeDidChanged()
+            configureTheme(theme)
             shouldConfigureTheme = false
         }
     }
 
-    open func configureTheme(_ theme: VATheme) {}
+    @objc open func configureTheme(_ theme: VATheme) {}
 
-    open func themeDidChanged() {
+    public func themeDidChanged(to newTheme: VATheme) {
+        if isInDisplayState {
+            configureTheme(newTheme)
+        } else {
+            shouldConfigureTheme = true
+        }
+    }
+
+    public func contentSizeDidChanged(to newValue: UIContentSizeCategory) {
         if isInDisplayState {
             configureTheme(theme)
         } else {
@@ -57,7 +59,10 @@ open class VABaseTextNode: _VATextNode {
         }
     }
 
-    @objc private func themeDidChanged(_ notification: Notification) {
-        themeDidChanged()
+    deinit {
+        if isObservingChanges {
+            appContext.themeManager.removeThemeObserver(self)
+            appContext.contentSizeManager.removeContentSizeObserver(self)
+        }
     }
 }

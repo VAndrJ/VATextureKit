@@ -13,7 +13,7 @@ import RxCocoa
 /// ASPagerNode does not currently support circular scrolling.
 /// So I added some crutches to mimic it.
 /// In some cases it may not work very well, but I'll deal with that later.
-open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPagerDataSource, ASPagerDelegate {
+open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPagerDataSource, ASPagerDelegate, VAThemeObserver, VAContentSizeObserver {
     public struct ObsDTO {
         let itemsObs: Observable<[Item]>
         let cellGetter: (Item) -> ASCellNode
@@ -156,41 +156,23 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
         setDataSource(self)
         setDelegate(self)
         checkPosition()
-        themeDidChanged()
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(themeDidChanged(_:)),
-            name: VAThemeManager.themeDidChangedNotification,
-            object: appContext.themeManager
-        )
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(contentSizeDidChanged(_:)),
-            name: VAContentSizeManager.contentSizeDidChangedNotification,
-            object: appContext.contentSizeManager
-        )
+        configureTheme(theme)
+        appContext.themeManager.addThemeObserver(self)
+        appContext.contentSizeManager.addContentSizeObserver(self)
     }
 
-    open func configureTheme(_ theme: VATheme) {
+    @objc open func configureTheme(_ theme: VATheme) {
         reloadDataWithoutAnimations()
     }
 
-    open func themeDidChanged() {
-        configureTheme(theme)
+    public func themeDidChanged(to newValue: VATheme) {
+        configureTheme(newValue)
     }
 
-    @objc private func themeDidChanged(_ notification: Notification) {
-        themeDidChanged()
-    }
+    @objc open func configureContentSize(_ contentSize: UIContentSizeCategory) {}
 
-    open func configureContentSize(_ contentSize: UIContentSizeCategory) {}
-
-    open func contentSizeDidChanged() {
-        configureContentSize(appContext.contentSizeManager.contentSize)
-    }
-
-    @objc private func contentSizeDidChanged(_ notification: Notification) {
-        contentSizeDidChanged()
+    public func contentSizeDidChanged(to newValue: UIContentSizeCategory) {
+        configureContentSize(newValue)
     }
 
     private func configure() {
@@ -264,5 +246,10 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
 
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         checkIndex()
+    }
+
+    deinit {
+        appContext.themeManager.removeThemeObserver(self)
+        appContext.contentSizeManager.removeContentSizeObserver(self)
     }
 }

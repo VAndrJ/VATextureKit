@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class VAAlertController: UIAlertController {
+open class VAAlertController: UIAlertController, VAThemeObserver {
     open override var preferredStatusBarStyle: UIStatusBarStyle { theme.statusBarStyle }
 
     /// The currently active theme obtained from the app's context.
@@ -45,27 +45,22 @@ open class VAAlertController: UIAlertController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         
-        themeDidChanged()
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(themeDidChanged(_:)),
-            name: VAThemeManager.themeDidChangedNotification,
-            object: appContext.themeManager
-        )
+        configureTheme(theme)
+        appContext.themeManager.addThemeObserver(self)
     }
     
-    open func configureTheme(_ theme: VATheme) {
+    @objc open func configureTheme(_ theme: VATheme) {
         if #available(iOS 13.0, *) {
             overrideUserInterfaceStyle = theme.userInterfaceStyle.uiUserInterfaceStyle
             setNeedsStatusBarAppearanceUpdate()
         }
     }
 
-    open func themeDidChanged() {
-        configureTheme(theme)
+    public func themeDidChanged(to newValue: VATheme) {
+        configureTheme(newValue)
     }
-    
-    @objc private func themeDidChanged(_ notification: Notification) {
-        themeDidChanged()
+
+    deinit {
+        appContext.themeManager.removeThemeObserver(self)
     }
 }

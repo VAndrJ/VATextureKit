@@ -8,7 +8,7 @@
 import AsyncDisplayKit
 
 /// `VACellNode` is a subclass of `ASCellNode` that provides additional functionality for handling themes and corner rounding parameters.
-open class VACellNode: ASCellNode, VACornerable {
+open class VACellNode: ASCellNode, VACornerable, VAThemeObserver {
     /// The currently active theme obtained from the app's context.
     public var theme: VATheme { appContext.themeManager.theme }
     /// The corner rounding configuration for the node.
@@ -20,7 +20,8 @@ open class VACellNode: ASCellNode, VACornerable {
         }
     }
 
-    var shouldConfigureTheme = true
+    private(set) var shouldConfigureTheme = true
+    private(set) var isObservingThemeChanges = false
 
     /// Initializes a `VACellNode` instance with the specified corner rounding parameters.
     ///
@@ -39,12 +40,12 @@ open class VACellNode: ASCellNode, VACornerable {
         super.didLoad()
 
         updateCornerParameters()
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(themeDidChanged(_:)),
-            name: VAThemeManager.themeDidChangedNotification,
-            object: appContext.themeManager
-        )
+        if overrides(#selector(configureTheme(_:))) {
+            appContext.themeManager.addThemeObserver(self)
+            isObservingThemeChanges = true
+        } else {
+            shouldConfigureTheme = false
+        }
         #if DEBUG || targetEnvironment(simulator)
         addDebugLabel()
         #endif
@@ -55,7 +56,7 @@ open class VACellNode: ASCellNode, VACornerable {
         super.didEnterDisplayState()
 
         if shouldConfigureTheme {
-            themeDidChanged()
+            configureTheme(theme)
             shouldConfigureTheme = false
         }
     }
@@ -73,20 +74,21 @@ open class VACellNode: ASCellNode, VACornerable {
     
     /// Configure the appearance of the cell based on the provided theme.
     @MainActor
-    open func configureTheme(_ theme: VATheme) {}
+    @objc open func configureTheme(_ theme: VATheme) {}
     
     /// Called when the theme changes. Configures the theme if the cell is in the display state, otherwise sets the `shouldConfigureTheme` flag.
     @MainActor
-    open func themeDidChanged() {
+    public func themeDidChanged(to newValue: VATheme) {
         if isInDisplayState {
-            configureTheme(theme)
+            configureTheme(newValue)
         } else {
             shouldConfigureTheme = true
         }
     }
 
-    @MainActor
-    @objc private func themeDidChanged(_ notification: Notification) {
-        themeDidChanged()
+    deinit {
+        if isObservingThemeChanges {
+            appContext.themeManager.addThemeObserver(self)
+        }
     }
 }
