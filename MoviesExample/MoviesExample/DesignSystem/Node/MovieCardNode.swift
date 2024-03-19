@@ -18,7 +18,6 @@ final class MovieCardNode: VADisplayNode {
             contentMode: .scaleAspectFill,
             corner: .init(radius: .fixed(16), clipsToBounds: true)
         )
-        .flex(shrink: 0.1, grow: 1)
         self.titleTextNode = VATextNode(
             text: viewModel.title,
             fontStyle: .footnote
@@ -32,6 +31,7 @@ final class MovieCardNode: VADisplayNode {
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column(spacing: 4, cross: .stretch) {
             coverImageNode
+                .flex(shrink: 0.1, grow: 1)
                 .ratio(190 / 126)
             ratingNode
                 .padding(.top(4))

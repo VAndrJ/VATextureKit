@@ -64,9 +64,9 @@ class ScreenNode<ViewModel: EventViewModel>: VASafeAreaDisplayNode, ControllerNo
                 
                 return (max(possibleBottomInset, initialBottomInset), max(possibleBottomInset, initialIndicatorBottomInset))
             }
-            .subscribe(onNext: { bottomInset, indicatorBottomInset in
-                scrollView.contentInset.bottom = bottomInset
-                scrollView.verticalScrollIndicatorInsets.bottom = indicatorBottomInset
+            .subscribe(onNext: scrollView ?> {
+                $0.contentInset.bottom = $1
+                $0.verticalScrollIndicatorInsets.bottom = $2
             })
             .disposed(by: bag)
     }

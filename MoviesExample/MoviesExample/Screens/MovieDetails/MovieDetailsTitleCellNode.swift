@@ -22,12 +22,11 @@ final class MovieDetailsTitleCellNode: VACellNode {
         self.viewModel = viewModel
         self.titleTextNode = VATextNode(text: viewModel.title, fontStyle: .headline)
             .withAnimatedTransition(id: "title_\(viewModel.transitionId)")
-            .flex(shrink: 0.1)
         self.yearTextNode = VATextNode(
             text: viewModel.year,
             maximumNumberOfLines: 1,
             colorGetter: { $0.secondaryLabel }
-        ).flex(shrink: 0.1)
+        )
         if viewModel.rating >= Self.minimumRatingToDisplay {
             self.ratingNode = RatingNode(rating: viewModel.rating)
         }
@@ -41,9 +40,11 @@ final class MovieDetailsTitleCellNode: VACellNode {
         Column(spacing: 4, cross: .stretch) {
             Row {
                 titleTextNode
+                    .flex(shrink: 0.1)
             }
             Row(spacing: 4, main: .spaceBetween, cross: .center) {
                 yearTextNode
+                    .flex(shrink: 0.1)
                 if let ratingNode {
                     ratingNode
                 }
