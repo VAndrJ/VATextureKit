@@ -22,7 +22,7 @@ final class SearchScreenNode: ScreenNode<SearchViewModel> {
             sizing: .entireWidthFreeHeight(),
             layout: .default(parameters: .init(sectionHeadersPinToVisibleBounds: true))
         )
-    ).flex(grow: 1)
+    )
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
@@ -30,6 +30,7 @@ final class SearchScreenNode: ScreenNode<SearchViewModel> {
                 searchNode
                     .padding(.horizontal(8))
                 listNode
+                    .flex(grow: 1)
             }
         }
     }

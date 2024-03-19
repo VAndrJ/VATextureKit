@@ -7,12 +7,14 @@
 
 import AsyncDisplayKit
 
-open class VATabBarController: ASTabBarController {
+open class VATabBarController: ASTabBarController, VAThemeObserver, VAContentSizeObserver {
     open override var childForStatusBarStyle: UIViewController? { selectedViewController }
     open override var childForStatusBarHidden: UIViewController? { selectedViewController }
 
     /// The currently active theme obtained from the app's context.
     public var theme: VATheme { appContext.themeManager.theme }
+
+    private(set) var isObservingContentSizeChanges = false
 
     public init() {
         super.init(nibName: nil, bundle: nil)
@@ -36,40 +38,32 @@ open class VATabBarController: ASTabBarController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         
-        themeDidChanged()
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(themeDidChanged(_:)),
-            name: VAThemeManager.themeDidChangedNotification,
-            object: appContext.themeManager
-        )
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(contentSizeDidChanged(_:)),
-            name: VAContentSizeManager.contentSizeDidChangedNotification,
-            object: appContext.contentSizeManager
-        )
+        configureTheme(theme)
+        appContext.themeManager.addThemeObserver(self)
+        if overrides(#selector(configureContentSize(_:))) {
+            appContext.contentSizeManager.addContentSizeObserver(self)
+            isObservingContentSizeChanges = true
+        }
     }
     
-    open func configureTheme(_ theme: VATheme) {
+    @objc open func configureTheme(_ theme: VATheme) {
         tabBar.barStyle = theme.barStyle
     }
 
-    open func themeDidChanged() {
-        configureTheme(theme)
-    }
-    
-    @objc private func themeDidChanged(_ notification: Notification) {
-        themeDidChanged()
+    public func themeDidChanged(to newValue: VATheme) {
+        configureTheme(newValue)
     }
 
-    open func configureContentSize(_ contentSize: UIContentSizeCategory) {}
+    @objc open func configureContentSize(_ contentSize: UIContentSizeCategory) {}
 
-    open func contentSizeDidChanged() {
-        configureContentSize(appContext.contentSizeManager.contentSize)
+    public func contentSizeDidChanged(to newValue: UIContentSizeCategory) {
+        configureContentSize(newValue)
     }
 
-    @objc private func contentSizeDidChanged(_ notification: Notification) {
-        contentSizeDidChanged()
+    deinit {
+        appContext.themeManager.removeThemeObserver(self)
+        if isObservingContentSizeChanges {
+            appContext.contentSizeManager.removeContentSizeObserver(self)
+        }
     }
 }

@@ -57,16 +57,16 @@ class ScreenNode<ViewModel: EventViewModel>: VASafeAreaDisplayNode, ControllerNo
                             .compactMap(\.?.bottom)
                             .distinctUntilChanged() ?? .just(0)
                     )
-                    .map { $0 + $1 }
+                    .map { max($0, $1) }
             )
             .map { keyboardHeight, safeAreaBottom, tabBarHeght in
                 let possibleBottomInset = keyboardHeight - max(safeAreaBottom, tabBarHeght)
                 
                 return (max(possibleBottomInset, initialBottomInset), max(possibleBottomInset, initialIndicatorBottomInset))
             }
-            .subscribe(onNext: { bottomInset, indicatorBottomInset in
-                scrollView.contentInset.bottom = bottomInset
-                scrollView.verticalScrollIndicatorInsets.bottom = indicatorBottomInset
+            .subscribe(onNext: scrollView ?> {
+                $0.contentInset.bottom = $1
+                $0.verticalScrollIndicatorInsets.bottom = $2
             })
             .disposed(by: bag)
     }

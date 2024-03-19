@@ -22,7 +22,7 @@ final class ActorCardNode: VADisplayNode {
         self.avatarImageNode = VANetworkImageNode(
             image: data.avatar?.getImagePath(width: 500),
             contentMode: .scaleAspectFill
-        ).flex(grow: 1)
+        )
         self.nameTextNode = VATextNode(
             text: data.name,
             fontStyle: .caption1,
@@ -41,6 +41,7 @@ final class ActorCardNode: VADisplayNode {
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Column(spacing: 2, cross: .center) {
             avatarImageNode
+                .flex(grow: 1)
                 .ratio(113 / 83)
             nameTextNode
                 .padding(.top(2))

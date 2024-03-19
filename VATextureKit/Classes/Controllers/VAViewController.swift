@@ -7,14 +7,16 @@
 
 import AsyncDisplayKit
 
-open class VAViewController<Node: ASDisplayNode>: ASDKViewController<ASDisplayNode>, UIAdaptivePresentationControllerDelegate {
+open class VAViewController<Node: ASDisplayNode>: ASDKViewController<ASDisplayNode>, UIAdaptivePresentationControllerDelegate, VAThemeObserver, VAContentSizeObserver {
     open override var preferredStatusBarStyle: UIStatusBarStyle { theme.statusBarStyle }
     
     public var contentNode: Node { node as! Node }
     /// The currently active theme obtained from the app's context.
     public var theme: VATheme { appContext.themeManager.theme }
     public lazy var transitionAnimator: VATransionAnimator = VADefaultTransionAnimator(controller: self)
-    
+
+    private(set) var isObservingContentSizeChanges = false
+
     public init(node: Node) {
         super.init(node: node)
 
@@ -28,45 +30,30 @@ open class VAViewController<Node: ASDisplayNode>: ASDKViewController<ASDisplayNo
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        
-        themeDidChanged()
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(themeDidChanged(_:)),
-            name: VAThemeManager.themeDidChangedNotification,
-            object: appContext.themeManager
-        )
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(contentSizeDidChanged(_:)),
-            name: VAContentSizeManager.contentSizeDidChangedNotification,
-            object: appContext.contentSizeManager
-        )
+
+        configureTheme(theme)
+        appContext.themeManager.addThemeObserver(self)
+        if overrides(#selector(configureContentSize(_:))) {
+            appContext.contentSizeManager.addContentSizeObserver(self)
+            isObservingContentSizeChanges = true
+        }
     }
 
-    open func configureTheme(_ theme: VATheme) {
+    @objc open func configureTheme(_ theme: VATheme) {
         if #available(iOS 13.0, *) {
             overrideUserInterfaceStyle = theme.userInterfaceStyle.uiUserInterfaceStyle
             setNeedsStatusBarAppearanceUpdate()
         }
     }
 
-    open func themeDidChanged() {
-        configureTheme(theme)
+    public func themeDidChanged(to newValue: VATheme) {
+        configureTheme(newValue)
     }
 
-    @objc private func themeDidChanged(_ notification: Notification) {
-        themeDidChanged()
-    }
+    @objc open func configureContentSize(_ contentSize: UIContentSizeCategory) {}
 
-    open func configureContentSize(_ contentSize: UIContentSizeCategory) {}
-
-    open func contentSizeDidChanged() {
-        configureContentSize(appContext.contentSizeManager.contentSize)
-    }
-
-    @objc private func contentSizeDidChanged(_ notification: Notification) {
-        contentSizeDidChanged()
+    public func contentSizeDidChanged(to newValue: UIContentSizeCategory) {
+        configureContentSize(newValue)
     }
 
     open override func present(
@@ -117,4 +104,11 @@ open class VAViewController<Node: ASDisplayNode>: ASDKViewController<ASDisplayNo
     open func presentationController(_ presentationController: UIPresentationController, prepare adaptivePresentationController: UIPresentationController) {}
 
     open func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {}
+
+    deinit {
+        appContext.themeManager.removeThemeObserver(self)
+        if isObservingContentSizeChanges {
+            appContext.contentSizeManager.removeContentSizeObserver(self)
+        }
+    }
 }

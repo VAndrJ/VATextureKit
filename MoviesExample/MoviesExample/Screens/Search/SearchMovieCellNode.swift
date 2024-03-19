@@ -11,13 +11,12 @@ final class SearchMovieCellNode: VACellNode {
     private let titleTextNode: VATextNode
     private let imageNode: VANetworkImageNode
     private lazy var separatorNode = ASDisplayNode()
-        .sized(height: 1)
 
     init(viewModel: SearchMovieCellNodeViewModel) {
         self.titleTextNode = VATextNode(
             text: viewModel.title,
             fontStyle: .headline
-        ).flex(shrink: 0.1)
+        )
         self.imageNode = VANetworkImageNode(
             image: viewModel.image?.getImagePath(width: 500),
             size: CGSize(width: 32, height: 48),
@@ -33,9 +32,11 @@ final class SearchMovieCellNode: VACellNode {
             Row(spacing: 16, cross: .center) {
                 imageNode
                 titleTextNode
+                    .flex(shrink: 0.1)
             }
             .padding(.vertical(6), .horizontal(16))
             separatorNode
+                .sized(height: 1)
                 .padding(.left(60), .right(16))
         }
     }

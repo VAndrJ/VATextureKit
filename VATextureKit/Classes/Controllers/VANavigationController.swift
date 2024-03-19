@@ -7,7 +7,7 @@
 
 import AsyncDisplayKit
 
-open class VANavigationController: ASDKNavigationController {
+open class VANavigationController: ASDKNavigationController, VAThemeObserver, VAContentSizeObserver {
     open override var childForStatusBarStyle: UIViewController? { topViewController }
     open override var childForStatusBarHidden: UIViewController? { topViewController }
 
@@ -15,6 +15,8 @@ open class VANavigationController: ASDKNavigationController {
     public var theme: VATheme { appContext.themeManager.theme }
     public lazy var transitionAnimator: VATransionAnimator = VADefaultTransionAnimator(controller: self)
 
+    private(set) var isObservingContentSizeChanges = false
+    
     public init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -40,42 +42,27 @@ open class VANavigationController: ASDKNavigationController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        
-        themeDidChanged()
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(themeDidChanged(_:)),
-            name: VAThemeManager.themeDidChangedNotification,
-            object: appContext.themeManager
-        )
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(contentSizeDidChanged(_:)),
-            name: VAContentSizeManager.contentSizeDidChangedNotification,
-            object: appContext.contentSizeManager
-        )
+
+        configureTheme(theme)
+        appContext.themeManager.addThemeObserver(self)
+        if overrides(#selector(configureContentSize(_:))) {
+            appContext.contentSizeManager.addContentSizeObserver(self)
+            isObservingContentSizeChanges = true
+        }
     }
 
-    open func configureTheme(_ theme: VATheme) {
+    @objc open func configureTheme(_ theme: VATheme) {
         navigationBar.barStyle = theme.barStyle
     }
 
-    open func themeDidChanged() {
-        configureTheme(theme)
+    public func themeDidChanged(to newValue: VATheme) {
+        configureTheme(newValue)
     }
 
-    @objc private func themeDidChanged(_ notification: Notification) {
-        themeDidChanged()
-    }
+    @objc open func configureContentSize(_ contentSize: UIContentSizeCategory) {}
 
-    open func configureContentSize(_ contentSize: UIContentSizeCategory) {}
-
-    open func contentSizeDidChanged() {
-        configureContentSize(appContext.contentSizeManager.contentSize)
-    }
-
-    @objc private func contentSizeDidChanged(_ notification: Notification) {
-        contentSizeDidChanged()
+    public func contentSizeDidChanged(to newValue: UIContentSizeCategory) {
+        configureContentSize(newValue)
     }
 
     open override func popViewController(animated: Bool) -> UIViewController? {
@@ -102,5 +89,12 @@ open class VANavigationController: ASDKNavigationController {
         )
         
         super.pushViewController(viewController, animated: animated)
+    }
+
+    deinit {
+        appContext.themeManager.removeThemeObserver(self)
+        if isObservingContentSizeChanges {
+            appContext.contentSizeManager.removeContentSizeObserver(self)
+        }
     }
 }

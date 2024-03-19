@@ -7,10 +7,15 @@
 
 import UIKit
 
+public protocol VAContentSizeObserver: AnyObject {
+
+    func contentSizeDidChanged(to newValue: UIContentSizeCategory)
+}
+
 open class VAContentSizeManager {
-    public static let contentSizeDidChangedNotification = Notification.Name("VAContentSizeManager.contentSizeDidChangedNotification")
-    
     public private(set) var contentSize: UIContentSizeCategory
+
+    private var contentSizeObservers: [ObjectIdentifier: () -> VAContentSizeObserver?] = [:]
     
     public init(contentSize: UIContentSizeCategory) {
         self.contentSize = contentSize
@@ -19,10 +24,15 @@ open class VAContentSizeManager {
     public func updateIfNeeded(contentSize: UIContentSizeCategory) {
         if self.contentSize != contentSize {
             self.contentSize = contentSize
-            NotificationCenter.default.post(
-                name: Self.contentSizeDidChangedNotification,
-                object: self
-            )
+            contentSizeObservers.values.forEach { $0()?.contentSizeDidChanged(to: contentSize) }
         }
+    }
+
+    public func addContentSizeObserver(_ observer: VAContentSizeObserver) {
+        contentSizeObservers[ObjectIdentifier(observer)] = { [weak observer] in observer }
+    }
+
+    public func removeContentSizeObserver(_ observer: VAContentSizeObserver) {
+        contentSizeObservers.removeValue(forKey: ObjectIdentifier(observer))
     }
 }

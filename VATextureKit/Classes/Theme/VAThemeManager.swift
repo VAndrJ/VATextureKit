@@ -33,13 +33,16 @@ public enum VAUserInterfaceStyle: Int {
     }
 }
 
+public protocol VAThemeObserver: AnyObject {
+
+    func themeDidChanged(to newTheme: VATheme)
+}
+
 open class VAThemeManager {
     public enum ThemeType {
         case standard
         case custom
     }
-    
-    public static let themeDidChangedNotification = Notification.Name("VAThemeManager.themeDidChangedNotification")
     
     public private(set) var theme: VATheme
     public private(set) var themeType: ThemeType
@@ -47,6 +50,7 @@ open class VAThemeManager {
     private let standardLightTheme: VATheme
     private let standardDarkTheme: VATheme
     private var userInterfaceStyle: VAUserInterfaceStyle
+    private var themeObservers: [ObjectIdentifier: () -> VAThemeObserver?] = [:]
     
     public init(
         customTheme: VATheme,
@@ -86,37 +90,33 @@ open class VAThemeManager {
             } else {
                 theme = standardLightTheme
             }
-            NotificationCenter.default.post(
-                name: Self.themeDidChangedNotification,
-                object: self
-            )
+            themeObservers.values.forEach { $0()?.themeDidChanged(to: theme) }
         }
     }
     
     public func setCustomTheme(_ customTheme: VATheme) {
         themeType = .custom
         theme = customTheme
-        NotificationCenter.default.post(
-            name: Self.themeDidChangedNotification,
-            object: self
-        )
+        themeObservers.values.forEach { $0()?.themeDidChanged(to: theme) }
     }
     
     public func setLightAsCustomTheme() {
         themeType = .custom
         theme = standardLightTheme
-        NotificationCenter.default.post(
-            name: Self.themeDidChangedNotification,
-            object: self
-        )
+        themeObservers.values.forEach { $0()?.themeDidChanged(to: theme) }
     }
     
     public func setDarkAsCustomTheme() {
         themeType = .custom
         theme = standardDarkTheme
-        NotificationCenter.default.post(
-            name: Self.themeDidChangedNotification,
-            object: self
-        )
+        themeObservers.values.forEach { $0()?.themeDidChanged(to: theme) }
+    }
+
+    public func addThemeObserver(_ observer: VAThemeObserver) {
+        themeObservers[ObjectIdentifier(observer)] = { [weak observer] in observer }
+    }
+
+    public func removeThemeObserver(_ observer: VAThemeObserver) {
+        themeObservers.removeValue(forKey: ObjectIdentifier(observer))
     }
 }
