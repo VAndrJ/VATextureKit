@@ -57,7 +57,7 @@ class ScreenNode<ViewModel: EventViewModel>: VASafeAreaDisplayNode, ControllerNo
                             .compactMap(\.?.bottom)
                             .distinctUntilChanged() ?? .just(0)
                     )
-                    .map { $0 + $1 }
+                    .map { max($0, $1) }
             )
             .map { keyboardHeight, safeAreaBottom, tabBarHeght in
                 let possibleBottomInset = keyboardHeight - max(safeAreaBottom, tabBarHeght)
