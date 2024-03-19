@@ -88,7 +88,7 @@ open class VACellNode: ASCellNode, VACornerable, VAThemeObserver {
 
     deinit {
         if isObservingThemeChanges {
-            appContext.themeManager.addThemeObserver(self)
+            appContext.themeManager.removeThemeObserver(self)
         }
     }
 }
