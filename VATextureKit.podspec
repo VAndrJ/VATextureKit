@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'VATextureKit'
-  s.version          = '1.8.0'
+  s.version          = '1.8.1'
   s.summary          = 'Texture library wrapper.'
 
   s.description      = <<-DESC
@@ -16,9 +16,10 @@ It provides an easier syntax and includes modern features to make developing fas
   s.ios.deployment_target = '11.0'
 
   s.source_files = 'VATextureKit/Classes/**/*'
-  
+  s.resource_bundles = {'VATextureKit' => ['VATextureKit/Classes/PrivacyInfo.xcprivacy']}
+
   s.dependency 'Texture',           '~> 3.1.0'
-  s.dependency 'VATextureKitSpec',  '1.8.0'
+  s.dependency 'VATextureKitSpec',  '1.8.1'
 
   s.swift_versions = '5.8'
 end
