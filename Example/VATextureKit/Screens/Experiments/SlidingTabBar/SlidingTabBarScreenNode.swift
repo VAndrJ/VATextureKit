@@ -23,7 +23,7 @@ final class SlidingTabBarScreenNode: ScreenNode {
         color: { $0.systemPurple },
         item: { data, onSelect in VASlidingTabTextNode(data: data, onSelect: onSelect) },
         indexObs: pagerNode.indexObs,
-        onSelect: pagerNode ?> { $0.scroll(to: $1) }
+        onSelect: pagerNode ?>> { $0.scroll(to:) }
     ))
     private lazy var floatingTabBarNode = VASlidingTabBarNode(data: .init(
         data: (0...5).map { "Title".repeating($0) },
@@ -33,7 +33,7 @@ final class SlidingTabBarScreenNode: ScreenNode {
         color: { $0.systemBlue },
         item: { data, onSelect in VASlidingTabTextNode(data: data, onSelect: onSelect) },
         indexObs: pagerNode.indexObs,
-        onSelect: pagerNode ?> { $0.scroll(to: $1) }
+        onSelect: pagerNode ?>> { $0.scroll(to:) }
     )).apply {
         $0.cornerCurve = .continuous
         $0.borderWidth = 1

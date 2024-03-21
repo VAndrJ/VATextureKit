@@ -6,7 +6,7 @@
 //  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
 //
 
-import VATextureKit
+import VATextureKitRx
 
 final class VASlidingTabTextNode: DisplayNode, VASlidingTab {
     let titleNode: VATextNode
