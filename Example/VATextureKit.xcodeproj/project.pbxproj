@@ -1303,7 +1303,7 @@
 			baseConfigurationReference = 308A99719FCF60953697F53E /* Pods-VATextureKit_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = FT5D6CX28D;
 				GCC_OPTIMIZATION_LEVEL = s;
 				INFOPLIST_FILE = VATextureKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1329,7 +1329,7 @@
 			baseConfigurationReference = 46020EE7D2BA97387DB61459 /* Pods-VATextureKit_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = FT5D6CX28D;
 				INFOPLIST_FILE = VATextureKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
