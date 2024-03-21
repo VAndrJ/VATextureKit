@@ -61,10 +61,7 @@
 		A356399B2A740C0E00DE531F /* FilterScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A356399A2A740C0E00DE531F /* FilterScreenNode.swift */; };
 		A35689CA2B0F8E0400BEB3C4 /* SelfSizingListContainerScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35689C92B0F8E0400BEB3C4 /* SelfSizingListContainerScreenNode.swift */; };
 		A357B7F929FFF290004835C5 /* SlidingTabBarScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357B7F829FFF290004835C5 /* SlidingTabBarScreenNode.swift */; };
-		A357B7FE2A01644C004835C5 /* VASlidingTabBarNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357B7FD2A01644C004835C5 /* VASlidingTabBarNode.swift */; };
-		A357B8002A02483C004835C5 /* VASlidingTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357B7FF2A02483C004835C5 /* VASlidingTab.swift */; };
 		A357B8022A0248B9004835C5 /* VASlidingTabTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357B8012A0248B9004835C5 /* VASlidingTabTextNode.swift */; };
-		A357B8042A02490E004835C5 /* VASlidingIndicatorContainerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357B8032A02490E004835C5 /* VASlidingIndicatorContainerNode.swift */; };
 		A357B8062A025116004835C5 /* LinkTextScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357B8052A025116004835C5 /* LinkTextScreenNode.swift */; };
 		A359BE7A29D76C0D003BDE19 /* VADisplayNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */; };
 		A359BE7E29D76E1B003BDE19 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A359BE7D29D76E1B003BDE19 /* Environment.swift */; };
@@ -228,10 +225,7 @@
 		A356399A2A740C0E00DE531F /* FilterScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterScreenNode.swift; sourceTree = "<group>"; };
 		A35689C92B0F8E0400BEB3C4 /* SelfSizingListContainerScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSizingListContainerScreenNode.swift; sourceTree = "<group>"; };
 		A357B7F829FFF290004835C5 /* SlidingTabBarScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidingTabBarScreenNode.swift; sourceTree = "<group>"; };
-		A357B7FD2A01644C004835C5 /* VASlidingTabBarNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASlidingTabBarNode.swift; sourceTree = "<group>"; };
-		A357B7FF2A02483C004835C5 /* VASlidingTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASlidingTab.swift; sourceTree = "<group>"; };
 		A357B8012A0248B9004835C5 /* VASlidingTabTextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASlidingTabTextNode.swift; sourceTree = "<group>"; };
-		A357B8032A02490E004835C5 /* VASlidingIndicatorContainerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VASlidingIndicatorContainerNode.swift; sourceTree = "<group>"; };
 		A357B8052A025116004835C5 /* LinkTextScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkTextScreenNode.swift; sourceTree = "<group>"; };
 		A359BE7929D76C0D003BDE19 /* VADisplayNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VADisplayNodeTests.swift; sourceTree = "<group>"; };
 		A359BE7D29D76E1B003BDE19 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
@@ -513,9 +507,6 @@
 			isa = PBXGroup;
 			children = (
 				A357B7F829FFF290004835C5 /* SlidingTabBarScreenNode.swift */,
-				A357B8032A02490E004835C5 /* VASlidingIndicatorContainerNode.swift */,
-				A357B7FF2A02483C004835C5 /* VASlidingTab.swift */,
-				A357B7FD2A01644C004835C5 /* VASlidingTabBarNode.swift */,
 				A357B8012A0248B9004835C5 /* VASlidingTabTextNode.swift */,
 			);
 			path = SlidingTabBar;
@@ -1016,7 +1007,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/R/R.generated.swift",
+				$SRCROOT/R/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1044,7 +1035,6 @@
 				A357B8062A025116004835C5 /* LinkTextScreenNode.swift in Sources */,
 				A397A2C229AAA68800A05B8F /* AlertNodeController.swift in Sources */,
 				A34F8E8529F576C000EF4C42 /* PagerCardCellNode.swift in Sources */,
-				A357B8002A02483C004835C5 /* VASlidingTab.swift in Sources */,
 				A338712A2A79877900F9D329 /* VAFireworksEmitterNode.swift in Sources */,
 				A33871382A7A5ECA00F9D329 /* VAMultipleConfettiNode.swift in Sources */,
 				A3B3F3CD29A2B4FC0090E6E2 /* MainListCellNode.swift in Sources */,
@@ -1056,8 +1046,6 @@
 				A34F8E8329F52EED00EF4C42 /* PagerScreenNode.swift in Sources */,
 				A3D2FAC829D9687400AA01CA /* MainListSectionHeaderNode.swift in Sources */,
 				A3B3F3E729A3869B0090E6E2 /* ContentSizeNodeController.swift in Sources */,
-				A357B7FE2A01644C004835C5 /* VASlidingTabBarNode.swift in Sources */,
-				A357B8042A02490E004835C5 /* VASlidingIndicatorContainerNode.swift in Sources */,
 				A3DDF30029DD84B1009460F1 /* CompositingCellNode.swift in Sources */,
 				A3B3F37929A0CDAD0090E6E2 /* MainNodeController.swift in Sources */,
 				A38D5EAD2A6D654C00A67BC7 /* TagCellNode.swift in Sources */,

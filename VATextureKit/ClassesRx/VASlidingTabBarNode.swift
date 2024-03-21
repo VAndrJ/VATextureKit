@@ -1,16 +1,25 @@
 //
 //  VASlidingTabBarNode.swift
-//  VATextureKit_Example
+//  VATextureKitRx
 //
-//  Created by Volodymyr Andriienko on 02.05.2023.
-//  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
+//  Created by Volodymyr Andriienko on 20.03.2024.
 //
 
-import VATextureKitRx
+import VATextureKit
+import RxSwift
+import RxCocoa
+
+public protocol VASlidingTab {
+    associatedtype TabData
+
+    init(data: TabData, onSelect: @escaping () -> Void)
+
+    func update(intersection: CGRect)
+}
 
 open class VASlidingTabBarNode<TabData>: VAScrollNode {
     public struct Context {
-        var data: [TabData]
+        let data: [TabData]
         let spacing: CGFloat
         let contentInset: UIEdgeInsets
         let indicatorInset: CGFloat
@@ -18,10 +27,30 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode {
         let item: (_ data: TabData, _ onSelect: @escaping () -> Void) -> any ASDisplayNode & VASlidingTab
         let indexObs: Observable<CGFloat>
         let onSelect: (Int) -> Void
+
+        public init(
+            data: [TabData],
+            spacing: CGFloat,
+            contentInset: UIEdgeInsets,
+            indicatorInset: CGFloat,
+            color: @escaping (VATheme) -> UIColor,
+            item: @escaping (TabData, @escaping () -> Void) -> any ASDisplayNode & VASlidingTab,
+            indexObs: Observable<CGFloat>,
+            onSelect: @escaping (Int) -> Void
+        ) {
+            self.data = data
+            self.spacing = spacing
+            self.contentInset = contentInset
+            self.indicatorInset = indicatorInset
+            self.color = color
+            self.item = item
+            self.indexObs = indexObs
+            self.onSelect = onSelect
+        }
     }
 
     private var data: Context
-    private var items: [(any ASDisplayNode & VASlidingTab)]
+    private var items: [any ASDisplayNode & VASlidingTab]
     private let bag = DisposeBag()
     private lazy var indicatorContainerNode = VASlidingIndicatorContainerNode(color: data.color)
 
@@ -55,9 +84,7 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode {
     @MainActor
     private func scroll(index: CGFloat) {
         let currentIndex = Int(index)
-        guard let currentItem = items[node: currentIndex], let nextItem = items[node: currentIndex + 1] else {
-            return
-        }
+        guard let currentItem = items[node: currentIndex], let nextItem = items[node: currentIndex + 1] else { return }
 
         let progress = index.truncatingRemainder(dividingBy: 1)
         let itemOffset = currentItem.frame.origin.x - data.contentInset.left
@@ -97,8 +124,33 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode {
                 data.indexObs
             )
             .map { $1 }
-            .subscribe(onNext: self ?>> { $0.scroll(index:) })
+            .subscribe(onNext: { [weak self] in self?.scroll(index: $0) })
             .disposed(by: bag)
+    }
+}
+
+final class VASlidingIndicatorContainerNode: VADisplayNode {
+    var targetIndicatorFrame: CGRect = .zero {
+        didSet { setNeedsLayout() }
+    }
+
+    let indicatorNode = VADisplayNode(corner: .init(radius: .proportional(percent: 100)))
+
+    private let color: (VATheme) -> UIColor
+
+    init(color: @escaping (VATheme) -> UIColor) {
+        self.color = color
+
+        super.init()
+    }
+
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        indicatorNode
+            .absolutely(frame: targetIndicatorFrame)
+    }
+
+    override func configureTheme(_ theme: VATheme) {
+        indicatorNode.backgroundColor = color(theme)
     }
 }
 
