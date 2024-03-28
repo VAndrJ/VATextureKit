@@ -64,8 +64,7 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
     open override func didLoad() {
         super.didLoad()
 
-        child.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(child)
+        view.addAutolayoutSubview(child)
     }
 
     @MainActor

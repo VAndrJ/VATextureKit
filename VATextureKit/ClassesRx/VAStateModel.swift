@@ -31,9 +31,9 @@ open class VAStateModel<Action, Event, State>: NSObject {
         
         super.init()
         
-#if DEBUG
+        #if DEBUG
         bindLogging()
-#endif
+        #endif
     }
     
     public func perform(_ event: Event) {
@@ -105,9 +105,9 @@ open class VAStateModel<Action, Event, State>: NSObject {
             .compactMap { $0 as? Action }
             .observe(on: actionScheduler)
             .concatMap(handler)
-#if DEBUG
+            #if DEBUG
             .do(onError: { assertionFailure("Errors are not allowed \($0.localizedDescription)") })
-#endif
+            #endif
             .observe(on: actionScheduler)
             .bind(to: eventRelay)
             .disposed(by: bag)
@@ -118,9 +118,9 @@ open class VAStateModel<Action, Event, State>: NSObject {
             .compactMap { $0 as? Action }
             .observe(on: actionScheduler)
             .flatMapFirst(handler)
-#if DEBUG
+            #if DEBUG
             .do(onError: { assertionFailure("Errors are not allowed \($0.localizedDescription)") })
-#endif
+            #endif
             .observe(on: actionScheduler)
             .bind(to: eventRelay)
             .disposed(by: bag)
@@ -131,9 +131,9 @@ open class VAStateModel<Action, Event, State>: NSObject {
             .compactMap { $0 as? Action }
             .observe(on: actionScheduler)
             .flatMapLatest(handler)
-#if DEBUG
+            #if DEBUG
             .do(onError: { assertionFailure("Errors are not allowed \($0.localizedDescription)") })
-#endif
+            #endif
             .observe(on: actionScheduler)
             .bind(to: eventRelay)
             .disposed(by: bag)
@@ -144,9 +144,9 @@ open class VAStateModel<Action, Event, State>: NSObject {
             .compactMap { $0 as? Action }
             .observe(on: actionScheduler)
             .flatMap(handler)
-#if DEBUG
+            #if DEBUG
             .do(onError: { assertionFailure("Errors are not allowed \($0.localizedDescription)") })
-#endif
+            #endif
             .observe(on: actionScheduler)
             .bind(to: eventRelay)
             .disposed(by: bag)
@@ -179,9 +179,9 @@ open class VAStateModel<Action, Event, State>: NSObject {
             .observe(on: actionScheduler)
             .withLatestFrom(stateRelay, resultSelector: { ($0, $1) })
             .concatMap(handler)
-#if DEBUG
+            #if DEBUG
             .do(onError: { assertionFailure("Errors are not allowed \($0.localizedDescription)") })
-#endif
+            #endif
             .observe(on: actionScheduler)
             .bind(to: eventRelay)
             .disposed(by: bag)
@@ -193,9 +193,9 @@ open class VAStateModel<Action, Event, State>: NSObject {
             .observe(on: actionScheduler)
             .withLatestFrom(stateRelay, resultSelector: { ($0, $1) })
             .flatMapFirst(handler)
-#if DEBUG
+            #if DEBUG
             .do(onError: { assertionFailure("Errors are not allowed \($0.localizedDescription)") })
-#endif
+            #endif
             .observe(on: actionScheduler)
             .bind(to: eventRelay)
             .disposed(by: bag)
@@ -207,9 +207,9 @@ open class VAStateModel<Action, Event, State>: NSObject {
             .observe(on: actionScheduler)
             .withLatestFrom(stateRelay, resultSelector: { ($0, $1) })
             .flatMapLatest(handler)
-#if DEBUG
+            #if DEBUG
             .do(onError: { assertionFailure("Errors are not allowed \($0.localizedDescription)") })
-#endif
+            #endif
             .observe(on: actionScheduler)
             .bind(to: eventRelay)
             .disposed(by: bag)
@@ -221,15 +221,15 @@ open class VAStateModel<Action, Event, State>: NSObject {
             .observe(on: actionScheduler)
             .withLatestFrom(stateRelay, resultSelector: { ($0, $1) })
             .flatMap(handler)
-#if DEBUG
+            #if DEBUG
             .do(onError: { assertionFailure("Errors are not allowed \($0.localizedDescription)") })
-#endif
+            #endif
             .observe(on: actionScheduler)
             .bind(to: eventRelay)
             .disposed(by: bag)
     }
     
-#if DEBUG
+    #if DEBUG
     private func bindLogging() {
         eventRelay
             .subscribe(onNext: { [weak self] in self?.log(event: $0) })
@@ -278,5 +278,5 @@ open class VAStateModel<Action, Event, State>: NSObject {
     deinit {
         debugPrint("\(#function) \(String(describing: self))")
     }
-#endif
+    #endif
 }

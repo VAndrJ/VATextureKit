@@ -29,8 +29,7 @@ open class VANodeWrapperView<Node: ASDisplayNode>: UIView {
 
         super.init(frame: .zero)
 
-        addSubview(contentNodeView)
-        contentNodeView.translatesAutoresizingMaskIntoConstraints = false
+        addAutolayoutSubview(contentNodeView)
         NSLayoutConstraint.activate([
             contentNodeView.leftAnchor.constraint(equalTo: leftAnchor),
             contentNodeView.rightAnchor.constraint(equalTo: rightAnchor),

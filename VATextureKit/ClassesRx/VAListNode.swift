@@ -392,15 +392,15 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
 
     public func collectionNode(_ collectionNode: ASCollectionNode, sizeRangeForHeaderInSection section: Int) -> ASSizeRange {
         ASSizeRange(
-            min: CGSize(width: collectionNode.frame.width, height: .leastNormalMagnitude),
-            max: CGSize(width: collectionNode.frame.width, height: .greatestFiniteMagnitude)
+            min: .init(width: collectionNode.frame.width, height: .leastNormalMagnitude),
+            max: .init(width: collectionNode.frame.width, height: .greatestFiniteMagnitude)
         )
     }
 
     public func collectionNode(_ collectionNode: ASCollectionNode, sizeRangeForFooterInSection section: Int) -> ASSizeRange {
         ASSizeRange(
-            min: CGSize(width: collectionNode.frame.width, height: .leastNormalMagnitude),
-            max: CGSize(width: collectionNode.frame.width, height: .greatestFiniteMagnitude)
+            min: .init(width: collectionNode.frame.width, height: .leastNormalMagnitude),
+            max: .init(width: collectionNode.frame.width, height: .greatestFiniteMagnitude)
         )
     }
 
@@ -457,7 +457,7 @@ public extension ASCollectionNode {
             let spacing = ((collectionViewLayout as? UICollectionViewFlowLayout)?.minimumInteritemSpacing ?? 0)
             let height = ((frame.height - contentInset.vertical - spacing * CGFloat(columns - 1)) / CGFloat(columns)).rounded(.down)
 
-            return ASSizeRange(
+            return .init(
                 width: height * ratio,
                 height: height
             )
@@ -465,27 +465,27 @@ public extension ASCollectionNode {
             let spacing = ((collectionViewLayout as? UICollectionViewFlowLayout)?.minimumInteritemSpacing ?? 0)
             let width = ((frame.width - contentInset.horizontal - spacing * CGFloat(columns - 1)) / CGFloat(columns)).rounded(.down)
 
-            return ASSizeRange(
+            return .init(
                 width: width,
                 height: width * ratio
             )
         case let .entireHeightFixedWidth(value):
-            return ASSizeRange(
+            return .init(
                 width: value,
                 height: frame.height - contentInset.vertical
             )
         case let .entireWidthFixedHeight(value):
-            return ASSizeRange(
+            return .init(
                 width: frame.width - contentInset.horizontal,
                 height: value
             )
         case let .entireHeightFreeWidth(min):
-            return ASSizeRange(
+            return .init(
                 width: min...CGFloat.greatestFiniteMagnitude,
                 height: frame.height - contentInset.vertical
             )
         case let .entireWidthFreeHeight(min):
-            return ASSizeRange(
+            return .init(
                 width: frame.width - contentInset.horizontal,
                 height: min...CGFloat.greatestFiniteMagnitude
             )

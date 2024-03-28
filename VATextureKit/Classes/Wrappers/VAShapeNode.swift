@@ -51,7 +51,6 @@ open class VAShapeNode: ASDisplayNode {
         layer.backgroundColor = data.backgroundColor.cgColor
         layer.borderColor = data.borderColor.cgColor
         layer.shadowColor = data.shadowColor.cgColor
-
         if overrides(#selector(layerBoundsDidChanged(to:))) {
             observation = layer.observe(\.bounds, options: [.new], changeHandler: { [weak self] _, change in
                 guard let newValue = change.newValue else { return }
@@ -66,19 +65,19 @@ open class VAShapeNode: ASDisplayNode {
     @objc open func layerBoundsDidChanged(to rect: CGRect) {}
 
     public func setLineWidth(_ value: CGFloat) {
-        ensureOnMain { [self] in
+        ensureOnMain { [layer] in
             layer.lineWidth = value
         }
     }
 
     public func setLineDashPattern(_ values: [NSNumber]?) {
-        ensureOnMain { [self] in
+        ensureOnMain { [layer] in
             layer.lineDashPattern = values
         }
     }
 
     public func setLineJoin(_ value: CAShapeLayerLineJoin) {
-        ensureOnMain { [self] in
+        ensureOnMain { [layer] in
             layer.lineJoin = value
         }
     }
@@ -88,13 +87,13 @@ open class VAShapeNode: ASDisplayNode {
     }
 
     public func setCGPath(_ value: CGPath?) {
-        ensureOnMain { [self] in
+        ensureOnMain { [layer] in
             layer.path = value
         }
     }
 
     public func setFillRule(_ value: CAShapeLayerFillRule) {
-        ensureOnMain { [self] in
+        ensureOnMain { [layer] in
             layer.fillRule = value
         }
     }
@@ -104,7 +103,7 @@ open class VAShapeNode: ASDisplayNode {
     }
 
     public func setFillCGColor(_ value: CGColor?) {
-        ensureOnMain { [self] in
+        ensureOnMain { [layer] in
             layer.fillColor = value
         }
     }
@@ -114,7 +113,7 @@ open class VAShapeNode: ASDisplayNode {
     }
 
     public func setStrokeCGColor(_ value: CGColor?) {
-        ensureOnMain { [self] in
+        ensureOnMain { [layer] in
             layer.strokeColor = value
         }
     }
@@ -124,7 +123,7 @@ open class VAShapeNode: ASDisplayNode {
     }
 
     public func setBackgroundCGColor(_ value: CGColor?) {
-        ensureOnMain { [self] in
+        ensureOnMain { [layer] in
             layer.backgroundColor = value
         }
     }
@@ -134,7 +133,7 @@ open class VAShapeNode: ASDisplayNode {
     }
 
     public func setBorderCGColor(_ value: CGColor?) {
-        ensureOnMain { [self] in
+        ensureOnMain { [layer] in
             layer.borderColor = value
         }
     }
@@ -144,37 +143,37 @@ open class VAShapeNode: ASDisplayNode {
     }
 
     public func setShadowCGColor(_ value: CGColor?) {
-        ensureOnMain { [self] in
+        ensureOnMain { [layer] in
             layer.shadowColor = value
         }
     }
 
     public func setStrokeStart(_ value: CGFloat) {
-        ensureOnMain { [self] in
+        ensureOnMain { [layer] in
             layer.strokeStart = value
         }
     }
 
     public func setStrokeEnd(_ value: CGFloat) {
-        ensureOnMain { [self] in
+        ensureOnMain { [layer] in
             layer.strokeEnd = value
         }
     }
 
     public func setMiterLimit(_ value: CGFloat) {
-        ensureOnMain { [self] in
+        ensureOnMain { [layer] in
             layer.miterLimit = value
         }
     }
 
     public func setLineDashPhase(_ value: CGFloat) {
-        ensureOnMain { [self] in
+        ensureOnMain { [layer] in
             layer.lineDashPhase = value
         }
     }
 
     public func setLineCap(_ value: CAShapeLayerLineCap) {
-        ensureOnMain { [self] in
+        ensureOnMain { [layer] in
             layer.lineCap = value
         }
     }

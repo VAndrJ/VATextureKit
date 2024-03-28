@@ -98,8 +98,8 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode {
 
         view.contentOffset.x = targetOffset
         let indicatorFrame = CGRect(
-            origin: CGPoint(x: frameOffset + data.contentInset.left - data.indicatorInset, y: data.contentInset.top),
-            size: CGSize(width: indicatorWidth + data.indicatorInset * 2, height: currentItem.frame.height)
+            origin: .init(x: frameOffset + data.contentInset.left - data.indicatorInset, y: data.contentInset.top),
+            size: .init(width: indicatorWidth + data.indicatorInset * 2, height: currentItem.frame.height)
         )
         indicatorContainerNode.targetIndicatorFrame = indicatorFrame
         items.forEach { $0.update(intersection: .zero) }
@@ -113,7 +113,7 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode {
         let intersectionFrame = node.frame.intersection(frame)
         let convertedOrigin = view.convert(intersectionFrame.origin, to: node.view)
 
-        return CGRect(origin: convertedOrigin, size: intersectionFrame.size)
+        return .init(origin: convertedOrigin, size: intersectionFrame.size)
     }
 
     @MainActor

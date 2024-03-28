@@ -189,7 +189,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         refreshData: RefreshDTO = .init()
     ) where S == AnimatableSectionModel<String, T> {
         self.init(
-            data: Context(
+            data: .init(
                 configuration: data.configuration,
                 listDataObs: data.listDataObs.map { [AnimatableSectionModel(model: "test", items: $0)] },
                 onSelect: data.onSelect,
@@ -208,7 +208,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         refreshData: RefreshDTO = .init()
     ) where Item == S.Item, S == AnimatableSectionModel<Model, Item> {
         self.init(
-            data: Context(
+            data: .init(
                 configuration: data.configuration,
                 listDataObs: data.listDataObs,
                 onSelect: data.onSelect,

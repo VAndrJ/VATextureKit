@@ -48,7 +48,11 @@ extension Reactive where Base: ASTableNode {
     public func setDataSource(_ dataSource: ASTableDataSource) -> Disposable {
         ScheduledDisposable(
             scheduler: MainScheduler.instance,
-            disposable: RxASTableDataSourceProxy.installForwardDelegate(dataSource, retainDelegate: false, onProxyForObject: base)
+            disposable: RxASTableDataSourceProxy.installForwardDelegate(
+                dataSource,
+                retainDelegate: false,
+                onProxyForObject: base
+            )
         )
     }
     
@@ -62,7 +66,11 @@ extension Reactive where Base: ASTableNode {
     public func setDelegate(_ delegate: ASTableDelegate) -> Disposable {
         ScheduledDisposable(
             scheduler: MainScheduler.instance,
-            disposable: RxASTableDelegateProxy.installForwardDelegate(delegate, retainDelegate: false, onProxyForObject: base)
+            disposable: RxASTableDelegateProxy.installForwardDelegate(
+                delegate,
+                retainDelegate: false,
+                onProxyForObject: base
+            )
         )
     }
     
@@ -341,9 +349,9 @@ open class ASTableSectionedDataSource<S: SectionModelType>: NSObject, ASTableDat
     
     open subscript(indexPath: IndexPath) -> Item {
         get { _sectionModels[indexPath.section].items[indexPath.row] }
-        set(item) {
+        set {
             var section = _sectionModels[indexPath.section]
-            section.items[indexPath.row] = item
+            section.items[indexPath.row] = newValue
             _sectionModels[indexPath.section] = section
         }
     }
