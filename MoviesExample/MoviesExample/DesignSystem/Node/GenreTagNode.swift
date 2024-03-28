@@ -29,6 +29,6 @@ final class GenreTagNode: VADisplayNode {
     }
 
     override func configureTheme(_ theme: VATheme) {
-        borderColor = theme.secondaryLabel.cgColor
+        borderUIColor = theme.secondaryLabel
     }
 }
