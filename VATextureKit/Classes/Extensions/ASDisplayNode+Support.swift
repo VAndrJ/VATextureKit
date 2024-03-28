@@ -49,6 +49,16 @@ public extension ASDisplayNode {
             }
         }
     }
+    /// Just a proxy for `borderColor` to use `UIColor`
+    var borderUIColor: UIColor? {
+        get { borderColor.flatMap(UIColor.init(cgColor:)) }
+        set { borderColor = newValue?.cgColor }
+    }
+    /// Just a proxy for `shadowColor` to use `UIColor`
+    var shadowUIColor: UIColor? {
+        get { shadowColor.flatMap(UIColor.init(cgColor:)) }
+        set { shadowColor = newValue?.cgColor }
+    }
 }
 
 public extension ASDisplayNode {

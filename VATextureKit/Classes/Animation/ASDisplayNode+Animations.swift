@@ -20,6 +20,7 @@ extension ASDisplayNode {
             animate?()
             completion?(true)
             context.completeTransition(true)
+
             return
         }
 
@@ -218,6 +219,7 @@ extension ASDisplayNode {
         guard !transition.isIdentity else {
             set(self, hidden)
             completion?()
+            
             return
         }
         
