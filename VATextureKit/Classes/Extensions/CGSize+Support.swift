@@ -10,27 +10,27 @@ import UIKit
 public extension CGSize {
     
     static func * (_ lhs: CGSize, _ rhs: CGFloat) -> CGSize {
-        CGSize(width: lhs.width * rhs, height: lhs.height * rhs)
+        .init(width: lhs.width * rhs, height: lhs.height * rhs)
     }
 
     static func / (_ lhs: CGSize, _ rhs: CGFloat) -> CGSize {
-        CGSize(width: lhs.width / rhs, height: lhs.height / rhs)
+        .init(width: lhs.width / rhs, height: lhs.height / rhs)
     }
 
     static func + (_ lhs: CGSize, _ rhs: CGSize) -> CGSize {
-        CGSize(width: lhs.width + rhs.width, height: lhs.height + rhs.height)
+        .init(width: lhs.width + rhs.width, height: lhs.height + rhs.height)
     }
 
     static func - (_ lhs: CGSize, _ rhs: CGSize) -> CGSize {
-        CGSize(width: lhs.width - rhs.width, height: lhs.height - rhs.height)
+        .init(width: lhs.width - rhs.width, height: lhs.height - rhs.height)
     }
     
     static func + (_ lhs: CGSize, _ rhs: CGFloat) -> CGSize {
-        CGSize(width: lhs.width + rhs, height: lhs.height + rhs)
+        .init(width: lhs.width + rhs, height: lhs.height + rhs)
     }
 
     static func - (_ lhs: CGSize, _ rhs: CGFloat) -> CGSize {
-        CGSize(width: lhs.width - rhs, height: lhs.height - rhs)
+        .init(width: lhs.width - rhs, height: lhs.height - rhs)
     }
 
     var area: CGFloat { width * height }
@@ -40,12 +40,12 @@ public extension CGSize {
         self.init(width: same, height: same)
     }
     
-    func adding(dWidth: CGFloat, dHeight: CGFloat) -> CGSize {
-        CGSize(width: width + dWidth, height: height + dHeight)
+    func adding(width: CGFloat, height: CGFloat) -> CGSize {
+        .init(width: self.width + width, height: self.height + height)
     }
     
     func adding(insets: UIEdgeInsets) -> CGSize {
-        CGSize(width: width + insets.horizontal, height: height + insets.vertical)
+        .init(width: width + insets.horizontal, height: height + insets.vertical)
     }
     
     func aspectMinBoundingMultiplier(for size: CGSize) -> CGFloat {

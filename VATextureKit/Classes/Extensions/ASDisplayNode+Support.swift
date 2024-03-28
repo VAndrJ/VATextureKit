@@ -43,8 +43,8 @@ public extension ASDisplayNode {
         }
         set {
             if #available(iOS 13.0, *) {
-                ensureOnMain {
-                    self.layer.cornerCurve = newValue.layerCornerCurve
+                ensureOnMain { [layer] in
+                    layer.cornerCurve = newValue.layerCornerCurve
                 }
             }
         }

@@ -73,7 +73,7 @@ class CGSizeTests: XCTestCase {
         let size = CGSize(same: 10)
         let expectedSize = CGSize(width: value + size.width, height: value + size.height)
 
-        XCTAssertEqual(expectedSize, size.adding(dWidth: value, dHeight: value))
+        XCTAssertEqual(expectedSize, size.adding(width: value, height: value))
     }
 
     func test_boundingMultiplier_min() {
