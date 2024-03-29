@@ -76,7 +76,7 @@ final class SlidingTabBarScreenNode: ScreenNode {
     override func configureTheme(_ theme: VATheme) {
         backgroundColor = theme.systemBackground
         floatingTabBarNode.backgroundColor = theme.systemBackground
-        floatingTabBarNode.borderColor = theme.quaternaryLabel.cgColor
+        floatingTabBarNode.borderUIColor = theme.quaternaryLabel
     }
 
     override func bind() {

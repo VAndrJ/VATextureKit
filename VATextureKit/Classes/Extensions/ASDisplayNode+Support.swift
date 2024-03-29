@@ -43,11 +43,21 @@ public extension ASDisplayNode {
         }
         set {
             if #available(iOS 13.0, *) {
-                ensureOnMain {
-                    self.layer.cornerCurve = newValue.layerCornerCurve
+                ensureOnMain { [layer] in
+                    layer.cornerCurve = newValue.layerCornerCurve
                 }
             }
         }
+    }
+    /// Just a proxy for `borderColor` to use `UIColor`
+    var borderUIColor: UIColor? {
+        get { borderColor.flatMap(UIColor.init(cgColor:)) }
+        set { borderColor = newValue?.cgColor }
+    }
+    /// Just a proxy for `shadowColor` to use `UIColor`
+    var shadowUIColor: UIColor? {
+        get { shadowColor.flatMap(UIColor.init(cgColor:)) }
+        set { shadowColor = newValue?.cgColor }
     }
 }
 

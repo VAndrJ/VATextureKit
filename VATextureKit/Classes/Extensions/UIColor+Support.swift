@@ -60,7 +60,7 @@ public extension UIColor {
             background: backgroundComponents.blue
         )
 
-        return UIColor(red: red, green: green, blue: blue, alpha: 1)
+        return .init(red: red, green: green, blue: blue, alpha: 1)
     }
 
     /// Returns the components that make up the color in the RGBA color space as a tuple.
@@ -105,7 +105,7 @@ public extension UIColor {
     /// - Returns: A new `UIColor` that is the result of blending the foreground color with the background color using the specified alpha value.
     @available (iOS 13.0, *)
     func opaque(on background: UIColor, traitCollection: UITraitCollection) -> UIColor {
-        UIColor.fromAlpha(
+        .fromAlpha(
             foreground: self,
             background: background,
             traitCollection: traitCollection
@@ -118,7 +118,7 @@ public extension UIColor {
     ///   - background: The background `UIColor` to be used as the base color for blending.
     /// - Returns: A new `UIColor` that is the result of blending the foreground color with the background color using the specified alpha value.
     func opaque(on background: UIColor) -> UIColor {
-        UIColor.fromAlpha(
+        .fromAlpha(
             foreground: self,
             background: background
         )
@@ -153,7 +153,7 @@ public extension [UIColor] {
         averageColor.green += white
         averageColor = map(components: averageColor, parameter: averageWhite, transform: +)
 
-        return UIColor(
+        return .init(
             red: Swift.min(1, averageColor.red),
             green: Swift.min(1, averageColor.green),
             blue: Swift.min(1, averageColor.blue),
@@ -175,7 +175,7 @@ public extension [UIColor] {
         }
         let componentsCount = CGFloat(components.count)
 
-        return UIColor(
+        return .init(
             red: redSum / componentsCount,
             green: greenSum / componentsCount,
             blue: blueSum / componentsCount,

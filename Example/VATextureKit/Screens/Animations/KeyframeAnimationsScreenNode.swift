@@ -179,7 +179,7 @@ private class _AnimationExampleNode: DisplayNode {
 
     override func configureTheme(_ theme: VATheme) {
         exampleNode.backgroundColor = theme.systemOrange
-        exampleNode.shadowColor = theme.systemOrange.cgColor
+        exampleNode.shadowUIColor = theme.systemOrange
     }
 
     override func bind() {

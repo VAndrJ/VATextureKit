@@ -21,6 +21,7 @@ extension Reactive where Base: ASCollectionNode {
         return { source in
             return source.subscribeProxyDataSource(ofObject: base, dataSource: dataSource, retainDataSource: true) { [weak collectionNode = base] (_: RxASCollectionDataSourceProxy, event) -> Void in
                 guard let collectionNode else { return }
+
                 dataSource.collectionNode(collectionNode, observedEvent: event)
             }
         }
@@ -41,7 +42,11 @@ extension Reactive where Base: ASCollectionNode {
     public func setDataSource(_ dataSource: ASCollectionDataSource) -> Disposable {
         ScheduledDisposable(
             scheduler: MainScheduler.instance,
-            disposable: RxASCollectionDataSourceProxy.installForwardDelegate(dataSource, retainDelegate: false, onProxyForObject: base)
+            disposable: RxASCollectionDataSourceProxy.installForwardDelegate(
+                dataSource,
+                retainDelegate: false,
+                onProxyForObject: base
+            )
         )
     }
     
@@ -55,7 +60,11 @@ extension Reactive where Base: ASCollectionNode {
     public func setDelegate(_ delegate: ASCollectionDelegate) -> Disposable {
         ScheduledDisposable(
             scheduler: MainScheduler.instance,
-            disposable: RxASCollectionDelegateProxy.installForwardDelegate(delegate, retainDelegate: false, onProxyForObject: base)
+            disposable: RxASCollectionDelegateProxy.installForwardDelegate(
+                delegate,
+                retainDelegate: false,
+                onProxyForObject: base
+            )
         )
     }
     
@@ -462,9 +471,9 @@ open class ASCollectionSectionedDataSource<S: SectionModelType>: NSObject, ASCol
     
     open subscript(indexPath: IndexPath) -> Item {
         get { _sectionModels[indexPath.section].items[indexPath.item] }
-        set(item) {
+        set {
             var section = _sectionModels[indexPath.section]
-            section.items[indexPath.item] = item
+            section.items[indexPath.item] = newValue
             _sectionModels[indexPath.section] = section
         }
     }
