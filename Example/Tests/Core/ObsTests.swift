@@ -95,6 +95,20 @@ class ObsTests: XCTestCase {
         XCTAssertEqual(CollectionOfOne("") + expected, spy.result)
     }
 
+    func test_BehaviorRelay_transformed() {
+        @Obs.Relay(value: "", map: { $0.flatMap { Observable.just($0 + $0) } })
+        var relayMappedObs: Observable<String>
+
+        let spy = spy(relayMappedObs)
+        let values = ["", "1", "2"]
+        values.forEach {
+            _relayMappedObs.rx.accept($0)
+        }
+        let expected = values.map { $0 + $0 }
+
+        XCTAssertEqual(CollectionOfOne("") + expected, spy.result)
+    }
+
     func test_BehaviorRelay_mappedInputOutput() {
         @Obs.Relay(value: 0, map: { String($0) })
         var relayMappedInputOutputObs: Observable<String>
@@ -164,6 +178,20 @@ class ObsTests: XCTestCase {
 
     func test_BehaviorSubject_mappedInputOutput() {
         @Obs.Subject(value: "0", map: { Int($0) })
+        var subjectObs: Observable<Int?>
+
+        let spy = spy(subjectObs)
+        let values = ["1", "", "2"]
+        values.forEach {
+            _subjectObs.rx.onNext($0)
+        }
+        let expected = (CollectionOfOne("0") + values).map { Int($0) }
+
+        XCTAssertEqual(expected, spy.result)
+    }
+
+    func test_BehaviorSubject_transformed() {
+        @Obs.Subject(value: "0", map: { $0.flatMap { Observable.just(Int($0)) } })
         var subjectObs: Observable<Int?>
 
         let spy = spy(subjectObs)

@@ -89,7 +89,7 @@ public enum Obs {
     }
     
     @propertyWrapper
-    public class Relay<
+    public final class Relay<
         Input, Output, InputSequence: ObservableConvertibleType, OutputSequence: ObservableConvertibleType
     >: Stream<Input, Output, InputSequence, OutputSequence> where InputSequence.Element == Input, OutputSequence.Element == Output {
         public override var wrappedValue: OutputSequence { sequence }
@@ -100,6 +100,10 @@ public enum Obs {
         
         public init(value: Input, map: @escaping (Input) -> Output) where InputSequence == BehaviorRelay<Input>, OutputSequence == Observable<Output> {
             super.init(value: value, map: { $0.map(map) })
+        }
+
+        public init(value: Input, map: @escaping (InputSequence) -> OutputSequence) where InputSequence == BehaviorRelay<Input>, OutputSequence == Observable<Output> {
+            super.init(value: value, map: map)
         }
         
         public init() where InputSequence == PublishRelay<Input>, OutputSequence == Observable<InputSequence.Element>, Input == Output {
@@ -112,7 +116,7 @@ public enum Obs {
     }
     
     @propertyWrapper
-    public class Subject<
+    public final class Subject<
         Input, Output, InputSequence: ObservableConvertibleType, OutputSequence: ObservableConvertibleType
     >: Stream<Input, Output, InputSequence, OutputSequence> where InputSequence.Element == Input, OutputSequence.Element == Output {
         public override var wrappedValue: OutputSequence { sequence }
@@ -123,6 +127,10 @@ public enum Obs {
 
         public init(value: Input, map: @escaping (Input) -> Output) where InputSequence == BehaviorSubject<Input>, OutputSequence == Observable<Output> {
             super.init(value: value, map: { $0.map(map) })
+        }
+
+        public init(value: Input, map: @escaping (InputSequence) -> OutputSequence) where InputSequence == BehaviorSubject<Input>, OutputSequence == Observable<Output> {
+            super.init(value: value, map: map)
         }
         
         public init() where InputSequence == PublishSubject<Input>, OutputSequence == Observable<InputSequence.Element>, Input == Output {
