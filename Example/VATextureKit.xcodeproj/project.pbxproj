@@ -25,6 +25,7 @@
 		A31F446129F70A7A003618C9 /* VALinkTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F446029F70A7A003618C9 /* VALinkTextNode.swift */; };
 		A31F88A929EA9C840077296B /* test_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A31F88A829EA9C840077296B /* test_image.jpg */; };
 		A31F88AB29EA9CAF0077296B /* VANetworkImageNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F88AA29EA9CAF0077296B /* VANetworkImageNodeTests.swift */; };
+		A32102892BC1BE3600306E8C /* VAComparisonNodeScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32102882BC1BE3600306E8C /* VAComparisonNodeScreenNode.swift */; };
 		A33729452A7936BA009425D8 /* ObsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33729442A7936BA009425D8 /* ObsTests.swift */; };
 		A33729472A793A31009425D8 /* CALayerAnimationInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33729462A793A31009425D8 /* CALayerAnimationInitTests.swift */; };
 		A33729492A79444B009425D8 /* VALayerAnimationValueConvertibleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33729482A79444B009425D8 /* VALayerAnimationValueConvertibleTests.swift */; };
@@ -189,6 +190,7 @@
 		A31F446029F70A7A003618C9 /* VALinkTextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VALinkTextNode.swift; sourceTree = "<group>"; };
 		A31F88A829EA9C840077296B /* test_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test_image.jpg; sourceTree = "<group>"; };
 		A31F88AA29EA9CAF0077296B /* VANetworkImageNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VANetworkImageNodeTests.swift; sourceTree = "<group>"; };
+		A32102882BC1BE3600306E8C /* VAComparisonNodeScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAComparisonNodeScreenNode.swift; sourceTree = "<group>"; };
 		A33729442A7936BA009425D8 /* ObsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObsTests.swift; sourceTree = "<group>"; };
 		A33729462A793A31009425D8 /* CALayerAnimationInitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerAnimationInitTests.swift; sourceTree = "<group>"; };
 		A33729482A79444B009425D8 /* VALayerAnimationValueConvertibleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VALayerAnimationValueConvertibleTests.swift; sourceTree = "<group>"; };
@@ -615,6 +617,7 @@
 				A38863862BA1F42900FC05FD /* UIViewSizedContainerScreenNode.swift */,
 				A38863882BA2166D00FC05FD /* UIViewContainerScreenNode.swift */,
 				A388638A2BA219CE00FC05FD /* ViewHostingScreenNode.swift */,
+				A32102882BC1BE3600306E8C /* VAComparisonNodeScreenNode.swift */,
 			);
 			path = Containers;
 			sourceTree = "<group>";
@@ -1062,6 +1065,7 @@
 				A3B3F3D829A2C9340090E6E2 /* AppearanceViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				A310A43229CF471400632416 /* CellViewModel.swift in Sources */,
+				A32102892BC1BE3600306E8C /* VAComparisonNodeScreenNode.swift in Sources */,
 				A3DDF2FE29DD7314009460F1 /* R.generated.swift in Sources */,
 				A3BDF4162BA860FE00D5CF41 /* UIImage+Emitter.swift in Sources */,
 				A38D5E932A6BBEF200A67BC7 /* CountingTextNodeController.swift in Sources */,

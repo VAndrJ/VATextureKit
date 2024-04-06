@@ -133,6 +133,8 @@ class AppScreenFactory: NavigatorScreenFactory {
             return VAViewController(node: UIViewContainerScreenNode())
         case _ as ViewHostingNavigationIdentity:
             return VAViewController(node: ViewHostingScreenNode())
+        case _ as VAComparisonNodeIdentity:
+            return VAViewController(node: VAComparisonNodeScreenNode())
         default:
             fatalError("Not implemented")
         }

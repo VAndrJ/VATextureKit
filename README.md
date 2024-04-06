@@ -970,6 +970,22 @@ Example:
 
 
 <details open>
+<summary>VAComparisonNode</summary>
+
+
+A subclass of `ASDisplayNode` with slide-to-compare two child nodes.
+
+
+Example:
+
+
+![List example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/comparison.gif)
+
+
+</details>
+
+
+<details open>
 <summary>VAListNode</summary>
 
 
