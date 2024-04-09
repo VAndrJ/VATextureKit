@@ -34,12 +34,17 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
     /// - Parameters:
     ///   - actorChildGetter: A closure returning the UIView instance to be wrapped.
     ///   - sizing: The sizing option to apply to the wrapped view.
+    ///   - corner: Corner parameters.
     @available (iOS 13.0, *)
-    public init(actorChildGetter: @MainActor @escaping () -> T, sizing: WrapperNodeSizing) {
+    public init(
+        actorChildGetter: @MainActor @escaping () -> T,
+        sizing: WrapperNodeSizing,
+        corner: VACornerRoundingParameters = .default
+    ) {
         self.sizing = sizing
         self.childGetter = actorChildGetter
 
-        super.init()
+        super.init(corner: corner)
 
         // To trigger `layout()` in any spec and avoid zero-sized frames.
         minConstrained(size: CGSize(same: 1))
@@ -50,11 +55,16 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
     /// - Parameters:
     ///   - childGetter: A closure returning the UIView instance to be wrapped.
     ///   - sizing: The sizing option to apply to the wrapped view.
-    public init(childGetter: @escaping () -> T, sizing: WrapperNodeSizing) {
+    ///   - corner: Corner parameters.
+    public init(
+        childGetter: @escaping () -> T,
+        sizing: WrapperNodeSizing,
+        corner: VACornerRoundingParameters = .default
+    ) {
         self.sizing = sizing
         self.childGetter = childGetter
 
-        super.init()
+        super.init(corner: corner)
 
         // To trigger `layout()` in any spec and avoid zero-sized frames.
         minConstrained(size: CGSize(same: 1))
