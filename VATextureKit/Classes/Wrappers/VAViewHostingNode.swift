@@ -25,11 +25,16 @@ open class VAViewHostingNode: VADisplayNode {
     /// - Parameters:
     ///   - body: A closure returning the View instance to be wrapped.
     ///   - sizing: The sizing option to apply to the wrapped view.
-    public init(body: @MainActor @escaping () -> some View, sizing: WrapperNodeSizing) {
+    ///   - corner: Corner parameters.
+    public init(
+        body: @MainActor @escaping () -> some View,
+        sizing: WrapperNodeSizing,
+        corner: VACornerRoundingParameters = .default
+    ) {
         self.sizing = sizing
         self.viewGetter = { AnyView(body()) }
 
-        super.init()
+        super.init(corner: corner)
 
         // To trigger `layout()` in any spec and avoid zero-sized frames.
         minConstrained(size: CGSize(same: 1))
