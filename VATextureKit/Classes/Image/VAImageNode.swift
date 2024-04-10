@@ -33,6 +33,7 @@ open class VAImageNode: ASImageNode, VACornerable, VAThemeObserver {
     }
     
     var shouldConfigureTheme = true
+    var isInitialTraits = true
 
     /// Initializes the instance with optional parameters.
     ///
@@ -94,6 +95,26 @@ open class VAImageNode: ASImageNode, VACornerable, VAThemeObserver {
         super.layout()
 
         updateCornerProportionalIfNeeded()
+    }
+
+    // Dirty hack ro redraw image
+    open override func asyncTraitCollectionDidChange(withPreviousTraitCollection previousTraitCollection: ASPrimitiveTraitCollection) {
+        var previousTraitCollection = previousTraitCollection
+        if isInitialTraits {
+            isInitialTraits = false
+        } else {
+            if previousTraitCollection.horizontalSizeClass != asyncTraitCollection().horizontalSizeClass ||
+                previousTraitCollection.verticalSizeClass != asyncTraitCollection().verticalSizeClass {
+                switch previousTraitCollection.userInterfaceStyle {
+                case .unspecified, .light:
+                    previousTraitCollection.userInterfaceStyle = .dark
+                case .dark:
+                    previousTraitCollection.userInterfaceStyle = .light
+                }
+            }
+        }
+
+        super.asyncTraitCollectionDidChange(withPreviousTraitCollection: previousTraitCollection)
     }
 
     /// Configures the node's theme elements based on the given theme.
