@@ -30,26 +30,26 @@ open class VAMaterialVisualEffectNode: VAVisualEffectNode {
 
     public init(
         style: Style,
-        data: VAVisualEffectView.Context
+        context: VAVisualEffectView.Context
     ) {
         super.init(
             effect: UIBlurEffect(style: .init(rawValue: style.rawValue) ?? .systemUltraThinMaterial),
-            data: data
+            context: context
         )
     }
 }
 
 open class VAVisualEffectNode: VAViewWrapperNode<VAVisualEffectView> {
 
-    public init(effect: UIVisualEffect?, data: VAVisualEffectView.Context) {
+    public init(effect: UIVisualEffect?, context: VAVisualEffectView.Context) {
         if #available(iOS 13.0, *) {
             super.init(
-                actorChildGetter: { VAVisualEffectView(effect: effect, context: data) },
+                actorChildGetter: { VAVisualEffectView(effect: effect, context: context) },
                 sizing: nil
             )
         } else {
             super.init(
-                childGetter: { VAVisualEffectView(effect: effect, context: data) },
+                childGetter: { VAVisualEffectView(effect: effect, context: context) },
                 sizing: nil
             )
         }

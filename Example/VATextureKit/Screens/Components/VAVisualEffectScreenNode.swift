@@ -21,7 +21,7 @@ class VAVisualEffectScreenNode: ScreenNode {
     ].map(_EffectDemonstrationNode.init(style:))
     private lazy var backgroundNode = VAMaterialVisualEffectNode(
         style: .ultraThinMaterial,
-        data: .init(
+        context: .init(
             corner: .init(radius: 24),
             border: .init(color: AppearanceColor(light: .cyan.withAlphaComponent(0.2), dark: .orange.withAlphaComponent(0.2)).wrappedValue),
             shadow: .init(radius: 24),
@@ -131,7 +131,7 @@ private class _EffectDemonstrationNode: VADisplayNode {
         var borderColor: UIColor
         self.effectNode = .init(
             style: style,
-            data: .init(
+            context: .init(
                 corner: .init(radius: 16),
                 border: .init(color: borderColor),
                 neon: .init(color: AppearanceColor(light: .cyan, dark: .orange).wrappedValue, width: 2),
