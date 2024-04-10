@@ -58,8 +58,8 @@ open class VAVisualEffectNode: VAViewWrapperNode<VAVisualEffectView> {
 
 open class VAVisualEffectView: UIView {
     public struct Corner {
-        let radius: CGFloat
-        var curve: VACornerCurve
+        public let radius: CGFloat
+        public var curve: VACornerCurve
 
         public init(
             radius: CGFloat,
@@ -69,10 +69,11 @@ open class VAVisualEffectView: UIView {
             self.curve = curve
         }
     }
+
     public struct Border {
-        let color: UIColor
+        public let color: UIColor
         /// Defaults to `1 / traitCollection.displayScale`.
-        var width: CGFloat?
+        public var width: CGFloat?
 
         public init(
             color: UIColor,
@@ -82,9 +83,10 @@ open class VAVisualEffectView: UIView {
             self.width = width
         }
     }
+
     public struct Neon {
-        let color: UIColor
-        var width: CGFloat = 1
+        public let color: UIColor
+        public var width: CGFloat = 1
 
         public init(
             color: UIColor,
@@ -94,11 +96,12 @@ open class VAVisualEffectView: UIView {
             self.width = width
         }
     }
+
     public struct Shadow {
-        var radius: CGFloat = 16
-        var color: UIColor = .black.withAlphaComponent(0.2)
-        var opacity: Float = 0.4
-        var offset: CGSize = .zero
+        public var radius: CGFloat = 16
+        public var color: UIColor = .black.withAlphaComponent(0.2)
+        public var opacity: Float = 0.4
+        public var offset: CGSize = .zero
 
         public init(
             radius: CGFloat = 16,
@@ -112,19 +115,35 @@ open class VAVisualEffectView: UIView {
             self.offset = offset
         }
     }
+
+    public struct Pointer {
+        public var radius: CGFloat = 22
+        public var color: UIColor = .white
+
+        public init(
+            radius: CGFloat = 22,
+            color: UIColor = .white
+        ) {
+            self.radius = radius
+            self.color = color
+        }
+    }
+
     public struct Context {
         let corner: Corner
         let border: Border
         var shadow: Shadow
         var neon: Neon?
+        var pointer: Pointer?
         var excludedFilters: [UIVisualEffectViewExcludedFilter]
         var thickness: CGFloat
 
         public init(
-            corner: VAVisualEffectView.Corner,
-            border: VAVisualEffectView.Border,
-            shadow: VAVisualEffectView.Shadow = .init(),
-            neon: VAVisualEffectView.Neon? = nil,
+            corner: Corner,
+            border: Border,
+            shadow: Shadow = .init(),
+            neon: Neon? = nil,
+            pointer: Pointer? = nil,
             excludedFilters: [UIVisualEffectViewExcludedFilter] = [],
             thickness: CGFloat = 1
         ) {
@@ -132,6 +151,7 @@ open class VAVisualEffectView: UIView {
             self.border = border
             self.shadow = shadow
             self.neon = neon
+            self.pointer = pointer
             self.excludedFilters = excludedFilters
             self.thickness = thickness
         }
@@ -180,13 +200,19 @@ open class VAVisualEffectView: UIView {
     public var corner: Corner {
         didSet { updateCorner() }
     }
+    public var pointer: Pointer?
     public let visualEffectView: VAThicknessVisualEffectView
     public let neonView = UIView()
+
+    private var pointerView: UIView? {
+        didSet { oldValue?.removeFromSuperview() }
+    }
 
     public init(effect: UIVisualEffect?, context: Context) {
         self.corner = context.corner
         self.border = context.border
         self.neon = context.neon
+        self.pointer = context.pointer
         self.shadow = context.shadow
         self.visualEffectView = .init(
             effect: effect,
@@ -198,6 +224,7 @@ open class VAVisualEffectView: UIView {
 
         addElements()
         configure()
+        bind()
     }
 
     public required init?(coder: NSCoder) {
@@ -246,6 +273,35 @@ open class VAVisualEffectView: UIView {
         layer.shadowRadius = shadow.radius
         layer.shadowOffset = shadow.offset
         layer.shadowOpacity = shadow.opacity
+    }
+
+    @objc private func onPan(_ sender: UIPanGestureRecognizer) {
+        switch sender.state {
+        case .began:
+            let radius = pointer?.radius ?? 22
+            let pointerView = UIView(frame: .init(size: .init(same: radius * 2)))
+            pointerView.layer.cornerRadius = radius
+            pointerView.backgroundColor = pointer?.color.withAlphaComponent(thickness)
+            neonView.addSubview(pointerView)
+            pointerView.center = sender.location(in: self)
+            self.pointerView = pointerView
+        case .changed:
+            pointerView?.center = sender.location(in: self)
+        case .cancelled, .failed, .ended:
+            pointerView = nil
+        default:
+            break
+        }
+    }
+
+    private func bind() {
+        guard pointer != nil else { return }
+
+        isUserInteractionEnabled = true
+        addGestureRecognizer(InstantPanGestureRecognizer(
+            target: self,
+            action: #selector(onPan(_:))
+        ))
     }
 
     private func configure() {
@@ -331,5 +387,14 @@ public class VAThicknessVisualEffectView: UIVisualEffectView {
     deinit {
         filtersObservation?.invalidate()
         filtersObservation = nil
+    }
+}
+
+class InstantPanGestureRecognizer: UIPanGestureRecognizer {
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
+        super.touchesBegan(touches, with: event)
+
+        state = .began
     }
 }

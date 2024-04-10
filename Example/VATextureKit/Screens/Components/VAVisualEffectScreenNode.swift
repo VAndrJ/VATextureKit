@@ -26,6 +26,7 @@ class VAVisualEffectScreenNode: ScreenNode {
             border: .init(color: AppearanceColor(light: .cyan.withAlphaComponent(0.2), dark: .orange.withAlphaComponent(0.2)).wrappedValue),
             shadow: .init(radius: 24),
             neon: .init(color: AppearanceColor(light: .cyan, dark: .orange).wrappedValue, width: 2),
+            pointer: .init(radius: 32, color: AppearanceColor(light: .cyan, dark: .orange).wrappedValue),
             excludedFilters: [.luminanceCurveMap, .colorSaturate, .colorBrightness]
         )
     )
