@@ -135,6 +135,8 @@ class AppScreenFactory: NavigatorScreenFactory {
             return VAViewController(node: ViewHostingScreenNode())
         case _ as VAComparisonNodeIdentity:
             return VAViewController(node: VAComparisonNodeScreenNode())
+        case _ as VAVisualEffectIdentity:
+            return VAViewController(node: VAVisualEffectScreenNode())
         default:
             fatalError("Not implemented")
         }
