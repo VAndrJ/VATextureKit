@@ -15,7 +15,7 @@ public enum VACornerCurve {
     case continuous
 
     @available (iOS 13.0, *)
-    init(layerCornerCurve: CALayerCornerCurve) {
+    public init(layerCornerCurve: CALayerCornerCurve) {
         switch layerCornerCurve {
         case .continuous: self = .continuous
         default: self = .circular
@@ -23,7 +23,7 @@ public enum VACornerCurve {
     }
 
     @available (iOS 13.0, *)
-    var layerCornerCurve: CALayerCornerCurve {
+    public var layerCornerCurve: CALayerCornerCurve {
         switch self {
         case .continuous: return .continuous
         case .circular: return .circular

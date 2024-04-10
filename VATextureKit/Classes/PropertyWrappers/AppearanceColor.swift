@@ -8,6 +8,7 @@
 import UIKit
 
 /// A property wrapper arround pure `UIColor`s to support different `userInterfaceStyle`.
+@available (iOS 13.0, *)
 @propertyWrapper
 public struct AppearanceColor {
     public var wrappedValue: UIColor {
