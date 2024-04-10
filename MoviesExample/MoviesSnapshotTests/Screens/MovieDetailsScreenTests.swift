@@ -24,7 +24,7 @@ class MovieDetailsScreenTests: XCTestCase {
     }
 
     private func generateSUT(isEmpty: Bool) -> MovieDetailsScreenNode {
-        MovieDetailsScreenNode(viewModel: MovieDetailsViewModel(data: .init(
+        MovieDetailsScreenNode(viewModel: MovieDetailsViewModel(context: .init(
             related: .init(listMovieEntity: .dummy()),
             source: .init(
                 getMovie: { _ in isEmpty ? .never() : .just(.dummy()) },

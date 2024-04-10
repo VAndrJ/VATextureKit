@@ -44,12 +44,12 @@ open class VAVisualEffectNode: VAViewWrapperNode<VAVisualEffectView> {
     public init(effect: UIVisualEffect?, data: VAVisualEffectView.Context) {
         if #available(iOS 13.0, *) {
             super.init(
-                actorChildGetter: { VAVisualEffectView(effect: effect, data: data) },
+                actorChildGetter: { VAVisualEffectView(effect: effect, context: data) },
                 sizing: nil
             )
         } else {
             super.init(
-                childGetter: { VAVisualEffectView(effect: effect, data: data) },
+                childGetter: { VAVisualEffectView(effect: effect, context: data) },
                 sizing: nil
             )
         }
@@ -118,7 +118,7 @@ open class VAVisualEffectView: UIView {
         var shadow: Shadow
         var neon: Neon?
         var excludedFilters: [UIVisualEffectViewExcludedFilter]
-        var density: CGFloat
+        var thickness: CGFloat
 
         public init(
             corner: VAVisualEffectView.Corner,
@@ -126,21 +126,21 @@ open class VAVisualEffectView: UIView {
             shadow: VAVisualEffectView.Shadow = .init(),
             neon: VAVisualEffectView.Neon? = nil,
             excludedFilters: [UIVisualEffectViewExcludedFilter] = [],
-            density: CGFloat = 1
+            thickness: CGFloat = 1
         ) {
             self.corner = corner
             self.border = border
             self.shadow = shadow
             self.neon = neon
             self.excludedFilters = excludedFilters
-            self.density = density
+            self.thickness = thickness
         }
     }
 
-    public var density: CGFloat {
-        get { visualEffectView.density }
+    public var thickness: CGFloat {
+        get { visualEffectView.thickness }
         set {
-            visualEffectView.density = newValue
+            visualEffectView.thickness = newValue
             updateColors()
         }
     }
@@ -180,18 +180,18 @@ open class VAVisualEffectView: UIView {
     public var corner: Corner {
         didSet { updateCorner() }
     }
-    public let visualEffectView: VADensityVisualEffectView
+    public let visualEffectView: VAThicknessVisualEffectView
     public let neonView = UIView()
 
-    public init(effect: UIVisualEffect?, data: Context) {
-        self.corner = data.corner
-        self.border = data.border
-        self.neon = data.neon
-        self.shadow = data.shadow
+    public init(effect: UIVisualEffect?, context: Context) {
+        self.corner = context.corner
+        self.border = context.border
+        self.neon = context.neon
+        self.shadow = context.shadow
         self.visualEffectView = .init(
             effect: effect,
-            excludedFilters: data.excludedFilters,
-            density: data.density
+            excludedFilters: context.excludedFilters,
+            thickness: context.thickness
         )
 
         super.init(frame: .init(x: 0, y: 0, width: 240, height: 128))
@@ -216,7 +216,7 @@ open class VAVisualEffectView: UIView {
 
     private func updateColors() {
         layer.borderColor = border.color.cgColor
-        neonView.layer.borderColor = neon?.color.withAlphaComponent(density).cgColor
+        neonView.layer.borderColor = neon?.color.withAlphaComponent(thickness).cgColor
         layer.shadowColor = shadow.color.cgColor
     }
 
@@ -272,9 +272,9 @@ public enum UIVisualEffectViewExcludedFilter: String {
     case gaussianBlur
 }
 
-public class VADensityVisualEffectView: UIVisualEffectView {
-    public var density: CGFloat {
-        didSet { updateDensity() }
+public class VAThicknessVisualEffectView: UIVisualEffectView {
+    public var thickness: CGFloat {
+        didSet { updateThickness() }
     }
 
     private var backdropLayer: CALayer? { layer.sublayers?.first }
@@ -286,16 +286,16 @@ public class VADensityVisualEffectView: UIVisualEffectView {
     init(
         effect: UIVisualEffect?,
         excludedFilters: [UIVisualEffectViewExcludedFilter],
-        density: CGFloat = 1
+        thickness: CGFloat = 1
     ) {
         self.initialEffect = effect
         self.excludedFilters = excludedFilters.map(\.rawValue)
-        self.density = density
+        self.thickness = thickness
 
         super.init(effect: nil)
 
         updateAnimator()
-        updateDensity()
+        updateThickness()
         bind()
     }
 
@@ -310,8 +310,8 @@ public class VADensityVisualEffectView: UIVisualEffectView {
         }
     }
 
-    private func updateDensity() {
-        animator.fractionComplete = density
+    private func updateThickness() {
+        animator.fractionComplete = thickness
     }
 
     private func bind() {

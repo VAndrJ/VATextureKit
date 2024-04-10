@@ -47,7 +47,7 @@ final class SearchViewModel: EventViewModel {
                 search.isEmpty.fold { search } _: { trending }
             }
     }
-    let data: Context
+    let context: Context
     @Obs.Relay()
     var beginSearchObs: Observable<Void>
 
@@ -57,8 +57,8 @@ final class SearchViewModel: EventViewModel {
     private var searchDataObs: Observable<[ListMovieEntity]>
     private let searchQueryRelay = PublishRelay<String?>()
 
-    init(data: Context) {
-        self.data = data
+    init(context: Context) {
+        self.context = context
 
         super.init()
     }
@@ -66,14 +66,14 @@ final class SearchViewModel: EventViewModel {
     override func run(_ event: Event) async {
         switch event {
         case _ as LoadTrendingEvent:
-            data.source.getTrendingMovies()
+            context.source.getTrendingMovies()
                 .handleLoading(isLoadingRelay)
                 .catchAndReturn([])
                 .bind(to: _trendingDataObs.rx)
                 .disposed(by: bag)
         case let event as DidSelectEvent:
             let entity = _searchDataObs.value.isEmpty.fold { _searchDataObs.value[event.indexPath.row] } _: { _trendingDataObs.value[event.indexPath.row] }
-            data.navigation.followMovie(entity)
+            context.navigation.followMovie(entity)
         case _ as BecomeVisibleEvent:
             if _trendingDataObs.value.isEmpty && isNotLoading {
                 perform(LoadTrendingEvent())
@@ -89,9 +89,9 @@ final class SearchViewModel: EventViewModel {
         searchQueryRelay
             .compactMap { $0 }
             .throttle(.seconds(1), latest: true, scheduler: MainScheduler.asyncInstance)
-            .flatMapLatest { [data] query in
+            .flatMapLatest { [context] query in
                 if query.count > 1 {
-                    return data.source.getSearchMovies(query)
+                    return context.source.getSearchMovies(query)
                         .catchAndReturn([])
                 } else {
                     return .just([])

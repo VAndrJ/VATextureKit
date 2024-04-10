@@ -39,17 +39,17 @@ open class VAScrollNode: ASScrollNode {
         }
     }
 
-    let data: Context
+    let context: Context
 
-    public init(data: Context) {
-        self.data = data
+    public init(context: Context) {
+        self.context = context
 
         super.init()
 
         automaticallyManagesSubnodes = true
         automaticallyManagesContentSize = true
-        shouldAnimateSizeChanges = data.shouldAnimateSizeChanges
-        scrollableDirections = data.scrollableDirections
+        shouldAnimateSizeChanges = context.shouldAnimateSizeChanges
+        scrollableDirections = context.scrollableDirections
     }
 
     @MainActor
@@ -68,15 +68,15 @@ open class VAScrollNode: ASScrollNode {
     private func configure() {
         view.showsVerticalScrollIndicator = false
         view.showsHorizontalScrollIndicator = false
-        view.alwaysBounceVertical = data.alwaysBounceVertical
-        view.alwaysBounceHorizontal = data.alwaysBounceHorizontal
+        view.alwaysBounceVertical = context.alwaysBounceVertical
+        view.alwaysBounceHorizontal = context.alwaysBounceHorizontal
         view.contentInsetAdjustmentBehavior = .never
-        if let bounces = data.bounces {
+        if let bounces = context.bounces {
             view.bounces = bounces
         }
-        if let isPagingEnabled = data.isPagingEnabled {
+        if let isPagingEnabled = context.isPagingEnabled {
             view.isPagingEnabled = isPagingEnabled
         }
-        view.contentInset = data.contentInset
+        view.contentInset = context.contentInset
     }
 }

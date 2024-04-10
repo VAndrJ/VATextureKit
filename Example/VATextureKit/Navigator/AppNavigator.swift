@@ -64,7 +64,7 @@ class AppScreenFactory: NavigatorScreenFactory {
         case _ as RadialGradientNavigationIdentity:
             return VAViewController(node: RadialGradientScreenNode())
         case _ as AlertNavigationIdentity:
-            return AlertNodeController(data: .init(
+            return AlertNodeController(context: .init(
                 navigation: .init(
                     showAlert: navigator ?> {
                         $0.navigate(

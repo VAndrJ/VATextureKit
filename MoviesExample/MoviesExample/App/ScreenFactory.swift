@@ -33,7 +33,7 @@ final class ScreenFactory: @unchecked Sendable, NavigatorScreenFactory {
             )
         case _ as SearchNavigationIdentity:
             return ViewController(
-                node: SearchScreenNode(viewModel: .init(data: .init(
+                node: SearchScreenNode(viewModel: .init(context: .init(
                     source: .init(
                         getTrendingMovies: remoteDataSource.getTrendingMovies,
                         getSearchMovies: remoteDataSource.getSearchMovies
@@ -56,7 +56,7 @@ final class ScreenFactory: @unchecked Sendable, NavigatorScreenFactory {
             )
         case let identity as MovieDetailsNavigationIdentity:
             return ViewController(
-                node: MovieDetailsScreenNode(viewModel: MovieDetailsViewModel(data: .init(
+                node: MovieDetailsScreenNode(viewModel: MovieDetailsViewModel(context: .init(
                     related: .init(
                         listMovieEntity: identity.movie
                     ),
@@ -92,7 +92,7 @@ final class ScreenFactory: @unchecked Sendable, NavigatorScreenFactory {
         case let identity as ActorDetailsNavigationIdentity:
             return ViewController(node: ActorDetailsScreenNode(viewModel: .init(actor: identity.actor)))
         case _ as HomeNavigationIdentity:
-            return ViewController(node: HomeScreenNode(viewModel: .init(data: .init(
+            return ViewController(node: HomeScreenNode(viewModel: .init(context: .init(
                 source: .init(),
                 navigation: .init()
             ))))

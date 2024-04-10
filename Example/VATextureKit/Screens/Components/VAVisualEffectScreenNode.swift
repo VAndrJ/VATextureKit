@@ -12,12 +12,12 @@ struct VAVisualEffectIdentity: DefaultNavigationIdentity {}
 
 class VAVisualEffectScreenNode: ScreenNode {
     private lazy var imageNode = VAImageNode(
-        image: R.image.colibri(),
+        image: R.image.moon(),
         contentMode: .scaleAspectFill
     )
     private lazy var demoNodes = [
         VAMaterialVisualEffectNode.Style.ultraThinMaterial,
-        .regularMaterial,
+        .thickMaterial,
     ].map(_EffectDemonstrationNode.init(style:))
     private lazy var backgroundNode = VAMaterialVisualEffectNode(
         style: .ultraThinMaterial,
@@ -29,35 +29,22 @@ class VAVisualEffectScreenNode: ScreenNode {
             excludedFilters: [.luminanceCurveMap, .colorSaturate, .colorBrightness]
         )
     )
-    private lazy var materialDensitySliderNode = VASizedViewWrapperNode(
-        actorChildGetter: { UISlider().apply { $0.value = 1 } },
-        sizing: .viewHeight
-    )
-    private lazy var neonSliderNode = VASizedViewWrapperNode(
-        actorChildGetter: {
-            UISlider().apply {
-                $0.value = 2
-                $0.minimumValue = 0
-                $0.maximumValue = 20
-            }
-        },
-        sizing: .viewHeight
-    )
+    private lazy var materialThicknessSliderNode = _SliderNode(context: .init(title: "Thickness"))
+    private lazy var neonSliderNode = _SliderNode(context: .init(maximumValue: 20, value: 2, title: "Neon"))
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
-            Column(spacing: 32, main: .center, cross: .center) {
+            Column(spacing: 16, main: .center, cross: .stretch) {
                 Column(spacing: 16, main: .center, cross: .center) {
                     demoNodes
                 }
-                .padding(.all(48))
+                .padding(.vertical(32))
                 .background(backgroundNode)
 
-                materialDensitySliderNode
-                    .padding(.horizontal(32))
+                materialThicknessSliderNode
                 neonSliderNode
-                    .padding(.horizontal(32))
             }
+            .padding(.horizontal(32))
         }
         .background(imageNode)
     }
@@ -67,22 +54,62 @@ class VAVisualEffectScreenNode: ScreenNode {
     }
 
     override func bind() {
-        materialDensitySliderNode.child.rx.value
-            .map(CGFloat.init)
+        materialThicknessSliderNode.valueObs
             .subscribe(onNext: self ?> {
-                let density = $1
-                $0.backgroundNode.child.density = density
-                $0.demoNodes.forEach { $0.effectNode.child.density = density }
+                let thickness = $1
+                $0.backgroundNode.child.thickness = thickness
+                $0.demoNodes.forEach { $0.effectNode.child.thickness = thickness }
             })
             .disposed(by: bag)
-        neonSliderNode.child.rx.value
-            .map(CGFloat.init)
+        neonSliderNode.valueObs
             .subscribe(onNext: self ?> {
                 let neonWidth = $1
                 $0.backgroundNode.child.neonWidth = neonWidth
                 $0.demoNodes.forEach { $0.effectNode.child.neonWidth = neonWidth / 2 }
             })
             .disposed(by: bag)
+    }
+}
+
+private class _SliderNode: VADisplayNode {
+    struct Context {
+        var minimumValue: Float = 0
+        var maximumValue: Float = 1
+        var value: Float = 1
+        let title: String
+    }
+
+    @MainActor var valueObs: Observable<CGFloat> {
+        sliderNode.child.rx.value
+            .map(CGFloat.init)
+    }
+
+    private let sliderNode: VASizedViewWrapperNode<UISlider>
+    private let titleTextNode: VATextNode
+
+    init(context: Context) {
+        self.sliderNode = .init(
+            actorChildGetter: {
+                UISlider().apply {
+                    $0.minimumValue = context.minimumValue
+                    $0.maximumValue = context.maximumValue
+                    $0.value = context.value
+                }
+            },
+            sizing: .viewHeight
+        )
+        self.titleTextNode = .init(string: context.title, color: { $0.label })
+
+        super.init()
+    }
+
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        Row(spacing: 4, cross: .center) {
+            titleTextNode
+                .flex(basisPercent: 35)
+            sliderNode
+                .flex(grow: 1)
+        }
     }
 }
 

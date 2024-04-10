@@ -49,18 +49,18 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode {
         }
     }
 
-    private var data: Context
+    private var context: Context
     private var items: [any ASDisplayNode & VASlidingTab]
     private let bag = DisposeBag()
-    private lazy var indicatorContainerNode = VASlidingIndicatorContainerNode(color: data.color)
+    private lazy var indicatorContainerNode = VASlidingIndicatorContainerNode(color: context.color)
 
-    public init(data: Context) {
-        self.data = data
-        self.items = data.data.enumerated().map { index, value in
-            data.item(value, { data.onSelect(index) })
+    public init(context: Context) {
+        self.context = context
+        self.items = context.data.enumerated().map { index, value in
+            context.item(value, { context.onSelect(index) })
         }
 
-        super.init(data: .init(
+        super.init(context: .init(
             scrollableDirections: .horizontal,
             alwaysBounceVertical: false,
             alwaysBounceHorizontal: true
@@ -74,10 +74,10 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode {
     }
 
     open override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        Row(spacing: data.spacing) {
+        Row(spacing: context.spacing) {
             items
         }
-        .padding(.insets(data.contentInset))
+        .padding(.insets(context.contentInset))
         .background(indicatorContainerNode)
     }
 
@@ -87,19 +87,19 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode {
         guard let currentItem = items[node: currentIndex], let nextItem = items[node: currentIndex + 1] else { return }
 
         let progress = index.truncatingRemainder(dividingBy: 1)
-        let itemOffset = currentItem.frame.origin.x - data.contentInset.left
+        let itemOffset = currentItem.frame.origin.x - context.contentInset.left
         let contentWidth = view.contentSize.width
-        let frameOffset = itemOffset + (currentItem.frame.width + data.spacing) * progress
+        let frameOffset = itemOffset + (currentItem.frame.width + context.spacing) * progress
         let frameDelta = currentItem.frame.width - nextItem.frame.width
         let indicatorWidth = currentItem.frame.width - frameDelta * progress
         let halfProgress = (currentItem.frame.width * (1 - progress) + nextItem.frame.width * progress) / 2
-        let desiredOffset = frameOffset - bounds.width / 2 + halfProgress + data.contentInset.left
+        let desiredOffset = frameOffset - bounds.width / 2 + halfProgress + context.contentInset.left
         let targetOffset = max(0, min(contentWidth - bounds.width, desiredOffset))
 
         view.contentOffset.x = targetOffset
         let indicatorFrame = CGRect(
-            origin: .init(x: frameOffset + data.contentInset.left - data.indicatorInset, y: data.contentInset.top),
-            size: .init(width: indicatorWidth + data.indicatorInset * 2, height: currentItem.frame.height)
+            origin: .init(x: frameOffset + context.contentInset.left - context.indicatorInset, y: context.contentInset.top),
+            size: .init(width: indicatorWidth + context.indicatorInset * 2, height: currentItem.frame.height)
         )
         indicatorContainerNode.targetIndicatorFrame = indicatorFrame
         items.forEach { $0.update(intersection: .zero) }
@@ -121,7 +121,7 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode {
         Observable
             .combineLatest(
                 rx.methodInvoked(#selector(didEnterVisibleState)),
-                data.indexObs
+                context.indexObs
             )
             .map { $1 }
             .subscribe(onNext: { [weak self] in self?.scroll(index: $0) })

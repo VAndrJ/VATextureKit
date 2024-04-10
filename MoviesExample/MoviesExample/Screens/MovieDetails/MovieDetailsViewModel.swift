@@ -69,15 +69,15 @@ final class MovieDetailsViewModel: EventViewModel {
             ])
     }
 
-    let data: Context
+    let context: Context
 
     private lazy var headerSection = AnimatableSectionModel(model: "Header", items: [
         MovieDetailsTitleCellNodeViewModel(
-            listMovie: data.related.listMovieEntity,
+            listMovie: context.related.listMovieEntity,
             dataObs: movieRelay.asObservable()
         ),
         MovieDetailsTrailerCellNodeViewModel(
-            listMovie: data.related.listMovieEntity,
+            listMovie: context.related.listMovieEntity,
             dataObs: movieRelay.asObservable()
         ),
     ])
@@ -85,8 +85,8 @@ final class MovieDetailsViewModel: EventViewModel {
     private let actorsRelay = BehaviorRelay<[ListActorEntity]>(value: [])
     private let moviesRecommendationsRelay = BehaviorRelay<[ListMovieEntity]>(value: [])
 
-    init(data: Context) {
-        self.data = data
+    init(context: Context) {
+        self.context = context
 
         super.init()
 
@@ -96,16 +96,16 @@ final class MovieDetailsViewModel: EventViewModel {
     override func run(_ event: Event) async {
         switch event {
         case let event as OpenListActorDetailsEvent:
-            data.navigation.followActor(event.actor)
+            context.navigation.followActor(event.actor)
         case _ as DidSelectEvent:
             break
         case _ as LoadDataEvent:
-            let id = data.related.listMovieEntity.id
+            let id = context.related.listMovieEntity.id
             Observable
                 .combineLatest(
-                    data.source.getMovie(id),
-                    data.source.getRecommendations(id),
-                    data.source.getMovieActors(id)
+                    context.source.getMovie(id),
+                    context.source.getRecommendations(id),
+                    context.source.getMovieActors(id)
                 )
                 .subscribe(onNext: { [weak self] in
                     self?.movieRelay.accept($0)
@@ -114,7 +114,7 @@ final class MovieDetailsViewModel: EventViewModel {
                 }) // TODO: - on error
                 .disposed(by: bag)
         case let event as OpenListMovieDetailsEvent:
-            data.navigation.followMovie(event.movie)
+            context.navigation.followMovie(event.movie)
         default:
             await super.run(event)
         }

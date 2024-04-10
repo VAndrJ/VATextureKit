@@ -10,7 +10,7 @@ import VATextureKitRx
 final class SearchScreenNode: ScreenNode<SearchViewModel> {
     private lazy var searchNode = SearchBarNode(beginSearchObs: viewModel.beginSearchObs)
     private lazy var listNode = VAListNode(
-        data: .init(
+        context: .init(
             listDataObs: viewModel.listDataObs,
             onSelect: viewModel ?> { $0.perform(DidSelectEvent(indexPath: $1)) },
             cellGetter: mapToCell(viewModel:),

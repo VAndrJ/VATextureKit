@@ -53,7 +53,7 @@ final class RowLayoutScreenNode: ScrollScreenNode {
     )
 
     init() {
-        super.init(data: .init(contentInset: UIEdgeInsets(vertical: 24)))
+        super.init(context: .init(contentInset: UIEdgeInsets(vertical: 24)))
     }
 
     override func scrollLayoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {

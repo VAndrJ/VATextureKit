@@ -11,11 +11,11 @@ import VATextureKitRx
 struct SlidingTabBarNavigationIdentity: DefaultNavigationIdentity {}
 
 final class SlidingTabBarScreenNode: ScreenNode {
-    private lazy var pagerNode = VAPagerNode(data: .init(
+    private lazy var pagerNode = VAPagerNode(context: .init(
         items: (0...5).map { PagerCardCellNodeViewModel(title: "Title \($0)", description: "Description \($0)") },
         cellGetter: mapToCell(viewModel:)
     ))
-    private lazy var topTabBarNode = VASlidingTabBarNode(data: .init(
+    private lazy var topTabBarNode = VASlidingTabBarNode(context: .init(
         data: (0...5).map { "Title".repeating($0) },
         spacing: 16,
         contentInset: UIEdgeInsets(horizontal: 16),
@@ -25,7 +25,7 @@ final class SlidingTabBarScreenNode: ScreenNode {
         indexObs: pagerNode.indexObs,
         onSelect: pagerNode ?>> { $0.scroll(to:) }
     ))
-    private lazy var floatingTabBarNode = VASlidingTabBarNode(data: .init(
+    private lazy var floatingTabBarNode = VASlidingTabBarNode(context: .init(
         data: (0...5).map { "Title".repeating($0) },
         spacing: 16,
         contentInset: UIEdgeInsets(vertical: 8, horizontal: 16),

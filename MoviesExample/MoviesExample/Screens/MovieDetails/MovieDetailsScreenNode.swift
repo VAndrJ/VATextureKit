@@ -9,7 +9,7 @@ import VATextureKitRx
 
 final class MovieDetailsScreenNode: ScreenNode<MovieDetailsViewModel> {
     private lazy var listNode = VAListNode(
-        data: .init(
+        context: .init(
             listDataObs: viewModel.listDataObs,
             onSelect: viewModel ?> { $0.perform(DidSelectEvent(indexPath: $1)) },
             cellGetter: mapToCell(viewModel:)

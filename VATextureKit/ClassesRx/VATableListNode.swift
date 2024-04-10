@@ -174,7 +174,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         }
     }
     
-    public let data: Context
+    public let context: Context
     public let refreshData: RefreshDTO
     public private(set) var batchContext: ASBatchContext?
     
@@ -189,7 +189,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         refreshData: RefreshDTO = .init()
     ) where S == AnimatableSectionModel<String, T> {
         self.init(
-            data: .init(
+            context: .init(
                 configuration: data.configuration,
                 listDataObs: data.listDataObs.map { [AnimatableSectionModel(model: "test", items: $0)] },
                 onSelect: data.onSelect,
@@ -208,7 +208,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         refreshData: RefreshDTO = .init()
     ) where Item == S.Item, S == AnimatableSectionModel<Model, Item> {
         self.init(
-            data: .init(
+            context: .init(
                 configuration: data.configuration,
                 listDataObs: data.listDataObs,
                 onSelect: data.onSelect,
@@ -222,12 +222,12 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         )
     }
     
-    public init(data: Context, refreshData: RefreshDTO = .init()) {
+    public init(context: Context, refreshData: RefreshDTO = .init()) {
         self.refreshData = refreshData
-        self.data = data
+        self.context = context
         self.delayedConfiguration = !Thread.current.isMainThread
         
-        super.init(style: data.configuration.style)
+        super.init(style: context.configuration.style)
 
         if !delayedConfiguration {
             configure()
@@ -265,12 +265,12 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
 
     private func bind() {
         let dataSource = RxASTableSectionedAnimatedDataSource<S>(
-            animationConfiguration: data.configuration.animationConfiguration,
-            configureCellBlock: { [data] _, _, _, item in { data.cellGetter(item) } }
+            animationConfiguration: context.configuration.animationConfiguration,
+            configureCellBlock: { [context] _, _, _, item in { context.cellGetter(item) } }
         )
         self.source = dataSource
-        data.listDataObs
-            .do(onNext: { [weak self, shouldScrollToTopOnDataChange = data.configuration.shouldScrollToTopOnDataChange] _ in
+        context.listDataObs
+            .do(onNext: { [weak self, shouldScrollToTopOnDataChange = context.configuration.shouldScrollToTopOnDataChange] _ in
                 self?.batchContext?.completeBatchFetching(true)
                 self?.batchContext = nil
                 if shouldScrollToTopOnDataChange {
@@ -281,21 +281,21 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
             .disposed(by: bag)
         rx.setDelegate(self)
             .disposed(by: bag)
-        if data.shouldBatchFetch != nil {
+        if context.shouldBatchFetch != nil {
             rx.willBeginBatchFetch
                 .do(onNext: { [weak self] in self?.batchContext = $0 })
                 .map { _ in }
-                .subscribe(onNext: data.loadMore)
+                .subscribe(onNext: context.loadMore)
                 .disposed(by: bag)
         }
-        if data.configuration.shouldDeselect.deselectOnSelect {
+        if context.configuration.shouldDeselect.deselectOnSelect {
             rx.itemSelected
-                .subscribe(onNext: { [weak self, animated = data.configuration.shouldDeselect.animated] in
+                .subscribe(onNext: { [weak self, animated = context.configuration.shouldDeselect.animated] in
                     self?.deselectRow(at: $0, animated: animated)
                 })
                 .disposed(by: bag)
         }
-        if let onSelect = data.onSelect {
+        if let onSelect = context.onSelect {
             rx.itemSelected
                 .subscribe(onNext: onSelect)
                 .disposed(by: bag)
@@ -303,33 +303,33 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
     }
 
     private func configure() {
-        if data.sectionHeaderGetter != nil {
+        if context.sectionHeaderGetter != nil {
             view.sectionHeaderHeight = UITableView.automaticDimension
             view.estimatedSectionHeaderHeight = .leastNormalMagnitude
             if #available(iOS 15.0, *) {
                 view.sectionHeaderTopPadding = .leastNormalMagnitude
             }
         }
-        if data.sectionFooterGetter != nil {
+        if context.sectionFooterGetter != nil {
             view.sectionFooterHeight = UITableView.automaticDimension
             view.estimatedSectionFooterHeight = .leastNormalMagnitude
         }
-        data.configuration.keyboardDismissMode.flatMap { view.keyboardDismissMode = $0 }
-        data.configuration.separatorConfiguration.color.flatMap { view.separatorColor = $0 }
-        view.separatorStyle = data.configuration.separatorConfiguration.style
-        data.configuration.separatorConfiguration.effect.flatMap { view.separatorEffect = $0 }
-        data.configuration.separatorConfiguration.insetReference.flatMap { view.separatorInsetReference = $0 }
+        context.configuration.keyboardDismissMode.flatMap { view.keyboardDismissMode = $0 }
+        context.configuration.separatorConfiguration.color.flatMap { view.separatorColor = $0 }
+        view.separatorStyle = context.configuration.separatorConfiguration.style
+        context.configuration.separatorConfiguration.effect.flatMap { view.separatorEffect = $0 }
+        context.configuration.separatorConfiguration.insetReference.flatMap { view.separatorInsetReference = $0 }
         configureRefresh()
     }
     
     // MARK: - ASTableDelegate
     
     public func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
-        data.shouldBatchFetch?() ?? false
+        context.shouldBatchFetch?() ?? false
     }
 
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if let getter = data.sectionHeaderGetter, let section = source?[safe: section] {
+        if let getter = context.sectionHeaderGetter, let section = source?[safe: section] {
             return VANodeWrapperView(contentNode: getter(section))
         } else {
             return nil
@@ -337,7 +337,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
     }
 
     public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if let getter = data.sectionFooterGetter, let section = source?[safe: section] {
+        if let getter = context.sectionFooterGetter, let section = source?[safe: section] {
             return VANodeWrapperView(contentNode: getter(section))
         } else {
             return nil

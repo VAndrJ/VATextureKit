@@ -12,7 +12,7 @@ struct CollectionListHeaderFooterNavigationIdentity: DefaultNavigationIdentity {
 
 final class CollectionListHeaderFooterScreenNode: ScreenNode {
     private lazy var leftListNode = VAListNode(
-        data: .init(
+        context: .init(
             listDataObs: viewModel.listDataObs,
             cellGetter: mapToCell(viewModel:),
             headerGetter: { $0.model.headerViewModel.flatMap(mapToCell(viewModel:)) },
@@ -28,7 +28,7 @@ final class CollectionListHeaderFooterScreenNode: ScreenNode {
         )
     ).flex(basisPercent: 50)
     private lazy var rightListNode = VAListNode(
-        data: .init(
+        context: .init(
             listDataObs: viewModel.listDataObs,
             cellGetter: mapToCell(viewModel:),
             headerGetter: { $0.model.headerViewModel.flatMap(mapToCell(viewModel:)) },

@@ -13,9 +13,9 @@ final class ShimmerCellNode: VACellNode {
 
     init(viewModel: ShimmerCellNodeViewModel) {
         switch viewModel.kind {
-        case .trending: self.contentNode = TrendingListShimmerNode(data: .init())
-        case .movieDetails: self.contentNode = MovieDetailsShimmerNode(data: .init())
-        case .homeCell: self.contentNode = HomeCellShimmerNode(data: .init())
+        case .trending: self.contentNode = TrendingListShimmerNode(context: .init())
+        case .movieDetails: self.contentNode = MovieDetailsShimmerNode(context: .init())
+        case .homeCell: self.contentNode = HomeCellShimmerNode(context: .init())
         }
         self.viewModel = viewModel
 

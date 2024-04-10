@@ -58,8 +58,8 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
     }
     public var itemPosition: CGFloat { contentOffset.x / itemSize.width }
     public let bag = DisposeBag()
-    public private(set) var data: Context {
-        didSet { itemsCountRelay.accept(data.items.count) }
+    public private(set) var context: Context {
+        didSet { itemsCountRelay.accept(context.items.count) }
     }
 
     private let delayedConfiguration: Bool
@@ -67,7 +67,7 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
     private let itemsCountRelay: BehaviorRelay<Int>
 
     public convenience init(data: ObsDTO) {
-        self.init(data: .init(
+        self.init(context: .init(
             items: [],
             cellGetter: data.cellGetter,
             isCircular: data.isCircular
@@ -81,16 +81,20 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
             .disposed(by: bag)
     }
 
-    public init(data: Context) {
-        self.data = data
-        self.itemsCountRelay = BehaviorRelay(value: data.items.count)
+    public init(context: Context) {
+        self.context = context
+        self.itemsCountRelay = .init(value: context.items.count)
         self.delayedConfiguration = !Thread.current.isMainThread
         let flowLayout = ASPagerFlowLayout()
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = 0
         flowLayout.minimumInteritemSpacing = 0
 
-        super.init(frame: UIScreen.main.bounds, collectionViewLayout: flowLayout, layoutFacilitator: nil)
+        super.init(
+            frame: UIScreen.main.bounds, 
+            collectionViewLayout: flowLayout,
+            layoutFacilitator: nil
+        )
 
         if !delayedConfiguration {
             configure()
@@ -115,7 +119,7 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
 
     @MainActor
     public func scroll(to index: Int, animated: Bool) {
-        scrollToPage(at: index + (data.isCircular ? 1 : 0), animated: animated)
+        scrollToPage(at: index + (context.isCircular ? 1 : 0), animated: animated)
     }
 
     @MainActor
@@ -139,13 +143,13 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
     }
 
     public func update(items: [Item]) {
-        data.items = items
+        context.items = items
         reloadDataWithoutAnimations()
         checkPosition()
     }
 
     private func checkPosition() {
-        if data.isCircular && !data.items.isEmpty {
+        if context.isCircular && !context.items.isEmpty {
             mainAsync {
                 self.scrollToPage(at: 1, animated: false)
             }
@@ -180,11 +184,11 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
     }
 
     private func checkIndex() {
-        if data.isCircular && !data.items.isEmpty {
+        if context.isCircular && !context.items.isEmpty {
             switch currentPageIndex {
             case 0:
-                scrollSync(index: data.items.count)
-            case data.items.count + 1:
+                scrollSync(index: context.items.count)
+            case context.items.count + 1:
                 scrollSync(index: 1)
             default:
                 break
@@ -200,37 +204,37 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
     // MARK: - ASPagerDataSource
 
     public func numberOfPages(in pagerNode: ASPagerNode) -> Int {
-        data.items.count + (data.isCircular && !data.items.isEmpty ? 2 : 0)
+        context.items.count + (context.isCircular && !context.items.isEmpty ? 2 : 0)
     }
 
     public func pagerNode(_ pagerNode: ASPagerNode, nodeBlockAt index: Int) -> ASCellNodeBlock {
         let item: Item
-        if data.isCircular {
+        if context.isCircular {
             switch index {
             case 0:
-                item = data.items[data.items.count - 1]
-            case data.items.count + 1:
-                item = data.items[0]
+                item = context.items[context.items.count - 1]
+            case context.items.count + 1:
+                item = context.items[0]
             default:
-                item = data.items[index - 1]
+                item = context.items[index - 1]
             }
         } else {
-            item = data.items[index]
+            item = context.items[index]
         }
-        return { [data] in
-            data.cellGetter(item)
+        return { [context] in
+            context.cellGetter(item)
         }
     }
 
     // MARK: - ASPagerDelegate
 
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if data.isCircular && !data.items.isEmpty {
+        if context.isCircular && !context.items.isEmpty {
             indexRelay.accept(itemPosition - 1)
             switch itemPosition {
             case ...(-0.001):
-                scrollSync(index: data.items.count)
-            case (CGFloat(data.items.count) + 1.001)...:
+                scrollSync(index: context.items.count)
+            case (CGFloat(context.items.count) + 1.001)...:
                 scrollSync(index: 1)
             default:
                 break

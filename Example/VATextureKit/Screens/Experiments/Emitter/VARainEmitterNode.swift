@@ -19,36 +19,36 @@ final class VARainEmitterNode: VAEmitterNode {
         var strength: Strength = .heavy
     }
 
-    let data: Context
+    let context: Context
 
     private lazy var images: [CGImage] = {
         let images: [CGImage?]
-        switch data.strength {
+        switch context.strength {
         case .small:
             images = [
-                UIImage.render(color: .white, size: CGSize(width: 1, height: 3), isEllipse: true).cgImage,
+                UIImage.render(color: .white, size: .init(width: 1, height: 3), isEllipse: true).cgImage,
             ]
         case .medium:
             images = [
-                UIImage.render(color: .white, size: CGSize(width: 1, height: 3), isEllipse: true).cgImage,
-                UIImage.render(color: .white, size: CGSize(width: 1, height: 6), isEllipse: true).cgImage,
-                UIImage.render(color: .white, size: CGSize(width: 1, height: 9), isEllipse: true).cgImage,
+                UIImage.render(color: .white, size: .init(width: 1, height: 3), isEllipse: true).cgImage,
+                UIImage.render(color: .white, size: .init(width: 1, height: 6), isEllipse: true).cgImage,
+                UIImage.render(color: .white, size: .init(width: 1, height: 9), isEllipse: true).cgImage,
             ]
         case .heavy:
             images = [
-                UIImage.render(color: .white, size: CGSize(width: 1, height: 3), isEllipse: true).cgImage,
-                UIImage.render(color: .white, size: CGSize(width: 1, height: 6), isEllipse: true).cgImage,
-                UIImage.render(color: .white, size: CGSize(width: 1, height: 9), isEllipse: true).cgImage,
-                UIImage.render(color: .white, size: CGSize(width: 2, height: 2), isEllipse: true).cgImage,
-                UIImage.render(color: .white, size: CGSize(width: 2, height: 2), isEllipse: true).cgImage,
+                UIImage.render(color: .white, size: .init(width: 1, height: 3), isEllipse: true).cgImage,
+                UIImage.render(color: .white, size: .init(width: 1, height: 6), isEllipse: true).cgImage,
+                UIImage.render(color: .white, size: .init(width: 1, height: 9), isEllipse: true).cgImage,
+                UIImage.render(color: .white, size: .init(width: 2, height: 2), isEllipse: true).cgImage,
+                UIImage.render(color: .white, size: .init(width: 2, height: 2), isEllipse: true).cgImage,
             ]
         }
         
         return images.compactMap { $0 }
     }()
 
-    init(data: Context) {
-        self.data = data
+    init(context: Context) {
+        self.context = context
 
         super.init()
     }
@@ -68,7 +68,7 @@ final class VARainEmitterNode: VAEmitterNode {
     override func layout() {
         super.layout()
 
-        setEmitterPosition(CGPoint(x: bounds.midX, y: bounds.minY - 10))
+        setEmitterPosition(.init(x: bounds.midX, y: bounds.minY - 10))
         setEmitterSize(bounds.size)
     }
 
@@ -94,7 +94,7 @@ final class VARainEmitterNode: VAEmitterNode {
             cell.color = UIColor.white.cgColor
             cell.alphaRange = 0.8
             cell.alphaSpeed = -0.7
-            cell.contentsRect = CGRect(origin: .zero, size: CGSize(same: 1))
+            cell.contentsRect = .init(origin: .zero, size: .init(same: 1))
 
             return cell
         }

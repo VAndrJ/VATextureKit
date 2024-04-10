@@ -19,34 +19,35 @@ final class VASnowEmitterNode: VAEmitterNode {
         var strength: Strength = .heavy
     }
 
-    let data: Context
+    let context: Context
 
     private lazy var images: [CGImage] = {
         let images: [CGImage?]
-        switch data.strength {
+        switch context.strength {
         case .small:
             images = [
-                UIImage.render(color: .white, size: CGSize(same: 3), isEllipse: true).cgImage,
+                UIImage.render(color: .white, size: .init(same: 3), isEllipse: true).cgImage,
             ]
         case .medium:
             images = [
-                UIImage.render(color: .white, size: CGSize(same: 3), isEllipse: true).cgImage,
-                UIImage.render(color: .white, size: CGSize(same: 6), isEllipse: true).cgImage,
-                UIImage.render(color: .white, size: CGSize(same: 9), isEllipse: true).cgImage,
+                UIImage.render(color: .white, size: .init(same: 3), isEllipse: true).cgImage,
+                UIImage.render(color: .white, size: .init(same: 6), isEllipse: true).cgImage,
+                UIImage.render(color: .white, size: .init(same: 9), isEllipse: true).cgImage,
             ]
         case .heavy:
             images = [
-                UIImage.render(color: .white, size: CGSize(same: 3), isEllipse: true).cgImage,
-                UIImage.render(color: .white, size: CGSize(same: 6), isEllipse: true).cgImage,
-                UIImage.render(color: .white, size: CGSize(same: 9), isEllipse: true).cgImage,
-                UIImage.render(color: .white, size: CGSize(same: 2), isEllipse: true).cgImage,
+                UIImage.render(color: .white, size: .init(same: 3), isEllipse: true).cgImage,
+                UIImage.render(color: .white, size: .init(same: 6), isEllipse: true).cgImage,
+                UIImage.render(color: .white, size: .init(same: 9), isEllipse: true).cgImage,
+                UIImage.render(color: .white, size: .init(same: 2), isEllipse: true).cgImage,
             ]
         }
+
         return images.compactMap { $0 }
     }()
 
-    init(data: Context) {
-        self.data = data
+    init(context: Context) {
+        self.context = context
 
         super.init()
     }
@@ -66,7 +67,7 @@ final class VASnowEmitterNode: VAEmitterNode {
     override func layout() {
         super.layout()
 
-        setEmitterPosition(CGPoint(x: bounds.midX, y: bounds.minY - 20))
+        setEmitterPosition(.init(x: bounds.midX, y: bounds.minY - 20))
         setEmitterSize(bounds.size)
     }
 
@@ -90,8 +91,8 @@ final class VASnowEmitterNode: VAEmitterNode {
             cell.color = UIColor.white.cgColor
             cell.alphaRange = 0.8
             cell.alphaSpeed = -0.2
-            cell.contentsRect = CGRect(origin: .zero, size: CGSize(same: 1))
-            switch data.strength {
+            cell.contentsRect = .init(origin: .zero, size: .init(same: 1))
+            switch context.strength {
             case .small:
                 cell.birthRate = 10
                 cell.velocity = 15
@@ -106,6 +107,7 @@ final class VASnowEmitterNode: VAEmitterNode {
                 cell.scaleRange = 0.3
                 cell.yAcceleration = 50
             }
+            
             return cell
         }
 

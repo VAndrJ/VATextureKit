@@ -33,24 +33,24 @@ open class VAShapeNode: ASDisplayNode {
 
     public override var layer: CAShapeLayer { super.layer as! CAShapeLayer }
 
-    private var data: Context!
+    private var context: Context!
     private var observation: NSKeyValueObservation?
 
-    public convenience init(data: Context) {
+    public convenience init(context: Context) {
         self.init { CAShapeLayer() }
 
-        self.data = data
+        self.context = context
     }
 
     @MainActor
     open override func didLoad() {
         super.didLoad()
 
-        layer.fillColor = data.fillColor.cgColor
-        layer.strokeColor = data.strokeColor.cgColor
-        layer.backgroundColor = data.backgroundColor.cgColor
-        layer.borderColor = data.borderColor.cgColor
-        layer.shadowColor = data.shadowColor.cgColor
+        layer.fillColor = context.fillColor.cgColor
+        layer.strokeColor = context.strokeColor.cgColor
+        layer.backgroundColor = context.backgroundColor.cgColor
+        layer.borderColor = context.borderColor.cgColor
+        layer.shadowColor = context.shadowColor.cgColor
         if overrides(#selector(layerBoundsDidChanged(to:))) {
             observation = layer.observe(\.bounds, options: [.new], changeHandler: { [weak self] _, change in
                 guard let newValue = change.newValue else { return }
