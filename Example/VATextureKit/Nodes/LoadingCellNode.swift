@@ -9,7 +9,7 @@
 import VATextureKit
 
 final class LoadingCellNode: VACellNode {
-    private let shimmerNode = _LoadingCellShimmerNode(data: .init())
+    private let shimmerNode = _LoadingCellShimmerNode(context: .init())
     
     init(viewModel: LoadingCellNodeViewModel) {
         super.init()

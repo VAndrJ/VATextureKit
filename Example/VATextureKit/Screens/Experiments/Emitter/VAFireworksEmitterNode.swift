@@ -15,12 +15,12 @@ final class VAFireworksEmitterNode: VAEmitterNode {
         var dotSize = CGSize(same: 12)
     }
 
-    let data: Context
+    let context: Context
 
-    private lazy var image = UIImage.render(color: data.dotColor, size: data.dotSize).cgImage
+    private lazy var image = UIImage.render(color: context.dotColor, size: context.dotSize).cgImage
 
-    init(data: Context) {
-        self.data = data
+    init(context: Context) {
+        self.context = context
 
         super.init()
     }
@@ -47,8 +47,8 @@ final class VAFireworksEmitterNode: VAEmitterNode {
         guard !isStarted else { return }
 
         emitterLayer.beginTime = CACurrentMediaTime()
-        emitterLayer.emitterCells = (0..<data.number).map { index in
-            let birthRate = (Float(index + 1) / Float(data.number)) + 0.5
+        emitterLayer.emitterCells = (0..<context.number).map { index in
+            let birthRate = (Float(index + 1) / Float(context.number)) + 0.5
             let lifetime = Float.random(in: 0.75...1.25)
             let fireworkCell = CAEmitterCell()
             fireworkCell.contents = image

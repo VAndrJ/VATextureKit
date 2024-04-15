@@ -49,6 +49,7 @@ final class MainViewModel {
             MainListCellNodeViewModel(title: "VACountingTextNode", description: "ASTextNode based", destination: CountingTextNodeNavigationIdentity()),
             MainListCellNodeViewModel(title: "VAReadMoreTextNode", description: "`Read more` truncation text node", destination: ReadMoreTextNavigationIdentity()),
             MainListCellNodeViewModel(title: "VAPagerNode", description: "ASPagerNode with improvements", destination: PagerControllerNavigationIdentity()),
+            MainListCellNodeViewModel(title: "Visual effect", description: "Visual effects node", destination: VAVisualEffectIdentity()),
         ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Containers"), items: [
             MainListCellNodeViewModel(title: "UIView container", description: "Autolayout UIView, different sizing", destination: UIViewSizedContainerNavigationIdentity()),

@@ -64,7 +64,7 @@ class AppScreenFactory: NavigatorScreenFactory {
         case _ as RadialGradientNavigationIdentity:
             return VAViewController(node: RadialGradientScreenNode())
         case _ as AlertNavigationIdentity:
-            return AlertNodeController(data: .init(
+            return AlertNodeController(context: .init(
                 navigation: .init(
                     showAlert: navigator ?> {
                         $0.navigate(
@@ -135,6 +135,8 @@ class AppScreenFactory: NavigatorScreenFactory {
             return VAViewController(node: ViewHostingScreenNode())
         case _ as VAComparisonNodeIdentity:
             return VAViewController(node: VAComparisonNodeScreenNode())
+        case _ as VAVisualEffectIdentity:
+            return VAViewController(node: VAVisualEffectScreenNode())
         default:
             fatalError("Not implemented")
         }

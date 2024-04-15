@@ -11,8 +11,8 @@ import VATextureKitRx
 class ScrollScreenNode: ScreenNode {
     let scrollNode: VAScrollNode
 
-    init(data: VAScrollNode.Context = .init()) {
-        self.scrollNode = VAScrollNode(data: data)
+    init(context: VAScrollNode.Context = .init()) {
+        self.scrollNode = VAScrollNode(context: context)
 
         super.init()
 

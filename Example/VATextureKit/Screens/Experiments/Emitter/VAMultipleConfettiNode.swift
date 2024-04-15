@@ -9,9 +9,9 @@
 import VATextureKit
 
 final class VAMultipleConfettiNode: VADisplayNode {
-    private lazy var topCenterConfettiNode = VAConfettiEmitterNode(data: .init(startPoint: .topCenter))
-    private lazy var bottomLeftConfettiNode = VAConfettiEmitterNode(data: .init(startPoint: .bottomLeft))
-    private lazy var bottomRightConfettiNode = VAConfettiEmitterNode(data: .init(startPoint: .bottomRight))
+    private lazy var topCenterConfettiNode = VAConfettiEmitterNode(context: .init(startPoint: .topCenter))
+    private lazy var bottomLeftConfettiNode = VAConfettiEmitterNode(context: .init(startPoint: .bottomLeft))
+    private lazy var bottomRightConfettiNode = VAConfettiEmitterNode(context: .init(startPoint: .bottomRight))
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         Stack {

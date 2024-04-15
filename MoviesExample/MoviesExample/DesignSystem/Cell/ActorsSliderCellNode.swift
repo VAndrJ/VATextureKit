@@ -9,10 +9,10 @@ import VATextureKit
 
 final class ActorsSliderCellNode: VACellNode {
     private let titleTextNode: VATextNode
-    private lazy var listNode = VAScrollNode(data: .init(
+    private lazy var listNode = VAScrollNode(context: .init(
         scrollableDirections: .horizontal,
         alwaysBounceVertical: false,
-        contentInset: UIEdgeInsets(horizontal: 16)
+        contentInset: .init(horizontal: 16)
     ))
     private let acrorNodes: [ASDisplayNode]
     private let viewModel: MovieActorsCellNodeViewModel
@@ -25,7 +25,7 @@ final class ActorsSliderCellNode: VACellNode {
         )
         self.acrorNodes = viewModel.actors.map { listActor in
             VAContainerButtonNode(
-                child: ActorCardNode(data: .init(listActor: listActor)),
+                child: ActorCardNode(context: .init(listActor: listActor)),
                 onTap: viewModel.onSelect <<| listActor
             )
         }
@@ -59,7 +59,11 @@ final class MovieActorsCellNodeViewModel: CellViewModel {
     let actors: [ListActorEntity]
     let onSelect: (ListActorEntity) -> Void
 
-    init(title: String, actors: [ListActorEntity], onSelect: @escaping (ListActorEntity) -> Void) {
+    init(
+        title: String,
+        actors: [ListActorEntity],
+        onSelect: @escaping (ListActorEntity) -> Void
+    ) {
         self.title = title
         self.actors = actors
         self.onSelect = onSelect

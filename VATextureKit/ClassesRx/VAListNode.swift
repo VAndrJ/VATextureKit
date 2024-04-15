@@ -187,7 +187,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         }
     }
     
-    public private(set) var data: Context!
+    public private(set) var context: Context!
     public private(set) var layoutData: LayoutDTO!
     public private(set) var refreshData: RefreshDTO!
     public private(set) var batchContext: ASBatchContext?
@@ -203,7 +203,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         refreshData: RefreshDTO = .init()
     ) where S == AnimatableSectionModel<String, T> {
         self.init(
-            data: .init(
+            context: .init(
                 indicatorConfiguration: data.indicatorConfiguration,
                 listDataObs: data.listDataObs.map { $0.isEmpty ? [] : [AnimatableSectionModel(model: "", items: $0)] },
                 onSelect: data.onSelect,
@@ -223,7 +223,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
 
     // MARK: - `UICollectionViewFlowLayout` is marked with `@MainActor`. However, it can be created from a background thread without encountering any problems for now.
     public convenience init(
-        data: Context,
+        context: Context,
         layoutData: LayoutDTO,
         refreshData: RefreshDTO = .init()
     ) {
@@ -251,7 +251,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
             self.init(layoutDelegate: layoutDelegate, layoutFacilitator: nil)
         }
         self.delayedConfiguration = !Thread.current.isMainThread
-        self.data = data
+        self.context = context
         self.layoutData = layoutData
         self.refreshData = refreshData
 
@@ -296,36 +296,37 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
     }
     
     private func bind() {
-        if data.headerGetter != nil {
+        if context.headerGetter != nil {
             registerSupplementaryNode(ofKind: UICollectionView.elementKindSectionHeader)
         }
-        if data.footerGetter != nil {
+        if context.footerGetter != nil {
             registerSupplementaryNode(ofKind: UICollectionView.elementKindSectionFooter)
         }
-        let data: Context = data
+        let context: Context = context
         let dataSource = RxASCollectionSectionedAnimatedDataSource<S>(
             animationConfiguration: layoutData.animationConfiguration,
-            configureCellBlock: { [data] _, _, _, item in { data.cellGetter(item) } },
-            configureSupplementaryNodeBlock: { [data] ds, _, kind, indexPath in
+            configureCellBlock: { [context] _, _, _, item in { context.cellGetter(item) } },
+            configureSupplementaryNodeBlock: { [context] ds, _, kind, indexPath in
                 guard let section = ds[safe: indexPath.section] else {
                     return nil
                 }
+
                 if kind == UICollectionView.elementKindSectionHeader {
-                    return { data.headerGetter?(section) ?? ASCellNode() }
+                    return { context.headerGetter?(section) ?? ASCellNode() }
                 } else {
-                    return { data.footerGetter?(section) ?? ASCellNode() }
+                    return { context.footerGetter?(section) ?? ASCellNode() }
                 }
             },
-            moveItem: { [data] _, source, desctination in data.moveItem?(source, desctination) ?? () },
-            canMoveItemWith: { [data] _, cell in data.moveItem != nil && data.canMoveItem(cell) }
+            moveItem: { [context] _, source, desctination in context.moveItem?(source, desctination) ?? () },
+            canMoveItemWith: { [context] _, cell in context.moveItem != nil && context.canMoveItem(cell) }
         )
-        if data.moveItem != nil {
+        if context.moveItem != nil {
             view.addGestureRecognizer(UILongPressGestureRecognizer(
                 target: self,
                 action: #selector(handleLongPress(_:))
             ))
         }
-        data.listDataObs
+        context.listDataObs
             .do(onNext: { [weak self, shouldScrollToTopOnDataChange = layoutData.shouldScrollToTopOnDataChange] _ in
                 self?.batchContext?.completeBatchFetching(true)
                 self?.batchContext = nil
@@ -337,21 +338,21 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
             .disposed(by: bag)
         rx.setDelegate(self)
             .disposed(by: bag)
-        if data.shouldBatchFetch != nil {
+        if context.shouldBatchFetch != nil {
             rx.willBeginBatchFetch
                 .do(onNext: { [weak self] in self?.batchContext = $0 })
                 .map { _ in }
-                .subscribe(onNext: data.loadMore)
+                .subscribe(onNext: context.loadMore)
                 .disposed(by: bag)
         }
-        if data.shouldDeselect.deselectOnSelect {
+        if context.shouldDeselect.deselectOnSelect {
             rx.itemSelected
-                .subscribe(onNext: { [weak self, data] in
-                    self?.deselectItem(at: $0, animated: data.shouldDeselect.animated)
+                .subscribe(onNext: { [weak self, context] in
+                    self?.deselectItem(at: $0, animated: context.shouldDeselect.animated)
                 })
                 .disposed(by: bag)
         }
-        if let onSelect = data.onSelect {
+        if let onSelect = context.onSelect {
             rx.itemSelected
                 .subscribe(onNext: onSelect)
                 .disposed(by: bag)
@@ -361,8 +362,8 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
 
     private func configure() {
         contentInset = layoutData.contentInset
-        showsVerticalScrollIndicator = data.indicatorConfiguration.showsVerticalScrollIndicator
-        showsHorizontalScrollIndicator = data.indicatorConfiguration.showsHorizontalScrollIndicator
+        showsVerticalScrollIndicator = context.indicatorConfiguration.showsVerticalScrollIndicator
+        showsHorizontalScrollIndicator = context.indicatorConfiguration.showsHorizontalScrollIndicator
         configureRefresh()
         view.keyboardDismissMode = layoutData.keyboardDismissMode
     }
@@ -391,21 +392,21 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
     // MARK: - ASCollectionDelegate
 
     public func collectionNode(_ collectionNode: ASCollectionNode, sizeRangeForHeaderInSection section: Int) -> ASSizeRange {
-        ASSizeRange(
+        .init(
             min: .init(width: collectionNode.frame.width, height: .leastNormalMagnitude),
             max: .init(width: collectionNode.frame.width, height: .greatestFiniteMagnitude)
         )
     }
 
     public func collectionNode(_ collectionNode: ASCollectionNode, sizeRangeForFooterInSection section: Int) -> ASSizeRange {
-        ASSizeRange(
+        .init(
             min: .init(width: collectionNode.frame.width, height: .leastNormalMagnitude),
             max: .init(width: collectionNode.frame.width, height: .greatestFiniteMagnitude)
         )
     }
 
     public func shouldBatchFetch(for collectionNode: ASCollectionNode) -> Bool {
-        data.shouldBatchFetch?() ?? false
+        context.shouldBatchFetch?() ?? false
     }
 
     public func collectionNode(_ collectionNode: ASCollectionNode, constrainedSizeForItemAt indexPath: IndexPath) -> ASSizeRange {

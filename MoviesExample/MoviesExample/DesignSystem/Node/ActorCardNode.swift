@@ -18,18 +18,18 @@ final class ActorCardNode: VADisplayNode {
     private let nameTextNode: VATextNode
     private let roleTextNode: VATextNode
 
-    init(data: Context) {
+    init(context: Context) {
         self.avatarImageNode = VANetworkImageNode(
-            image: data.avatar?.getImagePath(width: 500),
+            image: context.avatar?.getImagePath(width: 500),
             contentMode: .scaleAspectFill
         )
         self.nameTextNode = VATextNode(
-            text: data.name,
+            text: context.name,
             fontStyle: .caption1,
             alignment: .center
         )
         self.roleTextNode = VATextNode(
-            text: data.character,
+            text: context.character,
             fontStyle: .caption2,
             alignment: .center,
             colorGetter: { $0.secondaryLabel }

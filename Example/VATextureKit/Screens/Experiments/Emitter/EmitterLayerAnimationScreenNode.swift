@@ -11,15 +11,15 @@ import VATextureKit
 struct EmitterLayerAnimationNavigationIdentity: DefaultNavigationIdentity {}
 
 final class EmitterLayerAnimationScreenNode: ScrollScreenNode {
-    private lazy var fireworksEmitterNode = VAFireworksEmitterNode(data: .init())
-    private lazy var confettiTopCenterEmitterNode = VAConfettiEmitterNode(data: .init(startPoint: .topCenter))
-    private lazy var confettiBottomLeftEmitterNode = VAConfettiEmitterNode(data: .init(startPoint: .bottomLeft))
-    private lazy var confettiBottomRightEmitterNode = VAConfettiEmitterNode(data: .init(startPoint: .bottomRight))
-    private lazy var confettiCenterEmitterNode = VAConfettiEmitterNode(data: .init(startPoint: .center))
+    private lazy var fireworksEmitterNode = VAFireworksEmitterNode(context: .init())
+    private lazy var confettiTopCenterEmitterNode = VAConfettiEmitterNode(context: .init(startPoint: .topCenter))
+    private lazy var confettiBottomLeftEmitterNode = VAConfettiEmitterNode(context: .init(startPoint: .bottomLeft))
+    private lazy var confettiBottomRightEmitterNode = VAConfettiEmitterNode(context: .init(startPoint: .bottomRight))
+    private lazy var confettiCenterEmitterNode = VAConfettiEmitterNode(context: .init(startPoint: .center))
     private lazy var multipleConfettiNode = VAMultipleConfettiNode()
-    private lazy var textEmitterNode = VATextEmitterNode(data: .init())
-    private lazy var rainEmitterNode = VARainEmitterNode(data: .init())
-    private lazy var snowEmitterNode = VASnowEmitterNode(data: .init())
+    private lazy var textEmitterNode = VATextEmitterNode(context: .init())
+    private lazy var rainEmitterNode = VARainEmitterNode(context: .init())
+    private lazy var snowEmitterNode = VASnowEmitterNode(context: .init())
     private lazy var demoNodes = [
         textEmitterNode,
         fireworksEmitterNode,

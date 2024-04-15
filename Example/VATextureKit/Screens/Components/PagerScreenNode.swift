@@ -58,8 +58,8 @@ final class PagerScreenNode: ScreenNode {
     }
 
     override func bind() {
-        previousButtonNode.onTap = self ?>> { $0.pagerNode.previous }
-        nextButtonNode.onTap = self ?>> { $0.pagerNode.next }
+        previousButtonNode.onTap = self ?> { $0.pagerNode.previous() }
+        nextButtonNode.onTap = self ?> { $0.pagerNode.next() }
         randomizeButtonNode.onTap = self ?>> { $0.viewModel.generateRandomPagerItems }
     }
 }

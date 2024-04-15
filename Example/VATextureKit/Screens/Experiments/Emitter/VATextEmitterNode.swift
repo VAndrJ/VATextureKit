@@ -13,10 +13,10 @@ final class VATextEmitterNode: VAEmitterNode {
         var strings: [String] = Array("asdfghjklqwertyuiopzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890").map { String($0) }
     }
 
-    let data: Context
+    let context: Context
 
-    init(data: Context) {
-        self.data = data
+    init(context: Context) {
+        self.context = context
 
         super.init()
     }
@@ -45,7 +45,7 @@ final class VATextEmitterNode: VAEmitterNode {
 
         emitterLayer.emitterShape = .rectangle
         emitterLayer.emitterMode = .outline
-        emitterLayer.emitterCells = data.strings.map { string in
+        emitterLayer.emitterCells = context.strings.map { string in
             let fontSize = CGFloat.random(in: 8...24)
             let fontWeight = [UIFont.Weight.light, .thin, .regular, .semibold].randomElement()! // swiftlint:disable:this force_unwrapping
             let font = UIFont.systemFont(ofSize: fontSize, weight: fontWeight)

@@ -29,13 +29,13 @@ final class HomeViewModel: EventViewModel {
             ),
         ])
     }
-    let data: Context
+    let context: Context
 
     @Obs.Relay(value: nil)
     var trendingObs: Observable<[ListMovieEntity]?>
 
-    init(data: Context) {
-        self.data = data
+    init(context: Context) {
+        self.context = context
 
         super.init()
 

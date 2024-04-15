@@ -36,7 +36,7 @@ final class ShapeLayerAnimationScreenNode: ScreenNode {
 }
 
 private class _FillColorExampleNode: DisplayNode {
-    private lazy var exampleNode = VAShapeNode(data: .init(fillColor: theme.systemOrange))
+    private lazy var exampleNode = VAShapeNode(context: .init(fillColor: theme.systemOrange))
         .sized(height: 64)
 
     override func didLoad() {
@@ -63,7 +63,7 @@ private class _FillColorExampleNode: DisplayNode {
 }
 
 private class _PathExampleNode: DisplayNode {
-    private lazy var exampleNode = VAShapeNode(data: .init(fillColor: theme.systemOrange))
+    private lazy var exampleNode = VAShapeNode(context: .init(fillColor: theme.systemOrange))
         .sized(height: 64)
 
     override func didLoad() {
@@ -95,7 +95,7 @@ private class _PathExampleNode: DisplayNode {
 }
 
 private class _StrokeColorExampleNode: DisplayNode {
-    private lazy var exampleNode = VAShapeNode(data: .init(strokeColor: theme.systemOrange))
+    private lazy var exampleNode = VAShapeNode(context: .init(strokeColor: theme.systemOrange))
         .apply {
             $0.setLineWidth(10)
         }
@@ -125,7 +125,7 @@ private class _StrokeColorExampleNode: DisplayNode {
 }
 
 private class _StrokeEndExampleNode: DisplayNode {
-    private lazy var exampleNode = VAShapeNode(data: .init(strokeColor: theme.systemOrange))
+    private lazy var exampleNode = VAShapeNode(context: .init(strokeColor: theme.systemOrange))
         .apply {
             $0.setLineWidth(32)
         }
@@ -155,7 +155,7 @@ private class _StrokeEndExampleNode: DisplayNode {
 }
 
 private class _LineDashExampleNode: DisplayNode {
-    private lazy var exampleNode = VAShapeNode(data: .init(strokeColor: theme.systemOrange))
+    private lazy var exampleNode = VAShapeNode(context: .init(strokeColor: theme.systemOrange))
         .apply {
             $0.setLineWidth(2)
             $0.setLineDashPattern([4, 4])

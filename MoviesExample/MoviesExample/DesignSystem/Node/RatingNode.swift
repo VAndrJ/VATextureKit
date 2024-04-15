@@ -18,7 +18,7 @@ final class RatingNode: VADisplayNode {
             maximumNumberOfLines: 1,
             colorGetter: { $0.secondaryLabel }
         )
-        self.indicatorNode = RatingIndicatorNode(data: .init(rating: rating))
+        self.indicatorNode = RatingIndicatorNode(context: .init(rating: rating))
             .sized(CGSize(same: 16))
 
         super.init()
@@ -54,10 +54,10 @@ final private class RatingIndicatorNode: VADisplayNode {
 
     private let shapeLayer = CAShapeLayer()
     private lazy var backingShapeLayer = CAShapeLayer()
-    private let data: Context
+    private let context: Context
 
-    init(data: Context) {
-        self.data = data
+    init(context: Context) {
+        self.context = context
 
         super.init()
     }
@@ -65,13 +65,13 @@ final private class RatingIndicatorNode: VADisplayNode {
     override func didLoad() {
         super.didLoad()
 
-        if data.withBacking {
-            backingShapeLayer.lineWidth = data.lineWidth
+        if context.withBacking {
+            backingShapeLayer.lineWidth = context.lineWidth
             backingShapeLayer.fillColor = UIColor.clear.cgColor
             layer.addSublayer(backingShapeLayer)
         }
         shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.lineWidth = data.lineWidth
+        shapeLayer.lineWidth = context.lineWidth
         layer.addSublayer(shapeLayer)
     }
 
@@ -79,30 +79,30 @@ final private class RatingIndicatorNode: VADisplayNode {
         super.layout()
 
         let arcCenter = CGPoint(x: bounds.midX, y: bounds.midY)
-        let radius = (min(bounds.width, bounds.height) - data.lineWidth) / 2
-        let startAngle = data.startAngle
-        let endAngle: CGFloat = 2 * .pi * data.rating / 100 + data.startAngle
+        let radius = (min(bounds.width, bounds.height) - context.lineWidth) / 2
+        let startAngle = context.startAngle
+        let endAngle: CGFloat = 2 * .pi * context.rating / 100 + context.startAngle
         let getPath = curry(UIBezierPath.init)(arcCenter)(radius)(startAngle)(endAngle)
         shapeLayer.path = getPath(true).cgPath
-        if data.withBacking {
+        if context.withBacking {
             backingShapeLayer.path = getPath(false).cgPath
         }
     }
 
     override func configureTheme(_ theme: VATheme) {
-        switch data.rating {
+        switch context.rating {
         case ..<40:
-            if data.withBacking {
+            if context.withBacking {
                 backingShapeLayer.strokeColor = theme.systemRed.withAlphaComponent(0.16).cgColor
             }
             shapeLayer.strokeColor = theme.systemRed.cgColor
         case 40..<80:
-            if data.withBacking {
+            if context.withBacking {
                 backingShapeLayer.strokeColor = theme.systemOrange.withAlphaComponent(0.16).cgColor
             }
             shapeLayer.strokeColor = theme.systemOrange.cgColor
         default:
-            if data.withBacking {
+            if context.withBacking {
                 backingShapeLayer.strokeColor = theme.systemGreen.withAlphaComponent(0.16).cgColor
             }
             shapeLayer.strokeColor = theme.systemGreen.cgColor

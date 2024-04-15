@@ -966,6 +966,39 @@ Example:
 </details>
 
 
+<details open>
+<summary>VAVisualEffectNode</summary>
+
+
+A visual effect node.
+
+
+Example code:
+
+```
+VAMaterialVisualEffectNode(
+    style: .ultraThinMaterial,
+    context: .init(
+        corner: .init(radius: 24),
+        border: .init(color: AppearanceColor(light: .cyan.withAlphaComponent(0.2), dark: .orange.withAlphaComponent(0.2)).wrappedValue),
+        shadow: .init(radius: 24),
+        neon: .init(color: AppearanceColor(light: .cyan, dark: .orange).wrappedValue, width: 2),
+        pointer: .init(radius: 32, color: AppearanceColor(light: .cyan, dark: .orange).wrappedValue),
+        excludedFilters: [.luminanceCurveMap, .colorSaturate, .colorBrightness]
+    )
+)
+```
+
+
+Example:
+
+
+![Shimmer example](https://raw.githubusercontent.com/VAndrJ/VATextureKit/master/Resources/glass_effect.gif)
+
+
+</details>
+
+
 ## Containers
 
 

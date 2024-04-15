@@ -48,7 +48,7 @@ class SearchScreenTests: XCTestCase {
     }
 
     private func generateSUT(movies: [ListMovieEntity]) -> SearchScreenNode {
-        SearchScreenNode(viewModel: SearchViewModel(data: .init(
+        SearchScreenNode(viewModel: SearchViewModel(context: .init(
             source: .init(
                 getTrendingMovies: { .just(movies) },
                 getSearchMovies: { _ in .just(movies) }

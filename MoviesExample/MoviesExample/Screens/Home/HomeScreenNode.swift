@@ -10,7 +10,7 @@ import VATextureKitRx
 final class HomeScreenNode: ScreenNode<HomeViewModel> {
     private let backgoundNode = VAImageNode(image: R.image.main_background())
     private lazy var listNode = VAListNode(
-        data: .init(
+        context: .init(
             listDataObs: viewModel.listDataObs,
             cellGetter: mapToCell(viewModel:),
             headerGetter: { HomeSectionHeaderNode(viewModel: $0.model) }

@@ -9,7 +9,7 @@ import VATextureKit
 
 final class MoviesSliderCellNode: VACellNode {
     private let titleTextNode: VATextNode
-    private lazy var listNode = VAScrollNode(data: .init(
+    private lazy var listNode = VAScrollNode(context: .init(
         scrollableDirections: .horizontal,
         alwaysBounceVertical: false,
         contentInset: UIEdgeInsets(horizontal: 16)

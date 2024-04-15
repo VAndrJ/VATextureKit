@@ -21,7 +21,7 @@ final class AlertNodeController: VANodeController {
         let navigation: Navigation
     }
 
-    private let data: Context
+    private let context: Context
 
     // MARK: - UI related code
 
@@ -43,15 +43,15 @@ final class AlertNodeController: VANodeController {
 
     // MARK: - Controller related code
 
-    init(data: Context) {
-        self.data = data
+    init(context: Context) {
+        self.context = context
 
         super.init()
     }
     
     override func bind() {
         buttonNode.onTap = self ?> {
-            $0.data.navigation.showAlert(VAAlertController(
+            $0.context.navigation.showAlert(VAAlertController(
                 title: "title",
                 message: "message",
                 preferredStyle: .alert,

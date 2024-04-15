@@ -54,11 +54,11 @@ open class VAShimmerNode: VADisplayNode {
         }
     }
 
-    let data: Context
-    private(set) lazy var maskLayer: CAGradientLayer = data.maskLayer()
+    let context: Context
+    private(set) lazy var maskLayer: CAGradientLayer = context.maskLayer()
 
-    public init(data: Context) {
-        self.data = data
+    public init(context: Context) {
+        self.context = context
 
         super.init()
     }
@@ -78,11 +78,11 @@ open class VAShimmerNode: VADisplayNode {
     public override func layout() {
         super.layout()
 
-        if data.isAcrossWindow, let window = view.window {
+        if context.isAcrossWindow, let window = view.window {
             let windowBounds = window.bounds
             let convertedOriginX = window.convert(view.bounds.origin, from: view).x
             maskLayer.frame = getMaskFrame(for: windowBounds, originXDelta: convertedOriginX)
-        } else if data.isAcrossWindow, let controller = closestViewController {
+        } else if context.isAcrossWindow, let controller = closestViewController {
             let controllerViewBounds = controller.view.bounds
             let convertedOriginX = controller.view.convert(view.bounds.origin, from: view).x
             maskLayer.frame = getMaskFrame(for: controllerViewBounds, originXDelta: convertedOriginX)
@@ -93,7 +93,7 @@ open class VAShimmerNode: VADisplayNode {
     }
 
     private func getMaskFrame(for bounds: CGRect, originXDelta: CGFloat) -> CGRect {
-        CGRect(
+        .init(
             x: -(bounds.width * 1.5 + originXDelta),
             y: 0,
             width: 4 * bounds.width,
@@ -112,8 +112,8 @@ open class VAShimmerNode: VADisplayNode {
     private func startShimmering() {
         maskLayer.removeAllAnimations()
         layer.mask = maskLayer
-        let timeOffset = data.isSynchronized ? Date.timeIntervalSinceReferenceDate.remainder(dividingBy: data.animationDuration) : 0
-        let animation = data.animation(maskLayer, data.animationDuration, timeOffset)
+        let timeOffset = context.isSynchronized ? Date.timeIntervalSinceReferenceDate.remainder(dividingBy: context.animationDuration) : 0
+        let animation = context.animation(maskLayer, context.animationDuration, timeOffset)
         maskLayer.add(animation, forKey: animation.keyPath)
     }
 

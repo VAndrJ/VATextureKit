@@ -31,10 +31,10 @@ final class VAConfettiEmitterNode: VAEmitterNode {
         }()
     }
 
-    let data: Context
+    let context: Context
 
-    init(data: Context) {
-        self.data = data
+    init(context: Context) {
+        self.context = context
 
         super.init()
     }
@@ -61,7 +61,7 @@ final class VAConfettiEmitterNode: VAEmitterNode {
         super.layout()
 
         let position: CGPoint
-        switch data.startPoint {
+        switch context.startPoint {
         case .center:
             position = bounds.position
         case .topCenter:
@@ -78,7 +78,7 @@ final class VAConfettiEmitterNode: VAEmitterNode {
     func begin() {
         guard bounds != .zero && !isStarted else { return }
 
-        switch data.startPoint {
+        switch context.startPoint {
         case .center, .topCenter:
             emitterLayer.emitterSize = CGSize(same: 100)
         case .bottomRight, .bottomLeft:
@@ -87,7 +87,7 @@ final class VAConfettiEmitterNode: VAEmitterNode {
         emitterLayer.emitterShape = .sphere
         emitterLayer.emitterMode = .volume
         emitterLayer.beginTime = CACurrentMediaTime()
-        emitterLayer.emitterCells = data.confettiTypes.map { confettiType in
+        emitterLayer.emitterCells = context.confettiTypes.map { confettiType in
             let cell = CAEmitterCell()
             cell.name = confettiType.name
             cell.contents = confettiType.image.cgImage
@@ -114,7 +114,7 @@ final class VAConfettiEmitterNode: VAEmitterNode {
 
     func addBehaviors(to layer: VAEmitterLayer) {
         let positionPoint: CGPoint
-        switch data.startPoint {
+        switch context.startPoint {
         case .center:
             positionPoint = emitterPosition
         case .topCenter:
@@ -133,7 +133,7 @@ final class VAConfettiEmitterNode: VAEmitterNode {
                 y: emitterPosition.y + 90
             )
         }
-        switch data.startPoint {
+        switch context.startPoint {
         case .bottomLeft, .bottomRight:
             layer.addBehaviors([
                 layer.getHorizontalWaveBehavior(),
@@ -154,11 +154,11 @@ final class VAConfettiEmitterNode: VAEmitterNode {
             stop()
         }
         layer.addAttractorStiffnessAnimation(
-            values: [data.startPoint == .topCenter ? 10 : 40, 3],
+            values: [context.startPoint == .topCenter ? 10 : 40, 3],
             duration: 1
         )
         layer.addBirthRateAnimation(duration: 0.75)
-        layer.addGravityAnimation(keys: data.confettiTypes.map(\.name), duration: 5)
+        layer.addGravityAnimation(keys: context.confettiTypes.map(\.name), duration: 5)
     }
 }
 
