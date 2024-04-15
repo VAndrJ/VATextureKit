@@ -12,7 +12,7 @@ final class ActorsSliderCellNode: VACellNode {
     private lazy var listNode = VAScrollNode(context: .init(
         scrollableDirections: .horizontal,
         alwaysBounceVertical: false,
-        contentInset: UIEdgeInsets(horizontal: 16)
+        contentInset: .init(horizontal: 16)
     ))
     private let acrorNodes: [ASDisplayNode]
     private let viewModel: MovieActorsCellNodeViewModel
@@ -59,7 +59,11 @@ final class MovieActorsCellNodeViewModel: CellViewModel {
     let actors: [ListActorEntity]
     let onSelect: (ListActorEntity) -> Void
 
-    init(title: String, actors: [ListActorEntity], onSelect: @escaping (ListActorEntity) -> Void) {
+    init(
+        title: String,
+        actors: [ListActorEntity],
+        onSelect: @escaping (ListActorEntity) -> Void
+    ) {
         self.title = title
         self.actors = actors
         self.onSelect = onSelect

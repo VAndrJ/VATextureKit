@@ -59,11 +59,11 @@ open class VANeonVisualEffectNode: VAViewWrapperNode<VANeonVisualEffectView> {
 open class VANeonVisualEffectView: UIView {
     public struct Corner {
         public let radius: CGFloat
-        public let curve: CALayerCornerCurve
+        public let curve: VACornerCurve
 
         public init(
             radius: CGFloat,
-            curve: CALayerCornerCurve = .continuous
+            curve: VACornerCurve = .continuous
         ) {
             self.radius = radius
             self.curve = curve
@@ -258,10 +258,10 @@ open class VANeonVisualEffectView: UIView {
         neonView.layer.masksToBounds = true
         visualEffectView.layer.cornerRadius = corner.radius
         visualEffectView.layer.masksToBounds = true
-        if #available(iOS 13, *) {
-            layer.cornerCurve = corner.curve
-            neonView.layer.cornerCurve = corner.curve
-            visualEffectView.layer.cornerCurve = corner.curve
+        if #available(iOS 13.0, *) {
+            layer.cornerCurve = corner.curve.layerCornerCurve
+            neonView.layer.cornerCurve = corner.curve.layerCornerCurve
+            visualEffectView.layer.cornerCurve = corner.curve.layerCornerCurve
         }
     }
 
