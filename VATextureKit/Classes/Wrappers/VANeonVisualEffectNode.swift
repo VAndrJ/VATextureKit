@@ -1,5 +1,5 @@
 //
-//  VAVisualEffectNode.swift
+//  VANeonVisualEffectNode.swift
 //  VATextureKit
 //
 //  Created by Volodymyr Andriienko on 10.04.2024.
@@ -8,7 +8,7 @@
 import UIKit
 
 @available(iOS 13.0, *)
-open class VAMaterialVisualEffectNode: VAVisualEffectNode {
+open class VAMaterialVisualEffectNode: VANeonVisualEffectNode {
     @available(iOS 13.0, *)
     public enum Style: Int, Sendable {
         case ultraThinMaterial = 6
@@ -30,7 +30,7 @@ open class VAMaterialVisualEffectNode: VAVisualEffectNode {
 
     public init(
         style: Style,
-        context: VAVisualEffectView.Context
+        context: VANeonVisualEffectView.Context
     ) {
         super.init(
             effect: UIBlurEffect(style: .init(rawValue: style.rawValue) ?? .systemUltraThinMaterial),
@@ -39,31 +39,31 @@ open class VAMaterialVisualEffectNode: VAVisualEffectNode {
     }
 }
 
-open class VAVisualEffectNode: VAViewWrapperNode<VAVisualEffectView> {
+open class VANeonVisualEffectNode: VAViewWrapperNode<VANeonVisualEffectView> {
 
-    public init(effect: UIVisualEffect?, context: VAVisualEffectView.Context) {
+    public init(effect: UIVisualEffect?, context: VANeonVisualEffectView.Context) {
         if #available(iOS 13.0, *) {
             super.init(
-                actorChildGetter: { VAVisualEffectView(effect: effect, context: context) },
+                actorChildGetter: { VANeonVisualEffectView(effect: effect, context: context) },
                 sizing: nil
             )
         } else {
             super.init(
-                childGetter: { VAVisualEffectView(effect: effect, context: context) },
+                childGetter: { VANeonVisualEffectView(effect: effect, context: context) },
                 sizing: nil
             )
         }
     }
 }
 
-open class VAVisualEffectView: UIView {
+open class VANeonVisualEffectView: UIView {
     public struct Corner {
         public let radius: CGFloat
-        public var curve: VACornerCurve
+        public let curve: CALayerCornerCurve
 
         public init(
             radius: CGFloat,
-            curve: VACornerCurve = .continuous
+            curve: CALayerCornerCurve = .continuous
         ) {
             self.radius = radius
             self.curve = curve
@@ -73,7 +73,7 @@ open class VAVisualEffectView: UIView {
     public struct Border {
         public let color: UIColor
         /// Defaults to `1 / traitCollection.displayScale`.
-        public var width: CGFloat?
+        public let width: CGFloat?
 
         public init(
             color: UIColor,
@@ -86,11 +86,11 @@ open class VAVisualEffectView: UIView {
 
     public struct Neon {
         public let color: UIColor
-        public var width: CGFloat = 1
+        public let width: CGFloat
 
         public init(
             color: UIColor,
-            width: CGFloat = 1
+            width: CGFloat
         ) {
             self.color = color
             self.width = width
@@ -98,15 +98,15 @@ open class VAVisualEffectView: UIView {
     }
 
     public struct Shadow {
-        public var radius: CGFloat = 16
-        public var color: UIColor = .black.withAlphaComponent(0.2)
-        public var opacity: Float = 0.4
-        public var offset: CGSize = .zero
+        public let radius: CGFloat
+        public let color: UIColor
+        public let opacity: Float
+        public let offset: CGSize
 
         public init(
             radius: CGFloat = 16,
-            color: UIColor = .black.withAlphaComponent(0.2),
-            opacity: Float = 0.4,
+            color: UIColor = .black,
+            opacity: Float = 0.2,
             offset: CGSize = .zero
         ) {
             self.radius = radius
@@ -117,15 +117,18 @@ open class VAVisualEffectView: UIView {
     }
 
     public struct Pointer {
-        public var radius: CGFloat = 22
-        public var color: UIColor = .white
+        public let radius: CGFloat
+        public let color: UIColor
+        public let isInstant: Bool
 
         public init(
-            radius: CGFloat = 22,
-            color: UIColor = .white
+            radius: CGFloat,
+            color: UIColor,
+            isInstant: Bool = true
         ) {
             self.radius = radius
             self.color = color
+            self.isInstant = isInstant
         }
     }
 
@@ -160,7 +163,7 @@ open class VAVisualEffectView: UIView {
     public var thickness: CGFloat {
         get { visualEffectView.thickness }
         set {
-            visualEffectView.thickness = newValue
+            visualEffectView.thickness = max(0, min(1, newValue))
             updateColors()
         }
     }
@@ -169,7 +172,7 @@ open class VAVisualEffectView: UIView {
         set {
             neon = .init(
                 color: neon?.color ?? .clear,
-                width: newValue
+                width: max(0, newValue)
             )
         }
     }
@@ -227,6 +230,7 @@ open class VAVisualEffectView: UIView {
         bind()
     }
 
+    @available(*, unavailable)
     public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -245,6 +249,7 @@ open class VAVisualEffectView: UIView {
         layer.borderColor = border.color.cgColor
         neonView.layer.borderColor = neon?.color.withAlphaComponent(thickness).cgColor
         layer.shadowColor = shadow.color.cgColor
+        pointerView?.backgroundColor = pointer?.color.withAlphaComponent(thickness)
     }
 
     private func updateCorner() {
@@ -254,10 +259,9 @@ open class VAVisualEffectView: UIView {
         visualEffectView.layer.cornerRadius = corner.radius
         visualEffectView.layer.masksToBounds = true
         if #available(iOS 13, *) {
-            let curve = corner.curve.layerCornerCurve
-            layer.cornerCurve = curve
-            neonView.layer.cornerCurve = curve
-            visualEffectView.layer.cornerCurve = curve
+            layer.cornerCurve = corner.curve
+            neonView.layer.cornerCurve = corner.curve
+            visualEffectView.layer.cornerCurve = corner.curve
         }
     }
 
@@ -279,11 +283,14 @@ open class VAVisualEffectView: UIView {
         switch sender.state {
         case .began:
             let radius = pointer?.radius ?? 22
-            let pointerView = UIView(frame: .init(size: .init(same: radius * 2)))
+            let diameter = radius * 2
+            let pointerView = UIView(frame: .init(
+                origin: sender.location(in: self) - radius,
+                size: .init(width: diameter, height: diameter)
+            ))
             pointerView.layer.cornerRadius = radius
             pointerView.backgroundColor = pointer?.color.withAlphaComponent(thickness)
             neonView.addSubview(pointerView)
-            pointerView.center = sender.location(in: self)
             self.pointerView = pointerView
         case .changed:
             pointerView?.center = sender.location(in: self)
@@ -295,13 +302,20 @@ open class VAVisualEffectView: UIView {
     }
 
     private func bind() {
-        guard pointer != nil else { return }
+        guard let pointer else { return }
 
         isUserInteractionEnabled = true
-        addGestureRecognizer(InstantPanGestureRecognizer(
-            target: self,
-            action: #selector(onPan(_:))
-        ))
+        if pointer.isInstant {
+            addGestureRecognizer(InstantPanGestureRecognizer(
+                target: self,
+                action: #selector(onPan(_:))
+            ))
+        } else {
+            addGestureRecognizer(UIPanGestureRecognizer(
+                target: self,
+                action: #selector(onPan(_:))
+            ))
+        }
     }
 
     private func configure() {
@@ -313,11 +327,28 @@ open class VAVisualEffectView: UIView {
     }
 
     private func addElements() {
-        addAutolayoutSubviews(neonView, visualEffectView)
-        neonView
-            .toSuperEdges()
-        visualEffectView
-            .toSuperEdges()
+        add(view: neonView, to: self)
+        add(view: visualEffectView, to: self)
+    }
+
+    private func add(view: UIView, to container: UIView) {
+        view.translatesAutoresizingMaskIntoConstraints = false
+        container.addSubview(view)
+        NSLayoutConstraint.activate([
+            view.topAnchor.constraint(equalTo: container.topAnchor),
+            view.leftAnchor.constraint(equalTo: container.leftAnchor),
+            view.bottomAnchor.constraint(equalTo: container.bottomAnchor),
+            view.rightAnchor.constraint(equalTo: container.rightAnchor),
+        ])
+    }
+}
+
+class InstantPanGestureRecognizer: UIPanGestureRecognizer {
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
+        super.touchesBegan(touches, with: event)
+
+        state = .began
     }
 }
 
@@ -339,7 +370,7 @@ public class VAThicknessVisualEffectView: UIVisualEffectView {
     private let animator = UIViewPropertyAnimator(duration: 0.3, curve: .linear)
     private var filtersObservation: NSKeyValueObservation?
 
-    init(
+    public init(
         effect: UIVisualEffect?,
         excludedFilters: [UIVisualEffectViewExcludedFilter],
         thickness: CGFloat = 1
@@ -387,14 +418,5 @@ public class VAThicknessVisualEffectView: UIVisualEffectView {
     deinit {
         filtersObservation?.invalidate()
         filtersObservation = nil
-    }
-}
-
-class InstantPanGestureRecognizer: UIPanGestureRecognizer {
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
-        super.touchesBegan(touches, with: event)
-
-        state = .began
     }
 }
