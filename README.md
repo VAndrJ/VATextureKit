@@ -1,18 +1,21 @@
 # VATextureKit
 
+[![StandWithUkraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)]
 [![Support Ukraine](https://img.shields.io/badge/Support-Ukraine-FFD500?style=flat&labelColor=005BBB)](https://opensource.fb.com/support-ukraine)
-[![License](https://img.shields.io/cocoapods/l/VATextureKit.svg?style=plastic)](https://cocoapods.org/pods/VATextureKit)
 
 [![Version](https://img.shields.io/cocoapods/v/VATextureKitSpec.svg?style=plastic)](https://cocoapods.org/pods/VATextureKit)
 [![Platform](https://img.shields.io/cocoapods/p/VATextureKitSpec.svg?style=plastic)](https://cocoapods.org/pods/VATextureKit)
+[![License](https://img.shields.io/cocoapods/l/VATextureKit.svg?style=plastic)](https://cocoapods.org/pods/VATextureKit)
 VATextureKitSpec
 
 [![Version](https://img.shields.io/cocoapods/v/VATextureKit.svg?style=plastic)](https://cocoapods.org/pods/VATextureKit)
 [![Platform](https://img.shields.io/cocoapods/p/VATextureKit.svg?style=plastic)](https://cocoapods.org/pods/VATextureKit)
+[![License](https://img.shields.io/cocoapods/l/VATextureKit.svg?style=plastic)](https://cocoapods.org/pods/VATextureKit)
 VATextureKit
 
 [![Version](https://img.shields.io/cocoapods/v/VATextureKitRx.svg?style=plastic)](https://cocoapods.org/pods/VATextureKit)
 [![Platform](https://img.shields.io/cocoapods/p/VATextureKitRx.svg?style=plastic)](https://cocoapods.org/pods/VATextureKit)
+[![License](https://img.shields.io/cocoapods/l/VATextureKit.svg?style=plastic)](https://cocoapods.org/pods/VATextureKit)
 VATextureKitRx
 
 
