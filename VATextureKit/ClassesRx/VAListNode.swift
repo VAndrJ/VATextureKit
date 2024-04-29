@@ -168,7 +168,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         let isLoadingObs: Observable<Bool>
 
         public init(
-            refreshControlView: @escaping @MainActor () -> UIRefreshControl = { UIRefreshControl() },
+            refreshControlView: @escaping @MainActor () -> UIRefreshControl = { .init() },
             isDelayed: Bool = true,
             reloadData: @escaping () -> Void,
             isLoadingObs: Observable<Bool>
@@ -180,7 +180,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
         }
 
         public init() {
-            self.refreshControlView = { @MainActor in UIRefreshControl() }
+            self.refreshControlView = { @MainActor in .init() }
             self.isDelayed = false
             self.reloadData = nil
             self.isLoadingObs = .empty()
@@ -237,13 +237,13 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
             flowLayout.sectionFootersPinToVisibleBounds = parameters.sectionFootersPinToVisibleBounds
 
             self.init(
-                frame: CGRect(origin: .zero, size: CGSize(same: 320)),
+                frame: .init(origin: .zero, size: .init(same: 320)),
                 collectionViewLayout: flowLayout,
                 layoutFacilitator: nil
             )
         case let .custom(customLayout):
             self.init(
-                frame: CGRect(origin: .zero, size: CGSize(same: 320)),
+                frame: .init(origin: .zero, size: .init(same: 320)),
                 collectionViewLayout: customLayout,
                 layoutFacilitator: nil
             )
@@ -272,7 +272,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
     }
 
     open func scrollToTop() {
-        view.scrollRectToVisible(CGRect(size: CGSize(same: 1)), animated: true)
+        view.scrollRectToVisible(.init(size: .init(same: 1)), animated: true)
     }
 
     open func configureRefresh() {
