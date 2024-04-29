@@ -57,10 +57,10 @@ open class VAShimmerNode: VADisplayNode {
     let context: Context
     private(set) lazy var maskLayer: CAGradientLayer = context.maskLayer()
 
-    public init(context: Context) {
+    public init(context: Context, corner: VACornerRoundingParameters = .default) {
         self.context = context
 
-        super.init()
+        super.init(corner: corner)
     }
 
     public override func didEnterVisibleState() {

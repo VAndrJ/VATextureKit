@@ -513,7 +513,7 @@ public extension ASDisplayNode {
         spring: CALayer.VASpring? = nil,
         completion: ((Bool) -> Void)? = nil
     ) -> Self {
-        ensureOnMain { [self] in
+        ensureOnMain {
             layer.add(
                 animation: animation,
                 duration: duration,
@@ -552,7 +552,7 @@ public extension ASDisplayNode {
         additive: Bool = false,
         completion: ((Bool) -> Void)? = nil
     ) -> Self {
-        ensureOnMain { [self] in
+        ensureOnMain {
             layer.add(
                 animation: animation,
                 duration: duration,
@@ -572,7 +572,7 @@ public extension ASDisplayNode {
     }
 
     func disableAllLayerAnimations() {
-        ensureOnMain { [self] in
+        ensureOnMain {
             CATransaction.begin()
             CATransaction.setDisableActions(true)
             disableAllAnimations(layer: layer)
@@ -581,26 +581,26 @@ public extension ASDisplayNode {
     }
 
     private func disableAllAnimations(layer: CALayer) {
-        ensureOnMain { [self] in
+        ensureOnMain {
             layer.removeAllAnimations()
             layer.sublayers?.forEach(disableAllAnimations(layer:))
         }
     }
 
     func getHasAnimations(_ block: @escaping (Bool) -> Void) {
-        ensureOnMain { [self] in
+        ensureOnMain {
             block(layer.hasAnimations)
         }
     }
 
     func pauseAnimations() {
-        ensureOnMain { [self] in
+        ensureOnMain {
             layer.pauseAnimations()
         }
     }
 
     func resumeAnimations() {
-        ensureOnMain { [self] in
+        ensureOnMain {
             layer.resumeAnimations()
         }
     }

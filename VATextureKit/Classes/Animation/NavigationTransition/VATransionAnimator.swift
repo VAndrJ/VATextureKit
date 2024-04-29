@@ -57,7 +57,7 @@ open class VADefaultTransionAnimator: VATransionAnimator {
         }
         destinationController.node.layer.isHidden = true
         // MARK: - Crutch to get proper target layout on push
-        mainAsync(after: 0.01) { [self] in
+        mainAsync(after: 0.01) {
             var toLayersDict: [String: (CALayer, CGRect)] = [:]
             storeAnimationLayers(
                 layer: destinationController.node.layer,

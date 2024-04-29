@@ -76,7 +76,7 @@ open class VATypingTextNode: VATextNode {
 
     public func resetTyping() {
         resetTimer()
-        mainAsync(after: (typingTime * 2).interval) { [self] in
+        mainAsync(after: (typingTime * 2).interval) {
             offset = 0
             updateTyping()
         }

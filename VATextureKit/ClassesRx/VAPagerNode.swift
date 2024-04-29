@@ -151,7 +151,7 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
     private func checkPosition() {
         if context.isCircular && !context.items.isEmpty {
             mainAsync {
-                self.scrollToPage(at: 1, animated: false)
+                scrollToPage(at: 1, animated: false)
             }
         }
     }

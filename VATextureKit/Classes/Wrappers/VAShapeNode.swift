@@ -65,19 +65,19 @@ open class VAShapeNode: ASDisplayNode {
     @objc open func layerBoundsDidChanged(to rect: CGRect) {}
 
     public func setLineWidth(_ value: CGFloat) {
-        ensureOnMain { [layer] in
+        ensureOnMain {
             layer.lineWidth = value
         }
     }
 
     public func setLineDashPattern(_ values: [NSNumber]?) {
-        ensureOnMain { [layer] in
+        ensureOnMain {
             layer.lineDashPattern = values
         }
     }
 
     public func setLineJoin(_ value: CAShapeLayerLineJoin) {
-        ensureOnMain { [layer] in
+        ensureOnMain {
             layer.lineJoin = value
         }
     }
@@ -87,13 +87,13 @@ open class VAShapeNode: ASDisplayNode {
     }
 
     public func setCGPath(_ value: CGPath?) {
-        ensureOnMain { [layer] in
+        ensureOnMain {
             layer.path = value
         }
     }
 
     public func setFillRule(_ value: CAShapeLayerFillRule) {
-        ensureOnMain { [layer] in
+        ensureOnMain {
             layer.fillRule = value
         }
     }
@@ -103,7 +103,7 @@ open class VAShapeNode: ASDisplayNode {
     }
 
     public func setFillCGColor(_ value: CGColor?) {
-        ensureOnMain { [layer] in
+        ensureOnMain {
             layer.fillColor = value
         }
     }
@@ -113,7 +113,7 @@ open class VAShapeNode: ASDisplayNode {
     }
 
     public func setStrokeCGColor(_ value: CGColor?) {
-        ensureOnMain { [layer] in
+        ensureOnMain {
             layer.strokeColor = value
         }
     }
@@ -123,7 +123,7 @@ open class VAShapeNode: ASDisplayNode {
     }
 
     public func setBackgroundCGColor(_ value: CGColor?) {
-        ensureOnMain { [layer] in
+        ensureOnMain {
             layer.backgroundColor = value
         }
     }
@@ -133,7 +133,7 @@ open class VAShapeNode: ASDisplayNode {
     }
 
     public func setBorderCGColor(_ value: CGColor?) {
-        ensureOnMain { [layer] in
+        ensureOnMain {
             layer.borderColor = value
         }
     }
@@ -143,37 +143,37 @@ open class VAShapeNode: ASDisplayNode {
     }
 
     public func setShadowCGColor(_ value: CGColor?) {
-        ensureOnMain { [layer] in
+        ensureOnMain {
             layer.shadowColor = value
         }
     }
 
     public func setStrokeStart(_ value: CGFloat) {
-        ensureOnMain { [layer] in
+        ensureOnMain {
             layer.strokeStart = value
         }
     }
 
     public func setStrokeEnd(_ value: CGFloat) {
-        ensureOnMain { [layer] in
+        ensureOnMain {
             layer.strokeEnd = value
         }
     }
 
     public func setMiterLimit(_ value: CGFloat) {
-        ensureOnMain { [layer] in
+        ensureOnMain {
             layer.miterLimit = value
         }
     }
 
     public func setLineDashPhase(_ value: CGFloat) {
-        ensureOnMain { [layer] in
+        ensureOnMain {
             layer.lineDashPhase = value
         }
     }
 
     public func setLineCap(_ value: CAShapeLayerLineCap) {
-        ensureOnMain { [layer] in
+        ensureOnMain {
             layer.lineCap = value
         }
     }
