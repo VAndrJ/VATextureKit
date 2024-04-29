@@ -11,7 +11,7 @@ public extension ASDisplayNode {
     var transitionAnimationId: String? {
         get { layer.transitionAnimationId }
         set {
-            ensureOnMain { [self] in
+            ensureOnMain {
                 layer.transitionAnimationId = newValue
             }
         }
@@ -19,7 +19,7 @@ public extension ASDisplayNode {
     var transitionAnimation: VATransitionAnimation {
         get { layer.transitionAnimation }
         set {
-            ensureOnMain { [self] in
+            ensureOnMain {
                 layer.transitionAnimation = newValue
             }
         }

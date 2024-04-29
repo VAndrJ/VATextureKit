@@ -150,7 +150,7 @@ final class VAConfettiEmitterNode: VAEmitterNode {
 
     func addAnimations(to layer: VAEmitterLayer) {
         start()
-        mainAsync(after: 0.75) { [self] in
+        mainAsync(after: 0.75) {
             stop()
         }
         layer.addAttractorStiffnessAnimation(

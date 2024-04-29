@@ -47,17 +47,15 @@ final class ShimmersScreenNode: ScreenNode {
         super.didLoad()
 
         // To trigger shimmer update.
-        mainAsync(after: 0.2) { [self] in
+        mainAsync(after: 0.2) {
             acrossWindowShimmer1Node.didEnterVisibleState()
             notSynchronizedShimmer1Node.didEnterVisibleState()
             notAcrossWindowNotSynchronizedShimmer1Node.didEnterVisibleState()
         }
-        mainAsync(after: 0.75) { [weak self] in
-            guard let self else { return }
-            
-            self.acrossWindowShimmer2Node.didEnterVisibleState()
-            self.notSynchronizedShimmer2Node.didEnterVisibleState()
-            self.notAcrossWindowNotSynchronizedShimmer2Node.didEnterVisibleState()
+        mainAsync(after: 0.75) {
+            acrossWindowShimmer2Node.didEnterVisibleState()
+            notSynchronizedShimmer2Node.didEnterVisibleState()
+            notAcrossWindowNotSynchronizedShimmer2Node.didEnterVisibleState()
         }
     }
 
