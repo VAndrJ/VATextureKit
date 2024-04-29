@@ -113,6 +113,10 @@ public enum Obs {
         public init(map: @escaping (Input) -> Output) where InputSequence == PublishRelay<Input>, OutputSequence == Observable<Output> {
             super.init(map: { $0.map(map) })
         }
+
+        public init(map: @escaping (InputSequence) -> OutputSequence) where InputSequence == PublishRelay<Input>, OutputSequence == Observable<Output> {
+            super.init(map: map)
+        }
     }
     
     @propertyWrapper
