@@ -7,13 +7,13 @@
 
 import Foundation
 
-public func mainAsync(after: DispatchTimeInterval, _ block: @escaping () -> Void) {
+public func mainAsync(after: DispatchTimeInterval, @_implicitSelfCapture _ block: @escaping () -> Void) {
     if let timeInterval = after.timeInterval {
         mainAsync(after: timeInterval, block)
     }
 }
 
-public func mainAsync(after: TimeInterval = 0, _ block: @escaping () -> Void) {
+public func mainAsync(after: TimeInterval = 0, @_implicitSelfCapture _ block: @escaping () -> Void) {
     if after > 0 {
         DispatchQueue.main.asyncAfter(deadline: .now() + after, execute: block)
     } else {
@@ -21,7 +21,7 @@ public func mainAsync(after: TimeInterval = 0, _ block: @escaping () -> Void) {
     }
 }
 
-public func ensureOnMain(_ block: @escaping () -> Void) {
+public func ensureOnMain(@_implicitSelfCapture _ block: @escaping () -> Void) {
     if Thread.current.isMainThread {
         block()
     } else {
@@ -39,7 +39,7 @@ private let globalQueue: DispatchQueue = {
     return queue
 }()
 
-public func ensureOnGlobal(_ block: @escaping () -> Void) {
+public func ensureOnGlobal(@_implicitSelfCapture _ block: @escaping () -> Void) {
     if DispatchQueue.getSpecific(key: key) === globalQueueValue {
         block()
     } else {
@@ -55,7 +55,7 @@ private let backgroundQueue: DispatchQueue = {
     return queue
 }()
 
-public func ensureOnBackground(_ block: @escaping () -> Void) {
+public func ensureOnBackground(@_implicitSelfCapture _ block: @escaping () -> Void) {
     if DispatchQueue.getSpecific(key: key) === backgroundQueueValue {
         block()
     } else {
