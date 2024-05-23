@@ -16,7 +16,9 @@ It provides an easier syntax and includes modern features to make developing fas
   s.ios.deployment_target = '14.0'
 
   s.source_files = 'VATextureKit/Classes/**/*'
-  s.resource_bundles = {'VATextureKit' => ['VATextureKit/Classes/PrivacyInfo.xcprivacy']}
+  s.resource_bundles = {
+    'VATextureKitPrivacyInfo' => ['VATextureKit/Classes/PrivacyInfo.xcprivacy']
+  }
 
   s.dependency 'Texture',           '~> 3.2.0'
   s.dependency 'VATextureKitSpec',  '2.0.0'
