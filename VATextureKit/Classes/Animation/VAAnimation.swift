@@ -32,38 +32,38 @@ public struct VAAnimation: ExpressibleByArrayLiteral {
         self.init(options: UIView.AnimationOptions(elements))
     }
 
-    public static func `default`(
+    @inline(__always) @inlinable public static func `default`(
         _ duration: Double = VAAnimation.defaultDuration,
         delay: Double = 0,
         options: UIView.AnimationOptions = [.curveEaseInOut]
     ) -> VAAnimation {
-        VAAnimation(
+        .init(
             duration: duration,
             delay: delay,
             options: options
         )
     }
 
-    public static func `repeat`(
+    @inline(__always) @inlinable public static func `repeat`(
         _ duration: Double = VAAnimation.defaultDuration,
         delay: Double = 0,
         options: UIView.AnimationOptions = [.curveEaseInOut, .autoreverse]
     ) -> VAAnimation {
-        VAAnimation(
+        .init(
             duration: duration,
             delay: delay,
             options: options.intersection(.repeat)
         )
     }
 
-    public static func spring(
+    @inline(__always) @inlinable public static func spring(
         _ duration: Double = VAAnimation.defaultDuration,
         delay: Double = 0,
         damping: CGFloat = VAAnimation.defaultDamping,
         initialVelocity: CGFloat = 0,
         options: UIView.AnimationOptions = []
     ) -> VAAnimation {
-        VAAnimation(
+        .init(
             duration: duration,
             delay: delay,
             spring: Spring(damping: damping, initialVelocity: initialVelocity),
@@ -141,7 +141,7 @@ extension UIView {
 
 public typealias UIViewTransition = VATransition<UIView>
 
-extension UIView {
+public extension UIView {
 
     /// Animate view with given transition.
     ///
@@ -151,7 +151,7 @@ extension UIView {
     ///   - animation: Animation parameters.
     ///   - restoreState: Restore view state on animation completion
     ///   - completion: Block to be executed when animation finishes.
-    public func animate(
+    func animate(
         transition: UIViewTransition,
         direction: TransitionDirection = .removal,
         animation: VAAnimation = .default(),
@@ -180,7 +180,12 @@ extension UIView {
     ///   - transition: Transition.
     ///   - animation: Animation parameters.
     ///   - completion: Block to be executed when transition finishes.
-    public func set(hidden: Bool, transition: UIViewTransition, animation: VAAnimation = .default(), completion: (() -> Void)? = nil) {
+    @inline(__always) @inlinable func set(
+        hidden: Bool,
+        transition: UIViewTransition,
+        animation: VAAnimation = .default(),
+        completion: (() -> Void)? = nil
+    ) {
         set(
             hidden: hidden,
             insideAnimation: (superview as? UIStackView) != nil,
@@ -197,7 +202,11 @@ extension UIView {
     ///   - transition: Transition.
     ///   - animation: Animation parameters.
     ///   - completion: Block to be executed when transition finishes.
-    public func removeFromSuperview(transition: UIViewTransition, animation: VAAnimation = .default(), completion: (() -> Void)? = nil) {
+    @inline(__always) @inlinable func removeFromSuperview(
+        transition: UIViewTransition,
+        animation: VAAnimation = .default(),
+        completion: (() -> Void)? = nil
+    ) {
         addOrRemove(
             to: superview,
             add: false,
@@ -214,7 +223,12 @@ extension UIView {
     ///   - transition: Transition.
     ///   - animation: Animation parameters.
     ///   - completion: Block to be executed when transition finishes.
-    public func add(subview: UIView, transition: UIViewTransition, animation: VAAnimation = .default(), completion: (() -> Void)? = nil) {
+    @inline(__always) @inlinable func add(
+        subview: UIView,
+        transition: UIViewTransition,
+        animation: VAAnimation = .default(),
+        completion: (() -> Void)? = nil
+    ) {
         subview.addOrRemove(
             to: self,
             add: true,
@@ -224,7 +238,7 @@ extension UIView {
         )
     }
 
-    public func addOrRemove(
+    @inline(__always) @inlinable func addOrRemove(
         to superview: UIView?,
         add: Bool,
         transition: UIViewTransition,
@@ -241,7 +255,7 @@ extension UIView {
         )
     }
 
-    private func set(
+    func set(
         hidden: Bool,
         insideAnimation: Bool,
         set: @escaping (UIView, Bool) -> Void,
@@ -280,9 +294,9 @@ extension UIView {
     }
 }
 
-extension VATransition where Base: Transformable & AnyObject {
+public extension VATransition where Base: Transformable & AnyObject {
 
-    public static func transform(to targetView: Base) -> VATransition {
+    @inline(__always) @inlinable static func transform(to targetView: Base) -> VATransition {
         VATransition(TransformToModifier(targetView)) { progress, view, initial in
             let (sourceScale, sourceOffset) = transform(
                 progress: progress,
@@ -294,7 +308,7 @@ extension VATransition where Base: Transformable & AnyObject {
         }
     }
 
-    private static func transform(progress: Progress, initial: Matching) -> (scale: CGSize, offset: CGPoint) {
+    static func transform(progress: Progress, initial: Matching) -> (scale: CGSize, offset: CGPoint) {
         let scale = CGSize(
             width: progress.value(
                 identity: 1,
@@ -320,24 +334,24 @@ extension VATransition where Base: Transformable & AnyObject {
     }
 }
 
-private struct TransformToModifier<Root: Transformable & AnyObject>: TransitionModifier {
+public struct TransformToModifier<Root: Transformable & AnyObject>: TransitionModifier {
     public typealias Value = Matching
 
     weak var target: Root?
 
-    init(_ target: Root?) {
+    public init(_ target: Root?) {
         self.target = target
     }
 
-    func matches(other: TransformToModifier<Root>) -> Bool {
+    public func matches(other: TransformToModifier<Root>) -> Bool {
         other.target === target
     }
 
-    func set(value: Matching, to root: Root) {
+    public func set(value: Matching, to root: Root) {
         root.affineTransform = value.sourceTransform
     }
 
-    func value(for root: Root) -> Matching {
+    public func value(for root: Root) -> Matching {
         Matching(
             sourceTransform: root.affineTransform,
             targetTransform: target?.affineTransform ?? root.affineTransform,
@@ -347,11 +361,23 @@ private struct TransformToModifier<Root: Transformable & AnyObject>: TransitionM
     }
 }
 
-private struct Matching {
-    var sourceTransform: CGAffineTransform
-    var targetTransform: CGAffineTransform
-    var sourceRect: CGRect
-    var targetRect: CGRect
+public struct Matching {
+    public var sourceTransform: CGAffineTransform
+    public var targetTransform: CGAffineTransform
+    public var sourceRect: CGRect
+    public var targetRect: CGRect
+
+    public init(
+        sourceTransform: CGAffineTransform,
+        targetTransform: CGAffineTransform,
+        sourceRect: CGRect,
+        targetRect: CGRect
+    ) {
+        self.sourceTransform = sourceTransform
+        self.targetTransform = targetTransform
+        self.sourceRect = sourceRect
+        self.targetRect = targetRect
+    }
 }
 
 extension CGFloat {

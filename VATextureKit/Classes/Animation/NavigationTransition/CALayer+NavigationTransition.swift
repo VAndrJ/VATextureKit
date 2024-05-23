@@ -49,19 +49,18 @@ public enum VATransitionAnimation {
 }
 
 public extension CALayer {
+    @UniquePointerAddress static var transitionAnimationTimingsKey
+    @UniquePointerAddress static var transitionAnimationIdKey
+
     var transitionAnimation: VATransitionAnimation {
-        get { (objc_getAssociatedObject(self, &transitionAnimationTimingsKey) as? VATransitionAnimation) ?? .default() }
-        set { objc_setAssociatedObject(self, &transitionAnimationTimingsKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
+        get { (objc_getAssociatedObject(self, Self.transitionAnimationTimingsKey) as? VATransitionAnimation) ?? .default() }
+        set { objc_setAssociatedObject(self, Self.transitionAnimationTimingsKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
     var transitionAnimationId: String? {
-        get { objc_getAssociatedObject(self, &transitionAnimationIdKey) as? String }
-        set { objc_setAssociatedObject(self, &transitionAnimationIdKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
+        get { objc_getAssociatedObject(self, Self.transitionAnimationIdKey) as? String }
+        set { objc_setAssociatedObject(self, Self.transitionAnimationIdKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
 }
-
-private var transitionAnimationTimingsKey = "transitionAnimationTimingsKey"
-
-private var transitionAnimationIdKey = "transitionAnimationIdKey"
 
 public extension CALayer {
 

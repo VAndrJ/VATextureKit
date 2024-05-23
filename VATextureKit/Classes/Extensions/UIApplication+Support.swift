@@ -12,7 +12,7 @@ public extension UIApplication {
         connectedScenes
             .compactMap { $0 as? UIWindowScene }
             .first(where: { $0.windows.contains { $0.isKeyWindow } })?
-            .interfaceOrientation ?? statusBarOrientation
+            .interfaceOrientation ?? .portrait
     }
     var isAlbum: Bool {
         switch orientation {

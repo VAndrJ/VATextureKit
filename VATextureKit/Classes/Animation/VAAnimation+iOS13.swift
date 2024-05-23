@@ -9,23 +9,21 @@
 import SwiftUI
 import AsyncDisplayKit
 
-@available (iOS 13.0, *)
 extension RelationValue where Value: VectorArithmetic {
 
     public func value(for full: Value) -> Value {
         switch self {
         case let .absolute(value):
             return value
-        case let .relative(koeficient):
+        case let .relative(value):
             var result = full
-            result.scale(by: koeficient)
+            result.scale(by: value)
 
             return result
         }
     }
 }
 
-@available (iOS 13.0, *)
 extension Progress {
 
     public func value<T: VectorArithmetic>(identity: T, transformed: T) -> T {
@@ -50,7 +48,7 @@ extension Progress {
         result.scale(by: progress)
         result += transformedAnimatable
         
-        return UIColor(
+        return .init(
             red: result.first.first,
             green: result.first.second,
             blue: result.second.first,
@@ -59,31 +57,41 @@ extension Progress {
     }
 }
 
-@available (iOS 13.0, *)
-extension VATransition {
+public extension VATransition {
 
-    public static func value<T: VectorArithmetic>(_ keyPath: ReferenceWritableKeyPath<Base, T>, _ transformed: T, default defaultValue: T? = nil) -> VATransition {
-        VATransition(keyPath) { progress, view, value in
+    @inline(__always) @inlinable static func value<T: VectorArithmetic>(
+        _ keyPath: ReferenceWritableKeyPath<Base, T>,
+        _ transformed: T,
+        default defaultValue: T? = nil
+    ) -> VATransition {
+        .init(keyPath) { progress, view, value in
             view[keyPath: keyPath] = progress.value(identity: defaultValue ?? value, transformed: transformed)
         }
     }
 
-    public static func value(_ keyPath: ReferenceWritableKeyPath<Base, UIColor?>, _ transformed: UIColor, default defaultValue: UIColor? = nil) -> VATransition {
-        VATransition(keyPath) { progress, view, value in
+    @inline(__always) @inlinable static func value(
+        _ keyPath: ReferenceWritableKeyPath<Base, UIColor?>,
+        _ transformed: UIColor,
+        default defaultValue: UIColor? = nil
+    ) -> VATransition {
+        .init(keyPath) { progress, view, value in
             view[keyPath: keyPath] = value.map {
                 progress.value(identity: defaultValue ?? $0, transformed: transformed)
             }
         }
     }
 
-    public static func value(_ keyPath: ReferenceWritableKeyPath<Base, UIColor>, _ transformed: UIColor, default defaultValue: UIColor? = nil) -> VATransition {
-        VATransition(keyPath) { progress, view, value in
+    @inline(__always) @inlinable static func value(
+        _ keyPath: ReferenceWritableKeyPath<Base, UIColor>,
+        _ transformed: UIColor,
+        default defaultValue: UIColor? = nil
+    ) -> VATransition {
+        .init(keyPath) { progress, view, value in
             view[keyPath: keyPath] = progress.value(identity: defaultValue ?? value, transformed: transformed)
         }
     }
 }
 
-@available (iOS 13.0, *)
 extension VATransition where Base == ASDisplayNode {
 
     public static func backgroundColor(_ color: UIColor) -> VATransition { .value(\.backgroundColor, color) }

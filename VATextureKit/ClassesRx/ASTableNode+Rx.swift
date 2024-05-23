@@ -25,7 +25,7 @@ extension Reactive where Base: ASTableNode {
     public func items<DataSource: RxASTableDataSourceType & ASTableDataSource, O: ObservableType>(dataSource: DataSource) -> (_ source: O) -> Disposable where DataSource.Element == O.Element {
         return { source in
             // Strong reference is needed because data source is in use until result subscription is disposed
-            return source.subscribeProxyDataSource(ofObject: base, dataSource: dataSource as ASTableDataSource, retainDataSource: true) { [weak tableNode = base] (_: RxASTableDataSourceProxy, event) -> Void in
+            source.subscribeProxyDataSource(ofObject: base, dataSource: dataSource as ASTableDataSource, retainDataSource: true) { [weak tableNode = base] (_: RxASTableDataSourceProxy, event) -> Void in
                 guard let tableNode else { return }
 
                 dataSource.tableNode(tableNode, observedEvent: event)
@@ -84,31 +84,26 @@ extension Reactive where Base: ASTableNode {
             ControlProperty(values: proxy.contentOffsetBehaviorSubject, valueSink: bindingObserver)
         }()
     }
-    
     public var didScroll: ControlEvent<Void> {
         mainActorEscaped {
             ControlEvent(events: RxASTableDelegateProxy.proxy(for: base).contentOffsetPublishSubject)
         }()
     }
-    
     public var willBeginDecelerating: ControlEvent<Void> {
         let source = delegate.methodInvoked(#selector(ASTableDelegate.scrollViewWillBeginDecelerating(_:))).map { _ in }
 
         return ControlEvent(events: source)
     }
-    
     public var didEndDecelerating: ControlEvent<Void> {
         let source = delegate.methodInvoked(#selector(ASTableDelegate.scrollViewDidEndDecelerating(_:))).map { _ in }
 
         return ControlEvent(events: source)
     }
-    
     public var willBeginDragging: ControlEvent<Void> {
         let source = delegate.methodInvoked(#selector(ASTableDelegate.scrollViewWillBeginDragging(_:))).map { _ in }
 
         return ControlEvent(events: source)
     }
-    
     public var willEndDragging: ControlEvent<Reactive<UIScrollView>.WillEndDraggingEvent> {
         let source = delegate.methodInvoked(#selector(ASTableDelegate.scrollViewWillEndDragging(_:withVelocity:targetContentOffset:)))
             .map { value -> Reactive<UIScrollView>.WillEndDraggingEvent in
@@ -121,27 +116,23 @@ extension Reactive where Base: ASTableNode {
 
         return ControlEvent(events: source)
     }
-    
     public var didEndDragging: ControlEvent<Bool> {
         let source = delegate.methodInvoked(#selector(ASTableDelegate.scrollViewDidEndDragging(_:willDecelerate:))).map { try castOrThrow(Bool.self, $0[1]) }
 
         return ControlEvent(events: source)
     }
-    
     public var itemSelected: ControlEvent<IndexPath> {
         let source = delegate.methodInvoked(#selector(ASTableDelegate.tableNode(_:didSelectRowAt:)))
             .map { try castOrThrow(IndexPath.self, $0[1]) }
 
         return ControlEvent(events: source)
     }
-    
     public var itemDeselected: ControlEvent<IndexPath> {
         let source = delegate.methodInvoked(#selector(ASTableDelegate.tableNode(_:didDeselectRowAt:)))
             .map { try castOrThrow(IndexPath.self, $0[1]) }
 
         return ControlEvent(events: source)
     }
-    
     public var itemInserted: ControlEvent<IndexPath> {
         let source = dataSource.methodInvoked(#selector(ASTableDataSource.tableView(_:commit:forRowAt:)))
             .filter { UITableViewCell.EditingStyle(rawValue: (try castOrThrow(NSNumber.self, $0[1])).intValue) == .insert }
@@ -149,7 +140,6 @@ extension Reactive where Base: ASTableNode {
 
         return ControlEvent(events: source)
     }
-    
     public var itemDeleted: ControlEvent<IndexPath> {
         let source = dataSource.methodInvoked(#selector(ASTableDataSource.tableView(_:commit:forRowAt:)))
             .filter { UITableViewCell.EditingStyle(rawValue: (try castOrThrow(NSNumber.self, $0[1])).intValue) == .delete }
@@ -157,28 +147,24 @@ extension Reactive where Base: ASTableNode {
 
         return ControlEvent(events: source)
     }
-    
     public var itemMoved: ControlEvent<ItemMovedEvent> {
         let source: Observable<ItemMovedEvent> = dataSource.methodInvoked(#selector(ASTableDataSource.tableView(_:moveRowAt:to:)))
             .map { (try castOrThrow(IndexPath.self, $0[1]), try castOrThrow(IndexPath.self, $0[2])) }
 
         return ControlEvent(events: source)
     }
-    
     public var willDisplayCell: ControlEvent<ASCellNode> {
         let source: Observable<ASCellNode> = delegate.methodInvoked(#selector(ASTableDelegate.tableNode(_:willDisplayRowWith:)))
             .map { try castOrThrow(ASCellNode.self, $0[1]) }
 
         return ControlEvent(events: source)
     }
-    
     public var didEndDisplayingCell: ControlEvent<ASCellNode> {
         let source: Observable<ASCellNode> = delegate.methodInvoked(#selector(ASTableDelegate.tableNode(_:didEndDisplayingRowWith:)))
             .map { try castOrThrow(ASCellNode.self, $0[1]) }
 
         return ControlEvent(events: source)
     }
-    
     public var willBeginBatchFetch: ControlEvent<ASBatchContext> {
         let source: Observable<ASBatchContext> = delegate.methodInvoked(#selector(ASTableDelegate.tableNode(_:willBeginBatchFetchWith:)))
             .map { try castOrThrow(ASBatchContext.self, $0[1]) }

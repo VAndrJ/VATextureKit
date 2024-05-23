@@ -12,7 +12,7 @@ open class VAViewController<Node: ASDisplayNode>: ASDKViewController<ASDisplayNo
     
     public var contentNode: Node { node as! Node }
     /// The currently active theme obtained from the app's context.
-    public var theme: VATheme { appContext.themeManager.theme }
+    @inline(__always) @inlinable public var theme: VATheme { appContext.themeManager.theme }
     public lazy var transitionAnimator: VATransionAnimator = VADefaultTransionAnimator(controller: self)
 
     private(set) var isObservingContentSizeChanges = false
@@ -95,11 +95,18 @@ open class VAViewController<Node: ASDisplayNode>: ASDKViewController<ASDisplayNo
 
     open func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {}
 
-    open func presentationController(_ presentationController: UIPresentationController, willPresentWithAdaptiveStyle style: UIModalPresentationStyle, transitionCoordinator: UIViewControllerTransitionCoordinator?) {}
+    open func presentationController(
+        _ presentationController: UIPresentationController,
+        willPresentWithAdaptiveStyle style: UIModalPresentationStyle,
+        transitionCoordinator: UIViewControllerTransitionCoordinator?
+    ) {}
 
     open func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {}
 
-    open func presentationController(_ presentationController: UIPresentationController, prepare adaptivePresentationController: UIPresentationController) {}
+    open func presentationController(
+        _ presentationController: UIPresentationController,
+        prepare adaptivePresentationController: UIPresentationController
+    ) {}
 
     open func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {}
 

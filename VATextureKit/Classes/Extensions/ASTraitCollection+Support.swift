@@ -8,5 +8,7 @@
 import AsyncDisplayKit
 
 public extension ASTraitCollection {
-    var ui: UITraitCollection { ASPrimitiveTraitCollectionToUITraitCollection(primitiveTraitCollection()) }
+    @inline(__always) @inlinable var ui: UITraitCollection {
+        ASPrimitiveTraitCollectionToUITraitCollection(primitiveTraitCollection())
+    }
 }

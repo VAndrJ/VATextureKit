@@ -8,10 +8,10 @@
 import Foundation
 
 public extension Collection {
-    var isNotEmpty: Bool { !isEmpty }
+    @inline(__always) @inlinable var isNotEmpty: Bool { !isEmpty }
 }
 
 public extension Optional where Wrapped: Collection {
     var isEmpty: Bool { self?.isEmpty ?? true }
-    var isNotEmpty: Bool { !isEmpty }
+    @inline(__always) @inlinable var isNotEmpty: Bool { !isEmpty }
 }

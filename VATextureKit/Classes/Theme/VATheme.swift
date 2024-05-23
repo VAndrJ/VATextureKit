@@ -267,7 +267,6 @@ public extension VATheme {
                 font = UIFont.italicSystemFont(ofSize: size)
             }
         }
-        
         fontCache[themeFont] = font
 
         return font
@@ -277,6 +276,6 @@ public extension VATheme {
 public extension UIColor {
 
     static func rgba(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat, _ a: CGFloat = 1) -> UIColor {
-        UIColor(red: r / 255, green: g / 255, blue: b / 255, alpha: a)
+        .init(red: r / 255, green: g / 255, blue: b / 255, alpha: a)
     }
 }

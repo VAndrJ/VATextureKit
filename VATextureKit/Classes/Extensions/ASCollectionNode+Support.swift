@@ -8,7 +8,7 @@
 import AsyncDisplayKit
 
 public extension ASCollectionNode {
-    var isHorizontal: Bool { scrollableDirections == .horizontal }
+    @inline(__always) @inlinable var isHorizontal: Bool { scrollableDirections == .horizontal }
 
     func reloadDataWithoutAnimations() {
         reloadData { [weak self] in

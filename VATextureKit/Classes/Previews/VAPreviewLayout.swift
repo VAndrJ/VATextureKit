@@ -21,25 +21,25 @@ public enum VAPreviewLayout {
     var minSize: CGSize {
         switch self {
         case .auto, .inherited, .undefined:
-            return CGSize(same: 0)
+            return .init(same: 0)
         case let .fixed(size):
             return size
         case let .flexibleHeight(width):
-            return CGSize(width: width, height: 0)
+            return .init(width: width, height: 0)
         case let .flexibleWidth(height):
-            return CGSize(width: 0, height: height)
+            return .init(width: 0, height: height)
         }
     }
     var maxSize: CGSize {
         switch self {
         case .auto, .inherited, .undefined:
-            return CGSize(same: .greatestFiniteMagnitude)
+            return .init(same: .greatestFiniteMagnitude)
         case let .fixed(size):
             return size
         case let .flexibleHeight(width):
-            return CGSize(width: width, height: .greatestFiniteMagnitude)
+            return .init(width: width, height: .greatestFiniteMagnitude)
         case let .flexibleWidth(height):
-            return CGSize(width: .greatestFiniteMagnitude, height: height)
+            return .init(width: .greatestFiniteMagnitude, height: height)
         }
     }
 }

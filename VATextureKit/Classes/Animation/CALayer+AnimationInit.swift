@@ -9,7 +9,12 @@ import Foundation
 
 public extension CALayer.VALayerAnimation {
 
-    init(from: VALayerAnimationValueConvertible?, to: VALayerAnimationValueConvertible?, keyPath: String, isToEqualsFrom: Bool) {
+    init(
+        from: VALayerAnimationValueConvertible?,
+        to: VALayerAnimationValueConvertible?,
+        keyPath: String,
+        isToEqualsFrom: Bool
+    ) {
         self.init(
             from: from?.animationValue,
             to: to?.animationValue,

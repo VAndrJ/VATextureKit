@@ -9,7 +9,7 @@ import UIKit
 
 public extension UIView {
     
-    func addSubviews(_ subviews: UIView...) {
+    @inline(__always) @inlinable func addSubviews(_ subviews: UIView...) {
         subviews.forEach(addSubview)
     }
     
@@ -18,7 +18,7 @@ public extension UIView {
         addSubview(subview)
     }
     
-    func addAutolayoutSubviews(_ subviews: UIView...) {
+    @inline(__always) @inlinable func addAutolayoutSubviews(_ subviews: UIView...) {
         subviews.forEach(addAutolayoutSubview(_:))
     }
     
@@ -30,7 +30,12 @@ public extension UIView {
         priority: Float = 1000,
         isSafe: Bool = false,
         isActive: Bool = true,
-        configure: (_ top: NSLayoutConstraint, _ leading: NSLayoutConstraint, _ bottom: NSLayoutConstraint, _ trailing: NSLayoutConstraint) -> Void = { _, _, _, _ in }
+        configure: (
+            _ top: NSLayoutConstraint,
+            _ leading: NSLayoutConstraint,
+            _ bottom: NSLayoutConstraint,
+            _ trailing: NSLayoutConstraint
+        ) -> Void = { _, _, _, _ in }
     ) -> UIView {
         var cTop: NSLayoutConstraint!
         var cLeading: NSLayoutConstraint!
@@ -304,7 +309,7 @@ public extension UIView {
             multiplier: multiplier,
             constant: constant
         )
-        constraint.priority = UILayoutPriority(rawValue: priority)
+        constraint.priority = .init(rawValue: priority)
         constraint.isActive = isActive
         configure(constraint)
 
@@ -386,7 +391,7 @@ public extension UIView {
             multiplier: 1,
             constant: height
         )
-        constraint.priority = UILayoutPriority(rawValue: priority)
+        constraint.priority = .init(rawValue: priority)
         constraint.isActive = isActive
         configure(constraint)
 
@@ -410,7 +415,7 @@ public extension UIView {
             multiplier: 1,
             constant: width
         )
-        constraint.priority = UILayoutPriority(rawValue: priority)
+        constraint.priority = .init(rawValue: priority)
         constraint.isActive = isActive
         configure(constraint)
 
@@ -433,7 +438,7 @@ public extension UIView {
             multiplier: multipliedHeight,
             constant: constant
         )
-        constraint.priority = UILayoutPriority(rawValue: priority)
+        constraint.priority = .init(rawValue: priority)
         constraint.isActive = true
         configure(constraint)
 
@@ -456,7 +461,7 @@ public extension UIView {
             multiplier: multipliedWidth,
             constant: constant
         )
-        constraint.priority = UILayoutPriority(rawValue: priority)
+        constraint.priority = .init(rawValue: priority)
         constraint.isActive = true
         configure(constraint)
         

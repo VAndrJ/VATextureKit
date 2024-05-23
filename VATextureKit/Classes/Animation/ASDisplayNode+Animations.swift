@@ -63,9 +63,10 @@ extension ASDisplayNode {
 }
 
 extension ASDisplayNode {
+    @UniquePointerAddress static var transitionKey
     public var transition: NodeTransitionAnimation {
-        get { (objc_getAssociatedObject(self, &transitionKey) as? TransitionWrapper)?.transition ?? .identity }
-        set { objc_setAssociatedObject(self, &transitionKey, TransitionWrapper(newValue), .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
+        get { (objc_getAssociatedObject(self, Self.transitionKey) as? TransitionWrapper)?.transition ?? .identity }
+        set { objc_setAssociatedObject(self, Self.transitionKey, TransitionWrapper(newValue), .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
 }
 
@@ -76,8 +77,6 @@ private final class TransitionWrapper {
         self.transition = transition
     }
 }
-
-private var transitionKey = "transitionKey"
 
 public typealias NodeTransitionAnimation = VATransition<ASDisplayNode>
 
@@ -137,7 +136,12 @@ extension ASDisplayNode {
     ///   - animation: Animation parameters.
     ///   - completion: Block to be executed when transition finishes.
     @MainActor
-    public func set(hidden: Bool, transition: NodeTransitionAnimation, animation: VAAnimation = .default(), completion: (() -> Void)? = nil) {
+    public func set(
+        hidden: Bool,
+        transition: NodeTransitionAnimation,
+        animation: VAAnimation = .default(),
+        completion: (() -> Void)? = nil
+    ) {
         set(
             hidden: hidden,
             insideAnimation: false,
@@ -155,7 +159,11 @@ extension ASDisplayNode {
     ///   - animation: Animation parameters.
     ///   - completion: Block to be executed when transition finishes.
     @MainActor
-    public func removeFromSupernode(transition: NodeTransitionAnimation, animation: VAAnimation = .default(), completion: (() -> Void)? = nil) {
+    public func removeFromSupernode(
+        transition: NodeTransitionAnimation,
+        animation: VAAnimation = .default(),
+        completion: (() -> Void)? = nil
+    ) {
         addOrRemove(
             to: supernode,
             add: false,
@@ -173,7 +181,12 @@ extension ASDisplayNode {
     ///   - animation: Animation parameters.
     ///   - completion: Block to be executed when transition finishes.
     @MainActor
-    public func add(subnode: ASDisplayNode, transition: NodeTransitionAnimation, animation: VAAnimation = .default(), completion: (() -> Void)? = nil) {
+    public func add(
+        subnode: ASDisplayNode,
+        transition: NodeTransitionAnimation,
+        animation: VAAnimation = .default(),
+        completion: (() -> Void)? = nil
+    ) {
         subnode.addOrRemove(
             to: self,
             add: true,
@@ -270,8 +283,8 @@ public enum RelationValue<Value> {
 
     public var type: RelationType {
         switch self {
-        case .absolute: return .absolute
-        case .relative: return .relative
+        case .absolute: .absolute
+        case .relative: .relative
         }
     }
 }
@@ -301,15 +314,15 @@ extension RelationValue: Hashable where Value: Hashable {}
 
 public func / <F: BinaryFloatingPoint>(_ lhs: RelationValue<F>, _ rhs: F) -> RelationValue<F> {
     switch lhs {
-    case let .absolute(value): return .absolute(value / rhs)
-    case let .relative(value): return .relative(value / Double(rhs))
+    case let .absolute(value): .absolute(value / rhs)
+    case let .relative(value): .relative(value / Double(rhs))
     }
 }
 
 public func * <F: BinaryFloatingPoint>(_ lhs: RelationValue<F>, _ rhs: F) -> RelationValue<F> {
     switch lhs {
-    case let .absolute(value): return .absolute(value * rhs)
-    case let .relative(value): return .relative(value * Double(rhs))
+    case let .absolute(value): .absolute(value * rhs)
+    case let .relative(value): .relative(value * Double(rhs))
     }
 }
 
@@ -329,7 +342,10 @@ public protocol Transformable {
 
 extension Transformable {
 
-    subscript<A, B>(keyPath1: ReferenceWritableKeyPath<Self, A>, keyPath2: ReferenceWritableKeyPath<Self, B>) -> (A, B) {
+    subscript<A, B>(
+        keyPath1: ReferenceWritableKeyPath<Self, A>,
+        keyPath2: ReferenceWritableKeyPath<Self, B>
+    ) -> (A, B) {
         get { (self[keyPath: keyPath1], self[keyPath: keyPath2]) }
         nonmutating set {
             self[keyPath: keyPath1] = newValue.0
@@ -372,15 +388,15 @@ public enum TransitionDirection: String, Hashable, CaseIterable {
 
     public func at(_ value: CGFloat) -> Progress {
         switch self {
-        case .insertion: return .insertion(value)
-        case .removal: return .removal(value)
+        case .insertion: .insertion(value)
+        case .removal: .removal(value)
         }
     }
 
     public func at(_ value: Progress.Edge) -> Progress {
         switch self {
-        case .insertion: return .insertion(value)
-        case .removal: return .removal(value)
+        case .insertion: .insertion(value)
+        case .removal: .removal(value)
         }
     }
 }
@@ -476,7 +492,11 @@ public struct MapTransitionModifier<Base: TransitionModifier, Root>: TransitionM
 
 public extension ASDisplayNode {
 
-    func setNeedsLayoutAnimated(shouldMeasureAsync: Bool = false, isWithSupernodes: Bool = false, completion: (() -> Void)? = nil) {
+    func setNeedsLayoutAnimated(
+        shouldMeasureAsync: Bool = false,
+        isWithSupernodes: Bool = false,
+        completion: (() -> Void)? = nil
+    ) {
         transitionLayout(
             withAnimation: true,
             shouldMeasureAsync: shouldMeasureAsync,

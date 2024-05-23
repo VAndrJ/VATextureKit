@@ -14,14 +14,14 @@ public extension UIFontDescriptor {
             fontDescriptorFeatureSettings = [
                 [
                     UIFontDescriptor.FeatureKey.type: kNumberSpacingType,
-                    UIFontDescriptor.FeatureKey.selector: kMonospacedNumbersSelector
+                    UIFontDescriptor.FeatureKey.selector: kMonospacedNumbersSelector,
                 ]
             ]
         } else {
             fontDescriptorFeatureSettings = [
                 [
                     UIFontDescriptor.FeatureKey.featureIdentifier: kNumberSpacingType,
-                    UIFontDescriptor.FeatureKey.typeIdentifier: kMonospacedNumbersSelector
+                    UIFontDescriptor.FeatureKey.typeIdentifier: kMonospacedNumbersSelector,
                 ]
             ]
         }

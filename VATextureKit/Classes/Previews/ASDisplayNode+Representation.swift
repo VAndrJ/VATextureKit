@@ -110,10 +110,10 @@ public extension ASDisplayNode {
             node = self
         }
         let sizeThatFits: CGSize = node.layoutThatFits(ASSizeRange(
-            min: CGSize(width: layout.minSize.width, height: layout.minSize.height),
-            max: CGSize(width: layout.maxSize.width, height: layout.maxSize.height)
+            min: .init(width: layout.minSize.width, height: layout.minSize.height),
+            max: .init(width: layout.maxSize.width, height: layout.maxSize.height)
         )).size
-        node.bounds = CGRect(origin: .zero, size: sizeThatFits)
+        node.bounds = .init(origin: .zero, size: sizeThatFits)
         node.loadForPreview()
 
         return node.view.sRepresentation(layout: .inherited)

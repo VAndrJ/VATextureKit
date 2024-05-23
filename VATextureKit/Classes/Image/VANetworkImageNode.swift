@@ -97,14 +97,14 @@ public enum ImageSource: Equatable {
 
     public var image: UIImage? {
         switch self {
-        case .url: return nil
-        case let .image(image): return image
+        case .url: nil
+        case let .image(image): image
         }
     }
     public var url: URL? {
         switch self {
-        case let .url(url): return url
-        case .image: return nil
+        case let .url(url): url
+        case .image: nil
         }
     }
 }

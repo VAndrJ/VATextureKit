@@ -9,12 +9,10 @@ import AsyncDisplayKit
 
 // MARK: - Filters
 
-/// Does nothing on iOS 11, 12
 public enum VACornerCurve {
     case circular
     case continuous
 
-    @available (iOS 13.0, *)
     public init(layerCornerCurve: CALayerCornerCurve) {
         switch layerCornerCurve {
         case .continuous: self = .continuous
@@ -22,11 +20,10 @@ public enum VACornerCurve {
         }
     }
 
-    @available (iOS 13.0, *)
     public var layerCornerCurve: CALayerCornerCurve {
         switch self {
-        case .continuous: return .continuous
-        case .circular: return .circular
+        case .continuous: .continuous
+        case .circular: .circular
         }
     }
 }

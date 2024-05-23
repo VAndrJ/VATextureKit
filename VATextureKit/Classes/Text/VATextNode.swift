@@ -9,7 +9,6 @@ import AsyncDisplayKit
 
 public enum VAFontDesign: Hashable {
     case `default`
-    @available (iOS 13.0, *)
     case monospaced
     case monospacedDigits
     case italic

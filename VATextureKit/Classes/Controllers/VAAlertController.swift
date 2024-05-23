@@ -11,7 +11,7 @@ open class VAAlertController: UIAlertController, VAThemeObserver {
     open override var preferredStatusBarStyle: UIStatusBarStyle { theme.statusBarStyle }
 
     /// The currently active theme obtained from the app's context.
-    public var theme: VATheme { appContext.themeManager.theme }
+    @inline(__always) @inlinable public var theme: VATheme { appContext.themeManager.theme }
     
     public convenience init(
         title: String? = nil,

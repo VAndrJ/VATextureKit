@@ -11,6 +11,6 @@ import SwiftUI
 
 @available (iOS 13.0, *)
 extension View {
-    var anyView: AnyView { AnyView(self) }
+    @inline(__always) @inlinable var anyView: AnyView { AnyView(self) }
 }
 #endif

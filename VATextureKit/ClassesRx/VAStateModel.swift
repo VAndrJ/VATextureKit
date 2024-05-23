@@ -44,27 +44,27 @@ open class VAStateModel<Action, Event, State>: NSObject {
         actionRelay.accept(action)
     }
     
-    public func reduce<Event>(_ handler: @escaping (Event) -> State?) {
+    public func reduce<E>(_ handler: @escaping (E) -> State?) {
         eventRelay
-            .compactMap { $0 as? Event }
+            .compactMap { $0 as? E }
             .observe(on: eventScheduler)
             .compactMap(handler)
             .bind(to: stateRelay)
             .disposed(by: bag)
     }
     
-    public func reduceRun<Event>(_ handler: @escaping (Event) -> Void) {
+    public func reduceRun<E>(_ handler: @escaping (E) -> Void) {
         eventRelay
-            .compactMap { $0 as? Event }
+            .compactMap { $0 as? E }
             .observe(on: eventScheduler)
             .compactMap(handler)
             .subscribe(onNext: { _ in })
             .disposed(by: bag)
     }
     
-    public func reduceS<Event>(_ handler: @escaping (Event, State) -> State?) {
+    public func reduceS<E>(_ handler: @escaping (E, State) -> State?) {
         eventRelay
-            .compactMap { $0 as? Event }
+            .compactMap { $0 as? E }
             .observe(on: eventScheduler)
             .withLatestFrom(stateRelay, resultSelector: { ($0, $1) })
             .compactMap(handler)
@@ -72,9 +72,9 @@ open class VAStateModel<Action, Event, State>: NSObject {
             .disposed(by: bag)
     }
     
-    public func reduceRunS<Event>(_ handler: @escaping (Event, State) -> Void) {
+    public func reduceRunS<E>(_ handler: @escaping (E, State) -> Void) {
         eventRelay
-            .compactMap { $0 as? Event }
+            .compactMap { $0 as? E }
             .observe(on: eventScheduler)
             .withLatestFrom(stateRelay, resultSelector: { ($0, $1) })
             .compactMap(handler)
@@ -82,27 +82,27 @@ open class VAStateModel<Action, Event, State>: NSObject {
             .disposed(by: bag)
     }
     
-    public func on<Action>(_ handler: @escaping (Action) -> Event?) {
+    public func on<A>(_ handler: @escaping (A) -> Event?) {
         actionRelay
-            .compactMap { $0 as? Action }
+            .compactMap { $0 as? A }
             .observe(on: actionScheduler)
             .compactMap(handler)
             .bind(to: eventRelay)
             .disposed(by: bag)
     }
     
-    public func onRun<Action>(_ handler: @escaping (Action) -> Void) {
+    public func onRun<A>(_ handler: @escaping (A) -> Void) {
         actionRelay
-            .compactMap { $0 as? Action }
+            .compactMap { $0 as? A }
             .observe(on: actionScheduler)
             .compactMap(handler)
             .subscribe(onNext: { _ in })
             .disposed(by: bag)
     }
     
-    public func on<Action>(sequential handler: @escaping (Action) -> Observable<Event>) {
+    public func on<A>(sequential handler: @escaping (A) -> Observable<Event>) {
         actionRelay
-            .compactMap { $0 as? Action }
+            .compactMap { $0 as? A }
             .observe(on: actionScheduler)
             .concatMap(handler)
             #if DEBUG
@@ -113,9 +113,9 @@ open class VAStateModel<Action, Event, State>: NSObject {
             .disposed(by: bag)
     }
     
-    public func on<Action>(droppable handler: @escaping (Action) -> Observable<Event>) {
+    public func on<A>(droppable handler: @escaping (A) -> Observable<Event>) {
         actionRelay
-            .compactMap { $0 as? Action }
+            .compactMap { $0 as? A }
             .observe(on: actionScheduler)
             .flatMapFirst(handler)
             #if DEBUG
@@ -126,9 +126,9 @@ open class VAStateModel<Action, Event, State>: NSObject {
             .disposed(by: bag)
     }
     
-    public func on<Action>(restartable handler: @escaping (Action) -> Observable<Event>) {
+    public func on<A>(restartable handler: @escaping (A) -> Observable<Event>) {
         actionRelay
-            .compactMap { $0 as? Action }
+            .compactMap { $0 as? A }
             .observe(on: actionScheduler)
             .flatMapLatest(handler)
             #if DEBUG
@@ -139,9 +139,9 @@ open class VAStateModel<Action, Event, State>: NSObject {
             .disposed(by: bag)
     }
     
-    public func on<Action>(concurrent handler: @escaping (Action) -> Observable<Event>) {
+    public func on<A>(concurrent handler: @escaping (A) -> Observable<Event>) {
         actionRelay
-            .compactMap { $0 as? Action }
+            .compactMap { $0 as? A }
             .observe(on: actionScheduler)
             .flatMap(handler)
             #if DEBUG
@@ -152,9 +152,9 @@ open class VAStateModel<Action, Event, State>: NSObject {
             .disposed(by: bag)
     }
     
-    public func onS<Action>(_ handler: @escaping (Action, State) -> Event?) {
+    public func onS<A>(_ handler: @escaping (A, State) -> Event?) {
         actionRelay
-            .compactMap { $0 as? Action }
+            .compactMap { $0 as? A }
             .observe(on: actionScheduler)
             .withLatestFrom(stateRelay, resultSelector: { ($0, $1) })
             .compactMap(handler)
@@ -163,9 +163,9 @@ open class VAStateModel<Action, Event, State>: NSObject {
             .disposed(by: bag)
     }
     
-    public func onRunS<Action>(_ handler: @escaping (Action, State) -> Void) {
+    public func onRunS<A>(_ handler: @escaping (A, State) -> Void) {
         actionRelay
-            .compactMap { $0 as? Action }
+            .compactMap { $0 as? A }
             .observe(on: actionScheduler)
             .withLatestFrom(stateRelay, resultSelector: { ($0, $1) })
             .compactMap(handler)
@@ -173,9 +173,9 @@ open class VAStateModel<Action, Event, State>: NSObject {
             .disposed(by: bag)
     }
     
-    public func onS<Action>(sequential handler: @escaping (Action, State) -> Observable<Event>) {
+    public func onS<A>(sequential handler: @escaping (A, State) -> Observable<Event>) {
         actionRelay
-            .compactMap { $0 as? Action }
+            .compactMap { $0 as? A }
             .observe(on: actionScheduler)
             .withLatestFrom(stateRelay, resultSelector: { ($0, $1) })
             .concatMap(handler)
@@ -187,9 +187,9 @@ open class VAStateModel<Action, Event, State>: NSObject {
             .disposed(by: bag)
     }
     
-    public func onS<Action>(droppable handler: @escaping (Action, State) -> Observable<Event>) {
+    public func onS<A>(droppable handler: @escaping (A, State) -> Observable<Event>) {
         actionRelay
-            .compactMap { $0 as? Action }
+            .compactMap { $0 as? A }
             .observe(on: actionScheduler)
             .withLatestFrom(stateRelay, resultSelector: { ($0, $1) })
             .flatMapFirst(handler)
@@ -201,9 +201,9 @@ open class VAStateModel<Action, Event, State>: NSObject {
             .disposed(by: bag)
     }
     
-    public func onS<Action>(restartable handler: @escaping (Action, State) -> Observable<Event>) {
+    public func onS<A>(restartable handler: @escaping (A, State) -> Observable<Event>) {
         actionRelay
-            .compactMap { $0 as? Action }
+            .compactMap { $0 as? A }
             .observe(on: actionScheduler)
             .withLatestFrom(stateRelay, resultSelector: { ($0, $1) })
             .flatMapLatest(handler)
@@ -215,9 +215,9 @@ open class VAStateModel<Action, Event, State>: NSObject {
             .disposed(by: bag)
     }
     
-    public func onS<Action>(concurrent handler: @escaping (Action, State) -> Observable<Event>) {
+    public func onS<A>(concurrent handler: @escaping (A, State) -> Observable<Event>) {
         actionRelay
-            .compactMap { $0 as? Action }
+            .compactMap { $0 as? A }
             .observe(on: actionScheduler)
             .withLatestFrom(stateRelay, resultSelector: { ($0, $1) })
             .flatMap(handler)

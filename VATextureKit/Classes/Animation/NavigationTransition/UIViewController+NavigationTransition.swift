@@ -8,17 +8,24 @@
 import UIKit
 
 public extension UIViewController {
-     var isTransitionAnimationEnabled: Bool {
-        get { (objc_getAssociatedObject(self, &isTransitionAnimationEnabledKey) as? Bool) ?? false }
-        set { objc_setAssociatedObject(self, &isTransitionAnimationEnabledKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
+    @UniquePointerAddress static var isTransitionAnimationEnabledKey
+
+    var isTransitionAnimationEnabled: Bool {
+        get { (objc_getAssociatedObject(self, Self.isTransitionAnimationEnabledKey) as? Bool) ?? false }
+        set { objc_setAssociatedObject(self, Self.isTransitionAnimationEnabledKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
 
     @discardableResult
     func withAnimatedTransitionEnabled() -> Self {
         isTransitionAnimationEnabled = true
-        
+
         return self
     }
 }
 
-private var isTransitionAnimationEnabledKey = "isTransitionAnimationEnabledKey"
+@propertyWrapper
+public class UniquePointerAddress {
+    public var wrappedValue: UnsafeRawPointer { UnsafeRawPointer(Unmanaged.passUnretained(self).toOpaque()) }
+
+    public init() {}
+}

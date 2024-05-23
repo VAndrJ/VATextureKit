@@ -34,12 +34,12 @@ open class VAReadMoreTextNode: VATextNode {
             return nil
         }
         
-        return NSAttributedString(
+        return .init(
             string: readMore.text,
             attributes: [
                 .font: theme.font(.design(
                     .default,
-                    size: mainActorEscaped{
+                    size: mainActorEscaped {
                         readMore.fontStyle.getFontSize(contentSize: appContext.contentSizeManager.contentSize)
                     }(),
                     weight: readMore.fontStyle.weight
@@ -68,7 +68,7 @@ open class VAReadMoreTextNode: VATextNode {
         )
 
         self.readMore = readMore
-        truncationAttributedText = NSAttributedString(string: readMore.truncationText)
+        truncationAttributedText = .init(string: readMore.truncationText)
         additionalTruncationMessage = readMoreStringGetter?(readMore, theme)
     }
 
@@ -91,7 +91,7 @@ open class VAReadMoreTextNode: VATextNode {
         )
 
         self.readMore = readMore
-        truncationAttributedText = NSAttributedString(string: readMore.truncationText)
+        truncationAttributedText = .init(string: readMore.truncationText)
         additionalTruncationMessage = readMoreStringGetter?(readMore, theme)
     }
 
@@ -105,7 +105,7 @@ open class VAReadMoreTextNode: VATextNode {
 
         self.readMore = readMore
         self.readMoreStringGetter = readMoreStringGetter
-        truncationAttributedText = NSAttributedString(string: readMore.truncationText)
+        truncationAttributedText = .init(string: readMore.truncationText)
         additionalTruncationMessage = readMoreStringGetter(readMore, theme)
     }
 

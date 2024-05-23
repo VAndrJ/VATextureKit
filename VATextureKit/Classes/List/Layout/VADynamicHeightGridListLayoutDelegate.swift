@@ -102,9 +102,9 @@ public class VADynamicHeightGridListLayoutDelegate: NSObject, ASCollectionLayout
         viewportSize: CGSize,
         info: VADynamicHeightGridListLayoutInfo
     ) -> ASSizeRange {
-        ASSizeRange(
-            min: CGSize(width: 0, height: info.headerHeight),
-            max: CGSize(width: getWidth(section: section, viewportSize: viewportSize, info: info), height: info.headerHeight)
+        .init(
+            min: .init(width: 0, height: info.headerHeight),
+            max: .init(width: getWidth(section: section, viewportSize: viewportSize, info: info), height: info.headerHeight)
         )
     }
 
@@ -138,14 +138,14 @@ public class VADynamicHeightGridListLayoutDelegate: NSObject, ASCollectionLayout
     ) -> ASSizeRange {
         let itemWidth = getColumnWidth(section: indexPath.section, viewportSize: viewportSize, info: info)
         if info.supportedCellTypes.isEmpty || info.supportedCellTypes.contains(where: { $0 == type(of: item) }) {
-            return ASSizeRange(
-                min: CGSize(width: itemWidth, height: 0),
-                max: CGSize(width: itemWidth, height: .greatestFiniteMagnitude)
+            return .init(
+                min: .init(width: itemWidth, height: 0),
+                max: .init(width: itemWidth, height: .greatestFiniteMagnitude)
             )
         } else {
-            return ASSizeRange(
-                min: CGSize(same: itemWidth),
-                max: CGSize(same: itemWidth)
+            return .init(
+                min: .init(same: itemWidth),
+                max: .init(same: itemWidth)
             )
         }
     }

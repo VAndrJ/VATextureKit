@@ -115,6 +115,7 @@ private extension CAMediaTimingFunctionName {
                 sign = -1
             }
             to *= 2
+            
             return to < 1 ? 0.5 * pow(to, rate) : (sign * 0.5) * (pow(to - 2, rate) + sign * 2)
         case .easeOut:
             return 1.0 - pow((1.0 - to), rate)

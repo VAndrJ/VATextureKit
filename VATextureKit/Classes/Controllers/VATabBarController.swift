@@ -12,7 +12,7 @@ open class VATabBarController: ASTabBarController, VAThemeObserver, VAContentSiz
     open override var childForStatusBarHidden: UIViewController? { selectedViewController }
 
     /// The currently active theme obtained from the app's context.
-    public var theme: VATheme { appContext.themeManager.theme }
+    @inline(__always) @inlinable public var theme: VATheme { appContext.themeManager.theme }
 
     private(set) var isObservingContentSizeChanges = false
 
