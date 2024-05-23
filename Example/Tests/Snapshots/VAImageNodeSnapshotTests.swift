@@ -17,12 +17,11 @@ class VAImageNodeSnapshotTests: XCTestCase {
         appContext.themeManager.setLightAsCustomTheme()
         let sut = VAImageNode(
             image: R.image.chevron_right(),
-            size: CGSize(same: 24),
+            size: .init(same: 24),
             contentMode: .scaleAspectFill,
             tintColor: { $0.systemOrange },
             backgroundColor: { $0.secondarySystemBackground }
         )
-        sut.displaysAsynchronously = false
 
         assertNodeSnapshot(matching: sut, size: .auto)
     }
@@ -31,12 +30,11 @@ class VAImageNodeSnapshotTests: XCTestCase {
         appContext.themeManager.setDarkAsCustomTheme()
         let sut = VAImageNode(
             image: R.image.chevron_right(),
-            size: CGSize(same: 24),
+            size: .init(same: 24),
             contentMode: .scaleAspectFill,
             tintColor: { $0.systemOrange },
             backgroundColor: { $0.secondarySystemBackground }
         )
-        sut.displaysAsynchronously = false
 
         assertNodeSnapshot(matching: sut, size: .auto)
     }
@@ -45,13 +43,12 @@ class VAImageNodeSnapshotTests: XCTestCase {
         appContext.themeManager.setLightAsCustomTheme()
         let sut = VAImageNode(
             image: R.image.chevron_right(),
-            size: CGSize(same: 24),
+            size: .init(same: 24),
             contentMode: .scaleAspectFill,
             tintColor: { $0.systemOrange },
             backgroundColor: { $0.secondarySystemBackground }
         )
         sut.tintColor = .green
-        sut.displaysAsynchronously = false
 
         assertNodeSnapshot(matching: sut, size: .auto)
     }
@@ -60,13 +57,12 @@ class VAImageNodeSnapshotTests: XCTestCase {
         appContext.themeManager.setLightAsCustomTheme()
         let sut = VAImageNode(
             image: R.image.chevron_right(),
-            size: CGSize(same: 24),
+            size: .init(same: 24),
             contentMode: .scaleAspectFill,
             tintColor: { $0.systemOrange },
             backgroundColor: { $0.secondarySystemBackground },
             corner: .init(radius: .fixed(8), maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
         )
-        sut.displaysAsynchronously = false
 
         assertNodeSnapshot(matching: sut, size: .auto, drawHierarchyInKeyWindow: true)
     }
@@ -75,13 +71,12 @@ class VAImageNodeSnapshotTests: XCTestCase {
         appContext.themeManager.setLightAsCustomTheme()
         let sut = VAImageNode(
             image: R.image.chevron_right(),
-            size: CGSize(same: 24),
+            size: .init(same: 24),
             contentMode: .scaleAspectFill,
             tintColor: { $0.systemOrange },
             backgroundColor: { $0.secondarySystemBackground },
             corner: .init(radius: .proportional(percent: 25), curve: .continuous)
         )
-        sut.displaysAsynchronously = false
 
         assertNodeSnapshot(matching: sut, size: .auto)
     }
@@ -90,13 +85,12 @@ class VAImageNodeSnapshotTests: XCTestCase {
         appContext.themeManager.setLightAsCustomTheme()
         let sut = VAImageNode(
             image: R.image.chevron_right(),
-            size: CGSize(same: 24),
+            size: .init(same: 24),
             contentMode: .scaleAspectFill,
             tintColor: { $0.systemOrange },
             backgroundColor: { $0.secondarySystemBackground },
             corner: .init(radius: .proportional(percent: 100), curve: .circular)
         )
-        sut.displaysAsynchronously = false
 
         assertNodeSnapshot(matching: sut, size: .auto)
     }
