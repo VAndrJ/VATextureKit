@@ -12,6 +12,8 @@ public extension ASSizeRange {
     static let unconstrained = ASSizeRangeUnconstrained
     /// A predefined `ASSizeRangeZero` constant in Swift way.
     static let zero = ASSizeRangeZero
+    /// A predefined `ASLayoutSizeAuto` constant in Swift way.
+    static let auto = ASLayoutSizeAuto
 
     /// Creates an `ASSizeRange` instance with a specific width and height range.
     ///
@@ -20,8 +22,8 @@ public extension ASSizeRange {
     ///   - height: The closed range of `CGFloat` values representing the allowed height range.
     init(width: ClosedRange<CGFloat>, height: ClosedRange<CGFloat>) {
         self.init(
-            min: CGSize(width: width.lowerBound, height: height.lowerBound),
-            max: CGSize(width: width.upperBound, height: height.upperBound)
+            min: .init(width: width.lowerBound, height: height.lowerBound),
+            max: .init(width: width.upperBound, height: height.upperBound)
         )
     }
 
@@ -32,8 +34,8 @@ public extension ASSizeRange {
     ///   - height: The closed range of `CGFloat` values representing the allowed height range.
     init(width: CGFloat, height: ClosedRange<CGFloat>) {
         self.init(
-            min: CGSize(width: width, height: height.lowerBound),
-            max: CGSize(width: width, height: height.upperBound)
+            min: .init(width: width, height: height.lowerBound),
+            max: .init(width: width, height: height.upperBound)
         )
     }
 
@@ -44,8 +46,8 @@ public extension ASSizeRange {
     ///   - height: The fixed height value as a `CGFloat`.
     init(width: ClosedRange<CGFloat>, height: CGFloat) {
         self.init(
-            min: CGSize(width: width.lowerBound, height: height),
-            max: CGSize(width: width.upperBound, height: height)
+            min: .init(width: width.lowerBound, height: height),
+            max: .init(width: width.upperBound, height: height)
         )
     }
 
@@ -56,6 +58,7 @@ public extension ASSizeRange {
     ///   - height: The fixed height value as a `CGFloat`.
     init(width: CGFloat, height: CGFloat) {
         let size = CGSize(width: width, height: height)
+        
         self.init(
             min: size,
             max: size
