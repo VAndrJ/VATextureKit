@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'VATextureKitSpec'
-  s.version          = '1.9.1'
+  s.version          = '2.0.0'
   s.summary          = 'Texture library Layout Specs wrapper.'
 
   s.description      = <<-DESC
@@ -13,12 +13,12 @@ It provides an easier syntax and includes wrappers on top of Layout Specs.
   s.author           = { 'Volodymyr Andriienko' => 'vandrjios@gmail.com' }
   s.source           = { :git => 'https://github.com/VAndrJ/VATextureKit.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '11.0'
-  s.tvos.deployment_target = '11.0'
+  s.ios.deployment_target = '14.0'
+  s.tvos.deployment_target = '14.0'
 
   s.source_files = 'VATextureKit/ClassesSpec/**/*'
 
-  s.dependency 'Texture',           '~> 3.1.0'
+  s.dependency 'Texture',           '~> 3.2.0'
 
   s.swift_versions = '5.7'
 end
