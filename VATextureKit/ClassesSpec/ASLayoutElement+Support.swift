@@ -99,7 +99,7 @@ public extension ASLayoutElement {
     ///   - grow: The flex grow factor to be set for the layout element.
     /// - Returns: Returns: The modified `ASLayoutElement` with the flex properties set.
     @discardableResult
-    func grow(grow: CGFloat) -> Self {
+    func grow(_ grow: CGFloat) -> Self {
         style.flexGrow = grow
 
         return self
