@@ -40,33 +40,37 @@ class ScreenNode<ViewModel: EventViewModel>: VASafeAreaDisplayNode, ControllerNo
     func bindKeyboardInset(scrollView: UIScrollView, tabBarController: UITabBarController? = nil) {
         let initialBottomInset = scrollView.contentInset.bottom
         let initialIndicatorBottomInset = scrollView.verticalScrollIndicatorInsets.bottom
+        // `The compiler is unable to type-check this expression in reasonable time; try breaking up the expression into distinct sub-expressions` since Xcode 15.4
+        let keyboardObs: Observable<CGFloat> = RxKeyboard.instance.visibleHeight
+            .asObservable()
+            .distinctUntilChanged()
+        let safeAreaBottomObs: Observable<CGFloat> = rx.observe(UIEdgeInsets.self, #keyPath(ASDisplayNode.safeAreaInsets))
+            .compactMap(\.?.bottom)
+            .distinctUntilChanged()
+        let tabBarHeightObs: Observable<CGFloat> = Observable
+            .combineLatest(
+                tabBarController?.tabBar.rx.observe(CGRect.self, #keyPath(UITabBar.bounds))
+                    .compactMap(\.?.height)
+                    .distinctUntilChanged() ?? .just(0),
+                tabBarController?.view.rx.observe(UIEdgeInsets.self, #keyPath(UIView.safeAreaInsets))
+                    .compactMap(\.?.bottom)
+                    .distinctUntilChanged() ?? .just(0)
+            )
+            .map { max($0, $1) }
         Observable
             .combineLatest(
-                RxKeyboard.instance.visibleHeight
-                    .asObservable()
-                    .distinctUntilChanged(),
-                rx.observe(UIEdgeInsets.self, #keyPath(ASDisplayNode.safeAreaInsets))
-                    .compactMap(\.?.bottom)
-                    .distinctUntilChanged(),
-                Observable
-                    .combineLatest(
-                        tabBarController?.tabBar.rx.observe(CGRect.self, #keyPath(UITabBar.bounds))
-                            .compactMap(\.?.height)
-                            .distinctUntilChanged() ?? .just(0),
-                        tabBarController?.view.rx.observe(UIEdgeInsets.self, #keyPath(UIView.safeAreaInsets))
-                            .compactMap(\.?.bottom)
-                            .distinctUntilChanged() ?? .just(0)
-                    )
-                    .map { max($0, $1) }
+                keyboardObs,
+                safeAreaBottomObs,
+                tabBarHeightObs
             )
-            .map { keyboardHeight, safeAreaBottom, tabBarHeght in
+            .map { (keyboardHeight: CGFloat, safeAreaBottom: CGFloat, tabBarHeght: CGFloat) -> (CGFloat, CGFloat) in
                 let possibleBottomInset = keyboardHeight - max(safeAreaBottom, tabBarHeght)
                 
                 return (max(possibleBottomInset, initialBottomInset), max(possibleBottomInset, initialIndicatorBottomInset))
             }
             .subscribe(onNext: scrollView ?> {
-                $0.contentInset.bottom = $1
-                $0.verticalScrollIndicatorInsets.bottom = $2
+                $0.contentInset.bottom = $1.0
+                $0.verticalScrollIndicatorInsets.bottom = $1.1
             })
             .disposed(by: bag)
     }

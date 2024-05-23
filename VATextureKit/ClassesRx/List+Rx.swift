@@ -58,7 +58,12 @@ extension Array where Element: SectionModelType {
 
 extension ObservableType {
 
-    func subscribeProxyDataSource<DelegateProxy: DelegateProxyType>(ofObject object: DelegateProxy.ParentObject, dataSource: DelegateProxy.Delegate, retainDataSource: Bool, binding: @escaping (DelegateProxy, Event<Element>) -> Void) -> Disposable where DelegateProxy.ParentObject: ASDisplayNode, DelegateProxy.Delegate: AnyObject {
+    func subscribeProxyDataSource<DelegateProxy: DelegateProxyType>(
+        ofObject object: DelegateProxy.ParentObject,
+        dataSource: DelegateProxy.Delegate,
+        retainDataSource: Bool,
+        binding: @escaping (DelegateProxy, Event<Element>) -> Void
+    ) -> Disposable where DelegateProxy.ParentObject: ASDisplayNode, DelegateProxy.Delegate: AnyObject {
         let proxy = DelegateProxy.proxy(for: object)
         // disposable needs to be disposed on the main thread
         let unregisterDelegate = ScheduledDisposable(
@@ -120,15 +125,27 @@ func bindingError(_ error: Swift.Error) {
 }
 
 /// Used as a runtime check to ensure that methods that are intended to be abstract (i.e., they should be implemented in subclasses) are not called directly on the superclass.
-func rxAbstractMethod(message: String = "Abstract method", file: StaticString = #file, line: UInt = #line) -> Swift.Never {
+func rxAbstractMethod(
+    message: String = "Abstract method",
+    file: StaticString = #file,
+    line: UInt = #line
+) -> Swift.Never {
     rxFatalError(message, file: file, line: line)
 }
 
-func rxFatalError(_ lastMessage: @autoclosure () -> String, file: StaticString = #file, line: UInt = #line) -> Swift.Never {
+func rxFatalError(
+    _ lastMessage: @autoclosure () -> String,
+    file: StaticString = #file,
+    line: UInt = #line
+) -> Swift.Never {
     fatalError(lastMessage(), file: file, line: line)
 }
 
-func rxFatalErrorInDebug(_ lastMessage: @autoclosure () -> String, file: StaticString = #file, line: UInt = #line) {
+func rxFatalErrorInDebug(
+    _ lastMessage: @autoclosure () -> String,
+    file: StaticString = #file,
+    line: UInt = #line
+) {
     #if DEBUG
     fatalError(lastMessage(), file: file, line: line)
     #else

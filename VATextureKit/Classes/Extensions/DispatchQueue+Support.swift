@@ -66,14 +66,14 @@ public func ensureOnBackground(@_implicitSelfCapture _ block: @escaping () -> Vo
 public extension DispatchTimeInterval {
     var timeInterval: TimeInterval? {
         switch self {
-        case let .seconds(int):
-            return TimeInterval(int)
-        case let .milliseconds(int):
-            return TimeInterval(int) / 1_000
-        case let .microseconds(int):
-            return TimeInterval(int) / 1_000_000
-        case let .nanoseconds(int):
-            return TimeInterval(int) / 1_000_000_000
+        case let .seconds(value):
+            return TimeInterval(value)
+        case let .milliseconds(value):
+            return TimeInterval(value) / 1_000
+        case let .microseconds(value):
+            return TimeInterval(value) / 1_000_000
+        case let .nanoseconds(value):
+            return TimeInterval(value) / 1_000_000_000
         case .never:
             return nil
         @unknown default:

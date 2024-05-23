@@ -20,8 +20,8 @@ open class VAComparisonNode: VADisplayNode {
 
         var width: CGFloat {
             switch self {
-            case let .standard(configuration): return configuration.width
-            case let .custom(layer): return layer.frame.width
+            case let .standard(configuration): configuration.width
+            case let .custom(layer): layer.frame.width
             }
         }
     }

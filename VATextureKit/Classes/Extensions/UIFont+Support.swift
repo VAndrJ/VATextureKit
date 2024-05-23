@@ -8,5 +8,7 @@
 import Foundation
 
 public extension UIFont {
-    var monospacedDigitFont: UIFont { .init(descriptor: fontDescriptor.monospacedDigitFontDescriptor, size: 0) }
+    @inline(__always) @inlinable var monospacedDigitFont: UIFont {
+        .init(descriptor: fontDescriptor.monospacedDigitFontDescriptor, size: 0)
+    }
 }

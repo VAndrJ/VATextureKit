@@ -51,13 +51,14 @@ class VAViewHostingNodeTests: XCTestCase, MainActorIsolated {
     func test_sizing_size() {
         let sut = VAViewHostingNode(
             body: {
-                HStack {
-                    VStack(alignment: .leading) {
+                // MARK: - We need to set an explicit `spacing` because they change the default value from version to version.
+                HStack(spacing: 8) {
+                    VStack(alignment: .leading, spacing: 0) {
                         Text("Test Test")
                         Text("Test")
                     }
                     .background(.green)
-                    VStack(alignment: .trailing) {
+                    VStack(alignment: .trailing, spacing: 0) {
                         Text("Test")
                         Text("Test Test")
                     }

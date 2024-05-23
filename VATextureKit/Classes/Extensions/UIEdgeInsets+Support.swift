@@ -8,9 +8,9 @@
 import UIKit
 
 public extension UIEdgeInsets {
-    var origin: CGPoint { .init(x: left, y: top) }
-    var vertical: CGFloat { top + bottom }
-    var horizontal: CGFloat { left + right }
+    @inline(__always) @inlinable var origin: CGPoint { .init(x: left, y: top) }
+    @inline(__always) @inlinable var vertical: CGFloat { top + bottom }
+    @inline(__always) @inlinable var horizontal: CGFloat { left + right }
     
     init(all: CGFloat) {
         self.init(top: all, left: all, bottom: all, right: all)

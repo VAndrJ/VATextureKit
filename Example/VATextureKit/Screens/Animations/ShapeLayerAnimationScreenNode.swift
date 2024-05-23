@@ -71,14 +71,15 @@ private class _PathExampleNode: DisplayNode {
 
         exampleNode.animate(
             .path(
-                from: UIBezierPath(rect: CGRect(x: 0, y: 0, width: 100, height: 20)),
+                from: UIBezierPath(rect: .init(x: 0, y: 0, width: 100, height: 20)),
                 to: {
                     let path = UIBezierPath()
                     path.move(to: .zero)
-                    path.addLine(to: CGPoint(x: 60, y: 10))
-                    path.addLine(to: CGPoint(x: 100, y: 0))
-                    path.addLine(to: CGPoint(x: 150, y: 64))
+                    path.addLine(to: .init(x: 60, y: 10))
+                    path.addLine(to: .init(x: 100, y: 0))
+                    path.addLine(to: .init(x: 150, y: 64))
                     path.close()
+
                     return path
                 }()
             ),
@@ -96,9 +97,7 @@ private class _PathExampleNode: DisplayNode {
 
 private class _StrokeColorExampleNode: DisplayNode {
     private lazy var exampleNode = VAShapeNode(context: .init(strokeColor: theme.systemOrange))
-        .apply {
-            $0.setLineWidth(10)
-        }
+        .apply { $0.setLineWidth(10) }
         .sized(height: 64)
 
     override func didLoad() {
@@ -126,9 +125,7 @@ private class _StrokeColorExampleNode: DisplayNode {
 
 private class _StrokeEndExampleNode: DisplayNode {
     private lazy var exampleNode = VAShapeNode(context: .init(strokeColor: theme.systemOrange))
-        .apply {
-            $0.setLineWidth(32)
-        }
+        .apply { $0.setLineWidth(32) }
         .sized(height: 64)
 
     override func didLoad() {
@@ -162,11 +159,11 @@ private class _LineDashExampleNode: DisplayNode {
             $0.setLineJoin(.round)
             let path = UIBezierPath()
             path.move(to: .zero)
-            path.addLine(to: CGPoint(x: 50, y: 32))
-            path.addLine(to: CGPoint(x: 100, y: 0))
-            path.addLine(to: CGPoint(x: 150, y: 64))
-            path.addLine(to: CGPoint(x: 200, y: 0))
-            path.addLine(to: CGPoint(x: 300, y: 32))
+            path.addLine(to: .init(x: 50, y: 32))
+            path.addLine(to: .init(x: 100, y: 0))
+            path.addLine(to: .init(x: 150, y: 64))
+            path.addLine(to: .init(x: 200, y: 0))
+            path.addLine(to: .init(x: 300, y: 32))
             path.close()
             $0.setPath(path)
         }
@@ -179,8 +176,7 @@ private class _LineDashExampleNode: DisplayNode {
             .lineDashPhase(from: 0, to: 80),
             duration: 2,
             repeatCount: .greatestFiniteMagnitude,
-            timingFunction: .linear,
-            continueFromCurrent: true
+            timingFunction: .linear
         )
     }
 

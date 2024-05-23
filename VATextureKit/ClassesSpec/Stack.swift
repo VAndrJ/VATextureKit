@@ -87,12 +87,9 @@ public final class Stack: ASWrapperLayoutSpec {
 
     private func proportionOfAxisFor(position: ASRelativeLayoutSpecPosition) -> CGFloat {
         switch position {
-        case .center:
-            return 0.5
-        case .end:
-            return 1
-        default:
-            return 0
+        case .center: 0.5
+        case .end: 1
+        default: 0
         }
     }
 }

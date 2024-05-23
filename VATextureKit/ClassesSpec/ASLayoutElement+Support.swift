@@ -28,7 +28,7 @@ public extension ASLayoutElement {
     ///   - height: The preferred height in `points` to be set for the layout element. If `nil`, the height will not be modified. Defaults to `nil`
     /// - Returns: The modified `ASLayoutElement` with the width and/or height set.
     @discardableResult
-    func sized(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
+    @inline(__always) @inlinable func sized(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
         sized(width: width.map { .points($0) }, height: height.map { .points($0) })
     }
 
@@ -40,7 +40,9 @@ public extension ASLayoutElement {
     /// - Returns: The modified `ASLayoutElement` with the width and/or height set.
     @discardableResult
     func sized(width: ASDimension? = nil, height: ASDimension? = nil) -> Self {
+        #if DEBUG
         assert(width != nil || height != nil)
+        #endif
         if let width {
             style.width = width
         }
@@ -60,7 +62,9 @@ public extension ASLayoutElement {
     /// - Returns: Returns: The modified `ASLayoutElement` with the flex properties set.
     @discardableResult
     func flex(shrink: CGFloat? = nil, grow: CGFloat? = nil, basisPercent: CGFloat? = nil) -> Self {
+        #if DEBUG
         assert(shrink != nil || grow != nil || basisPercent != nil)
+        #endif
         if let shrink {
             style.flexShrink = shrink
         }
@@ -68,9 +72,62 @@ public extension ASLayoutElement {
             style.flexGrow = grow
         }
         if let basisPercent {
+            #if DEBUG
             assert((0...100) ~= basisPercent, "ASDimension fraction percent must be between 0 and 100.")
+            #endif
             style.flexBasis = .fraction(percent: basisPercent)
         }
+
+        return self
+    }
+
+    /// Sets the `flexShrink` property of the layout element.
+    ///
+    /// - Parameters:
+    ///   - shrink: The flex shrink factor to be set for the layout element.
+    /// - Returns: Returns: The modified `ASLayoutElement` with the flex properties set.
+    @discardableResult
+    func shrink(_ shrink: CGFloat) -> Self {
+        style.flexShrink = shrink
+
+        return self
+    }
+
+    /// Sets the `flexGrow` property of the layout element.
+    ///
+    /// - Parameters:
+    ///   - grow: The flex grow factor to be set for the layout element.
+    /// - Returns: Returns: The modified `ASLayoutElement` with the flex properties set.
+    @discardableResult
+    func grow(grow: CGFloat) -> Self {
+        style.flexGrow = grow
+
+        return self
+    }
+
+    /// Sets the `flexBasis` property of the layout element.
+    ///
+    /// - Parameters:
+    ///   - basis: The flex basis to be set for the layout element.
+    /// - Returns: Returns: The modified `ASLayoutElement` with the flex properties set.
+    @discardableResult
+    func basis(_ basis: ASDimension) -> Self {
+        style.flexBasis = basis
+
+        return self
+    }
+
+    /// Sets the `flexBasis` property of the layout element.
+    ///
+    /// - Parameters:
+    ///   - percent: The flex basis as a fraction percent to be set for the layout element.
+    /// - Returns: Returns: The modified `ASLayoutElement` with the flex properties set.
+    @discardableResult
+    func basis(percent: CGFloat) -> Self {
+        #if DEBUG
+        assert((0...100) ~= percent, "ASDimension fraction percent must be between 0 and 100.")
+        #endif
+        style.flexBasis = .fraction(percent: percent)
 
         return self
     }
@@ -93,7 +150,7 @@ public extension ASLayoutElement {
     ///   - height: The maximum height constraint in `points` to be set for the layout element. If `nil`, the maximum height will not be modified. Defaults to `nil`
     /// - Returns: The modified `ASLayoutElement` with the maximum width and/or height constraint set.
     @discardableResult
-    func maxConstrained(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
+    @inline(__always) @inlinable func maxConstrained(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
         maxConstrained(width: width.map { .points($0) }, height: height.map { .points($0) })
     }
 
@@ -105,7 +162,9 @@ public extension ASLayoutElement {
     /// - Returns: The modified `ASLayoutElement` with the maximum width and/or height constraint set.
     @discardableResult
     func maxConstrained(width: ASDimension? = nil, height: ASDimension? = nil) -> Self {
+        #if DEBUG
         assert(width != nil || height != nil)
+        #endif
         if let width {
             style.maxWidth = width
         }
@@ -134,7 +193,7 @@ public extension ASLayoutElement {
     ///   - height: The minimum height constraint in `points` to be set for the layout element. If `nil`, the minimum height will not be modified. Defaults to `nil`
     /// - Returns: The modified `ASLayoutElement` with the minimum width and/or height constraint set.
     @discardableResult
-    func minConstrained(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
+    @inline(__always) @inlinable func minConstrained(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
         minConstrained(width: width.map { .points($0) }, height: height.map { .points($0) })
     }
 
@@ -146,7 +205,9 @@ public extension ASLayoutElement {
     /// - Returns: The modified `ASLayoutElement` with the minimum width and/or height constraint set.
     @discardableResult
     func minConstrained(width: ASDimension? = nil, height: ASDimension? = nil) -> Self {
+        #if DEBUG
         assert(width != nil || height != nil)
+        #endif
         if let width {
             style.minWidth = width
         }
@@ -164,12 +225,12 @@ public extension ASLayoutElement {
     ///   - vertical: The vertical position option for the layout element in the `ASRelativeLayoutSpec`. Defaults to `.start`.
     ///   - sizing: The sizing option for the `ASRelativeLayoutSpec`. Defaults to `.minimumSize`.
     /// - Returns: An `ASRelativeLayoutSpec` with the layout element relatively positioned.
-    func relatively(
+    @inline(__always) @inlinable func relatively(
         horizontal: ASRelativeLayoutSpecPosition = .start,
         vertical: ASRelativeLayoutSpecPosition = .start,
         sizing: ASRelativeLayoutSpecSizingOption = .minimumSize
     ) -> ASRelativeLayoutSpec {
-        ASRelativeLayoutSpec(
+        .init(
             horizontalPosition: horizontal,
             verticalPosition: vertical,
             sizingOption: sizing,
@@ -196,7 +257,7 @@ public extension ASLayoutElement {
             style.layoutPosition = layoutPosition
         }
 
-        return ASAbsoluteLayoutSpec(
+        return .init(
             sizing: sizing,
             children: [self]
         )
@@ -215,7 +276,7 @@ public extension ASLayoutElement {
         style.preferredSize = frame.size
         style.layoutPosition = frame.origin
 
-        return ASAbsoluteLayoutSpec(
+        return .init(
             sizing: sizing,
             children: [self]
         )
@@ -225,33 +286,24 @@ public extension ASLayoutElement {
     ///
     /// - Parameter element: The layout element to be used as the background in the `ASBackgroundLayoutSpec`.
     /// - Returns: An `ASBackgroundLayoutSpec` with the layout element as the foreground and the provided element as the background.
-    func background(_ element: ASLayoutElement) -> ASBackgroundLayoutSpec {
-        ASBackgroundLayoutSpec(
-            child: self,
-            background: element
-        )
+    @inline(__always) @inlinable func background(_ element: ASLayoutElement) -> ASBackgroundLayoutSpec {
+        .init(child: self, background: element)
     }
 
     /// Creates an `ASOverlayLayoutSpec` with the layout element as the base and the provided element as the overlay.
     ///
     /// - Parameter element: The layout element to be used as the overlay in the `ASOverlayLayoutSpec`.
     /// - Returns: An `ASOverlayLayoutSpec` with the layout element as the base and the provided element as the overlay.
-    func overlay(_ element: ASLayoutElement) -> ASOverlayLayoutSpec {
-        ASOverlayLayoutSpec(
-            child: self,
-            overlay: element
-        )
+    @inline(__always) @inlinable func overlay(_ element: ASLayoutElement) -> ASOverlayLayoutSpec {
+        .init(child: self, overlay: element)
     }
 
     /// Creates an `ASRatioLayoutSpec` with the layout element and a specified aspect ratio.
     ///
     /// - Parameter multiplier: The aspect ratio multiplier to be set for the `ASRatioLayoutSpec`.
     /// - Returns: An `ASRatioLayoutSpec` with the layout element and the specified aspect ratio.
-    func ratio(_ multiplier: CGFloat) -> ASRatioLayoutSpec {
-        ASRatioLayoutSpec(
-            ratio: multiplier,
-            child: self
-        )
+    @inline(__always) @inlinable func ratio(_ multiplier: CGFloat) -> ASRatioLayoutSpec {
+        .init(ratio: multiplier, child: self)
     }
 
     /// Creates an `ASCenterLayoutSpec` with the layout element centered using specified centering and sizing options.
@@ -260,11 +312,11 @@ public extension ASLayoutElement {
     ///   - centering: The centering options for the layout element in the `ASCenterLayoutSpec`. Defaults to `.XY`.
     ///   - sizing: The sizing options for the layout element in the `ASCenterLayoutSpec`. Defaults to `.minimumXY`.
     /// - Returns: An `ASCenterLayoutSpec` with the layout element centered using the specified centering and sizing options.
-    func centered(
+    @inline(__always) @inlinable func centered(
         _ centering: ASCenterLayoutSpecCenteringOptions = .XY,
         sizing: ASCenterLayoutSpecSizingOptions = .minimumXY
     ) -> ASCenterLayoutSpec {
-        ASCenterLayoutSpec(
+        .init(
             centeringOptions: centering,
             sizingOptions: sizing,
             child: self
@@ -275,18 +327,15 @@ public extension ASLayoutElement {
     ///
     /// - Parameter paddings: An array of `VAPadding` representing the padding values for the layout element in the `ASInsetLayoutSpec`.
     /// - Returns: An `ASInsetLayoutSpec` with the layout element padded using the specified paddings.
-    func padding(_ paddings: VAPadding...) -> ASInsetLayoutSpec {
-        ASInsetLayoutSpec(
-            insets: UIEdgeInsets(paddings: paddings),
-            child: self
-        )
+    @inline(__always) @inlinable func padding(_ paddings: VAPadding...) -> ASInsetLayoutSpec {
+        .init(insets: .init(paddings: paddings), child: self)
     }
 
     /// Creates an `ASWrapperLayoutSpec` with the layout element wrapped.
     ///
     /// - Returns: An `ASWrapperLayoutSpec` with the layout element wrapped.
-    func wrapped() -> ASWrapperLayoutSpec {
-        ASWrapperLayoutSpec(layoutElement: self)
+    @inline(__always) @inlinable func wrapped() -> ASWrapperLayoutSpec {
+        .init(layoutElement: self)
     }
 
     /// Creates an `ASCornerLayoutSpec` with the layout element placed at a corner of the layout.
@@ -320,11 +369,8 @@ public extension ASLayoutElement {
     ///   - edges: The safe area edges for which the layout element should be inset.
     ///   - node: The `ASDisplayNode` representing the container node that provides safe area information.
     /// - Returns: An `ASInsetLayoutSpec` with the layout element safely inset based on the specified safe area edges.
-    func `safe`(edges: VASafeAreaEdge, in node: ASDisplayNode) -> ASInsetLayoutSpec {
-        ASInsetLayoutSpec(
-            insets: UIEdgeInsets(paddings: mapToPaddings(edges: edges, in: node)),
-            child: self
-        )
+    @inline(__always) @inlinable func `safe`(edges: VASafeAreaEdge, in node: ASDisplayNode) -> ASInsetLayoutSpec {
+        .init(insets: .init(paddings: mapToPaddings(edges: edges, in: node)), child: self)
     }
 
     /// Maps the specified safe area edges to an array of `VAPadding` representing the insets.
@@ -359,7 +405,7 @@ public extension Array where Element: ASLayoutElement {
     ///   - Parameter multiplier: The aspect ratio multiplier to be set for the `ASRatioLayoutSpec`.
     /// - Returns: Container with the `ASRatioLayoutSpec`s.
     @discardableResult
-    func ratio(_ multiplier: CGFloat) -> [ASRatioLayoutSpec] {
+    @inline(__always) @inlinable func ratio(_ multiplier: CGFloat) -> [ASRatioLayoutSpec] {
         map { $0.ratio(multiplier) }
     }
 
@@ -382,7 +428,7 @@ public extension Array where Element: ASLayoutElement {
     ///   - height: The preferred height in `points` to be set for the layout elements. If `nil`, the height will not be modified.
     /// - Returns: Container with the preferred width and/or height set for its layout elements.
     @discardableResult
-    func sized(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
+    @inline(__always) @inlinable func sized(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
         sized(width: width.map { .points($0) }, height: height.map { .points($0) })
     }
 
@@ -394,7 +440,9 @@ public extension Array where Element: ASLayoutElement {
     /// - Returns: Container with the preferred width and/or height set for its layout elements.
     @discardableResult
     func sized(width: ASDimension? = nil, height: ASDimension? = nil) -> Self {
+        #if DEBUG
         assert(width != nil || height != nil)
+        #endif
         forEach { $0.sized(width: width, height: height) }
 
         return self
@@ -409,7 +457,9 @@ public extension Array where Element: ASLayoutElement {
     /// - Returns: Container with the flex properties set for its layout elements.
     @discardableResult
     func flex(shrink: CGFloat? = nil, grow: CGFloat? = nil, basisPercent: CGFloat? = nil) -> Self {
+        #if DEBUG
         assert(shrink != nil || grow != nil || basisPercent != nil)
+        #endif
         forEach { $0.flex(shrink: shrink, grow: grow, basisPercent: basisPercent) }
 
         return self
@@ -433,7 +483,7 @@ public extension Array where Element: ASLayoutElement {
     ///   - height: The maximum height in `points` constraint to be set for the layout elements. If `nil`, the maximum height will not be modified. Defaults to `nil`
     /// - Returns: Container with the maximum width and/or height constraint set for its layout elements.
     @discardableResult
-    func maxConstrained(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
+    @inline(__always) @inlinable func maxConstrained(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
         maxConstrained(width: width.map { .points($0) }, height: height.map { .points($0) })
     }
 
@@ -445,7 +495,9 @@ public extension Array where Element: ASLayoutElement {
     /// - Returns: Container with the maximum width and/or height constraint set for its layout elements.
     @discardableResult
     func maxConstrained(width: ASDimension? = nil, height: ASDimension? = nil) -> Self {
+        #if DEBUG
         assert(width != nil || height != nil)
+        #endif
         forEach { $0.maxConstrained(width: width, height: height) }
 
         return self
@@ -469,7 +521,7 @@ public extension Array where Element: ASLayoutElement {
     ///   - height: The minimum height in `points` constraint to be set for the layout elements. If `nil`, the minimum height will not be modified. Defaults to `nil`
     /// - Returns: Container with the minimum width and/or height constraint set for its layout elements.
     @discardableResult
-    func minConstrained(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
+    @inline(__always) @inlinable func minConstrained(width: CGFloat? = nil, height: CGFloat? = nil) -> Self {
         minConstrained(width: width.map { .points($0) }, height: height.map { .points($0) })
     }
 
@@ -481,7 +533,9 @@ public extension Array where Element: ASLayoutElement {
     /// - Returns: Container with the minimum width and/or height constraint set for its layout elements.
     @discardableResult
     func minConstrained(width: ASDimension? = nil, height: ASDimension? = nil) -> Self {
+        #if DEBUG
         assert(width != nil || height != nil)
+        #endif
         forEach { $0.minConstrained(width: width, height: height) }
 
         return self
@@ -513,7 +567,7 @@ public extension ASDisplayNode {
     ///
     /// - Parameter layoutElement: A closure returning the layout element to be padded.
     /// - Returns: A layout spec that applies padding with `safeAreaInsets` to the provided layout element.
-    func SafeArea(_ layoutElement: () -> ASLayoutElement) -> ASLayoutSpec {
+    @inline(__always) @inlinable func SafeArea(_ layoutElement: () -> ASLayoutElement) -> ASLayoutSpec {
         layoutElement()
             .padding(.insets(safeAreaInsets))
     }
@@ -524,9 +578,9 @@ public extension ASDisplayNode {
     ///   - edges: The edges of the safe area for which padding is applied.
     ///   - layoutElement: A closure returning the layout element to be padded.
     /// - Returns: A layout spec that applies padding with custom edge insets to the provided layout element.
-    func SafeArea(edges: VASafeAreaEdge, _ layoutElement: () -> ASLayoutElement) -> ASLayoutSpec {
+    @inline(__always) @inlinable func SafeArea(edges: VASafeAreaEdge, _ layoutElement: () -> ASLayoutElement) -> ASLayoutSpec {
         ASInsetLayoutSpec(
-            insets: UIEdgeInsets(paddings: mapToPaddings(edges: edges, in: self)),
+            insets: .init(paddings: mapToPaddings(edges: edges, in: self)),
             child: layoutElement()
         )
     }

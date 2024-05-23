@@ -13,7 +13,6 @@ public enum VAUserInterfaceStyle: Int {
     case light = 1
     case dark = 2
 
-    @available(iOS 12.0, *)
     public init(userInterfaceStyle: UIUserInterfaceStyle) {
         switch userInterfaceStyle {
         case .unspecified: self = .unspecified
@@ -23,12 +22,11 @@ public enum VAUserInterfaceStyle: Int {
         }
     }
 
-    @available(iOS 12.0, *)
     var uiUserInterfaceStyle: UIUserInterfaceStyle {
         switch self {
-        case .unspecified: return .unspecified
-        case .light: return .light
-        case .dark: return .dark
+        case .unspecified: .unspecified
+        case .light: .light
+        case .dark: .dark
         }
     }
 }

@@ -9,7 +9,6 @@ import UIKit
 
 open class VAWindow: UIWindow {
 
-    @available(iOS 12.0, *)
     public init(
         customTheme: VATheme,
         standardLightTheme: VATheme,
@@ -42,7 +41,6 @@ open class VAWindow: UIWindow {
         appContexts.append(VAAppContext(themeManager: themeManager, window: self))
     }
 
-    @available(iOS 12.0, *)
     public convenience init(standardLightTheme: VATheme) {
         self.init(
             standardLightTheme: standardLightTheme,
@@ -57,7 +55,6 @@ open class VAWindow: UIWindow {
         )
     }
 
-    @available(iOS 12.0, *)
     public init(standardLightTheme: VATheme, standardDarkTheme: VATheme) {
         super.init(frame: UIScreen.main.bounds)
         
@@ -104,10 +101,8 @@ open class VAWindow: UIWindow {
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
 
-        if #available(iOS 12.0, *) {
-            if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
-                appContext.themeManager.updateStandardThemeIfNeeded(userInterfaceStyle: VAUserInterfaceStyle(userInterfaceStyle: traitCollection.userInterfaceStyle))
-            }
+        if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+            appContext.themeManager.updateStandardThemeIfNeeded(userInterfaceStyle: VAUserInterfaceStyle(userInterfaceStyle: traitCollection.userInterfaceStyle))
         }
         if traitCollection.preferredContentSizeCategory != previousTraitCollection?.preferredContentSizeCategory {
             appContext.contentSizeManager.updateIfNeeded(contentSize: traitCollection.preferredContentSizeCategory)

@@ -21,7 +21,7 @@ public extension CGFloat {
     }
 
     @MainActor
-    func pixelRounded(_ rule: FloatingPointRoundingRule) -> CGFloat {
+    @inline(__always) @inlinable func pixelRounded(_ rule: FloatingPointRoundingRule) -> CGFloat {
         pixelRounded(rule, scale: UIScreen.main.scale)
     }
 
@@ -30,11 +30,11 @@ public extension CGFloat {
     }
 
     @MainActor
-    func isPixelEqual(to other: CGFloat) -> Bool {
+    @inline(__always) @inlinable func isPixelEqual(to other: CGFloat) -> Bool {
         isPixelEqual(to: other, scale: UIScreen.main.scale)
     }
 
-    func isPixelEqual(to other: CGFloat, scale: CGFloat) -> Bool {
+    @inline(__always) @inlinable func isPixelEqual(to other: CGFloat, scale: CGFloat) -> Bool {
         isRoughlyEqual(to: other, tolerance: 1 / scale)
     }
 }

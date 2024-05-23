@@ -18,7 +18,11 @@ open class VASelfSizingListContainerNode<ListNode: ASCollectionNode>: VADisplayN
 
     private var observation: NSKeyValueObservation?
 
-    public init(child: ListNode, direction: Direction, corner: VACornerRoundingParameters = .default) {
+    public init(
+        child: ListNode,
+        direction: Direction,
+        corner: VACornerRoundingParameters = .default
+    ) {
         self.child = child
         self.direction = direction
 

@@ -36,17 +36,10 @@ extension VATextNode {
                     weight: textStyle.weight
                 )
             case .monospaced:
-                if #available(iOS 13.0, *) {
-                    return UIFont.monospacedSystemFont(
-                        ofSize: textStyle.getFontSize(contentSize: appContext.contentSizeManager.contentSize),
-                        weight: textStyle.weight
-                    )
-                } else {
-                    return UIFont.systemFont(
-                        ofSize: textStyle.getFontSize(contentSize: appContext.contentSizeManager.contentSize),
-                        weight: textStyle.weight
-                    )
-                }
+                return UIFont.monospacedSystemFont(
+                    ofSize: textStyle.getFontSize(contentSize: appContext.contentSizeManager.contentSize),
+                    weight: textStyle.weight
+                )
             case .monospacedDigits:
                 return UIFont.monospacedDigitSystemFont(
                     ofSize: textStyle.getFontSize(contentSize: appContext.contentSizeManager.contentSize),
@@ -87,12 +80,7 @@ extension VATextNode {
 }
 
 func getTitleTextNode(string: String, selection: String) -> VATextNode {
-    let fontDesign: VAFontDesign
-    if #available(iOS 13.0, *) {
-        fontDesign = .monospaced
-    } else {
-        fontDesign = .default
-    }
+    let fontDesign: VAFontDesign = .monospaced
 
     return VATextNode(
         string: string,

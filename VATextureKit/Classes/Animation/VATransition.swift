@@ -99,8 +99,8 @@ extension VATransition {
     }
 }
 
-extension VATransition {
-    public var inverted: VATransition {
+public extension VATransition {
+    var inverted: VATransition {
         VATransition(
             transitions: transitions.map { transition in
                 Transition {
@@ -111,7 +111,7 @@ extension VATransition {
             initialStates: initialStates
         )
     }
-    public var reversed: VATransition {
+    var reversed: VATransition {
         VATransition(
             transitions: transitions.map { transition in
                 Transition {
@@ -139,7 +139,7 @@ extension VATransition {
     ///
     /// - Parameter transitions: Transitions to be combined.
     /// - Returns: New transition.
-    public static func combined(_ transitions: [VATransition]) -> VATransition {
+    static func combined(_ transitions: [VATransition]) -> VATransition {
         guard !transitions.isEmpty else {
             return .identity
         }
@@ -165,11 +165,11 @@ extension VATransition {
         return result
     }
 
-    public func combined(with transition: VATransition) -> VATransition {
+    @inline(__always) @inlinable func combined(with transition: VATransition) -> VATransition {
         .combined(self, transition)
     }
 
-    public func filter(_ type: @escaping (Progress) -> Bool) -> VATransition {
+    func filter(_ type: @escaping (Progress) -> Bool) -> VATransition {
         VATransition(
             transitions: transitions.map { transition in
                 Transition {
@@ -183,7 +183,7 @@ extension VATransition {
         )
     }
 
-    public func map<T>(_ transform: @escaping (T) -> Base) -> VATransition<T> {
+    func map<T>(_ transform: @escaping (T) -> Base) -> VATransition<T> {
         VATransition<T>(
             transitions: transitions.map { transition in
                 VATransition<T>.Transition {
@@ -198,8 +198,8 @@ extension VATransition {
     }
 }
 
-extension VATransition {
-    public static var identity: VATransition {
+public extension VATransition {
+    static var identity: VATransition {
         VATransition(
             transitions: [],
             modifiers: [],
@@ -211,17 +211,21 @@ extension VATransition {
     ///
     /// - Parameter transitions: Transitions to be combined.
     /// - Returns: New transition.
-    public static func combined(_ transitions: VATransition...) -> VATransition {
+    @inline(__always) @inlinable static func combined(_ transitions: VATransition...) -> VATransition {
         .combined(transitions)
     }
 
     /// Provides a composite transition that uses a different transition for insertion versus removal.
-    public static func asymmetric(insertion: VATransition, removal: VATransition) -> VATransition {
+    static func asymmetric(insertion: VATransition, removal: VATransition) -> VATransition {
         insertion.filter(\.isInsertion)
             .combined(with: removal.filter { !$0.isInsertion })
     }
 
-    public static func value(_ keyPath: ReferenceWritableKeyPath<Base, CGFloat>, _ transformed: CGFloat, default defaultValue: CGFloat? = nil) -> VATransition {
+    static func value(
+        _ keyPath: ReferenceWritableKeyPath<Base, CGFloat>,
+        _ transformed: CGFloat,
+        default defaultValue: CGFloat? = nil
+    ) -> VATransition {
         VATransition(keyPath) { progress, view, value in
             view[keyPath: keyPath] = progress.value(
                 identity: defaultValue ?? value,
@@ -230,7 +234,7 @@ extension VATransition {
         }
     }
 
-    public static func constant<T>(_ keyPath: ReferenceWritableKeyPath<Base, T>, _ value: T) -> VATransition {
+    static func constant<T>(_ keyPath: ReferenceWritableKeyPath<Base, T>, _ value: T) -> VATransition {
         VATransition(keyPath) { _, view, _ in
             view[keyPath: keyPath] = value
         }
@@ -353,8 +357,8 @@ public enum Progress: Hashable, Codable {
 
         public var progress: CGFloat {
             switch self {
-            case .start: return 0
-            case .end: return 1
+            case .start: 0
+            case .end: 1
             }
         }
     }
@@ -373,8 +377,8 @@ public enum Progress: Hashable, Codable {
     public var value: CGFloat {
         get {
             switch self {
-            case let .insertion(value): return value
-            case let .removal(value): return value
+            case let .insertion(value): value
+            case let .removal(value): value
             }
         }
         set {
@@ -387,8 +391,8 @@ public enum Progress: Hashable, Codable {
     public var progress: CGFloat {
         get {
             switch self {
-            case let .insertion(value): return value
-            case let .removal(value): return 1 - value
+            case let .insertion(value): value
+            case let .removal(value): 1 - value
             }
         }
         set {
@@ -400,21 +404,21 @@ public enum Progress: Hashable, Codable {
     }
     public var inverted: Progress {
         switch self {
-        case let .insertion(value): return .removal(1 - value)
-        case let .removal(value): return .insertion(1 - value)
+        case let .insertion(value): .removal(1 - value)
+        case let .removal(value): .insertion(1 - value)
         }
     }
     public var reversed: Progress {
         switch self {
-        case let .insertion(value): return .insertion(1 - value)
-        case let .removal(value): return .removal(1 - value)
+        case let .insertion(value): .insertion(1 - value)
+        case let .removal(value): .removal(1 - value)
         }
     }
     public var direction: TransitionDirection {
         get {
             switch self {
-            case .insertion: return .insertion
-            case .removal: return .removal
+            case .insertion: .insertion
+            case .removal: .removal
             }
         }
         set { self = newValue.at(value) }

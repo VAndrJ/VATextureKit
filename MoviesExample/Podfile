@@ -1,6 +1,6 @@
 use_modular_headers!
 
-platform :ios, '13.0'
+platform :ios, '14.0'
 
 def project_pods
   inhibit_all_warnings!
@@ -9,10 +9,10 @@ def project_pods
   pod 'VATextureKit', :path => '../'
   pod 'VATextureKitRx', :path => '../'
   pod 'VANavigator', '1.3.8'
-  pod 'Swiftional', '1.2.0'
+  pod 'Swiftional', '~> 2.0.0'
   pod 'R.swift', '7.3.2'
-  pod 'RxSwiftExt', '6.2.1'
-  pod 'RxKeyboard', '2.0.0'
+  pod 'RxSwiftExt', '~> 6.2.1'
+  pod 'RxKeyboard', '~> 2.0.0'
 end
 
 def test_pods
@@ -38,7 +38,7 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14.0'
     end
     if target.name == "Texture"
       target.build_configurations.each do |config|

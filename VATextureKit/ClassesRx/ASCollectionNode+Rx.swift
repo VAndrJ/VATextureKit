@@ -19,7 +19,7 @@ extension Reactive where Base: ASCollectionNode {
     /// - returns: Disposable object that can be used to unbind.
     public func items<DataSource: RxASCollectionDataSourceType & ASCollectionDataSource, O: ObservableType>(dataSource: DataSource) -> (_ source: O) -> Disposable where DataSource.Element == O.Element {
         return { source in
-            return source.subscribeProxyDataSource(ofObject: base, dataSource: dataSource, retainDataSource: true) { [weak collectionNode = base] (_: RxASCollectionDataSourceProxy, event) -> Void in
+            source.subscribeProxyDataSource(ofObject: base, dataSource: dataSource, retainDataSource: true) { [weak collectionNode = base] (_: RxASCollectionDataSourceProxy, event) -> Void in
                 guard let collectionNode else { return }
 
                 dataSource.collectionNode(collectionNode, observedEvent: event)
@@ -80,19 +80,20 @@ extension Reactive where Base: ASCollectionNode {
             )
         }()
     }
-    
     public var didScroll: ControlEvent<Void> {
         mainActorEscaped {
             ControlEvent(events: RxASCollectionDelegateProxy.proxy(for: base).contentOffsetPublishSubject)
         }()
     }
-    
-    public var willBeginDecelerating: ControlEvent<Void> { ControlEvent(events: delegate.methodInvoked(#selector(ASCollectionDelegate.scrollViewWillBeginDecelerating(_:))).map { _ in }) }
-    
-    public var didEndDecelerating: ControlEvent<Void> { ControlEvent(events: delegate.methodInvoked(#selector(ASCollectionDelegate.scrollViewDidEndDecelerating(_:))).map { _ in }) }
-    
-    public var willBeginDragging: ControlEvent<Void> { ControlEvent(events: delegate.methodInvoked(#selector(ASCollectionDelegate.scrollViewWillBeginDragging(_:))).map { _ in }) }
-    
+    public var willBeginDecelerating: ControlEvent<Void> {
+        ControlEvent(events: delegate.methodInvoked(#selector(ASCollectionDelegate.scrollViewWillBeginDecelerating(_:))).map { _ in })
+    }
+    public var didEndDecelerating: ControlEvent<Void> {
+        ControlEvent(events: delegate.methodInvoked(#selector(ASCollectionDelegate.scrollViewDidEndDecelerating(_:))).map { _ in })
+    }
+    public var willBeginDragging: ControlEvent<Void> {
+        ControlEvent(events: delegate.methodInvoked(#selector(ASCollectionDelegate.scrollViewWillBeginDragging(_:))).map { _ in })
+    }
     public var willEndDragging: ControlEvent<Reactive<UIScrollView>.WillEndDraggingEvent> {
         let source = delegate.methodInvoked(#selector(ASCollectionDelegate.scrollViewWillEndDragging(_:withVelocity:targetContentOffset:)))
             .map { value -> Reactive<UIScrollView>.WillEndDraggingEvent in
@@ -105,7 +106,6 @@ extension Reactive where Base: ASCollectionNode {
 
         return ControlEvent(events: source)
     }
-    
     public var didEndDragging: ControlEvent<Bool> {
         let source = delegate.methodInvoked(#selector(ASCollectionDelegate.scrollViewDidEndDragging(_:willDecelerate:))).map { value -> Bool in
             return try castOrThrow(Bool.self, value[1])
@@ -113,63 +113,54 @@ extension Reactive where Base: ASCollectionNode {
 
         return ControlEvent(events: source)
     }
-    
     public var itemSelected: ControlEvent<IndexPath> {
         let source = delegate.methodInvoked(#selector(ASCollectionDelegate.collectionNode(_:didSelectItemAt:)))
             .map { try castOrThrow(IndexPath.self, $0[1]) }
 
         return ControlEvent(events: source)
     }
-    
     public var itemDeselected: ControlEvent<IndexPath> {
         let source = delegate.methodInvoked(#selector(ASCollectionDelegate.collectionNode(_:didDeselectItemAt:)))
             .map { try castOrThrow(IndexPath.self, $0[1]) }
 
         return ControlEvent(events: source)
     }
-    
     public var itemHighlighted: ControlEvent<IndexPath> {
         let source = delegate.methodInvoked(#selector(ASCollectionDelegate.collectionNode(_:didHighlightItemAt:)))
             .map { try castOrThrow(IndexPath.self, $0[1]) }
 
         return ControlEvent(events: source)
     }
-    
     public var itemUnhighlighted: ControlEvent<IndexPath> {
         let source = delegate.methodInvoked(#selector(ASCollectionDelegate.collectionNode(_:didUnhighlightItemAt:)))
             .map { try castOrThrow(IndexPath.self, $0[1]) }
 
         return ControlEvent(events: source)
     }
-    
     public var willDisplayItem: ControlEvent<ASCellNode> {
         let source: Observable<ASCellNode> = delegate.methodInvoked(#selector(ASCollectionDelegate.collectionNode(_:willDisplayItemWith:)))
             .map { try castOrThrow(ASCellNode.self, $0[1]) }
 
         return ControlEvent(events: source)
     }
-    
     public var willDisplaySupplementaryElement: ControlEvent<ASCellNode> {
         let source: Observable<ASCellNode> = delegate.methodInvoked(#selector(ASCollectionDelegate.collectionNode(_:willDisplaySupplementaryElementWith:)))
             .map { try castOrThrow(ASCellNode.self, $0[1]) }
 
         return ControlEvent(events: source)
     }
-    
     public var didEndDisplayingItem: ControlEvent<ASCellNode> {
         let source: Observable<ASCellNode> = delegate.methodInvoked(#selector(ASCollectionDelegate.collectionNode(_:didEndDisplayingItemWith:)))
             .map { try castOrThrow(ASCellNode.self, $0[1]) }
 
         return ControlEvent(events: source)
     }
-    
     public var didEndDisplayingSupplementaryElement: ControlEvent<ASCellNode> {
         let source: Observable<ASCellNode> = delegate.methodInvoked(#selector(ASCollectionDelegate.collectionNode(_:didEndDisplayingSupplementaryElementWith:)))
             .map { try castOrThrow(ASCellNode.self, $0[1]) }
 
         return ControlEvent(events: source)
     }
-    
     public var willBeginBatchFetch: ControlEvent<ASBatchContext> {
         let source: Observable<ASBatchContext> = delegate.methodInvoked(#selector(ASCollectionDelegate.collectionNode(_:willBeginBatchFetchWith:)))
             .map { try castOrThrow(ASBatchContext.self, $0[1]) }

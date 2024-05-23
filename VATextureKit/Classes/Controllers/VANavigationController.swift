@@ -12,7 +12,7 @@ open class VANavigationController: ASDKNavigationController, VAThemeObserver, VA
     open override var childForStatusBarHidden: UIViewController? { topViewController }
 
     /// The currently active theme obtained from the app's context.
-    public var theme: VATheme { appContext.themeManager.theme }
+    @inline(__always) @inlinable public var theme: VATheme { appContext.themeManager.theme }
     public lazy var transitionAnimator: VATransionAnimator = VADefaultTransionAnimator(controller: self)
 
     private(set) var isObservingContentSizeChanges = false

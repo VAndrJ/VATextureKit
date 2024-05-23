@@ -182,7 +182,7 @@ private final class _ContentNodeView<Node: ASDisplayNode>: UILabel { // To use `
         }
         let calculatedlayout = wrapperNode.calculateLayoutThatFits(range)
         
-        return CGRect(origin: .zero, size: calculatedlayout.size)
+        return .init(origin: .zero, size: calculatedlayout.size)
     }
 
     override func layoutSubviews() {
@@ -208,7 +208,8 @@ private final class _WrapperNode: ASDisplayNode {
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        ASWrapperLayoutSpec(layoutElement: wrappedNode)
+        wrappedNode
+            .wrapped()
     }
 }
 

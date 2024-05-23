@@ -33,8 +33,8 @@ public extension CGSize {
         .init(width: lhs.width - rhs, height: lhs.height - rhs)
     }
 
-    var area: CGFloat { width * height }
-    var ratio: CGFloat { width / height }
+    @inline(__always) @inlinable var area: CGFloat { width * height }
+    @inline(__always) @inlinable var ratio: CGFloat { width / height }
 
     init(same: CGFloat) {
         self.init(width: same, height: same)
