@@ -100,22 +100,20 @@ open class VAImageNode: ASImageNode, VACornerable, VAThemeObserver {
     // Dirty hack ro redraw image
     open override func asyncTraitCollectionDidChange(withPreviousTraitCollection previousTraitCollection: ASPrimitiveTraitCollection) {
         var previousTraitCollection = previousTraitCollection
-        if #available(iOS 12, *) {
-            if isInitialTraits {
-                isInitialTraits = false
-            } else {
-                if previousTraitCollection.horizontalSizeClass != asyncTraitCollection().horizontalSizeClass ||
-                    previousTraitCollection.verticalSizeClass != asyncTraitCollection().verticalSizeClass {
-                    switch previousTraitCollection.userInterfaceStyle {
-                    case .dark:
-                        previousTraitCollection.userInterfaceStyle = .light
-                    default:
-                        previousTraitCollection.userInterfaceStyle = .dark
-                    }
+        if isInitialTraits {
+            isInitialTraits = false
+        } else {
+            if previousTraitCollection.horizontalSizeClass != asyncTraitCollection().horizontalSizeClass ||
+                previousTraitCollection.verticalSizeClass != asyncTraitCollection().verticalSizeClass {
+                switch previousTraitCollection.userInterfaceStyle {
+                case .dark:
+                    previousTraitCollection.userInterfaceStyle = .light
+                default:
+                    previousTraitCollection.userInterfaceStyle = .dark
                 }
             }
         }
-
+        
         super.asyncTraitCollectionDidChange(withPreviousTraitCollection: previousTraitCollection)
     }
 

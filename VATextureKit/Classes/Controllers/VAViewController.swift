@@ -40,10 +40,8 @@ open class VAViewController<Node: ASDisplayNode>: ASDKViewController<ASDisplayNo
     }
 
     @objc open func configureTheme(_ theme: VATheme) {
-        if #available(iOS 13.0, *) {
-            overrideUserInterfaceStyle = theme.userInterfaceStyle.uiUserInterfaceStyle
-            setNeedsStatusBarAppearanceUpdate()
-        }
+        overrideUserInterfaceStyle = theme.userInterfaceStyle.uiUserInterfaceStyle
+        setNeedsStatusBarAppearanceUpdate()
     }
 
     public func themeDidChanged(to newValue: VATheme) {

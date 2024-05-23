@@ -52,13 +52,17 @@ open class VAShapeNode: ASDisplayNode {
         layer.borderColor = context.borderColor.cgColor
         layer.shadowColor = context.shadowColor.cgColor
         if overrides(#selector(layerBoundsDidChanged(to:))) {
-            observation = layer.observe(\.bounds, options: [.new], changeHandler: { [weak self] _, change in
-                guard let newValue = change.newValue else { return }
+            observation = layer.observe(
+                \.bounds,
+                 options: [.new],
+                 changeHandler: { [weak self] _, change in
+                     guard let newValue = change.newValue else { return }
 
-                ensureOnMain {
-                    self?.layerBoundsDidChanged(to: newValue)
-                }
-            })
+                     ensureOnMain {
+                         self?.layerBoundsDidChanged(to: newValue)
+                     }
+                 }
+            )
         }
     }
 
@@ -82,7 +86,7 @@ open class VAShapeNode: ASDisplayNode {
         }
     }
 
-    public func setPath(_ value: UIBezierPath?) {
+    @inline(__always) @inlinable public func setPath(_ value: UIBezierPath?) {
         setCGPath(value?.cgPath)
     }
 
@@ -98,7 +102,7 @@ open class VAShapeNode: ASDisplayNode {
         }
     }
 
-    public func setFillColor(_ value: UIColor?) {
+    @inline(__always) @inlinable public func setFillColor(_ value: UIColor?) {
         setFillCGColor(value?.cgColor)
     }
 
@@ -108,7 +112,7 @@ open class VAShapeNode: ASDisplayNode {
         }
     }
 
-    public func setStrokeColor(_ value: UIColor?) {
+    @inline(__always) @inlinable public func setStrokeColor(_ value: UIColor?) {
         setStrokeCGColor(value?.cgColor)
     }
 
@@ -118,7 +122,7 @@ open class VAShapeNode: ASDisplayNode {
         }
     }
 
-    public func setBackgroundColor(_ value: UIColor?) {
+    @inline(__always) @inlinable public func setBackgroundColor(_ value: UIColor?) {
         setBackgroundCGColor(value?.cgColor)
     }
 
@@ -128,7 +132,7 @@ open class VAShapeNode: ASDisplayNode {
         }
     }
 
-    public func setBorderColor(_ value: UIColor?) {
+    @inline(__always) @inlinable public func setBorderColor(_ value: UIColor?) {
         setBorderCGColor(value?.cgColor)
     }
 
@@ -138,7 +142,7 @@ open class VAShapeNode: ASDisplayNode {
         }
     }
 
-    public func setShadowColor(_ value: UIColor?) {
+    @inline(__always) @inlinable public func setShadowColor(_ value: UIColor?) {
         setShadowCGColor(value?.cgColor)
     }
 

@@ -47,7 +47,7 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
         super.init(corner: corner)
 
         // To trigger `layout()` in any spec and avoid zero-sized frames.
-        minConstrained(size: CGSize(same: 1))
+        minConstrained(size: .init(same: 1))
     }
 
     /// Creates an instance of `VASizedViewWrapperNode`.
@@ -67,7 +67,7 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
         super.init(corner: corner)
 
         // To trigger `layout()` in any spec and avoid zero-sized frames.
-        minConstrained(size: CGSize(same: 1))
+        minConstrained(size: .init(same: 1))
     }
 
     @MainActor

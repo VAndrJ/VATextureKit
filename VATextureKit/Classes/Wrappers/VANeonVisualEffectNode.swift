@@ -42,17 +42,10 @@ open class VAMaterialVisualEffectNode: VANeonVisualEffectNode {
 open class VANeonVisualEffectNode: VAViewWrapperNode<VANeonVisualEffectView> {
 
     public init(effect: UIVisualEffect?, context: VANeonVisualEffectView.Context) {
-        if #available(iOS 13.0, *) {
-            super.init(
-                actorChildGetter: { VANeonVisualEffectView(effect: effect, context: context) },
-                sizing: nil
-            )
-        } else {
-            super.init(
-                childGetter: { VANeonVisualEffectView(effect: effect, context: context) },
-                sizing: nil
-            )
-        }
+        super.init(
+            actorChildGetter: { VANeonVisualEffectView(effect: effect, context: context) },
+            sizing: nil
+        )
     }
 }
 
@@ -237,12 +230,9 @@ open class VANeonVisualEffectView: UIView {
 
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        guard traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle else { return }
 
-        if #available(iOS 12.0, *) {
-            guard traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle else { return }
-
-            updateColors()
-        }
+        updateColors()
     }
 
     private func updateColors() {
@@ -258,11 +248,9 @@ open class VANeonVisualEffectView: UIView {
         neonView.layer.masksToBounds = true
         visualEffectView.layer.cornerRadius = corner.radius
         visualEffectView.layer.masksToBounds = true
-        if #available(iOS 13.0, *) {
-            layer.cornerCurve = corner.curve.layerCornerCurve
-            neonView.layer.cornerCurve = corner.curve.layerCornerCurve
-            visualEffectView.layer.cornerCurve = corner.curve.layerCornerCurve
-        }
+        layer.cornerCurve = corner.curve.layerCornerCurve
+        neonView.layer.cornerCurve = corner.curve.layerCornerCurve
+        visualEffectView.layer.cornerCurve = corner.curve.layerCornerCurve
     }
 
     private func updateBorder() {

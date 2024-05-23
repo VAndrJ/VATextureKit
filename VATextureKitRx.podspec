@@ -25,5 +25,5 @@ Includes RxSwift additions.
   s.dependency 'VATextureKitSpec',  '2.0.0'
   s.dependency 'VATextureKit',      '2.0.0'
 
-  s.swift_versions = '5.7'
+  s.swift_versions = '5.9'
 end

@@ -153,16 +153,10 @@ public extension VATheme {
     static var lock = NSRecursiveLock()
     static var fontCache: [VAThemeFont: UIFont] = [:]
     static var vaLight: VATheme {
-        let statusBarStyle: UIStatusBarStyle
-        if #available(iOS 13.0, *) {
-            statusBarStyle = .darkContent
-        } else {
-            statusBarStyle = .default
-        }
-        return VATheme(
+        VATheme(
             tag: VALightThemeTag(),
             userInterfaceStyle: .light,
-            statusBarStyle: statusBarStyle,
+            statusBarStyle: .darkContent,
             barStyle: .default,
             label: UIColor.rgba(0, 0, 0, 1),
             secondaryLabel: UIColor.rgba(60, 60, 67, 0.6),
@@ -266,11 +260,7 @@ public extension VATheme {
             case .default:
                 font = UIFont.systemFont(ofSize: size, weight: weight)
             case .monospaced:
-                if #available(iOS 13.0, *) {
-                    font = UIFont.monospacedSystemFont(ofSize: size, weight: weight)
-                } else {
-                    font = UIFont.monospacedDigitSystemFont(ofSize: size, weight: weight)
-                }
+                font = UIFont.monospacedSystemFont(ofSize: size, weight: weight)
             case .monospacedDigits:
                 font = UIFont.monospacedDigitSystemFont(ofSize: size, weight: weight)
             case .italic:

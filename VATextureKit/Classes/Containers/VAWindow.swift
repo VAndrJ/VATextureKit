@@ -104,10 +104,8 @@ open class VAWindow: UIWindow {
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
 
-        if #available(iOS 12.0, *) {
-            if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
-                appContext.themeManager.updateStandardThemeIfNeeded(userInterfaceStyle: VAUserInterfaceStyle(userInterfaceStyle: traitCollection.userInterfaceStyle))
-            }
+        if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+            appContext.themeManager.updateStandardThemeIfNeeded(userInterfaceStyle: VAUserInterfaceStyle(userInterfaceStyle: traitCollection.userInterfaceStyle))
         }
         if traitCollection.preferredContentSizeCategory != previousTraitCollection?.preferredContentSizeCategory {
             appContext.contentSizeManager.updateIfNeeded(contentSize: traitCollection.preferredContentSizeCategory)

@@ -12,12 +12,10 @@ import VATextureKitSpec
 public extension ASDisplayNode {
 
     func loadForPreview() {
-        if #available(iOS 13.0, *) {
-            ASTraitCollectionPropagateDown(
-                self,
-                ASPrimitiveTraitCollectionFromUITraitCollection(UITraitCollection.current)
-            )
-        }
+        ASTraitCollectionPropagateDown(
+            self,
+            ASPrimitiveTraitCollectionFromUITraitCollection(UITraitCollection.current)
+        )
         setNeedsDisplay()
         recursivelyEnsureDisplaySynchronously(true)
         ASDisplayNodePerformBlockOnEveryNode(nil, self, true) {
@@ -33,12 +31,10 @@ public extension ASDisplayNode {
     }
 
     func loadForSnapshot() {
-        if #available(iOS 13.0, *) {
-            ASTraitCollectionPropagateDown(
-                self,
-                ASPrimitiveTraitCollectionFromUITraitCollection(UITraitCollection.current)
-            )
-        }
+        ASTraitCollectionPropagateDown(
+            self,
+            ASPrimitiveTraitCollectionFromUITraitCollection(UITraitCollection.current)
+        )
         displaysAsynchronously = false
         setNeedsDisplay()
         recursivelyEnsureDisplaySynchronously(true)
@@ -61,12 +57,10 @@ public extension ASDisplayNode {
 public extension ASCollectionNode {
 
     func loadCollectionForPreview() {
-        if #available(iOS 13.0, *) {
-            ASTraitCollectionPropagateDown(
-                self,
-                ASPrimitiveTraitCollectionFromUITraitCollection(UITraitCollection.current)
-            )
-        }
+        ASTraitCollectionPropagateDown(
+            self,
+            ASPrimitiveTraitCollectionFromUITraitCollection(UITraitCollection.current)
+        )
         reloadData()
         layer.removeAllAnimations()
         waitUntilAllUpdatesAreProcessed()
@@ -82,12 +76,10 @@ public extension ASCollectionNode {
 extension ASTableNode {
 
     func loadTableForPreview() {
-        if #available(iOS 13.0, *) {
-            ASTraitCollectionPropagateDown(
-                self,
-                ASPrimitiveTraitCollectionFromUITraitCollection(UITraitCollection.current)
-            )
-        }
+        ASTraitCollectionPropagateDown(
+            self,
+            ASPrimitiveTraitCollectionFromUITraitCollection(UITraitCollection.current)
+        )
         reloadData()
         layer.removeAllAnimations()
         waitUntilAllUpdatesAreProcessed()
