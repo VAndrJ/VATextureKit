@@ -63,8 +63,10 @@ pod try 'VATextureKit'
 
 
 Minimum deployment target: 
-1.9.x **iOS 11**
-2.x.x **iOS 14**
+
+``1.9.x``:**``iOS 11``**
+
+``2.x.x``:**``iOS 14``**
 
 
 ## Layout Specs
