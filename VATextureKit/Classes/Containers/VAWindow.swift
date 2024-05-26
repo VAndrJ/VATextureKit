@@ -77,7 +77,6 @@ open class VAWindow: UIWindow {
         appContexts.append(VAAppContext(themeManager: themeManager, window: self))
     }
 
-    @available(iOS 12.0, *)
     public init(themeManager: VAThemeManager) {
         super.init(frame: UIScreen.main.bounds)
         
@@ -85,7 +84,6 @@ open class VAWindow: UIWindow {
         appContext.themeManager.updateStandardThemeIfNeeded(userInterfaceStyle: VAUserInterfaceStyle(userInterfaceStyle: traitCollection.userInterfaceStyle))
     }
     
-    @available(iOS 13.0, *)
     public init(themeManager: VAThemeManager, windowScene: UIWindowScene) {
         super.init(windowScene: windowScene)
         
