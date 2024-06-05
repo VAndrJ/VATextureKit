@@ -10,6 +10,7 @@ import XCTest
 @testable import VATextureKit_Example
 import SnapshotTesting
 import VATextureKitRx
+import Combine
 
 extension XCTestCase {
     var theme: VATheme { appContext.themeManager.theme }
@@ -20,6 +21,58 @@ extension XCTestCase {
             expectation: { self.expectation(description: "Observable spy") },
             waiter: { self.wait(for: [$0], timeout: timeout) }
         )
+    }
+
+    func spy<T, Failure: Error>(_ publisher: AnyPublisher<T, Failure>, timeout: TimeInterval = 10) -> CombineSpy<T, Failure> {
+        CombineSpy(
+            publisher,
+            expectation: { self.expectation(description: "AnyPublisher spy") },
+            waiter: { self.wait(for: [$0], timeout: timeout) }
+        )
+    }
+}
+
+final class CombineSpy<T, Failure: Error> {
+    private(set) var result: [T] = []
+    private(set) var failure: Failure?
+    private(set) var isCompleted = false
+
+    private var cancellable: AnyCancellable?
+    private var expectationFactory: () -> XCTestExpectation
+    private var waiter: (XCTestExpectation) -> Void
+    private var expectation: XCTestExpectation?
+
+    init(
+        _ observable: AnyPublisher<T, Failure>,
+        expectation: @escaping () -> XCTestExpectation,
+        waiter: @escaping (XCTestExpectation) -> Void
+    ) {
+        self.expectationFactory = expectation
+        self.waiter = waiter
+
+        cancellable = observable
+            .sink(
+                receiveCompletion: { [weak self] in
+                    switch $0 {
+                    case .finished:
+                        self?.isCompleted = true
+                    case let .failure(failure):
+                        self?.failure = failure
+                    }
+                },
+                receiveValue: { [weak self] in
+                    self?.result.append($0)
+                    self?.expectation?.fulfill()
+                    self?.expectation = nil
+                }
+            )
+    }
+
+    func wait(_ expression: @escaping () -> Void) {
+        let expectation = expectationFactory()
+        self.expectation = expectation
+        expression()
+        waiter(expectation)
     }
 }
 
@@ -181,4 +234,20 @@ extension AppNavigator {
 
 class MockTapReceiver {
     var isTapped = false
+}
+
+enum MockError1: Error, Equatable {
+    case mock1Error
+}
+
+extension MockError1 {
+    var mapped: MockError2 {
+        switch self {
+        case .mock1Error: .mock2Error
+        }
+    }
+}
+
+enum MockError2: Error, Equatable {
+    case mock2Error
 }

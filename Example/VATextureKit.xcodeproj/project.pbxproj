@@ -34,6 +34,8 @@
 		A33871332A7A1B8300F9D329 /* NSObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33871312A7A1B6E00F9D329 /* NSObjectTests.swift */; };
 		A33871362A7A24B300F9D329 /* VAConfettiEmitterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33871352A7A24B300F9D329 /* VAConfettiEmitterNode.swift */; };
 		A33871382A7A5ECA00F9D329 /* VAMultipleConfettiNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33871372A7A5ECA00F9D329 /* VAMultipleConfettiNode.swift */; };
+		A339AF382C10837D00330CF9 /* PublisherToObservableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A339AF362C10834300330CF9 /* PublisherToObservableTests.swift */; };
+		A339AF3C2C10A16C00330CF9 /* PubTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A339AF3B2C10A16C00330CF9 /* PubTests.swift */; };
 		A33CDF3329D9B875005F77C6 /* TransitionAnimationScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CDF3229D9B875005F77C6 /* TransitionAnimationScreenNode.swift */; };
 		A33CDF4529D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CDF4429D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift */; };
 		A33DA4052A96244B00CDEA15 /* VAButtonNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33DA4042A96244B00CDEA15 /* VAButtonNodeTests.swift */; };
@@ -200,6 +202,9 @@
 		A33871312A7A1B6E00F9D329 /* NSObjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectTests.swift; sourceTree = "<group>"; };
 		A33871352A7A24B300F9D329 /* VAConfettiEmitterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAConfettiEmitterNode.swift; sourceTree = "<group>"; };
 		A33871372A7A5ECA00F9D329 /* VAMultipleConfettiNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAMultipleConfettiNode.swift; sourceTree = "<group>"; };
+		A339AF322C107D8100330CF9 /* VATextureKitCombine.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = VATextureKitCombine.podspec; path = ../VATextureKitCombine.podspec; sourceTree = "<group>"; };
+		A339AF362C10834300330CF9 /* PublisherToObservableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublisherToObservableTests.swift; sourceTree = "<group>"; };
+		A339AF3B2C10A16C00330CF9 /* PubTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PubTests.swift; sourceTree = "<group>"; };
 		A33CDF3229D9B875005F77C6 /* TransitionAnimationScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAnimationScreenNode.swift; sourceTree = "<group>"; };
 		A33CDF4429D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListSectionHeaderNodeTests.swift; sourceTree = "<group>"; };
 		A33DA4042A96244B00CDEA15 /* VAButtonNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAButtonNodeTests.swift; sourceTree = "<group>"; };
@@ -446,6 +451,7 @@
 				282F60A4B43FD260D631A2BF /* LICENSE */,
 				C09CD1909CE6DD4E1F0B3BCA /* README.md */,
 				278E0C59813DD6F897AC8756 /* VATextureKit.podspec */,
+				A339AF322C107D8100330CF9 /* VATextureKitCombine.podspec */,
 				A3E6F40B2A801F57000BD477 /* VATextureKitRx.podspec */,
 				A3B2B6DD2A9B25940076F9A8 /* VATextureKitSpec.podspec */,
 			);
@@ -516,6 +522,15 @@
 			path = SlidingTabBar;
 			sourceTree = "<group>";
 		};
+		A339AF352C10833200330CF9 /* Combine */ = {
+			isa = PBXGroup;
+			children = (
+				A339AF362C10834300330CF9 /* PublisherToObservableTests.swift */,
+				A339AF3B2C10A16C00330CF9 /* PubTests.swift */,
+			);
+			path = Combine;
+			sourceTree = "<group>";
+		};
 		A33CDF3129D9B85F005F77C6 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
@@ -567,6 +582,7 @@
 		A36AAF4C2A78D0F1006168D7 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				A339AF352C10833200330CF9 /* Combine */,
 				A3AAE1882A78E4AC00F6C7C1 /* ArrayTests.swift */,
 				A3CC53972A792FD700BC4B3A /* ASCollectionNodeTests.swift */,
 				A36AAF4D2A78D0FD006168D7 /* ASDimensionTests.swift */,
@@ -970,13 +986,13 @@
 				"${PODS_ROOT}/Target Support Files/Pods-VATextureKit_Example/Pods-VATextureKit_Example-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/PINCache/PINCache.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/PINOperation/PINOperation.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/VATextureKit/VATextureKit.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/VATextureKit/VATextureKitPrivacyInfo.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PINCache.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PINOperation.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/VATextureKit.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/VATextureKitPrivacyInfo.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1017,7 +1033,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/R/R.generated.swift",
+				$SRCROOT/R/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1152,6 +1168,7 @@
 				A35219C42A89403C00DD17A9 /* VALinkTextNodeTests.swift in Sources */,
 				A3AAE1892A78E4AC00F6C7C1 /* ArrayTests.swift in Sources */,
 				A35219CC2A89428200DD17A9 /* LoadingCellNodeTests.swift in Sources */,
+				A339AF382C10837D00330CF9 /* PublisherToObservableTests.swift in Sources */,
 				A3657F452A90E75F00B0E70B /* VASpacerNodeTests.swift in Sources */,
 				A359BE7A29D76C0D003BDE19 /* VADisplayNodeTests.swift in Sources */,
 				A33729492A79444B009425D8 /* VALayerAnimationValueConvertibleTests.swift in Sources */,
@@ -1163,6 +1180,7 @@
 				A31054D32A87AA670076E079 /* TagCellNodeTests.swift in Sources */,
 				A3884CC12A7C108800DFB4A4 /* UIColorTests.swift in Sources */,
 				A39301EA2A7FFC5C007F8001 /* RadialGradientScreenNodeTests.swift in Sources */,
+				A339AF3C2C10A16C00330CF9 /* PubTests.swift in Sources */,
 				A33871332A7A1B8300F9D329 /* NSObjectTests.swift in Sources */,
 				A35219C22A893F6F00DD17A9 /* ImageNumberCellNodeTests.swift in Sources */,
 				A3CC537A2A79062A00BC4B3A /* DispatchQueueTests.swift in Sources */,
