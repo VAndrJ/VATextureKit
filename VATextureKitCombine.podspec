@@ -18,10 +18,5 @@ Includes RxSwift additions.
 
   s.source_files = 'VATextureKit/ClassesCombine/**/*'
 
-  s.dependency 'Texture',           '~> 3.2.0'
-  s.dependency 'Differentiator',    '~> 5.0.0'
-  s.dependency 'VATextureKitSpec',  '2.0.2'
-  s.dependency 'VATextureKit',      '2.0.2'
-
   s.swift_versions = '5.9'
 end
