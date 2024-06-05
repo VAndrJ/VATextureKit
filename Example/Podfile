@@ -15,6 +15,9 @@ target 'VATextureKit_Example' do
   target 'VATextureKit_Tests' do
     inhibit_all_warnings!
     inherit! :search_paths
+
+    pod 'RxTest'
+    pod 'RxBlocking'
   end
 end
 
