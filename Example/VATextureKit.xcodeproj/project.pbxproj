@@ -35,6 +35,7 @@
 		A33871362A7A24B300F9D329 /* VAConfettiEmitterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33871352A7A24B300F9D329 /* VAConfettiEmitterNode.swift */; };
 		A33871382A7A5ECA00F9D329 /* VAMultipleConfettiNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33871372A7A5ECA00F9D329 /* VAMultipleConfettiNode.swift */; };
 		A339AF382C10837D00330CF9 /* PublisherToObservableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A339AF362C10834300330CF9 /* PublisherToObservableTests.swift */; };
+		A339AF3C2C10A16C00330CF9 /* PubTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A339AF3B2C10A16C00330CF9 /* PubTests.swift */; };
 		A33CDF3329D9B875005F77C6 /* TransitionAnimationScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CDF3229D9B875005F77C6 /* TransitionAnimationScreenNode.swift */; };
 		A33CDF4529D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CDF4429D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift */; };
 		A33DA4052A96244B00CDEA15 /* VAButtonNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33DA4042A96244B00CDEA15 /* VAButtonNodeTests.swift */; };
@@ -203,6 +204,7 @@
 		A33871372A7A5ECA00F9D329 /* VAMultipleConfettiNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAMultipleConfettiNode.swift; sourceTree = "<group>"; };
 		A339AF322C107D8100330CF9 /* VATextureKitCombine.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = VATextureKitCombine.podspec; path = ../VATextureKitCombine.podspec; sourceTree = "<group>"; };
 		A339AF362C10834300330CF9 /* PublisherToObservableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublisherToObservableTests.swift; sourceTree = "<group>"; };
+		A339AF3B2C10A16C00330CF9 /* PubTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PubTests.swift; sourceTree = "<group>"; };
 		A33CDF3229D9B875005F77C6 /* TransitionAnimationScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAnimationScreenNode.swift; sourceTree = "<group>"; };
 		A33CDF4429D9C947005F77C6 /* MainListSectionHeaderNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListSectionHeaderNodeTests.swift; sourceTree = "<group>"; };
 		A33DA4042A96244B00CDEA15 /* VAButtonNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAButtonNodeTests.swift; sourceTree = "<group>"; };
@@ -524,6 +526,7 @@
 			isa = PBXGroup;
 			children = (
 				A339AF362C10834300330CF9 /* PublisherToObservableTests.swift */,
+				A339AF3B2C10A16C00330CF9 /* PubTests.swift */,
 			);
 			path = Combine;
 			sourceTree = "<group>";
@@ -1177,6 +1180,7 @@
 				A31054D32A87AA670076E079 /* TagCellNodeTests.swift in Sources */,
 				A3884CC12A7C108800DFB4A4 /* UIColorTests.swift in Sources */,
 				A39301EA2A7FFC5C007F8001 /* RadialGradientScreenNodeTests.swift in Sources */,
+				A339AF3C2C10A16C00330CF9 /* PubTests.swift in Sources */,
 				A33871332A7A1B8300F9D329 /* NSObjectTests.swift in Sources */,
 				A35219C22A893F6F00DD17A9 /* ImageNumberCellNodeTests.swift in Sources */,
 				A3CC537A2A79062A00BC4B3A /* DispatchQueueTests.swift in Sources */,

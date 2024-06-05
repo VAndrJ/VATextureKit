@@ -182,6 +182,7 @@ extension PublishSubject: PublishInitializable {}
 extension PublishRelay: PublishInitializable {}
 
 public protocol BehaviorInitializable: ObservableType {
+
     init(value: Element)
 }
 
