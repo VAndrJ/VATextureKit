@@ -18,6 +18,11 @@ VATextureKit
 [![License](https://img.shields.io/cocoapods/l/VATextureKit.svg?style=plastic)](https://cocoapods.org/pods/VATextureKit)
 VATextureKitRx
 
+[![Version](https://img.shields.io/cocoapods/v/VATextureKitCombine.svg?style=plastic)](https://cocoapods.org/pods/VATextureKit)
+[![Platform](https://img.shields.io/cocoapods/p/VATextureKitCombine.svg?style=plastic)](https://cocoapods.org/pods/VATextureKit)
+[![License](https://img.shields.io/cocoapods/l/VATextureKit.svg?style=plastic)](https://cocoapods.org/pods/VATextureKit) 
+VATextureKitCombine
+
 
 **[Texture](https://texturegroup.org/docs/getting-started.html)** library wrapper with some additions.
 

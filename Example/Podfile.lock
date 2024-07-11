@@ -51,11 +51,7 @@ PODS:
   - VATextureKit (2.0.2):
     - Texture (~> 3.2.0)
     - VATextureKitSpec (= 2.0.2)
-  - VATextureKitCombine (2.0.2):
-    - Differentiator (~> 5.0.0)
-    - Texture (~> 3.2.0)
-    - VATextureKit (= 2.0.2)
-    - VATextureKitSpec (= 2.0.2)
+  - VATextureKitCombine (2.0.2)
   - VATextureKitRx (2.0.2):
     - Differentiator (~> 5.0.0)
     - RxCocoa (~> 6.5.0)
@@ -117,8 +113,8 @@ SPEC CHECKSUMS:
   Swiftional: 8c7b3d4b85396e4da577ebce946775cb19cb9f78
   Texture: 61e86ea2ee124f545be40293b54b5b8986006da2
   VANavigator: 24c9775731a59df790eeee28e9804238b5f2fadb
-  VATextureKit: 4d5c18e11ab956319c75ee2b7a2812be1af9d1a1
-  VATextureKitCombine: ded9dd6d86ec26f3b91cb5a9722bc4ddb38a38bd
+  VATextureKit: b335a24c57710d053321131c957a92fb7f9dab5c
+  VATextureKitCombine: cde13a4bd13ce65dc477a8faca4daf7f32ff5a9a
   VATextureKitRx: eac8fc0f219ff49042f2afd655b888c94058132a
   VATextureKitSpec: 406e28db9c76ba0c24fd7f663d857d8bd18eab98
 
