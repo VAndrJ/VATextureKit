@@ -16,7 +16,7 @@ class VAImageNodeSnapshotTests: XCTestCase {
     func test_node() {
         appContext.themeManager.setLightAsCustomTheme()
         let sut = VAImageNode(
-            image: R.image.chevron_right(),
+            image: .init(resource: .chevronRight),
             size: .init(same: 24),
             contentMode: .scaleAspectFill,
             tintColor: { $0.systemOrange },
@@ -29,7 +29,7 @@ class VAImageNodeSnapshotTests: XCTestCase {
     func test_node_dark_theme() {
         appContext.themeManager.setDarkAsCustomTheme()
         let sut = VAImageNode(
-            image: R.image.chevron_right(),
+            image: .init(resource: .chevronRight),
             size: .init(same: 24),
             contentMode: .scaleAspectFill,
             tintColor: { $0.systemOrange },
@@ -42,7 +42,7 @@ class VAImageNodeSnapshotTests: XCTestCase {
     func test_node_tint_change() {
         appContext.themeManager.setLightAsCustomTheme()
         let sut = VAImageNode(
-            image: R.image.chevron_right(),
+            image: .init(resource: .chevronRight),
             size: .init(same: 24),
             contentMode: .scaleAspectFill,
             tintColor: { $0.systemOrange },
@@ -56,7 +56,7 @@ class VAImageNodeSnapshotTests: XCTestCase {
     func test_node_corner_fixed() {
         appContext.themeManager.setLightAsCustomTheme()
         let sut = VAImageNode(
-            image: R.image.chevron_right(),
+            image: .init(resource: .chevronRight),
             size: .init(same: 24),
             contentMode: .scaleAspectFill,
             tintColor: { $0.systemOrange },
@@ -70,7 +70,7 @@ class VAImageNodeSnapshotTests: XCTestCase {
     func test_node_corner_proportional() {
         appContext.themeManager.setLightAsCustomTheme()
         let sut = VAImageNode(
-            image: R.image.chevron_right(),
+            image: .init(resource: .chevronRight),
             size: .init(same: 24),
             contentMode: .scaleAspectFill,
             tintColor: { $0.systemOrange },
@@ -84,7 +84,7 @@ class VAImageNodeSnapshotTests: XCTestCase {
     func test_node_corner_proportionalFull() {
         appContext.themeManager.setLightAsCustomTheme()
         let sut = VAImageNode(
-            image: R.image.chevron_right(),
+            image: .init(resource: .chevronRight),
             size: .init(same: 24),
             contentMode: .scaleAspectFill,
             tintColor: { $0.systemOrange },

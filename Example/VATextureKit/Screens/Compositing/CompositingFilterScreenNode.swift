@@ -19,11 +19,11 @@ final class CompositingFilterScreenNode: ScreenNode {
     // MARK: - UI related code
 
     private lazy var backgroundImageNode = VAImageNode(
-        image: R.image.moon(),
+        image: .init(resource: .moon),
         contentMode: .scaleAspectFill
     )
     private lazy var composingImageNode = VAImageNode(
-        image: R.image.colibri(),
+        image: .init(resource: .colibri),
         contentMode: .scaleAspectFill
     )
     private lazy var listNode = VATableListNode(data: .init(
@@ -34,16 +34,7 @@ final class CompositingFilterScreenNode: ScreenNode {
     ))
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        (constrainedSize.max.width > constrainedSize.max.height).fold {
-            Column(cross: .stretch) {
-                backgroundImageNode
-                    .ratio(1)
-                    .overlay(composingImageNode)
-                listNode
-                    .safe(edges: .bottom, in: self)
-                    .flex(grow: 1)
-            }
-        } _: {
+        if constrainedSize.max.width > constrainedSize.max.height {
             SafeArea(edges: [.vertical, .right]) {
                 Row(cross: .stretch) {
                     backgroundImageNode
@@ -52,6 +43,15 @@ final class CompositingFilterScreenNode: ScreenNode {
                     listNode
                         .flex(grow: 1)
                 }
+            }
+        } else {
+            Column(cross: .stretch) {
+                backgroundImageNode
+                    .ratio(1)
+                    .overlay(composingImageNode)
+                listNode
+                    .safe(edges: .bottom, in: self)
+                    .flex(grow: 1)
             }
         }
     }

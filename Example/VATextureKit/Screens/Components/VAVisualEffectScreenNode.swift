@@ -12,7 +12,7 @@ struct VAVisualEffectIdentity: DefaultNavigationIdentity {}
 
 class VAVisualEffectScreenNode: ScreenNode {
     private lazy var imageNode = VAImageNode(
-        image: R.image.moon(),
+        image: .init(resource: .moon),
         contentMode: .scaleAspectFill
     )
     private lazy var demoNodes = [

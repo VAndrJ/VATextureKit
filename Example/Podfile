@@ -10,7 +10,6 @@ target 'VATextureKit_Example' do
   pod 'VATextureKitCombine', :path => '../'
   pod 'Swiftional', '~> 2.0.0'
   pod 'VANavigator', '1.3.8'
-  pod 'R.swift', '7.3.2'
 
   target 'VATextureKit_Tests' do
     inhibit_all_warnings!

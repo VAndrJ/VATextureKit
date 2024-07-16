@@ -12,7 +12,7 @@ final class MainListSectionHeaderNode: VADisplayNode {
     private let titleTextNode: VATextNode
 
     init(viewModel: MainSectionHeaderNodeViewModel) {
-        self.titleTextNode = VATextNode(
+        self.titleTextNode = .init(
             text: viewModel.title,
             fontStyle: .headline,
             maximumNumberOfLines: 1

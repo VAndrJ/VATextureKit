@@ -141,7 +141,6 @@
 		A3D2FAC229D89E1300AA01CA /* MainListCellNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D2FAC029D89DD900AA01CA /* MainListCellNodeTests.swift */; };
 		A3D2FAC829D9687400AA01CA /* MainListSectionHeaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D2FAC729D9687400AA01CA /* MainListSectionHeaderNode.swift */; };
 		A3DDF2F229DD6CB2009460F1 /* CompositingFilterScreenNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DDF2F129DD6CB2009460F1 /* CompositingFilterScreenNode.swift */; };
-		A3DDF2FE29DD7314009460F1 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DDF2FD29DD7314009460F1 /* R.generated.swift */; };
 		A3DDF30029DD84B1009460F1 /* CompositingCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DDF2FF29DD84B1009460F1 /* CompositingCellNode.swift */; };
 		A3DDF30229DD856F009460F1 /* CompositingFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DDF30129DD856F009460F1 /* CompositingFilterViewModel.swift */; };
 		A3E47BCC29D763C200D51E08 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = A3E47BCB29D763C200D51E08 /* SnapshotTesting */; };
@@ -312,7 +311,6 @@
 		A3D2FAC029D89DD900AA01CA /* MainListCellNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListCellNodeTests.swift; sourceTree = "<group>"; };
 		A3D2FAC729D9687400AA01CA /* MainListSectionHeaderNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListSectionHeaderNode.swift; sourceTree = "<group>"; };
 		A3DDF2F129DD6CB2009460F1 /* CompositingFilterScreenNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositingFilterScreenNode.swift; sourceTree = "<group>"; };
-		A3DDF2FD29DD7314009460F1 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = R/R.generated.swift; sourceTree = SOURCE_ROOT; };
 		A3DDF2FF29DD84B1009460F1 /* CompositingCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositingCellNode.swift; sourceTree = "<group>"; };
 		A3DDF30129DD856F009460F1 /* CompositingFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositingFilterViewModel.swift; sourceTree = "<group>"; };
 		A3E47BC029D75AB300D51E08 /* VATextureKit_Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VATextureKit_Tests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -413,7 +411,6 @@
 			children = (
 				607FACD41AFB9204008FA782 /* Info.plist */,
 				A359BE7D29D76E1B003BDE19 /* Environment.swift */,
-				A3DDF2FD29DD7314009460F1 /* R.generated.swift */,
 				A3F888FF29CE2D0000C67187 /* Support.swift */,
 				A3F888C629CB67F100C67187 /* Umbrella.swift */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
@@ -830,7 +827,6 @@
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "VATextureKit_Example" */;
 			buildPhases = (
 				1F08150F3164B5D4D77AAEC1 /* [CP] Check Pods Manifest.lock */,
-				A3DDF2FA29DD728D009460F1 /* R.swift */,
 				A3B3F37A29A0DA230090E6E2 /* SwiftLint */,
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
@@ -1018,27 +1014,6 @@
 			shellPath = /bin/sh;
 			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n  export PATH=\"$PATH:/opt/homebrew/bin\"\n\n  if which swiftlint >/dev/null; then\n    swiftlint\n  else\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n  fi\nfi\n";
 		};
-		A3DDF2FA29DD728D009460F1 /* R.swift */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$TEMP_DIR/rswift-lastrun",
-			);
-			name = R.swift;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				$SRCROOT/R/R.generated.swift,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/R/R.generated.swift\"\n";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1089,7 +1064,6 @@
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				A310A43229CF471400632416 /* CellViewModel.swift in Sources */,
 				A32102892BC1BE3600306E8C /* VAComparisonNodeScreenNode.swift in Sources */,
-				A3DDF2FE29DD7314009460F1 /* R.generated.swift in Sources */,
 				A3BDF4162BA860FE00D5CF41 /* UIImage+Emitter.swift in Sources */,
 				A38D5E932A6BBEF200A67BC7 /* CountingTextNodeController.swift in Sources */,
 				A37050C02B9F43A20036138F /* DisplayNode.swift in Sources */,

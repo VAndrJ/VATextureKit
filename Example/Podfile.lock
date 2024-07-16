@@ -15,7 +15,6 @@ PODS:
   - PINRemoteImage/PINCache (3.0.4):
     - PINCache (~> 3.0.4)
     - PINRemoteImage/Core
-  - R.swift (7.3.2)
   - RxBlocking (6.5.0):
     - RxSwift (= 6.5.0)
   - RxCocoa (6.5.0):
@@ -26,7 +25,7 @@ PODS:
   - RxSwift (6.5.0)
   - RxTest (6.5.0):
     - RxSwift (= 6.5.0)
-  - Swiftional (2.0.1)
+  - Swiftional (2.0.2)
   - Texture (3.2.0):
     - Texture/AssetsLibrary (= 3.2.0)
     - Texture/Core (= 3.2.0)
@@ -48,22 +47,21 @@ PODS:
   - Texture/Video (3.2.0):
     - Texture/Core
   - VANavigator (1.3.8)
-  - VATextureKit (2.0.2):
+  - VATextureKit (2.0.3):
     - Texture (~> 3.2.0)
-    - VATextureKitSpec (= 2.0.2)
-  - VATextureKitCombine (2.0.2)
-  - VATextureKitRx (2.0.2):
+    - VATextureKitSpec (= 2.0.3)
+  - VATextureKitCombine (2.0.3)
+  - VATextureKitRx (2.0.3):
     - Differentiator (~> 5.0.0)
     - RxCocoa (~> 6.5.0)
     - RxSwift (~> 6.5.0)
     - Texture (~> 3.2.0)
-    - VATextureKit (= 2.0.2)
-    - VATextureKitSpec (= 2.0.2)
-  - VATextureKitSpec (2.0.2):
+    - VATextureKit (= 2.0.3)
+    - VATextureKitSpec (= 2.0.3)
+  - VATextureKitSpec (2.0.3):
     - Texture (~> 3.2.0)
 
 DEPENDENCIES:
-  - R.swift (= 7.3.2)
   - RxBlocking
   - RxTest
   - Swiftional (~> 2.0.0)
@@ -79,7 +77,6 @@ SPEC REPOS:
     - PINCache
     - PINOperation
     - PINRemoteImage
-    - R.swift
     - RxBlocking
     - RxCocoa
     - RxRelay
@@ -104,20 +101,19 @@ SPEC CHECKSUMS:
   PINCache: d9a87a0ff397acffe9e2f0db972ac14680441158
   PINOperation: fb563bcc9c32c26d6c78aaff967d405aa2ee74a7
   PINRemoteImage: 6256a644f4996991f124811763c7286b2a63ff94
-  R.swift: 0af0d882f49f03711415cb4e5215daa977d8a480
   RxBlocking: 04b5fd28bb5ea49f7d64b80db8bbfe50d9cc1c7d
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   RxTest: eb2d23adefc5a5ebf5779c7792fa3edfe6ebcc17
-  Swiftional: 8c7b3d4b85396e4da577ebce946775cb19cb9f78
+  Swiftional: 8eadd8011de7ef752768ce8ed8bf6ff03c95f74c
   Texture: 61e86ea2ee124f545be40293b54b5b8986006da2
   VANavigator: 24c9775731a59df790eeee28e9804238b5f2fadb
-  VATextureKit: b335a24c57710d053321131c957a92fb7f9dab5c
-  VATextureKitCombine: cde13a4bd13ce65dc477a8faca4daf7f32ff5a9a
-  VATextureKitRx: eac8fc0f219ff49042f2afd655b888c94058132a
-  VATextureKitSpec: 406e28db9c76ba0c24fd7f663d857d8bd18eab98
+  VATextureKit: 9b71ff6b581aecc7e9b60a0bc22935d728e79460
+  VATextureKitCombine: d47a6c5cfa4b3b816209c521a902515c961e342f
+  VATextureKitRx: c27e667e562f96ad818aed7a2db1a3f8ec3163ec
+  VATextureKitSpec: 7bd6ebe228add0100a3be826fc8f2d8c1802b6fb
 
-PODFILE CHECKSUM: d1016784fa49c45735075b7d6f5d04763a911854
+PODFILE CHECKSUM: dd6436a729195e3267ef4058070dd0bfe12b760a
 
 COCOAPODS: 1.15.2

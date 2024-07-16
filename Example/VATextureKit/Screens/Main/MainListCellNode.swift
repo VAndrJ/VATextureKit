@@ -12,15 +12,15 @@ final class MainListCellNode: VACellNode {
     private let titleNode: VATextNode
     private let descriptionNode: VATextNode
     private lazy var chevronImageNode = VAImageNode(
-        image: R.image.chevron_right(),
-        size: CGSize(same: 14),
+        image: .init(resource: .chevronRight),
+        size: .init(same: 14),
         contentMode: .center,
         tintColor: { $0.tertiaryLabel }
     )
     
     init(viewModel: MainListCellNodeViewModel) {
-        self.titleNode = VATextNode(text: viewModel.title)
-        self.descriptionNode = VATextNode(
+        self.titleNode = .init(text: viewModel.title)
+        self.descriptionNode = .init(
             text: viewModel.description,
             fontStyle: .footnote,
             colorGetter: { $0.secondaryLabel }
