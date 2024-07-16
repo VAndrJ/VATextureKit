@@ -61,7 +61,6 @@ final class ImageCellNodeViewModel: CellViewModel {
 #if DEBUG && canImport(SwiftUI)
 import SwiftUI
 
-@available (iOS 13.0, *)
 struct ImageCellNode_Preview: PreviewProvider {
     static var previews: some View {
         VStack(spacing: 0) {

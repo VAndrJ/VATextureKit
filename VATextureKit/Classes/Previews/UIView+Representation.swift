@@ -10,7 +10,6 @@
 import UIKit
 import SwiftUI
 
-@available (iOS 13.0, *)
 public extension UIView {
 
     func sRepresentation(layout: VAPreviewLayout) -> AnyView {

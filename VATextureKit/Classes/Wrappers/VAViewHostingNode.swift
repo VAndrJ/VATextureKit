@@ -8,7 +8,6 @@
 #if canImport(SwiftUI)
 import SwiftUI
 /// A custom `ASDisplayNode` subclass for wrapping SwiftUI `View` with various sizing options.
-@available (iOS 13.0, *)
 open class VAViewHostingNode: VADisplayNode {
     @MainActor
     private(set) lazy var hostingController = _LayoutTrackingHostingController(
@@ -124,7 +123,6 @@ open class VAViewHostingNode: VADisplayNode {
     }
 }
 
-@available (iOS 13.0, *)
 class _LayoutTrackingHostingController<Content: View>: UIHostingController<Content> {
     let shouldLayout: () -> Void
 

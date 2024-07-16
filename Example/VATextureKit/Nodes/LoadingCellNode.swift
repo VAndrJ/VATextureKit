@@ -43,7 +43,6 @@ private class _LoadingCellShimmerNode: VAShimmerNode {
 #if DEBUG && canImport(SwiftUI)
 import SwiftUI
 
-@available (iOS 13.0, *)
 struct LoadingCellNode_Preview: PreviewProvider {
     static var previews: some View {
         LoadingCellNode(viewModel: .init(height: 100))

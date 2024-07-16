@@ -9,7 +9,6 @@
 #if canImport(SwiftUI)
 import SwiftUI
 
-@available (iOS 13.0, *)
 extension View {
     @inline(__always) @inlinable var anyView: AnyView { AnyView(self) }
 }

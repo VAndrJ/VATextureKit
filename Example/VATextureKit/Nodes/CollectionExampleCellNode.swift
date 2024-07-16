@@ -60,7 +60,6 @@ class CollectionExampleCellNodeViewModel: CellViewModel {
 #if DEBUG && canImport(SwiftUI)
 import SwiftUI
 
-@available (iOS 13.0, *)
 struct CollectionExampleCellNode_Preview: PreviewProvider {
     static var previews: some View {
         VStack(spacing: 0) {
