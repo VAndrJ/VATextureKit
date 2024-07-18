@@ -14,7 +14,7 @@ extension OSLog {
     static let responderChain = OSLog(subsystem: subsystem, category: "ResponderChain")
 }
 
-func logResponder(from: Any, event: ResponderEvent) {
+func logResponder(from: Any, event: any ResponderEvent) {
     #if DEBUG || targetEnvironment(simulator)
     os_log("%{public}@ %{public}@", log: OSLog.responderChain, type: .info, String(describing: from), String(describing: event))
     #endif

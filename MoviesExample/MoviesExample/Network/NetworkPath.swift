@@ -17,12 +17,12 @@ enum NetworkPath: String {
         case day
         case recommendations
         case credits
-        case convertible(CustomStringConvertible)
+        case convertible(any CustomStringConvertible)
 
         var rawValue: String {
             switch self {
-            case let .convertible(value): return value.description
-            default: return "\(self)"
+            case let .convertible(value): value.description
+            default: "\(self)"
             }
         }
     }

@@ -19,7 +19,7 @@ final class ScreenFactory: @unchecked Sendable, NavigatorScreenFactory {
     )
 
     // swiftlint:disable:next function_body_length
-    func assembleScreen(identity: NavigationIdentity, navigator: Navigator) -> UIViewController {
+    func assembleScreen(identity: any NavigationIdentity, navigator: Navigator) -> UIViewController {
         switch identity {
         case let identity as MainTabsNavigationIdentity:
             return MainTabBarController(controllers: identity.tabsIdentity

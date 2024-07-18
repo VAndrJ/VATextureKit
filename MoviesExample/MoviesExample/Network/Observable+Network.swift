@@ -59,7 +59,7 @@ extension ObservableType {
     }
 }
 
-extension ObservableConvertibleType where Element == Error {
+extension ObservableConvertibleType where Element == any Error {
 
     func recoverOnConnection() -> Observable<Void> {
         asObservable()

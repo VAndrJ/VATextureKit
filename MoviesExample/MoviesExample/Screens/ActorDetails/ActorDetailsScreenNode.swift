@@ -23,7 +23,7 @@ final class ActorDetailsScreenNode: ScreenNode<ActorDetailsViewModel> {
     }
 }
 
-final class ActorDetailsViewModel: EventViewModel {
+final class ActorDetailsViewModel: EventViewModel, @unchecked Sendable {
     let actor: ListActorEntity
 
     init(actor: ListActorEntity) {

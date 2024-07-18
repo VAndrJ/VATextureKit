@@ -14,21 +14,21 @@ final class MainTabBarController: VATabBarController {
 
         var title: String {
             switch self {
-            case .home: return L.tab_home()
-            case .search: return L.tab_search()
+            case .home: L.tab_home()
+            case .search: L.tab_search()
             }
         }
         var image: UIImage? {
             switch self {
-            case .home: return UIImage(systemName: "house")
-            case .search: return UIImage(systemName: "magnifyingglass")
+            case .home: .init(systemName: "house")
+            case .search: .init(systemName: "magnifyingglass")
             }
         }
     }
 
-    let tabControllers: [Tab: UIViewController & Responder]
+    let tabControllers: [Tab: any UIViewController & Responder]
 
-    init(tabs: [(tab: Tab, controller: UIViewController & Responder)]) {
+    init(tabs: [(tab: Tab, controller: any UIViewController & Responder)]) {
         self.tabControllers = Dictionary(tabs, uniquingKeysWith: { $1 })
 
         super.init(nibName: nil, bundle: nil)
@@ -50,9 +50,9 @@ final class MainTabBarController: VATabBarController {
 
 extension MainTabBarController {
 
-    convenience init(controllers: [UIViewController & Responder]) {
-        let tabs: [(tab: Tab, controller: UIViewController & Responder)] = controllers.compactMap { controller in
-            func getTabs(identity: NavigationIdentity?) -> (tab: Tab, controller: UIViewController & Responder)? {
+    convenience init(controllers: [any UIViewController & Responder]) {
+        let tabs: [(tab: Tab, controller: any UIViewController & Responder)] = controllers.compactMap { controller in
+            func getTabs(identity: (any NavigationIdentity)?) -> (tab: Tab, controller: any UIViewController & Responder)? {
                 switch identity {
                 case _ as SearchNavigationIdentity:
                     return (.search, controller)
@@ -62,6 +62,7 @@ extension MainTabBarController {
                     return getTabs(identity: identity.childIdentity)
                 default:
                     assertionFailure("Not implemented")
+
                     return nil
                 }
             }

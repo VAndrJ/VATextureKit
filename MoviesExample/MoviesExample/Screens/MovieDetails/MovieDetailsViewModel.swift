@@ -15,7 +15,7 @@ struct OpenListActorDetailsEvent: Event {
     let actor: ListActorEntity
 }
 
-final class MovieDetailsViewModel: EventViewModel {
+final class MovieDetailsViewModel: EventViewModel, @unchecked Sendable {
     struct Context {
         struct Related {
             let listMovieEntity: ListMovieEntity
@@ -93,7 +93,7 @@ final class MovieDetailsViewModel: EventViewModel {
         perform(LoadDataEvent())
     }
 
-    override func run(_ event: Event) async {
+    override func run(_ event: any Event) async {
         switch event {
         case let event as OpenListActorDetailsEvent:
             context.navigation.followActor(event.actor)
@@ -122,7 +122,7 @@ final class MovieDetailsViewModel: EventViewModel {
 
     // MARK: - Responder
 
-    override func handle(event: ResponderEvent) async -> Bool {
+    override func handle(event: any ResponderEvent) async -> Bool {
         logResponder(from: self, event: event)
         switch event {
         case _ as ResponderOpenedFromURLEvent, _ as ResponderPoppedToExistingEvent:

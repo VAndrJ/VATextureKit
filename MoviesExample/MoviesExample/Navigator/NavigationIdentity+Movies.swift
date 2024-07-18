@@ -11,19 +11,19 @@ protocol DefaultNavigationIdentity: NavigationIdentity {}
 
 extension DefaultNavigationIdentity {
 
-    func isEqual(to other: NavigationIdentity?) -> Bool {
+    func isEqual(to other: (any NavigationIdentity)?) -> Bool {
         other is Self
     }
 }
 
 protocol TabsNavigationIdentity: NavigationIdentity {
-    var tabsIdentity: [NavigationIdentity] { get }
+    var tabsIdentity: [any NavigationIdentity] { get }
 }
 
 struct MainTabsNavigationIdentity: TabsNavigationIdentity {
-    let tabsIdentity: [NavigationIdentity]
+    let tabsIdentity: [any NavigationIdentity]
 
-    func isEqual(to other: NavigationIdentity?) -> Bool {
+    func isEqual(to other: (any NavigationIdentity)?) -> Bool {
         guard let other = other as? MainTabsNavigationIdentity else {
             return false
         }
@@ -44,9 +44,9 @@ struct MainTabsNavigationIdentity: TabsNavigationIdentity {
 }
 
 struct NavNavigationIdentity: NavigationIdentity {
-    var childIdentity: NavigationIdentity?
+    var childIdentity: (any NavigationIdentity)?
 
-    func isEqual(to other: NavigationIdentity?) -> Bool {
+    func isEqual(to other: (any NavigationIdentity)?) -> Bool {
         guard let other = other as? NavNavigationIdentity else {
             return false
         }
@@ -62,7 +62,7 @@ struct SearchNavigationIdentity: DefaultNavigationIdentity {}
 struct MovieDetailsNavigationIdentity: NavigationIdentity {
     var movie: ListMovieEntity
 
-    func isEqual(to other: NavigationIdentity?) -> Bool {
+    func isEqual(to other: (any NavigationIdentity)?) -> Bool {
         guard let other = other as? MovieDetailsNavigationIdentity else {
             return false
         }
@@ -74,7 +74,7 @@ struct MovieDetailsNavigationIdentity: NavigationIdentity {
 struct ActorDetailsNavigationIdentity: NavigationIdentity {
     var actor: ListActorEntity
 
-    func isEqual(to other: NavigationIdentity?) -> Bool {
+    func isEqual(to other: (any NavigationIdentity)?) -> Bool {
         guard let other = other as? ActorDetailsNavigationIdentity else {
             return false
         }

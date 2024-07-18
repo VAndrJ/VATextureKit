@@ -13,7 +13,7 @@ struct SearchMovieEvent: Event {
 
 private struct LoadTrendingEvent: Event {}
 
-final class SearchViewModel: EventViewModel {
+final class SearchViewModel: EventViewModel, @unchecked Sendable {
     struct Context {
         struct DataSource {
             let getTrendingMovies: () -> Observable<[ListMovieEntity]>
@@ -63,7 +63,7 @@ final class SearchViewModel: EventViewModel {
         super.init()
     }
 
-    override func run(_ event: Event) async {
+    override func run(_ event: any Event) async {
         switch event {
         case _ as LoadTrendingEvent:
             context.source.getTrendingMovies()
@@ -103,7 +103,7 @@ final class SearchViewModel: EventViewModel {
 
     // MARK: - Responder
 
-    override func handle(event: ResponderEvent) async -> Bool {
+    override func handle(event: any ResponderEvent) async -> Bool {
         logResponder(from: self, event: event)
         switch event {
         case _ as ResponderOpenedFromShortcutEvent:

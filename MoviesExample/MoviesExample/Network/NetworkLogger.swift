@@ -10,7 +10,7 @@ import Foundation
 protocol NetworkLogger: Sendable {
 
     func log(request: URLRequest, response: URLResponse, data: Data?, date: Date)
-    func log(error: Error, request: URLRequest, date: Date)
+    func log(error: any Error, request: URLRequest, date: Date)
 }
 
 final class DebugNetworkLogger: NetworkLogger {
@@ -39,7 +39,7 @@ final class DebugNetworkLogger: NetworkLogger {
         #endif
     }
 
-    func log(error: Error, request: URLRequest, date: Date) {
+    func log(error: any Error, request: URLRequest, date: Date) {
         #if DEBUG
         let now = Date()
         let url = request.url?.absoluteString ?? ""

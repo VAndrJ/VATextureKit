@@ -9,7 +9,7 @@ import VATextureKitRx
 
 private struct LoadMainEvent: Event {}
 
-final class HomeViewModel: EventViewModel {
+final class HomeViewModel: EventViewModel, @unchecked Sendable {
     struct Context {
         struct DataSource {
         }
@@ -42,7 +42,7 @@ final class HomeViewModel: EventViewModel {
         perform(LoadMainEvent())
     }
 
-    override func run(_ event: Event) async {
+    override func run(_ event: any Event) async {
         switch event {
         case _ as LoadMainEvent:
             break
