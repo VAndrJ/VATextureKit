@@ -27,7 +27,7 @@ public final class Column: ASStackLayoutSpec {
         wrap: ASStackLayoutFlexWrap = .noWrap,
         alignContent: ASStackLayoutAlignContent = .start,
         line: CGFloat = 0,
-        @LayoutSpecBuilder content: () -> [ASLayoutElement]
+        @LayoutSpecBuilder content: () -> [any ASLayoutElement]
     ) {
         self.init(
             direction: .vertical,

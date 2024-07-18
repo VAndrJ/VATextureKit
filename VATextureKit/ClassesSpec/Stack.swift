@@ -14,7 +14,7 @@ public final class Stack: ASWrapperLayoutSpec {
     ///
     /// - Parameters:
     ///   - content: A rewult builder closure that returns an array of `ASLayoutElement` objects, representing the child elements to be included in the horizontal stack.
-    public init(@LayoutSpecBuilder content: () -> [ASLayoutElement]) {
+    public init(@LayoutSpecBuilder content: () -> [any ASLayoutElement]) {
         super.init(layoutElements: content())
     }
 

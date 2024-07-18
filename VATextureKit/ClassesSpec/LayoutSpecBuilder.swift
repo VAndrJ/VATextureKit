@@ -11,31 +11,31 @@ import AsyncDisplayKit
 @resultBuilder
 public struct LayoutSpecBuilder {
 
-    public static func buildBlock(_ components: [ASLayoutElement]) -> [ASLayoutElement] {
+    public static func buildBlock(_ components: [any ASLayoutElement]) -> [any ASLayoutElement] {
         components
     }
 
-    public static func buildBlock(_ components: [ASLayoutElement]...) -> [ASLayoutElement] {
+    public static func buildBlock(_ components: [any ASLayoutElement]...) -> [any ASLayoutElement] {
         components.flatMap { $0 }
     }
 
-    public static func buildExpression(_ expression: ASLayoutElement) -> [ASLayoutElement] {
+    public static func buildExpression(_ expression: any ASLayoutElement) -> [any ASLayoutElement] {
         [expression]
     }
 
-    public static func buildExpression(_ expression: [ASLayoutElement]) -> [ASLayoutElement] {
+    public static func buildExpression(_ expression: [any ASLayoutElement]) -> [any ASLayoutElement] {
         expression
     }
 
-    public static func buildOptional(_ component: [ASLayoutElement]?) -> [ASLayoutElement] {
+    public static func buildOptional(_ component: [any ASLayoutElement]?) -> [any ASLayoutElement] {
         component ?? []
     }
 
-    public static func buildEither(first component: [ASLayoutElement]) -> [ASLayoutElement] {
+    public static func buildEither(first component: [any ASLayoutElement]) -> [any ASLayoutElement] {
         component
     }
 
-    public static func buildEither(second component: [ASLayoutElement]) -> [ASLayoutElement] {
+    public static func buildEither(second component: [any ASLayoutElement]) -> [any ASLayoutElement] {
         component
     }
 }
