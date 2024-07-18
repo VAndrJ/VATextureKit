@@ -54,7 +54,7 @@ public extension CALayer {
         }
 
         func getProgressMultiplier(current: Any?) -> Double {
-            if let fromOriginalValue = fromOriginalValue as? VALayerAnimationValueConvertible {
+            if let fromOriginalValue = fromOriginalValue as? (any VALayerAnimationValueConvertible) {
                 return fromOriginalValue.getProgressMultiplier(
                     to: toOriginalValue,
                     current: current

@@ -10,8 +10,8 @@ import Foundation
 public extension CALayer.VALayerAnimation {
 
     init(
-        from: VALayerAnimationValueConvertible?,
-        to: VALayerAnimationValueConvertible?,
+        from: (any VALayerAnimationValueConvertible)?,
+        to: (any VALayerAnimationValueConvertible)?,
         keyPath: String,
         isToEqualsFrom: Bool
     ) {

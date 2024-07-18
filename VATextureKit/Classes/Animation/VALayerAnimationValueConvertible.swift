@@ -218,11 +218,11 @@ extension Array: VALayerAnimationValueConvertible where Element: VALayerAnimatio
     }
 
     public func getProgressMultiplier(to: Any?, current: Any?) -> Double {
-        guard let to = to as? [VALayerAnimationValueConvertible] else {
+        guard let to = to as? [any VALayerAnimationValueConvertible] else {
             return 0.0
         }
 
-        let current = (current as? [VALayerAnimationValueConvertible]) ?? self
+        let current = (current as? [any VALayerAnimationValueConvertible]) ?? self
         var progressArr: [Double] = []
         for (i, value) in self.enumerated() {
             if to.indices ~= i && current.indices ~= i {

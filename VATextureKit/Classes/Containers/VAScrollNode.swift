@@ -60,7 +60,7 @@ open class VAScrollNode: ASScrollNode {
     }
 
     @MainActor
-    open override func animateLayoutTransition(_ context: ASContextTransitioning) {
+    open override func animateLayoutTransition(_ context: any ASContextTransitioning) {
         animateLayoutTransition(context: context)
     }
 

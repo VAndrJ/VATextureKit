@@ -17,13 +17,13 @@ open class VAStateModel<Action, Event, State>: NSObject {
     private let stateRelay: BehaviorRelay<State>
     private let eventRelay = PublishRelay<Event>()
     private let actionRelay = PublishRelay<Action>()
-    private let actionScheduler: ImmediateSchedulerType
-    private let eventScheduler: ImmediateSchedulerType
+    private let actionScheduler: any ImmediateSchedulerType
+    private let eventScheduler: any ImmediateSchedulerType
     
     public init(
         initial: State,
-        actionScheduler: ImmediateSchedulerType = MainScheduler.instance,
-        eventScheduler: ImmediateSchedulerType = MainScheduler.instance
+        actionScheduler: any ImmediateSchedulerType = MainScheduler.instance,
+        eventScheduler: any ImmediateSchedulerType = MainScheduler.instance
     ) {
         self.actionScheduler = actionScheduler
         self.eventScheduler = eventScheduler
