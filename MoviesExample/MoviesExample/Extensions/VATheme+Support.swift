@@ -20,7 +20,7 @@ extension VATheme {
 
 extension VATheme {
     var primary: UIColor { .init(resource: .primary) }
-    var secondary: UIColor { .init(.secondary) }
+    var secondary: UIColor { .init(resource: .secondary) }
     var tertiary: UIColor { .init(resource: .tertiary) }
     var tabTint: UIColor { .init(resource: .tabTint) }
 }

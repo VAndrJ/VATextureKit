@@ -12,7 +12,7 @@ protocol DefaultNavigationIdentity: NavigationIdentity {}
 
 extension DefaultNavigationIdentity {
 
-    func isEqual(to other: NavigationIdentity?) -> Bool {
+    func isEqual(to other: (any NavigationIdentity)?) -> Bool {
         other is Self
     }
 }

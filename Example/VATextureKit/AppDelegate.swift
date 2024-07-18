@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-@UIApplicationMain
+@main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     

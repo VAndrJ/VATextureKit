@@ -63,9 +63,9 @@ final class CompositingFilterScreenNode: ScreenNode {
 
     // MARK: - ViewModel related code
 
-    private let viewModel: CompositingFilterViewModelProtocol
+    private let viewModel: any CompositingFilterViewModelProtocol
 
-    init(viewModel: CompositingFilterViewModelProtocol) {
+    init(viewModel: any CompositingFilterViewModelProtocol) {
         self.viewModel = viewModel
 
         super.init()

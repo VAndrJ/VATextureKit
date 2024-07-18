@@ -11,7 +11,7 @@ import XCTest
 import VATextureKitRx
 
 class VAStateModelTests: XCTestCase {
-    private var sut: VAStateModel<Actionable, Eventable, State>!
+    private var sut: VAStateModel<any Actionable, any Eventable, State>!
     
     override func tearDown() {
         sut = nil

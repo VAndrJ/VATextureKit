@@ -24,7 +24,7 @@ class AppNavigator: Navigator {
     }
 
     nonisolated func navigate(
-        to identity: NavigationIdentity,
+        to identity: any NavigationIdentity,
         strategy: NavigationStrategy = .push()
     ) {
         Task { @MainActor in
@@ -44,7 +44,7 @@ class AppScreenFactory: NavigatorScreenFactory {
     }
 
     // swiftlint:disable:next cyclomatic_complexity function_body_length
-    func assembleScreen(identity: NavigationIdentity, navigator: Navigator) -> UIViewController {
+    func assembleScreen(identity: any NavigationIdentity, navigator: Navigator) -> UIViewController {
         switch identity {
         case let identity as ExampleNavigationControllerIdentity:
             return ExampleNavigationController(

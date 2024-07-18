@@ -59,14 +59,14 @@ final class MainListCellNode: VACellNode {
 final class MainListCellNodeViewModel: CellViewModel {
     let title: String
     let description: String
-    let destination: NavigationIdentity
+    let destination: any NavigationIdentity
     let titleTransitionAnimationId: String?
     let descriptionTransitionAnimationId: String?
 
     init(
         title: String,
         description: String,
-        destination: NavigationIdentity
+        destination: any NavigationIdentity
     ) {
         self.title = title
         self.description = description
@@ -78,7 +78,7 @@ final class MainListCellNodeViewModel: CellViewModel {
     init(
         title: String,
         description: String,
-        destination: NavigationIdentity,
+        destination: any NavigationIdentity,
         titleTransitionAnimationId: String,
         descriptionTransitionAnimationId: String
     ) {
