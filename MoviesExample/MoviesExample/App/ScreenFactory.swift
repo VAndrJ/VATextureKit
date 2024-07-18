@@ -8,7 +8,7 @@
 import VATextureKit
 import VANavigator
 
-final class ScreenFactory: @unchecked Sendable, NavigatorScreenFactory {
+final class ScreenFactory: NavigatorScreenFactory, @unchecked Sendable {
     let network = Network(networkLogger: DebugNetworkLogger())
     private(set) lazy var remoteDataSource = RemoteDataSource(
         network: network,

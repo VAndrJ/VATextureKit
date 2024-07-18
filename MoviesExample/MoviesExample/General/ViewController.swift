@@ -41,7 +41,7 @@ class ViewController<Node: ASDisplayNode & Responder & ControllerNode>: VAViewCo
         super.viewWillAppear(animated)
 
         contentNode.viewWillAppear(in: self, animated: animated)
-        navigationController?.setNavigationBarHidden(shouldHideNavigationBar, animated: true)
+        navigationController?.setNavigationBarHidden(shouldHideNavigationBar, animated: animated)
     }
 
     override func viewDidAppear(_ animated: Bool) {

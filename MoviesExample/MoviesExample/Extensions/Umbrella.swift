@@ -17,4 +17,4 @@ typealias ResponderPoppedToExistingEvent = VANavigator.ResponderPoppedToExisting
 typealias ResponderClosedToExistingEvent = VANavigator.ResponderClosedToExistingEvent
 typealias ResponderReplacedWindowRootControllerEvent = VANavigator.ResponderReplacedWindowRootControllerEvent
 
-let L = R.string.localizable // swiftlint:disable:this identifier_name
+nonisolated(unsafe) let L = R.string.localizable // swiftlint:disable:this identifier_name

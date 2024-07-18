@@ -20,6 +20,7 @@ enum Environment {
     }()
     // swiftlint:enable force_cast
 
+    #if DEBUG || targetEnvironment(simulator)
     enum TestType {
         enum Screen {
             case search
@@ -47,4 +48,5 @@ enum Environment {
             return .unit
         }
     }
+    #endif
 }

@@ -9,6 +9,7 @@ import RxSwift
 
 final class RemoteDataSource {
     private let network: Network
+    // TODO: - Protocol
     private let endpointData: MoviesEndpontData
     private let responseParser = NetworkResponseParser(
         dateDecodingStrategy: .secondsSince1970,

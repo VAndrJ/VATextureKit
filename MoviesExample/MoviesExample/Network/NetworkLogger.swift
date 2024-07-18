@@ -16,7 +16,7 @@ protocol NetworkLogger: Sendable {
 final class DebugNetworkLogger: NetworkLogger {
 
     func log(request: URLRequest, response: URLResponse, data: Data?, date: Date) {
-        #if DEBUG
+        #if DEBUG || targetEnvironment(simulator)
         logRequestInfo(request)
         let httpResponse = response as? HTTPURLResponse
         let statusCode = httpResponse?.statusCode ?? -1
@@ -40,7 +40,7 @@ final class DebugNetworkLogger: NetworkLogger {
     }
 
     func log(error: any Error, request: URLRequest, date: Date) {
-        #if DEBUG
+        #if DEBUG || targetEnvironment(simulator)
         let now = Date()
         let url = request.url?.absoluteString ?? ""
         print("""
@@ -59,6 +59,7 @@ final class DebugNetworkLogger: NetworkLogger {
     }
 
     private func logRequestInfo(_ request: URLRequest) {
+        #if DEBUG || targetEnvironment(simulator)
         let method = String(describing: request.httpMethod ?? "")
         let headers = request.allHTTPHeaderFields ?? [:]
         let url = request.url?.absoluteString ?? ""
@@ -81,6 +82,7 @@ final class DebugNetworkLogger: NetworkLogger {
 
         result += "📡 Request info end 👀"
         print(result)
+        #endif
     }
 
     private func requestDurationTime(startDate: Date, endDate: Date) -> String {

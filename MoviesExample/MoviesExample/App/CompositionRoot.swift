@@ -23,13 +23,19 @@ final class CompositionRoot {
         launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) {
         window = VAWindow(standardLightTheme: .moviesTheme)
-        self.navigator = Navigator(
+        self.navigator = .init(
             window: window,
             screenFactory: ScreenFactory()
         )
         self.window = window
 
-        func launch() {
+        launch()
+        shortcutService.addShortcuts()
+        configureCache()
+    }
+
+    private func launch() {
+        func setRootController() {
             navigator.navigate(
                 destination: .identity(MainTabsNavigationIdentity(tabsIdentity: [
                     SearchNavigationIdentity(),
@@ -39,19 +45,16 @@ final class CompositionRoot {
             )
         }
 
-        #if DEBUG && targetEnvironment(simulator)
+        #if DEBUG || targetEnvironment(simulator)
         if Environment.isTesting {
             window?.rootViewController = UIViewController()
             window?.makeKeyAndVisible()
         } else {
-            launch()
+            setRootController()
         }
         #else
-        launch()
+        setRootController()
         #endif
-
-        shortcutService.addShortcuts()
-        configureCache()
     }
 
     func handleShortcut(item: Shortcut) -> Bool {
@@ -78,9 +81,7 @@ final class CompositionRoot {
         open url: URL,
         options: [UIApplication.OpenURLOptionsKey: Any] = [:]
     ) -> Bool {
-        #if DEBUG
-        print("source application = \(options[.sourceApplication] ?? "Unknown")")
-        #endif
+        log(info: "source application = \(options[.sourceApplication] ?? "Unknown")")
 
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
             return false

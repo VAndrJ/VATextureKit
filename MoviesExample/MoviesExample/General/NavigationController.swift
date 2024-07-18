@@ -13,10 +13,7 @@ final class NavigationController: VANavigationController, Responder {
     convenience init(controller: UIViewController) {
         self.init()
 
-        setViewControllers(
-            [controller],
-            animated: false
-        )
+        setViewControllers([controller], animated: false)
     }
 
     override func viewWillAppear(_ animated: Bool) {

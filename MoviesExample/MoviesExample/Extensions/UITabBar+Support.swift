@@ -5,9 +5,10 @@
 //  Created by VAndrJ on 12.04.2023.
 //
 
+import UIKit
 import VATextureKit
 
-public extension UITabBar {
+extension UITabBar {
 
     func configureAppearance(theme: VATheme) {
         clipsToBounds = true
