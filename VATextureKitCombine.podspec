@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'VATextureKitCombine'
-  s.version          = '2.0.3'
+  s.version          = '2.1.0'
   s.summary          = 'Texture library wrapper with Combine additions.'
 
   s.description      = <<-DESC
@@ -18,5 +18,5 @@ Includes RxSwift additions.
 
   s.source_files = 'VATextureKit/ClassesCombine/**/*'
 
-  s.swift_versions = '5.9'
+  s.swift_versions = '5.10'
 end
