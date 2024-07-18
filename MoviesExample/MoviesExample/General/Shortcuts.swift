@@ -38,14 +38,14 @@ enum Shortcut: String {
 
     var title: String {
         switch self {
-        case .search: return R.string.localizable.shortcut_search_title()
-        case .home: return R.string.localizable.shortcut_home_title()
+        case .search: return L.shortcut_search_title()
+        case .home: return L.shortcut_home_title()
         }
     }
     var subtitle: String? {
         switch self {
-        case .search: return R.string.localizable.shortcut_search_description()
-        case .home: return R.string.localizable.shortcut_home_description()
+        case .search: return L.shortcut_search_description()
+        case .home: return L.shortcut_home_description()
         }
     }
     var icon: UIApplicationShortcutIcon {

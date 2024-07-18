@@ -24,7 +24,7 @@ final class HomeViewModel: EventViewModel {
     var listDataObs: Observable<[AnimatableSectionModel<HomeSectionHeaderNodeViewModel, CellViewModel>]> {
         .just([
             AnimatableSectionModel(
-                model: HomeSectionHeaderNodeViewModel(title: R.string.localizable.home_section_trending()),
+                model: HomeSectionHeaderNodeViewModel(title: L.home_section_trending()),
                 items: [ShimmerCellNodeViewModel(kind: .homeCell)]
             ),
         ])

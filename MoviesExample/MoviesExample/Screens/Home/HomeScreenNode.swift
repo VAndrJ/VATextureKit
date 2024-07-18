@@ -20,7 +20,7 @@ final class HomeScreenNode: ScreenNode<HomeViewModel> {
         )
     )
     private let titleTextNode = VATextNode(
-        text: R.string.localizable.wip(),
+        text: L.wip(),
         fontStyle: .largeTitle
     )
 

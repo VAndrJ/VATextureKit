@@ -35,7 +35,7 @@ final class SearchViewModel: EventViewModel {
                     .map(mapSearchTrendingMovies(_:))
                     .startWith([
                         AnimatableSectionModel(
-                            model: SearchSectionHeaderNodeViewModel(title: R.string.localizable.search_section_trending()),
+                            model: SearchSectionHeaderNodeViewModel(title: L.search_section_trending()),
                             items: [ShimmerCellNodeViewModel(kind: .trending)]
                         ),
                     ]),
@@ -121,7 +121,7 @@ final class SearchViewModel: EventViewModel {
 private func mapSearchTrendingMovies(_ data: [ListMovieEntity]) -> [AnimatableSectionModel<SearchSectionHeaderNodeViewModel, CellViewModel>] {
     return [
         AnimatableSectionModel(
-            model: SearchSectionHeaderNodeViewModel(title: R.string.localizable.search_section_trending()),
+            model: SearchSectionHeaderNodeViewModel(title: L.search_section_trending()),
             items: data.isEmpty ? [ShimmerCellNodeViewModel(kind: .trending)] : data.map(SearchTrendingMovieCellNodeViewModel.init(listEntity:))
         ),
     ]
@@ -133,7 +133,7 @@ private func mapSearchMovies(_ data: [ListMovieEntity]) -> [AnimatableSectionMod
     } else {
         return [
             AnimatableSectionModel(
-                model: SearchSectionHeaderNodeViewModel(title: R.string.localizable.search_section_search()),
+                model: SearchSectionHeaderNodeViewModel(title: L.search_section_search()),
                 items: data.map(SearchMovieCellNodeViewModel.init(listEntity:))
             ),
         ]

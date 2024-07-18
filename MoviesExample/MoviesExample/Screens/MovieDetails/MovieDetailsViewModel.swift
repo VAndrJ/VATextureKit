@@ -148,7 +148,7 @@ private func mapMovieActors(_ data: [ListActorEntity], viewModel: EventViewModel
     } else {
         return [
             MovieActorsCellNodeViewModel(
-                title: R.string.localizable.cell_actors(),
+                title: L.cell_actors(),
                 actors: data,
                 onSelect: viewModel ?> { $0.perform(OpenListActorDetailsEvent(actor: $1)) }
             ),
@@ -162,7 +162,7 @@ private func mapRecommendationMovies(_ data: [ListMovieEntity], viewModel: Event
     } else {
         return [
             MoviesSliderCellNodeViewModel(
-                title: R.string.localizable.cell_recommendations(),
+                title: L.cell_recommendations(),
                 movies: data,
                 onSelect: viewModel ?> { $0.perform(OpenListMovieDetailsEvent(movie: $1)) }
             ),

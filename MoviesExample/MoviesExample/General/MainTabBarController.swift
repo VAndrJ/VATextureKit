@@ -14,8 +14,8 @@ final class MainTabBarController: VATabBarController {
 
         var title: String {
             switch self {
-            case .home: return R.string.localizable.tab_home()
-            case .search: return R.string.localizable.tab_search()
+            case .home: return L.tab_home()
+            case .search: return L.tab_search()
             }
         }
         var image: UIImage? {
@@ -26,11 +26,9 @@ final class MainTabBarController: VATabBarController {
         }
     }
 
-    let tabs: [Tab]
     let tabControllers: [Tab: UIViewController & Responder]
 
     init(tabs: [(tab: Tab, controller: UIViewController & Responder)]) {
-        self.tabs = tabs.map(\.tab)
         self.tabControllers = Dictionary(tabs, uniquingKeysWith: { $1 })
 
         super.init(nibName: nil, bundle: nil)

@@ -52,7 +52,7 @@ final class ScreenFactory: @unchecked Sendable, NavigatorScreenFactory {
                         }
                     )
                 ))),
-                title: R.string.localizable.search_screen_title()
+                title: L.search_screen_title()
             )
         case let identity as MovieDetailsNavigationIdentity:
             return ViewController(

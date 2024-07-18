@@ -9,7 +9,7 @@ import VATextureKit
 
 final class ActorDetailsScreenNode: ScreenNode<ActorDetailsViewModel> {
     let titleTextNode = VATextNode(
-        text: R.string.localizable.wip(),
+        text: L.wip(),
         fontStyle: .largeTitle
     )
 
