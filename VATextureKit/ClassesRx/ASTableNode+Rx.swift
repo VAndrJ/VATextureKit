@@ -22,10 +22,10 @@ extension Reactive where Base: ASTableNode {
     /// - parameter dataSource: Data source used to transform elements to cell nodes.
     /// - parameter source: Observable sequence of items.
     /// - returns: Disposable object that can be used to unbind.
-    public func items<DataSource: RxASTableDataSourceType & ASTableDataSource, O: ObservableType>(dataSource: DataSource) -> (_ source: O) -> Disposable where DataSource.Element == O.Element {
+    public func items<DataSource: RxASTableDataSourceType & ASTableDataSource, O: ObservableType>(dataSource: DataSource) -> (_ source: O) -> any Disposable where DataSource.Element == O.Element {
         return { source in
             // Strong reference is needed because data source is in use until result subscription is disposed
-            source.subscribeProxyDataSource(ofObject: base, dataSource: dataSource as ASTableDataSource, retainDataSource: true) { [weak tableNode = base] (_: RxASTableDataSourceProxy, event) -> Void in
+            source.subscribeProxyDataSource(ofObject: base, dataSource: dataSource as (any ASTableDataSource), retainDataSource: true) { [weak tableNode = base] (_: RxASTableDataSourceProxy, event) -> Void in
                 guard let tableNode else { return }
 
                 dataSource.tableNode(tableNode, observedEvent: event)
@@ -35,8 +35,8 @@ extension Reactive where Base: ASTableNode {
 }
 
 extension Reactive where Base: ASTableNode {
-    public var delegate: DelegateProxy<ASTableNode, ASTableDelegate> { RxASTableDelegateProxy.proxy(for: base) }
-    public var dataSource: DelegateProxy<ASTableNode, ASTableDataSource> { RxASTableDataSourceProxy.proxy(for: base) }
+    public var delegate: DelegateProxy<ASTableNode, any ASTableDelegate> { RxASTableDelegateProxy.proxy(for: base) }
+    public var dataSource: DelegateProxy<ASTableNode, any ASTableDataSource> { RxASTableDataSourceProxy.proxy(for: base) }
     
     /// Installs data source as forwarding delegate on `rx.dataSource`.
     /// Data source won't be retained.
@@ -45,7 +45,7 @@ extension Reactive where Base: ASTableNode {
     ///
     /// - parameter dataSource: Data source object.
     /// - returns: Disposable object that can be used to unbind the data source.
-    public func setDataSource(_ dataSource: ASTableDataSource) -> Disposable {
+    public func setDataSource(_ dataSource: any ASTableDataSource) -> any Disposable {
         ScheduledDisposable(
             scheduler: MainScheduler.instance,
             disposable: RxASTableDataSourceProxy.installForwardDelegate(
@@ -63,7 +63,7 @@ extension Reactive where Base: ASTableNode {
     ///
     /// - parameter delegate: Delegate object
     /// - returns: Disposable object that can be used to unbind the delegate.
-    public func setDelegate(_ delegate: ASTableDelegate) -> Disposable {
+    public func setDelegate(_ delegate: any ASTableDelegate) -> any Disposable {
         ScheduledDisposable(
             scheduler: MainScheduler.instance,
             disposable: RxASTableDelegateProxy.installForwardDelegate(
@@ -90,22 +90,22 @@ extension Reactive where Base: ASTableNode {
         }()
     }
     public var willBeginDecelerating: ControlEvent<Void> {
-        let source = delegate.methodInvoked(#selector(ASTableDelegate.scrollViewWillBeginDecelerating(_:))).map { _ in }
+        let source = delegate.methodInvoked(#selector((any ASTableDelegate).scrollViewWillBeginDecelerating(_:))).map { _ in }
 
         return ControlEvent(events: source)
     }
     public var didEndDecelerating: ControlEvent<Void> {
-        let source = delegate.methodInvoked(#selector(ASTableDelegate.scrollViewDidEndDecelerating(_:))).map { _ in }
+        let source = delegate.methodInvoked(#selector((any ASTableDelegate).scrollViewDidEndDecelerating(_:))).map { _ in }
 
         return ControlEvent(events: source)
     }
     public var willBeginDragging: ControlEvent<Void> {
-        let source = delegate.methodInvoked(#selector(ASTableDelegate.scrollViewWillBeginDragging(_:))).map { _ in }
+        let source = delegate.methodInvoked(#selector((any ASTableDelegate).scrollViewWillBeginDragging(_:))).map { _ in }
 
         return ControlEvent(events: source)
     }
     public var willEndDragging: ControlEvent<Reactive<UIScrollView>.WillEndDraggingEvent> {
-        let source = delegate.methodInvoked(#selector(ASTableDelegate.scrollViewWillEndDragging(_:withVelocity:targetContentOffset:)))
+        let source = delegate.methodInvoked(#selector((any ASTableDelegate).scrollViewWillEndDragging(_:withVelocity:targetContentOffset:)))
             .map { value -> Reactive<UIScrollView>.WillEndDraggingEvent in
                 let velocity = try castOrThrow(CGPoint.self, value[1])
                 let targetContentOffsetValue = try castOrThrow(NSValue.self, value[2])
@@ -117,56 +117,56 @@ extension Reactive where Base: ASTableNode {
         return ControlEvent(events: source)
     }
     public var didEndDragging: ControlEvent<Bool> {
-        let source = delegate.methodInvoked(#selector(ASTableDelegate.scrollViewDidEndDragging(_:willDecelerate:))).map { try castOrThrow(Bool.self, $0[1]) }
+        let source = delegate.methodInvoked(#selector((any ASTableDelegate).scrollViewDidEndDragging(_:willDecelerate:))).map { try castOrThrow(Bool.self, $0[1]) }
 
         return ControlEvent(events: source)
     }
     public var itemSelected: ControlEvent<IndexPath> {
-        let source = delegate.methodInvoked(#selector(ASTableDelegate.tableNode(_:didSelectRowAt:)))
+        let source = delegate.methodInvoked(#selector((any ASTableDelegate).tableNode(_:didSelectRowAt:)))
             .map { try castOrThrow(IndexPath.self, $0[1]) }
 
         return ControlEvent(events: source)
     }
     public var itemDeselected: ControlEvent<IndexPath> {
-        let source = delegate.methodInvoked(#selector(ASTableDelegate.tableNode(_:didDeselectRowAt:)))
+        let source = delegate.methodInvoked(#selector((any ASTableDelegate).tableNode(_:didDeselectRowAt:)))
             .map { try castOrThrow(IndexPath.self, $0[1]) }
 
         return ControlEvent(events: source)
     }
     public var itemInserted: ControlEvent<IndexPath> {
-        let source = dataSource.methodInvoked(#selector(ASTableDataSource.tableView(_:commit:forRowAt:)))
+        let source = dataSource.methodInvoked(#selector((any ASTableDataSource).tableView(_:commit:forRowAt:)))
             .filter { UITableViewCell.EditingStyle(rawValue: (try castOrThrow(NSNumber.self, $0[1])).intValue) == .insert }
             .map { try castOrThrow(IndexPath.self, $0[2]) }
 
         return ControlEvent(events: source)
     }
     public var itemDeleted: ControlEvent<IndexPath> {
-        let source = dataSource.methodInvoked(#selector(ASTableDataSource.tableView(_:commit:forRowAt:)))
+        let source = dataSource.methodInvoked(#selector((any ASTableDataSource).tableView(_:commit:forRowAt:)))
             .filter { UITableViewCell.EditingStyle(rawValue: (try castOrThrow(NSNumber.self, $0[1])).intValue) == .delete }
             .map { try castOrThrow(IndexPath.self, $0[2]) }
 
         return ControlEvent(events: source)
     }
     public var itemMoved: ControlEvent<ItemMovedEvent> {
-        let source: Observable<ItemMovedEvent> = dataSource.methodInvoked(#selector(ASTableDataSource.tableView(_:moveRowAt:to:)))
+        let source: Observable<ItemMovedEvent> = dataSource.methodInvoked(#selector((any ASTableDataSource).tableView(_:moveRowAt:to:)))
             .map { (try castOrThrow(IndexPath.self, $0[1]), try castOrThrow(IndexPath.self, $0[2])) }
 
         return ControlEvent(events: source)
     }
     public var willDisplayCell: ControlEvent<ASCellNode> {
-        let source: Observable<ASCellNode> = delegate.methodInvoked(#selector(ASTableDelegate.tableNode(_:willDisplayRowWith:)))
+        let source: Observable<ASCellNode> = delegate.methodInvoked(#selector((any ASTableDelegate).tableNode(_:willDisplayRowWith:)))
             .map { try castOrThrow(ASCellNode.self, $0[1]) }
 
         return ControlEvent(events: source)
     }
     public var didEndDisplayingCell: ControlEvent<ASCellNode> {
-        let source: Observable<ASCellNode> = delegate.methodInvoked(#selector(ASTableDelegate.tableNode(_:didEndDisplayingRowWith:)))
+        let source: Observable<ASCellNode> = delegate.methodInvoked(#selector((any ASTableDelegate).tableNode(_:didEndDisplayingRowWith:)))
             .map { try castOrThrow(ASCellNode.self, $0[1]) }
 
         return ControlEvent(events: source)
     }
     public var willBeginBatchFetch: ControlEvent<ASBatchContext> {
-        let source: Observable<ASBatchContext> = delegate.methodInvoked(#selector(ASTableDelegate.tableNode(_:willBeginBatchFetchWith:)))
+        let source: Observable<ASBatchContext> = delegate.methodInvoked(#selector((any ASTableDelegate).tableNode(_:willBeginBatchFetchWith:)))
             .map { try castOrThrow(ASBatchContext.self, $0[1]) }
 
         return ControlEvent(events: source)
@@ -237,7 +237,7 @@ extension Reactive where Base: ASTableNode {
     
     /// Synchronous helper method for retrieving a model at indexPath through a reactive data source.
     public func model<T>(at indexPath: IndexPath) throws -> T {
-        let dataSource: SectionedViewDataSourceType = castOrFatalError(dataSource.forwardToDelegate(), message: "This method only works in case one of the `rx.items*` methods was used.")
+        let dataSource: any SectionedViewDataSourceType = castOrFatalError(dataSource.forwardToDelegate(), message: "This method only works in case one of the `rx.items*` methods was used.")
         let element = try dataSource.model(at: indexPath)
 
         return castOrFatalError(element)
@@ -677,7 +677,7 @@ final class RxASTableDataSourceProxy: DelegateProxy<ASTableNode, ASTableDataSour
         register { RxASTableDataSourceProxy(tableNode: $0) }
     }
     
-    private weak var _requiredMethodsDataSource: ASTableDataSource? = tableDataSourceNotSet
+    private weak var _requiredMethodsDataSource: (any ASTableDataSource)? = tableDataSourceNotSet
     
     // MARK: DataSource
     
@@ -690,7 +690,7 @@ final class RxASTableDataSourceProxy: DelegateProxy<ASTableNode, ASTableDataSour
         (_requiredMethodsDataSource ?? tableDataSourceNotSet).tableNode!(tableNode, nodeBlockForRowAt: indexPath)
     }
     
-    public override func setForwardToDelegate(_ forwardToDelegate: ASTableDataSource?, retainDelegate: Bool) {
+    public override func setForwardToDelegate(_ forwardToDelegate: (any ASTableDataSource)?, retainDelegate: Bool) {
         _requiredMethodsDataSource = forwardToDelegate ?? tableDataSourceNotSet
 
         super.setForwardToDelegate(forwardToDelegate, retainDelegate: retainDelegate)

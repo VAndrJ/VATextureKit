@@ -79,7 +79,7 @@ final class CombineSpy<T, Failure: Error> {
 final class ObservableSpy<T> {
     private(set) var result: [T] = []
 
-    private var disposable: Disposable?
+    private var disposable: (any Disposable)?
     private var expectationFactory: () -> XCTestExpectation
     private var waiter: (XCTestExpectation) -> Void
     private var expectation: XCTestExpectation?

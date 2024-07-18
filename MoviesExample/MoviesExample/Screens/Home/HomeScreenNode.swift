@@ -8,7 +8,7 @@
 import VATextureKitRx
 
 final class HomeScreenNode: ScreenNode<HomeViewModel> {
-    private let backgoundNode = VAImageNode(image: R.image.main_background())
+    private let backgoundNode = VAImageNode(image: .init(resource: .mainBackground))
     private lazy var listNode = VAListNode(
         context: .init(
             listDataObs: viewModel.listDataObs,
@@ -20,7 +20,7 @@ final class HomeScreenNode: ScreenNode<HomeViewModel> {
         )
     )
     private let titleTextNode = VATextNode(
-        text: R.string.localizable.wip(),
+        text: L.wip(),
         fontStyle: .largeTitle
     )
 

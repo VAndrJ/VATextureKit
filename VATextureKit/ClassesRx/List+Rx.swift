@@ -63,7 +63,7 @@ extension ObservableType {
         dataSource: DelegateProxy.Delegate,
         retainDataSource: Bool,
         binding: @escaping (DelegateProxy, Event<Element>) -> Void
-    ) -> Disposable where DelegateProxy.ParentObject: ASDisplayNode, DelegateProxy.Delegate: AnyObject {
+    ) -> any Disposable where DelegateProxy.ParentObject: ASDisplayNode, DelegateProxy.Delegate: AnyObject {
         let proxy = DelegateProxy.proxy(for: object)
         // disposable needs to be disposed on the main thread
         let unregisterDelegate = ScheduledDisposable(
@@ -115,7 +115,7 @@ enum RxDataSourceTextureError: Error {
     case outOfBounds(indexPath: IndexPath)
 }
 
-func bindingError(_ error: Swift.Error) {
+func bindingError(_ error: any Swift.Error) {
     let error = "Binding error: \(error)"
     #if DEBUG
     rxFatalError(error)
@@ -153,7 +153,7 @@ func rxFatalErrorInDebug(
     #endif
 }
 
-func rxDebugFatalError(_ error: Error) {
+func rxDebugFatalError(_ error: any Error) {
     rxDebugFatalError("\(error)")
 }
 

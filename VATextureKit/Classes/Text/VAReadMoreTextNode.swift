@@ -28,7 +28,7 @@ open class VAReadMoreTextNode: VATextNode {
     }
 
     public private(set) var readMore: ReadMore?
-    public weak var textDelegate: ASTextNodeDelegate?
+    public weak var textDelegate: (any ASTextNodeDelegate)?
     public private(set) lazy var readMoreStringGetter: ((ReadMore, VATheme) -> NSAttributedString?)? = { [weak self] readMore, theme in
         guard let self else {
             return nil

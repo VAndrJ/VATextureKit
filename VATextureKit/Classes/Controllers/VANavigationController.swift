@@ -13,7 +13,7 @@ open class VANavigationController: ASDKNavigationController, VAThemeObserver, VA
 
     /// The currently active theme obtained from the app's context.
     @inline(__always) @inlinable public var theme: VATheme { appContext.themeManager.theme }
-    public lazy var transitionAnimator: VATransionAnimator = VADefaultTransionAnimator(controller: self)
+    public lazy var transitionAnimator: any VATransionAnimator = VADefaultTransionAnimator(controller: self)
 
     private(set) var isObservingContentSizeChanges = false
     

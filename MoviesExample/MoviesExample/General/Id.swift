@@ -7,9 +7,9 @@
 
 import Foundation
 
-protocol Movie {}
-protocol Genre {}
-protocol Actor {}
+struct Movie {}
+struct Genre {}
+struct Actor {}
 
 public struct Id<Tag>: Codable, RawRepresentable, Equatable, Hashable, ExpressibleByIntegerLiteral, CustomStringConvertible, Sendable {
     public let rawValue: Int

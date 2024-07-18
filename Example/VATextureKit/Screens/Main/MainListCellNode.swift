@@ -12,15 +12,15 @@ final class MainListCellNode: VACellNode {
     private let titleNode: VATextNode
     private let descriptionNode: VATextNode
     private lazy var chevronImageNode = VAImageNode(
-        image: R.image.chevron_right(),
-        size: CGSize(same: 14),
+        image: .init(resource: .chevronRight),
+        size: .init(same: 14),
         contentMode: .center,
         tintColor: { $0.tertiaryLabel }
     )
     
     init(viewModel: MainListCellNodeViewModel) {
-        self.titleNode = VATextNode(text: viewModel.title)
-        self.descriptionNode = VATextNode(
+        self.titleNode = .init(text: viewModel.title)
+        self.descriptionNode = .init(
             text: viewModel.description,
             fontStyle: .footnote,
             colorGetter: { $0.secondaryLabel }
@@ -59,14 +59,14 @@ final class MainListCellNode: VACellNode {
 final class MainListCellNodeViewModel: CellViewModel {
     let title: String
     let description: String
-    let destination: NavigationIdentity
+    let destination: any NavigationIdentity
     let titleTransitionAnimationId: String?
     let descriptionTransitionAnimationId: String?
 
     init(
         title: String,
         description: String,
-        destination: NavigationIdentity
+        destination: any NavigationIdentity
     ) {
         self.title = title
         self.description = description
@@ -78,7 +78,7 @@ final class MainListCellNodeViewModel: CellViewModel {
     init(
         title: String,
         description: String,
-        destination: NavigationIdentity,
+        destination: any NavigationIdentity,
         titleTransitionAnimationId: String,
         descriptionTransitionAnimationId: String
     ) {
@@ -93,7 +93,6 @@ final class MainListCellNodeViewModel: CellViewModel {
 #if DEBUG && canImport(SwiftUI)
 import SwiftUI
 
-@available (iOS 13.0, *)
 struct MainListCellNode_Preview: PreviewProvider {
     static var previews: some View {
         VStack(spacing: 0) {

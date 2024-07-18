@@ -10,7 +10,7 @@ import VATextureKit
 import VANavigator
 
 struct ExampleNavigationControllerIdentity: DefaultNavigationIdentity {
-    let root: NavigationIdentity
+    let root: any NavigationIdentity
 }
 
 final class ExampleNavigationController: VANavigationController {

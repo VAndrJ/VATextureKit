@@ -8,7 +8,7 @@
 import VATextureKit
 import VANavigator
 
-final class ScreenFactory: @unchecked Sendable, NavigatorScreenFactory {
+final class ScreenFactory: NavigatorScreenFactory, @unchecked Sendable {
     let network = Network(networkLogger: DebugNetworkLogger())
     private(set) lazy var remoteDataSource = RemoteDataSource(
         network: network,
@@ -19,7 +19,7 @@ final class ScreenFactory: @unchecked Sendable, NavigatorScreenFactory {
     )
 
     // swiftlint:disable:next function_body_length
-    func assembleScreen(identity: NavigationIdentity, navigator: Navigator) -> UIViewController {
+    func assembleScreen(identity: any NavigationIdentity, navigator: Navigator) -> UIViewController {
         switch identity {
         case let identity as MainTabsNavigationIdentity:
             return MainTabBarController(controllers: identity.tabsIdentity
@@ -52,7 +52,7 @@ final class ScreenFactory: @unchecked Sendable, NavigatorScreenFactory {
                         }
                     )
                 ))),
-                title: R.string.localizable.search_screen_title()
+                title: L.search_screen_title()
             )
         case let identity as MovieDetailsNavigationIdentity:
             return ViewController(

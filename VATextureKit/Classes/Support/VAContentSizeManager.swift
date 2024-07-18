@@ -15,7 +15,7 @@ public protocol VAContentSizeObserver: AnyObject {
 open class VAContentSizeManager {
     public private(set) var contentSize: UIContentSizeCategory
 
-    private var contentSizeObservers: [ObjectIdentifier: () -> VAContentSizeObserver?] = [:]
+    private var contentSizeObservers: [ObjectIdentifier: () -> (any VAContentSizeObserver)?] = [:]
     
     public init(contentSize: UIContentSizeCategory) {
         self.contentSize = contentSize
@@ -28,11 +28,11 @@ open class VAContentSizeManager {
         }
     }
 
-    public func addContentSizeObserver(_ observer: VAContentSizeObserver) {
+    public func addContentSizeObserver(_ observer: any VAContentSizeObserver) {
         contentSizeObservers[ObjectIdentifier(observer)] = { [weak observer] in observer }
     }
 
-    public func removeContentSizeObserver(_ observer: VAContentSizeObserver) {
+    public func removeContentSizeObserver(_ observer: any VAContentSizeObserver) {
         contentSizeObservers.removeValue(forKey: ObjectIdentifier(observer))
     }
 }

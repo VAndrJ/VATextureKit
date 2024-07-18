@@ -32,12 +32,8 @@ open class VADefaultTransionAnimator: VATransionAnimator {
         animated: Bool,
         isPresenting: Bool
     ) {
-        guard animated, let source, let destination else {
-            return
-        }
-        guard isPresenting ? destination.isTransitionAnimationEnabled : source.isTransitionAnimationEnabled else {
-            return
-        }
+        guard animated, let source, let destination else { return }
+        guard isPresenting ? destination.isTransitionAnimationEnabled : source.isTransitionAnimationEnabled else { return }
         guard let sourceController = (source as? ASDKViewController) ?? ((source as? UINavigationController)?.topViewController as? ASDKViewController) ?? ((source as? UITabBarController)?.selectedViewController as? ASDKViewController) ?? (((source as? UITabBarController)?.selectedViewController as? UINavigationController)?.topViewController as? ASDKViewController), let destinationController = (destination as? ASDKViewController) ?? ((destination as? UINavigationController)?.topViewController as? ASDKViewController) ?? ((destination as? UITabBarController)?.selectedViewController as? ASDKViewController) ?? (((destination as? UITabBarController)?.selectedViewController as? UINavigationController)?.topViewController as? ASDKViewController) else {
             return
         }
@@ -48,9 +44,7 @@ open class VADefaultTransionAnimator: VATransionAnimator {
             isFrom: true,
             to: &fromLayersDict
         )
-        guard !fromLayersDict.isEmpty else {
-            return
-        }
+        guard !fromLayersDict.isEmpty else { return }
 
         if isPresenting {
             destinationController.node.loadForPreview()

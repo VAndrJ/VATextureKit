@@ -25,7 +25,7 @@ final class StackLayoutScreenNode: ScrollScreenNode {
     }
 
     @MainActor
-    override func animateLayoutTransition(_ context: ASContextTransitioning) {
+    override func animateLayoutTransition(_ context: any ASContextTransitioning) {
         animateLayoutTransition(context: context)
     }
 

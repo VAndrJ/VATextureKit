@@ -19,11 +19,11 @@ enum NetworkError: Error, Equatable {
 extension NetworkError: LocalizedError {
     var localizedDescription: String? {
         switch self {
-        case .serverInternal: return R.string.localizable.error_server_internal()
-        case .emptyResponseData: return R.string.localizable.error_response_empty_data()
-        case .emptyRequestData: return R.string.localizable.error_request_empty_data()
-        case let .incorrectEndpointBaseURL(base): return R.string.localizable.error_request_incorrect_base(base)
-        case let .incorrectEndpointURLComponents(path, base): return R.string.localizable.error_request_incorrect_components(path, base)
+        case .serverInternal: return L.error_server_internal()
+        case .emptyResponseData: return L.error_response_empty_data()
+        case .emptyRequestData: return L.error_request_empty_data()
+        case let .incorrectEndpointBaseURL(base): return L.error_request_incorrect_base(base)
+        case let .incorrectEndpointURLComponents(path, base): return L.error_request_incorrect_components(path, base)
         case let .server(value): return value.description
         }
     }

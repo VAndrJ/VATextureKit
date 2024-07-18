@@ -130,7 +130,7 @@ open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollec
 
         public enum Layout {
             case `default`(parameters: DefaultLayoutParameters)
-            case delegate(ASCollectionLayoutDelegate)
+            case delegate(any ASCollectionLayoutDelegate)
             case custom(UICollectionViewLayout)
         }
 

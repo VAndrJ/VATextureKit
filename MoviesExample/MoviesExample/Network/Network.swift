@@ -12,10 +12,10 @@ import RxSwiftExt
 
 final class Network: Sendable {
     let coreRequest: @Sendable (_ request: URLRequest) -> Observable<(response: HTTPURLResponse, data: Data)>
-    let networkLogger: NetworkLogger
+    let networkLogger: any NetworkLogger
 
     init(
-        networkLogger: NetworkLogger,
+        networkLogger: any NetworkLogger,
         coreRequest: @escaping @Sendable (_ request: URLRequest) -> Observable<(response: HTTPURLResponse, data: Data)> = {
         URLSession.shared.rx.response(request: $0) }
     ) {

@@ -71,8 +71,8 @@ private class _CornerRadiusAnimationExampleNode: DisplayNode {
 
 private class _RotationAnimationExampleNode: DisplayNode {
     private lazy var exampleNode = VAImageNode(
-        image: R.image.chevron_right(),
-        size: CGSize(same: 50),
+        image: .init(resource: .chevronRight),
+        size: .init(same: 50),
         contentMode: .center,
         tintColor: { $0.darkText }
     )
@@ -215,7 +215,7 @@ private class _BoundsAnimationExampleNode: DisplayNode {
     private lazy var widthNode = VADisplayNode()
         .sized(width: isToggled ? 20 : 100, height: 20)
     private lazy var boundsNode = VADisplayNode()
-        .sized(CGSize(same: 20))
+        .sized(.init(same: 20))
         .apply {
             $0.anchorPoint = .zero
         }
@@ -224,8 +224,8 @@ private class _BoundsAnimationExampleNode: DisplayNode {
         didSet {
             boundsNode.animate(
                 .bounds(
-                    from: oldValue ? CGRect(origin: .zero, size: CGSize(same: 100)) : CGRect(origin: .zero, size: CGSize(same: 20)),
-                    to: !oldValue ? CGRect(origin: .zero, size: CGSize(same: 100)) : CGRect(origin: .zero, size: CGSize(same: 20))
+                    from: oldValue ? CGRect(origin: .zero, size: .init(same: 100)) : CGRect(origin: .zero, size: .init(same: 20)),
+                    to: !oldValue ? CGRect(origin: .zero, size: .init(same: 100)) : CGRect(origin: .zero, size: .init(same: 20))
                 ),
                 duration: defaultLayoutTransitionDuration,
                 removeOnCompletion: false,
@@ -249,7 +249,7 @@ private class _BoundsAnimationExampleNode: DisplayNode {
     }
 
     @MainActor
-    override func animateLayoutTransition(_ context: ASContextTransitioning) {
+    override func animateLayoutTransition(_ context: any ASContextTransitioning) {
         animateLayoutTransition(context: context)
     }
 

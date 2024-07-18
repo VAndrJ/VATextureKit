@@ -39,7 +39,7 @@ final class SearchScreenNode: ScreenNode<SearchViewModel> {
         backgroundColor = theme.systemBackground
     }
 
-    override func animateLayoutTransition(_ context: ASContextTransitioning) {
+    override func animateLayoutTransition(_ context: any ASContextTransitioning) {
         animateLayoutTransition(context: context)
     }
 

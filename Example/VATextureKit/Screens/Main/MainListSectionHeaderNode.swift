@@ -12,7 +12,7 @@ final class MainListSectionHeaderNode: VADisplayNode {
     private let titleTextNode: VATextNode
 
     init(viewModel: MainSectionHeaderNodeViewModel) {
-        self.titleTextNode = VATextNode(
+        self.titleTextNode = .init(
             text: viewModel.title,
             fontStyle: .headline,
             maximumNumberOfLines: 1
@@ -42,7 +42,6 @@ final class MainSectionHeaderNodeViewModel: CellViewModel {
 #if DEBUG && canImport(SwiftUI)
 import SwiftUI
 
-@available (iOS 13.0, *)
 struct MainListSectionHeaderNode_Preview: PreviewProvider {
     static var previews: some View {
         VStack(spacing: 0) {

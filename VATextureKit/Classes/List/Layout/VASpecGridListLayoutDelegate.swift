@@ -32,7 +32,7 @@ public class VASpecGridListLayoutDelegate: NSObject, ASCollectionLayoutDelegate 
         let indexPaths = elements.itemIndexPaths
         let indexMap = getIndexMap(indexPaths: indexPaths)
         let orderedIndexMap = indexMap.lazy.sorted(by: { $0.key < $1.key })
-        let itemLayoutSpecs: [ASLayoutElement] = orderedIndexMap.map { section, items in
+        let itemLayoutSpecs: [any ASLayoutElement] = orderedIndexMap.map { section, items in
             let itemElements = items.lazy.map { IndexPath(item: $0, section: section) }.compactMap { elements.elementForItem(at: $0) }
             let itemsSpec = getItemsSpec(
                 context: context,
@@ -86,7 +86,7 @@ public class VASpecGridListLayoutDelegate: NSObject, ASCollectionLayoutDelegate 
         return indexMap
     }
 
-    private static func getSectionLayoutSpec(context: ASCollectionLayoutContext, children: [ASLayoutElement], info: VASpecGridListLayoutInfo) -> ASLayoutSpec {
+    private static func getSectionLayoutSpec(context: ASCollectionLayoutContext, children: [any ASLayoutElement], info: VASpecGridListLayoutInfo) -> ASLayoutSpec {
         let spec = ASStackLayoutSpec(
             direction: info.scrollableDirection == .horizontal ? .horizontal : .vertical,
             spacing: info.sectionsConfiguration.spacing,
@@ -103,7 +103,12 @@ public class VASpecGridListLayoutDelegate: NSObject, ASCollectionLayoutDelegate 
         return spec
     }
 
-    private static func getItemsSpec(context: ASCollectionLayoutContext, section: Int, children: [ASLayoutElement], info: VASpecGridListLayoutInfo) -> ASLayoutSpec {
+    private static func getItemsSpec(
+        context: ASCollectionLayoutContext,
+        section: Int,
+        children: [any ASLayoutElement],
+        info: VASpecGridListLayoutInfo
+    ) -> ASLayoutSpec {
         ASStackLayoutSpec(
             direction: info.scrollableDirection == .horizontal ? .vertical : .horizontal,
             spacing: info.itemsConfiguration.spacing,

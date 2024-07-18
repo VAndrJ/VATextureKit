@@ -286,7 +286,7 @@ public extension ASLayoutElement {
     ///
     /// - Parameter element: The layout element to be used as the background in the `ASBackgroundLayoutSpec`.
     /// - Returns: An `ASBackgroundLayoutSpec` with the layout element as the foreground and the provided element as the background.
-    @inline(__always) @inlinable func background(_ element: ASLayoutElement) -> ASBackgroundLayoutSpec {
+    @inline(__always) @inlinable func background(_ element: any ASLayoutElement) -> ASBackgroundLayoutSpec {
         .init(child: self, background: element)
     }
 
@@ -294,7 +294,7 @@ public extension ASLayoutElement {
     ///
     /// - Parameter element: The layout element to be used as the overlay in the `ASOverlayLayoutSpec`.
     /// - Returns: An `ASOverlayLayoutSpec` with the layout element as the base and the provided element as the overlay.
-    @inline(__always) @inlinable func overlay(_ element: ASLayoutElement) -> ASOverlayLayoutSpec {
+    @inline(__always) @inlinable func overlay(_ element: any ASLayoutElement) -> ASOverlayLayoutSpec {
         .init(child: self, overlay: element)
     }
 
@@ -347,7 +347,7 @@ public extension ASLayoutElement {
     ///   - wrapsCorner: A Boolean value indicating whether the corner element should wrap around the corner. Defaults to `false`.
     /// - Returns: An `ASCornerLayoutSpec` with the layout element placed at the specified corner along with the provided customization options.
     func corner(
-        _ element: ASLayoutElement,
+        _ element: any ASLayoutElement,
         location: ASCornerLayoutLocation = .topRight,
         offset: CGPoint = .zero,
         wrapsCorner: Bool = false
@@ -567,7 +567,7 @@ public extension ASDisplayNode {
     ///
     /// - Parameter layoutElement: A closure returning the layout element to be padded.
     /// - Returns: A layout spec that applies padding with `safeAreaInsets` to the provided layout element.
-    @inline(__always) @inlinable func SafeArea(_ layoutElement: () -> ASLayoutElement) -> ASLayoutSpec {
+    @inline(__always) @inlinable func SafeArea(_ layoutElement: () -> any ASLayoutElement) -> ASLayoutSpec {
         layoutElement()
             .padding(.insets(safeAreaInsets))
     }
@@ -578,7 +578,7 @@ public extension ASDisplayNode {
     ///   - edges: The edges of the safe area for which padding is applied.
     ///   - layoutElement: A closure returning the layout element to be padded.
     /// - Returns: A layout spec that applies padding with custom edge insets to the provided layout element.
-    @inline(__always) @inlinable func SafeArea(edges: VASafeAreaEdge, _ layoutElement: () -> ASLayoutElement) -> ASLayoutSpec {
+    @inline(__always) @inlinable func SafeArea(edges: VASafeAreaEdge, _ layoutElement: () -> any ASLayoutElement) -> ASLayoutSpec {
         ASInsetLayoutSpec(
             insets: .init(paddings: mapToPaddings(edges: edges, in: self)),
             child: layoutElement()

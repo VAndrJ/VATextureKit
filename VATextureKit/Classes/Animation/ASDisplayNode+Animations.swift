@@ -11,7 +11,7 @@ extension ASDisplayNode {
 
     @MainActor
     public func animateLayoutTransition(
-        context: ASContextTransitioning,
+        context: any ASContextTransitioning,
         animation: VAAnimation = .default(),
         animate: (() -> Void)? = nil,
         completion: ((Bool) -> Void)? = nil

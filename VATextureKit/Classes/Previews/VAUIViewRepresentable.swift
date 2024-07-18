@@ -10,7 +10,6 @@
 import UIKit
 import SwiftUI
 
-@available (iOS 13.0, *)
 struct VAUIViewRepresentable: UIViewRepresentable {
     let view: UIView
 

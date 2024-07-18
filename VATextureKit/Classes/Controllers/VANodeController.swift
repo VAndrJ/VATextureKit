@@ -66,7 +66,7 @@ public extension VANodeController {
     ///
     /// - Parameter layoutElement: A closure returning the layout element to be padded.
     /// - Returns: A layout spec that applies padding with `safeAreaInsets` to the provided layout element.
-    @inline(__always) @inlinable func SafeArea(_ layoutElement: () -> ASLayoutElement) -> ASLayoutSpec {
+    @inline(__always) @inlinable func SafeArea(_ layoutElement: () -> any ASLayoutElement) -> ASLayoutSpec {
         contentNode.SafeArea(layoutElement)
     }
 
@@ -86,7 +86,7 @@ public extension VANodeController {
     ///   - edges: The edges of the safe area for which padding is applied.
     ///   - layoutElement: A closure returning the layout element to be padded.
     /// - Returns: A layout spec that applies padding with custom edge insets to the provided layout element.
-    @inline(__always) @inlinable func SafeArea(edges: VASafeAreaEdge, _ layoutElement: () -> ASLayoutElement) -> ASLayoutSpec {
+    @inline(__always) @inlinable func SafeArea(edges: VASafeAreaEdge, _ layoutElement: () -> any ASLayoutElement) -> ASLayoutSpec {
         contentNode.SafeArea(edges: edges, layoutElement)
     }
 }

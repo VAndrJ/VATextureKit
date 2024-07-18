@@ -12,8 +12,8 @@ struct FilterNavigationIdentity: DefaultNavigationIdentity {}
 
 final class FilterScreenNode: ScreenNode {
     private lazy var imageNode = VAImageNode(
-        image: filter.outputImage(image: R.image.colibri()),
-        size: CGSize(same: 300),
+        image: filter.outputImage(image: .init(resource: .colibri)),
+        size: .init(same: 300),
         contentMode: .scaleAspectFit
     )
 

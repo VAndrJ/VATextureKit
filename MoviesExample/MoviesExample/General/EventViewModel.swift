@@ -17,17 +17,17 @@ struct DidSelectEvent: Event {
 
 protocol Event: Sendable {}
 
-class EventViewModel: ViewModel {
+class EventViewModel: ViewModel, @unchecked Sendable {
     let bag = DisposeBag()
-    let eventRelay = PublishRelay<Event>()
+    let eventRelay = PublishRelay<any Event>()
     var isLoadingObs: Observable<Bool> { isLoadingRelay.asObservable() }
     var isNotLoading: Bool { !isLoadingRelay.value }
     weak var controller: UIViewController?
     var isLoadingRelay = BehaviorRelay(value: false)
 
-    let scheduler: SchedulerType
+    let scheduler: any SchedulerType
 
-    init(scheduler: SchedulerType = MainScheduler.asyncInstance) {
+    init(scheduler: any SchedulerType = MainScheduler.asyncInstance) {
         self.scheduler = scheduler
 
         super.init()
@@ -40,13 +40,13 @@ class EventViewModel: ViewModel {
     }
 
     @MainActor
-    func run(_ event: Event) async {
+    func run(_ event: any Event) async {
         #if DEBUG || targetEnvironment(simulator)
         debugPrint("⚠️ [Event not handled] \(event)")
         #endif
     }
 
-    func perform(_ event: Event) {
+    func perform(_ event: any Event) {
         eventRelay.accept(event)
     }
 

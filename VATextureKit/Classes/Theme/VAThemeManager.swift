@@ -48,7 +48,7 @@ open class VAThemeManager {
     private let standardLightTheme: VATheme
     private let standardDarkTheme: VATheme
     private var userInterfaceStyle: VAUserInterfaceStyle
-    private var themeObservers: [ObjectIdentifier: () -> VAThemeObserver?] = [:]
+    private var themeObservers: [ObjectIdentifier: () -> (any VAThemeObserver)?] = [:]
     
     public init(
         customTheme: VATheme,
@@ -110,11 +110,11 @@ open class VAThemeManager {
         themeObservers.values.forEach { $0()?.themeDidChanged(to: theme) }
     }
 
-    public func addThemeObserver(_ observer: VAThemeObserver) {
+    public func addThemeObserver(_ observer: any VAThemeObserver) {
         themeObservers[ObjectIdentifier(observer)] = { [weak observer] in observer }
     }
 
-    public func removeThemeObserver(_ observer: VAThemeObserver) {
+    public func removeThemeObserver(_ observer: any VAThemeObserver) {
         themeObservers.removeValue(forKey: ObjectIdentifier(observer))
     }
 }

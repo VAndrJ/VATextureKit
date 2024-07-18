@@ -7,7 +7,7 @@
 
 import VATextureKit
 
-public class MovieThemeTag: VAThemeTag {}
+class MovieThemeTag: VAThemeTag {}
 
 extension VATheme {
     static var moviesTheme: VATheme {
@@ -18,11 +18,9 @@ extension VATheme {
     }
 }
 
-// swiftlint:disable force_unwrapping
 extension VATheme {
-    var primary: UIColor { R.color.primary()! }
-    var secondary: UIColor { R.color.secondary()! }
-    var tertiary: UIColor { R.color.tertiary()! }
-    var tabTint: UIColor { R.color.tabTint()! }
+    var primary: UIColor { .init(resource: .primary) }
+    var secondary: UIColor { .init(resource: .secondary) }
+    var tertiary: UIColor { .init(resource: .tertiary) }
+    var tabTint: UIColor { .init(resource: .tabTint) }
 }
-// swiftlint:enable force_unwrapping

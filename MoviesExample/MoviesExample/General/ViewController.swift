@@ -41,7 +41,7 @@ class ViewController<Node: ASDisplayNode & Responder & ControllerNode>: VAViewCo
         super.viewWillAppear(animated)
 
         contentNode.viewWillAppear(in: self, animated: animated)
-        navigationController?.setNavigationBarHidden(shouldHideNavigationBar, animated: true)
+        navigationController?.setNavigationBarHidden(shouldHideNavigationBar, animated: animated)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -64,12 +64,12 @@ class ViewController<Node: ASDisplayNode & Responder & ControllerNode>: VAViewCo
     
     // MARK: - Responder
 
-    var nextEventResponder: Responder? {
+    var nextEventResponder: (any Responder)? {
         get { contentNode }
         set { contentNode.nextEventResponder = newValue }
     }
 
-    func handle(event: ResponderEvent) async -> Bool {
+    func handle(event: any ResponderEvent) async -> Bool {
         logResponder(from: self, event: event)
 
         return await nextEventResponder?.handle(event: event) ?? false

@@ -17,7 +17,7 @@ extension Reactive where Base: ASCollectionNode {
     /// - parameter dataSource: Data source used to transform elements to cell nodes.
     /// - parameter source: Observable sequence of items.
     /// - returns: Disposable object that can be used to unbind.
-    public func items<DataSource: RxASCollectionDataSourceType & ASCollectionDataSource, O: ObservableType>(dataSource: DataSource) -> (_ source: O) -> Disposable where DataSource.Element == O.Element {
+    public func items<DataSource: RxASCollectionDataSourceType & ASCollectionDataSource, O: ObservableType>(dataSource: DataSource) -> (_ source: O) -> any Disposable where DataSource.Element == O.Element {
         return { source in
             source.subscribeProxyDataSource(ofObject: base, dataSource: dataSource, retainDataSource: true) { [weak collectionNode = base] (_: RxASCollectionDataSourceProxy, event) -> Void in
                 guard let collectionNode else { return }
@@ -29,8 +29,8 @@ extension Reactive where Base: ASCollectionNode {
 }
 
 extension Reactive where Base: ASCollectionNode {
-    public var delegate: DelegateProxy<ASCollectionNode, ASCollectionDelegate> { RxASCollectionDelegateProxy.proxy(for: base) }
-    public var dataSource: DelegateProxy<ASCollectionNode, ASCollectionDataSource> { RxASCollectionDataSourceProxy.proxy(for: base) }
+    public var delegate: DelegateProxy<ASCollectionNode, any ASCollectionDelegate> { RxASCollectionDelegateProxy.proxy(for: base) }
+    public var dataSource: DelegateProxy<ASCollectionNode, any ASCollectionDataSource> { RxASCollectionDataSourceProxy.proxy(for: base) }
     
     /// Installs data source as forwarding delegate on `rx.dataSource`.
     /// Data source won't be retained.
@@ -39,7 +39,7 @@ extension Reactive where Base: ASCollectionNode {
     
     /// - parameter dataSource: Data source object.
     /// - returns: Disposable object that can be used to unbind the data source.
-    public func setDataSource(_ dataSource: ASCollectionDataSource) -> Disposable {
+    public func setDataSource(_ dataSource: any ASCollectionDataSource) -> any Disposable {
         ScheduledDisposable(
             scheduler: MainScheduler.instance,
             disposable: RxASCollectionDataSourceProxy.installForwardDelegate(
@@ -57,7 +57,7 @@ extension Reactive where Base: ASCollectionNode {
     
     /// - parameter delegate: Delegate object
     /// - returns: Disposable object that can be used to unbind the delegate.
-    public func setDelegate(_ delegate: ASCollectionDelegate) -> Disposable {
+    public func setDelegate(_ delegate: any ASCollectionDelegate) -> any Disposable {
         ScheduledDisposable(
             scheduler: MainScheduler.instance,
             disposable: RxASCollectionDelegateProxy.installForwardDelegate(
@@ -86,16 +86,16 @@ extension Reactive where Base: ASCollectionNode {
         }()
     }
     public var willBeginDecelerating: ControlEvent<Void> {
-        ControlEvent(events: delegate.methodInvoked(#selector(ASCollectionDelegate.scrollViewWillBeginDecelerating(_:))).map { _ in })
+        ControlEvent(events: delegate.methodInvoked(#selector((any ASCollectionDelegate).scrollViewWillBeginDecelerating(_:))).map { _ in })
     }
     public var didEndDecelerating: ControlEvent<Void> {
-        ControlEvent(events: delegate.methodInvoked(#selector(ASCollectionDelegate.scrollViewDidEndDecelerating(_:))).map { _ in })
+        ControlEvent(events: delegate.methodInvoked(#selector((any ASCollectionDelegate).scrollViewDidEndDecelerating(_:))).map { _ in })
     }
     public var willBeginDragging: ControlEvent<Void> {
-        ControlEvent(events: delegate.methodInvoked(#selector(ASCollectionDelegate.scrollViewWillBeginDragging(_:))).map { _ in })
+        ControlEvent(events: delegate.methodInvoked(#selector((any ASCollectionDelegate).scrollViewWillBeginDragging(_:))).map { _ in })
     }
     public var willEndDragging: ControlEvent<Reactive<UIScrollView>.WillEndDraggingEvent> {
-        let source = delegate.methodInvoked(#selector(ASCollectionDelegate.scrollViewWillEndDragging(_:withVelocity:targetContentOffset:)))
+        let source = delegate.methodInvoked(#selector((any ASCollectionDelegate).scrollViewWillEndDragging(_:withVelocity:targetContentOffset:)))
             .map { value -> Reactive<UIScrollView>.WillEndDraggingEvent in
                 let velocity = try castOrThrow(CGPoint.self, value[1])
                 let targetContentOffsetValue = try castOrThrow(NSValue.self, value[2])
@@ -107,62 +107,62 @@ extension Reactive where Base: ASCollectionNode {
         return ControlEvent(events: source)
     }
     public var didEndDragging: ControlEvent<Bool> {
-        let source = delegate.methodInvoked(#selector(ASCollectionDelegate.scrollViewDidEndDragging(_:willDecelerate:))).map { value -> Bool in
+        let source = delegate.methodInvoked(#selector((any ASCollectionDelegate).scrollViewDidEndDragging(_:willDecelerate:))).map { value -> Bool in
             return try castOrThrow(Bool.self, value[1])
         }
 
         return ControlEvent(events: source)
     }
     public var itemSelected: ControlEvent<IndexPath> {
-        let source = delegate.methodInvoked(#selector(ASCollectionDelegate.collectionNode(_:didSelectItemAt:)))
+        let source = delegate.methodInvoked(#selector((any ASCollectionDelegate).collectionNode(_:didSelectItemAt:)))
             .map { try castOrThrow(IndexPath.self, $0[1]) }
 
         return ControlEvent(events: source)
     }
     public var itemDeselected: ControlEvent<IndexPath> {
-        let source = delegate.methodInvoked(#selector(ASCollectionDelegate.collectionNode(_:didDeselectItemAt:)))
+        let source = delegate.methodInvoked(#selector((any ASCollectionDelegate).collectionNode(_:didDeselectItemAt:)))
             .map { try castOrThrow(IndexPath.self, $0[1]) }
 
         return ControlEvent(events: source)
     }
     public var itemHighlighted: ControlEvent<IndexPath> {
-        let source = delegate.methodInvoked(#selector(ASCollectionDelegate.collectionNode(_:didHighlightItemAt:)))
+        let source = delegate.methodInvoked(#selector((any ASCollectionDelegate).collectionNode(_:didHighlightItemAt:)))
             .map { try castOrThrow(IndexPath.self, $0[1]) }
 
         return ControlEvent(events: source)
     }
     public var itemUnhighlighted: ControlEvent<IndexPath> {
-        let source = delegate.methodInvoked(#selector(ASCollectionDelegate.collectionNode(_:didUnhighlightItemAt:)))
+        let source = delegate.methodInvoked(#selector((any ASCollectionDelegate).collectionNode(_:didUnhighlightItemAt:)))
             .map { try castOrThrow(IndexPath.self, $0[1]) }
 
         return ControlEvent(events: source)
     }
     public var willDisplayItem: ControlEvent<ASCellNode> {
-        let source: Observable<ASCellNode> = delegate.methodInvoked(#selector(ASCollectionDelegate.collectionNode(_:willDisplayItemWith:)))
+        let source: Observable<ASCellNode> = delegate.methodInvoked(#selector((any ASCollectionDelegate).collectionNode(_:willDisplayItemWith:)))
             .map { try castOrThrow(ASCellNode.self, $0[1]) }
 
         return ControlEvent(events: source)
     }
     public var willDisplaySupplementaryElement: ControlEvent<ASCellNode> {
-        let source: Observable<ASCellNode> = delegate.methodInvoked(#selector(ASCollectionDelegate.collectionNode(_:willDisplaySupplementaryElementWith:)))
+        let source: Observable<ASCellNode> = delegate.methodInvoked(#selector((any ASCollectionDelegate).collectionNode(_:willDisplaySupplementaryElementWith:)))
             .map { try castOrThrow(ASCellNode.self, $0[1]) }
 
         return ControlEvent(events: source)
     }
     public var didEndDisplayingItem: ControlEvent<ASCellNode> {
-        let source: Observable<ASCellNode> = delegate.methodInvoked(#selector(ASCollectionDelegate.collectionNode(_:didEndDisplayingItemWith:)))
+        let source: Observable<ASCellNode> = delegate.methodInvoked(#selector((any ASCollectionDelegate).collectionNode(_:didEndDisplayingItemWith:)))
             .map { try castOrThrow(ASCellNode.self, $0[1]) }
 
         return ControlEvent(events: source)
     }
     public var didEndDisplayingSupplementaryElement: ControlEvent<ASCellNode> {
-        let source: Observable<ASCellNode> = delegate.methodInvoked(#selector(ASCollectionDelegate.collectionNode(_:didEndDisplayingSupplementaryElementWith:)))
+        let source: Observable<ASCellNode> = delegate.methodInvoked(#selector((any ASCollectionDelegate).collectionNode(_:didEndDisplayingSupplementaryElementWith:)))
             .map { try castOrThrow(ASCellNode.self, $0[1]) }
 
         return ControlEvent(events: source)
     }
     public var willBeginBatchFetch: ControlEvent<ASBatchContext> {
-        let source: Observable<ASBatchContext> = delegate.methodInvoked(#selector(ASCollectionDelegate.collectionNode(_:willBeginBatchFetchWith:)))
+        let source: Observable<ASBatchContext> = delegate.methodInvoked(#selector((any ASCollectionDelegate).collectionNode(_:willBeginBatchFetchWith:)))
             .map { try castOrThrow(ASBatchContext.self, $0[1]) }
 
         return ControlEvent(events: source)
@@ -212,7 +212,7 @@ extension Reactive where Base: ASCollectionNode {
     
     /// Synchronous helper method for retrieving a model at indexPath through a reactive data source
     public func model<T>(at indexPath: IndexPath) throws -> T {
-        let dataSource: SectionedViewDataSourceType = castOrFatalError(dataSource.forwardToDelegate(), message: "This method only works in case one of the `rx.itemsWith*` methods was used.")
+        let dataSource: any SectionedViewDataSourceType = castOrFatalError(dataSource.forwardToDelegate(), message: "This method only works in case one of the `rx.itemsWith*` methods was used.")
         let element = try dataSource.model(at: indexPath)
 
         return try castOrThrow(T.self, element)
@@ -547,7 +547,7 @@ open class ASCollectionSectionedDataSource<S: SectionModelType>: NSObject, ASCol
     }
     
     open override func responds(to aSelector: Selector!) -> Bool {
-        if aSelector == #selector(ASCollectionDataSource.collectionNode(_:nodeBlockForSupplementaryElementOfKind:at:)) {
+        if aSelector == #selector((any ASCollectionDataSource).collectionNode(_:nodeBlockForSupplementaryElementOfKind:at:)) {
             return configureSupplementaryNodeBlock != nil
         } else {
             return super.responds(to: aSelector)
@@ -586,7 +586,7 @@ final class RxASCollectionDataSourceProxy: DelegateProxy<ASCollectionNode, ASCol
         register { RxASCollectionDataSourceProxy(collectionNode: $0) }
     }
     
-    private weak var _requiredMethodsDataSource: ASCollectionDataSource? = collectionDataSourceNotSet
+    private weak var _requiredMethodsDataSource: (any ASCollectionDataSource)? = collectionDataSourceNotSet
     
     // MARK: DataSource
     
@@ -598,7 +598,7 @@ final class RxASCollectionDataSourceProxy: DelegateProxy<ASCollectionNode, ASCol
         (_requiredMethodsDataSource ?? collectionDataSourceNotSet).collectionNode!(collectionNode, nodeBlockForItemAt: indexPath)
     }
     
-    public override func setForwardToDelegate(_ forwardToDelegate: ASCollectionDataSource?, retainDelegate: Bool) {
+    public override func setForwardToDelegate(_ forwardToDelegate: (any ASCollectionDataSource)?, retainDelegate: Bool) {
         _requiredMethodsDataSource = forwardToDelegate ?? collectionDataSourceNotSet
         
         super.setForwardToDelegate(forwardToDelegate, retainDelegate: retainDelegate)

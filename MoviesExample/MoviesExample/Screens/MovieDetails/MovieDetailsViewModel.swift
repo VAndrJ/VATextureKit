@@ -15,7 +15,7 @@ struct OpenListActorDetailsEvent: Event {
     let actor: ListActorEntity
 }
 
-final class MovieDetailsViewModel: EventViewModel {
+final class MovieDetailsViewModel: EventViewModel, @unchecked Sendable {
     struct Context {
         struct Related {
             let listMovieEntity: ListMovieEntity
@@ -93,7 +93,7 @@ final class MovieDetailsViewModel: EventViewModel {
         perform(LoadDataEvent())
     }
 
-    override func run(_ event: Event) async {
+    override func run(_ event: any Event) async {
         switch event {
         case let event as OpenListActorDetailsEvent:
             context.navigation.followActor(event.actor)
@@ -122,7 +122,7 @@ final class MovieDetailsViewModel: EventViewModel {
 
     // MARK: - Responder
 
-    override func handle(event: ResponderEvent) async -> Bool {
+    override func handle(event: any ResponderEvent) async -> Bool {
         logResponder(from: self, event: event)
         switch event {
         case _ as ResponderOpenedFromURLEvent, _ as ResponderPoppedToExistingEvent:
@@ -148,7 +148,7 @@ private func mapMovieActors(_ data: [ListActorEntity], viewModel: EventViewModel
     } else {
         return [
             MovieActorsCellNodeViewModel(
-                title: R.string.localizable.cell_actors(),
+                title: L.cell_actors(),
                 actors: data,
                 onSelect: viewModel ?> { $0.perform(OpenListActorDetailsEvent(actor: $1)) }
             ),
@@ -162,7 +162,7 @@ private func mapRecommendationMovies(_ data: [ListMovieEntity], viewModel: Event
     } else {
         return [
             MoviesSliderCellNodeViewModel(
-                title: R.string.localizable.cell_recommendations(),
+                title: L.cell_recommendations(),
                 movies: data,
                 onSelect: viewModel ?> { $0.perform(OpenListMovieDetailsEvent(movie: $1)) }
             ),

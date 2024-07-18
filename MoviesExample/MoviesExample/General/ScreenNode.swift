@@ -81,12 +81,12 @@ class ScreenNode<ViewModel: EventViewModel>: VASafeAreaDisplayNode, ControllerNo
 
     // MARK: - Responder
 
-    var nextEventResponder: Responder? {
+    var nextEventResponder: (any Responder)? {
         get { viewModel }
         set { viewModel.nextEventResponder = newValue }
     }
 
-    func handle(event: ResponderEvent) async -> Bool {
+    func handle(event: any ResponderEvent) async -> Bool {
         logResponder(from: self, event: event)
 
         return await nextEventResponder?.handle(event: event) ?? false
