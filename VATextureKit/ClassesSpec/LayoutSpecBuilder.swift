@@ -5,7 +5,7 @@
 //  Created by Volodymyr Andriienko on 18.02.2023.
 //
 
-import AsyncDisplayKit
+public import AsyncDisplayKit
 
 /// `LayoutSpecBuilder` is a result builder used to construct an array of `ASLayoutElement` objects for use in `Layout Spec`.
 @resultBuilder

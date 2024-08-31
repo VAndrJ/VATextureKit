@@ -5,7 +5,7 @@
 //  Created by Volodymyr Andriienko on 18.02.2023.
 //
 
-import AsyncDisplayKit
+public import AsyncDisplayKit
 
 /// The `Column` class is a wrapper around `ASStackLayoutSpec` for `vertical` direction.
 public final class Column: ASStackLayoutSpec {

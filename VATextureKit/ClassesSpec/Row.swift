@@ -5,7 +5,7 @@
 //  Created by Volodymyr Andriienko on 18.02.2023.
 //
 
-import AsyncDisplayKit
+public import AsyncDisplayKit
 
 /// The `Row` class is a wrapper around `ASStackLayoutSpec` for `horizontal` direction.
 public final class Row: ASStackLayoutSpec {

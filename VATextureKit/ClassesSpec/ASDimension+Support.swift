@@ -5,7 +5,7 @@
 //  Created by Volodymyr Andriienko on 19.07.2023.
 //
 
-import AsyncDisplayKit
+public import AsyncDisplayKit
 
 public extension ASDimension {
     /// A predefined `ASDimension` constant in Swift way.

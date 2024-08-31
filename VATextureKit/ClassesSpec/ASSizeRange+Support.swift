@@ -5,7 +5,7 @@
 //  Created by Volodymyr Andriienko on 23.03.2023.
 //
 
-import AsyncDisplayKit
+public import AsyncDisplayKit
 
 public extension ASSizeRange {
     /// A predefined `ASSizeRangeUnconstrained` constant in Swift way.
