@@ -10,7 +10,7 @@ import UIKit
 public extension UIView {
     
     @inline(__always) @inlinable func addSubviews(_ subviews: UIView...) {
-        subviews.forEach(addSubview)
+        subviews.forEach { addSubview($0) }
     }
     
     func addAutolayoutSubview(_ subview: UIView) {
@@ -19,7 +19,7 @@ public extension UIView {
     }
     
     @inline(__always) @inlinable func addAutolayoutSubviews(_ subviews: UIView...) {
-        subviews.forEach(addAutolayoutSubview(_:))
+        subviews.forEach { addAutolayoutSubview($0) }
     }
     
     @discardableResult
