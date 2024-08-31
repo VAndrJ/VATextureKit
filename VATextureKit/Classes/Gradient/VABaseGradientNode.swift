@@ -7,7 +7,7 @@
 
 public import AsyncDisplayKit
 
-open class VABaseGradientNode: ASDisplayNode {
+open class VABaseGradientNode: VASimpleDisplayNode, @unchecked Sendable {
     public override var layer: CAGradientLayer { super.layer as! CAGradientLayer }
 
     private var gradientType: CAGradientLayerType!
@@ -18,13 +18,12 @@ open class VABaseGradientNode: ASDisplayNode {
         self.gradientType = type
     }
 
-    @MainActor
-    open override func didLoad() {
-        super.didLoad()
+    open override func viewDidload() {
+        super.viewDidload()
 
         layer.type = gradientType
     }
-    
+
     public func update(colors: (color: UIColor, location: NSNumber)...) {
         ensureOnMain {
             layer.colors = colors.map(\.color.cgColor)
