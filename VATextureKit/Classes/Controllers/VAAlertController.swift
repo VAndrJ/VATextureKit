@@ -54,8 +54,10 @@ open class VAAlertController: UIAlertController, VAThemeObserver {
         setNeedsStatusBarAppearanceUpdate()
     }
 
-    public func themeDidChanged(to newValue: VATheme) {
-        configureTheme(newValue)
+    nonisolated public func themeDidChanged(to newValue: VATheme) {
+        Task { @MainActor in
+            configureTheme(newValue)
+        }
     }
 
     deinit {
