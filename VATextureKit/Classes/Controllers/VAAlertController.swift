@@ -39,7 +39,7 @@ open class VAAlertController: UIAlertController, VAThemeObserver {
             preferredStyle: preferredStyle
         )
 
-        actions.forEach(addAction(_:))
+        actions.forEach { addAction($0) }
     }
     
     open override func viewDidLoad() {
