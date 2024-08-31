@@ -49,8 +49,8 @@ public enum VATransitionAnimation {
 }
 
 public extension CALayer {
-    @UniquePointerAddress static var transitionAnimationTimingsKey
-    @UniquePointerAddress static var transitionAnimationIdKey
+    nonisolated(unsafe) static let transitionAnimationTimingsKey = malloc(0)!
+    nonisolated(unsafe) static let transitionAnimationIdKey = malloc(0)!
 
     var transitionAnimation: VATransitionAnimation {
         get { (objc_getAssociatedObject(self, Self.transitionAnimationTimingsKey) as? VATransitionAnimation) ?? .default() }
