@@ -16,10 +16,6 @@ open class VANavigationController: ASDKNavigationController, VAThemeObserver, VA
     public lazy var transitionAnimator: any VATransionAnimator = VADefaultTransionAnimator(controller: self)
 
     private(set) var isObservingContentSizeChanges = false
-    
-    public init() {
-        super.init(nibName: nil, bundle: nil)
-    }
 
     public override init(
         nibName nibNameOrNil: String?,
