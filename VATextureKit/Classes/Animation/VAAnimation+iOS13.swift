@@ -6,8 +6,8 @@
 //
 
 #if canImport(SwiftUI)
-import SwiftUI
-import AsyncDisplayKit
+public import SwiftUI
+public import AsyncDisplayKit
 
 extension RelationValue where Value: VectorArithmetic {
 

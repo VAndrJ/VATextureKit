@@ -5,7 +5,7 @@
 //  Created by Volodymyr Andriienko on 18.02.2023.
 //
 
-import AsyncDisplayKit
+public import AsyncDisplayKit
 
 /// `VACellNode` is a subclass of `ASCellNode` that provides additional functionality for handling themes and corner rounding parameters.
 open class VACellNode: ASCellNode, VACornerable, VAThemeObserver {

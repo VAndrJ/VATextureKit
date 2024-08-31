@@ -5,7 +5,7 @@
 //  Created by Volodymyr Andriienko on 12.03.2024.
 //
 
-import AsyncDisplayKit
+public import AsyncDisplayKit
 
 #if AS_ENABLE_TEXTNODE2
 open class _VATextNode: ASTextNode2 {}

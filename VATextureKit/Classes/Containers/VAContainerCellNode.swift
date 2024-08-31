@@ -5,7 +5,7 @@
 //  Created by Volodymyr Andriienko on 10.04.2023.
 //
 
-import AsyncDisplayKit
+public import AsyncDisplayKit
 
 open class VAContainerCellNode<Node: ASDisplayNode>: VACellNode {
     public let childNode: Node

@@ -5,7 +5,7 @@
 //  Created by Volodymyr Andriienko on 18.02.2023.
 //
 
-import AsyncDisplayKit
+public import AsyncDisplayKit
 
 open class VABaseGradientNode: ASDisplayNode {
     public override var layer: CAGradientLayer { super.layer as! CAGradientLayer }

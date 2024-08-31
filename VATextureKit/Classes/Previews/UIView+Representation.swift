@@ -8,7 +8,7 @@
 
 #if canImport(SwiftUI)
 import UIKit
-import SwiftUI
+public import SwiftUI
 
 public extension UIView {
 

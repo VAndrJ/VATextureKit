@@ -5,7 +5,7 @@
 //  Created by Volodymyr Andriienko on 25.02.2023.
 //
 
-import AsyncDisplayKit
+public import AsyncDisplayKit
 
 /// `VAButtonNode` is a subclass of `ASButtonNode` that provides additional functionality for handling button taps.
 open class VAButtonNode: ASButtonNode, VACornerable {
