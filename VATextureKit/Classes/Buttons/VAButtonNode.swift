@@ -8,7 +8,7 @@
 public import AsyncDisplayKit
 
 /// `VAButtonNode` is a subclass of `ASButtonNode` that provides additional functionality for handling button taps.
-open class VAButtonNode: ASButtonNode, VACornerable {
+open class VAButtonNode: VASimpleButtonNode, VACornerable {
     /// A closure that gets executed when the button is tapped. Use either `onTap` closure or `func onTap` function, but not both.
     public var onTap: (() -> Void)?
     /// The corner rounding configuration for the node.
@@ -26,17 +26,15 @@ open class VAButtonNode: ASButtonNode, VACornerable {
         super.init()
     }
 
-    @MainActor
-    open override func didLoad() {
-        super.didLoad()
+    open override func viewDidload() {
+        super.viewDidload()
 
         updateCornerParameters()
         bind()
     }
 
-    @MainActor
-    open override func layout() {
-        super.layout()
+    open override func layoutSubviews() {
+        super.layoutSubviews()
 
         updateCornerProportionalIfNeeded()
     }
@@ -67,10 +65,12 @@ open class VAButtonNode: ASButtonNode, VACornerable {
         }
     }
 
+    @MainActor
     @objc private func touchUpInside() {
         onTap?()
     }
-    
+
+    @MainActor
     private func bind() {
         addTarget(
             self,
