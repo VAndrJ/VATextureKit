@@ -69,21 +69,17 @@ extension Reactive where Base: ASCollectionNode {
     }
     
     public var contentOffset: ControlProperty<CGPoint> {
-        mainActorEscaped {
-            let bindingObserver = Binder(base) { collectionNode, contentOffset in
-                collectionNode.contentOffset = contentOffset
-            }
+        let bindingObserver = Binder(base) { collectionNode, contentOffset in
+            collectionNode.contentOffset = contentOffset
+        }
 
-            return ControlProperty(
-                values: RxASCollectionDelegateProxy.proxy(for: base).contentOffsetBehaviorSubject,
-                valueSink: bindingObserver
-            )
-        }()
+        return ControlProperty(
+            values: RxASCollectionDelegateProxy.proxy(for: base).contentOffsetBehaviorSubject,
+            valueSink: bindingObserver
+        )
     }
     public var didScroll: ControlEvent<Void> {
-        mainActorEscaped {
-            ControlEvent(events: RxASCollectionDelegateProxy.proxy(for: base).contentOffsetPublishSubject)
-        }()
+        ControlEvent(events: RxASCollectionDelegateProxy.proxy(for: base).contentOffsetPublishSubject)
     }
     public var willBeginDecelerating: ControlEvent<Void> {
         ControlEvent(events: delegate.methodInvoked(#selector((any ASCollectionDelegate).scrollViewWillBeginDecelerating(_:))).map { _ in })
@@ -235,7 +231,7 @@ open class RxASCollectionSectionedAnimatedDataSource<S: AnimatableSectionModelTy
     public typealias DecideNodeTransition = (ASCollectionSectionedDataSource<S>, ASCollectionNode, [Changeset<S>]) -> NodeTransition
     public var animationConfiguration: AnimationConfiguration
     public var decideNodeTransition: DecideNodeTransition
-    
+
     public init(
         animationConfiguration: AnimationConfiguration = AnimationConfiguration(),
         decideNodeTransition: @escaping DecideNodeTransition = { _, _, _ in .animated },
@@ -246,7 +242,7 @@ open class RxASCollectionSectionedAnimatedDataSource<S: AnimatableSectionModelTy
     ) {
         self.animationConfiguration = animationConfiguration
         self.decideNodeTransition = decideNodeTransition
-        
+
         super.init(
             configureCellBlock: configureCellBlock,
             configureSupplementaryNodeBlock: configureSupplementaryNodeBlock,
@@ -254,22 +250,20 @@ open class RxASCollectionSectionedAnimatedDataSource<S: AnimatableSectionModelTy
             canMoveItemWith: canMoveItemWith
         )
     }
-    
+
     // there is no longer limitation to load initial sections with reloadData
     // but it is kept as a feature everyone got used to
     var dataSet = false
-    
+
     open func collectionNode(_ collectionNode: ASCollectionNode, observedEvent: Event<Element>) {
         Binder(self) { dataSource, newSections in
-            #if DEBUG
+#if DEBUG
             dataSource._dataSourceBound = true
-            #endif
+#endif
             if !dataSource.dataSet {
                 dataSource.dataSet = true
                 dataSource.setSections(newSections)
-                mainActorEscaped {
-                    collectionNode.reloadDataWithoutAnimations()
-                }()
+                collectionNode.reloadDataWithoutAnimations()
             } else {
                 if dataSource.animationConfiguration.animated {
                     let oldSections = dataSource.sectionModels
@@ -285,34 +279,26 @@ open class RxASCollectionSectionedAnimatedDataSource<S: AnimatableSectionModelTy
                                     dataSource.setSections(difference.finalSections)
                                     collectionNode.batchUpdates(difference, animationConfiguration: dataSource.animationConfiguration)
                                 }
-                                mainActorEscaped {
-                                    collectionNode.performBatch(
-                                        animated: dataSource.animationConfiguration.animated,
-                                        updates: updateBlock,
-                                        completion: nil
-                                    )
-                                }()
+                                collectionNode.performBatch(
+                                    animated: dataSource.animationConfiguration.animated,
+                                    updates: updateBlock,
+                                    completion: nil
+                                )
                             }
                         case .reload:
                             dataSource.setSections(newSections)
-                            mainActorEscaped {
-                                collectionNode.reloadDataWithoutAnimations()
-                            }()
+                            collectionNode.reloadDataWithoutAnimations()
 
                             return
                         }
                     } catch {
                         rxDebugFatalError(error)
                         dataSource.setSections(newSections)
-                        mainActorEscaped {
-                            collectionNode.reloadDataWithoutAnimations()
-                        }()
+                        collectionNode.reloadDataWithoutAnimations()
                     }
                 } else {
                     dataSource.setSections(newSections)
-                    mainActorEscaped {
-                        collectionNode.reloadDataWithoutAnimations()
-                    }()
+                    collectionNode.reloadDataWithoutAnimations()
                 }
             }
         }
@@ -325,14 +311,12 @@ open class RxASCollectionSectionedReloadDataSource<S: SectionModelType>: ASColle
     
     open func collectionNode(_ collectionNode: ASCollectionNode, observedEvent: Event<[S]>) {
         Binder(self) { dataSource, element in
-            #if DEBUG
+#if DEBUG
             dataSource._dataSourceBound = true
-            #endif
+#endif
             dataSource.setSections(element)
-            mainActorEscaped {
-                collectionNode.reloadData()
-                collectionNode.collectionViewLayout.invalidateLayout()
-            }()
+            collectionNode.reloadData()
+            collectionNode.collectionViewLayout.invalidateLayout()
         }
         .on(observedEvent)
     }
