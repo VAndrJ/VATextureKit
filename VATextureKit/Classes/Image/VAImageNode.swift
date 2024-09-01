@@ -5,10 +5,10 @@
 //  Created by Volodymyr Andriienko on 05.04.2023.
 //
 
-import AsyncDisplayKit
+public import AsyncDisplayKit
 
 /// `VAImageNode` is a subclass of `ASImageNode` that provides additional theming capabilities. It allows customization of the image `tintColor` and `backgroundColor` based on the current theme.
-open class VAImageNode: ASImageNode, VACornerable, VAThemeObserver {
+open class VAImageNode: VASimpleImageNode, VACornerable, VAThemeObserver {
     /// The currently active theme obtained from the app's context.
     public var theme: VATheme { appContext.themeManager.theme }
     /// A closure that provides the tint color based on the current theme.
@@ -69,9 +69,8 @@ open class VAImageNode: ASImageNode, VACornerable, VAThemeObserver {
         }
     }
 
-    @MainActor
-    open override func didLoad() {
-        super.didLoad()
+    open override func viewDidLoad() {
+        super.viewDidLoad()
 
         updateCornerParameters()
         appContext.themeManager.addThemeObserver(self)
@@ -80,9 +79,8 @@ open class VAImageNode: ASImageNode, VACornerable, VAThemeObserver {
         #endif
     }
 
-    @MainActor
-    open override func didEnterDisplayState() {
-        super.didEnterDisplayState()
+    open override func viewDidEnterDisplayState() {
+        super.viewDidEnterDisplayState()
 
         if shouldConfigureTheme {
             configureTheme(theme)
@@ -90,9 +88,8 @@ open class VAImageNode: ASImageNode, VACornerable, VAThemeObserver {
         }
     }
 
-    @MainActor
-    open override func layout() {
-        super.layout()
+    open override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
 
         updateCornerProportionalIfNeeded()
     }
@@ -127,10 +124,11 @@ open class VAImageNode: ASImageNode, VACornerable, VAThemeObserver {
     }
 
     /// Called when the app's theme changes. Configures the theme if the node is in the display state, otherwise sets `shouldConfigureTheme` to true.
-    @MainActor
     public func themeDidChanged(to newValue: VATheme) {
         if isInDisplayState {
-            configureTheme(newValue)
+            Task { @MainActor in
+                configureTheme(newValue)
+            }
         } else {
             shouldConfigureTheme = true
         }
