@@ -47,12 +47,12 @@ final class ShimmersScreenNode: ScreenNode, @unchecked Sendable {
         super.viewDidLoad()
 
         // To trigger shimmer update.
-        mainAsync(after: 0.2) {
+        Task {
+            try? await Task.sleep(milliseconds: 150)
             acrossWindowShimmer1Node.didEnterVisibleState()
             notSynchronizedShimmer1Node.didEnterVisibleState()
             notAcrossWindowNotSynchronizedShimmer1Node.didEnterVisibleState()
-        }
-        mainAsync(after: 0.75) {
+            try? await Task.sleep(milliseconds: 500)
             acrossWindowShimmer2Node.didEnterVisibleState()
             notSynchronizedShimmer2Node.didEnterVisibleState()
             notAcrossWindowNotSynchronizedShimmer2Node.didEnterVisibleState()
