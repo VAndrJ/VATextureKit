@@ -296,6 +296,7 @@ public extension UIView {
 
 public extension VATransition where Base: Transformable & AnyObject {
 
+    @MainActor
     @inline(__always) @inlinable static func transform(to targetView: Base) -> VATransition {
         VATransition(TransformToModifier(targetView)) { progress, view, initial in
             let (sourceScale, sourceOffset) = transform(
@@ -347,10 +348,12 @@ public struct TransformToModifier<Root: Transformable & AnyObject>: TransitionMo
         other.target === target
     }
 
+    @MainActor
     public func set(value: Matching, to root: Root) {
         root.affineTransform = value.sourceTransform
     }
 
+    @MainActor
     public func value(for root: Root) -> Matching {
         Matching(
             sourceTransform: root.affineTransform,
