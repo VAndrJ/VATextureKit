@@ -5,10 +5,19 @@
 //  Created by Volodymyr Andriienko on 23.04.2023.
 //
 
+#if compiler(>=6.0)
+public import AsyncDisplayKit
+public import Differentiator
+public import RxSwift
+public import RxCocoa
+public import VATextureKit
+#else
 import AsyncDisplayKit
-import VATextureKit
+import Differentiator
 import RxSwift
 import RxCocoa
+import VATextureKit
+#endif
 
 /// ASPagerNode does not currently support circular scrolling.
 /// So I added some crutches to mimic it.
