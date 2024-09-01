@@ -22,7 +22,7 @@ import VATextureKit
 /// ASPagerNode does not currently support circular scrolling.
 /// So I added some crutches to mimic it.
 /// In some cases it may not work very well, but I'll deal with that later.
-open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPagerDataSource, ASPagerDelegate, VAThemeObserver, VAContentSizeObserver {
+open class VAPagerNode<Item: Equatable & IdentifiableType>: VASimplePagerNode, ASPagerDataSource, ASPagerDelegate, VAThemeObserver, VAContentSizeObserver {
     public struct ObsDTO {
         let itemsObs: Observable<[Item]>
         let cellGetter: (Item) -> ASCellNode
@@ -111,9 +111,8 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
         }
     }
 
-    @MainActor
-    open override func didLoad() {
-        super.didLoad()
+    open override func viewDidLoad() {
+        super.viewDidLoad()
 
         if delayedConfiguration {
             configure()
