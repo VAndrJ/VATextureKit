@@ -75,8 +75,8 @@ open class VAShimmerNode: VADisplayNode {
         updateShimmer()
     }
 
-    public override func layout() {
-        super.layout()
+    open override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
 
         if context.isAcrossWindow, let window = view.window {
             let windowBounds = window.bounds
