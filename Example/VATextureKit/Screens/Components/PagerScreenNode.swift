@@ -19,11 +19,11 @@ final class PagerScreenNode: ScreenNode, @unchecked Sendable {
         isCircular: true
     ))
     private lazy var previousButtonNode = HapticButtonNode(title: "Previous")
-        .minConstrained(size: CGSize(same: 44))
+        .minConstrained(size: .init(same: 44))
     private lazy var nextButtonNode = HapticButtonNode(title: "Next")
-        .minConstrained(size: CGSize(same: 44))
+        .minConstrained(size: .init(same: 44))
     private lazy var randomizeButtonNode = HapticButtonNode(title: "Randomize")
-        .minConstrained(size: CGSize(same: 44))
+        .minConstrained(size: .init(same: 44))
     private lazy var pagerIndicatorNode = PagerIndicatorNode(pagerNode: pagerNode)
     private let viewModel: PagerScreenNodeViewModel
 

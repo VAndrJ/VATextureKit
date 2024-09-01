@@ -43,32 +43,33 @@ open class VAScrollRespondingEdgeCellNode: VACellNode, @unchecked Sendable {
         }
     }
 
-    @MainActor
     open override func cellNodeVisibilityEvent(
         _ event: ASCellNodeVisibilityEvent,
         in scrollView: UIScrollView?,
         withCellFrame cellFrame: CGRect
     ) {
-        if event == .didEndDragging {
-            isScrolling = false
-        }
-        if event == .willBeginDragging {
-            isScrolling = true
-        }
-        if let scrollView, event == .visibleRectChanged || event == .visible {
-            let intersection = cellFrame.intersection(scrollView.bounds)
-            guard !intersection.origin.y.isNaN || intersection.origin.y.isInfinite else { return }
-
-            let multiplier = intersection.size.height / cellFrame.height
-            switch onScroll {
-            case .opacity:
-                layer.opacity = Float(multiplier * multiplier)
-            case .scale:
-                let transform = multiplier * multiplier * multiplier
-                layer.transform.m11 = transform
-                layer.transform.m22 = transform
-            case .none:
-                break
+        MainActor.assumeIsolated {
+            if event == .didEndDragging {
+                isScrolling = false
+            }
+            if event == .willBeginDragging {
+                isScrolling = true
+            }
+            if let scrollView, event == .visibleRectChanged || event == .visible {
+                let intersection = cellFrame.intersection(scrollView.bounds)
+                guard !intersection.origin.y.isNaN || intersection.origin.y.isInfinite else { return }
+                
+                let multiplier = intersection.size.height / cellFrame.height
+                switch onScroll {
+                case .opacity:
+                    layer.opacity = Float(multiplier * multiplier)
+                case .scale:
+                    let transform = multiplier * multiplier * multiplier
+                    layer.transform.m11 = transform
+                    layer.transform.m22 = transform
+                case .none:
+                    break
+                }
             }
         }
     }

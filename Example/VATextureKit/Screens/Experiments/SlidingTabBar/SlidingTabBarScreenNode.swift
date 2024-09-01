@@ -18,7 +18,7 @@ final class SlidingTabBarScreenNode: ScreenNode, @unchecked Sendable {
     private lazy var topTabBarNode = VASlidingTabBarNode(context: .init(
         data: (0...5).map { "Title".repeating($0) },
         spacing: 16,
-        contentInset: UIEdgeInsets(horizontal: 16),
+        contentInset: .init(horizontal: 16),
         indicatorInset: 8,
         color: { $0.systemPurple },
         item: { data, onSelect in VASlidingTabTextNode(data: data, onSelect: onSelect) },
@@ -28,7 +28,7 @@ final class SlidingTabBarScreenNode: ScreenNode, @unchecked Sendable {
     private lazy var floatingTabBarNode = VASlidingTabBarNode(context: .init(
         data: (0...5).map { "Title".repeating($0) },
         spacing: 16,
-        contentInset: UIEdgeInsets(vertical: 8, horizontal: 16),
+        contentInset: .init(vertical: 8, horizontal: 16),
         indicatorInset: 8,
         color: { $0.systemBlue },
         item: { data, onSelect in VASlidingTabTextNode(data: data, onSelect: onSelect) },
@@ -39,9 +39,9 @@ final class SlidingTabBarScreenNode: ScreenNode, @unchecked Sendable {
         $0.borderWidth = 1
     }
     private lazy var previousButtonNode = HapticButtonNode(title: "Previous")
-        .minConstrained(size: CGSize(same: 44))
+        .minConstrained(size: .init(same: 44))
     private lazy var nextButtonNode = HapticButtonNode(title: "Next")
-        .minConstrained(size: CGSize(same: 44))
+        .minConstrained(size: .init(same: 44))
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

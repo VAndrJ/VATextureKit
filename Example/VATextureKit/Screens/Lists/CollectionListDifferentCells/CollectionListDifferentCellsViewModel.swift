@@ -10,7 +10,7 @@ import VATextureKitRx
 import RxSwift
 import RxCocoa
 
-final class CollectionListDifferentCellsViewModel {
+final class CollectionListDifferentCellsViewModel: @unchecked Sendable {
     @Obs.Relay(value: false)
     var isLoadingObs: Observable<Bool>
     @Obs.Relay(value: [
