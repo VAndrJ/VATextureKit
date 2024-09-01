@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'VATextureKit'
-  s.version          = '2.1.1'
+  s.version          = '2.2.0'
   s.summary          = 'Texture library wrapper.'
 
   s.description      = <<-DESC
@@ -21,7 +21,7 @@ It provides an easier syntax and includes modern features to make developing fas
   }
 
   s.dependency 'Texture',           '~> 3.2.0'
-  s.dependency 'VATextureKitSpec',  '2.1.1'
+  s.dependency 'VATextureKitSpec',  '2.2.0'
 
   s.swift_versions = '5.10'
 end
