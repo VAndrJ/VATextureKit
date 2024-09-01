@@ -12,21 +12,21 @@ public var appContext: VAAppContext {
         return appContext
     } else {
         if ProcessInfo.isRunningForPreviews {
-            return mainActorEscaped {
+            return MainActor.assumeIsolated {
                 VAAppContext(
                     themeManager: .init(standardLightTheme: .vaLight, standardDarkTheme: .vaDark),
                     window: UIWindow()
                 )
-            }()
+            }
         } else {
             fatalError("Use VAWindow instead of UIWindow")
         }
     }
 }
 // TODO: - Multiple windows support
-internal var appContexts: [VAAppContext] = []
+nonisolated(unsafe) internal var appContexts: [VAAppContext] = []
 
-public class VAAppContext {
+public class VAAppContext: @unchecked Sendable {
     public private(set) weak var window: UIWindow?
     public private(set) var themeManager: VAThemeManager
     public private(set) var contentSizeManager: VAContentSizeManager
