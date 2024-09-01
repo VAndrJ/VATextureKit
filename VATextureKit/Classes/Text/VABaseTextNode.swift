@@ -8,9 +8,79 @@
 public import AsyncDisplayKit
 
 #if AS_ENABLE_TEXTNODE2
-open class _VATextNode: ASTextNode2 {}
+open class _VATextNode: ASTextNode2, @unchecked Sendable {
+
+    open override func didLoad() {
+        super.didLoad()
+
+        MainActor.assumeIsolated {
+            self.viewDidload()
+        }
+    }
+
+    @MainActor
+    open func viewDidload() {}
+
+    open override func layout() {
+        super.layout()
+
+        MainActor.assumeIsolated {
+            layoutSubviews()
+        }
+    }
+
+    @MainActor
+    open func layoutSubviews() {}
+
+    open override func didEnterDisplayState() {
+        super.didEnterDisplayState()
+
+        MainActor.assumeIsolated {
+            viewDidEnterDisplayState()
+        }
+    }
+
+    @MainActor
+    open func viewDidEnterDisplayState() {}
+}
+
 #else
-open class _VATextNode: ASTextNode {}
+open class _VATextNode: ASTextNode, @unchecked Sendable {
+
+    open override func didLoad() {
+        super.didLoad()
+
+        MainActor.assumeIsolated {
+            self.viewDidload()
+        }
+    }
+
+    @MainActor
+    open func viewDidload() {}
+
+    open override func layout() {
+        super.layout()
+
+        MainActor.assumeIsolated {
+            layoutSubviews()
+        }
+    }
+
+    @MainActor
+    open func layoutSubviews() {}
+
+    open override func didEnterDisplayState() {
+        super.didEnterDisplayState()
+
+        MainActor.assumeIsolated {
+            viewDidEnterDisplayState()
+        }
+    }
+
+    @MainActor
+    open func viewDidEnterDisplayState() {}
+}
+
 #endif
 
 open class VABaseTextNode: _VATextNode, VAThemeObserver, VAContentSizeObserver {
@@ -20,9 +90,8 @@ open class VABaseTextNode: _VATextNode, VAThemeObserver, VAContentSizeObserver {
     private(set) var shouldConfigureTheme = true
     private(set) var isObservingChanges = false
 
-    @MainActor
-    open override func didLoad() {
-        super.didLoad()
+    open override func viewDidload() {
+        super.viewDidload()
 
         if overrides(#selector(configureTheme(_:))) {
             appContext.themeManager.addThemeObserver(self)
@@ -31,9 +100,8 @@ open class VABaseTextNode: _VATextNode, VAThemeObserver, VAContentSizeObserver {
         }
     }
 
-    @MainActor
-    open override func didEnterDisplayState() {
-        super.didEnterDisplayState()
+    open override func viewDidEnterDisplayState() {
+        super.viewDidEnterDisplayState()
 
         if shouldConfigureTheme {
             configureTheme(theme)
