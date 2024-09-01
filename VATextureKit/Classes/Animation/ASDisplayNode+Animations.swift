@@ -517,7 +517,7 @@ public extension ASDisplayNode {
 
     func setNeedsLayoutAnimated(
         shouldMeasureAsync: Bool = false,
-        isWithSupernodes: Bool = false,
+        withSupernode: Bool = false,
         completion: (() -> Void)? = nil
     ) {
         transitionLayout(
@@ -525,16 +525,19 @@ public extension ASDisplayNode {
             shouldMeasureAsync: shouldMeasureAsync,
             measurementCompletion: completion
         )
-        if isWithSupernodes {
+        if withSupernode {
             var supernode = supernode
             while supernode != nil {
                 if supernode is ASScrollNode {
-                    supernode?.setNeedsLayoutAnimated()
+                    supernode?.setNeedsLayoutAnimated(shouldMeasureAsync: shouldMeasureAsync)
+
                     return
                 }
 
                 supernode = supernode?.supernode
             }
+
+            supernode?.setNeedsLayoutAnimated(shouldMeasureAsync: shouldMeasureAsync)
         }
     }
 
