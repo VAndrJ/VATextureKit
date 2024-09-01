@@ -63,8 +63,8 @@ open class VAComparisonNode: VADisplayNode {
         super.init(corner: corner)
     }
 
-    open override func didLoad() {
-        super.didLoad()
+    open override func viewDidLoad() {
+        super.viewDidLoad()
 
         layer.masksToBounds = true
         firstNode.layer.mask = maskLayer
@@ -72,8 +72,8 @@ open class VAComparisonNode: VADisplayNode {
         bind()
     }
 
-    open override func layout() {
-        super.layout()
+    open override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
 
         updateMaskFrame(isLayout: true)
     }
@@ -147,6 +147,7 @@ open class VAComparisonNode: VADisplayNode {
         }
     }
 
+    @MainActor
     private func bind() {
         view.addGestureRecognizer(UIPanGestureRecognizer(
             target: self,
@@ -160,6 +161,7 @@ open class VAComparisonNode: VADisplayNode {
         view.addGestureRecognizer(tapWithTwoFingersGesture)
     }
 
+    @MainActor
     @objc private func onPan(_ sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .changed:
@@ -170,6 +172,7 @@ open class VAComparisonNode: VADisplayNode {
         }
     }
 
+    @MainActor
     @objc private func onTapWithTwoFingers(_ sender: UITapGestureRecognizer) {
         guard sender.state == .recognized else { return }
 
