@@ -7,6 +7,8 @@
 //
 
 import VATextureKitRx
+import RxSwift
+import RxCocoa
 
 final class CollectionListDifferentCellsViewModel {
     @Obs.Relay(value: false)

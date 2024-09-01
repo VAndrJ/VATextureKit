@@ -32,7 +32,6 @@ public struct VATransition<Base>: ExpressibleByArrayLiteral {
         initialStates = initialState.map { [$0] } ?? []
     }
 
-    @MainActor
     public init<T>(
         _ keyPath: ReferenceWritableKeyPath<Base, T>,
         initialState: T? = nil,
@@ -251,12 +250,9 @@ public extension VATransition {
 }
 
 extension VATransition where Base: Transformable {
-    @MainActor
     public static var scale: VATransition { .scale(0.0001) }
-    @MainActor
     public static var slide: VATransition { .slide(insertion: .leading, removal: .trailing) }
 
-    @MainActor
     public static func scale(_ scale: CGPoint) -> VATransition {
         VATransition(\.affineTransform) { progress, view, transform in
             view.affineTransform = transform.scaledBy(
@@ -266,12 +262,10 @@ extension VATransition where Base: Transformable {
         }
     }
 
-    @MainActor
     public static func scale(_ scale: CGFloat) -> VATransition {
         .scale(.init(x: scale, y: scale))
     }
 
-    @MainActor
     public static func scale(_ scale: CGPoint, anchor: CGPoint) -> VATransition {
         VATransition(\.[\.affineTransform, \.anchorPoint]) { progress, view, transform in
             let anchor = view.isLtrDirection ? anchor : CGPoint(x: 1 - anchor.x, y: anchor.y)
@@ -296,12 +290,10 @@ extension VATransition where Base: Transformable {
         }
     }
 
-    @MainActor
     public static func scale(_ scale: CGFloat = 0.0001, anchor: CGPoint) -> VATransition {
-        .scale(CGPoint(x: scale, y: scale), anchor: anchor)
+        .scale(.init(x: scale, y: scale), anchor: anchor)
     }
 
-    @MainActor
     public static func anchor(point: CGPoint) -> VATransition {
         VATransition(\.anchorPoint) { progress, view, anchor in
             let point = view.isLtrDirection ? point : CGPoint(x: 1 - point.x, y: point.y)
@@ -313,7 +305,6 @@ extension VATransition where Base: Transformable {
         }
     }
 
-    @MainActor
     public static func offset(_ point: CGPoint) -> VATransition {
         VATransition(\.affineTransform) { progress, view, affineTransform in
             view.affineTransform = affineTransform.translatedBy(
@@ -323,12 +314,10 @@ extension VATransition where Base: Transformable {
         }
     }
 
-    @MainActor
     public static func offset(x: CGFloat = 0, y: CGFloat = 0) -> VATransition {
         .offset(.init(x: x, y: y))
     }
 
-    @MainActor
     public static func move(edge: VAEdge, offset: RelationValue<CGFloat> = .relative(1)) -> VATransition {
         VATransition(\.affineTransform) { progress, view, affineTransform in
             switch (edge, view.isLtrDirection) {
@@ -356,7 +345,6 @@ extension VATransition where Base: Transformable {
         }
     }
 
-    @MainActor
     public static func slide(insertion: VAEdge, removal: VAEdge) -> VATransition {
         .asymmetric(insertion: .move(edge: insertion), removal: .move(edge: removal))
     }

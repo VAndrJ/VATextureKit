@@ -9,6 +9,8 @@
 import XCTest
 @testable import VATextureKit_Example
 import VATextureKitRx
+import RxSwift
+import RxCocoa
 
 class ASCollectionNodeTests: XCTestCase, MainActorIsolated {
 

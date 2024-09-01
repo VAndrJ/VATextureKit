@@ -7,6 +7,8 @@
 //
 
 import VATextureKitRx
+import RxSwift
+import RxCocoa
 
 open class VALinkTextNode: VATextNode, @unchecked Sendable {
     public var onLinkTap: ((URL) -> Void)?

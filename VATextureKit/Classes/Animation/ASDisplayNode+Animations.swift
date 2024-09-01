@@ -85,14 +85,24 @@ private final class TransitionWrapper {
 
 public typealias NodeTransitionAnimation = VATransition<ASDisplayNode>
 
-extension ASDisplayNode: Transformable {
-    @MainActor
+extension ASDisplayNode: @preconcurrency Transformable {
     public var affineTransform: CGAffineTransform {
-        get { view.transform }
-        set { view.transform = newValue }
+        get {
+            MainActor.assumeIsolated {
+                view.transform
+            }
+        }
+        set {
+            MainActor.assumeIsolated {
+                view.transform = newValue
+            }
+        }
     }
-    @MainActor
-    public var isLtrDirection: Bool { view.isLtrDirection }
+    public var isLtrDirection: Bool {
+        MainActor.assumeIsolated {
+            view.isLtrDirection
+        }
+    }
 }
 
 extension VATransition where Base == ASDisplayNode {
@@ -338,18 +348,12 @@ public func * <F: BinaryFloatingPoint>(_ lhs: F, _ rhs: RelationValue<F>) -> Rel
 }
 
 public protocol Transformable {
-    @MainActor
     var frame: CGRect { get nonmutating set }
-    @MainActor
     var bounds: CGRect { get nonmutating set }
-    @MainActor
     var anchorPoint: CGPoint { get nonmutating set }
-    @MainActor
     var affineTransform: CGAffineTransform { get nonmutating set }
-    @MainActor
     var isLtrDirection: Bool { get }
 
-    @MainActor
     func convert(_ frame: CGRect, to: Self?) -> CGRect
 }
 
@@ -367,7 +371,7 @@ extension Transformable {
     }
 }
 
-extension UIView: Transformable {
+extension UIView: @preconcurrency Transformable {
     public var affineTransform: CGAffineTransform {
         get { transform }
         set { transform = newValue }
@@ -419,9 +423,7 @@ public protocol TransitionModifier {
     associatedtype Value
 
     func matches(other: Self) -> Bool
-    @MainActor
     func set(value: Value, to root: Root)
-    @MainActor
     func value(for root: Root) -> Value
 }
 
@@ -455,7 +457,6 @@ public struct AnyTransitionModifier<Root>: TransitionModifier {
     private let setter: (Any, Root) -> Void
     private let getter: (Root) -> Any
 
-    @MainActor
     public init<T: TransitionModifier>(_ modifier: T) where T.Root == Root {
         isMatch = {
             ($0 as? T).map { modifier.matches(other: $0) } ?? false

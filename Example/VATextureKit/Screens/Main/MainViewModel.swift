@@ -7,6 +7,9 @@
 //
 
 import VATextureKitRx
+import RxSwift
+import RxCocoa
+import Differentiator
 
 final class MainViewModel {
     @Obs.Relay(value: [

@@ -11,6 +11,8 @@ import XCTest
 import SnapshotTesting
 import VATextureKitRx
 import Combine
+import RxSwift
+import RxCocoa
 
 extension XCTestCase {
     var theme: VATheme { appContext.themeManager.theme }

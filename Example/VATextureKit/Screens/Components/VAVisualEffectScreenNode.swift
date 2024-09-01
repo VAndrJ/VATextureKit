@@ -7,6 +7,8 @@
 //
 
 import VATextureKitRx
+import RxSwift
+import RxCocoa
 
 struct VAVisualEffectIdentity: DefaultNavigationIdentity {}
 

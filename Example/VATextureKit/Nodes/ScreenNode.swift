@@ -7,8 +7,10 @@
 //
 
 import VATextureKitRx
+import RxSwift
+import RxCocoa
 
-class ScreenNode: VASafeAreaDisplayNode, MainActorIsolated, @unchecked Sendable {
+class ScreenNode: VASafeAreaDisplayNode, @unchecked Sendable {
     let bag = DisposeBag()
 
     override func viewDidLoad() {
@@ -18,7 +20,9 @@ class ScreenNode: VASafeAreaDisplayNode, MainActorIsolated, @unchecked Sendable 
         bind()
     }
 
+    @MainActor
     func bind() {}
 
+    @MainActor
     func configure() {}
 }

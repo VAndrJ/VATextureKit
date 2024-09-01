@@ -28,7 +28,7 @@ final class ElementsScrollingAnimationListNodeController: VANodeController {
             cellGetter: mapToCell(viewModel:)
         ),
         layoutData: .init(
-            contentInset: UIEdgeInsets(horizontal: 16),
+            contentInset: .init(horizontal: 16),
             layout: .default(parameters: .init(
                 minimumLineSpacing: 16
             ))

@@ -7,6 +7,9 @@
 //
 
 import VATextureKitRx
+import Differentiator
+import RxSwift
+import RxCocoa
 
 final class PagerIndicatorNode<Item: Equatable & IdentifiableType>: VASizedViewWrapperNode<UIPageControl>, @unchecked Sendable {
     private let bag = DisposeBag()
