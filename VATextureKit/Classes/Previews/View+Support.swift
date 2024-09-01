@@ -7,7 +7,7 @@
 //
 
 #if canImport(SwiftUI)
-import SwiftUI
+public import SwiftUI
 
 extension View {
     @inline(__always) @inlinable var anyView: AnyView { AnyView(self) }
