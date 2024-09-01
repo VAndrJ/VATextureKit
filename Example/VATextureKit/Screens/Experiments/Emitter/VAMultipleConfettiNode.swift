@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-final class VAMultipleConfettiNode: VADisplayNode {
+final class VAMultipleConfettiNode: VADisplayNode, @unchecked Sendable {
     private lazy var topCenterConfettiNode = VAConfettiEmitterNode(context: .init(startPoint: .topCenter))
     private lazy var bottomLeftConfettiNode = VAConfettiEmitterNode(context: .init(startPoint: .bottomLeft))
     private lazy var bottomRightConfettiNode = VAConfettiEmitterNode(context: .init(startPoint: .bottomRight))

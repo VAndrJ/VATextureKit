@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-final class CollectionListSectionFooterCellNode: VACellNode {
+final class CollectionListSectionFooterCellNode: VACellNode, @unchecked Sendable {
     private let titleTextNode: VATextNode
 
     init(viewModel: CollectionListSectionFooterViewModel) {

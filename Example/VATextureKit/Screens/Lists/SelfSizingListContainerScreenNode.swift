@@ -10,7 +10,7 @@ import VATextureKitRx
 
 struct SelfSizingListNavigationIdentity: DefaultNavigationIdentity {}
 
-final class SelfSizingListContainerScreenNode: ScreenNode {
+final class SelfSizingListContainerScreenNode: ScreenNode, @unchecked Sendable {
     private lazy var listNode = VAListNode(
         data: .init(
             listDataObs: .just((0...1).map { index in
@@ -105,7 +105,7 @@ final class SelfSizingListContainerScreenNode: ScreenNode {
     }
 }
 
-private class _ExampleCardCellNode: VACellNode {
+private class _ExampleCardCellNode: VACellNode, @unchecked Sendable {
     let titleTextNode: VATextNode
 
     private let viewModel: _ExampleCardCellNodeViewModel

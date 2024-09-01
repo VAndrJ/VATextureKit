@@ -10,7 +10,7 @@ import VATextureKit
 
 struct ShapeLayerAnimationNavigationIdentity: DefaultNavigationIdentity {}
 
-final class ShapeLayerAnimationScreenNode: ScreenNode {
+final class ShapeLayerAnimationScreenNode: ScreenNode, @unchecked Sendable {
     private lazy var fillColorExampleNode = _FillColorExampleNode()
     private lazy var pathExampleNode = _PathExampleNode()
     private lazy var strokeColorExampleNode = _StrokeColorExampleNode()
@@ -35,7 +35,7 @@ final class ShapeLayerAnimationScreenNode: ScreenNode {
     }
 }
 
-private class _FillColorExampleNode: DisplayNode {
+private class _FillColorExampleNode: DisplayNode, @unchecked Sendable {
     private lazy var exampleNode = VAShapeNode(context: .init(fillColor: theme.systemOrange))
         .sized(height: 64)
 
@@ -62,7 +62,7 @@ private class _FillColorExampleNode: DisplayNode {
     }
 }
 
-private class _PathExampleNode: DisplayNode {
+private class _PathExampleNode: DisplayNode, @unchecked Sendable {
     private lazy var exampleNode = VAShapeNode(context: .init(fillColor: theme.systemOrange))
         .sized(height: 64)
 
@@ -95,7 +95,7 @@ private class _PathExampleNode: DisplayNode {
     }
 }
 
-private class _StrokeColorExampleNode: DisplayNode {
+private class _StrokeColorExampleNode: DisplayNode, @unchecked Sendable {
     private lazy var exampleNode = VAShapeNode(context: .init(strokeColor: theme.systemOrange))
         .apply { $0.setLineWidth(10) }
         .sized(height: 64)
@@ -123,7 +123,7 @@ private class _StrokeColorExampleNode: DisplayNode {
     }
 }
 
-private class _StrokeEndExampleNode: DisplayNode {
+private class _StrokeEndExampleNode: DisplayNode, @unchecked Sendable {
     private lazy var exampleNode = VAShapeNode(context: .init(strokeColor: theme.systemOrange))
         .apply { $0.setLineWidth(32) }
         .sized(height: 64)
@@ -151,7 +151,7 @@ private class _StrokeEndExampleNode: DisplayNode {
     }
 }
 
-private class _LineDashExampleNode: DisplayNode {
+private class _LineDashExampleNode: DisplayNode, @unchecked Sendable {
     private lazy var exampleNode = VAShapeNode(context: .init(strokeColor: theme.systemOrange))
         .apply {
             $0.setLineWidth(2)

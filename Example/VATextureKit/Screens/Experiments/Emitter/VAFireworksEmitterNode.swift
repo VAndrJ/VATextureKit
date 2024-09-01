@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-final class VAFireworksEmitterNode: VAEmitterNode {
+final class VAFireworksEmitterNode: VAEmitterNode, @unchecked Sendable {
     struct Context {
         var number = 2
         var dotColor: UIColor = .lightGray

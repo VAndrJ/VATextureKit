@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-final class PagerCardCellNode: VACellNode {
+final class PagerCardCellNode: VACellNode, @unchecked Sendable {
     let titleTextNode: VATextNode
     let descriptionTextNode: VATextNode
     let cardNode = VADisplayNode(corner: .init(radius: .fixed(16)))

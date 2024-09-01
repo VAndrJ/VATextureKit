@@ -22,7 +22,7 @@ class VASizedViewWrapperNodeTests: XCTestCase, MainActorIsolated {
         label.text = "Test".dummyLong(repeating: 15)
         label.numberOfLines = 0
         let sut = VASizedViewWrapperNode(
-            actorChildGetter: { label },
+            childGetter: { label },
             sizing: .viewHeight
         )
 
@@ -34,7 +34,7 @@ class VASizedViewWrapperNodeTests: XCTestCase, MainActorIsolated {
         label.text = "Test".dummyLong(repeating: 2)
         label.numberOfLines = 0
         let sut = VASizedViewWrapperNode(
-            actorChildGetter: { label },
+            childGetter: { label },
             sizing: .viewWidth
         )
 
@@ -46,7 +46,7 @@ class VASizedViewWrapperNodeTests: XCTestCase, MainActorIsolated {
         label.text = "Test".dummyLong(repeating: 2).dummyLong(separator: "\n", repeating: 3)
         label.numberOfLines = 0
         let sut = VASizedViewWrapperNode(
-            actorChildGetter: { label },
+            childGetter: { label },
             sizing: .viewSize
         )
 

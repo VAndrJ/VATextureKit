@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-final class CompositingCellNode: VACellNode {
+final class CompositingCellNode: VACellNode, @unchecked Sendable {
     let titleTextNode: VATextNode
 
     init(viewModel: CompositingCellNodeViewModel) {

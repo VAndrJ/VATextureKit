@@ -6,6 +6,8 @@
 //  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
 //
 
+// TODO: - Deal with actors
+/*
 import VATextureKitRx
 
 struct DynamicHeightGridListNavigationIdentity: DefaultNavigationIdentity {}
@@ -41,3 +43,4 @@ final class DynamicHeightGridListScreenNode: ScreenNode {
         listNode.backgroundColor = theme.systemBackground
     }
 }
+*/

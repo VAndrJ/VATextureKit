@@ -8,9 +8,9 @@
 
 import VATextureKit
 
-final class AppearanceContollerNode: ScreenNode {
+final class AppearanceContollerNode: ScreenNode, @unchecked Sendable {
     let pickerNode = VASizedViewWrapperNode(
-        actorChildGetter: { UIPickerView() },
+        childGetter: { UIPickerView() },
         sizing: .viewHeight
     )
     

@@ -10,7 +10,7 @@ import VATextureKit
 
 struct CountingTextNodeNavigationIdentity: DefaultNavigationIdentity {}
 
-final class CountingTextNodeController: ScreenNode {
+final class CountingTextNodeController: ScreenNode, @unchecked Sendable {
     private lazy var countingTextNode = VACountingTextNode(
         string: "",
         color: { $0.label },

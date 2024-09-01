@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-final class VARainEmitterNode: VAEmitterNode {
+final class VARainEmitterNode: VAEmitterNode, @unchecked Sendable {
     struct Context {
         enum Strength {
             case small

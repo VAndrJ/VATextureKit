@@ -10,7 +10,7 @@ import VATextureKit
 
 struct KeyframeAnimationsNavigationIdentity: DefaultNavigationIdentity {}
 
-final class KeyframeAnimationsScreenNode: ScrollScreenNode {
+final class KeyframeAnimationsScreenNode: ScrollScreenNode, @unchecked Sendable {
     private lazy var shakeAnimationExampleNode = _ShakeAnimationExampleNode()
     private lazy var shakeAnimationPauseResumeExampleNode = _ShakeAnimationPauseResumeExampleNode()
     private lazy var animationExampleNodes = [
@@ -71,7 +71,7 @@ final class KeyframeAnimationsScreenNode: ScrollScreenNode {
     }
 }
 
-private class _ShakeAnimationPauseResumeExampleNode: DisplayNode {
+private class _ShakeAnimationPauseResumeExampleNode: DisplayNode, @unchecked Sendable {
     private lazy var shakeXNode = VADisplayNode()
         .sized(width: 100, height: 30)
     private lazy var buttonNode = HapticButtonNode(title: "Animate shake")
@@ -114,7 +114,7 @@ private class _ShakeAnimationPauseResumeExampleNode: DisplayNode {
     }
 }
 
-private class _ShakeAnimationExampleNode: DisplayNode {
+private class _ShakeAnimationExampleNode: DisplayNode, @unchecked Sendable {
     private lazy var shakeXNode = VADisplayNode()
         .sized(width: 100, height: 30)
     private lazy var shakeYNode = VADisplayNode()
@@ -150,7 +150,7 @@ private class _ShakeAnimationExampleNode: DisplayNode {
     }
 }
 
-private class _AnimationExampleNode: DisplayNode {
+private class _AnimationExampleNode: DisplayNode, @unchecked Sendable {
     private lazy var exampleNode = VADisplayNode()
         .sized(width: 300, height: 30)
         .apply {
@@ -187,7 +187,7 @@ private class _AnimationExampleNode: DisplayNode {
     }
 }
 
-private class _GradientAnimationExampleNode: DisplayNode {
+private class _GradientAnimationExampleNode: DisplayNode, @unchecked Sendable {
     private lazy var exampleNode = VALinearGradientNode(gradient: .horizontal)
         .sized(width: 300, height: 30)
     private lazy var buttonNode = HapticButtonNode(title: "Animate \(animation.keyPath)")

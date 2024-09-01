@@ -10,7 +10,7 @@ import VATextureKit
 
 struct FilterNavigationIdentity: DefaultNavigationIdentity {}
 
-final class FilterScreenNode: ScreenNode {
+final class FilterScreenNode: ScreenNode, @unchecked Sendable {
     private lazy var imageNode = VAImageNode(
         image: filter.outputImage(image: .init(resource: .colibri)),
         size: .init(same: 300),

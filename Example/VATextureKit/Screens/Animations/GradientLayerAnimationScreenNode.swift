@@ -10,7 +10,7 @@ import VATextureKit
 
 struct GradientLayerAnimationNavigationIdentity: DefaultNavigationIdentity {}
 
-final class GradientLayerAnimationScreenNode: ScreenNode {
+final class GradientLayerAnimationScreenNode: ScreenNode, @unchecked Sendable {
     private lazy var locationsExampleNode = _LocationsExampleNode()
     private lazy var colorsExampleNode = _ColorsExampleNode()
     private lazy var pointsExampleNode = _PointsExampleNode()
@@ -31,7 +31,7 @@ final class GradientLayerAnimationScreenNode: ScreenNode {
     }
 }
 
-private class _PointsExampleNode: VADisplayNode {
+private class _PointsExampleNode: VADisplayNode, @unchecked Sendable {
     private lazy var exampleNode = VALinearGradientNode(gradient: .horizontal)
         .apply { $0.update(colors: (.green, 0), (.black, 0.5), (.green, 1)) }
         .sized(height: 64)
@@ -59,7 +59,7 @@ private class _PointsExampleNode: VADisplayNode {
     }
 }
 
-private class _ColorsExampleNode: VADisplayNode {
+private class _ColorsExampleNode: VADisplayNode, @unchecked Sendable {
     private lazy var exampleNode = VALinearGradientNode(gradient: .horizontal)
         .apply { $0.update(colors: (.green, 0), (.black, 0.5), (.green, 1)) }
         .sized(height: 64)
@@ -81,7 +81,7 @@ private class _ColorsExampleNode: VADisplayNode {
     }
 }
 
-private class _LocationsExampleNode: VADisplayNode {
+private class _LocationsExampleNode: VADisplayNode, @unchecked Sendable {
     private lazy var exampleNode = VALinearGradientNode(gradient: .horizontal)
         .apply { $0.update(colors: (.green, 0), (.black, 0.2), (.green, 0.4)) }
         .sized(height: 64)

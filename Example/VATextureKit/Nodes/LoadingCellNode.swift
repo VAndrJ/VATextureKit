@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-final class LoadingCellNode: VACellNode {
+final class LoadingCellNode: VACellNode, @unchecked Sendable {
     private let shimmerNode = _LoadingCellShimmerNode(context: .init())
     
     init(viewModel: LoadingCellNodeViewModel) {
@@ -31,7 +31,7 @@ final class LoadingCellNodeViewModel: CellViewModel {
     }
 }
 
-private class _LoadingCellShimmerNode: VAShimmerNode {
+private class _LoadingCellShimmerNode: VAShimmerNode, @unchecked Sendable {
     let tileNode = VAShimmerTileNode()
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {

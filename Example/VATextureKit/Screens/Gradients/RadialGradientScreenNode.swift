@@ -10,7 +10,7 @@ import VATextureKit
 
 struct RadialGradientNavigationIdentity: DefaultNavigationIdentity {}
 
-final class RadialGradientScreenNode: ScrollScreenNode {
+final class RadialGradientScreenNode: ScrollScreenNode, @unchecked Sendable {
     private lazy var centeredGradientNode = VARadialGradientNode(gradient: .centered)
     private lazy var topLeftGradientNode = VARadialGradientNode(gradient: .topLeft)
     private lazy var topRightGradientNode = VARadialGradientNode(gradient: .topRight)

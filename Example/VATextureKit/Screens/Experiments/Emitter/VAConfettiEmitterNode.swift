@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-final class VAConfettiEmitterNode: VAEmitterNode {
+final class VAConfettiEmitterNode: VAEmitterNode, @unchecked Sendable {
     enum StartPoint {
         case center
         case topCenter

@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-final class VATextEmitterNode: VAEmitterNode {
+final class VATextEmitterNode: VAEmitterNode, @unchecked Sendable {
     struct Context {
         var strings: [String] = Array("asdfghjklqwertyuiopzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890").map { String($0) }
     }

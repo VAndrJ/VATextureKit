@@ -10,7 +10,7 @@ import VATextureKit
 
 struct StackLayoutNavigationIdentity: DefaultNavigationIdentity {}
 
-final class StackLayoutScreenNode: ScrollScreenNode {
+final class StackLayoutScreenNode: ScrollScreenNode, @unchecked Sendable {
     private lazy var stackLayoutExampleNode = _StackLayoutExampleNode()
     private lazy var stackCenteringLayoutExampleNode = _StackCenteringLayoutExampleNode()
     private lazy var stackPositionsLayoutExampleNode = _StackPositionsLayoutExampleNode()
@@ -24,8 +24,7 @@ final class StackLayoutScreenNode: ScrollScreenNode {
         .padding(.all(16))
     }
 
-    @MainActor
-    override func animateLayoutTransition(_ context: any ASContextTransitioning) {
+    override func viewDidAnimateLayoutTransition(_ context: any ASContextTransitioning) {
         animateLayoutTransition(context: context)
     }
 
@@ -34,14 +33,14 @@ final class StackLayoutScreenNode: ScrollScreenNode {
     }
 }
 
-private class _StackLayoutExampleNode: DisplayNode {
+private class _StackLayoutExampleNode: DisplayNode, @unchecked Sendable {
     private lazy var titleTextNode = getTitleTextNode(
         string: "Stack with 2 elements, second is relatively",
         selection: ""
     )
     private lazy var pairNodes = [
-        ASDisplayNode().sized(CGSize(same: 128)),
-        ASDisplayNode().sized(CGSize(same: 64)),
+        ASDisplayNode().sized(.init(same: 128)),
+        ASDisplayNode().sized(.init(same: 64)),
     ]
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -63,7 +62,7 @@ private class _StackLayoutExampleNode: DisplayNode {
     }
 }
 
-private class _StackCenteringLayoutExampleNode: DisplayNode {
+private class _StackCenteringLayoutExampleNode: DisplayNode, @unchecked Sendable {
     private lazy var titleTextNode = getTitleTextNode(
         string: "Stack with 2 elements, second is centered",
         selection: ""
@@ -112,7 +111,7 @@ private class _StackCenteringLayoutExampleNode: DisplayNode {
     }
 }
 
-private class _StackPositionsLayoutExampleNode: DisplayNode {
+private class _StackPositionsLayoutExampleNode: DisplayNode, @unchecked Sendable {
     private lazy var titleTextNode = getTitleTextNode(
         string: "Stack with 2 elements, second is relatively",
         selection: ""

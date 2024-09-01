@@ -10,7 +10,7 @@ import VATextureKitRx
 
 struct PagerControllerNavigationIdentity: DefaultNavigationIdentity {}
 
-final class PagerScreenNode: ScreenNode {
+final class PagerScreenNode: ScreenNode, @unchecked Sendable {
     private lazy var pagerNode = VAPagerNode(data: .init(
         itemsObs: viewModel.pagerItemsObs,
         cellGetter: mapToCell(viewModel:),

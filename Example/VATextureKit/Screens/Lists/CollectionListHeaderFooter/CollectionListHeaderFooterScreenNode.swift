@@ -10,7 +10,7 @@ import VATextureKitRx
 
 struct CollectionListHeaderFooterNavigationIdentity: DefaultNavigationIdentity {}
 
-final class CollectionListHeaderFooterScreenNode: ScreenNode {
+final class CollectionListHeaderFooterScreenNode: ScreenNode, @unchecked Sendable {
     private lazy var leftListNode = VAListNode(
         context: .init(
             listDataObs: viewModel.listDataObs,

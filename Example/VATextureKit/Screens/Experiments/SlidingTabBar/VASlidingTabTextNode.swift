@@ -8,7 +8,7 @@
 
 import VATextureKitRx
 
-final class VASlidingTabTextNode: DisplayNode, VASlidingTab {
+final class VASlidingTabTextNode: DisplayNode, VASlidingTab, @unchecked Sendable {
     let titleNode: VATextNode
     let topTitleNode: VATextNode
     let buttonNode = VAButtonNode()

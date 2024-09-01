@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-final class ImageCellNode: VAScrollRespondingEdgeCellNode {
+final class ImageCellNode: VAScrollRespondingEdgeCellNode, @unchecked Sendable {
     let imageNode: VANetworkImageNode
     let viewModel: ImageCellNodeViewModel
     

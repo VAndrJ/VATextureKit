@@ -10,7 +10,7 @@ import VATextureKit
 
 struct UIViewSizedContainerNavigationIdentity: DefaultNavigationIdentity {}
 
-final class UIViewSizedContainerScreenNode: ScreenNode {
+final class UIViewSizedContainerScreenNode: ScreenNode, @unchecked Sendable {
     private lazy var textHeightContainerNode = VASizedViewWrapperNode(
         childGetter: {
             UILabel().apply {

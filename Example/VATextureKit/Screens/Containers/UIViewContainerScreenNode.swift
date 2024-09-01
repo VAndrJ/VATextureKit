@@ -10,7 +10,7 @@ import VATextureKit
 
 struct UIViewContainerNavigationIdentity: DefaultNavigationIdentity {}
 
-final class UIViewContainerScreenNode: ScreenNode {
+final class UIViewContainerScreenNode: ScreenNode, @unchecked Sendable {
     private lazy var inheritedSizeContainerNode = VAViewWrapperNode(
         childGetter: {
             UIView(frame: .init(width: 48, height: 24)).apply {

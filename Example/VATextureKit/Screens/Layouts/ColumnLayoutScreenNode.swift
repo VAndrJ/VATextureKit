@@ -10,7 +10,7 @@ import VATextureKit
 
 struct ColumnLayoutNavigationIdentity: DefaultNavigationIdentity {}
 
-final class ColumnLayoutScreenNode: ScrollScreenNode {
+final class ColumnLayoutScreenNode: ScrollScreenNode, @unchecked Sendable {
     private lazy var mainCrossStartExampleNode = _MainAxisColumnLayoutExampleNode(
         title: "Main axis .start\nCross axis .start",
         selection: ".start",
@@ -74,8 +74,8 @@ final class ColumnLayoutScreenNode: ScrollScreenNode {
     }
 }
 
-private class _MainAxisColumnLayoutExampleNode: DisplayNode {
-    private lazy var exampleNodes = (1..<4).map { _ in ASDisplayNode().sized(CGSize(same: 24)) }
+private class _MainAxisColumnLayoutExampleNode: DisplayNode, @unchecked Sendable {
+    private lazy var exampleNodes = (1..<4).map { _ in ASDisplayNode().sized(.init(same: 24)) }
     private lazy var comparisonNode = ASDisplayNode().sized(CGSize(width: 24, height: 200))
     private let titleTextNode: VATextNode
     private let main: ASStackLayoutJustifyContent
@@ -107,12 +107,14 @@ private class _MainAxisColumnLayoutExampleNode: DisplayNode {
     }
 }
 
-private class _CrossAxisColumnLayoutExampleNode: DisplayNode {
+private class _CrossAxisColumnLayoutExampleNode: DisplayNode, @unchecked Sendable {
     private lazy var exampleNodes = (1...4).map {
         if cross == .stretch {
-            return ASDisplayNode().sized(height: 12 * CGFloat($0))
+            ASDisplayNode()
+                .sized(height: 12 * CGFloat($0))
         } else {
-            return ASDisplayNode().sized(CGSize(same: 8 * CGFloat($0)))
+            ASDisplayNode()
+                .sized(.init(same: 8 * CGFloat($0)))
         }
     }
     private let titleTextNode: VATextNode

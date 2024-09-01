@@ -10,7 +10,7 @@ import VATextureKitRx
 
 struct SlidingTabBarNavigationIdentity: DefaultNavigationIdentity {}
 
-final class SlidingTabBarScreenNode: ScreenNode {
+final class SlidingTabBarScreenNode: ScreenNode, @unchecked Sendable {
     private lazy var pagerNode = VAPagerNode(context: .init(
         items: (0...5).map { PagerCardCellNodeViewModel(title: "Title \($0)", description: "Description \($0)") },
         cellGetter: mapToCell(viewModel:)
@@ -43,8 +43,8 @@ final class SlidingTabBarScreenNode: ScreenNode {
     private lazy var nextButtonNode = HapticButtonNode(title: "Next")
         .minConstrained(size: CGSize(same: 44))
 
-    override func layout() {
-        super.layout()
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
 
         floatingTabBarNode.cornerRadius = floatingTabBarNode.frame.height / 2
     }

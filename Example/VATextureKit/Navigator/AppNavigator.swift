@@ -42,7 +42,7 @@ class AppScreenFactory: NavigatorScreenFactory {
     init(themeManager: ThemeManager) {
         self.themeManager = themeManager
     }
-
+    
     // swiftlint:disable:next cyclomatic_complexity function_body_length
     func assembleScreen(identity: any NavigationIdentity, navigator: Navigator) -> UIViewController {
         switch identity {
@@ -105,8 +105,8 @@ class AppScreenFactory: NavigatorScreenFactory {
             return VAViewController(node: LinkTextScreenNode())
         case _ as CountingTextNodeNavigationIdentity:
             return VAViewController(node: CountingTextNodeController())
-        case _ as DynamicHeightGridListNavigationIdentity:
-            return VAViewController(node: DynamicHeightGridListScreenNode())
+            //        case _ as DynamicHeightGridListNavigationIdentity:
+            //            return VAViewController(node: DynamicHeightGridListScreenNode())
         case _ as ShimmersNavigationIdentity:
             return VAViewController(node: ShimmersScreenNode())
         case _ as SpecBasedGridListNavigationIdentity:

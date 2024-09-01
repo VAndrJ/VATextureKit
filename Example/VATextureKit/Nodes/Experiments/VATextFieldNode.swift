@@ -10,10 +10,10 @@ import UIKit
 import AsyncDisplayKit
 import VATextureKit
 
-final class VATextFieldNode: VASizedViewWrapperNode<VATextField> {
+final class VATextFieldNode: VASizedViewWrapperNode<VATextField>, @unchecked Sendable {
 
     convenience init() {
-        self.init(actorChildGetter: { VATextField() }, sizing: .viewHeight)
+        self.init(childGetter: { VATextField() }, sizing: .viewHeight)
     }
 }
 

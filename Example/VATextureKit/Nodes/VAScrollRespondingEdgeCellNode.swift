@@ -15,7 +15,7 @@ public enum VAEdgeCellChangeOnScroll {
     case scale
 }
 
-open class VAScrollRespondingEdgeCellNode: VACellNode {
+open class VAScrollRespondingEdgeCellNode: VACellNode, @unchecked Sendable {
     public let onScroll: VAEdgeCellChangeOnScroll
     public private(set) var isScrolling = false
 

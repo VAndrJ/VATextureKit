@@ -14,7 +14,7 @@ struct CompositingFilterNavigationIdentity: DefaultNavigationIdentity {}
 
 // MARK: - View with ViewModel example. Code organization example
 
-final class CompositingFilterScreenNode: ScreenNode {
+final class CompositingFilterScreenNode: ScreenNode, @unchecked Sendable {
 
     // MARK: - UI related code
 

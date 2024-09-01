@@ -10,7 +10,7 @@ import VATextureKit
 
 struct TransitionAnimationNavigationIdentity: DefaultNavigationIdentity {}
 
-final class TransitionAnimationScreenNode: ScreenNode {
+final class TransitionAnimationScreenNode: ScreenNode, @unchecked Sendable {
     private lazy var leftTextNode = VATextNode(text: "left", fontStyle: .body, alignment: .center)
         .withAnimatedTransition(id: "Test")
         .flex(shrink: 0.1, basisPercent: 60)
@@ -84,8 +84,7 @@ final class TransitionAnimationScreenNode: ScreenNode {
         }
     }
 
-    @MainActor
-    override func animateLayoutTransition(_ context: any ASContextTransitioning) {
+    override func viewDidAnimateLayoutTransition(_ context: any ASContextTransitioning) {
         animateLayoutTransition(context: context)
     }
 

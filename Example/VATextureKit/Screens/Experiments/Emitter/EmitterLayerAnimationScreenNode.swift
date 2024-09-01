@@ -10,7 +10,7 @@ import VATextureKit
 
 struct EmitterLayerAnimationNavigationIdentity: DefaultNavigationIdentity {}
 
-final class EmitterLayerAnimationScreenNode: ScrollScreenNode {
+final class EmitterLayerAnimationScreenNode: ScrollScreenNode, @unchecked Sendable {
     private lazy var fireworksEmitterNode = VAFireworksEmitterNode(context: .init())
     private lazy var confettiTopCenterEmitterNode = VAConfettiEmitterNode(context: .init(startPoint: .topCenter))
     private lazy var confettiBottomLeftEmitterNode = VAConfettiEmitterNode(context: .init(startPoint: .bottomLeft))

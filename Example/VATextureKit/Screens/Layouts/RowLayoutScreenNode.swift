@@ -10,7 +10,7 @@ import VATextureKit
 
 struct RowLayoutNavigationIdentity: DefaultNavigationIdentity {}
 
-final class RowLayoutScreenNode: ScrollScreenNode {
+final class RowLayoutScreenNode: ScrollScreenNode, @unchecked Sendable {
     private lazy var mainCrossStartExampleNode = _MainAxisRowLayoutExampleNode(
         title: "Cross axis .start\nMain axis .start",
         selection: ".start",
@@ -74,7 +74,7 @@ final class RowLayoutScreenNode: ScrollScreenNode {
     }
 }
 
-private class _MainAxisRowLayoutExampleNode: DisplayNode {
+private class _MainAxisRowLayoutExampleNode: DisplayNode, @unchecked Sendable {
     private lazy var exampleNodes = (0..<4).map { _ in ASDisplayNode().sized(CGSize(same: 48)) }
     private let titleTextNode: VATextNode
     private let main: ASStackLayoutJustifyContent
@@ -104,14 +104,14 @@ private class _MainAxisRowLayoutExampleNode: DisplayNode {
     }
 }
 
-private class _CrossAxisRowLayoutExampleNode: DisplayNode {
+private class _CrossAxisRowLayoutExampleNode: DisplayNode, @unchecked Sendable {
     private lazy var exampleNodes = (1...4).map {
         if cross == .stretch {
-            return ASDisplayNode()
+            ASDisplayNode()
                 .sized(width: 12 * CGFloat($0))
         } else {
-            return ASDisplayNode()
-                .sized(CGSize(same: 12 * CGFloat($0)))
+            ASDisplayNode()
+                .sized(.init(same: 12 * CGFloat($0)))
         }
     }
     private let titleTextNode: VATextNode

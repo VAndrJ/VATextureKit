@@ -33,6 +33,10 @@ post_install do |installer|
     if target.name == "VATextureKit"
       target.build_configurations.each do |config|
         config.build_settings['OTHER_SWIFT_FLAGS'] ||= ['$(inherited) -D AS_ENABLE_TEXTNODE2']
+        config.build_settings['SWIFT_VERSION'] = '6.0'
+        config.build_settings['SWIFT_UPCOMING_FEATURE_EXISTENTIAL_ANY'] = 'YES'
+        config.build_settings['SWIFT_UPCOMING_FEATURE_INTERNAL_IMPORTS_BY_DEFAULT'] = 'YES'
+        config.build_settings['SWIFT_STRICT_CONCURRENCY'] = 'complete'
       end
     end
     if target.name == "VATextureKitSpec"

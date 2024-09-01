@@ -8,7 +8,7 @@
 
 import VATextureKitRx
 
-class ScrollScreenNode: ScreenNode {
+class ScrollScreenNode: ScreenNode, @unchecked Sendable {
     let scrollNode: VAScrollNode
 
     init(context: VAScrollNode.Context = .init()) {
