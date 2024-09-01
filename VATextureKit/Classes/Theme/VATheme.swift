@@ -150,8 +150,9 @@ open class VATheme: NSObject, @unchecked Sendable {
 }
 
 public extension VATheme {
-    static var lock = NSRecursiveLock()
-    static var fontCache: [VAThemeFont: UIFont] = [:]
+    private static let lock = NSRecursiveLock()
+    nonisolated(unsafe) private static var fontCache: [VAThemeFont: UIFont] = [:]
+    
     static var vaLight: VATheme {
         VATheme(
             tag: VALightThemeTag(),
