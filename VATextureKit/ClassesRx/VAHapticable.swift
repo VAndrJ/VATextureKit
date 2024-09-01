@@ -5,10 +5,16 @@
 //  Created by Volodymyr Andriienko on 14.04.2023.
 //
 
+#if compiler(>=6.0)
+public import AsyncDisplayKit
+public import RxSwift
+public import RxCocoa
+#else
 import AsyncDisplayKit
-import VATextureKit
 import RxSwift
 import RxCocoa
+#endif
+import VATextureKit
 
 public protocol VAHapticable {}
 
