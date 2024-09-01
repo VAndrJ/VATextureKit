@@ -29,26 +29,6 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
     private var cHeight: NSLayoutConstraint?
     private var cWidth: NSLayoutConstraint?
 
-    /// Creates an instance.
-    ///
-    /// - Parameters:
-    ///   - actorChildGetter: A closure returning the UIView instance to be wrapped.
-    ///   - sizing: The sizing option to apply to the wrapped view.
-    ///   - corner: Corner parameters.
-    public init(
-        actorChildGetter: @MainActor @escaping () -> T,
-        sizing: WrapperNodeSizing,
-        corner: VACornerRoundingParameters = .default
-    ) {
-        self.sizing = sizing
-        self.childGetter = actorChildGetter
-
-        super.init(corner: corner)
-
-        // To trigger `layout()` in any spec and avoid zero-sized frames.
-        minConstrained(size: .init(same: 1))
-    }
-
     /// Creates an instance of `VASizedViewWrapperNode`.
     ///
     /// - Parameters:
@@ -56,7 +36,7 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
     ///   - sizing: The sizing option to apply to the wrapped view.
     ///   - corner: Corner parameters.
     public init(
-        childGetter: @escaping () -> T,
+        childGetter: @MainActor @escaping () -> T,
         sizing: WrapperNodeSizing,
         corner: VACornerRoundingParameters = .default
     ) {
@@ -69,16 +49,14 @@ open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
         minConstrained(size: .init(same: 1))
     }
 
-    @MainActor
-    open override func didLoad() {
-        super.didLoad()
+    open override func viewDidLoad() {
+        super.viewDidLoad()
 
         view.addAutolayoutSubview(child)
     }
 
-    @MainActor
-    open override func layout() {
-        super.layout()
+    open override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
 
         switch sizing {
         case .viewHeight:
