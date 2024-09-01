@@ -67,13 +67,13 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: VASimplePagerNode, A
     }
     public var itemPosition: CGFloat { contentOffset.x / itemSize.width }
     public let bag = DisposeBag()
-    public private(set) var context: Context {
+    nonisolated(unsafe) public private(set) var context: Context {
         didSet { itemsCountRelay.accept(context.items.count) }
     }
 
     private let delayedConfiguration: Bool
     private let indexRelay = BehaviorRelay<CGFloat>(value: 0)
-    private let itemsCountRelay: BehaviorRelay<Int>
+    nonisolated(unsafe) private let itemsCountRelay: BehaviorRelay<Int>
 
     public convenience init(data: ObsDTO) {
         self.init(context: .init(
@@ -100,7 +100,7 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: VASimplePagerNode, A
         flowLayout.minimumInteritemSpacing = 0
 
         super.init(
-            frame: UIScreen.main.bounds, 
+            frame: .init(width: 320, height: 568), 
             collectionViewLayout: flowLayout,
             layoutFacilitator: nil
         )
@@ -217,11 +217,11 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: VASimplePagerNode, A
 
     // MARK: - ASPagerDataSource
 
-    public func numberOfPages(in pagerNode: ASPagerNode) -> Int {
+    nonisolated public func numberOfPages(in pagerNode: ASPagerNode) -> Int {
         context.items.count + (context.isCircular && !context.items.isEmpty ? 2 : 0)
     }
 
-    public func pagerNode(_ pagerNode: ASPagerNode, nodeBlockAt index: Int) -> ASCellNodeBlock {
+    nonisolated public func pagerNode(_ pagerNode: ASPagerNode, nodeBlockAt index: Int) -> ASCellNodeBlock {
         let item: Item
         if context.isCircular {
             switch index {
@@ -271,3 +271,5 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: VASimplePagerNode, A
         appContext.contentSizeManager.removeContentSizeObserver(self)
     }
 }
+
+extension BehaviorRelay: @unchecked Sendable {}

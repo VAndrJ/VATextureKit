@@ -264,7 +264,7 @@ extension ASTableNode: SectionedNodeType {
     }
 }
 
-extension ASCollectionNode: SectionedNodeType {
+extension ASCollectionNode: @preconcurrency SectionedNodeType {
     
     public func insertItemsAtIndexPaths(_ paths: [IndexPath], animationStyle: UITableView.RowAnimation) {
         insertItems(at: paths)

@@ -9,10 +9,12 @@
 public import AsyncDisplayKit
 public import RxSwift
 public import RxCocoa
+public import Differentiator
 #else
 import AsyncDisplayKit
 import RxSwift
 import RxCocoa
+import Differentiator
 #endif
 import VATextureKit
 
@@ -76,7 +78,9 @@ extension Reactive where Base: ASCollectionNode {
     
     public var contentOffset: ControlProperty<CGPoint> {
         let bindingObserver = Binder(base) { collectionNode, contentOffset in
-            collectionNode.contentOffset = contentOffset
+            MainActor.assumeIsolated {
+                collectionNode.contentOffset = contentOffset
+            }
         }
 
         return ControlProperty(
@@ -232,7 +236,7 @@ public protocol RxASCollectionDataSourceType {
     func collectionNode(_ collectionNode: ASCollectionNode, observedEvent: Event<Element>)
 }
 
-open class RxASCollectionSectionedAnimatedDataSource<S: AnimatableSectionModelType>: ASCollectionSectionedDataSource<S>, RxASCollectionDataSourceType {
+open class RxASCollectionSectionedAnimatedDataSource<S: AnimatableSectionModelType>: ASCollectionSectionedDataSource<S>, RxASCollectionDataSourceType, @unchecked Sendable {
     public typealias Element = [S]
     public typealias DecideNodeTransition = (ASCollectionSectionedDataSource<S>, ASCollectionNode, [Changeset<S>]) -> NodeTransition
     public var animationConfiguration: AnimationConfiguration
@@ -269,7 +273,9 @@ open class RxASCollectionSectionedAnimatedDataSource<S: AnimatableSectionModelTy
             if !dataSource.dataSet {
                 dataSource.dataSet = true
                 dataSource.setSections(newSections)
-                collectionNode.reloadDataWithoutAnimations()
+                MainActor.assumeIsolated {
+                    collectionNode.reloadDataWithoutAnimations()
+                }
             } else {
                 if dataSource.animationConfiguration.animated {
                     let oldSections = dataSource.sectionModels
@@ -280,31 +286,39 @@ open class RxASCollectionSectionedAnimatedDataSource<S: AnimatableSectionModelTy
                             // each difference must be run in a separate 'performBatchUpdates', otherwise it crashes.
                             // this is a limitation of Diff tool
                             for difference in differences {
-                                let updateBlock = {
+                                let updateBlock: @Sendable () -> Void = {
                                     // sections must be set within updateBlock in 'performBatchUpdates'
                                     dataSource.setSections(difference.finalSections)
                                     collectionNode.batchUpdates(difference, animationConfiguration: dataSource.animationConfiguration)
                                 }
-                                collectionNode.performBatch(
-                                    animated: dataSource.animationConfiguration.animated,
-                                    updates: updateBlock,
-                                    completion: nil
-                                )
+                                MainActor.assumeIsolated {
+                                    collectionNode.performBatch(
+                                        animated: dataSource.animationConfiguration.animated,
+                                        updates: updateBlock,
+                                        completion: nil
+                                    )
+                                }
                             }
                         case .reload:
                             dataSource.setSections(newSections)
-                            collectionNode.reloadDataWithoutAnimations()
+                            MainActor.assumeIsolated {
+                                collectionNode.reloadDataWithoutAnimations()
+                            }
 
                             return
                         }
                     } catch {
                         rxDebugFatalError(error)
                         dataSource.setSections(newSections)
-                        collectionNode.reloadDataWithoutAnimations()
+                        MainActor.assumeIsolated {
+                            collectionNode.reloadDataWithoutAnimations()
+                        }
                     }
                 } else {
                     dataSource.setSections(newSections)
-                    collectionNode.reloadDataWithoutAnimations()
+                    MainActor.assumeIsolated {
+                        collectionNode.reloadDataWithoutAnimations()
+                    }
                 }
             }
         }
@@ -321,51 +335,57 @@ open class RxASCollectionSectionedReloadDataSource<S: SectionModelType>: ASColle
             dataSource._dataSourceBound = true
 #endif
             dataSource.setSections(element)
-            collectionNode.reloadData()
-            collectionNode.collectionViewLayout.invalidateLayout()
+            MainActor.assumeIsolated {
+                collectionNode.reloadData()
+                collectionNode.collectionViewLayout.invalidateLayout()
+            }
         }
         .on(observedEvent)
     }
 }
 
-extension ASCollectionNode: HasDelegate {
+extension ASCollectionNode: @preconcurrency HasDelegate {
     public typealias Delegate = ASCollectionDelegate
 }
 
 /// For more information take a look at `DelegateProxyType`.
 open class RxASCollectionDelegateProxy: DelegateProxy<ASCollectionNode, ASCollectionDelegate>, DelegateProxyType, ASCollectionDelegate, ASCollectionDelegateFlowLayout, UICollectionViewDelegateFlowLayout {
     /// Typed parent object.
-    public weak private(set) var collectionNode: ASCollectionNode?
-    
+    nonisolated(unsafe) public weak private(set) var collectionNode: ASCollectionNode?
+
     /// - parameter tableNode: Parent object for delegate proxy.
-    public init(collectionNode: ASCollectionNode) {
+    nonisolated public init(collectionNode: ASCollectionNode) {
         self.collectionNode = collectionNode
         
         super.init(parentObject: collectionNode, delegateProxy: RxASCollectionDelegateProxy.self)
     }
     
     // Register known implementations
-    public static func registerKnownImplementations() {
+    nonisolated public static func registerKnownImplementations() {
         register { RxASCollectionDelegateProxy(collectionNode: $0) }
     }
     
-    private var _contentOffsetBehaviorSubject: BehaviorSubject<CGPoint>?
-    private var _contentOffsetPublishSubject: PublishSubject<Void>?
-    
+    nonisolated(unsafe) private var _contentOffsetBehaviorSubject: BehaviorSubject<CGPoint>?
+    nonisolated(unsafe) private var _contentOffsetPublishSubject: PublishSubject<Void>?
+
     /// Optimized version used for observing content offset changes.
-    internal var contentOffsetBehaviorSubject: BehaviorSubject<CGPoint> {
+    nonisolated internal var contentOffsetBehaviorSubject: BehaviorSubject<CGPoint> {
         if let subject = _contentOffsetBehaviorSubject {
             return subject
         }
 
-        let subject = BehaviorSubject<CGPoint>(value: collectionNode?.contentOffset ?? .zero)
+        var offset: CGPoint!
+        MainActor.assumeIsolated {
+            offset = collectionNode?.contentOffset ?? .zero
+        }
+        let subject = BehaviorSubject<CGPoint>(value: offset)
         _contentOffsetBehaviorSubject = subject
 
         return subject
     }
     
     /// Optimized version used for observing content offset changes.
-    internal var contentOffsetPublishSubject: PublishSubject<Void> {
+    nonisolated internal var contentOffsetPublishSubject: PublishSubject<Void> {
         if let subject = _contentOffsetPublishSubject {
             return subject
         }
@@ -545,11 +565,11 @@ open class ASCollectionSectionedDataSource<S: SectionModelType>: NSObject, ASCol
     }
 }
 
-extension ASCollectionNode: HasDataSource {
+extension ASCollectionNode: @preconcurrency HasDataSource {
     public typealias DataSource = ASCollectionDataSource
 }
 
-private let collectionDataSourceNotSet = ASCollectionDataSourceNotSet()
+nonisolated(unsafe) private let collectionDataSourceNotSet = ASCollectionDataSourceNotSet()
 
 final class ASCollectionDataSourceNotSet: NSObject, ASCollectionDataSource {
     
@@ -594,3 +614,5 @@ final class RxASCollectionDataSourceProxy: DelegateProxy<ASCollectionNode, ASCol
         super.setForwardToDelegate(forwardToDelegate, retainDelegate: retainDelegate)
     }
 }
+
+extension Changeset: @unchecked Sendable {}

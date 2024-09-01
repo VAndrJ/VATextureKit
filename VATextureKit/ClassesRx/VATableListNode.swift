@@ -19,7 +19,7 @@ import VATextureKit
 import Differentiator
 #endif
 
-open class VATableListNode<S: AnimatableSectionModelType>: VASimpleTableNode, ASTableDelegate {
+open class VATableListNode<S: AnimatableSectionModelType>: VASimpleTableNode {
     public struct SeparatorConfiguration {
         let color: UIColor?
         let style: UITableViewCell.SeparatorStyle
@@ -182,16 +182,73 @@ open class VATableListNode<S: AnimatableSectionModelType>: VASimpleTableNode, AS
             self.isLoadingObs = .empty()
         }
     }
-    
+
+    @MainActor
+    class DelegateObject: NSObject, ASTableDelegate {
+        let context: Context
+        weak var source: RxASTableSectionedAnimatedDataSource<S>?
+        var toggleRefreshIfNeeded: () -> Void
+
+        init(
+            context: Context,
+            source: RxASTableSectionedAnimatedDataSource<S>?,
+            toggleRefreshIfNeeded: @escaping () -> Void
+        ) {
+            self.context = context
+            self.source = source
+            self.toggleRefreshIfNeeded = toggleRefreshIfNeeded
+        }
+
+        // MARK: - ASTableDelegate
+
+        public func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
+            context.shouldBatchFetch?() ?? false
+        }
+
+        public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+            if let getter = context.sectionHeaderGetter, let section = source?[safe: section] {
+                return VANodeWrapperView(contentNode: getter(section))
+            } else {
+                return nil
+            }
+        }
+
+        public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+            if let getter = context.sectionFooterGetter, let section = source?[safe: section] {
+                return VANodeWrapperView(contentNode: getter(section))
+            } else {
+                return nil
+            }
+        }
+
+        public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+            if !decelerate {
+                toggleRefreshIfNeeded()
+            }
+        }
+
+        public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+            toggleRefreshIfNeeded()
+        }
+    }
+
     public let context: Context
     public let refreshData: RefreshDTO
     public private(set) var batchContext: ASBatchContext?
     
     private let bag = DisposeBag()
     private weak var source: RxASTableSectionedAnimatedDataSource<S>?
+    @MainActor
     private lazy var refreshControlView = refreshData.refreshControlView()
+    @MainActor
+    private lazy var delegateObject = DelegateObject(
+        context: context,
+        source: source,
+        toggleRefreshIfNeeded: { [weak self] in
+            self?.toggleRefreshIfNeeded()
+        }
+    )
     private var isRefreshing = false
-    private let delayedConfiguration: Bool
     
     public convenience init<T>(
         data: ElementDTO,
@@ -234,25 +291,18 @@ open class VATableListNode<S: AnimatableSectionModelType>: VASimpleTableNode, AS
     public init(context: Context, refreshData: RefreshDTO = .init()) {
         self.refreshData = refreshData
         self.context = context
-        self.delayedConfiguration = !Thread.current.isMainThread
         
         super.init(style: context.configuration.style)
-
-        if !delayedConfiguration {
-            configure()
-            bind()
-        }
     }
 
     open override func viewDidLoad() {
         super.viewDidLoad()
 
-        if delayedConfiguration {
-            configure()
-            bind()
-        }
+        configure()
+        bind()
     }
 
+    @MainActor
     open func configureRefresh() {
         if refreshData.reloadData != nil {
             view.insertSubview(refreshControlView, at: 0)
@@ -271,6 +321,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: VASimpleTableNode, AS
         }
     }
 
+    @MainActor
     private func bind() {
         let dataSource = RxASTableSectionedAnimatedDataSource<S>(
             animationConfiguration: context.configuration.animationConfiguration,
@@ -282,12 +333,12 @@ open class VATableListNode<S: AnimatableSectionModelType>: VASimpleTableNode, AS
                 self?.batchContext?.completeBatchFetching(true)
                 self?.batchContext = nil
                 if shouldScrollToTopOnDataChange {
-                    self?.view.scrollRectToVisible(CGRect(x: 0, y: 0, width: 1, height: 1), animated: true)
+                    self?.view.scrollRectToVisible(.init(width: 1, height: 1), animated: true)
                 }
             })
             .bind(to: rx.items(dataSource: dataSource))
             .disposed(by: bag)
-        rx.setDelegate(self)
+        rx.setDelegate(delegateObject)
             .disposed(by: bag)
         if context.shouldBatchFetch != nil {
             rx.willBeginBatchFetch
@@ -310,6 +361,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: VASimpleTableNode, AS
         }
     }
 
+    @MainActor
     private func configure() {
         if context.sectionHeaderGetter != nil {
             view.sectionHeaderHeight = UITableView.automaticDimension
@@ -329,39 +381,8 @@ open class VATableListNode<S: AnimatableSectionModelType>: VASimpleTableNode, AS
         context.configuration.separatorConfiguration.insetReference.flatMap { view.separatorInsetReference = $0 }
         configureRefresh()
     }
-    
-    // MARK: - ASTableDelegate
-    
-    public func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
-        context.shouldBatchFetch?() ?? false
-    }
 
-    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if let getter = context.sectionHeaderGetter, let section = source?[safe: section] {
-            return VANodeWrapperView(contentNode: getter(section))
-        } else {
-            return nil
-        }
-    }
-
-    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if let getter = context.sectionFooterGetter, let section = source?[safe: section] {
-            return VANodeWrapperView(contentNode: getter(section))
-        } else {
-            return nil
-        }
-    }
-
-    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if !decelerate {
-            toggleRefreshIfNeeded()
-        }
-    }
-
-    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        toggleRefreshIfNeeded()
-    }
-
+    @MainActor
     private func toggleRefreshIfNeeded() {
         if let reloadData = refreshData.reloadData, refreshData.isDelayed && refreshControlView.isRefreshing && !isRefreshing {
             reloadData()

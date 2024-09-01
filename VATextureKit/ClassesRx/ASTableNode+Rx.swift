@@ -576,28 +576,28 @@ open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>: 
     }
 }
 
-extension ASTableNode: HasDelegate {
+extension ASTableNode: @preconcurrency HasDelegate {
     public typealias Delegate = ASTableDelegate
 }
 
 open class RxASTableDelegateProxy: DelegateProxy<ASTableNode, ASTableDelegate>, DelegateProxyType, ASTableDelegate {
-    public weak private(set) var tableNode: ASTableNode?
+    nonisolated(unsafe) public weak private(set) var tableNode: ASTableNode?
     
     /// - parameter tableNode: Parent object for delegate proxy.
-    public init(tableNode: ASTableNode) {
+    nonisolated public init(tableNode: ASTableNode) {
         self.tableNode = tableNode
         
         super.init(parentObject: tableNode, delegateProxy: RxASTableDelegateProxy.self)
     }
     
-    public static func registerKnownImplementations() {
+    nonisolated public static func registerKnownImplementations() {
         register { RxASTableDelegateProxy(tableNode: $0) }
     }
     
-    private var _contentOffsetBehaviorSubject: BehaviorSubject<CGPoint>?
-    private var _contentOffsetPublishSubject: PublishSubject<Void>?
-    
-    internal var contentOffsetBehaviorSubject: BehaviorSubject<CGPoint> {
+    nonisolated(unsafe) private var _contentOffsetBehaviorSubject: BehaviorSubject<CGPoint>?
+    nonisolated(unsafe) private var _contentOffsetPublishSubject: PublishSubject<Void>?
+
+    nonisolated internal var contentOffsetBehaviorSubject: BehaviorSubject<CGPoint> {
         if let subject = _contentOffsetBehaviorSubject {
             return subject
         }
@@ -608,7 +608,7 @@ open class RxASTableDelegateProxy: DelegateProxy<ASTableNode, ASTableDelegate>, 
         return subject
     }
     
-    internal var contentOffsetPublishSubject: PublishSubject<Void> {
+    nonisolated internal var contentOffsetPublishSubject: PublishSubject<Void> {
         if let subject = _contentOffsetPublishSubject {
             return subject
         }
@@ -648,11 +648,11 @@ open class RxASTableSectionedReloadDataSource<S: SectionModelType>: ASTableSecti
     }
 }
 
-extension ASTableNode: HasDataSource {
+extension ASTableNode: @preconcurrency HasDataSource {
     public typealias DataSource = ASTableDataSource
 }
 
-private let tableDataSourceNotSet = ASTableDataSourceNotSet()
+nonisolated(unsafe) private let tableDataSourceNotSet = ASTableDataSourceNotSet()
 
 final class ASTableDataSourceNotSet: NSObject, ASTableDataSource {
     
