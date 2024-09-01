@@ -80,14 +80,10 @@ extension Reactive where Base: ASTableNode {
             tableNode.contentOffset = contentOffset
         }
 
-        return mainActorEscaped {
-            ControlProperty(values: proxy.contentOffsetBehaviorSubject, valueSink: bindingObserver)
-        }()
+        return ControlProperty(values: proxy.contentOffsetBehaviorSubject, valueSink: bindingObserver)
     }
     public var didScroll: ControlEvent<Void> {
-        mainActorEscaped {
-            ControlEvent(events: RxASTableDelegateProxy.proxy(for: base).contentOffsetPublishSubject)
-        }()
+        ControlEvent(events: RxASTableDelegateProxy.proxy(for: base).contentOffsetPublishSubject)
     }
     public var willBeginDecelerating: ControlEvent<Void> {
         let source = delegate.methodInvoked(#selector((any ASTableDelegate).scrollViewWillBeginDecelerating(_:))).map { _ in }
