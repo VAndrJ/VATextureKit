@@ -5,7 +5,8 @@
 //  Created by Volodymyr Andriienko on 01.04.2023.
 //
 
-import AsyncDisplayKit
+public import AsyncDisplayKit
+import VATextureKitSpec
 
 /// A UIView subclass for wrapping `Texture` nodes within a `UIKit`-based view hierarchy.
 /// You can use this view to seamlessly integrate `ASDisplayNodes` with `UIKit` components.
@@ -130,7 +131,7 @@ private final class _ContentNodeView<Node: ASDisplayNode>: UILabel { // To use `
     let node: Node
 
     private let wrapperNode: _WrapperNode
-    private let delegateProxy = _InterfaceStateDelegateProxy()
+    nonisolated(unsafe) private let delegateProxy = _InterfaceStateDelegateProxy()
 
     init(node: Node, shouldExpandToMaximumWidth: Bool) {
         self.node = node
