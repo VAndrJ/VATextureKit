@@ -19,7 +19,7 @@ import VATextureKit
 import Differentiator
 #endif
 
-open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableDelegate {
+open class VATableListNode<S: AnimatableSectionModelType>: VASimpleTableNode, ASTableDelegate {
     public struct SeparatorConfiguration {
         let color: UIColor?
         let style: UITableViewCell.SeparatorStyle
@@ -244,9 +244,8 @@ open class VATableListNode<S: AnimatableSectionModelType>: ASTableNode, ASTableD
         }
     }
 
-    @MainActor
-    open override func didLoad() {
-        super.didLoad()
+    open override func viewDidLoad() {
+        super.viewDidLoad()
 
         if delayedConfiguration {
             configure()
