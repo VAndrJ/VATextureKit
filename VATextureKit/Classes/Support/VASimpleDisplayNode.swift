@@ -5,7 +5,11 @@
 //  Created by VAndrJ on 8/31/24.
 //
 
+#if compiler(>=6.0)
 public import AsyncDisplayKit
+#else
+import AsyncDisplayKit
+#endif
 
 open class VASimpleDisplayNode: ASDisplayNode, @unchecked Sendable {
 

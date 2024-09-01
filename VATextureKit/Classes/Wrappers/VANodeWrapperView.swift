@@ -5,7 +5,11 @@
 //  Created by Volodymyr Andriienko on 01.04.2023.
 //
 
+#if compiler(>=6.0)
 public import AsyncDisplayKit
+#else
+import AsyncDisplayKit
+#endif
 import VATextureKitSpec
 
 /// A UIView subclass for wrapping `Texture` nodes within a `UIKit`-based view hierarchy.

@@ -6,7 +6,11 @@
 //
 
 #if canImport(SwiftUI)
+#if compiler(>=6.0)
 public import SwiftUI
+#else
+import SwiftUI
+#endif
 /// A custom `ASDisplayNode` subclass for wrapping SwiftUI `View` with various sizing options.
 open class VAViewHostingNode: VADisplayNode {
     @MainActor

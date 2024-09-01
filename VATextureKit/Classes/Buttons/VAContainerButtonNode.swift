@@ -5,7 +5,11 @@
 //  Created by Volodymyr Andriienko on 13.04.2023.
 //
 
+#if compiler(>=6.0)
 public import AsyncDisplayKit
+#else
+import AsyncDisplayKit
+#endif
 
 /// `VAContainerButtonNode` is a subclass of `VAButtonNode` that includes a child node and handles button state changes.
 open class VAContainerButtonNode<Node: ASDisplayNode>: VAButtonNode {

@@ -5,7 +5,11 @@
 //  Created by Volodymyr Andriienko on 12.03.2024.
 //
 
+#if compiler(>=6.0)
 public import AsyncDisplayKit
+#else
+import AsyncDisplayKit
+#endif
 
 #if AS_ENABLE_TEXTNODE2
 open class _VATextNode: ASTextNode2, @unchecked Sendable {

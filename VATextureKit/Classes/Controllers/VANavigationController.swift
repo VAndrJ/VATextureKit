@@ -5,7 +5,11 @@
 //  Created by Volodymyr Andriienko on 18.02.2023.
 //
 
+#if compiler(>=6.0)
 public import AsyncDisplayKit
+#else
+import AsyncDisplayKit
+#endif
 
 open class VANavigationController: ASDKNavigationController, VAThemeObserver, VAContentSizeObserver {
     open override var childForStatusBarStyle: UIViewController? { topViewController }

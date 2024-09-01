@@ -7,8 +7,12 @@
 //
 
 #if canImport(SwiftUI)
-import UIKit
+#if compiler(>=6.0)
 public import SwiftUI
+#else
+import SwiftUI
+#endif
+import UIKit
 
 public extension UIView {
 

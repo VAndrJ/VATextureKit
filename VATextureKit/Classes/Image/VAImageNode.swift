@@ -5,7 +5,11 @@
 //  Created by Volodymyr Andriienko on 05.04.2023.
 //
 
+#if compiler(>=6.0)
 public import AsyncDisplayKit
+#else
+import AsyncDisplayKit
+#endif
 
 /// `VAImageNode` is a subclass of `ASImageNode` that provides additional theming capabilities. It allows customization of the image `tintColor` and `backgroundColor` based on the current theme.
 open class VAImageNode: VASimpleImageNode, VACornerable, VAThemeObserver {

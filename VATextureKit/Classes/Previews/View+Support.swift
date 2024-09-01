@@ -7,7 +7,11 @@
 //
 
 #if canImport(SwiftUI)
+#if compiler(>=6.0)
 public import SwiftUI
+#else
+import SwiftUI
+#endif
 
 extension View {
     @inline(__always) @inlinable var anyView: AnyView { AnyView(self) }

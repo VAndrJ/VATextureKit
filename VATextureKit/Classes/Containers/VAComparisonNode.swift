@@ -5,7 +5,11 @@
 //  Created by Volodymyr Andriienko on 06.04.2024.
 //
 
+#if compiler(>=6.0)
 public import AsyncDisplayKit
+#else
+import AsyncDisplayKit
+#endif
 import VATextureKitSpec
 
 open class VAComparisonNode: VADisplayNode {

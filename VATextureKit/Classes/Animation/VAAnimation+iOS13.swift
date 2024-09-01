@@ -6,8 +6,13 @@
 //
 
 #if canImport(SwiftUI)
+#if compiler(>=6.0)
 public import SwiftUI
 public import AsyncDisplayKit
+#else
+import SwiftUI
+import AsyncDisplayKit
+#endif
 
 extension RelationValue where Value: VectorArithmetic {
 

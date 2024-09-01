@@ -5,7 +5,11 @@
 //  Created by VAndrJ on 9/1/24.
 //
 
+#if compiler(>=6.0)
 public import AsyncDisplayKit
+#else
+import AsyncDisplayKit
+#endif
 
 open class VASimpleNetworkImageNode: ASNetworkImageNode, @unchecked Sendable {
 

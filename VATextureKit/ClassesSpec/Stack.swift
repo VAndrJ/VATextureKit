@@ -5,7 +5,11 @@
 //  Created by Volodymyr Andriienko on 17.04.2023.
 //
 
+#if compiler(>=6.0)
 public import AsyncDisplayKit
+#else
+import AsyncDisplayKit
+#endif
 
 /// The `Stack` class is a wrapper around `ASStackLayoutSpec` for `depth towards` direction.
 public final class Stack: ASWrapperLayoutSpec {

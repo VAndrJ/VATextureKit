@@ -7,7 +7,11 @@
 
 // TODO: - Deal with actors
 /*
-public import AsyncDisplayKit
+ #if compiler(>=6.0)
+ public import AsyncDisplayKit
+ #else
+ import AsyncDisplayKit
+ #endif
 
 // swiftlint:disable all
 public class VADynamicHeightGridListLayoutDelegate: NSObject, ASCollectionLayoutDelegate {

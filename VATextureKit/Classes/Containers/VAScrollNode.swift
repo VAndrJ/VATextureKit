@@ -5,7 +5,11 @@
 //  Created by Volodymyr Andriienko on 31.03.2023.
 //
 
+#if compiler(>=6.0)
 public import AsyncDisplayKit
+#else
+import AsyncDisplayKit
+#endif
 
 open class VAScrollNode: VASimpleScrollNode {
     public struct Context {
