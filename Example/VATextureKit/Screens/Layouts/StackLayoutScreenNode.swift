@@ -24,10 +24,6 @@ final class StackLayoutScreenNode: ScrollScreenNode, @unchecked Sendable {
         .padding(.all(16))
     }
 
-    override func viewDidAnimateLayoutTransition(_ context: any ASContextTransitioning) {
-        animateLayoutTransition(context: context)
-    }
-
     override func configureTheme(_ theme: VATheme) {
         backgroundColor = theme.secondarySystemBackground
     }
@@ -70,10 +66,12 @@ private class _StackCenteringLayoutExampleNode: DisplayNode, @unchecked Sendable
     private lazy var centeringInfoTextNode = VATextNode(
         text: centeringOptions.description,
         fontStyle: .headline
-    )
+    ).apply {
+        $0.displaysAsynchronously = false
+    }
     private lazy var pairNodes = [
-        ASDisplayNode().sized(CGSize(same: 128)),
-        ASDisplayNode().sized(CGSize(same: 64)),
+        ASDisplayNode().sized(.init(same: 128)),
+        ASDisplayNode().sized(.init(same: 64)),
     ]
     private lazy var centeringButtonNode = HapticButtonNode(title: "Change centering")
     private var centeringOptions: ASCenterLayoutSpecCenteringOptions = .XY {
@@ -99,6 +97,10 @@ private class _StackCenteringLayoutExampleNode: DisplayNode, @unchecked Sendable
         }
     }
 
+    override func viewDidAnimateLayoutTransition(_ context: any ASContextTransitioning) {
+        animateLayoutTransition(context: context)
+    }
+
     override func configureTheme(_ theme: VATheme) {
         backgroundColor = theme.systemBackground
         zip(pairNodes, [theme.label, theme.systemOrange]).forEach {
@@ -117,19 +119,23 @@ private class _StackPositionsLayoutExampleNode: DisplayNode, @unchecked Sendable
         selection: ""
     )
     private lazy var pairNodes = [
-        ASDisplayNode().sized(CGSize(same: 128)),
-        ASDisplayNode().sized(CGSize(same: 64)),
+        ASDisplayNode().sized(.init(same: 128)),
+        ASDisplayNode().sized(.init(same: 64)),
     ]
     private lazy var relativeHorizontalPositionButtonNode = HapticButtonNode(title: "Change horizontal")
     private lazy var relativeVerticalPositionButtonNode = HapticButtonNode(title: "Change vertical")
     private lazy var relativePositionHorizontalInfoTextNode = VATextNode(
         text: relativeHorizontalPosition.horizontalDescription,
         fontStyle: .headline
-    )
+    ).apply {
+        $0.displaysAsynchronously = false
+    }
     private lazy var relativePositionVerticalInfoTextNode = VATextNode(
         text: relativeHorizontalPosition.verticalDescription,
         fontStyle: .headline
-    )
+    ).apply {
+        $0.displaysAsynchronously = false
+    }
     private var relativeHorizontalPosition: ASRelativeLayoutSpecPosition = .end {
         didSet {
             setNeedsLayoutAnimated()
@@ -159,6 +165,10 @@ private class _StackPositionsLayoutExampleNode: DisplayNode, @unchecked Sendable
                     .relatively(horizontal: relativeHorizontalPosition, vertical: relativeVerticalPosition)
             }
         }
+    }
+
+    override func viewDidAnimateLayoutTransition(_ context: any ASContextTransitioning) {
+        animateLayoutTransition(context: context)
     }
 
     override func configureTheme(_ theme: VATheme) {

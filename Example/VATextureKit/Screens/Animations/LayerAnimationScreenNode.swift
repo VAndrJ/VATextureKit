@@ -233,7 +233,7 @@ private class _BoundsAnimationExampleNode: DisplayNode, @unchecked Sendable {
             )
             heightNode.style.height = .points(isToggled ? 100 : 20)
             widthNode.style.width = .points(isToggled ? 20 : 100)
-            setNeedsLayoutAnimated(isWithSupernodes: true)
+            setNeedsLayoutAnimated(withSupernode: true)
         }
     }
 
