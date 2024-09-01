@@ -5,7 +5,7 @@
 //  Created by Volodymyr Andriienko on 24.07.2023.
 //
 
-import AsyncDisplayKit
+public import AsyncDisplayKit
 
 public extension ASDisplayNode {
     var transitionAnimationId: String? {
