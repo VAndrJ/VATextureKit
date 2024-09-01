@@ -12,7 +12,7 @@ struct CollectionListDifferentCellsNavigationIdentity: DefaultNavigationIdentity
 
 // MARK: - ViewController as a View example
 
-final class CollectionListDifferentCellsNodeController: VANodeController {
+final class CollectionListDifferentCellsNodeController: VANodeController, @unchecked Sendable {
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask { .portrait }
     
     private lazy var leftListNode = VAListNode(
