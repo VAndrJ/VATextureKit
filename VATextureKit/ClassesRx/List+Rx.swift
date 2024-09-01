@@ -5,11 +5,18 @@
 //  Created by Volodymyr Andriienko on 25.03.2023.
 //
 
+#if compiler(>=6.0)
+public import AsyncDisplayKit
+public import RxSwift
+public import RxCocoa
+public import Differentiator
+#else
 import AsyncDisplayKit
-import VATextureKit
 import RxSwift
 import RxCocoa
-@_exported import Differentiator
+import Differentiator
+#endif
+import VATextureKit
 
 /// Provides custom animation styles for insertion, deletion, and reloading behavior.
 ///
