@@ -6,7 +6,7 @@
 //
 
 #if canImport(SwiftUI)
-import SwiftUI
+public import SwiftUI
 /// A custom `ASDisplayNode` subclass for wrapping SwiftUI `View` with various sizing options.
 open class VAViewHostingNode: VADisplayNode {
     @MainActor
@@ -39,17 +39,15 @@ open class VAViewHostingNode: VADisplayNode {
         minConstrained(size: .init(same: 1))
     }
 
-    @MainActor
-    open override func didLoad() {
-        super.didLoad()
+    open override func viewDidLoad() {
+        super.viewDidLoad()
 
         view.addSubview(hostingController.view)
         hostingController.view.backgroundColor = .clear
     }
 
-    @MainActor
-    open override func layout() {
-        super.layout()
+    open override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
 
         if shouldAddToController, let closestViewController {
             let requiresControllerMove = hostingController.parent != closestViewController
