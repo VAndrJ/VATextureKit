@@ -15,7 +15,7 @@ open class VANavigationController: ASDKNavigationController, VAThemeObserver, VA
     @inline(__always) @inlinable public var theme: VATheme { appContext.themeManager.theme }
     public lazy var transitionAnimator: any VATransionAnimator = VADefaultTransionAnimator(controller: self)
 
-    private(set) var isObservingContentSizeChanges = false
+    nonisolated(unsafe) private(set) var isObservingContentSizeChanges = false
 
     public override init(
         nibName nibNameOrNil: String?,
@@ -51,14 +51,18 @@ open class VANavigationController: ASDKNavigationController, VAThemeObserver, VA
         navigationBar.barStyle = theme.barStyle
     }
 
-    public func themeDidChanged(to newValue: VATheme) {
-        configureTheme(newValue)
+    nonisolated public func themeDidChanged(to newValue: VATheme) {
+        Task { @MainActor in
+            configureTheme(newValue)
+        }
     }
 
     @objc open func configureContentSize(_ contentSize: UIContentSizeCategory) {}
 
-    public func contentSizeDidChanged(to newValue: UIContentSizeCategory) {
-        configureContentSize(newValue)
+    nonisolated public func contentSizeDidChanged(to newValue: UIContentSizeCategory) {
+        Task { @MainActor in
+            configureContentSize(newValue)
+        }
     }
 
     open override func popViewController(animated: Bool) -> UIViewController? {
