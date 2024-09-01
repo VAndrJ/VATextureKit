@@ -159,7 +159,9 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: VASimplePagerNode, A
     private func checkPosition() {
         if context.isCircular && !context.items.isEmpty {
             mainAsync {
-                scrollToPage(at: 1, animated: false)
+                MainActor.assumeIsolated {
+                    scrollToPage(at: 1, animated: false)
+                }
             }
         }
     }
@@ -177,14 +179,18 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: VASimplePagerNode, A
         reloadDataWithoutAnimations()
     }
 
-    public func themeDidChanged(to newValue: VATheme) {
-        configureTheme(newValue)
+    nonisolated public func themeDidChanged(to newValue: VATheme) {
+        Task { @MainActor in
+            configureTheme(newValue)
+        }
     }
 
     @objc open func configureContentSize(_ contentSize: UIContentSizeCategory) {}
 
-    public func contentSizeDidChanged(to newValue: UIContentSizeCategory) {
-        configureContentSize(newValue)
+    nonisolated public func contentSizeDidChanged(to newValue: UIContentSizeCategory) {
+        Task { @MainActor in
+            configureContentSize(newValue)
+        }
     }
 
     private func configure() {
