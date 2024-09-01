@@ -10,7 +10,7 @@ import AsyncDisplayKit
 
 // swiftlint:disable all
 public extension CALayer {
-    struct VASpring {
+    struct VASpring: Sendable {
         public let initialVelocity: CGFloat
         public let damping: CGFloat
         public let mass: CGFloat
@@ -29,7 +29,7 @@ public extension CALayer {
         }
     }
 
-    struct VALayerAnimation {
+    struct VALayerAnimation: @unchecked Sendable {
         public let from: Any?
         public let to: Any?
         public let fromOriginalValue: Any?
@@ -65,7 +65,7 @@ public extension CALayer {
         }
     }
 
-    struct VALayerKeyframeAnimation {
+    struct VALayerKeyframeAnimation: @unchecked Sendable {
         public let values: [Any]
         public let keyPath: String
 
