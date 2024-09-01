@@ -7,7 +7,7 @@
 
 import UIKit
 
-public struct VATransitionTimings {
+public struct VATransitionTimings: Sendable {
     public let bounds: CAMediaTimingFunctionName
     public let positionX: CAMediaTimingFunctionName
     public let positionY: CAMediaTimingFunctionName
@@ -29,14 +29,14 @@ public struct VATransitionTimings {
     }
 }
 
-public enum VATransitionAnimationAddition {
+public enum VATransitionAnimationAddition: Sendable {
     case `default`
     case skip
     case skipSource
     case skipDestination
 }
 
-public struct VATransitionTimingsAddition {
+public struct VATransitionTimingsAddition: Sendable {
     public let opacity: VATransitionAnimationAddition
 
     public init(opacity: VATransitionAnimationAddition = .default) {
@@ -44,7 +44,7 @@ public struct VATransitionTimingsAddition {
     }
 }
 
-public enum VATransitionAnimation {
+public enum VATransitionAnimation: Sendable {
     case `default`(timings: VATransitionTimings = .init(), additions: VATransitionTimingsAddition = .init())
 }
 
