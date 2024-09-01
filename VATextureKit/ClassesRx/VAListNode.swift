@@ -5,10 +5,19 @@
 //  Created by Volodymyr Andriienko on 27.03.2023.
 //
 
+#if compiler(>=6.0)
+public import AsyncDisplayKit
+public import RxSwift
+public import RxCocoa
+public import VATextureKit
+public import Differentiator
+#else
 import AsyncDisplayKit
-import VATextureKit
 import RxSwift
 import RxCocoa
+import VATextureKit
+import Differentiator
+#endif
 
 /// A subclass of `ASCollectionNode` that provides a configurable declarative list.
 open class VAListNode<S: AnimatableSectionModelType>: ASCollectionNode, ASCollectionDelegate, ASCollectionDelegateFlowLayout, Sendable {
