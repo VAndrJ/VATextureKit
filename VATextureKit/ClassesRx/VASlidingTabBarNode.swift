@@ -5,9 +5,15 @@
 //  Created by Volodymyr Andriienko on 20.03.2024.
 //
 
+#if compiler(>=6.0)
+public import VATextureKit
+public import RxSwift
+public import RxCocoa
+#else
 import VATextureKit
 import RxSwift
 import RxCocoa
+#endif
 
 public protocol VASlidingTab {
     associatedtype TabData
