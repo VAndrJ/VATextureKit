@@ -26,15 +26,15 @@ open class VAButtonNode: VASimpleButtonNode, VACornerable {
         super.init()
     }
 
-    open override func viewDidload() {
-        super.viewDidload()
+    open override func viewDidLoad() {
+        super.viewDidLoad()
 
         updateCornerParameters()
         bind()
     }
 
-    open override func layoutSubviews() {
-        super.layoutSubviews()
+    open override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
 
         updateCornerProportionalIfNeeded()
     }
