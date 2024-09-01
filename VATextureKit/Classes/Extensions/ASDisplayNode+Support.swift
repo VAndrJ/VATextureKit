@@ -5,11 +5,11 @@
 //  Created by Volodymyr Andriienko on 18.02.2023.
 //
 
-import AsyncDisplayKit
+public import AsyncDisplayKit
 
 // MARK: - Filters
 
-public enum VACornerCurve {
+public enum VACornerCurve: Sendable {
     case circular
     case continuous
 
