@@ -18,8 +18,8 @@ open class VABaseGradientNode: VASimpleDisplayNode, @unchecked Sendable {
         self.gradientType = type
     }
 
-    open override func viewDidload() {
-        super.viewDidload()
+    open override func viewDidLoad() {
+        super.viewDidLoad()
 
         layer.type = gradientType
     }
