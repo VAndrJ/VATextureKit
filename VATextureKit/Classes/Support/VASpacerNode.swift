@@ -5,7 +5,7 @@
 //  Created by Volodymyr Andriienko on 29.03.2023.
 //
 
-import AsyncDisplayKit
+public import AsyncDisplayKit
 
 /// Subclass of `ASDisplayNode` designed to provide spacing within layout hierarchies.
 public class VASpacerNode: ASDisplayNode {
