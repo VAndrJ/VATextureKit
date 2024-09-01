@@ -55,9 +55,8 @@ open class VAContainerButtonNode<Node: ASDisplayNode>: VAButtonNode {
         automaticallyManagesSubnodes = true
     }
 
-    @MainActor
-    open override func didLoad() {
-        super.didLoad()
+    open override func viewDidLoad() {
+        super.viewDidLoad()
 
         updateButtonState()
     }
