@@ -344,7 +344,12 @@ open class RxASCollectionSectionedReloadDataSource<S: SectionModelType>: ASColle
     }
 }
 
-extension ASCollectionNode: @preconcurrency HasDelegate {
+#if compiler(>=6.0)
+extension ASCollectionNode: @preconcurrency HasDelegate {}
+#else
+extension ASCollectionNode: HasDelegate {}
+#endif
+extension ASCollectionNode {
     public typealias Delegate = ASCollectionDelegate
 }
 
@@ -565,7 +570,12 @@ open class ASCollectionSectionedDataSource<S: SectionModelType>: NSObject, ASCol
     }
 }
 
-extension ASCollectionNode: @preconcurrency HasDataSource {
+#if compiler(>=6.0)
+extension ASCollectionNode: @preconcurrency HasDataSource {}
+#else
+extension ASCollectionNode: HasDataSource {}
+#endif
+extension ASCollectionNode {
     public typealias DataSource = ASCollectionDataSource
 }
 

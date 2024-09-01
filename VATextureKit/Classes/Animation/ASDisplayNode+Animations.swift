@@ -85,7 +85,12 @@ private final class TransitionWrapper {
 
 public typealias NodeTransitionAnimation = VATransition<ASDisplayNode>
 
-extension ASDisplayNode: @preconcurrency Transformable {
+#if compiler(>=6.0)
+extension ASDisplayNode: @preconcurrency Transformable {}
+#else
+extension ASDisplayNode: Transformable {}
+#endif
+extension ASDisplayNode {
     public var affineTransform: CGAffineTransform {
         get {
             MainActor.assumeIsolated {
@@ -371,7 +376,12 @@ extension Transformable {
     }
 }
 
-extension UIView: @preconcurrency Transformable {
+#if compiler(>=6.0)
+extension UIView: @preconcurrency Transformable {}
+#else
+extension UIView: Transformable {}
+#endif
+extension UIView {
     public var affineTransform: CGAffineTransform {
         get { transform }
         set { transform = newValue }

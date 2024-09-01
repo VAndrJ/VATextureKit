@@ -576,7 +576,12 @@ open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>: 
     }
 }
 
-extension ASTableNode: @preconcurrency HasDelegate {
+#if compiler(>=6.0)
+extension ASTableNode: @preconcurrency HasDelegate {}
+#else
+extension ASTableNode: HasDelegate {}
+#endif
+extension ASTableNode {
     public typealias Delegate = ASTableDelegate
 }
 
@@ -648,7 +653,12 @@ open class RxASTableSectionedReloadDataSource<S: SectionModelType>: ASTableSecti
     }
 }
 
-extension ASTableNode: @preconcurrency HasDataSource {
+#if compiler(>=6.0)
+extension ASTableNode: @preconcurrency HasDataSource {}
+#else
+extension ASTableNode: HasDataSource {}
+#endif
+extension ASTableNode {
     public typealias DataSource = ASTableDataSource
 }
 
