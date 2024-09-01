@@ -5,7 +5,7 @@
 //  Created by Volodymyr Andriienko on 18.02.2023.
 //
 
-import AsyncDisplayKit
+public import AsyncDisplayKit
 
 open class VARadialGradientNode: VABaseGradientNode {
     public enum Gradient {
@@ -27,9 +27,8 @@ open class VARadialGradientNode: VABaseGradientNode {
         self.gradient = gradient
     }
 
-    @MainActor
-    open override func didLoad() {
-        super.didLoad()
+    open override func viewDidLoad() {
+        super.viewDidLoad()
 
         switch gradient {
         case .centered:
