@@ -32,7 +32,7 @@ final class StackLayoutScreenNode: ScrollScreenNode, @unchecked Sendable {
 private class _StackLayoutExampleNode: DisplayNode, @unchecked Sendable {
     private lazy var titleTextNode = getTitleTextNode(
         string: "Stack with 2 elements, second is relatively",
-        selection: ""
+        selection: "relatively"
     )
     private lazy var pairNodes = [
         ASDisplayNode().sized(.init(same: 128)),
@@ -61,7 +61,7 @@ private class _StackLayoutExampleNode: DisplayNode, @unchecked Sendable {
 private class _StackCenteringLayoutExampleNode: DisplayNode, @unchecked Sendable {
     private lazy var titleTextNode = getTitleTextNode(
         string: "Stack with 2 elements, second is centered",
-        selection: ""
+        selection: "centered"
     )
     private lazy var centeringInfoTextNode = VATextNode(
         text: centeringOptions.description,
@@ -116,7 +116,7 @@ private class _StackCenteringLayoutExampleNode: DisplayNode, @unchecked Sendable
 private class _StackPositionsLayoutExampleNode: DisplayNode, @unchecked Sendable {
     private lazy var titleTextNode = getTitleTextNode(
         string: "Stack with 2 elements, second is relatively",
-        selection: ""
+        selection: "relatively"
     )
     private lazy var pairNodes = [
         ASDisplayNode().sized(.init(same: 128)),
