@@ -20,7 +20,7 @@ final class CollectionListDifferentCellsViewModel: @unchecked Sendable {
     
     private var count = 0
     
-    func checkMore() -> Bool {
+    func checkMoreAvailable() -> Bool {
         count < 3
     }
 
@@ -52,7 +52,7 @@ final class CollectionListDifferentCellsViewModel: @unchecked Sendable {
                 ImageNumberCellNodeViewModel(image: testImages.randomElement(), ratio: 2, number: 2),
                 ImageNumberCellNodeViewModel(image: testImages.randomElement(), ratio: 1.0 / 2, number: 3),
             ])
-            if checkMore() {
+            if checkMoreAvailable() {
                 data.append(more ?? LoadingCellNodeViewModel())
             }
             _listDataObs.rx.accept(data)
