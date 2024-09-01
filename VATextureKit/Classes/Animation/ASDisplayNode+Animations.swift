@@ -5,7 +5,7 @@
 //  Created by Volodymyr Andriienko on 02.04.2023.
 //
 
-import AsyncDisplayKit
+public import AsyncDisplayKit
 
 extension ASDisplayNode {
 
@@ -63,7 +63,8 @@ extension ASDisplayNode {
 }
 
 extension ASDisplayNode {
-    @UniquePointerAddress static var transitionKey
+    nonisolated(unsafe) static let transitionKey = malloc(0)!
+
     public var transition: NodeTransitionAnimation {
         get { (objc_getAssociatedObject(self, Self.transitionKey) as? TransitionWrapper)?.transition ?? .identity }
         set { objc_setAssociatedObject(self, Self.transitionKey, TransitionWrapper(newValue), .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
@@ -91,7 +92,9 @@ extension ASDisplayNode: Transformable {
 }
 
 extension VATransition where Base == ASDisplayNode {
+    @MainActor
     public static var opacity: VATransition { .value(\.alpha, 0) }
+    @MainActor
     public static func cornerRadius(_ radius: CGFloat) -> VATransition { .value(\.cornerRadius, radius) }
 }
 
@@ -331,12 +334,18 @@ public func * <F: BinaryFloatingPoint>(_ lhs: F, _ rhs: RelationValue<F>) -> Rel
 }
 
 public protocol Transformable {
+    @MainActor
     var frame: CGRect { get nonmutating set }
+    @MainActor
     var bounds: CGRect { get nonmutating set }
+    @MainActor
     var anchorPoint: CGPoint { get nonmutating set }
+    @MainActor
     var affineTransform: CGAffineTransform { get nonmutating set }
+    @MainActor
     var isLtrDirection: Bool { get }
 
+    @MainActor
     func convert(_ frame: CGRect, to: Self?) -> CGRect
 }
 
@@ -406,7 +415,9 @@ public protocol TransitionModifier {
     associatedtype Value
 
     func matches(other: Self) -> Bool
+    @MainActor
     func set(value: Value, to root: Root)
+    @MainActor
     func value(for root: Root) -> Value
 }
 
@@ -427,6 +438,7 @@ public struct KeyPathModifier<Root, Value>: TransitionModifier {
 }
 
 extension TransitionModifier {
+    @MainActor
     public var any: AnyTransitionModifier<Root> { AnyTransitionModifier(self) }
 
     public func map<T>(_ transform: @escaping (T) -> Root) -> MapTransitionModifier<Self, T> {
@@ -439,6 +451,7 @@ public struct AnyTransitionModifier<Root>: TransitionModifier {
     private let setter: (Any, Root) -> Void
     private let getter: (Root) -> Any
 
+    @MainActor
     public init<T: TransitionModifier>(_ modifier: T) where T.Root == Root {
         isMatch = {
             ($0 as? T).map { modifier.matches(other: $0) } ?? false
@@ -490,6 +503,12 @@ public struct MapTransitionModifier<Base: TransitionModifier, Root>: TransitionM
     }
 }
 
+extension ASDisplayNode: @unchecked Sendable {}
+
+extension CALayer: @unchecked Sendable {}
+
+extension CAMediaTimingFunction: @unchecked Sendable {}
+
 public extension ASDisplayNode {
 
     func setNeedsLayoutAnimated(
@@ -531,7 +550,7 @@ public extension ASDisplayNode {
         continueFromCurrent: Bool = false,
         force: Bool = false,
         spring: CALayer.VASpring? = nil,
-        completion: ((Bool) -> Void)? = nil
+        completion: (@Sendable (Bool) -> Void)? = nil
     ) -> Self {
         ensureOnMain {
             layer.add(
@@ -570,7 +589,7 @@ public extension ASDisplayNode {
         removeOnCompletion: Bool = true,
         autoreverses: Bool = false,
         additive: Bool = false,
-        completion: ((Bool) -> Void)? = nil
+        completion: (@Sendable (Bool) -> Void)? = nil
     ) -> Self {
         ensureOnMain {
             layer.add(
@@ -603,11 +622,11 @@ public extension ASDisplayNode {
     private func disableAllAnimations(layer: CALayer) {
         ensureOnMain {
             layer.removeAllAnimations()
-            layer.sublayers?.forEach(disableAllAnimations(layer:))
+            layer.sublayers?.forEach { disableAllAnimations(layer: $0) }
         }
     }
 
-    func getHasAnimations(_ block: @escaping (Bool) -> Void) {
+    func getHasAnimations(_ block: @Sendable @escaping (Bool) -> Void) {
         ensureOnMain {
             block(layer.hasAnimations)
         }
