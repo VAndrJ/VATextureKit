@@ -5,8 +5,8 @@
 //  Created by Volodymyr Andriienko on 22.03.2023.
 //
 
-import AsyncDisplayKit
-import VATextureKitSpec
+public import AsyncDisplayKit
+public import VATextureKitSpec
 
 open class VANodeController: VAViewController<ASDisplayNode> {
     
