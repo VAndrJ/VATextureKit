@@ -95,12 +95,13 @@ open class VATypingTextNode: VATextNode {
             withTimeInterval: time.interval,
             repeats: true,
             block: { [weak self] _ in
+                guard let self else { return }
                 if isRandomized {
                     mainAsync(after: Int.random(in: 0...time).interval) {
-                        self?.updateTimerTyping()
+                        self.updateTimerTyping()
                     }
                 } else {
-                    self?.updateTimerTyping()
+                    updateTimerTyping()
                 }
             }
         )
