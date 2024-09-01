@@ -5,13 +5,11 @@
 //  Created by Volodymyr Andriienko on 23.07.2023.
 //
 
-// TODO: - Deal with actors
-/*
- #if compiler(>=6.0)
- public import AsyncDisplayKit
- #else
- import AsyncDisplayKit
- #endif
+#if compiler(>=6.0)
+public import AsyncDisplayKit
+#else
+import AsyncDisplayKit
+#endif
 
 // swiftlint:disable all
 public class VADynamicHeightGridListLayoutDelegate: NSObject, ASCollectionLayoutDelegate {
@@ -128,7 +126,7 @@ public class VADynamicHeightGridListLayoutDelegate: NSObject, ASCollectionLayout
             index = key
             shortestHeight = height
         }
-        
+
         return index
     }
 
@@ -203,4 +201,3 @@ public struct VADynamicHeightGridListLayoutInfo {
         self.supportedCellTypes = supportedCellTypes
     }
 }
-*/
