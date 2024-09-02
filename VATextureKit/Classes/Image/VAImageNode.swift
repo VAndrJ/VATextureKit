@@ -12,7 +12,7 @@ import AsyncDisplayKit
 #endif
 
 /// `VAImageNode` is a subclass of `ASImageNode` that provides additional theming capabilities. It allows customization of the image `tintColor` and `backgroundColor` based on the current theme.
-open class VAImageNode: VASimpleImageNode, VACornerable, VAThemeObserver {
+open class VAImageNode: VASimpleImageNode, VACornerable, VAThemeObserver, @unchecked Sendable {
     /// The currently active theme obtained from the app's context.
     public var theme: VATheme { appContext.themeManager.theme }
     /// A closure that provides the tint color based on the current theme.
