@@ -7,7 +7,7 @@
 
 import AsyncDisplayKit
 
-open class VATypingTextNode: VATextNode {
+open class VATypingTextNode: VATextNode, @unchecked Sendable {
     /// Time in milliseconds
     public private(set) var typingTime = 100
     /// Time in milliseconds
