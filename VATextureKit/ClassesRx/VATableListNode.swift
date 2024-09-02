@@ -125,7 +125,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: VASimpleTableNode, @u
         }
     }
     
-    public struct Context {
+    public struct Context: @unchecked Sendable {
         let configuration: Configuration
         let listDataObs: Observable<[S]>
         let onSelect: ((IndexPath) -> Void)?
