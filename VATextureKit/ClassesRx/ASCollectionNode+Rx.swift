@@ -345,7 +345,7 @@ open class RxASCollectionSectionedReloadDataSource<S: SectionModelType>: ASColle
 }
 
 #if compiler(>=6.0)
-extension ASCollectionNode: @preconcurrency HasDelegate {}
+extension ASCollectionNode: @retroactive @preconcurrency HasDelegate {}
 #else
 extension ASCollectionNode: HasDelegate {}
 #endif
@@ -571,7 +571,7 @@ open class ASCollectionSectionedDataSource<S: SectionModelType>: NSObject, ASCol
 }
 
 #if compiler(>=6.0)
-extension ASCollectionNode: @preconcurrency HasDataSource {}
+extension ASCollectionNode: @retroactive HasDataSource {}
 #else
 extension ASCollectionNode: HasDataSource {}
 #endif
@@ -625,4 +625,8 @@ final class RxASCollectionDataSourceProxy: DelegateProxy<ASCollectionNode, ASCol
     }
 }
 
+#if compiler(>=6.0)
+extension Changeset: @retroactive @unchecked Sendable {}
+#else
 extension Changeset: @unchecked Sendable {}
+#endif
