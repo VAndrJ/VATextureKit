@@ -5,11 +5,7 @@
 //  Created by Volodymyr Andriienko on 28.07.2023.
 //
 
-#if compiler(>=6.0)
-public import AsyncDisplayKit
-#else
 import AsyncDisplayKit
-#endif
 
 /// `CAShapeLayer` wrapper node
 open class VAShapeNode: VASimpleDisplayNode, @unchecked Sendable {
