@@ -577,7 +577,7 @@ open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>: 
 }
 
 #if compiler(>=6.0)
-extension ASTableNode: @preconcurrency HasDelegate {}
+extension ASTableNode: @retroactive HasDelegate {}
 #else
 extension ASTableNode: HasDelegate {}
 #endif
@@ -654,7 +654,7 @@ open class RxASTableSectionedReloadDataSource<S: SectionModelType>: ASTableSecti
 }
 
 #if compiler(>=6.0)
-extension ASTableNode: @preconcurrency HasDataSource {}
+extension ASTableNode: @retroactive HasDataSource {}
 #else
 extension ASTableNode: HasDataSource {}
 #endif
