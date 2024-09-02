@@ -11,7 +11,7 @@ public import AsyncDisplayKit
 import AsyncDisplayKit
 #endif
 
-open class VAReadMoreTextNode: VATextNode {
+open class VAReadMoreTextNode: VATextNode, @unchecked Sendable {
     public struct ReadMore {
         let truncationText: String
         let text: String
