@@ -345,7 +345,7 @@ open class RxASCollectionSectionedReloadDataSource<S: SectionModelType>: ASColle
 }
 
 #if compiler(>=6.0)
-extension ASCollectionNode: @retroactive @preconcurrency HasDelegate {}
+extension ASCollectionNode: @retroactive HasDelegate {}
 #else
 extension ASCollectionNode: HasDelegate {}
 #endif
