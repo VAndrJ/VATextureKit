@@ -6,14 +6,12 @@
 //
 
 #if compiler(>=6.0)
-public import VATextureKit
 public import RxSwift
-public import RxCocoa
 #else
-import VATextureKit
 import RxSwift
-import RxCocoa
 #endif
+import VATextureKit
+import RxCocoa
 
 open class VAStateModel<Action, Event, State>: NSObject {
     public let bag = DisposeBag()
