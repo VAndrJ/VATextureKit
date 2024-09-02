@@ -12,7 +12,7 @@ public import SwiftUI
 import SwiftUI
 #endif
 /// A custom `ASDisplayNode` subclass for wrapping SwiftUI `View` with various sizing options.
-open class VAViewHostingNode: VADisplayNode {
+open class VAViewHostingNode: VADisplayNode, @unchecked Sendable {
     @MainActor
     private(set) lazy var hostingController = _LayoutTrackingHostingController(
         rootView: viewGetter(),
