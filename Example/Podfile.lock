@@ -47,18 +47,18 @@ PODS:
   - Texture/Video (3.2.0):
     - Texture/Core
   - VANavigator (2.0.2)
-  - VATextureKit (2.2.0):
+  - VATextureKit (2.2.1):
     - Texture (~> 3.2.0)
-    - VATextureKitSpec (= 2.2.0)
-  - VATextureKitCombine (2.2.0)
-  - VATextureKitRx (2.2.0):
+    - VATextureKitSpec (= 2.2.1)
+  - VATextureKitCombine (2.2.1)
+  - VATextureKitRx (2.2.1):
     - Differentiator (~> 5.0.0)
     - RxCocoa (~> 6.5.0)
     - RxSwift (~> 6.5.0)
     - Texture (~> 3.2.0)
-    - VATextureKit (= 2.2.0)
-    - VATextureKitSpec (= 2.2.0)
-  - VATextureKitSpec (2.2.0):
+    - VATextureKit (= 2.2.1)
+    - VATextureKitSpec (= 2.2.1)
+  - VATextureKitSpec (2.2.1):
     - Texture (~> 3.2.0)
 
 DEPENDENCIES:
@@ -109,10 +109,10 @@ SPEC CHECKSUMS:
   Swiftional: 8eadd8011de7ef752768ce8ed8bf6ff03c95f74c
   Texture: 61e86ea2ee124f545be40293b54b5b8986006da2
   VANavigator: 0a02a9fb322c4bf25147deaea1bce0475a3b835d
-  VATextureKit: e49d17a1550de12200d73dca6ee9ab2168351056
-  VATextureKitCombine: e69f180c5e47f1846efdb2498b8367c4a8ecfa1f
-  VATextureKitRx: 246370334a2351f65df036ba0f518fe462f5ed78
-  VATextureKitSpec: 7122524cf5c87c2232750213ebe6169ee7c8bd52
+  VATextureKit: a434aa5ee968bac04ec66c2b37bbdecf516ddf68
+  VATextureKitCombine: 8fb8d87c73075f1041c10d7a0a3139c6fc156cfc
+  VATextureKitRx: 8cc6d264c75d66dc8fdb271e19e602e855778be7
+  VATextureKitSpec: 46188f698da9b18bf6d1c0cb4c4dd60213443a98
 
 PODFILE CHECKSUM: 3d7fafaca1f450dcfe13429c6dd34801506b139f
 
