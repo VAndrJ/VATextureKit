@@ -11,7 +11,7 @@ public import AsyncDisplayKit
 import AsyncDisplayKit
 #endif
 
-open class VAContainerCellNode<Node: ASDisplayNode>: VACellNode {
+open class VAContainerCellNode<Node: ASDisplayNode>: VACellNode, @unchecked Sendable {
     public let childNode: Node
 
     public init(childNode: Node) {
