@@ -56,7 +56,7 @@ class AppScreenFactory: NavigatorScreenFactory {
                 }
             )
         case _ as AppearanceNavigationIdentity:
-            return AppearanceViewController(viewModel: AppearanceViewModel(themeManager: themeManager))
+            return AppearanceViewController(themeManager: themeManager)
         case _ as ContentSizeNavigationIdentity:
             return ContentSizeNodeController()
         case _ as LinearGradientNavigationIdentity:
@@ -77,7 +77,7 @@ class AppScreenFactory: NavigatorScreenFactory {
         case _ as CollectionListDifferentCellsNavigationIdentity:
             return CollectionListDifferentCellsNodeController(viewModel: CollectionListDifferentCellsViewModel())
         case _ as CollectionListHeaderFooterNavigationIdentity:
-            return VAViewController(node: CollectionListHeaderFooterScreenNode(viewModel: CollectionListHeaderFooterViewModel()))
+            return VAViewController(node: CollectionListHeaderFooterScreenNode())
         case _ as TransitionAnimationNavigationIdentity:
             return VAViewController(node: TransitionAnimationScreenNode(isPresented: false))
                 .withAnimatedTransitionEnabled()
@@ -98,7 +98,7 @@ class AppScreenFactory: NavigatorScreenFactory {
         case _ as ReadMoreTextNavigationIdentity:
             return VAViewController(node: ReadMoreTextScreenNode())
         case _ as PagerControllerNavigationIdentity:
-            return VAViewController(node: PagerScreenNode(viewModel: PagerScreenNodeViewModel()))
+            return VAViewController(node: PagerScreenNode())
         case _ as SlidingTabBarNavigationIdentity:
             return VAViewController(node: SlidingTabBarScreenNode())
         case _ as LinkTextNavigationIdentity:
@@ -122,7 +122,7 @@ class AppScreenFactory: NavigatorScreenFactory {
         case _ as ElementsScrollingAnimationListNavigationIdentity:
             return ElementsScrollingAnimationListNodeController()
         case _ as MainNavigationIdentity:
-            return MainNodeController(viewModel: MainViewModel(navigator: navigator as? AppNavigator))
+            return MainNodeController(navigator: navigator)
         case _ as EmitterLayerAnimationNavigationIdentity:
             return VAViewController(node: EmitterLayerAnimationScreenNode())
         case _ as SelfSizingListNavigationIdentity:

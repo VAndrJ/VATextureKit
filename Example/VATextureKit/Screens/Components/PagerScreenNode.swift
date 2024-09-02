@@ -12,6 +12,13 @@ import RxCocoa
 
 struct PagerControllerNavigationIdentity: DefaultNavigationIdentity {}
 
+extension PagerScreenNode {
+
+    convenience init() {
+        self.init(viewModel: .init())
+    }
+}
+
 final class PagerScreenNode: ScreenNode, @unchecked Sendable {
     private lazy var pagerNode = VAPagerNode(data: .init(
         itemsObs: viewModel.pagerItemsObs,

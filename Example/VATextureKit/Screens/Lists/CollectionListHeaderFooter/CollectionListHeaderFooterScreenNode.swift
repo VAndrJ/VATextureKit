@@ -10,6 +10,13 @@ import VATextureKitRx
 
 struct CollectionListHeaderFooterNavigationIdentity: DefaultNavigationIdentity {}
 
+extension CollectionListHeaderFooterScreenNode {
+
+    convenience init() {
+        self.init(viewModel: .init())
+    }
+}
+
 final class CollectionListHeaderFooterScreenNode: ScreenNode, @unchecked Sendable {
     private lazy var leftListNode = VAListNode(
         context: .init(

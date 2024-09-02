@@ -12,6 +12,13 @@ struct MainNavigationIdentity: DefaultNavigationIdentity {}
 
 // MARK: - ViewController as a View axample
 
+extension MainNodeController {
+
+    convenience init(navigator: Navigator) {
+        self.init(viewModel: .init(navigator: navigator as? AppNavigator))
+    }
+}
+
 final class MainNodeController: VANodeController, @unchecked Sendable {
     private lazy var listNode = VATableListNode(data: .init(
         listDataObs: viewModel.listDataObs,
