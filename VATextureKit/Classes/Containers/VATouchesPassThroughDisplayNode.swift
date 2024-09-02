@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class VATouchesPassThroughDisplayNode: VADisplayNode {
+open class VATouchesPassThroughDisplayNode: VADisplayNode, @unchecked Sendable {
     
     override public func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         if let view = super.hitTest(point, with: event), view != self.view {
