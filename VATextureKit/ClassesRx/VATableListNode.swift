@@ -200,23 +200,27 @@ open class VATableListNode<S: AnimatableSectionModelType>: VASimpleTableNode, @u
 
         // MARK: - ASTableDelegate
 
-        public func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
+        nonisolated public func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
             context.shouldBatchFetch?() ?? false
         }
 
-        public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-            if let getter = context.sectionHeaderGetter, let section = source?[safe: section] {
-                return VANodeWrapperView(contentNode: getter(section))
-            } else {
-                return nil
+        nonisolated public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+            MainActor.assumeIsolated {
+                if let getter = context.sectionHeaderGetter, let section = source?[safe: section] {
+                    return VANodeWrapperView(contentNode: getter(section))
+                } else {
+                    return nil
+                }
             }
         }
 
-        public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-            if let getter = context.sectionFooterGetter, let section = source?[safe: section] {
-                return VANodeWrapperView(contentNode: getter(section))
-            } else {
-                return nil
+        nonisolated public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+            MainActor.assumeIsolated {
+                if let getter = context.sectionFooterGetter, let section = source?[safe: section] {
+                    return VANodeWrapperView(contentNode: getter(section))
+                } else {
+                    return nil
+                }
             }
         }
 
