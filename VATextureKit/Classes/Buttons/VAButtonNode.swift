@@ -5,14 +5,10 @@
 //  Created by Volodymyr Andriienko on 25.02.2023.
 //
 
-#if compiler(>=6.0)
-public import AsyncDisplayKit
-#else
 import AsyncDisplayKit
-#endif
 
 /// `VAButtonNode` is a subclass of `ASButtonNode` that provides additional functionality for handling button taps.
-open class VAButtonNode: VASimpleButtonNode, VACornerable {
+open class VAButtonNode: VASimpleButtonNode, VACornerable, @unchecked Sendable {
     /// A closure that gets executed when the button is tapped. Use either `onTap` closure or `func onTap` function, but not both.
     public var onTap: (() -> Void)?
     /// The corner rounding configuration for the node.
