@@ -282,7 +282,7 @@ open class _VATextNode: ASTextNode, @unchecked Sendable {
 }
 #endif
 
-open class VABaseTextNode: _VATextNode, VAThemeObserver, VAContentSizeObserver {
+open class VABaseTextNode: _VATextNode, VAThemeObserver, VAContentSizeObserver, @unchecked Sendable {
     /// The currently active theme obtained from the app's context.
     public var theme: VATheme { appContext.themeManager.theme }
 

@@ -8,7 +8,7 @@
 import AsyncDisplayKit
 
 /// A custom ASDisplayNode subclass for wrapping `UIView`s with various sizing options.
-open class VAViewWrapperNode<T: UIView>: VADisplayNode {
+open class VAViewWrapperNode<T: UIView>: VADisplayNode, @unchecked Sendable {
     public enum Sizing {
         case inheritedHeight
         case inheritedWidth

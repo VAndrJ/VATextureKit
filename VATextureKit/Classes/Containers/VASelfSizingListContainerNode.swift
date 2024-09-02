@@ -11,7 +11,7 @@ public import AsyncDisplayKit
 import AsyncDisplayKit
 #endif
 
-open class VASelfSizingListContainerNode<ListNode: ASCollectionNode>: VADisplayNode {
+open class VASelfSizingListContainerNode<ListNode: ASCollectionNode>: VADisplayNode, @unchecked Sendable {
     public enum Direction {
         case vertical
         case horizontal

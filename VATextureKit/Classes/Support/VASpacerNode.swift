@@ -12,7 +12,7 @@ import AsyncDisplayKit
 #endif
 
 /// Subclass of `ASDisplayNode` designed to provide spacing within layout hierarchies.
-public class VASpacerNode: ASDisplayNode {
+public class VASpacerNode: ASDisplayNode, @unchecked Sendable {
 
     public override init() {
         super.init()

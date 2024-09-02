@@ -70,9 +70,18 @@ public extension ASSizeRange {
     }
 }
 
-extension ASSizeRange: Equatable {
+#if compiler(>=6.0)
+extension ASSizeRange: @retroactive Equatable {
     
     public static func == (lhs: ASSizeRange, rhs: ASSizeRange) -> Bool {
         lhs.min == rhs.min && lhs.max == rhs.max
     }
 }
+#else
+extension ASSizeRange: Equatable {
+
+    public static func == (lhs: ASSizeRange, rhs: ASSizeRange) -> Bool {
+        lhs.min == rhs.min && lhs.max == rhs.max
+    }
+}
+#endif

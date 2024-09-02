@@ -8,7 +8,7 @@
 import AsyncDisplayKit
 
 /// `CAEmitterLayer` wrapper node.
-open class VAEmitterNode: VADisplayNode {
+open class VAEmitterNode: VADisplayNode, @unchecked Sendable {
     public var onAnimationsEnded: (() -> Void)?
     public var isStarted: Bool { token != nil }
     public private(set) var emitterPosition: CGPoint = .zero
@@ -103,7 +103,7 @@ open class VAEmitterNode: VADisplayNode {
 }
 
 /// `CAEmitterLayer` subclass with useful additions.
-open class VAEmitterLayer: CAEmitterLayer {
+open class VAEmitterLayer: CAEmitterLayer, @unchecked Sendable {
     public enum AttractorType: String {
         case radial
         case axial

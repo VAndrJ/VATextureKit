@@ -7,7 +7,7 @@
 
 import AsyncDisplayKit
 
-open class VADisplayNode: VASimpleDisplayNode, VACornerable, VAThemeObserver {
+open class VADisplayNode: VASimpleDisplayNode, VACornerable, VAThemeObserver, @unchecked Sendable {
     /// The currently active theme obtained from the app's context.
     public var theme: VATheme { appContext.themeManager.theme }
     /// The corner rounding configuration for the node.

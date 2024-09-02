@@ -8,7 +8,7 @@
 import AsyncDisplayKit
 
 /// `VAShimmerTileNode` is a subclass of `VADisplayNode` designed for creating shimmering tile-like UI components with customizable background colors.
-open class VAShimmerTileNode: VADisplayNode {
+open class VAShimmerTileNode: VADisplayNode, @unchecked Sendable {
     /// A closure that determines the background color based on the current theme.
     let backgroundColorGetter: (VATheme) -> UIColor
 

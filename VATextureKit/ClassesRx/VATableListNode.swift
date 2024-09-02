@@ -8,18 +8,17 @@
 #if compiler(>=6.0)
 public import AsyncDisplayKit
 public import RxSwift
-public import RxCocoa
 public import VATextureKit
 public import Differentiator
 #else
 import AsyncDisplayKit
 import RxSwift
-import RxCocoa
 import VATextureKit
 import Differentiator
 #endif
+import RxCocoa
 
-open class VATableListNode<S: AnimatableSectionModelType>: VASimpleTableNode {
+open class VATableListNode<S: AnimatableSectionModelType>: VASimpleTableNode, @unchecked Sendable {
     public struct SeparatorConfiguration {
         let color: UIColor?
         let style: UITableViewCell.SeparatorStyle
@@ -126,7 +125,7 @@ open class VATableListNode<S: AnimatableSectionModelType>: VASimpleTableNode {
         }
     }
     
-    public struct Context {
+    public struct Context: @unchecked Sendable {
         let configuration: Configuration
         let listDataObs: Observable<[S]>
         let onSelect: ((IndexPath) -> Void)?
@@ -201,23 +200,27 @@ open class VATableListNode<S: AnimatableSectionModelType>: VASimpleTableNode {
 
         // MARK: - ASTableDelegate
 
-        public func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
+        nonisolated public func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
             context.shouldBatchFetch?() ?? false
         }
 
-        public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-            if let getter = context.sectionHeaderGetter, let section = source?[safe: section] {
-                return VANodeWrapperView(contentNode: getter(section))
-            } else {
-                return nil
+        nonisolated public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+            MainActor.assumeIsolated {
+                if let getter = context.sectionHeaderGetter, let section = source?[safe: section] {
+                    return VANodeWrapperView(contentNode: getter(section))
+                } else {
+                    return nil
+                }
             }
         }
 
-        public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-            if let getter = context.sectionFooterGetter, let section = source?[safe: section] {
-                return VANodeWrapperView(contentNode: getter(section))
-            } else {
-                return nil
+        nonisolated public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+            MainActor.assumeIsolated {
+                if let getter = context.sectionFooterGetter, let section = source?[safe: section] {
+                    return VANodeWrapperView(contentNode: getter(section))
+                } else {
+                    return nil
+                }
             }
         }
 

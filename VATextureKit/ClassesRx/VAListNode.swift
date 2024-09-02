@@ -8,19 +8,18 @@
 #if compiler(>=6.0)
 public import AsyncDisplayKit
 public import RxSwift
-public import RxCocoa
 public import VATextureKit
 public import Differentiator
 #else
 import AsyncDisplayKit
 import RxSwift
-import RxCocoa
 import VATextureKit
 import Differentiator
 #endif
+import RxCocoa
 
 /// A subclass of `ASCollectionNode` that provides a configurable declarative list.
-open class VAListNode<S: AnimatableSectionModelType>: VASimpleCollectionNode, ASCollectionDelegate, ASCollectionDelegateFlowLayout, Sendable {
+open class VAListNode<S: AnimatableSectionModelType>: VASimpleCollectionNode, ASCollectionDelegate, ASCollectionDelegateFlowLayout, @unchecked Sendable {
     public struct IndicatorConfiguration {
         let showsVerticalScrollIndicator: Bool
         let showsHorizontalScrollIndicator: Bool
@@ -504,6 +503,12 @@ public extension ASCollectionNode {
     }
 }
 
+#if compiler(>=6.0)
+extension String: @retroactive IdentifiableType {
+    public var identity: String { self }
+}
+#else
 extension String: IdentifiableType {
     public var identity: String { self }
 }
+#endif

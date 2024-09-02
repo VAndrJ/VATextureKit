@@ -26,7 +26,7 @@ public enum VALineHeight {
     case custom(_ heightGetter: (_ pointSize: CGFloat) -> CGFloat)
 }
 
-open class VATextNode: VABaseTextNode {
+open class VATextNode: VABaseTextNode, @unchecked Sendable {
     public struct SecondaryAttributes {
         let strings: [String]
         let fontGetter: ((_ contentSize: UIContentSizeCategory, _ theme: VATheme) -> UIFont)?

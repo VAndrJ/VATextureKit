@@ -12,7 +12,7 @@ import AsyncDisplayKit
 #endif
 import VATextureKitSpec
 
-open class VAComparisonNode: VADisplayNode {
+open class VAComparisonNode: VADisplayNode, @unchecked Sendable {
     public enum Order {
         case first
         case second

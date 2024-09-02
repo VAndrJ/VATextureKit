@@ -85,11 +85,8 @@ private final class TransitionWrapper {
 
 public typealias NodeTransitionAnimation = VATransition<ASDisplayNode>
 
-#if compiler(>=6.0)
-extension ASDisplayNode: @preconcurrency Transformable {}
-#else
 extension ASDisplayNode: Transformable {}
-#endif
+
 extension ASDisplayNode {
     public var affineTransform: CGAffineTransform {
         get {
@@ -376,11 +373,8 @@ extension Transformable {
     }
 }
 
-#if compiler(>=6.0)
-extension UIView: @preconcurrency Transformable {}
-#else
 extension UIView: Transformable {}
-#endif
+
 extension UIView {
     public var affineTransform: CGAffineTransform {
         get { transform }
@@ -517,12 +511,6 @@ public struct MapTransitionModifier<Base: TransitionModifier, Root>: TransitionM
         base.value(for: map(root))
     }
 }
-
-extension ASDisplayNode: @unchecked Sendable {}
-
-extension CALayer: @unchecked Sendable {}
-
-extension CAMediaTimingFunction: @unchecked Sendable {}
 
 public extension ASDisplayNode {
 

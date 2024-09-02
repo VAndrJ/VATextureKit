@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class VAMaterialVisualEffectNode: VANeonVisualEffectNode {
+open class VAMaterialVisualEffectNode: VANeonVisualEffectNode, @unchecked Sendable {
     public enum Style: Int, Sendable {
         case ultraThinMaterial = 6
         case thinMaterial = 7
@@ -37,7 +37,7 @@ open class VAMaterialVisualEffectNode: VANeonVisualEffectNode {
     }
 }
 
-open class VANeonVisualEffectNode: VAViewWrapperNode<VANeonVisualEffectView> {
+open class VANeonVisualEffectNode: VAViewWrapperNode<VANeonVisualEffectView>, @unchecked Sendable {
 
     public init(effect: @MainActor @escaping () -> UIVisualEffect?, context: VANeonVisualEffectView.Context) {
         super.init(

@@ -8,12 +8,11 @@
 #if compiler(>=6.0)
 public import AsyncDisplayKit
 public import RxSwift
-public import RxCocoa
 #else
 import AsyncDisplayKit
 import RxSwift
-import RxCocoa
 #endif
+import RxCocoa
 import VATextureKit
 
 public protocol VAHapticable {}

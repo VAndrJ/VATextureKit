@@ -201,7 +201,7 @@ private final class _ContentNodeView<Node: ASDisplayNode>: UILabel { // To use `
     }
 }
 
-private final class _WrapperNode: ASDisplayNode {
+private final class _WrapperNode: ASDisplayNode, @unchecked Sendable {
     private let wrappedNode: ASDisplayNode
 
     init(wrappedNode: ASDisplayNode) {

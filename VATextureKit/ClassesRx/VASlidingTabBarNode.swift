@@ -8,12 +8,11 @@
 #if compiler(>=6.0)
 public import VATextureKit
 public import RxSwift
-public import RxCocoa
 #else
 import VATextureKit
 import RxSwift
-import RxCocoa
 #endif
+import RxCocoa
 
 public protocol VASlidingTab {
     associatedtype TabData
@@ -23,7 +22,7 @@ public protocol VASlidingTab {
     func update(intersection: CGRect)
 }
 
-open class VASlidingTabBarNode<TabData>: VAScrollNode {
+open class VASlidingTabBarNode<TabData>: VAScrollNode, @unchecked Sendable {
     public struct Context {
         let data: [TabData]
         let spacing: CGFloat
@@ -135,7 +134,7 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode {
     }
 }
 
-final class VASlidingIndicatorContainerNode: VADisplayNode {
+final class VASlidingIndicatorContainerNode: VADisplayNode, @unchecked Sendable {
     var targetIndicatorFrame: CGRect = .zero {
         didSet { setNeedsLayout() }
     }

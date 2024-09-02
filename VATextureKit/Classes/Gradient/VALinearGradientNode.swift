@@ -11,7 +11,7 @@ public import AsyncDisplayKit
 import AsyncDisplayKit
 #endif
 
-open class VALinearGradientNode: VABaseGradientNode {
+open class VALinearGradientNode: VABaseGradientNode, @unchecked Sendable {
     public enum Diagonal: CaseIterable {
         case topLeftToBottomRight
         case topRightToBottomLeft
