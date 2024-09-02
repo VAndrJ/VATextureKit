@@ -12,7 +12,7 @@ import AsyncDisplayKit
 #endif
 
 /// `VAContainerButtonNode` is a subclass of `VAButtonNode` that includes a child node and handles button state changes.
-open class VAContainerButtonNode<Node: ASDisplayNode>: VAButtonNode {
+open class VAContainerButtonNode<Node: ASDisplayNode>: VAButtonNode, @unchecked Sendable {
     /// The child node to be displayed within the container button.
     public let child: Node
     /// The insets to apply around the child node.
