@@ -7,15 +7,13 @@
 
 #if compiler(>=6.0)
 public import AsyncDisplayKit
-public import RxSwift
-public import RxCocoa
 public import Differentiator
 #else
 import AsyncDisplayKit
-import RxSwift
-import RxCocoa
 import Differentiator
 #endif
+import RxSwift
+import RxCocoa
 import VATextureKit
 
 /// Provides custom animation styles for insertion, deletion, and reloading behavior.
