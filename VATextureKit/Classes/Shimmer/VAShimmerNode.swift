@@ -7,7 +7,7 @@
 
 import AsyncDisplayKit
 
-open class VAShimmerNode: VADisplayNode {
+open class VAShimmerNode: VADisplayNode, @unchecked Sendable {
     public struct Context {
         let isAcrossWindow: Bool
         let isSynchronized: Bool
