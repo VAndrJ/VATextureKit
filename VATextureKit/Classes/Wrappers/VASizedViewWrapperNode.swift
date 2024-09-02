@@ -18,7 +18,7 @@ public enum WrapperNodeSizing {
 }
 
 /// A custom `ASDisplayNode` subclass for wrapping autolayout and self-sizing `UIView`s with various sizing options.
-open class VASizedViewWrapperNode<T: UIView>: VADisplayNode {
+open class VASizedViewWrapperNode<T: UIView>: VADisplayNode, @unchecked Sendable {
     /// The wrapped UIView instance.
     @MainActor
     public private(set) lazy var child: T = childGetter()
