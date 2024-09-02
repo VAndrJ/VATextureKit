@@ -53,6 +53,12 @@ public extension ASDisplayNode {
     }
 }
 
+#if compiler(>=6.0)
+extension ASDisplayNode: @retroactive @unchecked Sendable {}
+#else
+extension ASDisplayNode: @unchecked Sendable {}
+#endif
+
 public extension ASDisplayNode {
 
     enum BlendMode: String, CaseIterable {
