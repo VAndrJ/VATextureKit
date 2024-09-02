@@ -11,7 +11,7 @@ public import AsyncDisplayKit
 import AsyncDisplayKit
 #endif
 
-open class VAScrollNode: VASimpleScrollNode {
+open class VAScrollNode: VASimpleScrollNode, @unchecked Sendable {
     public struct Context {
         let scrollableDirections: ASScrollDirection
         let alwaysBounceVertical: Bool
