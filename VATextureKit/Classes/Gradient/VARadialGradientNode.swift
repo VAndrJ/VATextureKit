@@ -11,7 +11,7 @@ public import AsyncDisplayKit
 import AsyncDisplayKit
 #endif
 
-open class VARadialGradientNode: VABaseGradientNode {
+open class VARadialGradientNode: VABaseGradientNode, @unchecked Sendable {
     public enum Gradient {
         case centered
         case topLeft
