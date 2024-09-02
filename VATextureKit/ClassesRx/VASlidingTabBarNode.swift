@@ -5,14 +5,20 @@
 //  Created by Volodymyr Andriienko on 20.03.2024.
 //
 
+#if compiler(>=6.0)
+public import VATextureKit
+public import RxSwift
+public import RxCocoa
+#else
 import VATextureKit
 import RxSwift
 import RxCocoa
+#endif
 
 public protocol VASlidingTab {
     associatedtype TabData
 
-    init(data: TabData, onSelect: @escaping () -> Void)
+    init(data: TabData, onSelect: @MainActor @escaping () -> Void)
 
     func update(intersection: CGRect)
 }
@@ -24,9 +30,9 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode {
         let contentInset: UIEdgeInsets
         let indicatorInset: CGFloat
         let color: (VATheme) -> UIColor
-        let item: (_ data: TabData, _ onSelect: @escaping () -> Void) -> any ASDisplayNode & VASlidingTab
+        let item: (_ data: TabData, _ onSelect: @MainActor @escaping () -> Void) -> any ASDisplayNode & VASlidingTab
         let indexObs: Observable<CGFloat>
-        let onSelect: (Int) -> Void
+        let onSelect: @MainActor (Int) -> Void
 
         public init(
             data: [TabData],
@@ -36,7 +42,7 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode {
             color: @escaping (VATheme) -> UIColor,
             item: @escaping (TabData, @escaping () -> Void) -> any ASDisplayNode & VASlidingTab,
             indexObs: Observable<CGFloat>,
-            onSelect: @escaping (Int) -> Void
+            onSelect: @MainActor @escaping (Int) -> Void
         ) {
             self.data = data
             self.spacing = spacing
@@ -67,8 +73,8 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode {
         ))
     }
 
-    open override func didLoad() {
-        super.didLoad()
+    open override func viewDidLoad() {
+        super.viewDidLoad()
 
         bind()
     }

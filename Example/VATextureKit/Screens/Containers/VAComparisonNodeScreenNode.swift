@@ -10,7 +10,7 @@ import VATextureKit
 
 struct VAComparisonNodeIdentity: DefaultNavigationIdentity {}
 
-class VAComparisonNodeScreenNode: ScreenNode {
+class VAComparisonNodeScreenNode: ScreenNode, @unchecked Sendable {
     private lazy var comparisonNode = VAComparisonNode(
         firstNode: ImageCellNode(viewModel: .init(image: testImages.randomElement())),
         secondNode: ImageNumberCellNode(viewModel: .init(image: testImages.randomElement(), number: 2))

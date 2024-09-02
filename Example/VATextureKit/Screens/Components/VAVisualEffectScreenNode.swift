@@ -7,10 +7,12 @@
 //
 
 import VATextureKitRx
+import RxSwift
+import RxCocoa
 
 struct VAVisualEffectIdentity: DefaultNavigationIdentity {}
 
-class VAVisualEffectScreenNode: ScreenNode {
+class VAVisualEffectScreenNode: ScreenNode, @unchecked Sendable {
     private lazy var imageNode = VAImageNode(
         image: .init(resource: .moon),
         contentMode: .scaleAspectFill
@@ -72,7 +74,7 @@ class VAVisualEffectScreenNode: ScreenNode {
     }
 }
 
-private class _SliderNode: VADisplayNode {
+private class _SliderNode: VADisplayNode, @unchecked Sendable {
     struct Context {
         var minimumValue: Float = 0
         var maximumValue: Float = 1
@@ -90,7 +92,7 @@ private class _SliderNode: VADisplayNode {
 
     init(context: Context) {
         self.sliderNode = .init(
-            actorChildGetter: {
+            childGetter: {
                 UISlider().apply {
                     $0.minimumValue = context.minimumValue
                     $0.maximumValue = context.maximumValue
@@ -114,7 +116,7 @@ private class _SliderNode: VADisplayNode {
     }
 }
 
-private class _EffectDemonstrationNode: VADisplayNode {
+private class _EffectDemonstrationNode: VADisplayNode, @unchecked Sendable {
     let effectNode: VAMaterialVisualEffectNode
 
     private let textNode: VATextNode

@@ -10,7 +10,7 @@ import VATextureKit
 
 struct LayerAnimationNavigationIdentity: DefaultNavigationIdentity {}
 
-final class LayerAnimationScreenNode: ScrollScreenNode {
+final class LayerAnimationScreenNode: ScrollScreenNode, @unchecked Sendable {
     private lazy var boundsAnimationExampleNode = _BoundsAnimationExampleNode()
     private lazy var opacityAnimationExampleNode = _OpacityAnimationExampleNode()
     private lazy var scaleAnimationExampleNode = _ScaleAnimationExampleNode()
@@ -35,7 +35,7 @@ final class LayerAnimationScreenNode: ScrollScreenNode {
     }
 }
 
-private class _CornerRadiusAnimationExampleNode: DisplayNode {
+private class _CornerRadiusAnimationExampleNode: DisplayNode, @unchecked Sendable {
     private lazy var exampleNode = VADisplayNode()
         .sized(width: 100, height: 40)
     private lazy var buttonNode = HapticButtonNode(title: "Toggle corner radius")
@@ -69,7 +69,7 @@ private class _CornerRadiusAnimationExampleNode: DisplayNode {
     }
 }
 
-private class _RotationAnimationExampleNode: DisplayNode {
+private class _RotationAnimationExampleNode: DisplayNode, @unchecked Sendable {
     private lazy var exampleNode = VAImageNode(
         image: .init(resource: .chevronRight),
         size: .init(same: 50),
@@ -107,7 +107,7 @@ private class _RotationAnimationExampleNode: DisplayNode {
     }
 }
 
-private class _ScaleAnimationExampleNode: DisplayNode {
+private class _ScaleAnimationExampleNode: DisplayNode, @unchecked Sendable {
     private lazy var exampleNode = VADisplayNode()
         .sized(height: 20)
     private lazy var  buttonNode = HapticButtonNode(title: "Toggle scale")
@@ -141,7 +141,7 @@ private class _ScaleAnimationExampleNode: DisplayNode {
     }
 }
 
-private class _ColorAnimationExampleNode: DisplayNode {
+private class _ColorAnimationExampleNode: DisplayNode, @unchecked Sendable {
     private lazy var exampleNode = VADisplayNode()
         .sized(height: 20)
     private lazy var buttonNode = HapticButtonNode(title: "Toggle color")
@@ -175,7 +175,7 @@ private class _ColorAnimationExampleNode: DisplayNode {
     }
 }
 
-private class _OpacityAnimationExampleNode: DisplayNode {
+private class _OpacityAnimationExampleNode: DisplayNode, @unchecked Sendable {
     private lazy var exampleNode = VADisplayNode()
         .sized(height: 20)
     private lazy var buttonNode = HapticButtonNode(title: "Toggle opacity")
@@ -209,7 +209,7 @@ private class _OpacityAnimationExampleNode: DisplayNode {
     }
 }
 
-private class _BoundsAnimationExampleNode: DisplayNode {
+private class _BoundsAnimationExampleNode: DisplayNode, @unchecked Sendable {
     private lazy var heightNode = VADisplayNode()
         .sized(width: 100, height: isToggled ? 100 : 20)
     private lazy var widthNode = VADisplayNode()
@@ -233,7 +233,7 @@ private class _BoundsAnimationExampleNode: DisplayNode {
             )
             heightNode.style.height = .points(isToggled ? 100 : 20)
             widthNode.style.width = .points(isToggled ? 20 : 100)
-            setNeedsLayoutAnimated(isWithSupernodes: true)
+            setNeedsLayoutAnimated(withSupernode: true)
         }
     }
 
@@ -248,8 +248,7 @@ private class _BoundsAnimationExampleNode: DisplayNode {
         }
     }
 
-    @MainActor
-    override func animateLayoutTransition(_ context: any ASContextTransitioning) {
+    override func viewDidAnimateLayoutTransition(_ context: any ASContextTransitioning) {
         animateLayoutTransition(context: context)
     }
 

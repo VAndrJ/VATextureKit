@@ -39,7 +39,7 @@ open class VAAlertController: UIAlertController, VAThemeObserver {
             preferredStyle: preferredStyle
         )
 
-        actions.forEach(addAction(_:))
+        actions.forEach { addAction($0) }
     }
     
     open override func viewDidLoad() {
@@ -54,8 +54,10 @@ open class VAAlertController: UIAlertController, VAThemeObserver {
         setNeedsStatusBarAppearanceUpdate()
     }
 
-    public func themeDidChanged(to newValue: VATheme) {
-        configureTheme(newValue)
+    nonisolated public func themeDidChanged(to newValue: VATheme) {
+        Task { @MainActor in
+            configureTheme(newValue)
+        }
     }
 
     deinit {

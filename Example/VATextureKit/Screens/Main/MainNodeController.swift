@@ -12,7 +12,14 @@ struct MainNavigationIdentity: DefaultNavigationIdentity {}
 
 // MARK: - ViewController as a View axample
 
-final class MainNodeController: VANodeController {
+extension MainNodeController {
+
+    convenience init(navigator: Navigator) {
+        self.init(viewModel: .init(navigator: navigator as? AppNavigator))
+    }
+}
+
+final class MainNodeController: VANodeController, @unchecked Sendable {
     private lazy var listNode = VATableListNode(data: .init(
         listDataObs: viewModel.listDataObs,
         onSelect: viewModel ?>> { $0.didSelect(indexPath:) },

@@ -11,6 +11,8 @@ import XCTest
 import VATextureKitRx
 import RxBlocking
 import Combine
+import RxSwift
+import RxCocoa
 
 class PublisherToObservableTests: XCTestCase {
 

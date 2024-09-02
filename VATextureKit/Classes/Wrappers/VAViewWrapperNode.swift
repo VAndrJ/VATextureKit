@@ -24,34 +24,6 @@ open class VAViewWrapperNode<T: UIView>: VADisplayNode {
 
     private let childGetter: @MainActor () -> T
     private let sizing: Sizing?
-
-    /// Creates an instance.
-    ///
-    /// - Parameters:
-    ///   - actorChildGetter: A closure returning the UIView instance to be wrapped.
-    ///   - sizing: The sizing option to apply to the wrapped view.
-    ///   - corner: Corner parameters.
-    public init(
-        actorChildGetter: @MainActor @escaping () -> T,
-        sizing: Sizing? = nil,
-        corner: VACornerRoundingParameters = .default
-    ) {
-        self.sizing = sizing
-        self.childGetter = actorChildGetter
-
-        super.init(corner: corner)
-
-        switch sizing {
-        case let .fixedWidth(width):
-            style.width = .points(width)
-        case let .fixedHeight(height):
-            style.height = .points(height)
-        case let .fixedSize(size):
-            style.preferredSize = size
-        default:
-            break
-        }
-    }
     
     /// Creates an instance.
     ///
@@ -60,7 +32,7 @@ open class VAViewWrapperNode<T: UIView>: VADisplayNode {
     ///   - sizing: The sizing option to apply to the wrapped view.
     ///   - corner: Corner parameters.
     public init(
-        childGetter: @escaping () -> T,
+        childGetter: @MainActor @escaping () -> T,
         sizing: Sizing? = nil,
         corner: VACornerRoundingParameters = .default
     ) {
@@ -81,9 +53,8 @@ open class VAViewWrapperNode<T: UIView>: VADisplayNode {
         }
     }
 
-    @MainActor
-    open override func didLoad() {
-        super.didLoad()
+    open override func viewDidLoad() {
+        super.viewDidLoad()
 
         var needsLayout = false
         switch sizing {
@@ -105,9 +76,8 @@ open class VAViewWrapperNode<T: UIView>: VADisplayNode {
         }
     }
 
-    @MainActor
-    open override func layout() {
-        super.layout()
+    open override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
 
         child.frame = bounds
     }

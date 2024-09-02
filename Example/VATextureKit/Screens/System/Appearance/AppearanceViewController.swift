@@ -10,6 +10,13 @@ import VATextureKit
 
 struct AppearanceNavigationIdentity: DefaultNavigationIdentity {}
 
+extension AppearanceViewController {
+
+    convenience init(themeManager: ThemeManager) {
+        self.init(viewModel: .init(themeManager: themeManager))
+    }
+}
+
 // MARK: - ViewController with Node example
 
 final class AppearanceViewController: VAViewController<AppearanceContollerNode> {

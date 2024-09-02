@@ -7,7 +7,7 @@
 
 import AsyncDisplayKit
 
-open class VADisplayNode: ASDisplayNode, VACornerable, VAThemeObserver {
+open class VADisplayNode: VASimpleDisplayNode, VACornerable, VAThemeObserver {
     /// The currently active theme obtained from the app's context.
     public var theme: VATheme { appContext.themeManager.theme }
     /// The corner rounding configuration for the node.
@@ -31,9 +31,8 @@ open class VADisplayNode: ASDisplayNode, VACornerable, VAThemeObserver {
         configureLayoutElements()
     }
 
-    @MainActor
-    open override func didLoad() {
-        super.didLoad()
+    open override func viewDidLoad() {
+        super.viewDidLoad()
 
         updateCornerParameters()
         if overrides(#selector(configureTheme(_:))) {
@@ -47,9 +46,8 @@ open class VADisplayNode: ASDisplayNode, VACornerable, VAThemeObserver {
         #endif
     }
 
-    @MainActor
-    open override func didEnterDisplayState() {
-        super.didEnterDisplayState()
+    open override func viewDidEnterDisplayState() {
+        super.viewDidEnterDisplayState()
 
         if shouldConfigureTheme {
             configureTheme(theme)
@@ -57,9 +55,8 @@ open class VADisplayNode: ASDisplayNode, VACornerable, VAThemeObserver {
         }
     }
 
-    @MainActor
-    open override func layout() {
-        super.layout()
+    open override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
 
         updateCornerProportionalIfNeeded()
     }
@@ -71,10 +68,11 @@ open class VADisplayNode: ASDisplayNode, VACornerable, VAThemeObserver {
     @MainActor
     @objc open func configureTheme(_ theme: VATheme) {}
 
-    @MainActor
     public func themeDidChanged(to newValue: VATheme) {
         if isInDisplayState {
-            configureTheme(newValue)
+            Task { @MainActor in
+                configureTheme(newValue)
+            }
         } else {
             shouldConfigureTheme = true
         }

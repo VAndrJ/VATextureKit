@@ -10,7 +10,7 @@ import VATextureKit
 
 struct LinearGradientNavigationIdentity: DefaultNavigationIdentity {}
 
-final class LinearGradientScreenNode: ScrollScreenNode {
+final class LinearGradientScreenNode: ScrollScreenNode, @unchecked Sendable {
     private lazy var verticalGradientNode = VALinearGradientNode(gradient: .vertical)
     private lazy var horizontalGradientNode = VALinearGradientNode(gradient: .horizontal)
     private lazy var topLeftToBottomRightGradientNode = VALinearGradientNode(gradient: .diagonal(.topLeftToBottomRight))

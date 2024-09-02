@@ -14,6 +14,7 @@ public struct VATransition<Base>: ExpressibleByArrayLiteral {
     private var modifiers: [AnyTransitionModifier<Base>]
     private var initialStates: [Any]
 
+    @MainActor
     public init<T: TransitionModifier>(
         _ modifier: T,
         initialState: T.Value? = nil,
@@ -62,10 +63,12 @@ public struct VATransition<Base>: ExpressibleByArrayLiteral {
         self.initialStates = initialStates
     }
 
+    @MainActor
     public mutating func beforeTransition(view: Base) {
         initialStates = modifiers.map { $0.value(for: view) }
     }
 
+    @MainActor
     public mutating func beforeTransitionIfNeeded(view: Base) {
         guard initialStates.isEmpty else { return }
 
@@ -76,12 +79,14 @@ public struct VATransition<Base>: ExpressibleByArrayLiteral {
         initialStates = []
     }
 
+    @MainActor
     public func setInitialState(view: Base) {
         zip(initialStates, modifiers).forEach {
             $0.1.set(value: $0.0, to: view)
         }
     }
 
+    @MainActor
     public func update(progress: Progress, view: Base) {
         var initialStates = initialStates
         if initialStates.isEmpty {
@@ -183,6 +188,7 @@ public extension VATransition {
         )
     }
 
+    @MainActor
     func map<T>(_ transform: @escaping (T) -> Base) -> VATransition<T> {
         VATransition<T>(
             transitions: transitions.map { transition in
@@ -221,6 +227,7 @@ public extension VATransition {
             .combined(with: removal.filter { !$0.isInsertion })
     }
 
+    @MainActor
     static func value(
         _ keyPath: ReferenceWritableKeyPath<Base, CGFloat>,
         _ transformed: CGFloat,
@@ -234,6 +241,7 @@ public extension VATransition {
         }
     }
 
+    @MainActor
     static func constant<T>(_ keyPath: ReferenceWritableKeyPath<Base, T>, _ value: T) -> VATransition {
         VATransition(keyPath) { _, view, _ in
             view[keyPath: keyPath] = value
@@ -255,7 +263,7 @@ extension VATransition where Base: Transformable {
     }
 
     public static func scale(_ scale: CGFloat) -> VATransition {
-        .scale(CGPoint(x: scale, y: scale))
+        .scale(.init(x: scale, y: scale))
     }
 
     public static func scale(_ scale: CGPoint, anchor: CGPoint) -> VATransition {
@@ -283,7 +291,7 @@ extension VATransition where Base: Transformable {
     }
 
     public static func scale(_ scale: CGFloat = 0.0001, anchor: CGPoint) -> VATransition {
-        .scale(CGPoint(x: scale, y: scale), anchor: anchor)
+        .scale(.init(x: scale, y: scale), anchor: anchor)
     }
 
     public static func anchor(point: CGPoint) -> VATransition {
@@ -307,7 +315,7 @@ extension VATransition where Base: Transformable {
     }
 
     public static func offset(x: CGFloat = 0, y: CGFloat = 0) -> VATransition {
-        .offset(CGPoint(x: x, y: y))
+        .offset(.init(x: x, y: y))
     }
 
     public static func move(edge: VAEdge, offset: RelationValue<CGFloat> = .relative(1)) -> VATransition {

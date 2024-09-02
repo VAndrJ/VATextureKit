@@ -6,8 +6,13 @@
 //
 
 #if canImport(SwiftUI)
+#if compiler(>=6.0)
+public import SwiftUI
+public import AsyncDisplayKit
+#else
 import SwiftUI
 import AsyncDisplayKit
+#endif
 
 extension RelationValue where Value: VectorArithmetic {
 
@@ -59,6 +64,7 @@ extension Progress {
 
 public extension VATransition {
 
+    @MainActor
     @inline(__always) @inlinable static func value<T: VectorArithmetic>(
         _ keyPath: ReferenceWritableKeyPath<Base, T>,
         _ transformed: T,
@@ -69,6 +75,7 @@ public extension VATransition {
         }
     }
 
+    @MainActor
     @inline(__always) @inlinable static func value(
         _ keyPath: ReferenceWritableKeyPath<Base, UIColor?>,
         _ transformed: UIColor,
@@ -81,6 +88,7 @@ public extension VATransition {
         }
     }
 
+    @MainActor
     @inline(__always) @inlinable static func value(
         _ keyPath: ReferenceWritableKeyPath<Base, UIColor>,
         _ transformed: UIColor,
@@ -94,6 +102,7 @@ public extension VATransition {
 
 extension VATransition where Base == ASDisplayNode {
 
+    @MainActor
     public static func backgroundColor(_ color: UIColor) -> VATransition { .value(\.backgroundColor, color) }
 }
 #endif

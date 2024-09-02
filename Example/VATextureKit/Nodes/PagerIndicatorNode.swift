@@ -7,19 +7,22 @@
 //
 
 import VATextureKitRx
+import Differentiator
+import RxSwift
+import RxCocoa
 
-final class PagerIndicatorNode<Item: Equatable & IdentifiableType>: VASizedViewWrapperNode<UIPageControl> {
+final class PagerIndicatorNode<Item: Equatable & IdentifiableType>: VASizedViewWrapperNode<UIPageControl>, @unchecked Sendable {
     private let bag = DisposeBag()
     private weak var pagerNode: VAPagerNode<Item>?
 
     convenience init(pagerNode: VAPagerNode<Item>) {
-        self.init(actorChildGetter: { UIPageControl() }, sizing: .viewSize)
+        self.init(childGetter: { UIPageControl() }, sizing: .viewSize)
 
         self.pagerNode = pagerNode
     }
 
-    override func didLoad() {
-        super.didLoad()
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
         bind()
     }

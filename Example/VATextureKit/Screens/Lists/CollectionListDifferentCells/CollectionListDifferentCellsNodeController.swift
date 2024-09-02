@@ -12,14 +12,14 @@ struct CollectionListDifferentCellsNavigationIdentity: DefaultNavigationIdentity
 
 // MARK: - ViewController as a View example
 
-final class CollectionListDifferentCellsNodeController: VANodeController {
+final class CollectionListDifferentCellsNodeController: VANodeController, @unchecked Sendable {
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask { .portrait }
     
-    private lazy var leftListNode = VAListNode(
+    private lazy var listNode = VAListNode(
         data: .init(
             listDataObs: viewModel.listDataObs,
             cellGetter: mapToCell(viewModel:),
-            shouldBatchFetch: viewModel.checkMore,
+            shouldBatchFetch: viewModel.checkMoreAvailable,
             loadMore: viewModel.loadMore
         ),
         layoutData: .init(
@@ -32,18 +32,6 @@ final class CollectionListDifferentCellsNodeController: VANodeController {
             isLoadingObs: viewModel.isLoadingObs
         )
     )
-    private lazy var rightListNode = VAListNode(
-        data: .init(
-            listDataObs: viewModel.listDataObs,
-            cellGetter: mapToCell(viewModel:)
-        ),
-        layoutData: .init(
-            contentInset: UIEdgeInsets(horizontal: 16),
-            layout: .default(parameters: .init(
-                minimumLineSpacing: 16
-            ))
-        )
-    )
     private let viewModel: CollectionListDifferentCellsViewModel
     
     init(viewModel: CollectionListDifferentCellsViewModel) {
@@ -51,20 +39,10 @@ final class CollectionListDifferentCellsNodeController: VANodeController {
         
         super.init()
     }
-
-    override func configureLayoutElements() {
-        leftListNode
-            .flex(grow: 1 / 3)
-        rightListNode
-            .flex(grow: 2 / 3)
-    }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
-            Row {
-                leftListNode
-                rightListNode
-            }
+            listNode
         }
     }
     
@@ -72,8 +50,7 @@ final class CollectionListDifferentCellsNodeController: VANodeController {
         super.configureTheme(theme)
         
         contentNode.backgroundColor = theme.systemBackground
-        leftListNode.backgroundColor = theme.systemBackground
-        rightListNode.backgroundColor = theme.systemBackground
+        listNode.backgroundColor = theme.systemBackground
     }
 }
 

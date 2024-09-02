@@ -5,10 +5,14 @@
 //  Created by Volodymyr Andriienko on 13.04.2023.
 //
 
+#if compiler(>=6.0)
+public import AsyncDisplayKit
+#else
 import AsyncDisplayKit
+#endif
 
 /// `VANetworkImageNode` is a subclass of `ASNetworkImageNode` that adds support for custom corner rounding to the image displayed. It provides the ability to specify a corner rounding configuration and displays either a remote URL image or a locally stored image.
-open class VANetworkImageNode: ASNetworkImageNode, VACornerable {
+open class VANetworkImageNode: VASimpleNetworkImageNode, VACornerable {
     /// The corner rounding configuration for the node.
     public var corner: VACornerRoundingParameters {
         get { _corner }
@@ -75,16 +79,14 @@ open class VANetworkImageNode: ASNetworkImageNode, VACornerable {
         }
     }
 
-    @MainActor
-    open override func didLoad() {
-        super.didLoad()
+    open override func viewDidLoad() {
+        super.viewDidLoad()
 
         updateCornerParameters()
     }
 
-    @MainActor
-    open override func layout() {
-        super.layout()
+    open override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
 
         updateCornerProportionalIfNeeded()
     }

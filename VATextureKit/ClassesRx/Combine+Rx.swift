@@ -5,8 +5,13 @@
 //  Created by VAndrJ on 05.06.2024.
 //
 
+#if compiler(>=6.0)
+public import Combine
+public import RxSwift
+#else
 import Combine
 import RxSwift
+#endif
 
 public extension Publisher {
 

@@ -8,15 +8,15 @@
 
 import VATextureKitRx
 
-final class VASlidingTabTextNode: DisplayNode, VASlidingTab {
+final class VASlidingTabTextNode: DisplayNode, VASlidingTab, @unchecked Sendable {
     let titleNode: VATextNode
     let topTitleNode: VATextNode
     let buttonNode = VAButtonNode()
 
     private let maskLayer = CAShapeLayer()
-    private let onSelect: () -> Void
+    private let onSelect: @MainActor () -> Void
 
-    required init(data: String, onSelect: @escaping () -> Void) {
+    required init(data: String, onSelect: @MainActor @escaping () -> Void) {
         self.onSelect = onSelect
         self.titleNode = VATextNode(text: data)
         self.topTitleNode = VATextNode(

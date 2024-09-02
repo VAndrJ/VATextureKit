@@ -7,13 +7,19 @@
 
 import Foundation
 
-public func mainAsync(after: DispatchTimeInterval, @_implicitSelfCapture _ block: @escaping () -> Void) {
+@preconcurrency public func mainAsync(
+    after: DispatchTimeInterval,
+    @_implicitSelfCapture _ block: @escaping @Sendable @convention(block) () -> Void
+) {
     if let timeInterval = after.timeInterval {
         mainAsync(after: timeInterval, block)
     }
 }
 
-public func mainAsync(after: TimeInterval = 0, @_implicitSelfCapture _ block: @escaping () -> Void) {
+@preconcurrency public func mainAsync(
+    after: TimeInterval = 0,
+    @_implicitSelfCapture _ block: @escaping @Sendable @convention(block) () -> Void
+) {
     if after > 0 {
         DispatchQueue.main.asyncAfter(deadline: .now() + after, execute: block)
     } else {
@@ -21,7 +27,9 @@ public func mainAsync(after: TimeInterval = 0, @_implicitSelfCapture _ block: @e
     }
 }
 
-public func ensureOnMain(@_implicitSelfCapture _ block: @escaping () -> Void) {
+@preconcurrency public func ensureOnMain(
+    @_implicitSelfCapture _ block: @escaping @Sendable @convention(block) () -> Void
+) {
     if Thread.current.isMainThread {
         block()
     } else {
@@ -29,9 +37,9 @@ public func ensureOnMain(@_implicitSelfCapture _ block: @escaping () -> Void) {
     }
 }
 
-private let key = DispatchSpecificKey<NSObject>()
+private let key = DispatchSpecificKey<QueueValue>()
 
-private let globalQueueValue = NSObject()
+private let globalQueueValue = QueueValue()
 private let globalQueue: DispatchQueue = {
     let queue = DispatchQueue(label: "globalQueue", qos: .default)
     queue.setSpecific(key: key, value: globalQueueValue)
@@ -39,7 +47,9 @@ private let globalQueue: DispatchQueue = {
     return queue
 }()
 
-public func ensureOnGlobal(@_implicitSelfCapture _ block: @escaping () -> Void) {
+@preconcurrency public func ensureOnGlobal(
+    @_implicitSelfCapture _ block: @escaping @Sendable @convention(block) () -> Void
+) {
     if DispatchQueue.getSpecific(key: key) === globalQueueValue {
         block()
     } else {
@@ -47,7 +57,7 @@ public func ensureOnGlobal(@_implicitSelfCapture _ block: @escaping () -> Void) 
     }
 }
 
-private let backgroundQueueValue = NSObject()
+private let backgroundQueueValue = QueueValue()
 private let backgroundQueue: DispatchQueue = {
     let queue = DispatchQueue(label: "backgroundQueue", qos: .background)
     queue.setSpecific(key: key, value: backgroundQueueValue)
@@ -55,7 +65,9 @@ private let backgroundQueue: DispatchQueue = {
     return queue
 }()
 
-public func ensureOnBackground(@_implicitSelfCapture _ block: @escaping () -> Void) {
+@preconcurrency public func ensureOnBackground(
+    @_implicitSelfCapture _ block: @escaping @Sendable @convention(block) () -> Void
+) {
     if DispatchQueue.getSpecific(key: key) === backgroundQueueValue {
         block()
     } else {
@@ -85,3 +97,5 @@ public extension DispatchTimeInterval {
         }
     }
 }
+
+private final class QueueValue: NSObject, Sendable {}

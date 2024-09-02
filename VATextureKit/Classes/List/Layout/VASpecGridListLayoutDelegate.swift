@@ -5,7 +5,11 @@
 //  Created by Volodymyr Andriienko on 23.07.2023.
 //
 
+#if compiler(>=6.0)
+public import AsyncDisplayKit
+#else
 import AsyncDisplayKit
+#endif
 
 // swiftlint:disable all
 public class VASpecGridListLayoutDelegate: NSObject, ASCollectionLayoutDelegate {
@@ -47,19 +51,15 @@ public class VASpecGridListLayoutDelegate: NSObject, ASCollectionLayoutDelegate 
                 justifyContent: .start,
                 alignItems: .stretch,
                 children: [
-                    mainActorEscaped{
-                        elements.supplementaryElement(
-                            ofKind: UICollectionView.elementKindSectionHeader,
-                            at: IndexPath(item: 0, section: section)
-                        )?.node
-                    }(),
+                    elements.supplementaryElement(
+                        ofKind: "UICollectionElementKindSectionHeader",
+                        at: IndexPath(item: 0, section: section)
+                    )?.node,
                     itemsSpec,
-                    mainActorEscaped{
-                        elements.supplementaryElement(
-                            ofKind: UICollectionView.elementKindSectionFooter,
-                            at: IndexPath(item: 0, section: section)
-                        )?.node
-                    }(),
+                    elements.supplementaryElement(
+                        ofKind: "UICollectionElementKindSectionFooter",
+                        at: IndexPath(item: 0, section: section)
+                    )?.node,
                 ].compactMap { $0 }
             )
         }

@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-final class CollectionExampleCellNode: VACellNode {
+final class CollectionExampleCellNode: VACellNode, @unchecked Sendable {
     let imageNode = VANetworkImageNode(contentMode: .scaleAspectFill)
     let titleNode: VATextNode
     

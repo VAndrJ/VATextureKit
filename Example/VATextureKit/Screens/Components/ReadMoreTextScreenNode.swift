@@ -10,7 +10,7 @@ import VATextureKit
 
 struct ReadMoreTextNavigationIdentity: DefaultNavigationIdentity {}
 
-final class ReadMoreTextScreenNode: ScreenNode {
+final class ReadMoreTextScreenNode: ScreenNode, @unchecked Sendable {
     private lazy var readMoreTextNode = VAReadMoreTextNode(
         text: .loremText,
         maximumNumberOfLines: 2,

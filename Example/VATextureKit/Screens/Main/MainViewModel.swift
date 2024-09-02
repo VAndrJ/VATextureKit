@@ -7,8 +7,11 @@
 //
 
 import VATextureKitRx
+import RxSwift
+import RxCocoa
+import Differentiator
 
-final class MainViewModel {
+final class MainViewModel: @unchecked Sendable {
     @Obs.Relay(value: [
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Layouts"), items: [
             MainListCellNodeViewModel(title: "Row", description: "Layout example", destination: RowLayoutNavigationIdentity()),

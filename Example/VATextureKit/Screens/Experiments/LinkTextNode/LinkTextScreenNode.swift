@@ -10,7 +10,7 @@ import VATextureKit
 
 struct LinkTextNavigationIdentity: DefaultNavigationIdentity {}
 
-final class LinkTextScreenNode: ScreenNode {
+final class LinkTextScreenNode: ScreenNode, @unchecked Sendable {
     private lazy var linkTextNode = VALinkTextNode(text: [
         .loremText,
         "https://texturegroup.org",

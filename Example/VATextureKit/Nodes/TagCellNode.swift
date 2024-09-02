@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-final class TagCellNode: VACellNode {
+final class TagCellNode: VACellNode, @unchecked Sendable {
     let titleTextNode: VATextNode
 
     init(viewModel: TagCellNodeViewModel) {

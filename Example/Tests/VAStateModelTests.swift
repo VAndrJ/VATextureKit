@@ -9,6 +9,8 @@
 import XCTest
 @testable import VATextureKit_Example
 import VATextureKitRx
+import RxSwift
+import RxCocoa
 
 class VAStateModelTests: XCTestCase {
     private var sut: VAStateModel<any Actionable, any Eventable, State>!

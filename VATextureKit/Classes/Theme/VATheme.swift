@@ -22,7 +22,7 @@ public enum VAThemeFont: Hashable {
 }
 
 /// "Backported" system theme.
-open class VATheme: NSObject {
+open class VATheme: NSObject, @unchecked Sendable {
     public var tag: VAThemeTag
     public var userInterfaceStyle: VAUserInterfaceStyle
     public var statusBarStyle: UIStatusBarStyle
@@ -150,8 +150,9 @@ open class VATheme: NSObject {
 }
 
 public extension VATheme {
-    static var lock = NSRecursiveLock()
-    static var fontCache: [VAThemeFont: UIFont] = [:]
+    private static let lock = NSRecursiveLock()
+    nonisolated(unsafe) private static var fontCache: [VAThemeFont: UIFont] = [:]
+    
     static var vaLight: VATheme {
         VATheme(
             tag: VALightThemeTag(),

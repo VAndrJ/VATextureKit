@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-final class CompositingCellNode: VACellNode {
+final class CompositingCellNode: VACellNode, @unchecked Sendable {
     let titleTextNode: VATextNode
 
     init(viewModel: CompositingCellNodeViewModel) {
@@ -31,7 +31,10 @@ final class CompositingCellNodeViewModel: CellViewModel {
     let compositingFilter: ASDisplayNode.CompositingFilter?
     let blendMode: ASDisplayNode.BlendMode?
 
-    init(compositingFilter: ASDisplayNode.CompositingFilter? = nil, blendMode: ASDisplayNode.BlendMode? = nil) {
+    init(
+        compositingFilter: ASDisplayNode.CompositingFilter? = nil,
+        blendMode: ASDisplayNode.BlendMode? = nil
+    ) {
         assert(compositingFilter != nil || blendMode != nil)
         self.compositingFilter = compositingFilter
         self.blendMode = blendMode

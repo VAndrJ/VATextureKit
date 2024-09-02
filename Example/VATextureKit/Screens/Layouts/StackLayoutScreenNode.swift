@@ -10,7 +10,7 @@ import VATextureKit
 
 struct StackLayoutNavigationIdentity: DefaultNavigationIdentity {}
 
-final class StackLayoutScreenNode: ScrollScreenNode {
+final class StackLayoutScreenNode: ScrollScreenNode, @unchecked Sendable {
     private lazy var stackLayoutExampleNode = _StackLayoutExampleNode()
     private lazy var stackCenteringLayoutExampleNode = _StackCenteringLayoutExampleNode()
     private lazy var stackPositionsLayoutExampleNode = _StackPositionsLayoutExampleNode()
@@ -24,24 +24,19 @@ final class StackLayoutScreenNode: ScrollScreenNode {
         .padding(.all(16))
     }
 
-    @MainActor
-    override func animateLayoutTransition(_ context: any ASContextTransitioning) {
-        animateLayoutTransition(context: context)
-    }
-
     override func configureTheme(_ theme: VATheme) {
         backgroundColor = theme.secondarySystemBackground
     }
 }
 
-private class _StackLayoutExampleNode: DisplayNode {
+private class _StackLayoutExampleNode: DisplayNode, @unchecked Sendable {
     private lazy var titleTextNode = getTitleTextNode(
         string: "Stack with 2 elements, second is relatively",
-        selection: ""
+        selection: "relatively"
     )
     private lazy var pairNodes = [
-        ASDisplayNode().sized(CGSize(same: 128)),
-        ASDisplayNode().sized(CGSize(same: 64)),
+        ASDisplayNode().sized(.init(same: 128)),
+        ASDisplayNode().sized(.init(same: 64)),
     ]
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -63,18 +58,20 @@ private class _StackLayoutExampleNode: DisplayNode {
     }
 }
 
-private class _StackCenteringLayoutExampleNode: DisplayNode {
+private class _StackCenteringLayoutExampleNode: DisplayNode, @unchecked Sendable {
     private lazy var titleTextNode = getTitleTextNode(
         string: "Stack with 2 elements, second is centered",
-        selection: ""
+        selection: "centered"
     )
     private lazy var centeringInfoTextNode = VATextNode(
         text: centeringOptions.description,
         fontStyle: .headline
-    )
+    ).apply {
+        $0.displaysAsynchronously = false
+    }
     private lazy var pairNodes = [
-        ASDisplayNode().sized(CGSize(same: 128)),
-        ASDisplayNode().sized(CGSize(same: 64)),
+        ASDisplayNode().sized(.init(same: 128)),
+        ASDisplayNode().sized(.init(same: 64)),
     ]
     private lazy var centeringButtonNode = HapticButtonNode(title: "Change centering")
     private var centeringOptions: ASCenterLayoutSpecCenteringOptions = .XY {
@@ -100,6 +97,10 @@ private class _StackCenteringLayoutExampleNode: DisplayNode {
         }
     }
 
+    override func viewDidAnimateLayoutTransition(_ context: any ASContextTransitioning) {
+        animateLayoutTransition(context: context)
+    }
+
     override func configureTheme(_ theme: VATheme) {
         backgroundColor = theme.systemBackground
         zip(pairNodes, [theme.label, theme.systemOrange]).forEach {
@@ -112,25 +113,29 @@ private class _StackCenteringLayoutExampleNode: DisplayNode {
     }
 }
 
-private class _StackPositionsLayoutExampleNode: DisplayNode {
+private class _StackPositionsLayoutExampleNode: DisplayNode, @unchecked Sendable {
     private lazy var titleTextNode = getTitleTextNode(
         string: "Stack with 2 elements, second is relatively",
-        selection: ""
+        selection: "relatively"
     )
     private lazy var pairNodes = [
-        ASDisplayNode().sized(CGSize(same: 128)),
-        ASDisplayNode().sized(CGSize(same: 64)),
+        ASDisplayNode().sized(.init(same: 128)),
+        ASDisplayNode().sized(.init(same: 64)),
     ]
     private lazy var relativeHorizontalPositionButtonNode = HapticButtonNode(title: "Change horizontal")
     private lazy var relativeVerticalPositionButtonNode = HapticButtonNode(title: "Change vertical")
     private lazy var relativePositionHorizontalInfoTextNode = VATextNode(
         text: relativeHorizontalPosition.horizontalDescription,
         fontStyle: .headline
-    )
+    ).apply {
+        $0.displaysAsynchronously = false
+    }
     private lazy var relativePositionVerticalInfoTextNode = VATextNode(
         text: relativeHorizontalPosition.verticalDescription,
         fontStyle: .headline
-    )
+    ).apply {
+        $0.displaysAsynchronously = false
+    }
     private var relativeHorizontalPosition: ASRelativeLayoutSpecPosition = .end {
         didSet {
             setNeedsLayoutAnimated()
@@ -160,6 +165,10 @@ private class _StackPositionsLayoutExampleNode: DisplayNode {
                     .relatively(horizontal: relativeHorizontalPosition, vertical: relativeVerticalPosition)
             }
         }
+    }
+
+    override func viewDidAnimateLayoutTransition(_ context: any ASContextTransitioning) {
+        animateLayoutTransition(context: context)
     }
 
     override func configureTheme(_ theme: VATheme) {

@@ -10,7 +10,7 @@ import VATextureKitRx
 
 struct DynamicHeightGridListNavigationIdentity: DefaultNavigationIdentity {}
 
-final class DynamicHeightGridListScreenNode: ScreenNode {
+final class DynamicHeightGridListScreenNode: ScreenNode, @unchecked Sendable {
     private lazy var listNode = VAListNode(
         data: .init(
             listDataObs: .just((0...100).map { _ in

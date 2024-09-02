@@ -7,10 +7,12 @@
 //
 
 import VATextureKitRx
+import RxSwift
+import RxCocoa
 
 struct SpecBasedGridListNavigationIdentity: DefaultNavigationIdentity {}
 
-final class SpecBasedGridListScreenNode: ScreenNode {
+final class SpecBasedGridListScreenNode: ScreenNode, @unchecked Sendable {
     private lazy var listNode = VAListNode(
         data: .init(
             listDataObs: listDataObs,

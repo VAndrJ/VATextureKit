@@ -5,7 +5,11 @@
 //  Created by Volodymyr Andriienko on 02.04.2023.
 //
 
+#if compiler(>=6.0)
+public import AsyncDisplayKit
+#else
 import AsyncDisplayKit
+#endif
 
 extension ASDisplayNode {
 
@@ -63,7 +67,8 @@ extension ASDisplayNode {
 }
 
 extension ASDisplayNode {
-    @UniquePointerAddress static var transitionKey
+    nonisolated(unsafe) static let transitionKey = malloc(0)!
+
     public var transition: NodeTransitionAnimation {
         get { (objc_getAssociatedObject(self, Self.transitionKey) as? TransitionWrapper)?.transition ?? .identity }
         set { objc_setAssociatedObject(self, Self.transitionKey, TransitionWrapper(newValue), .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
@@ -80,18 +85,35 @@ private final class TransitionWrapper {
 
 public typealias NodeTransitionAnimation = VATransition<ASDisplayNode>
 
-extension ASDisplayNode: Transformable {
-    @MainActor
+#if compiler(>=6.0)
+extension ASDisplayNode: @preconcurrency Transformable {}
+#else
+extension ASDisplayNode: Transformable {}
+#endif
+extension ASDisplayNode {
     public var affineTransform: CGAffineTransform {
-        get { view.transform }
-        set { view.transform = newValue }
+        get {
+            MainActor.assumeIsolated {
+                view.transform
+            }
+        }
+        set {
+            MainActor.assumeIsolated {
+                view.transform = newValue
+            }
+        }
     }
-    @MainActor
-    public var isLtrDirection: Bool { view.isLtrDirection }
+    public var isLtrDirection: Bool {
+        MainActor.assumeIsolated {
+            view.isLtrDirection
+        }
+    }
 }
 
 extension VATransition where Base == ASDisplayNode {
+    @MainActor
     public static var opacity: VATransition { .value(\.alpha, 0) }
+    @MainActor
     public static func cornerRadius(_ radius: CGFloat) -> VATransition { .value(\.cornerRadius, radius) }
 }
 
@@ -354,7 +376,12 @@ extension Transformable {
     }
 }
 
-extension UIView: Transformable {
+#if compiler(>=6.0)
+extension UIView: @preconcurrency Transformable {}
+#else
+extension UIView: Transformable {}
+#endif
+extension UIView {
     public var affineTransform: CGAffineTransform {
         get { transform }
         set { transform = newValue }
@@ -427,6 +454,7 @@ public struct KeyPathModifier<Root, Value>: TransitionModifier {
 }
 
 extension TransitionModifier {
+    @MainActor
     public var any: AnyTransitionModifier<Root> { AnyTransitionModifier(self) }
 
     public func map<T>(_ transform: @escaping (T) -> Root) -> MapTransitionModifier<Self, T> {
@@ -490,11 +518,17 @@ public struct MapTransitionModifier<Base: TransitionModifier, Root>: TransitionM
     }
 }
 
+extension ASDisplayNode: @unchecked Sendable {}
+
+extension CALayer: @unchecked Sendable {}
+
+extension CAMediaTimingFunction: @unchecked Sendable {}
+
 public extension ASDisplayNode {
 
     func setNeedsLayoutAnimated(
         shouldMeasureAsync: Bool = false,
-        isWithSupernodes: Bool = false,
+        withSupernode: Bool = false,
         completion: (() -> Void)? = nil
     ) {
         transitionLayout(
@@ -502,16 +536,19 @@ public extension ASDisplayNode {
             shouldMeasureAsync: shouldMeasureAsync,
             measurementCompletion: completion
         )
-        if isWithSupernodes {
+        if withSupernode {
             var supernode = supernode
             while supernode != nil {
                 if supernode is ASScrollNode {
-                    supernode?.setNeedsLayoutAnimated()
+                    supernode?.setNeedsLayoutAnimated(shouldMeasureAsync: shouldMeasureAsync)
+
                     return
                 }
 
                 supernode = supernode?.supernode
             }
+
+            supernode?.setNeedsLayoutAnimated(shouldMeasureAsync: shouldMeasureAsync)
         }
     }
 
@@ -531,7 +568,7 @@ public extension ASDisplayNode {
         continueFromCurrent: Bool = false,
         force: Bool = false,
         spring: CALayer.VASpring? = nil,
-        completion: ((Bool) -> Void)? = nil
+        completion: (@Sendable (Bool) -> Void)? = nil
     ) -> Self {
         ensureOnMain {
             layer.add(
@@ -570,7 +607,7 @@ public extension ASDisplayNode {
         removeOnCompletion: Bool = true,
         autoreverses: Bool = false,
         additive: Bool = false,
-        completion: ((Bool) -> Void)? = nil
+        completion: (@Sendable (Bool) -> Void)? = nil
     ) -> Self {
         ensureOnMain {
             layer.add(
@@ -603,11 +640,11 @@ public extension ASDisplayNode {
     private func disableAllAnimations(layer: CALayer) {
         ensureOnMain {
             layer.removeAllAnimations()
-            layer.sublayers?.forEach(disableAllAnimations(layer:))
+            layer.sublayers?.forEach { disableAllAnimations(layer: $0) }
         }
     }
 
-    func getHasAnimations(_ block: @escaping (Bool) -> Void) {
+    func getHasAnimations(_ block: @Sendable @escaping (Bool) -> Void) {
         ensureOnMain {
             block(layer.hasAnimations)
         }

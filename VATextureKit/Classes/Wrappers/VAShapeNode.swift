@@ -5,10 +5,14 @@
 //  Created by Volodymyr Andriienko on 28.07.2023.
 //
 
+#if compiler(>=6.0)
+public import AsyncDisplayKit
+#else
 import AsyncDisplayKit
+#endif
 
 /// `CAShapeLayer` wrapper node
-open class VAShapeNode: ASDisplayNode {
+open class VAShapeNode: VASimpleDisplayNode, @unchecked Sendable {
     public struct Context {
         let fillColor: UIColor
         let strokeColor: UIColor
@@ -42,9 +46,8 @@ open class VAShapeNode: ASDisplayNode {
         self.context = context
     }
 
-    @MainActor
-    open override func didLoad() {
-        super.didLoad()
+    open override func viewDidLoad() {
+        super.viewDidLoad()
 
         layer.fillColor = context.fillColor.cgColor
         layer.strokeColor = context.strokeColor.cgColor
@@ -56,10 +59,10 @@ open class VAShapeNode: ASDisplayNode {
                 \.bounds,
                  options: [.new],
                  changeHandler: { [weak self] _, change in
-                     guard let newValue = change.newValue else { return }
+                     guard let self, let newValue = change.newValue else { return }
 
                      ensureOnMain {
-                         self?.layerBoundsDidChanged(to: newValue)
+                         self.layerBoundsDidChanged(to: newValue)
                      }
                  }
             )

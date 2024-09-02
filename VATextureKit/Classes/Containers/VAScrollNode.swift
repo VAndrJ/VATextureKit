@@ -5,9 +5,13 @@
 //  Created by Volodymyr Andriienko on 31.03.2023.
 //
 
+#if compiler(>=6.0)
+public import AsyncDisplayKit
+#else
 import AsyncDisplayKit
+#endif
 
-open class VAScrollNode: ASScrollNode {
+open class VAScrollNode: VASimpleScrollNode {
     public struct Context {
         let scrollableDirections: ASScrollDirection
         let alwaysBounceVertical: Bool
@@ -52,15 +56,13 @@ open class VAScrollNode: ASScrollNode {
         scrollableDirections = context.scrollableDirections
     }
 
-    @MainActor
-    open override func didLoad() {
-        super.didLoad()
+    open override func viewDidLoad() {
+        super.viewDidLoad()
 
         configure()
     }
 
-    @MainActor
-    open override func animateLayoutTransition(_ context: any ASContextTransitioning) {
+    open override func viewDidAnimateLayoutTransition(_ context: any ASContextTransitioning) {
         animateLayoutTransition(context: context)
     }
 

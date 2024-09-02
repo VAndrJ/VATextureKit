@@ -5,7 +5,11 @@
 //  Created by Volodymyr Andriienko on 23.11.2023.
 //
 
+#if compiler(>=6.0)
+public import AsyncDisplayKit
+#else
 import AsyncDisplayKit
+#endif
 
 open class VASelfSizingListContainerNode<ListNode: ASCollectionNode>: VADisplayNode {
     public enum Direction {
@@ -29,9 +33,8 @@ open class VASelfSizingListContainerNode<ListNode: ASCollectionNode>: VADisplayN
         super.init(corner: corner)
     }
 
-    @MainActor
-    open override func didLoad() {
-        super.didLoad()
+    open override func viewDidLoad() {
+        super.viewDidLoad()
 
         configure()
         bind()
@@ -42,20 +45,26 @@ open class VASelfSizingListContainerNode<ListNode: ASCollectionNode>: VADisplayN
             .wrapped()
     }
 
+    @MainActor
     private func bind() {
         observation = child.observe(
             \.view.contentSize,
              options: [.initial, .new],
              changeHandler: { [weak self] _, value in
-                 guard let self, let size = value.newValue, self.view.frame.size != size else { return }
-                 
-                 switch self.direction {
-                 case .vertical:
-                     self.style.height = .points(size.height)
-                 case .horizontal:
-                     self.style.width = .points(size.width)
+                 guard let self, let size = value.newValue else { return }
+                 ensureOnMain {
+                     MainActor.assumeIsolated {
+                         guard self.view.frame.size != size else { return }
+                         
+                         switch self.direction {
+                         case .vertical:
+                             self.style.height = .points(size.height)
+                         case .horizontal:
+                             self.style.width = .points(size.width)
+                         }
+                         self.setNeedsLayout()
+                     }
                  }
-                 self.setNeedsLayout()
              }
         )
     }

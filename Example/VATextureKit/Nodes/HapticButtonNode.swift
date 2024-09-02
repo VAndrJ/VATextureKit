@@ -8,7 +8,7 @@
 
 import VATextureKitRx
 
-final class HapticButtonNode: VAButtonNode, VAHapticable {
+final class HapticButtonNode: VAButtonNode, VAHapticable, @unchecked Sendable {
     override var isHighlighted: Bool {
         didSet { updateTitle() }
     }
@@ -27,8 +27,8 @@ final class HapticButtonNode: VAButtonNode, VAHapticable {
         super.init()
     }
 
-    override func didLoad() {
-        super.didLoad()
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
         bindTouchHaptic(style: .heavy)
     }

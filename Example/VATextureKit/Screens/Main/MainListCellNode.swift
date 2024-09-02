@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-final class MainListCellNode: VACellNode {
+final class MainListCellNode: VACellNode, @unchecked Sendable {
     private let titleNode: VATextNode
     private let descriptionNode: VATextNode
     private lazy var chevronImageNode = VAImageNode(

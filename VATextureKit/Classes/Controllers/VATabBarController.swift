@@ -5,7 +5,11 @@
 //  Created by Volodymyr Andriienko on 18.02.2023.
 //
 
+#if compiler(>=6.0)
+public import AsyncDisplayKit
+#else
 import AsyncDisplayKit
+#endif
 
 open class VATabBarController: ASTabBarController, VAThemeObserver, VAContentSizeObserver {
     open override var childForStatusBarStyle: UIViewController? { selectedViewController }
@@ -14,11 +18,7 @@ open class VATabBarController: ASTabBarController, VAThemeObserver, VAContentSiz
     /// The currently active theme obtained from the app's context.
     @inline(__always) @inlinable public var theme: VATheme { appContext.themeManager.theme }
 
-    private(set) var isObservingContentSizeChanges = false
-
-    public init() {
-        super.init(nibName: nil, bundle: nil)
-    }
+    nonisolated(unsafe) private(set) var isObservingContentSizeChanges = false
 
     public override init(
         nibName nibNameOrNil: String?,
@@ -50,14 +50,18 @@ open class VATabBarController: ASTabBarController, VAThemeObserver, VAContentSiz
         tabBar.barStyle = theme.barStyle
     }
 
-    public func themeDidChanged(to newValue: VATheme) {
-        configureTheme(newValue)
+    nonisolated public func themeDidChanged(to newValue: VATheme) {
+        Task { @MainActor in
+            configureTheme(newValue)
+        }
     }
 
     @objc open func configureContentSize(_ contentSize: UIContentSizeCategory) {}
 
-    public func contentSizeDidChanged(to newValue: UIContentSizeCategory) {
-        configureContentSize(newValue)
+    nonisolated public func contentSizeDidChanged(to newValue: UIContentSizeCategory) {
+        Task { @MainActor in
+            configureContentSize(newValue)
+        }
     }
 
     deinit {

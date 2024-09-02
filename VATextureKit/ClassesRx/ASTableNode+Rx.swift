@@ -5,11 +5,18 @@
 //  Created by Volodymyr Andriienko on 25.03.2023.
 //
 
+#if compiler(>=6.0)
+public import AsyncDisplayKit
+public import RxSwift
+public import RxCocoa
+public import Differentiator
+#else
 import AsyncDisplayKit
-import VATextureKit
 import RxSwift
 import RxCocoa
 import Differentiator
+#endif
+import VATextureKit
 
 // swiftlint:disable indentation_width force_unwrapping implicitly_unwrapped_optional file_length
 extension Reactive where Base: ASTableNode {
@@ -80,14 +87,10 @@ extension Reactive where Base: ASTableNode {
             tableNode.contentOffset = contentOffset
         }
 
-        return mainActorEscaped {
-            ControlProperty(values: proxy.contentOffsetBehaviorSubject, valueSink: bindingObserver)
-        }()
+        return ControlProperty(values: proxy.contentOffsetBehaviorSubject, valueSink: bindingObserver)
     }
     public var didScroll: ControlEvent<Void> {
-        mainActorEscaped {
-            ControlEvent(events: RxASTableDelegateProxy.proxy(for: base).contentOffsetPublishSubject)
-        }()
+        ControlEvent(events: RxASTableDelegateProxy.proxy(for: base).contentOffsetPublishSubject)
     }
     public var willBeginDecelerating: ControlEvent<Void> {
         let source = delegate.methodInvoked(#selector((any ASTableDelegate).scrollViewWillBeginDecelerating(_:))).map { _ in }
@@ -573,28 +576,33 @@ open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>: 
     }
 }
 
-extension ASTableNode: HasDelegate {
+#if compiler(>=6.0)
+extension ASTableNode: @preconcurrency HasDelegate {}
+#else
+extension ASTableNode: HasDelegate {}
+#endif
+extension ASTableNode {
     public typealias Delegate = ASTableDelegate
 }
 
 open class RxASTableDelegateProxy: DelegateProxy<ASTableNode, ASTableDelegate>, DelegateProxyType, ASTableDelegate {
-    public weak private(set) var tableNode: ASTableNode?
+    nonisolated(unsafe) public weak private(set) var tableNode: ASTableNode?
     
     /// - parameter tableNode: Parent object for delegate proxy.
-    public init(tableNode: ASTableNode) {
+    nonisolated public init(tableNode: ASTableNode) {
         self.tableNode = tableNode
         
         super.init(parentObject: tableNode, delegateProxy: RxASTableDelegateProxy.self)
     }
     
-    public static func registerKnownImplementations() {
+    nonisolated public static func registerKnownImplementations() {
         register { RxASTableDelegateProxy(tableNode: $0) }
     }
     
-    private var _contentOffsetBehaviorSubject: BehaviorSubject<CGPoint>?
-    private var _contentOffsetPublishSubject: PublishSubject<Void>?
-    
-    internal var contentOffsetBehaviorSubject: BehaviorSubject<CGPoint> {
+    nonisolated(unsafe) private var _contentOffsetBehaviorSubject: BehaviorSubject<CGPoint>?
+    nonisolated(unsafe) private var _contentOffsetPublishSubject: PublishSubject<Void>?
+
+    nonisolated internal var contentOffsetBehaviorSubject: BehaviorSubject<CGPoint> {
         if let subject = _contentOffsetBehaviorSubject {
             return subject
         }
@@ -605,7 +613,7 @@ open class RxASTableDelegateProxy: DelegateProxy<ASTableNode, ASTableDelegate>, 
         return subject
     }
     
-    internal var contentOffsetPublishSubject: PublishSubject<Void> {
+    nonisolated internal var contentOffsetPublishSubject: PublishSubject<Void> {
         if let subject = _contentOffsetPublishSubject {
             return subject
         }
@@ -645,11 +653,16 @@ open class RxASTableSectionedReloadDataSource<S: SectionModelType>: ASTableSecti
     }
 }
 
-extension ASTableNode: HasDataSource {
+#if compiler(>=6.0)
+extension ASTableNode: @preconcurrency HasDataSource {}
+#else
+extension ASTableNode: HasDataSource {}
+#endif
+extension ASTableNode {
     public typealias DataSource = ASTableDataSource
 }
 
-private let tableDataSourceNotSet = ASTableDataSourceNotSet()
+nonisolated(unsafe) private let tableDataSourceNotSet = ASTableDataSourceNotSet()
 
 final class ASTableDataSourceNotSet: NSObject, ASTableDataSource {
     

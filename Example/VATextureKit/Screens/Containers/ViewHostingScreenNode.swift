@@ -11,7 +11,7 @@ import VATextureKit
 
 struct ViewHostingNavigationIdentity: DefaultNavigationIdentity {}
 
-final class ViewHostingScreenNode: ScreenNode {
+final class ViewHostingScreenNode: ScreenNode, @unchecked Sendable {
     private lazy var textHeightContainerNode = VAViewHostingNode(
         body: {
             Text(".viewHeight sizing".dummyLong(repeating: 5))

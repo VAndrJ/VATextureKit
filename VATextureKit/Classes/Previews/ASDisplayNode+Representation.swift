@@ -20,7 +20,9 @@ public extension ASDisplayNode {
         recursivelyEnsureDisplaySynchronously(true)
         ASDisplayNodePerformBlockOnEveryNode(nil, self, true) {
             if let node = $0 as? ASCollectionNode {
-                node.loadCollectionForPreview()
+                MainActor.assumeIsolated {
+                    node.loadCollectionForPreview()
+                }
             } else if let node = $0 as? ASTableNode {
                 node.loadTableForPreview()
             } else {
@@ -41,7 +43,9 @@ public extension ASDisplayNode {
         ASDisplayNodePerformBlockOnEveryNode(nil, self, true) {
             if let node = $0 as? ASCollectionNode {
                 node.displaysAsynchronously = false
-                node.loadCollectionForPreview()
+                MainActor.assumeIsolated {
+                    node.loadCollectionForPreview()
+                }
             } else if let node = $0 as? ASTableNode {
                 node.displaysAsynchronously = false
                 node.loadTableForPreview()
@@ -93,8 +97,13 @@ extension ASTableNode {
 }
 
 #if canImport(SwiftUI)
+#if compiler(>=6.0)
+public import SwiftUI
+public import AsyncDisplayKit
+#else
 import SwiftUI
 import AsyncDisplayKit
+#endif
 
 public extension ASDisplayNode {
 

@@ -12,12 +12,14 @@ public protocol VATransionAnimator {
 
     var controller: UIViewController? { get }
 
+    @MainActor
     func animateTransition(source: UIViewController?, destination: UIViewController?, animated: Bool, isPresenting: Bool)
+    @MainActor
     func addTransitionOverlayView() -> UIView
 }
 
-open class VADefaultTransionAnimator: VATransionAnimator {
-    public static var animationDuration: TimeInterval = 0.5
+open class VADefaultTransionAnimator: VATransionAnimator, @unchecked Sendable {
+    nonisolated(unsafe) public static var animationDuration: TimeInterval = 0.5
 
     public private(set) weak var controller: UIViewController?
 
@@ -52,19 +54,21 @@ open class VADefaultTransionAnimator: VATransionAnimator {
         destinationController.node.layer.isHidden = true
         // MARK: - Crutch to get proper target layout on push
         mainAsync(after: 0.01) {
-            var toLayersDict: [String: (CALayer, CGRect)] = [:]
-            storeAnimationLayers(
-                layer: destinationController.node.layer,
-                isFrom: false,
-                to: &toLayersDict
-            )
-            animateLayers(
-                fromLayersDict: fromLayersDict,
-                toLayersDict: toLayersDict,
-                transitionOverlayView: addTransitionOverlayView(),
-                animationDuration: Self.animationDuration
-            )
-            destinationController.node.layer.isHidden = false
+            MainActor.assumeIsolated {
+                var toLayersDict: [String: (CALayer, CGRect)] = [:]
+                storeAnimationLayers(
+                    layer: destinationController.node.layer,
+                    isFrom: false,
+                    to: &toLayersDict
+                )
+                animateLayers(
+                    fromLayersDict: fromLayersDict,
+                    toLayersDict: toLayersDict,
+                    transitionOverlayView: addTransitionOverlayView(),
+                    animationDuration: Self.animationDuration
+                )
+                destinationController.node.layer.isHidden = false
+            }
         }
     }
 

@@ -8,7 +8,7 @@
 
 import VATextureKit
 
-final class ImageNumberCellNode: VACellNode {
+final class ImageNumberCellNode: VACellNode, @unchecked Sendable {
     let imageNode: VANetworkImageNode
     let numberTextNode: VATextNode
     let tonerNode = ASDisplayNode()

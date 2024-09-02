@@ -5,7 +5,11 @@
 //  Created by Volodymyr Andriienko on 18.02.2023.
 //
 
+#if compiler(>=6.0)
+public import AsyncDisplayKit
+#else
 import AsyncDisplayKit
+#endif
 
 open class VANavigationController: ASDKNavigationController, VAThemeObserver, VAContentSizeObserver {
     open override var childForStatusBarStyle: UIViewController? { topViewController }
@@ -15,11 +19,7 @@ open class VANavigationController: ASDKNavigationController, VAThemeObserver, VA
     @inline(__always) @inlinable public var theme: VATheme { appContext.themeManager.theme }
     public lazy var transitionAnimator: any VATransionAnimator = VADefaultTransionAnimator(controller: self)
 
-    private(set) var isObservingContentSizeChanges = false
-    
-    public init() {
-        super.init(nibName: nil, bundle: nil)
-    }
+    nonisolated(unsafe) private(set) var isObservingContentSizeChanges = false
 
     public override init(
         nibName nibNameOrNil: String?,
@@ -55,14 +55,18 @@ open class VANavigationController: ASDKNavigationController, VAThemeObserver, VA
         navigationBar.barStyle = theme.barStyle
     }
 
-    public func themeDidChanged(to newValue: VATheme) {
-        configureTheme(newValue)
+    nonisolated public func themeDidChanged(to newValue: VATheme) {
+        Task { @MainActor in
+            configureTheme(newValue)
+        }
     }
 
     @objc open func configureContentSize(_ contentSize: UIContentSizeCategory) {}
 
-    public func contentSizeDidChanged(to newValue: UIContentSizeCategory) {
-        configureContentSize(newValue)
+    nonisolated public func contentSizeDidChanged(to newValue: UIContentSizeCategory) {
+        Task { @MainActor in
+            configureContentSize(newValue)
+        }
     }
 
     open override func popViewController(animated: Bool) -> UIViewController? {

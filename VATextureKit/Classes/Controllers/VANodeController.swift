@@ -5,8 +5,13 @@
 //  Created by Volodymyr Andriienko on 22.03.2023.
 //
 
+#if compiler(>=6.0)
+public import AsyncDisplayKit
+public import VATextureKitSpec
+#else
 import AsyncDisplayKit
 import VATextureKitSpec
+#endif
 
 open class VANodeController: VAViewController<ASDisplayNode> {
     

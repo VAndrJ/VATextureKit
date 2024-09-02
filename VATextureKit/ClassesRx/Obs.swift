@@ -5,8 +5,13 @@
 //  Created by Volodymyr Andriienko on 22.03.2023.
 //
 
+#if compiler(>=6.0)
+public import RxSwift
+public import RxCocoa
+#else
 @_exported import RxSwift
 @_exported import RxCocoa
+#endif
 
 public enum Obs {
     

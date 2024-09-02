@@ -10,7 +10,7 @@ import VATextureKit
 
 struct TypingTextNavigationIdentity: DefaultNavigationIdentity {}
 
-final class TypingTextScreenNode: ScreenNode {
+final class TypingTextScreenNode: ScreenNode, @unchecked Sendable {
     private lazy var typingTextNode = VATypingTextNode(text: .loremText)
     private lazy var startTypingButtonNode = HapticButtonNode(title: "Start typing")
     private lazy var pauseTypingButtonNode = HapticButtonNode(title: "Pause typing")

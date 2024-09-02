@@ -5,10 +5,14 @@
 //  Created by Volodymyr Andriienko on 18.02.2023.
 //
 
+#if compiler(>=6.0)
+public import AsyncDisplayKit
+#else
 import AsyncDisplayKit
+#endif
 
 /// `VACellNode` is a subclass of `ASCellNode` that provides additional functionality for handling themes and corner rounding parameters.
-open class VACellNode: ASCellNode, VACornerable, VAThemeObserver {
+open class VACellNode: VASimpleCellNode, VACornerable, VAThemeObserver {
     /// The currently active theme obtained from the app's context.
     public var theme: VATheme { appContext.themeManager.theme }
     /// The corner rounding configuration for the node.
@@ -35,9 +39,8 @@ open class VACellNode: ASCellNode, VACornerable, VAThemeObserver {
         configureLayoutElements()
     }
 
-    @MainActor
-    open override func didLoad() {
-        super.didLoad()
+    open override func viewDidLoad() {
+        super.viewDidLoad()
 
         updateCornerParameters()
         if overrides(#selector(configureTheme(_:))) {
@@ -51,9 +54,8 @@ open class VACellNode: ASCellNode, VACornerable, VAThemeObserver {
         #endif
     }
 
-    @MainActor
-    open override func didEnterDisplayState() {
-        super.didEnterDisplayState()
+    open override func viewDidEnterDisplayState() {
+        super.viewDidEnterDisplayState()
 
         if shouldConfigureTheme {
             configureTheme(theme)
@@ -61,9 +63,8 @@ open class VACellNode: ASCellNode, VACornerable, VAThemeObserver {
         }
     }
 
-    @MainActor
-    open override func layout() {
-        super.layout()
+    open override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
 
         updateCornerProportionalIfNeeded()
     }
@@ -77,10 +78,11 @@ open class VACellNode: ASCellNode, VACornerable, VAThemeObserver {
     @objc open func configureTheme(_ theme: VATheme) {}
     
     /// Called when the theme changes. Configures the theme if the cell is in the display state, otherwise sets the `shouldConfigureTheme` flag.
-    @MainActor
     public func themeDidChanged(to newValue: VATheme) {
         if isInDisplayState {
-            configureTheme(newValue)
+            Task { @MainActor in
+                configureTheme(newValue)
+            }
         } else {
             shouldConfigureTheme = true
         }

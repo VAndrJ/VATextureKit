@@ -8,10 +8,10 @@
 
 import VATextureKitRx
 
-class DisplayNode: VADisplayNode {
+class DisplayNode: VADisplayNode, @unchecked Sendable {
 
-    override func didLoad() {
-        super.didLoad()
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
         configure()
         bind()

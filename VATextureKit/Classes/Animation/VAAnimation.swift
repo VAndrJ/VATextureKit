@@ -8,8 +8,8 @@
 import UIKit
 
 public struct VAAnimation: ExpressibleByArrayLiteral {
-    public static var defaultDuration: Double = 0.25
-    public static var defaultDamping: CGFloat = 0.825
+    nonisolated(unsafe) public static var defaultDuration: Double = 0.25
+    nonisolated(unsafe) public static var defaultDamping: CGFloat = 0.825
 
     public var duration: Double
     public var delay: Double
@@ -296,6 +296,7 @@ public extension UIView {
 
 public extension VATransition where Base: Transformable & AnyObject {
 
+    @MainActor
     @inline(__always) @inlinable static func transform(to targetView: Base) -> VATransition {
         VATransition(TransformToModifier(targetView)) { progress, view, initial in
             let (sourceScale, sourceOffset) = transform(

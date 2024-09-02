@@ -5,7 +5,11 @@
 //  Created by Volodymyr Andriienko on 23.03.2023.
 //
 
+#if compiler(>=6.0)
+public import AsyncDisplayKit
+#else
 import AsyncDisplayKit
+#endif
 
 public extension ASCollectionNode {
     @inline(__always) @inlinable var isHorizontal: Bool { scrollableDirections == .horizontal }

@@ -7,21 +7,30 @@
 //
 
 import VATextureKitRx
+import RxSwift
+import RxCocoa
 
 struct PagerControllerNavigationIdentity: DefaultNavigationIdentity {}
 
-final class PagerScreenNode: ScreenNode {
+extension PagerScreenNode {
+
+    convenience init() {
+        self.init(viewModel: .init())
+    }
+}
+
+final class PagerScreenNode: ScreenNode, @unchecked Sendable {
     private lazy var pagerNode = VAPagerNode(data: .init(
         itemsObs: viewModel.pagerItemsObs,
         cellGetter: mapToCell(viewModel:),
         isCircular: true
     ))
     private lazy var previousButtonNode = HapticButtonNode(title: "Previous")
-        .minConstrained(size: CGSize(same: 44))
+        .minConstrained(size: .init(same: 44))
     private lazy var nextButtonNode = HapticButtonNode(title: "Next")
-        .minConstrained(size: CGSize(same: 44))
+        .minConstrained(size: .init(same: 44))
     private lazy var randomizeButtonNode = HapticButtonNode(title: "Randomize")
-        .minConstrained(size: CGSize(same: 44))
+        .minConstrained(size: .init(same: 44))
     private lazy var pagerIndicatorNode = PagerIndicatorNode(pagerNode: pagerNode)
     private let viewModel: PagerScreenNodeViewModel
 

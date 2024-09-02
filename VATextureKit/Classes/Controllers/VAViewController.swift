@@ -5,7 +5,11 @@
 //  Created by Volodymyr Andriienko on 18.02.2023.
 //
 
+#if compiler(>=6.0)
+public import AsyncDisplayKit
+#else
 import AsyncDisplayKit
+#endif
 
 open class VAViewController<Node: ASDisplayNode>: ASDKViewController<ASDisplayNode>, UIAdaptivePresentationControllerDelegate, VAThemeObserver, VAContentSizeObserver {
     open override var preferredStatusBarStyle: UIStatusBarStyle { theme.statusBarStyle }
@@ -15,7 +19,7 @@ open class VAViewController<Node: ASDisplayNode>: ASDKViewController<ASDisplayNo
     @inline(__always) @inlinable public var theme: VATheme { appContext.themeManager.theme }
     public lazy var transitionAnimator: any VATransionAnimator = VADefaultTransionAnimator(controller: self)
 
-    private(set) var isObservingContentSizeChanges = false
+    nonisolated(unsafe) private(set) var isObservingContentSizeChanges = false
 
     public init(node: Node) {
         super.init(node: node)
@@ -44,14 +48,18 @@ open class VAViewController<Node: ASDisplayNode>: ASDKViewController<ASDisplayNo
         setNeedsStatusBarAppearanceUpdate()
     }
 
-    public func themeDidChanged(to newValue: VATheme) {
-        configureTheme(newValue)
+    nonisolated public func themeDidChanged(to newValue: VATheme) {
+        Task { @MainActor in
+            configureTheme(newValue)
+        }
     }
 
     @objc open func configureContentSize(_ contentSize: UIContentSizeCategory) {}
 
-    public func contentSizeDidChanged(to newValue: UIContentSizeCategory) {
-        configureContentSize(newValue)
+    nonisolated public func contentSizeDidChanged(to newValue: UIContentSizeCategory) {
+        Task { @MainActor in
+            configureContentSize(newValue)
+        }
     }
 
     open override func present(

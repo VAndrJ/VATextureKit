@@ -14,7 +14,6 @@ public extension NSMutableAttributedString {
         font: UIFont,
         color: UIColor,
         alignment: NSTextAlignment = .natural,
-        lineBreakMode: NSLineBreakMode = .byTruncatingTail,
         secondary: [(
             strings: [String],
             font: UIFont?,
@@ -24,7 +23,6 @@ public extension NSMutableAttributedString {
     ) {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = alignment
-        paragraphStyle.lineBreakMode = lineBreakMode
         let attributes: [NSAttributedString.Key: Any] = [
             .font: font,
             .foregroundColor: color,

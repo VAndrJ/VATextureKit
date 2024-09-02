@@ -7,6 +7,8 @@
 //
 
 import VATextureKitRx
+import RxSwift
+import RxCocoa
 
 protocol CompositingFilterViewModelProtocol {
     var selectedFilterObs: Observable<String?> { get }

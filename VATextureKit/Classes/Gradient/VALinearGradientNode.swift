@@ -5,7 +5,11 @@
 //  Created by Volodymyr Andriienko on 18.02.2023.
 //
 
+#if compiler(>=6.0)
+public import AsyncDisplayKit
+#else
 import AsyncDisplayKit
+#endif
 
 open class VALinearGradientNode: VABaseGradientNode {
     public enum Diagonal: CaseIterable {
@@ -32,9 +36,8 @@ open class VALinearGradientNode: VABaseGradientNode {
         self.gradient = gradient
     }
 
-    @MainActor
-    open override func didLoad() {
-        super.didLoad()
+    open override func viewDidLoad() {
+        super.viewDidLoad()
 
         switch gradient {
         case .vertical:

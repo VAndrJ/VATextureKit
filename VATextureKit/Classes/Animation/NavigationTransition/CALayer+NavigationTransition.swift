@@ -7,7 +7,7 @@
 
 import UIKit
 
-public struct VATransitionTimings {
+public struct VATransitionTimings: Sendable {
     public let bounds: CAMediaTimingFunctionName
     public let positionX: CAMediaTimingFunctionName
     public let positionY: CAMediaTimingFunctionName
@@ -29,14 +29,14 @@ public struct VATransitionTimings {
     }
 }
 
-public enum VATransitionAnimationAddition {
+public enum VATransitionAnimationAddition: Sendable {
     case `default`
     case skip
     case skipSource
     case skipDestination
 }
 
-public struct VATransitionTimingsAddition {
+public struct VATransitionTimingsAddition: Sendable {
     public let opacity: VATransitionAnimationAddition
 
     public init(opacity: VATransitionAnimationAddition = .default) {
@@ -44,13 +44,13 @@ public struct VATransitionTimingsAddition {
     }
 }
 
-public enum VATransitionAnimation {
+public enum VATransitionAnimation: Sendable {
     case `default`(timings: VATransitionTimings = .init(), additions: VATransitionTimingsAddition = .init())
 }
 
 public extension CALayer {
-    @UniquePointerAddress static var transitionAnimationTimingsKey
-    @UniquePointerAddress static var transitionAnimationIdKey
+    nonisolated(unsafe) static let transitionAnimationTimingsKey = malloc(0)!
+    nonisolated(unsafe) static let transitionAnimationIdKey = malloc(0)!
 
     var transitionAnimation: VATransitionAnimation {
         get { (objc_getAssociatedObject(self, Self.transitionAnimationTimingsKey) as? VATransitionAnimation) ?? .default() }

@@ -7,8 +7,10 @@
 //
 
 import VATextureKitRx
+import RxSwift
+import RxCocoa
 
-final class CollectionListDifferentCellsViewModel {
+final class CollectionListDifferentCellsViewModel: @unchecked Sendable {
     @Obs.Relay(value: false)
     var isLoadingObs: Observable<Bool>
     @Obs.Relay(value: [
@@ -18,7 +20,7 @@ final class CollectionListDifferentCellsViewModel {
     
     private var count = 0
     
-    func checkMore() -> Bool {
+    func checkMoreAvailable() -> Bool {
         count < 3
     }
 
@@ -50,7 +52,7 @@ final class CollectionListDifferentCellsViewModel {
                 ImageNumberCellNodeViewModel(image: testImages.randomElement(), ratio: 2, number: 2),
                 ImageNumberCellNodeViewModel(image: testImages.randomElement(), ratio: 1.0 / 2, number: 3),
             ])
-            if checkMore() {
+            if checkMoreAvailable() {
                 data.append(more ?? LoadingCellNodeViewModel())
             }
             _listDataObs.rx.accept(data)

@@ -5,9 +5,13 @@
 //  Created by Volodymyr Andriienko on 24.08.2023.
 //
 
+#if compiler(>=6.0)
+public import AsyncDisplayKit
+#else
 import AsyncDisplayKit
+#endif
 
-public class VACornerRoundingParameters: Equatable {
+public final class VACornerRoundingParameters: Equatable, @unchecked Sendable {
     /// Representing different corner radius configurations for a UI component.
     public enum CornerRadius: Equatable {
         /// A fixed corner radius

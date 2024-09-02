@@ -10,7 +10,7 @@ import VATextureKit
 
 struct ShimmersNavigationIdentity: DefaultNavigationIdentity {}
 
-final class ShimmersScreenNode: ScreenNode {
+final class ShimmersScreenNode: ScreenNode, @unchecked Sendable {
     private lazy var acrossWindowSynchronizedTextNode = VATextNode(text: "Shimmer across window synchronized")
     private lazy var acrossWindowShimmer0Node = _ShimmerExampleNode(context: .init())
         .flex(grow: 1)
@@ -43,16 +43,16 @@ final class ShimmersScreenNode: ScreenNode {
     private lazy var notAcrossWindowNotSynchronizedShimmer2Node = _ShimmerExampleNode(context: .init(isAcrossWindow: false, isSynchronized: false))
         .flex(grow: 1)
 
-    override func didLoad() {
-        super.didLoad()
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
         // To trigger shimmer update.
-        mainAsync(after: 0.2) {
+        Task {
+            try? await Task.sleep(milliseconds: 150)
             acrossWindowShimmer1Node.didEnterVisibleState()
             notSynchronizedShimmer1Node.didEnterVisibleState()
             notAcrossWindowNotSynchronizedShimmer1Node.didEnterVisibleState()
-        }
-        mainAsync(after: 0.75) {
+            try? await Task.sleep(milliseconds: 500)
             acrossWindowShimmer2Node.didEnterVisibleState()
             notSynchronizedShimmer2Node.didEnterVisibleState()
             notAcrossWindowNotSynchronizedShimmer2Node.didEnterVisibleState()
@@ -104,7 +104,7 @@ final class ShimmersScreenNode: ScreenNode {
     }
 }
 
-private class _ShimmerExampleNode: VAShimmerNode {
+private class _ShimmerExampleNode: VAShimmerNode, @unchecked Sendable {
     private lazy var tileNode = VAShimmerTileNode(corner: .init(radius: .fixed(8)))
         .minConstrained(height: 50)
 

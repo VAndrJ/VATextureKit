@@ -31,7 +31,7 @@ open class VAMaterialVisualEffectNode: VANeonVisualEffectNode {
         context: VANeonVisualEffectView.Context
     ) {
         super.init(
-            effect: UIBlurEffect(style: .init(rawValue: style.rawValue) ?? .systemUltraThinMaterial),
+            effect: { UIBlurEffect(style: .init(rawValue: style.rawValue) ?? .systemUltraThinMaterial) },
             context: context
         )
     }
@@ -39,16 +39,16 @@ open class VAMaterialVisualEffectNode: VANeonVisualEffectNode {
 
 open class VANeonVisualEffectNode: VAViewWrapperNode<VANeonVisualEffectView> {
 
-    public init(effect: UIVisualEffect?, context: VANeonVisualEffectView.Context) {
+    public init(effect: @MainActor @escaping () -> UIVisualEffect?, context: VANeonVisualEffectView.Context) {
         super.init(
-            actorChildGetter: { VANeonVisualEffectView(effect: effect, context: context) },
+            childGetter: { VANeonVisualEffectView(effect: effect(), context: context) },
             sizing: nil
         )
     }
 }
 
 open class VANeonVisualEffectView: UIView {
-    public struct Corner {
+    public struct Corner: Sendable {
         public let radius: CGFloat
         public let curve: VACornerCurve
 
@@ -61,7 +61,7 @@ open class VANeonVisualEffectView: UIView {
         }
     }
 
-    public struct Border {
+    public struct Border: Sendable {
         public let color: UIColor
         /// Defaults to `1 / traitCollection.displayScale`.
         public let width: CGFloat?
@@ -75,7 +75,7 @@ open class VANeonVisualEffectView: UIView {
         }
     }
 
-    public struct Neon {
+    public struct Neon: Sendable {
         public let color: UIColor
         public let width: CGFloat
 
@@ -88,7 +88,7 @@ open class VANeonVisualEffectView: UIView {
         }
     }
 
-    public struct Shadow {
+    public struct Shadow: Sendable {
         public let radius: CGFloat
         public let color: UIColor
         public let opacity: Float
@@ -107,7 +107,7 @@ open class VANeonVisualEffectView: UIView {
         }
     }
 
-    public struct Pointer {
+    public struct Pointer: Sendable {
         public let radius: CGFloat
         public let color: UIColor
         public let isInstant: Bool
@@ -123,7 +123,7 @@ open class VANeonVisualEffectView: UIView {
         }
     }
 
-    public struct Context {
+    public struct Context: Sendable {
         let corner: Corner
         let border: Border
         var shadow: Shadow
@@ -338,7 +338,7 @@ class InstantPanGestureRecognizer: UIPanGestureRecognizer {
     }
 }
 
-public enum UIVisualEffectViewExcludedFilter: String {
+public enum UIVisualEffectViewExcludedFilter: String, Sendable {
     case luminanceCurveMap
     case colorSaturate
     case colorBrightness

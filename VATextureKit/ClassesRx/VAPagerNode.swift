@@ -5,15 +5,24 @@
 //  Created by Volodymyr Andriienko on 23.04.2023.
 //
 
+#if compiler(>=6.0)
+public import AsyncDisplayKit
+public import Differentiator
+public import RxSwift
+public import RxCocoa
+public import VATextureKit
+#else
 import AsyncDisplayKit
-import VATextureKit
+import Differentiator
 import RxSwift
 import RxCocoa
+import VATextureKit
+#endif
 
 /// ASPagerNode does not currently support circular scrolling.
 /// So I added some crutches to mimic it.
 /// In some cases it may not work very well, but I'll deal with that later.
-open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPagerDataSource, ASPagerDelegate, VAThemeObserver, VAContentSizeObserver {
+open class VAPagerNode<Item: Equatable & IdentifiableType>: VASimplePagerNode, ASPagerDataSource, ASPagerDelegate, VAThemeObserver, VAContentSizeObserver {
     public struct ObsDTO {
         let itemsObs: Observable<[Item]>
         let cellGetter: (Item) -> ASCellNode
@@ -58,13 +67,13 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
     }
     public var itemPosition: CGFloat { contentOffset.x / itemSize.width }
     public let bag = DisposeBag()
-    public private(set) var context: Context {
+    nonisolated(unsafe) public private(set) var context: Context {
         didSet { itemsCountRelay.accept(context.items.count) }
     }
 
     private let delayedConfiguration: Bool
     private let indexRelay = BehaviorRelay<CGFloat>(value: 0)
-    private let itemsCountRelay: BehaviorRelay<Int>
+    nonisolated(unsafe) private let itemsCountRelay: BehaviorRelay<Int>
 
     public convenience init(data: ObsDTO) {
         self.init(context: .init(
@@ -91,7 +100,7 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
         flowLayout.minimumInteritemSpacing = 0
 
         super.init(
-            frame: UIScreen.main.bounds, 
+            frame: .init(width: 320, height: 568), 
             collectionViewLayout: flowLayout,
             layoutFacilitator: nil
         )
@@ -102,9 +111,8 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
         }
     }
 
-    @MainActor
-    open override func didLoad() {
-        super.didLoad()
+    open override func viewDidLoad() {
+        super.viewDidLoad()
 
         if delayedConfiguration {
             configure()
@@ -151,7 +159,9 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
     private func checkPosition() {
         if context.isCircular && !context.items.isEmpty {
             mainAsync {
-                scrollToPage(at: 1, animated: false)
+                MainActor.assumeIsolated {
+                    scrollToPage(at: 1, animated: false)
+                }
             }
         }
     }
@@ -169,14 +179,18 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
         reloadDataWithoutAnimations()
     }
 
-    public func themeDidChanged(to newValue: VATheme) {
-        configureTheme(newValue)
+    nonisolated public func themeDidChanged(to newValue: VATheme) {
+        Task { @MainActor in
+            configureTheme(newValue)
+        }
     }
 
     @objc open func configureContentSize(_ contentSize: UIContentSizeCategory) {}
 
-    public func contentSizeDidChanged(to newValue: UIContentSizeCategory) {
-        configureContentSize(newValue)
+    nonisolated public func contentSizeDidChanged(to newValue: UIContentSizeCategory) {
+        Task { @MainActor in
+            configureContentSize(newValue)
+        }
     }
 
     private func configure() {
@@ -203,11 +217,11 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
 
     // MARK: - ASPagerDataSource
 
-    public func numberOfPages(in pagerNode: ASPagerNode) -> Int {
+    nonisolated public func numberOfPages(in pagerNode: ASPagerNode) -> Int {
         context.items.count + (context.isCircular && !context.items.isEmpty ? 2 : 0)
     }
 
-    public func pagerNode(_ pagerNode: ASPagerNode, nodeBlockAt index: Int) -> ASCellNodeBlock {
+    nonisolated public func pagerNode(_ pagerNode: ASPagerNode, nodeBlockAt index: Int) -> ASCellNodeBlock {
         let item: Item
         if context.isCircular {
             switch index {
@@ -257,3 +271,5 @@ open class VAPagerNode<Item: Equatable & IdentifiableType>: ASPagerNode, ASPager
         appContext.contentSizeManager.removeContentSizeObserver(self)
     }
 }
+
+extension BehaviorRelay: @unchecked Sendable {}

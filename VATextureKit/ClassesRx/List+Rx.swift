@@ -5,11 +5,18 @@
 //  Created by Volodymyr Andriienko on 25.03.2023.
 //
 
+#if compiler(>=6.0)
+public import AsyncDisplayKit
+public import RxSwift
+public import RxCocoa
+public import Differentiator
+#else
 import AsyncDisplayKit
-import VATextureKit
 import RxSwift
 import RxCocoa
-@_exported import Differentiator
+import Differentiator
+#endif
+import VATextureKit
 
 /// Provides custom animation styles for insertion, deletion, and reloading behavior.
 ///
@@ -257,7 +264,12 @@ extension ASTableNode: SectionedNodeType {
     }
 }
 
-extension ASCollectionNode: SectionedNodeType {
+#if compiler(>=6.0)
+extension ASCollectionNode: @preconcurrency SectionedNodeType {}
+#else
+extension ASCollectionNode: SectionedNodeType {}
+#endif
+extension ASCollectionNode {
     
     public func insertItemsAtIndexPaths(_ paths: [IndexPath], animationStyle: UITableView.RowAnimation) {
         insertItems(at: paths)

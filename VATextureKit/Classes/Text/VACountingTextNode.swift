@@ -5,7 +5,11 @@
 //  Created by Volodymyr Andriienko on 25.07.2023.
 //
 
+#if compiler(>=6.0)
+public import AsyncDisplayKit
+#else
 import AsyncDisplayKit
+#endif
 
 open class VACountingTextNode: VATextNode {
     public struct Configuration {

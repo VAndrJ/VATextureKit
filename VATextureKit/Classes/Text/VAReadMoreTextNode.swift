@@ -5,7 +5,11 @@
 //  Created by Volodymyr Andriienko on 20.04.2023.
 //
 
+#if compiler(>=6.0)
+public import AsyncDisplayKit
+#else
 import AsyncDisplayKit
+#endif
 
 open class VAReadMoreTextNode: VATextNode {
     public struct ReadMore {
@@ -39,9 +43,7 @@ open class VAReadMoreTextNode: VATextNode {
             attributes: [
                 .font: theme.font(.design(
                     .default,
-                    size: mainActorEscaped {
-                        readMore.fontStyle.getFontSize(contentSize: appContext.contentSizeManager.contentSize)
-                    }(),
+                    size: readMore.fontStyle.getFontSize(contentSize: appContext.contentSizeManager.contentSize),
                     weight: readMore.fontStyle.weight
                 )),
                 .foregroundColor: readMore.colorGetter(self.theme)
