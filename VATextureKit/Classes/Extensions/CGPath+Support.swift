@@ -7,4 +7,8 @@
 
 import CoreGraphics
 
-extension CoreGraphics.CGPath: @unchecked Sendable {}
+#if compiler(>=6.0)
+extension CGPath: @retroactive @unchecked Sendable {}
+#else
+extension CGPath: @unchecked Sendable {}
+#endif
