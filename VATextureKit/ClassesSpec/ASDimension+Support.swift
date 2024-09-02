@@ -40,9 +40,18 @@ public extension ASDimension {
     }
 }
 
-extension ASDimension: Equatable {
-    
+#if compiler(>=6.0)
+extension ASDimension: @retroactive Equatable {
+
     public static func == (lhs: ASDimension, rhs: ASDimension) -> Bool {
         lhs.unit == rhs.unit && lhs.value == rhs.value
     }
 }
+#else
+extension ASDimension: Equatable {
+
+    public static func == (lhs: ASDimension, rhs: ASDimension) -> Bool {
+        lhs.unit == rhs.unit && lhs.value == rhs.value
+    }
+}
+#endif
