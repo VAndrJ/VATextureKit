@@ -8,18 +8,17 @@
 #if compiler(>=6.0)
 public import AsyncDisplayKit
 public import RxSwift
-public import RxCocoa
 public import VATextureKit
 public import Differentiator
 #else
 import AsyncDisplayKit
 import RxSwift
-import RxCocoa
 import VATextureKit
 import Differentiator
 #endif
+import RxCocoa
 
-open class VATableListNode<S: AnimatableSectionModelType>: VASimpleTableNode {
+open class VATableListNode<S: AnimatableSectionModelType>: VASimpleTableNode, @unchecked Sendable {
     public struct SeparatorConfiguration {
         let color: UIColor?
         let style: UITableViewCell.SeparatorStyle
