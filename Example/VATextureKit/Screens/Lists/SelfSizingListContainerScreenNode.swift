@@ -6,6 +6,7 @@
 //  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
 //
 
+/*
 import VATextureKitRx
 
 struct SelfSizingListNavigationIdentity: DefaultNavigationIdentity {}
@@ -135,3 +136,4 @@ private class _ExampleCardCellNodeViewModel: CellViewModel {
         self.title = title
     }
 }
+*/

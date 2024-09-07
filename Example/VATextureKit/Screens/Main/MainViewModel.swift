@@ -40,7 +40,7 @@ final class MainViewModel: @unchecked Sendable {
             //            MainListCellNodeViewModel(title: "Dynamic height grid list layout", description: "ASCollectionNode based", destination: DynamicHeightGridListNavigationIdentity()),
             MainListCellNodeViewModel(title: "Spec based grid list layout", description: "ASCollectionNode based", destination: SpecBasedGridListNavigationIdentity()),
             MainListCellNodeViewModel(title: "Cells responding to scroll", description: "ASCollectionNode based", destination: ElementsScrollingAnimationListNavigationIdentity()),
-            MainListCellNodeViewModel(title: "Self-sizing list container", description: "For ASCollectionNode", destination: SelfSizingListNavigationIdentity()),
+            //            MainListCellNodeViewModel(title: "Self-sizing list container", description: "For ASCollectionNode", destination: SelfSizingListNavigationIdentity()),
         ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Compositing"), items: [
             MainListCellNodeViewModel(title: "Blend mode", description: "Layer", destination: BlendModeNavigationIdentity()),

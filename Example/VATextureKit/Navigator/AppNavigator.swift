@@ -125,8 +125,8 @@ class AppScreenFactory: NavigatorScreenFactory {
             return MainNodeController(navigator: navigator)
         case _ as EmitterLayerAnimationNavigationIdentity:
             return VAViewController(node: EmitterLayerAnimationScreenNode())
-        case _ as SelfSizingListNavigationIdentity:
-            return VAViewController(node: SelfSizingListContainerScreenNode())
+            //        case _ as SelfSizingListNavigationIdentity:
+            //            return VAViewController(node: SelfSizingListContainerScreenNode())
         case _ as UIViewSizedContainerNavigationIdentity:
             return VAViewController(node: UIViewSizedContainerScreenNode())
         case _ as UIViewContainerNavigationIdentity:
