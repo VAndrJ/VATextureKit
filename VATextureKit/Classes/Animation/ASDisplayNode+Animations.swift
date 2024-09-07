@@ -373,7 +373,11 @@ extension Transformable {
     }
 }
 
+#if compiler(>=6.0)
+extension UIView: @preconcurrency Transformable {}
+#else
 extension UIView: Transformable {}
+#endif
 
 extension UIView {
     public var affineTransform: CGAffineTransform {
