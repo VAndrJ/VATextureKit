@@ -14,9 +14,9 @@ final class VASlidingTabTextNode: DisplayNode, VASlidingTab, @unchecked Sendable
     let buttonNode = VAButtonNode()
 
     private let maskLayer = CAShapeLayer()
-    private let onSelect: @MainActor () -> Void
+    private let onSelect: @MainActor @Sendable () -> Void
 
-    required init(data: String, onSelect: @MainActor @escaping () -> Void) {
+    required init(data: String, onSelect: @MainActor @escaping @Sendable() -> Void) {
         self.onSelect = onSelect
         self.titleNode = VATextNode(text: data)
         self.topTitleNode = VATextNode(

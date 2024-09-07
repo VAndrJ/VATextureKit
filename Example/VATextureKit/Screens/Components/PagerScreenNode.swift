@@ -20,18 +20,20 @@ extension PagerScreenNode {
 }
 
 final class PagerScreenNode: ScreenNode, @unchecked Sendable {
-    private lazy var pagerNode = VAPagerNode(data: .init(
-        itemsObs: viewModel.pagerItemsObs,
-        cellGetter: mapToCell(viewModel:),
-        isCircular: true
-    ))
+    private lazy var pagerNode = VAMainActorWrapperNode { [viewModel] in
+        VAPagerNode(data: .init(
+            itemsObs: viewModel.pagerItemsObs,
+            cellGetter: mapToCell(viewModel:),
+            isCircular: true
+        ))
+    }
     private lazy var previousButtonNode = HapticButtonNode(title: "Previous")
         .minConstrained(size: .init(same: 44))
     private lazy var nextButtonNode = HapticButtonNode(title: "Next")
         .minConstrained(size: .init(same: 44))
     private lazy var randomizeButtonNode = HapticButtonNode(title: "Randomize")
         .minConstrained(size: .init(same: 44))
-    private lazy var pagerIndicatorNode = PagerIndicatorNode(pagerNode: pagerNode)
+    private lazy var pagerIndicatorNode = PagerIndicatorNode(pagerNode: { [pagerNode] in pagerNode.child })
     private let viewModel: PagerScreenNodeViewModel
 
     init(viewModel: PagerScreenNodeViewModel) {
@@ -67,8 +69,8 @@ final class PagerScreenNode: ScreenNode, @unchecked Sendable {
     }
 
     override func bind() {
-        previousButtonNode.onTap = self ?> { $0.pagerNode.previous() }
-        nextButtonNode.onTap = self ?> { $0.pagerNode.next() }
+        previousButtonNode.onTap = self ?> { $0.pagerNode.child.previous() }
+        nextButtonNode.onTap = self ?> { $0.pagerNode.child.next() }
         randomizeButtonNode.onTap = self ?>> { $0.viewModel.generateRandomPagerItems }
     }
 }

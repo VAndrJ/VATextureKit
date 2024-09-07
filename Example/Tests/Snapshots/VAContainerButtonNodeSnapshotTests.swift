@@ -23,7 +23,7 @@ class VAContainerButtonNodeSnapshotTests: XCTestCase {
     }
 
     func test_node_insets() {
-        let sut = VAContainerButtonNode(child: childNode, insets: UIEdgeInsets(all: 16))
+        let sut = VAContainerButtonNode(child: childNode, insets: .init(all: 16))
         sut.backgroundColor = .orange
 
         assertNodeSnapshot(matching: sut, size: .auto)

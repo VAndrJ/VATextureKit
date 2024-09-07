@@ -105,8 +105,8 @@ class AppScreenFactory: NavigatorScreenFactory {
             return VAViewController(node: LinkTextScreenNode())
         case _ as CountingTextNodeNavigationIdentity:
             return VAViewController(node: CountingTextNodeController())
-        case _ as DynamicHeightGridListNavigationIdentity:
-            return VAViewController(node: DynamicHeightGridListScreenNode())
+            //        case _ as DynamicHeightGridListNavigationIdentity:
+            //            return VAViewController(node: DynamicHeightGridListScreenNode())
         case _ as ShimmersNavigationIdentity:
             return VAViewController(node: ShimmersScreenNode())
         case _ as SpecBasedGridListNavigationIdentity:
@@ -125,8 +125,8 @@ class AppScreenFactory: NavigatorScreenFactory {
             return MainNodeController(navigator: navigator)
         case _ as EmitterLayerAnimationNavigationIdentity:
             return VAViewController(node: EmitterLayerAnimationScreenNode())
-        case _ as SelfSizingListNavigationIdentity:
-            return VAViewController(node: SelfSizingListContainerScreenNode())
+            //        case _ as SelfSizingListNavigationIdentity:
+            //            return VAViewController(node: SelfSizingListContainerScreenNode())
         case _ as UIViewSizedContainerNavigationIdentity:
             return VAViewController(node: UIViewSizedContainerScreenNode())
         case _ as UIViewContainerNavigationIdentity:

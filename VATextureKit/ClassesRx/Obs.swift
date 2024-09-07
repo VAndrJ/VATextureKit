@@ -9,8 +9,8 @@
 public import RxSwift
 public import RxCocoa
 #else
-@_exported import RxSwift
-@_exported import RxCocoa
+import RxSwift
+import RxCocoa
 #endif
 
 public enum Obs {
@@ -199,4 +199,38 @@ public enum ReplayStrategy {
     case all
     case custom(Int)
     case none
+}
+
+extension ObservableType {
+
+    func subscribeMain(
+        onNext: (@MainActor (Element) -> Void)? = nil,
+        onError: (@MainActor (Swift.Error) -> Void)? = nil,
+        onCompleted: (@MainActor () -> Void)? = nil,
+        onDisposed: (@MainActor () -> Void)? = nil
+    ) -> Disposable {
+        self.observe(on: MainScheduler.instance)
+            .subscribe(
+                onNext: onNext == nil ? nil : { element in
+                    MainActor.assumeIsolated {
+                        onNext?(element)
+                    }
+                },
+                onError: onError == nil ? nil : { error in
+                    MainActor.assumeIsolated {
+                        onError?(error)
+                    }
+                },
+                onCompleted: onCompleted == nil ? nil : {
+                    MainActor.assumeIsolated {
+                        onCompleted?()
+                    }
+                },
+                onDisposed: onDisposed == nil ? nil : {
+                    MainActor.assumeIsolated {
+                        onDisposed?()
+                    }
+                }
+            )
+    }
 }

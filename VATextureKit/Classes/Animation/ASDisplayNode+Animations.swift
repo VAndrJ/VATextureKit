@@ -102,7 +102,7 @@ extension ASDisplayNode {
     }
     public var isLtrDirection: Bool {
         MainActor.assumeIsolated {
-            view.isLtrDirection
+            UIView.userInterfaceLayoutDirection(for: view.semanticContentAttribute) == .leftToRight
         }
     }
 }
@@ -373,21 +373,25 @@ extension Transformable {
     }
 }
 
-extension UIView: Transformable {}
-
-extension UIView {
-    public var affineTransform: CGAffineTransform {
-        get { transform }
-        set { transform = newValue }
-    }
-    public var anchorPoint: CGPoint {
-        get { layer.anchorPoint }
-        set { layer.anchorPoint = newValue }
-    }
-    public var isLtrDirection: Bool {
-        UIView.userInterfaceLayoutDirection(for: semanticContentAttribute) == .leftToRight
-    }
-}
+//#if compiler(>=6.0)
+//extension UIView: @preconcurrency Transformable {}
+//#else
+//extension UIView: Transformable {}
+//#endif
+//
+//extension UIView {
+//    public var affineTransform: CGAffineTransform {
+//        get { transform }
+//        set { transform = newValue }
+//    }
+//    public var anchorPoint: CGPoint {
+//        get { layer.anchorPoint }
+//        set { layer.anchorPoint = newValue }
+//    }
+//    public var isLtrDirection: Bool {
+//        UIView.userInterfaceLayoutDirection(for: semanticContentAttribute) == .leftToRight
+//    }
+//}
 
 extension UIColor {
     var rgba: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {

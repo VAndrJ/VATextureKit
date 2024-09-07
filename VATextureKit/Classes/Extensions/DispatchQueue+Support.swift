@@ -37,6 +37,50 @@ import Foundation
     }
 }
 
+public func mainActorAsync(
+    after: DispatchTimeInterval,
+    @_implicitSelfCapture _ block: @MainActor @escaping @Sendable @convention(block) () -> Void
+) {
+    if let timeInterval = after.timeInterval {
+        mainActorAsync(after: timeInterval, block)
+    }
+}
+
+public func mainActorAsync(
+    after: TimeInterval = 0,
+    @_implicitSelfCapture _ block: @MainActor @escaping @Sendable @convention(block) () -> Void
+) {
+    if after > 0 {
+        DispatchQueue.main.asyncAfter(deadline: .now() + after) {
+            MainActor.assumeIsolated {
+                block()
+            }
+        }
+    } else {
+        DispatchQueue.main.async {
+            MainActor.assumeIsolated {
+                block()
+            }
+        }
+    }
+}
+
+public func ensureOnMainActor(
+    @_implicitSelfCapture _ block: @MainActor @escaping @Sendable @convention(block) () -> Void
+) {
+    if Thread.current.isMainThread {
+        MainActor.assumeIsolated {
+            block()
+        }
+    } else {
+        DispatchQueue.main.async {
+            MainActor.assumeIsolated {
+                block()
+            }
+        }
+    }
+}
+
 private let key = DispatchSpecificKey<QueueValue>()
 
 private let globalQueueValue = QueueValue()

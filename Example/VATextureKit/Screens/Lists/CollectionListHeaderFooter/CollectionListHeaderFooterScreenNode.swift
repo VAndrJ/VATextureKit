@@ -18,40 +18,44 @@ extension CollectionListHeaderFooterScreenNode {
 }
 
 final class CollectionListHeaderFooterScreenNode: ScreenNode, @unchecked Sendable {
-    private lazy var leftListNode = VAListNode(
-        context: .init(
-            listDataObs: viewModel.listDataObs,
-            cellGetter: mapToCell(viewModel:),
-            headerGetter: { $0.model.headerViewModel.flatMap(mapToCell(viewModel:)) },
-            footerGetter: { $0.model.footerViewModel.flatMap(mapToCell(viewModel:)) },
-            moveItem: viewModel.moveItem(source:destination:)
-        ),
-        layoutData: .init(
-            layout: .default(parameters: .init(
-                minimumLineSpacing: 8,
-                sectionHeadersPinToVisibleBounds: true,
-                sectionFootersPinToVisibleBounds: true
-            ))
+    private lazy var leftListNode = VAMainActorWrapperNode { [viewModel] in
+        VAListNode(
+            context: .init(
+                listDataObs: viewModel.listDataObs,
+                cellGetter: mapToCell(viewModel:),
+                headerGetter: { $0.model.headerViewModel.flatMap(mapToCell(viewModel:)) },
+                footerGetter: { $0.model.footerViewModel.flatMap(mapToCell(viewModel:)) },
+                moveItem: viewModel.moveItem(source:destination:)
+            ),
+            layoutData: .init(
+                layout: .default(parameters: .init(
+                    minimumLineSpacing: 8,
+                    sectionHeadersPinToVisibleBounds: true,
+                    sectionFootersPinToVisibleBounds: true
+                ))
+            )
         )
-    ).flex(basisPercent: 50)
-    private lazy var rightListNode = VAListNode(
-        context: .init(
-            listDataObs: viewModel.listDataObs,
-            cellGetter: mapToCell(viewModel:),
-            headerGetter: { $0.model.headerViewModel.flatMap(mapToCell(viewModel:)) },
-            footerGetter: { $0.model.footerViewModel.flatMap(mapToCell(viewModel:)) },
-            moveItem: viewModel.moveItem(source:destination:)
-        ),
-        layoutData: .init(
-            sizing: .vertical(columns: 2, ratio: 1),
-            layout: .default(parameters: .init(
-                minimumLineSpacing: 8,
-                minimumInteritemSpacing: 8,
-                sectionHeadersPinToVisibleBounds: true,
-                sectionFootersPinToVisibleBounds: true
-            ))
+    }.flex(basisPercent: 50)
+    private lazy var rightListNode = VAMainActorWrapperNode { [viewModel] in
+        VAListNode(
+            context: .init(
+                listDataObs: viewModel.listDataObs,
+                cellGetter: mapToCell(viewModel:),
+                headerGetter: { $0.model.headerViewModel.flatMap(mapToCell(viewModel:)) },
+                footerGetter: { $0.model.footerViewModel.flatMap(mapToCell(viewModel:)) },
+                moveItem: viewModel.moveItem(source:destination:)
+            ),
+            layoutData: .init(
+                sizing: .vertical(columns: 2, ratio: 1),
+                layout: .default(parameters: .init(
+                    minimumLineSpacing: 8,
+                    minimumInteritemSpacing: 8,
+                    sectionHeadersPinToVisibleBounds: true,
+                    sectionFootersPinToVisibleBounds: true
+                ))
+            )
         )
-    ).flex(basisPercent: 50)
+    }.flex(basisPercent: 50)
 
     let viewModel: CollectionListHeaderFooterViewModel
 

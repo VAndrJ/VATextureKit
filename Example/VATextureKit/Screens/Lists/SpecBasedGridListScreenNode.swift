@@ -13,25 +13,27 @@ import RxCocoa
 struct SpecBasedGridListNavigationIdentity: DefaultNavigationIdentity {}
 
 final class SpecBasedGridListScreenNode: ScreenNode, @unchecked Sendable {
-    private lazy var listNode = VAListNode(
-        data: .init(
-            listDataObs: listDataObs,
-            cellGetter: TagCellNode.init(viewModel:)
-        ),
-        layoutData: .init(
-            contentInset: UIEdgeInsets(all: 16),
-            layout: .delegate(VASpecGridListLayoutDelegate(info: .init(
-                scrollableDirection: .vertical,
-                itemsConfiguration: .init(
-                    spacing: 8,
-                    main: .center,
-                    alignContent: .center,
-                    line: 8
-                ),
-                sectionsConfiguration: .init(cross: .stretch)
-            )))
+    private lazy var listNode = VAMainActorWrapperNode { [listDataObs] in
+        VAListNode(
+            data: .init(
+                listDataObs: listDataObs,
+                cellGetter: TagCellNode.init(viewModel:)
+            ),
+            layoutData: .init(
+                contentInset: .init(all: 16),
+                layout: .delegate(VASpecGridListLayoutDelegate(info: .init(
+                    scrollableDirection: .vertical,
+                    itemsConfiguration: .init(
+                        spacing: 8,
+                        main: .center,
+                        alignContent: .center,
+                        line: 8
+                    ),
+                    sectionsConfiguration: .init(cross: .stretch)
+                )))
+            )
         )
-    )
+    }
 
     @Obs.Relay(value: [])
     private var listDataObs: Observable<[TagCellNodeViewModel]>
