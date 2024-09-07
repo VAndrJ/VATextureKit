@@ -53,7 +53,7 @@ final class ColumnLayoutScreenNode: ScrollScreenNode, @unchecked Sendable {
     )
 
     init() {
-        super.init(context: .init(contentInset: UIEdgeInsets(vertical: 24)))
+        super.init(context: .init(contentInset: .init(vertical: 24)))
     }
 
     override func scrollLayoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
