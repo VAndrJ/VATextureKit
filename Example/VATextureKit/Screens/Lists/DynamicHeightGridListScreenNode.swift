@@ -6,6 +6,7 @@
 //  Copyright © 2023 Volodymyr Andriienko. All rights reserved.
 //
 
+/*
 import VATextureKitRx
 
 struct DynamicHeightGridListNavigationIdentity: DefaultNavigationIdentity {}
@@ -41,3 +42,4 @@ final class DynamicHeightGridListScreenNode: ScreenNode, @unchecked Sendable {
         listNode.backgroundColor = theme.systemBackground
     }
 }
+*/

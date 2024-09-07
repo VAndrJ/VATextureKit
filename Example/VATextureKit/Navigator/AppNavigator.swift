@@ -105,8 +105,8 @@ class AppScreenFactory: NavigatorScreenFactory {
             return VAViewController(node: LinkTextScreenNode())
         case _ as CountingTextNodeNavigationIdentity:
             return VAViewController(node: CountingTextNodeController())
-        case _ as DynamicHeightGridListNavigationIdentity:
-            return VAViewController(node: DynamicHeightGridListScreenNode())
+            //        case _ as DynamicHeightGridListNavigationIdentity:
+            //            return VAViewController(node: DynamicHeightGridListScreenNode())
         case _ as ShimmersNavigationIdentity:
             return VAViewController(node: ShimmersScreenNode())
         case _ as SpecBasedGridListNavigationIdentity:
