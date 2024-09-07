@@ -11,10 +11,12 @@ import VATextureKitRx
 struct SlidingTabBarNavigationIdentity: DefaultNavigationIdentity {}
 
 final class SlidingTabBarScreenNode: ScreenNode, @unchecked Sendable {
-    private lazy var pagerNode = VAPagerNode(context: .init(
-        items: (0...5).map { PagerCardCellNodeViewModel(title: "Title \($0)", description: "Description \($0)") },
-        cellGetter: mapToCell(viewModel:)
-    ))
+    private lazy var pagerNode = VAMainActorWrapperNode {
+        VAPagerNode(context: .init(
+            items: (0...5).map { PagerCardCellNodeViewModel(title: "Title \($0)", description: "Description \($0)") },
+            cellGetter: mapToCell(viewModel:)
+        ))
+    }
     private lazy var topTabBarNode = VASlidingTabBarNode(context: .init(
         data: (0...5).map { "Title".repeating($0) },
         spacing: 16,
@@ -22,8 +24,8 @@ final class SlidingTabBarScreenNode: ScreenNode, @unchecked Sendable {
         indicatorInset: 8,
         color: { $0.systemPurple },
         item: { data, onSelect in VASlidingTabTextNode(data: data, onSelect: onSelect) },
-        indexObs: pagerNode.indexObs,
-        onSelect: { [weak pagerNode] in pagerNode?.scroll(to: $0) }
+        indexObs: { [pagerNode] in pagerNode.child.indexObs },
+        onSelect: { [weak pagerNode] in pagerNode?.child.scroll(to: $0) }
     ))
     private lazy var floatingTabBarNode = VASlidingTabBarNode(context: .init(
         data: (0...5).map { "Title".repeating($0) },
@@ -32,8 +34,8 @@ final class SlidingTabBarScreenNode: ScreenNode, @unchecked Sendable {
         indicatorInset: 8,
         color: { $0.systemBlue },
         item: { data, onSelect in VASlidingTabTextNode(data: data, onSelect: onSelect) },
-        indexObs: pagerNode.indexObs,
-        onSelect: { [weak pagerNode] in pagerNode?.scroll(to: $0) }
+        indexObs: { [pagerNode] in pagerNode.child.indexObs },
+        onSelect: { [weak pagerNode] in pagerNode?.child.scroll(to: $0) }
     )).apply {
         $0.cornerCurve = .continuous
         $0.borderWidth = 1
@@ -80,8 +82,8 @@ final class SlidingTabBarScreenNode: ScreenNode, @unchecked Sendable {
     }
 
     override func bind() {
-        previousButtonNode.onTap = self ?> { $0.pagerNode.previous() }
-        nextButtonNode.onTap = self ?> { $0.pagerNode.next() }
+        previousButtonNode.onTap = self ?> { $0.pagerNode.child.previous() }
+        nextButtonNode.onTap = self ?> { $0.pagerNode.child.next() }
     }
 }
 

@@ -12,18 +12,32 @@ import RxSwift
 import RxCocoa
 
 final class PagerIndicatorNode<Item: Equatable & IdentifiableType>: VASizedViewWrapperNode<UIPageControl>, @unchecked Sendable {
-    private let bag = DisposeBag()
-    private weak var pagerNode: VAPagerNode<Item>?
+    private var bag = DisposeBag()
+    private weak var pagerNode: VAPagerNode<Item>? {
+        didSet {
+            ensureOnMainActor {
+                bag = DisposeBag()
+                bind()
+            }
+        }
+    }
 
-    convenience init(pagerNode: VAPagerNode<Item>) {
+    convenience init(pagerNode: @MainActor @escaping () -> VAPagerNode<Item>) {
         self.init(childGetter: { UIPageControl() }, sizing: .viewSize)
 
-        self.pagerNode = pagerNode
+        ensureOnMainActor {
+            self.pagerNode = pagerNode()
+        }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        child.addTarget(
+            self,
+            action: #selector(onChange(_:)),
+            for: .valueChanged
+        )
         bind()
     }
 
@@ -34,11 +48,6 @@ final class PagerIndicatorNode<Item: Equatable & IdentifiableType>: VASizedViewW
 
     @MainActor
     private func bind() {
-        child.addTarget(
-            self,
-            action: #selector(onChange(_:)),
-            for: .valueChanged
-        )
         pagerNode?.indexObs
             .map { Int($0 + 0.5) }
             .debounce(.milliseconds(100), scheduler: MainScheduler.asyncInstance)

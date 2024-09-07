@@ -17,7 +17,7 @@ import RxCocoa
 public protocol VASlidingTab {
     associatedtype TabData
 
-    init(data: TabData, onSelect: @MainActor @escaping () -> Void)
+    init(data: TabData, onSelect: @MainActor @escaping @Sendable () -> Void)
 
     func update(intersection: CGRect)
 }
@@ -29,9 +29,9 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode, @unchecked Sendable {
         let contentInset: UIEdgeInsets
         let indicatorInset: CGFloat
         let color: (VATheme) -> UIColor
-        let item: (_ data: TabData, _ onSelect: @MainActor @escaping () -> Void) -> any ASDisplayNode & VASlidingTab
-        let indexObs: Observable<CGFloat>
-        let onSelect: @MainActor (Int) -> Void
+        let item: (_ data: TabData, _ onSelect: @MainActor @escaping @Sendable () -> Void) -> any ASDisplayNode & VASlidingTab
+        let indexObs: @MainActor @Sendable () -> Observable<CGFloat>
+        let onSelect: @MainActor @Sendable (Int) -> Void
 
         public init(
             data: [TabData],
@@ -39,9 +39,9 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode, @unchecked Sendable {
             contentInset: UIEdgeInsets,
             indicatorInset: CGFloat,
             color: @escaping (VATheme) -> UIColor,
-            item: @escaping (TabData, @escaping () -> Void) -> any ASDisplayNode & VASlidingTab,
-            indexObs: Observable<CGFloat>,
-            onSelect: @MainActor @escaping (Int) -> Void
+            item: @escaping (TabData, @MainActor @escaping @Sendable () -> Void) -> any ASDisplayNode & VASlidingTab,
+            indexObs: @MainActor @escaping @Sendable () -> Observable<CGFloat>,
+            onSelect: @MainActor @escaping @Sendable (Int) -> Void
         ) {
             self.data = data
             self.spacing = spacing
@@ -126,7 +126,7 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode, @unchecked Sendable {
         Observable
             .combineLatest(
                 rx.methodInvoked(#selector(didEnterVisibleState)),
-                context.indexObs
+                context.indexObs()
             )
             .map { $1 }
             .subscribe(onNext: { [weak self] in self?.scroll(index: $0) })
