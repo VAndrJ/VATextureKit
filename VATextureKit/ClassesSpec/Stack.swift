@@ -67,14 +67,14 @@ public final class Stack: ASWrapperLayoutSpec {
                 switch centerSpec.centeringOptions {
                 case .X:
                     let x = (size.width - rawSubLayouts[i].size.width) * proportionOfAxisFor(position: .center)
-                    rawSubLayouts[i].position = CGPoint(x: x, y: 0)
+                    rawSubLayouts[i].position = .init(x: x, y: 0)
                 case .Y:
                     let y = (size.height - rawSubLayouts[i].size.height) * proportionOfAxisFor(position: .center)
-                    rawSubLayouts[i].position = CGPoint(x: 0, y: y)
+                    rawSubLayouts[i].position = .init(x: 0, y: y)
                 case .XY:
                     let x = (size.width - rawSubLayouts[i].size.width) * proportionOfAxisFor(position: .center)
                     let y = (size.height - rawSubLayouts[i].size.height) * proportionOfAxisFor(position: .center)
-                    rawSubLayouts[i].position = CGPoint(x: x, y: y)
+                    rawSubLayouts[i].position = .init(x: x, y: y)
                 default:
                     break
                 }
@@ -82,7 +82,7 @@ public final class Stack: ASWrapperLayoutSpec {
             if let relativeSpec = child as? ASRelativeLayoutSpec {
                 let x = (size.width - rawSubLayouts[i].size.width) * proportionOfAxisFor(position: relativeSpec.horizontalPosition)
                 let y = (size.height - rawSubLayouts[i].size.height) * proportionOfAxisFor(position: relativeSpec.verticalPosition)
-                rawSubLayouts[i].position = CGPoint(x: x, y: y)
+                rawSubLayouts[i].position = .init(x: x, y: y)
             }
         }
         
