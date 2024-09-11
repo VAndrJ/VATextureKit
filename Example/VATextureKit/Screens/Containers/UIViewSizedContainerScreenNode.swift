@@ -44,10 +44,10 @@ final class UIViewSizedContainerScreenNode: ScreenNode, @unchecked Sendable {
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
-            Column(spacing: 4) {
-                textHeightContainerNode
+            Column(spacing: 16) {
                 textWidthContainerNode
                 textSizeContainerNode
+                textHeightContainerNode
             }
             .padding(.all(16))
         }
