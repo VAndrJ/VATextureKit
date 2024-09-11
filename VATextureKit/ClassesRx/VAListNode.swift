@@ -347,9 +347,10 @@ open class VAListNode<S: AnimatableSectionModelType>: VASimpleCollectionNode, AS
             .disposed(by: bag)
         if context.shouldBatchFetch != nil {
             rx.willBeginBatchFetch
-                .do(onNext: { [weak self] in self?.batchContext = $0 })
-                .map { _ in }
-                .subscribe(onNext: context.loadMore)
+                .subscribeMain(onNext: { [weak self] value in
+                    self?.batchContext = value
+                    context.loadMore()
+                })
                 .disposed(by: bag)
         }
         if context.shouldDeselect.deselectOnSelect {
@@ -512,3 +513,4 @@ extension String: IdentifiableType {
     public var identity: String { self }
 }
 #endif
+extension ASBatchContext: @unchecked Sendable {}
