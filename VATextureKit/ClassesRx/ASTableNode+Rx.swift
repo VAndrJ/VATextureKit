@@ -461,7 +461,7 @@ open class ASTableSectionedDataSource<S: SectionModelType>: NSObject, ASTableDat
     }
 }
 
-open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>: ASTableSectionedDataSource<S>, RxASTableDataSourceType {
+open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>: ASTableSectionedDataSource<S>, RxASTableDataSourceType, @unchecked Sendable {
     public typealias Element = [S]
     public typealias DecideNodeTransition = @Sendable (ASTableSectionedDataSource<S>, ASTableNode, [Changeset<S>]) -> NodeTransition
     public var animationConfiguration: AnimationConfiguration
@@ -545,9 +545,11 @@ open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>: 
                             // this is a limitation of Diff tool
                             for difference in differences {
                                 let updateBlock = {
-                                    // sections must be set within updateBlock in 'performBatchUpdates'
-                                    dataSource.setSections(difference.finalSections)
-                                    tableNode.batchUpdates(difference, animationConfiguration: dataSource.animationConfiguration)
+                                    MainActor.assumeIsolated {
+                                        // sections must be set within updateBlock in 'performBatchUpdates'
+                                        dataSource.setSections(difference.finalSections)
+                                        tableNode.batchUpdates(difference, animationConfiguration: dataSource.animationConfiguration)
+                                    }
                                 }
                                 tableNode.performBatch(
                                     animated: dataSource.animationConfiguration.animated,

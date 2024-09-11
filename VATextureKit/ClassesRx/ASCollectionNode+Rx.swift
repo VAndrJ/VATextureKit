@@ -286,7 +286,7 @@ open class RxASCollectionSectionedAnimatedDataSource<S: AnimatableSectionModelTy
                             // each difference must be run in a separate 'performBatchUpdates', otherwise it crashes.
                             // this is a limitation of Diff tool
                             for difference in differences {
-                                let updateBlock: @Sendable () -> Void = {
+                                let updateBlock: @MainActor @Sendable () -> Void = {
                                     // sections must be set within updateBlock in 'performBatchUpdates'
                                     dataSource.setSections(difference.finalSections)
                                     collectionNode.batchUpdates(difference, animationConfiguration: dataSource.animationConfiguration)
@@ -345,7 +345,7 @@ open class RxASCollectionSectionedReloadDataSource<S: SectionModelType>: ASColle
 }
 
 #if compiler(>=6.0)
-extension ASCollectionNode: @retroactive @preconcurrency HasDelegate {}
+extension ASCollectionNode: @retroactive HasDelegate {}
 #else
 extension ASCollectionNode: HasDelegate {}
 #endif
@@ -571,7 +571,7 @@ open class ASCollectionSectionedDataSource<S: SectionModelType>: NSObject, ASCol
 }
 
 #if compiler(>=6.0)
-extension ASCollectionNode: @retroactive @preconcurrency HasDataSource {}
+extension ASCollectionNode: @retroactive HasDataSource {}
 #else
 extension ASCollectionNode: HasDataSource {}
 #endif

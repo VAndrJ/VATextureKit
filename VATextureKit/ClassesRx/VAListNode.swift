@@ -508,9 +508,10 @@ public extension ASCollectionNode {
 extension String: @retroactive IdentifiableType {
     public var identity: String { self }
 }
+extension ASBatchContext: @retroactive @unchecked Sendable {}
 #else
 extension String: IdentifiableType {
     public var identity: String { self }
 }
-#endif
 extension ASBatchContext: @unchecked Sendable {}
+#endif
