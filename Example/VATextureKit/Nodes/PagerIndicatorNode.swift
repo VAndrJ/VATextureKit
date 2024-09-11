@@ -22,7 +22,7 @@ final class PagerIndicatorNode<Item: Equatable & IdentifiableType>: VASizedViewW
         }
     }
 
-    convenience init(pagerNode: @MainActor @escaping () -> VAPagerNode<Item>) {
+    convenience init(pagerNode: @MainActor @Sendable @escaping () -> VAPagerNode<Item>) {
         self.init(childGetter: { UIPageControl() }, sizing: .viewSize)
 
         ensureOnMainActor {

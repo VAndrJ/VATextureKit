@@ -15,7 +15,7 @@ final class ViewHostingScreenNode: ScreenNode, @unchecked Sendable {
     private lazy var textHeightContainerNode = VAViewHostingNode(
         body: {
             Text(".viewHeight sizing".dummyLong(repeating: 5))
-                .background(Color.purple.opacity(0.1))
+                .background(Color.green.opacity(0.1))
         },
         sizing: .viewHeight
     ).sized(width: 280)
@@ -33,17 +33,17 @@ final class ViewHostingScreenNode: ScreenNode, @unchecked Sendable {
     private lazy var textSizeContainerNode = VAViewHostingNode(
         body: {
             Text(".viewSize sizing".dummyLong(repeating: 2).dummyLong(separator: "\n", repeating: 3))
-                .background(Color.green.opacity(0.1))
+                .background(Color.purple.opacity(0.1))
         },
         sizing: .viewSize
     )
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
-            Column(spacing: 4) {
-                textHeightContainerNode
+            Column(spacing: 16) {
                 textWidthContainerNode
                 textSizeContainerNode
+                textHeightContainerNode
             }
             .padding(.all(16))
         }

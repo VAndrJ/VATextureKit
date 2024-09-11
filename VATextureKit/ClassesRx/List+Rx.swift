@@ -300,19 +300,28 @@ extension ASCollectionNode {
 }
 
 public protocol SectionedNodeType {
-    
+
+    @MainActor
     func insertItemsAtIndexPaths(_ paths: [IndexPath], animationStyle: UITableView.RowAnimation)
+    @MainActor
     func deleteItemsAtIndexPaths(_ paths: [IndexPath], animationStyle: UITableView.RowAnimation)
+    @MainActor
     func moveItemAtIndexPath(_ from: IndexPath, to: IndexPath)
+    @MainActor
     func reloadItemsAtIndexPaths(_ paths: [IndexPath], animationStyle: UITableView.RowAnimation)
+    @MainActor
     func insertSections(_ sections: [Int], animationStyle: UITableView.RowAnimation)
+    @MainActor
     func deleteSections(_ sections: [Int], animationStyle: UITableView.RowAnimation)
+    @MainActor
     func moveSection(_ from: Int, to: Int)
+    @MainActor
     func reloadSections(_ sections: [Int], animationStyle: UITableView.RowAnimation)
 }
 
 extension SectionedNodeType {
-    
+
+    @MainActor
     public func batchUpdates<S>(_ changes: Changeset<S>, animationConfiguration: AnimationConfiguration) {
         deleteSections(changes.deletedSections, animationStyle: animationConfiguration.deleteAnimation)
         // Updated sections doesn't mean reload entire section, somebody needs to update the section view manually

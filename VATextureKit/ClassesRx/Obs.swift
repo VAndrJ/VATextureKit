@@ -201,14 +201,14 @@ public enum ReplayStrategy {
     case none
 }
 
-extension ObservableType {
+extension ObservableType where Element: Sendable {
 
     func subscribeMain(
-        onNext: (@MainActor (Element) -> Void)? = nil,
-        onError: (@MainActor (Swift.Error) -> Void)? = nil,
-        onCompleted: (@MainActor () -> Void)? = nil,
-        onDisposed: (@MainActor () -> Void)? = nil
-    ) -> Disposable {
+        onNext: (@MainActor @Sendable (Element) -> Void)? = nil,
+        onError: (@MainActor @Sendable (any Swift.Error) -> Void)? = nil,
+        onCompleted: (@MainActor @Sendable () -> Void)? = nil,
+        onDisposed: (@MainActor @Sendable () -> Void)? = nil
+    ) -> any Disposable {
         self.observe(on: MainScheduler.instance)
             .subscribe(
                 onNext: onNext == nil ? nil : { element in

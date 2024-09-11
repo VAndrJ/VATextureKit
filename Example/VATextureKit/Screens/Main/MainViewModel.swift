@@ -56,8 +56,8 @@ final class MainViewModel: @unchecked Sendable {
         ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Containers"), items: [
             MainListCellNodeViewModel(title: "UIView container", description: "Autolayout UIView, different sizing", destination: UIViewSizedContainerNavigationIdentity()),
-            MainListCellNodeViewModel(title: "UIView container", description: "UIView, different sizing", destination: UIViewContainerNavigationIdentity()),
             MainListCellNodeViewModel(title: "View container", description: "SwiftUI View, different sizing", destination: ViewHostingNavigationIdentity()),
+            MainListCellNodeViewModel(title: "UIView container", description: "UIView, different sizing", destination: UIViewContainerNavigationIdentity()),
             MainListCellNodeViewModel(title: "Nodes comparison container", description: "Slide-to-compare node", destination: VAComparisonNodeIdentity()),
         ]),
         AnimatableSectionModel(model: MainSectionHeaderNodeViewModel(title: "Experiments"), items: [

@@ -238,7 +238,7 @@ public protocol RxASCollectionDataSourceType {
 
 open class RxASCollectionSectionedAnimatedDataSource<S: AnimatableSectionModelType>: ASCollectionSectionedDataSource<S>, RxASCollectionDataSourceType, @unchecked Sendable {
     public typealias Element = [S]
-    public typealias DecideNodeTransition = (ASCollectionSectionedDataSource<S>, ASCollectionNode, [Changeset<S>]) -> NodeTransition
+    public typealias DecideNodeTransition = @Sendable (ASCollectionSectionedDataSource<S>, ASCollectionNode, [Changeset<S>]) -> NodeTransition
     public var animationConfiguration: AnimationConfiguration
     public var decideNodeTransition: DecideNodeTransition
 
@@ -286,7 +286,7 @@ open class RxASCollectionSectionedAnimatedDataSource<S: AnimatableSectionModelTy
                             // each difference must be run in a separate 'performBatchUpdates', otherwise it crashes.
                             // this is a limitation of Diff tool
                             for difference in differences {
-                                let updateBlock: @Sendable () -> Void = {
+                                let updateBlock: @MainActor @Sendable () -> Void = {
                                     // sections must be set within updateBlock in 'performBatchUpdates'
                                     dataSource.setSections(difference.finalSections)
                                     collectionNode.batchUpdates(difference, animationConfiguration: dataSource.animationConfiguration)
@@ -419,10 +419,10 @@ open class ASCollectionSectionedDataSource<S: SectionModelType>: NSObject, ASCol
     public typealias Item = S.Item
     public typealias Section = S
     
-    public typealias ConfigureCellBlock = (ASCollectionSectionedDataSource<S>, ASCollectionNode, IndexPath, Item) -> ASCellNodeBlock
-    public typealias ConfigureSupplementaryNodeBlock = (ASCollectionSectionedDataSource<S>, ASCollectionNode, String, IndexPath) -> ASCellNodeBlock?
-    public typealias MoveItem = (ASCollectionSectionedDataSource<S>, _ sourceIndexPath: IndexPath, _ destinationIndexPath: IndexPath) -> Void
-    public typealias CanMoveItemWith = (ASCollectionSectionedDataSource<S>, ASCellNode) -> Bool
+    public typealias ConfigureCellBlock = @Sendable (ASCollectionSectionedDataSource<S>, ASCollectionNode, IndexPath, Item) -> ASCellNodeBlock
+    public typealias ConfigureSupplementaryNodeBlock = @Sendable (ASCollectionSectionedDataSource<S>, ASCollectionNode, String, IndexPath) -> ASCellNodeBlock?
+    public typealias MoveItem = @Sendable (ASCollectionSectionedDataSource<S>, _ sourceIndexPath: IndexPath, _ destinationIndexPath: IndexPath) -> Void
+    public typealias CanMoveItemWith = @Sendable (ASCollectionSectionedDataSource<S>, ASCellNode) -> Bool
     
     public init(
         configureCellBlock: @escaping ConfigureCellBlock,

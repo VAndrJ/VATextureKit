@@ -251,15 +251,15 @@ open class ASTableSectionedDataSource<S: SectionModelType>: NSObject, ASTableDat
     public typealias Item = S.Item
     public typealias Section = S
     
-    public typealias ConfigureCellBlock = (ASTableSectionedDataSource<S>, ASTableNode, IndexPath, Item) -> ASCellNodeBlock
-    public typealias TitleForHeaderInSection = (ASTableSectionedDataSource<S>, Int) -> String?
-    public typealias TitleForFooterInSection = (ASTableSectionedDataSource<S>, Int) -> String?
-    public typealias CanEditRowAtIndexPath = (ASTableSectionedDataSource<S>, IndexPath) -> Bool
-    public typealias CanMoveRowAtIndexPath = (ASTableSectionedDataSource<S>, IndexPath) -> Bool
-    
+    public typealias ConfigureCellBlock = @Sendable (ASTableSectionedDataSource<S>, ASTableNode, IndexPath, Item) -> ASCellNodeBlock
+    public typealias TitleForHeaderInSection = @Sendable (ASTableSectionedDataSource<S>, Int) -> String?
+    public typealias TitleForFooterInSection = @Sendable (ASTableSectionedDataSource<S>, Int) -> String?
+    public typealias CanEditRowAtIndexPath = @Sendable (ASTableSectionedDataSource<S>, IndexPath) -> Bool
+    public typealias CanMoveRowAtIndexPath = @Sendable (ASTableSectionedDataSource<S>, IndexPath) -> Bool
+
     #if os(iOS)
-    public typealias SectionIndexTitles = (ASTableSectionedDataSource<S>) -> [String]?
-    public typealias SectionForSectionIndexTitle = (ASTableSectionedDataSource<S>, _ title: String, _ index: Int) -> Int
+    public typealias SectionIndexTitles = @Sendable (ASTableSectionedDataSource<S>) -> [String]?
+    public typealias SectionForSectionIndexTitle = @Sendable (ASTableSectionedDataSource<S>, _ title: String, _ index: Int) -> Int
     #endif
     
     #if os(iOS)
@@ -461,9 +461,9 @@ open class ASTableSectionedDataSource<S: SectionModelType>: NSObject, ASTableDat
     }
 }
 
-open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>: ASTableSectionedDataSource<S>, RxASTableDataSourceType {
+open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>: ASTableSectionedDataSource<S>, RxASTableDataSourceType, @unchecked Sendable {
     public typealias Element = [S]
-    public typealias DecideNodeTransition = (ASTableSectionedDataSource<S>, ASTableNode, [Changeset<S>]) -> NodeTransition
+    public typealias DecideNodeTransition = @Sendable (ASTableSectionedDataSource<S>, ASTableNode, [Changeset<S>]) -> NodeTransition
     public var animationConfiguration: AnimationConfiguration
     public var decideNodeTransition: DecideNodeTransition
     
@@ -545,9 +545,11 @@ open class RxASTableSectionedAnimatedDataSource<S: AnimatableSectionModelType>: 
                             // this is a limitation of Diff tool
                             for difference in differences {
                                 let updateBlock = {
-                                    // sections must be set within updateBlock in 'performBatchUpdates'
-                                    dataSource.setSections(difference.finalSections)
-                                    tableNode.batchUpdates(difference, animationConfiguration: dataSource.animationConfiguration)
+                                    MainActor.assumeIsolated {
+                                        // sections must be set within updateBlock in 'performBatchUpdates'
+                                        dataSource.setSections(difference.finalSections)
+                                        tableNode.batchUpdates(difference, animationConfiguration: dataSource.animationConfiguration)
+                                    }
                                 }
                                 tableNode.performBatch(
                                     animated: dataSource.animationConfiguration.animated,

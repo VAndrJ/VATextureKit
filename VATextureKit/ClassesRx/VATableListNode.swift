@@ -345,9 +345,10 @@ open class VATableListNode<S: AnimatableSectionModelType>: VASimpleTableNode, @u
             .disposed(by: bag)
         if context.shouldBatchFetch != nil {
             rx.willBeginBatchFetch
-                .do(onNext: { [weak self] in self?.batchContext = $0 })
-                .map { _ in }
-                .subscribe(onNext: context.loadMore)
+                .subscribeMain(onNext: { [weak self] value in
+                    self?.batchContext = value
+                    self?.context.loadMore()
+                })
                 .disposed(by: bag)
         }
         if context.configuration.shouldDeselect.deselectOnSelect {
