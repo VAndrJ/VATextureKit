@@ -74,17 +74,17 @@ open class VAListNode<S: AnimatableSectionModelType>: VASimpleCollectionNode, AS
     }
     
     public struct Context: @unchecked Sendable {
-        nonisolated let indicatorConfiguration: IndicatorConfiguration
-        nonisolated(unsafe) let listDataObs: Observable<[S]>
-        nonisolated let onSelect: (@Sendable (IndexPath) -> Void)?
-        nonisolated let shouldDeselect: (deselectOnSelect: Bool, animated: Bool)
-        nonisolated let cellGetter: @Sendable (S.Item) -> ASCellNode
-        nonisolated let headerGetter: (@Sendable (S) -> ASCellNode?)?
-        nonisolated let footerGetter: (@Sendable (S) -> ASCellNode?)?
-        nonisolated let canMoveItem: @Sendable (_ cell: ASCellNode) -> Bool
-        nonisolated let moveItem: (@Sendable (_ source: IndexPath, _ destination: IndexPath) -> Void)?
-        nonisolated let shouldBatchFetch: (@Sendable () -> Bool)?
-        nonisolated let loadMore: @Sendable () -> Void
+        let indicatorConfiguration: IndicatorConfiguration
+        let listDataObs: Observable<[S]>
+        let onSelect: (@Sendable (IndexPath) -> Void)?
+        let shouldDeselect: (deselectOnSelect: Bool, animated: Bool)
+        let cellGetter: @Sendable (S.Item) -> ASCellNode
+        let headerGetter: (@Sendable (S) -> ASCellNode?)?
+        let footerGetter: (@Sendable (S) -> ASCellNode?)?
+        let canMoveItem: @Sendable (_ cell: ASCellNode) -> Bool
+        let moveItem: (@Sendable (_ source: IndexPath, _ destination: IndexPath) -> Void)?
+        let shouldBatchFetch: (@Sendable () -> Bool)?
+        let loadMore: @Sendable () -> Void
 
         nonisolated public init(
             indicatorConfiguration: IndicatorConfiguration = .init(),
