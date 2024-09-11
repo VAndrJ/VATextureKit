@@ -262,7 +262,11 @@ extension ASTableNode: SectionedNodeType {
     }
 }
 
+#if compiler(>=6.0)
+extension ASCollectionNode: @preconcurrency SectionedNodeType {}
+#else
 extension ASCollectionNode: SectionedNodeType {}
+#endif
 
 extension ASCollectionNode {
     

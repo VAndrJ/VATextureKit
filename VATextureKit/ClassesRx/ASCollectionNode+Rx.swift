@@ -238,7 +238,7 @@ public protocol RxASCollectionDataSourceType {
 
 open class RxASCollectionSectionedAnimatedDataSource<S: AnimatableSectionModelType>: ASCollectionSectionedDataSource<S>, RxASCollectionDataSourceType, @unchecked Sendable {
     public typealias Element = [S]
-    public typealias DecideNodeTransition = (ASCollectionSectionedDataSource<S>, ASCollectionNode, [Changeset<S>]) -> NodeTransition
+    public typealias DecideNodeTransition = @Sendable (ASCollectionSectionedDataSource<S>, ASCollectionNode, [Changeset<S>]) -> NodeTransition
     public var animationConfiguration: AnimationConfiguration
     public var decideNodeTransition: DecideNodeTransition
 
@@ -345,7 +345,7 @@ open class RxASCollectionSectionedReloadDataSource<S: SectionModelType>: ASColle
 }
 
 #if compiler(>=6.0)
-extension ASCollectionNode: @retroactive HasDelegate {}
+extension ASCollectionNode: @retroactive @preconcurrency HasDelegate {}
 #else
 extension ASCollectionNode: HasDelegate {}
 #endif
@@ -419,10 +419,10 @@ open class ASCollectionSectionedDataSource<S: SectionModelType>: NSObject, ASCol
     public typealias Item = S.Item
     public typealias Section = S
     
-    public typealias ConfigureCellBlock = (ASCollectionSectionedDataSource<S>, ASCollectionNode, IndexPath, Item) -> ASCellNodeBlock
-    public typealias ConfigureSupplementaryNodeBlock = (ASCollectionSectionedDataSource<S>, ASCollectionNode, String, IndexPath) -> ASCellNodeBlock?
-    public typealias MoveItem = (ASCollectionSectionedDataSource<S>, _ sourceIndexPath: IndexPath, _ destinationIndexPath: IndexPath) -> Void
-    public typealias CanMoveItemWith = (ASCollectionSectionedDataSource<S>, ASCellNode) -> Bool
+    public typealias ConfigureCellBlock = @Sendable (ASCollectionSectionedDataSource<S>, ASCollectionNode, IndexPath, Item) -> ASCellNodeBlock
+    public typealias ConfigureSupplementaryNodeBlock = @Sendable (ASCollectionSectionedDataSource<S>, ASCollectionNode, String, IndexPath) -> ASCellNodeBlock?
+    public typealias MoveItem = @Sendable (ASCollectionSectionedDataSource<S>, _ sourceIndexPath: IndexPath, _ destinationIndexPath: IndexPath) -> Void
+    public typealias CanMoveItemWith = @Sendable (ASCollectionSectionedDataSource<S>, ASCellNode) -> Bool
     
     public init(
         configureCellBlock: @escaping ConfigureCellBlock,
@@ -571,7 +571,7 @@ open class ASCollectionSectionedDataSource<S: SectionModelType>: NSObject, ASCol
 }
 
 #if compiler(>=6.0)
-extension ASCollectionNode: @retroactive HasDataSource {}
+extension ASCollectionNode: @retroactive @preconcurrency HasDataSource {}
 #else
 extension ASCollectionNode: HasDataSource {}
 #endif

@@ -22,14 +22,14 @@ public protocol VASlidingTab {
     func update(intersection: CGRect)
 }
 
-open class VASlidingTabBarNode<TabData>: VAScrollNode, @unchecked Sendable {
-    public struct Context {
+open class VASlidingTabBarNode<TabData: Sendable>: VAScrollNode, @unchecked Sendable {
+    public struct Context: Sendable {
         let data: [TabData]
         let spacing: CGFloat
         let contentInset: UIEdgeInsets
         let indicatorInset: CGFloat
-        let color: (VATheme) -> UIColor
-        let item: (_ data: TabData, _ onSelect: @MainActor @escaping @Sendable () -> Void) -> any ASDisplayNode & VASlidingTab
+        let color: @Sendable (VATheme) -> UIColor
+        let item: @Sendable (_ data: TabData, _ onSelect: @MainActor @escaping @Sendable () -> Void) -> any ASDisplayNode & VASlidingTab
         let indexObs: @MainActor @Sendable () -> Observable<CGFloat>
         let onSelect: @MainActor @Sendable (Int) -> Void
 
@@ -38,8 +38,8 @@ open class VASlidingTabBarNode<TabData>: VAScrollNode, @unchecked Sendable {
             spacing: CGFloat,
             contentInset: UIEdgeInsets,
             indicatorInset: CGFloat,
-            color: @escaping (VATheme) -> UIColor,
-            item: @escaping (TabData, @MainActor @escaping @Sendable () -> Void) -> any ASDisplayNode & VASlidingTab,
+            color: @Sendable @escaping (VATheme) -> UIColor,
+            item: @Sendable @escaping (TabData, @MainActor @escaping @Sendable () -> Void) -> any ASDisplayNode & VASlidingTab,
             indexObs: @MainActor @escaping @Sendable () -> Observable<CGFloat>,
             onSelect: @MainActor @escaping @Sendable (Int) -> Void
         ) {

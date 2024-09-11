@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 import Differentiator
 
-final class CollectionListHeaderFooterViewModel {
+final class CollectionListHeaderFooterViewModel: @unchecked Sendable {
     @Obs.Relay(value: [
         AnimatableSectionModel(
             model: CollectionListSectionHeaderFooterViewModel(

@@ -17,7 +17,7 @@ final class SpecBasedGridListScreenNode: ScreenNode, @unchecked Sendable {
         VAListNode(
             data: .init(
                 listDataObs: listDataObs,
-                cellGetter: TagCellNode.init(viewModel:)
+                cellGetter: { TagCellNode(viewModel: $0) }
             ),
             layoutData: .init(
                 contentInset: .init(all: 16),

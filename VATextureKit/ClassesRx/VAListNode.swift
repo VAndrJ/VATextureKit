@@ -20,7 +20,7 @@ import RxCocoa
 
 /// A subclass of `ASCollectionNode` that provides a configurable declarative list.
 open class VAListNode<S: AnimatableSectionModelType>: VASimpleCollectionNode, ASCollectionDelegate, ASCollectionDelegateFlowLayout, @unchecked Sendable {
-    public struct IndicatorConfiguration {
+    public struct IndicatorConfiguration: Sendable {
         let showsVerticalScrollIndicator: Bool
         let showsHorizontalScrollIndicator: Bool
 
@@ -33,31 +33,31 @@ open class VAListNode<S: AnimatableSectionModelType>: VASimpleCollectionNode, AS
         }
     }
 
-    public struct ElementDTO {
+    public struct ElementDTO: @unchecked Sendable {
         let indicatorConfiguration: IndicatorConfiguration
         let listDataObs: Observable<[S.Item]>
-        let onSelect: ((IndexPath) -> Void)?
+        let onSelect: (@Sendable (IndexPath) -> Void)?
         let shouldDeselect: (deselectOnSelect: Bool, animated: Bool)
-        let cellGetter: (S.Item) -> ASCellNode
-        let headerGetter: ((S) -> ASCellNode?)?
-        let footerGetter: ((S) -> ASCellNode?)?
-        let canMoveItem: (_ cell: ASCellNode) -> Bool
-        let moveItem: ((_ source: IndexPath, _ destination: IndexPath) -> Void)?
-        let shouldBatchFetch: (() -> Bool)?
-        let loadMore: () -> Void
-        
+        let cellGetter: @Sendable (S.Item) -> ASCellNode
+        let headerGetter: (@Sendable (S) -> ASCellNode?)?
+        let footerGetter: (@Sendable (S) -> ASCellNode?)?
+        let canMoveItem: @Sendable (_ cell: ASCellNode) -> Bool
+        let moveItem: (@Sendable (_ source: IndexPath, _ destination: IndexPath) -> Void)?
+        let shouldBatchFetch: (@Sendable () -> Bool)?
+        let loadMore: @Sendable () -> Void
+
         public init(
             indicatorConfiguration: IndicatorConfiguration = .init(),
             listDataObs: Observable<[S.Item]>,
-            onSelect: ((IndexPath) -> Void)? = nil,
+            onSelect: (@Sendable (IndexPath) -> Void)? = nil,
             shouldDeselect: (deselectOnSelect: Bool, animated: Bool) = (true, true),
-            cellGetter: @escaping (S.Item) -> ASCellNode,
-            headerGetter: ((S) -> ASCellNode?)? = nil,
-            footerGetter: ((S) -> ASCellNode?)? = nil,
-            canMoveItem: @escaping (_ cell: ASCellNode) -> Bool = { _ in true },
-            moveItem: ((_ source: IndexPath, _ destination: IndexPath) -> Void)? = nil,
-            shouldBatchFetch: (() -> Bool)? = nil,
-            loadMore: @escaping () -> Void = {}
+            cellGetter: @Sendable @escaping (S.Item) -> ASCellNode,
+            headerGetter: (@Sendable (S) -> ASCellNode?)? = nil,
+            footerGetter: (@Sendable (S) -> ASCellNode?)? = nil,
+            canMoveItem: @Sendable @escaping (_ cell: ASCellNode) -> Bool = { _ in true },
+            moveItem: (@Sendable (_ source: IndexPath, _ destination: IndexPath) -> Void)? = nil,
+            shouldBatchFetch: (@Sendable () -> Bool)? = nil,
+            loadMore: @Sendable @escaping () -> Void = {}
         ) {
             self.indicatorConfiguration = indicatorConfiguration
             self.listDataObs = listDataObs
@@ -73,31 +73,31 @@ open class VAListNode<S: AnimatableSectionModelType>: VASimpleCollectionNode, AS
         }
     }
     
-    public struct Context {
-        let indicatorConfiguration: IndicatorConfiguration
-        let listDataObs: Observable<[S]>
-        let onSelect: ((IndexPath) -> Void)?
-        let shouldDeselect: (deselectOnSelect: Bool, animated: Bool)
-        let cellGetter: (S.Item) -> ASCellNode
-        let headerGetter: ((S) -> ASCellNode?)?
-        let footerGetter: ((S) -> ASCellNode?)?
-        let canMoveItem: (_ cell: ASCellNode) -> Bool
-        let moveItem: ((_ source: IndexPath, _ destination: IndexPath) -> Void)?
-        let shouldBatchFetch: (() -> Bool)?
-        let loadMore: () -> Void
-        
-        public init(
+    public struct Context: @unchecked Sendable {
+        nonisolated let indicatorConfiguration: IndicatorConfiguration
+        nonisolated(unsafe) let listDataObs: Observable<[S]>
+        nonisolated let onSelect: (@Sendable (IndexPath) -> Void)?
+        nonisolated let shouldDeselect: (deselectOnSelect: Bool, animated: Bool)
+        nonisolated let cellGetter: @Sendable (S.Item) -> ASCellNode
+        nonisolated let headerGetter: (@Sendable (S) -> ASCellNode?)?
+        nonisolated let footerGetter: (@Sendable (S) -> ASCellNode?)?
+        nonisolated let canMoveItem: @Sendable (_ cell: ASCellNode) -> Bool
+        nonisolated let moveItem: (@Sendable (_ source: IndexPath, _ destination: IndexPath) -> Void)?
+        nonisolated let shouldBatchFetch: (@Sendable () -> Bool)?
+        nonisolated let loadMore: @Sendable () -> Void
+
+        nonisolated public init(
             indicatorConfiguration: IndicatorConfiguration = .init(),
             listDataObs: Observable<[S]>,
-            onSelect: ((IndexPath) -> Void)? = nil,
+            onSelect: (@Sendable (IndexPath) -> Void)? = nil,
             shouldDeselect: (deselectOnSelect: Bool, animated: Bool) = (true, true),
-            cellGetter: @escaping (S.Item) -> ASCellNode,
-            headerGetter: ((S) -> ASCellNode?)? = nil,
-            footerGetter: ((S) -> ASCellNode?)? = nil,
-            canMoveItem: @escaping (_ cell: ASCellNode) -> Bool = { _ in true },
-            moveItem: ((_ source: IndexPath, _ destination: IndexPath) -> Void)? = nil,
-            shouldBatchFetch: (() -> Bool)? = nil,
-            loadMore: @escaping () -> Void = {}
+            cellGetter: @Sendable @escaping (S.Item) -> ASCellNode,
+            headerGetter: (@Sendable (S) -> ASCellNode?)? = nil,
+            footerGetter: (@Sendable (S) -> ASCellNode?)? = nil,
+            canMoveItem: @Sendable @escaping (_ cell: ASCellNode) -> Bool = { _ in true },
+            moveItem: (@Sendable (_ source: IndexPath, _ destination: IndexPath) -> Void)? = nil,
+            shouldBatchFetch: (@Sendable () -> Bool)? = nil,
+            loadMore: @Sendable @escaping () -> Void = {}
         ) {
             self.indicatorConfiguration = indicatorConfiguration
             self.listDataObs = listDataObs
@@ -318,7 +318,7 @@ open class VAListNode<S: AnimatableSectionModelType>: VASimpleCollectionNode, AS
                     return nil
                 }
 
-                if kind == UICollectionView.elementKindSectionHeader {
+                if kind == "UICollectionElementKindSectionHeader" {
                     return { context.headerGetter?(section) ?? ASCellNode() }
                 } else {
                     return { context.footerGetter?(section) ?? ASCellNode() }

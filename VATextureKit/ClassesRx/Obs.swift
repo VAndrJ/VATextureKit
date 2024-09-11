@@ -205,10 +205,10 @@ extension ObservableType where Element: Sendable {
 
     func subscribeMain(
         onNext: (@MainActor @Sendable (Element) -> Void)? = nil,
-        onError: (@MainActor @Sendable (Swift.Error) -> Void)? = nil,
+        onError: (@MainActor @Sendable (any Swift.Error) -> Void)? = nil,
         onCompleted: (@MainActor @Sendable () -> Void)? = nil,
         onDisposed: (@MainActor @Sendable () -> Void)? = nil
-    ) -> Disposable {
+    ) -> any Disposable {
         self.observe(on: MainScheduler.instance)
             .subscribe(
                 onNext: onNext == nil ? nil : { element in
