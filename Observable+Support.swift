@@ -9,6 +9,7 @@
 public import RxSwift
 #else
 import RxSwift
+#endif
 
 extension ObservableType where Element: Sendable {
 
