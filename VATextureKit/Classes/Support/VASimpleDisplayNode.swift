@@ -13,6 +13,14 @@ import AsyncDisplayKit
 
 open class VASimpleDisplayNode: ASDisplayNode, @unchecked Sendable {
 
+    public convenience init(viewGetter: @MainActor @escaping () -> UIView) {
+        self.init {
+            MainActor.assumeIsolated {
+                viewGetter()
+            }
+        }
+    }
+
     open override func didLoad() {
         super.didLoad()
 
