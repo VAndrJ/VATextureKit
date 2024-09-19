@@ -5,11 +5,7 @@
 //  Created by Volodymyr Andriienko on 12.03.2024.
 //
 
-#if compiler(>=6.0)
-public import AsyncDisplayKit
-#else
 import AsyncDisplayKit
-#endif
 
 open class VABaseTextNode: VASimpleTextNode, VAThemeObserver, VAContentSizeObserver, @unchecked Sendable {
     /// The currently active theme obtained from the app's context.
