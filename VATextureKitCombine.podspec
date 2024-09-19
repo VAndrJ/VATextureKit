@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'VATextureKitCombine'
-  s.version          = '2.3.3'
+  s.version          = '3.0.0'
   s.summary          = 'Texture library wrapper with Combine additions.'
 
   s.description      = <<-DESC
