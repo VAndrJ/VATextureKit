@@ -7,11 +7,11 @@
 
 import VATextureKit
 
-final class SearchSectionHeaderNode: VACellNode {
+final class SearchSectionHeaderNode: VACellNode, @unchecked Sendable {
     private let titleTextNode: VATextNode
 
     init(viewModel: SearchSectionHeaderNodeViewModel) {
-        self.titleTextNode = VATextNode(
+        self.titleTextNode = .init(
             text: viewModel.title,
             fontStyle: .headline,
             maximumNumberOfLines: 1

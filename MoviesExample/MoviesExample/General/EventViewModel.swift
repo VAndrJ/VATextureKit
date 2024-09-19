@@ -6,6 +6,8 @@
 //
 
 import VATextureKitRx
+import RxSwift
+import RxCocoa
 
 struct BecomeVisibleEvent: Event {}
 

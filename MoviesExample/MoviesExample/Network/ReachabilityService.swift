@@ -6,6 +6,8 @@
 //
 
 import VATextureKitRx
+import RxSwift
+import RxCocoa
 
 // MARK: - Copied from Alamofire
 

@@ -7,7 +7,7 @@
 
 import VATextureKit
 
-final class SearchTrendingMovieCellNode: VACellNode {
+final class SearchTrendingMovieCellNode: VACellNode, @unchecked Sendable {
     private let titleTextNode: VATextNode
     private let descriptionTextNode: VATextNode
     private let imageNode: VANetworkImageNode

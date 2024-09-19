@@ -24,7 +24,7 @@ final class ScreenFactory: NavigatorScreenFactory, @unchecked Sendable {
         case let identity as MainTabsNavigationIdentity:
             return MainTabBarController(controllers: identity.tabsIdentity
                 .map { identity in
-                    NavigationController(controller: assembleScreen(identity: identity, navigator: navigator).apply {
+                    NavigationController(rootViewController: assembleScreen(identity: identity, navigator: navigator).apply {
                         $0.navigationIdentity = identity
                     }).apply {
                         $0.navigationIdentity = NavNavigationIdentity(childIdentity: identity)

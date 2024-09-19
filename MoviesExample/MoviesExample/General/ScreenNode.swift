@@ -7,8 +7,10 @@
 
 import VATextureKitRx
 import RxKeyboard
+import RxSwift
+import RxCocoa
 
-class ScreenNode<ViewModel: EventViewModel>: VASafeAreaDisplayNode, ControllerNode, Responder, MainActorIsolated {
+class ScreenNode<ViewModel: EventViewModel>: VASafeAreaDisplayNode, ControllerNode, Responder, @unchecked Sendable {
     let bag = DisposeBag()
     let viewModel: ViewModel
 
@@ -18,25 +20,31 @@ class ScreenNode<ViewModel: EventViewModel>: VASafeAreaDisplayNode, ControllerNo
         super.init()
     }
 
-    override func didLoad() {
-        super.didLoad()
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
         configure()
         bind()
     }
 
+    @MainActor
     func viewDidLoad(in controller: UIViewController) {
         viewModel.controller = controller
     }
 
+    @MainActor
     func viewDidAppear(in controller: UIViewController, animated: Bool) {}
 
+    @MainActor
     func viewWillAppear(in controller: UIViewController, animated: Bool) {}
 
+    @MainActor
     func viewWillDisappear(in controller: UIViewController, animated: Bool) {}
 
+    @MainActor
     func viewDidDisappear(in controller: UIViewController, animated: Bool) {}
 
+    @MainActor
     func bindKeyboardInset(scrollView: UIScrollView, tabBarController: UITabBarController? = nil) {
         let initialBottomInset = scrollView.contentInset.bottom
         let initialIndicatorBottomInset = scrollView.verticalScrollIndicatorInsets.bottom
@@ -45,15 +53,15 @@ class ScreenNode<ViewModel: EventViewModel>: VASafeAreaDisplayNode, ControllerNo
             .asObservable()
             .distinctUntilChanged()
         let safeAreaBottomObs: Observable<CGFloat> = rx.observe(UIEdgeInsets.self, #keyPath(ASDisplayNode.safeAreaInsets))
-            .compactMap(\.?.bottom)
+            .compactMap { $0?.bottom }
             .distinctUntilChanged()
         let tabBarHeightObs: Observable<CGFloat> = Observable
             .combineLatest(
                 tabBarController?.tabBar.rx.observe(CGRect.self, #keyPath(UITabBar.bounds))
-                    .compactMap(\.?.height)
+                    .compactMap { $0?.height }
                     .distinctUntilChanged() ?? .just(0),
                 tabBarController?.view.rx.observe(UIEdgeInsets.self, #keyPath(UIView.safeAreaInsets))
-                    .compactMap(\.?.bottom)
+                    .compactMap { $0?.bottom }
                     .distinctUntilChanged() ?? .just(0)
             )
             .map { max($0, $1) }
@@ -68,15 +76,17 @@ class ScreenNode<ViewModel: EventViewModel>: VASafeAreaDisplayNode, ControllerNo
                 
                 return (max(possibleBottomInset, initialBottomInset), max(possibleBottomInset, initialIndicatorBottomInset))
             }
-            .subscribe(onNext: scrollView ?> {
-                $0.contentInset.bottom = $1.0
-                $0.verticalScrollIndicatorInsets.bottom = $1.1
+            .subscribeMain(onNext: { [weak scrollView] in
+                scrollView?.contentInset.bottom = $0.0
+                scrollView?.verticalScrollIndicatorInsets.bottom = $0.1
             })
             .disposed(by: bag)
     }
 
+    @MainActor
     func bind() {}
 
+    @MainActor
     func configure() {}
 
     // MARK: - Responder

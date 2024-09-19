@@ -7,7 +7,7 @@
 
 import VATextureKit
 
-final class RatingNode: VADisplayNode {
+final class RatingNode: VADisplayNode, @unchecked Sendable {
     private let percentTextNode: VATextNode
     private let indicatorNode: RatingIndicatorNode
 
@@ -32,7 +32,7 @@ final class RatingNode: VADisplayNode {
     }
 }
 
-final private class RatingIndicatorNode: VADisplayNode {
+final private class RatingIndicatorNode: VADisplayNode, @unchecked Sendable {
     struct Context {
         let rating: Double
         let lineWidth: CGFloat
@@ -62,8 +62,8 @@ final private class RatingIndicatorNode: VADisplayNode {
         super.init()
     }
 
-    override func didLoad() {
-        super.didLoad()
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
         if context.withBacking {
             backingShapeLayer.lineWidth = context.lineWidth
@@ -75,8 +75,8 @@ final private class RatingIndicatorNode: VADisplayNode {
         layer.addSublayer(shapeLayer)
     }
 
-    override func layout() {
-        super.layout()
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
 
         let arcCenter = CGPoint(x: bounds.midX, y: bounds.midY)
         let radius = (min(bounds.width, bounds.height) - context.lineWidth) / 2

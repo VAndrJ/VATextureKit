@@ -7,7 +7,7 @@
 
 import VATextureKit
 
-final class GenreTagNode: VADisplayNode {
+final class GenreTagNode: VADisplayNode, @unchecked Sendable {
     private let titleTextNode: VATextNode
 
     init(genre: String) {

@@ -7,7 +7,7 @@
 
 import VATextureKit
 
-final class ActorDetailsScreenNode: ScreenNode<ActorDetailsViewModel> {
+final class ActorDetailsScreenNode: ScreenNode<ActorDetailsViewModel>, @unchecked Sendable {
     let titleTextNode = VATextNode(
         text: L.wip(),
         fontStyle: .largeTitle

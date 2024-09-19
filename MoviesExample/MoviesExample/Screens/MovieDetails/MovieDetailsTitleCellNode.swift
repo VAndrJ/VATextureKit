@@ -6,8 +6,10 @@
 //
 
 import VATextureKitRx
+import RxSwift
+import RxCocoa
 
-final class MovieDetailsTitleCellNode: VACellNode {
+final class MovieDetailsTitleCellNode: VACellNode, @unchecked Sendable {
     private static let minimumRatingToDisplay = 60.0
 
     private let titleTextNode: VATextNode

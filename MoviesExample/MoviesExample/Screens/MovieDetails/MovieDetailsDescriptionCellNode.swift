@@ -7,7 +7,7 @@
 
 import VATextureKit
 
-final class MovieDetailsDescriptionCellNode: VACellNode {
+final class MovieDetailsDescriptionCellNode: VACellNode, @unchecked Sendable {
     private let descriptionTextNode: VATextNode
 
     init(viewModel: MovieDetailsDescriptionCellNodeViewModel) {

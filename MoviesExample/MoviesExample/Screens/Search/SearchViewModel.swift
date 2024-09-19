@@ -6,6 +6,9 @@
 //
 
 import VATextureKitRx
+import RxSwift
+import RxCocoa
+import Differentiator
 
 struct SearchMovieEvent: Event {
     let query: String?

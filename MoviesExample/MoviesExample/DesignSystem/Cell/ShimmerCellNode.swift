@@ -7,7 +7,7 @@
 
 import VATextureKit
 
-final class ShimmerCellNode: VACellNode {
+final class ShimmerCellNode: VACellNode, @unchecked Sendable {
     let viewModel: ShimmerCellNodeViewModel
     let contentNode: ASDisplayNode
 
@@ -53,7 +53,7 @@ final class ShimmerCellNodeViewModel: CellViewModel {
     }
 }
 
-private final class MovieDetailsShimmerNode: VAShimmerNode {
+private final class MovieDetailsShimmerNode: VAShimmerNode, @unchecked Sendable {
     private let tag0Node = VAShimmerTileNode(corner: .init(radius: .fixed(8)))
         .sized(CGSize(width: 64, height: 34))
     private let tag1Node = VAShimmerTileNode(corner: .init(radius: .fixed(8)))
@@ -81,7 +81,7 @@ private final class MovieDetailsShimmerNode: VAShimmerNode {
     }
 }
 
-private final class TrendingListShimmerNode: VAShimmerNode {
+private final class TrendingListShimmerNode: VAShimmerNode, @unchecked Sendable {
     private let imageNode = VAShimmerTileNode(corner: .init(radius: .fixed(16)))
         .sized(CGSize(width: 126, height: 78))
     private let titleNode = VAShimmerTileNode(corner: .init(radius: .fixed(2)))
@@ -102,7 +102,7 @@ private final class TrendingListShimmerNode: VAShimmerNode {
     }
 }
 
-private final class HomeCellShimmerNode: VAShimmerNode {
+private final class HomeCellShimmerNode: VAShimmerNode, @unchecked Sendable {
     private let sliderNode = VAShimmerTileNode(corner: .init(radius: .fixed(22)))
         .sized(height: 44)
     private let cardNode = HomeCellShimmerCardPartNode()
@@ -118,7 +118,7 @@ private final class HomeCellShimmerNode: VAShimmerNode {
     }
 }
 
-private final class HomeCellShimmerCardPartNode: VADisplayNode {
+private final class HomeCellShimmerCardPartNode: VADisplayNode, @unchecked Sendable {
     private let cardNode = VAShimmerTileNode(corner: .init(radius: .fixed(16)))
     private let ratingNode = VAShimmerTileNode(corner: .init(radius: .fixed(2)))
         .sized(width: 46, height: 18)

@@ -6,8 +6,10 @@
 //
 
 import VATextureKitRx
+import RxSwift
+import RxCocoa
 
-final class SearchBarNode: VASizedViewWrapperNode<UISearchBar> {
+final class SearchBarNode: VASizedViewWrapperNode<UISearchBar>, @unchecked Sendable {
     @MainActor var textObs: Observable<String?> { child.rx.text.asObservable() }
 
     private let bag = DisposeBag()
@@ -15,35 +17,39 @@ final class SearchBarNode: VASizedViewWrapperNode<UISearchBar> {
 
     convenience init(beginSearchObs: Observable<Void>? = nil) {
         self.init(
-            actorChildGetter: { UISearchBar().apply { $0.searchBarStyle = .minimal } },
+            childGetter: { UISearchBar().apply { $0.searchBarStyle = .minimal } },
             sizing: .viewHeight
         )
 
         self.beginSearchObs = beginSearchObs
     }
 
-    @MainActor
     override func isFirstResponder() -> Bool {
-        child.isFirstResponder
+        MainActor.assumeIsolated {
+            child.isFirstResponder
+        }
     }
 
-    @MainActor
     @discardableResult
     override func becomeFirstResponder() -> Bool {
-        child.becomeFirstResponder()
+        MainActor.assumeIsolated {
+            child.becomeFirstResponder()
+        }
     }
 
-    @MainActor
     @discardableResult
     override func resignFirstResponder() -> Bool {
-        child.resignFirstResponder()
+        MainActor.assumeIsolated {
+            child.resignFirstResponder()
+        }
     }
 
     override func configureTheme(_ theme: VATheme) {
         child.tintColor = theme.secondary
     }
-    override func didLoad() {
-        super.didLoad()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
         bind(beginSearchObs: beginSearchObs)
     }

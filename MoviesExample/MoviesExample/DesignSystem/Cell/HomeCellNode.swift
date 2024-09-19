@@ -6,8 +6,10 @@
 //
 
 import VATextureKitRx
+import RxSwift
+import RxCocoa
 
-final class HomeCellNode: VACellNode {
+final class HomeCellNode: VACellNode, @unchecked Sendable {
     let viewModel: HomeCellNodeViewModel
 
     private var isDataLoaded = false
@@ -24,8 +26,8 @@ final class HomeCellNode: VACellNode {
             .wrapped()
     }
 
-    override func didLoad() {
-        super.didLoad()
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
         bind()
     }
