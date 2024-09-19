@@ -20,5 +20,5 @@ It provides an easier syntax and includes wrappers on top of Layout Specs.
 
   s.dependency 'Texture',           '~> 3.2.0'
 
-  s.swift_versions = '5.10'
+  s.swift_versions = '6.0'
 end

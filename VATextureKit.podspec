@@ -23,5 +23,5 @@ It provides an easier syntax and includes modern features to make developing fas
   s.dependency 'Texture',           '~> 3.2.0'
   s.dependency 'VATextureKitSpec',  '2.3.3'
 
-  s.swift_versions = '5.10'
+  s.swift_versions = '6.0'
 end

@@ -18,5 +18,5 @@ Includes RxSwift additions.
 
   s.source_files = 'VATextureKit/ClassesCombine/**/*'
 
-  s.swift_versions = '5.10'
+  s.swift_versions = '6.0'
 end
