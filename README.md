@@ -71,7 +71,9 @@ Minimum deployment target:
 
 ``1.9.x``:**``iOS 11``**
 
-``2.x.x``:**``iOS 14``**
+``2.x.x``:**``iOS 14``, Swift 5**
+
+``3.x.x``:**``iOS 14``, Swift 6**
 
 
 ## Layout Specs
