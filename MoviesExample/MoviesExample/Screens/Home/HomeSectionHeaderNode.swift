@@ -7,7 +7,7 @@
 
 import VATextureKit
 
-final class HomeSectionHeaderNode: VACellNode {
+final class HomeSectionHeaderNode: VACellNode, @unchecked Sendable {
     private let titleTextNode: VATextNode
 
     init(viewModel: HomeSectionHeaderNodeViewModel) {

@@ -203,7 +203,6 @@ open class VAListNode<S: AnimatableSectionModelType>: VASimpleCollectionNode, AS
     private let bag = DisposeBag()
     private lazy var refreshControlView = refreshData.refreshControlView()
     private var isRefreshing = false
-    private var delayedConfiguration: Bool!
     
     public convenience init<T>(
         data: ElementDTO,
@@ -258,24 +257,16 @@ open class VAListNode<S: AnimatableSectionModelType>: VASimpleCollectionNode, AS
         case let .delegate(layoutDelegate):
             self.init(layoutDelegate: layoutDelegate, layoutFacilitator: nil)
         }
-        self.delayedConfiguration = !Thread.current.isMainThread
         self.context = context
         self.layoutData = layoutData
         self.refreshData = refreshData
-
-        if !delayedConfiguration {
-            configure()
-            bind()
-        }
     }
 
     open override func viewDidLoad() {
         super.viewDidLoad()
 
-        if delayedConfiguration {
-            configure()
-            bind()
-        }
+        configure()
+        bind()
     }
 
     open func scrollToTop() {
@@ -369,11 +360,12 @@ open class VAListNode<S: AnimatableSectionModelType>: VASimpleCollectionNode, AS
     }
 
     private func configure() {
+        view.contentInsetAdjustmentBehavior = .never
+        view.keyboardDismissMode = layoutData.keyboardDismissMode
         contentInset = layoutData.contentInset
         showsVerticalScrollIndicator = context.indicatorConfiguration.showsVerticalScrollIndicator
         showsHorizontalScrollIndicator = context.indicatorConfiguration.showsHorizontalScrollIndicator
         configureRefresh()
-        view.keyboardDismissMode = layoutData.keyboardDismissMode
     }
 
     @objc private func handleLongPress(_ sender: UILongPressGestureRecognizer) {

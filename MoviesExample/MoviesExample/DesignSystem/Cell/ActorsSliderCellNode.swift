@@ -7,7 +7,7 @@
 
 import VATextureKit
 
-final class ActorsSliderCellNode: VACellNode {
+final class ActorsSliderCellNode: VACellNode, @unchecked Sendable {
     private let titleTextNode: VATextNode
     private lazy var listNode = VAScrollNode(context: .init(
         scrollableDirections: .horizontal,

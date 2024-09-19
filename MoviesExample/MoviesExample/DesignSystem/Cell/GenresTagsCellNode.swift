@@ -7,7 +7,7 @@
 
 import VATextureKit
 
-final class GenresTagsCellNode: VACellNode {
+final class GenresTagsCellNode: VACellNode, @unchecked Sendable {
     private let genreNodes: [ASDisplayNode]
 
     init(viewModel: GenresTagsCellNodeViewModel) {

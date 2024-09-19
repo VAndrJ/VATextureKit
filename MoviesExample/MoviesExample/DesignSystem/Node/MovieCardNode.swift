@@ -7,7 +7,7 @@
 
 import VATextureKit
 
-final class MovieCardNode: VADisplayNode {
+final class MovieCardNode: VADisplayNode, @unchecked Sendable {
     private let coverImageNode: VANetworkImageNode
     private let titleTextNode: VATextNode
     private let ratingNode: RatingNode

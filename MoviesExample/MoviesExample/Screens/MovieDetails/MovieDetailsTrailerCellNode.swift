@@ -6,8 +6,10 @@
 //
 
 import VATextureKitRx
+import RxSwift
+import RxCocoa
 
-final class MovieDetailsTrailerCellNode: VACellNode {
+final class MovieDetailsTrailerCellNode: VACellNode, @unchecked Sendable {
     private let imageNode: VANetworkImageNode
     private let viewModel: MovieDetailsTrailerCellNodeViewModel
     private let bag = DisposeBag()

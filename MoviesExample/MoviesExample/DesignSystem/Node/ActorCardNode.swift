@@ -7,7 +7,7 @@
 
 import VATextureKit
 
-final class ActorCardNode: VADisplayNode {
+final class ActorCardNode: VADisplayNode, @unchecked Sendable {
     struct Context {
         let avatar: String?
         let name: String

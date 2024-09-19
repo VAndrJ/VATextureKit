@@ -12,7 +12,7 @@ import AsyncDisplayKit
 #endif
 
 @dynamicMemberLookup
-public final class VAMainActorWrapperCellNode<Child: ASDisplayNode>: VASimpleDisplayNode, @unchecked Sendable {
+public final class VAMainActorWrapperCellNode<Child: ASDisplayNode>: VASimpleCellNode, @unchecked Sendable {
     let childGetter: @MainActor () -> Child
 
     @MainActor private(set) public lazy var child = childGetter()

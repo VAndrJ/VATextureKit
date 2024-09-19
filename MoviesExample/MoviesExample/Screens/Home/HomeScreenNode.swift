@@ -7,18 +7,20 @@
 
 import VATextureKitRx
 
-final class HomeScreenNode: ScreenNode<HomeViewModel> {
+final class HomeScreenNode: ScreenNode<HomeViewModel>, @unchecked Sendable {
     private let backgoundNode = VAImageNode(image: .init(resource: .mainBackground))
-    private lazy var listNode = VAListNode(
-        context: .init(
-            listDataObs: viewModel.listDataObs,
-            cellGetter: mapToCell(viewModel:),
-            headerGetter: { HomeSectionHeaderNode(viewModel: $0.model) }
-        ),
-        layoutData: .init(
-            sizing: .entireWidthFreeHeight()
+    private lazy var listNode = VAMainActorWrapperCellNode { [viewModel] in
+        VAListNode(
+            context: .init(
+                listDataObs: viewModel.listDataObs,
+                cellGetter: mapToCell(viewModel:),
+                headerGetter: { HomeSectionHeaderNode(viewModel: $0.model) }
+            ),
+            layoutData: .init(
+                sizing: .entireWidthFreeHeight()
+            )
         )
-    )
+    }
     private let titleTextNode = VATextNode(
         text: L.wip(),
         fontStyle: .largeTitle

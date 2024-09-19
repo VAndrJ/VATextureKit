@@ -6,23 +6,27 @@
 //
 
 import VATextureKitRx
+import RxSwift
+import RxCocoa
 
-final class SearchScreenNode: ScreenNode<SearchViewModel> {
+final class SearchScreenNode: ScreenNode<SearchViewModel>, @unchecked Sendable {
     private lazy var searchNode = SearchBarNode(beginSearchObs: viewModel.beginSearchObs)
-    private lazy var listNode = VAListNode(
-        context: .init(
-            listDataObs: viewModel.listDataObs,
-            onSelect: viewModel ?> { $0.perform(DidSelectEvent(indexPath: $1)) },
-            cellGetter: mapToCell(viewModel:),
-            headerGetter: { SearchSectionHeaderNode(viewModel: $0.model) }
-        ),
-        layoutData: .init(
-            keyboardDismissMode: .interactive,
-            shouldScrollToTopOnDataChange: true,
-            sizing: .entireWidthFreeHeight(),
-            layout: .default(parameters: .init(sectionHeadersPinToVisibleBounds: true))
+    private lazy var listNode = VAMainActorWrapperNode { [viewModel] in
+        VAListNode(
+            context: .init(
+                listDataObs: viewModel.listDataObs,
+                onSelect: { [weak viewModel] in viewModel?.perform(DidSelectEvent(indexPath: $0)) },
+                cellGetter: mapToCell(viewModel:),
+                headerGetter: { SearchSectionHeaderNode(viewModel: $0.model) }
+            ),
+            layoutData: .init(
+                keyboardDismissMode: .interactive,
+                shouldScrollToTopOnDataChange: true,
+                sizing: .entireWidthFreeHeight(),
+                layout: .default(parameters: .init(sectionHeadersPinToVisibleBounds: true))
+            )
         )
-    )
+    }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
@@ -39,14 +43,14 @@ final class SearchScreenNode: ScreenNode<SearchViewModel> {
         backgroundColor = theme.systemBackground
     }
 
-    override func animateLayoutTransition(_ context: any ASContextTransitioning) {
+    override func viewDidAnimateLayoutTransition(_ context: any ASContextTransitioning) {
         animateLayoutTransition(context: context)
     }
 
     override func viewDidLoad(in controller: UIViewController) {
         super.viewDidLoad(in: controller)
         
-        bindKeyboardInset(scrollView: listNode.view, tabBarController: controller.tabBarController)
+        bindKeyboardInset(scrollView: listNode.child.view, tabBarController: controller.tabBarController)
     }
 
     override func bind() {

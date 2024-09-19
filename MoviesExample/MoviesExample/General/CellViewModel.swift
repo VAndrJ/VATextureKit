@@ -6,6 +6,7 @@
 //
 
 import VATextureKitRx
+import Differentiator
 
 class CellViewModel: Equatable, IdentifiableType {
     static func == (lhs: CellViewModel, rhs: CellViewModel) -> Bool {

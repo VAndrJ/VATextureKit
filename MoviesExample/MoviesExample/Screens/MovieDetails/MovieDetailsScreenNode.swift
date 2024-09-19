@@ -7,17 +7,19 @@
 
 import VATextureKitRx
 
-final class MovieDetailsScreenNode: ScreenNode<MovieDetailsViewModel> {
-    private lazy var listNode = VAListNode(
-        context: .init(
-            listDataObs: viewModel.listDataObs,
-            onSelect: viewModel ?> { $0.perform(DidSelectEvent(indexPath: $1)) },
-            cellGetter: mapToCell(viewModel:)
-        ),
-        layoutData: .init(
-            sizing: .entireWidthFreeHeight()
+final class MovieDetailsScreenNode: ScreenNode<MovieDetailsViewModel>, @unchecked Sendable {
+    private lazy var listNode = VAMainActorWrapperNode { [viewModel] in
+        VAListNode(
+            context: .init(
+                listDataObs: viewModel.listDataObs,
+                onSelect: { [weak viewModel] in viewModel?.perform(DidSelectEvent(indexPath: $0)) },
+                cellGetter: mapToCell(viewModel:)
+            ),
+            layoutData: .init(
+                sizing: .entireWidthFreeHeight()
+            )
         )
-    )
+    }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         SafeArea {
@@ -31,7 +33,7 @@ final class MovieDetailsScreenNode: ScreenNode<MovieDetailsViewModel> {
 
     override func bind() {
         viewModel.scrollToTopObs
-            .subscribe(onNext: self ?> { $0.listNode.scrollToTop() })
+            .subscribe(onNext: self ?> { $0.listNode.child.scrollToTop() })
             .disposed(by: bag)
         viewModel.titleObs
             .subscribe(onNext: self ?> { $0.closestViewController?.title = $1 })
