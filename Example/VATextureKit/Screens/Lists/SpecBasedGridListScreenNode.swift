@@ -46,7 +46,7 @@ final class SpecBasedGridListScreenNode: ScreenNode, @unchecked Sendable {
 
     override func configureTheme(_ theme: VATheme) {
         backgroundColor = theme.systemBackground
-        listNode.backgroundColor = theme.systemBackground
+        listNode.child.backgroundColor = theme.systemBackground
     }
 
     override func bind() {
