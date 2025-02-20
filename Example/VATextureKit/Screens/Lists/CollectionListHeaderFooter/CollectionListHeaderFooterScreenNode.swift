@@ -78,8 +78,8 @@ final class CollectionListHeaderFooterScreenNode: ScreenNode, @unchecked Sendabl
         super.configureTheme(theme)
 
         backgroundColor = theme.systemBackground
-        leftListNode.backgroundColor = theme.systemBackground
-        rightListNode.backgroundColor = theme.systemBackground
+        leftListNode.child.backgroundColor = theme.systemBackground
+        rightListNode.child.backgroundColor = theme.systemBackground
     }
 }
 
